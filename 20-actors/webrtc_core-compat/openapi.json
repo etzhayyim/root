@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible deep internet / core routing actor (webrtc_core); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:webrtc_core-compat",
-    "x-wasm-cid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+    "x-wasm-cid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "url": "ipfs://bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/rtcpeerconnections": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List RTCPeerConnections",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/RTCPeerConnection"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a RTCPeerConnection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/RTCPeerConnectionCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RTCPeerConnection"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/rtcpeerconnections/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a RTCPeerConnection",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RTCPeerConnection"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a RTCPeerConnection",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/RTCPeerConnectionCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RTCPeerConnection"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a RTCPeerConnection",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/rtcdatachannels": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List RTCDataChannels",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/RTCDataChannel"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a RTCDataChannel",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/RTCDataChannelCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/RTCDataChannel"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/rtcdatachannels/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a RTCDataChannel",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/RTCDataChannel"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a RTCDataChannel",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/RTCDataChannelCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/RTCDataChannel"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a RTCDataChannel",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/rtcsessiondescriptions": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List RTCSessionDescriptions",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/RTCSessionDescription"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a RTCSessionDescription",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/RTCSessionDescriptionCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RTCSessionDescription"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/rtcsessiondescriptions/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a RTCSessionDescription",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RTCSessionDescription"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a RTCSessionDescription",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/RTCSessionDescriptionCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RTCSessionDescription"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a RTCSessionDescription",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/rtcicecandidates": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List RTCIceCandidates",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/RTCIceCandidate"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a RTCIceCandidate",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/RTCIceCandidateCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/RTCIceCandidate"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/rtcicecandidates/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a RTCIceCandidate",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/RTCIceCandidate"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a RTCIceCandidate",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/RTCIceCandidateCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/RTCIceCandidate"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
+        "summary": "Delete a RTCIceCandidate",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/records": {
+    "/v1/rtcrtptransceivers": {
       "get": {
-        "summary": "List Records",
+        "summary": "List RTCRtpTransceivers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Record"
+                        "$ref": "#/components/schemas/RTCRtpTransceiver"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Record",
+        "summary": "Create a RTCRtpTransceiver",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/RTCRtpTransceiverCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/RTCRtpTransceiver"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/records/{id}": {
+    "/v1/rtcrtptransceivers/{id}": {
       "get": {
-        "summary": "Get a Record",
+        "summary": "Get a RTCRtpTransceiver",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/RTCRtpTransceiver"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Record",
+        "summary": "Update a RTCRtpTransceiver",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/RTCRtpTransceiverCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/RTCRtpTransceiver"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tunnels": {
-      "get": {
-        "summary": "List Tunnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tunnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Tunnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tunnels/{id}": {
-      "get": {
-        "summary": "Get a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a RTCRtpTransceiver",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +955,53 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "RTCPeerConnection": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
-            "type": "string"
+          "signalingState": {
+            "type": "string",
+            "enum": [
+              "stable",
+              "have-local-offer",
+              "have-remote-offer",
+              "have-local-pranswer",
+              "have-remote-pranswer",
+              "closed"
+            ]
           },
-          "originAsn": {
-            "type": "string"
+          "iceConnectionState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "checking",
+              "connected",
+              "completed",
+              "failed",
+              "disconnected",
+              "closed"
+            ]
           },
-          "validity": {
-            "type": "string"
+          "iceGatheringState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "gathering",
+              "complete"
+            ]
+          },
+          "connectionState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "connecting",
+              "connected",
+              "disconnected",
+              "failed",
+              "closed"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1165,219 +1013,86 @@
           }
         }
       },
-      "PrefixCreate": {
+      "RTCPeerConnectionCreate": {
         "type": "object",
         "properties": {
-          "cidr": {
-            "type": "string"
+          "signalingState": {
+            "type": "string",
+            "enum": [
+              "stable",
+              "have-local-offer",
+              "have-remote-offer",
+              "have-local-pranswer",
+              "have-remote-pranswer",
+              "closed"
+            ]
           },
-          "originAsn": {
-            "type": "string"
+          "iceConnectionState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "checking",
+              "connected",
+              "completed",
+              "failed",
+              "disconnected",
+              "closed"
+            ]
           },
-          "validity": {
-            "type": "string"
+          "iceGatheringState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "gathering",
+              "complete"
+            ]
+          },
+          "connectionState": {
+            "type": "string",
+            "enum": [
+              "new",
+              "connecting",
+              "connected",
+              "disconnected",
+              "failed",
+              "closed"
+            ]
           }
         },
         "required": [
-          "cidr",
-          "originAsn"
+          "signalingState",
+          "iceConnectionState"
         ]
       },
-      "Route": {
+      "RTCDataChannel": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RouteCreate": {
-        "type": "object",
-        "properties": {
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "nextHop",
-          "asPath"
-        ]
-      },
-      "Peer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PeerCreate": {
-        "type": "object",
-        "properties": {
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "asn",
-          "ipAddress"
-        ]
-      },
-      "Zone": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "serial": {
             "type": "integer"
           },
-          "refreshSec": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ZoneCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "label": {
             "type": "string"
           },
-          "serial": {
-            "type": "integer"
-          },
-          "refreshSec": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "serial"
-        ]
-      },
-      "Record": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RecordCreate": {
-        "type": "object",
-        "properties": {
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Tunnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
+          "ordered": {
+            "type": "boolean"
           },
           "protocol": {
             "type": "string"
           },
-          "active": {
+          "negotiated": {
             "type": "boolean"
+          },
+          "readyState": {
+            "type": "string",
+            "enum": [
+              "connecting",
+              "open",
+              "closing",
+              "closed"
+            ]
+          },
+          "bufferedAmount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1389,25 +1104,265 @@
           }
         }
       },
-      "TunnelCreate": {
+      "RTCDataChannelCreate": {
         "type": "object",
         "properties": {
-          "localAddr": {
+          "label": {
             "type": "string"
           },
-          "remoteAddr": {
-            "type": "string"
+          "ordered": {
+            "type": "boolean"
           },
           "protocol": {
             "type": "string"
           },
-          "active": {
+          "negotiated": {
             "type": "boolean"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "readyState": {
+            "type": "string",
+            "enum": [
+              "connecting",
+              "open",
+              "closing",
+              "closed"
+            ]
+          },
+          "bufferedAmount": {
+            "type": "integer"
           }
         },
         "required": [
-          "localAddr",
-          "remoteAddr"
+          "label",
+          "ordered"
+        ]
+      },
+      "RTCSessionDescription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "offer",
+              "pranswer",
+              "answer",
+              "rollback"
+            ]
+          },
+          "sdp": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RTCSessionDescriptionCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "offer",
+              "pranswer",
+              "answer",
+              "rollback"
+            ]
+          },
+          "sdp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "sdp"
+        ]
+      },
+      "RTCIceCandidate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "candidate": {
+            "type": "string"
+          },
+          "sdpMLineIndex": {
+            "type": "integer"
+          },
+          "sdpMid": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "udp",
+              "tcp"
+            ]
+          },
+          "port": {
+            "type": "integer"
+          },
+          "address": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "host",
+              "srflx",
+              "prflx",
+              "relay"
+            ]
+          },
+          "tcpType": {
+            "type": "string",
+            "enum": [
+              "active",
+              "passive",
+              "so"
+            ]
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RTCIceCandidateCreate": {
+        "type": "object",
+        "properties": {
+          "candidate": {
+            "type": "string"
+          },
+          "sdpMLineIndex": {
+            "type": "integer"
+          },
+          "sdpMid": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "udp",
+              "tcp"
+            ]
+          },
+          "port": {
+            "type": "integer"
+          },
+          "address": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "host",
+              "srflx",
+              "prflx",
+              "relay"
+            ]
+          },
+          "tcpType": {
+            "type": "string",
+            "enum": [
+              "active",
+              "passive",
+              "so"
+            ]
+          },
+          "priority": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "candidate",
+          "sdpMLineIndex"
+        ]
+      },
+      "RTCRtpTransceiver": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "mid": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "sendrecv",
+              "sendonly",
+              "recvonly",
+              "inactive"
+            ]
+          },
+          "currentDirection": {
+            "type": "string",
+            "enum": [
+              "sendrecv",
+              "sendonly",
+              "recvonly",
+              "inactive"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RTCRtpTransceiverCreate": {
+        "type": "object",
+        "properties": {
+          "mid": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "sendrecv",
+              "sendonly",
+              "recvonly",
+              "inactive"
+            ]
+          },
+          "currentDirection": {
+            "type": "string",
+            "enum": [
+              "sendrecv",
+              "sendonly",
+              "recvonly",
+              "inactive"
+            ]
+          }
+        },
+        "required": [
+          "mid",
+          "direction"
         ]
       }
     }

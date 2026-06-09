@@ -3,69 +3,54 @@
 
 namespace quic_http3 {
 
-    entity Prefix {
+    entity QuicPacket {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        packetType: string
+        version: integer
+        sourceConnectionId: string
+        destinationConnectionId: string
+        payloadLength: integer
+        packetNumber: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity QuicFrame {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        frameType: integer
+        payload: string
+        streamId: integer
+        offsetInStream: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity Http3Frame {
         id: string @unique
-        asn: string
-        ipAddress: string
+        frameType: integer
+        length: integer
+        payload: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Http3Settings {
+        id: string @unique
+        identifier: integer
+        value: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity QuicConnection {
+        id: string @unique
+        connectionId: string
+        version: integer
         state: string
         createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Zone {
-        id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Record {
-        id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Tunnel {
-        id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        lastActivityAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

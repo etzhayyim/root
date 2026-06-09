@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 121,
-  "totalVerifiedEnumFields": 538,
+  "l5VerifiedActors": 124,
+  "totalVerifiedEnumFields": 553,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -7297,8 +7297,8 @@
       "source": "quic_http3.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "quicknode-compat",
@@ -8687,8 +8687,8 @@
       "source": "tcp_ip.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "teledyne_marine-compat",
@@ -9497,8 +9497,8 @@
       "source": "webrtc_core.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 11
     },
     {
       "handle": "wechat_api-compat",

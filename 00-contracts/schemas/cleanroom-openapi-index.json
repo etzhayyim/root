@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29770,
+  "totalEndpoints": 29750,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 121,
-  "totalVerifiedEnumFields": 538,
+  "l5VerifiedActors": 124,
+  "totalVerifiedEnumFields": 553,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -13846,10 +13846,10 @@
     {
       "handle": "quic_http3-compat",
       "did": "did:web:etzhayyim.com:actor:quic_http3-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -13858,8 +13858,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/quic_http3-compat/openapi.json"
     },
     {
@@ -16487,10 +16487,10 @@
     {
       "handle": "tcp_ip-compat",
       "did": "did:web:etzhayyim.com:actor:tcp_ip-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -16499,8 +16499,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/tcp_ip-compat/openapi.json"
     },
     {
@@ -18026,10 +18026,10 @@
     {
       "handle": "webrtc_core-compat",
       "did": "did:web:etzhayyim.com:actor:webrtc_core-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -18038,8 +18038,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 11,
       "openapi": "20-actors/webrtc_core-compat/openapi.json"
     },
     {

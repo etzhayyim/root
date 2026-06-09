@@ -1621,6 +1621,31 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful WebRTC model — verified against the official W3C WebRTC 1.0 spec.
+    "webrtc_core": {
+        "RTCPeerConnection": E(signalingState="string", iceConnectionState="string", iceGatheringState="string", connectionState="string"),
+        "RTCDataChannel": E(label="string", ordered="boolean", protocol="string", negotiated="boolean", id="integer", readyState="string", bufferedAmount="integer"),
+        "RTCSessionDescription": E(type="string", sdp="string"),
+        "RTCIceCandidate": E(candidate="string", sdpMLineIndex="integer", sdpMid="string", protocol="string", port="integer", address="string", type="string", tcpType="string", priority="integer"),
+        "RTCRtpTransceiver": E(mid="string", direction="string", currentDirection="string"),
+    },
+    # Faithful QUIC (RFC 9000) + HTTP/3 (RFC 9114) model — verified vs RFC + IANA.
+    # Http3Settings.identifier is an open registry -> not enforced.
+    "quic_http3": {
+        "QuicPacket": E(packetType="string", version="integer", sourceConnectionId="string", destinationConnectionId="string", payloadLength="integer", packetNumber="integer"),
+        "QuicFrame": E(frameType="integer", payload="string", streamId="integer", offsetInStream="integer"),
+        "Http3Frame": E(frameType="integer", length="integer", payload="string"),
+        "Http3Settings": E(identifier="integer", value="integer"),
+        "QuicConnection": E(connectionId="string", version="integer", state="string", createdAt="datetime", lastActivityAt="datetime"),
+    },
+    # Faithful TCP/IP model (RFC 9293 TCP + RFC 792 ICMP + IANA). ICMP type + IP protocol
+    # are large extensible IANA registries -> not enforced as closed enums.
+    "tcp_ip": {
+        "TcpSegment": E(sourcePort="integer", destinationPort="integer", sequenceNumber="integer", acknowledgmentNumber="integer", dataOffset="integer", controlBits="string", window="integer", urgentPointer="integer"),
+        "TcpConnection": E(localPort="integer", remotePort="integer", state="string", sequenceSendNext="integer", sequenceReceiveNext="integer"),
+        "IpPacket": E(version="integer", headerLength="integer", totalLength="integer", identification="integer", flags="string", fragmentOffset="integer", timeToLive="integer", protocol="integer", sourceAddress="string", destinationAddress="string"),
+        "IcmpMessage": E(type="integer", code="integer", checksum="string", restOfHeader="string"),
+    },
     # Faithful DNS model (RFC 1035 + IANA dns-parameters). rrType/qtype are open
     # extensible registries + rcode is EDNS-extensible -> not enforced as closed enums.
     "dns_root_zone": {

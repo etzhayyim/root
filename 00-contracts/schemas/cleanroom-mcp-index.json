@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29770,
-  "l5VerifiedActors": 121,
-  "totalVerifiedEnumFields": 538,
+  "totalTools": 29750,
+  "l5VerifiedActors": 124,
+  "totalVerifiedEnumFields": 553,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -8022,12 +8022,12 @@
     {
       "handle": "quic_http3-compat",
       "did": "did:web:etzhayyim.com:actor:quic_http3-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/quic_http3-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -9551,12 +9551,12 @@
     {
       "handle": "tcp_ip-compat",
       "did": "did:web:etzhayyim.com:actor:tcp_ip-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 20,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "manifest": "20-actors/tcp_ip-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -10442,12 +10442,12 @@
     {
       "handle": "webrtc_core-compat",
       "did": "did:web:etzhayyim.com:actor:webrtc_core-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 11,
       "manifest": "20-actors/webrtc_core-compat/manifest.json#/capabilities/mcp"
     },
     {

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible deep internet / core routing actor (quic_http3); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:quic_http3-compat",
-    "x-wasm-cid": "bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+    "x-wasm-cid": "bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "url": "ipfs://bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/quicpackets": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List QuicPackets",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/QuicPacket"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a QuicPacket",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/QuicPacketCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/QuicPacket"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/quicpackets/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a QuicPacket",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/QuicPacket"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a QuicPacket",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/QuicPacketCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/QuicPacket"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a QuicPacket",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/quicframes": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List QuicFrames",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/QuicFrame"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a QuicFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/QuicFrameCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/QuicFrame"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/quicframes/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a QuicFrame",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/QuicFrame"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a QuicFrame",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/QuicFrameCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/QuicFrame"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a QuicFrame",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/http3frames": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List Http3Frames",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/Http3Frame"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a Http3Frame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/Http3FrameCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/Http3Frame"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/http3frames/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a Http3Frame",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/Http3Frame"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a Http3Frame",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/Http3FrameCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/Http3Frame"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a Http3Frame",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/http3settingses": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List Http3Settingses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/Http3Settings"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a Http3Settings",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/Http3SettingsCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Http3Settings"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/http3settingses/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a Http3Settings",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Http3Settings"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a Http3Settings",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/Http3SettingsCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/Http3Settings"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
+        "summary": "Delete a Http3Settings",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/records": {
+    "/v1/quicconnections": {
       "get": {
-        "summary": "List Records",
+        "summary": "List QuicConnections",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Record"
+                        "$ref": "#/components/schemas/QuicConnection"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Record",
+        "summary": "Create a QuicConnection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/QuicConnectionCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/QuicConnection"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/records/{id}": {
+    "/v1/quicconnections/{id}": {
       "get": {
-        "summary": "Get a Record",
+        "summary": "Get a QuicConnection",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/QuicConnection"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Record",
+        "summary": "Update a QuicConnection",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/QuicConnectionCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/QuicConnection"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tunnels": {
-      "get": {
-        "summary": "List Tunnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tunnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Tunnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tunnels/{id}": {
-      "get": {
-        "summary": "Get a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a QuicConnection",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +955,218 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "QuicPacket": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
+          "packetType": {
+            "type": "string",
+            "enum": [
+              "Initial",
+              "0-RTT",
+              "Handshake",
+              "Retry",
+              "1-RTT",
+              "VersionNegotiation"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "sourceConnectionId": {
             "type": "string"
           },
-          "originAsn": {
+          "destinationConnectionId": {
             "type": "string"
           },
-          "validity": {
+          "payloadLength": {
+            "type": "integer"
+          },
+          "packetNumber": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "QuicPacketCreate": {
+        "type": "object",
+        "properties": {
+          "packetType": {
+            "type": "string",
+            "enum": [
+              "Initial",
+              "0-RTT",
+              "Handshake",
+              "Retry",
+              "1-RTT",
+              "VersionNegotiation"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "sourceConnectionId": {
+            "type": "string"
+          },
+          "destinationConnectionId": {
+            "type": "string"
+          },
+          "payloadLength": {
+            "type": "integer"
+          },
+          "packetNumber": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "packetType",
+          "version"
+        ]
+      },
+      "QuicFrame": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "frameType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              30
+            ]
+          },
+          "payload": {
+            "type": "string"
+          },
+          "streamId": {
+            "type": "integer"
+          },
+          "offsetInStream": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "QuicFrameCreate": {
+        "type": "object",
+        "properties": {
+          "frameType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              30
+            ]
+          },
+          "payload": {
+            "type": "string"
+          },
+          "streamId": {
+            "type": "integer"
+          },
+          "offsetInStream": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "frameType",
+          "payload"
+        ]
+      },
+      "Http3Frame": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "frameType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          "length": {
+            "type": "integer"
+          },
+          "payload": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,38 +1179,44 @@
           }
         }
       },
-      "PrefixCreate": {
+      "Http3FrameCreate": {
         "type": "object",
         "properties": {
-          "cidr": {
-            "type": "string"
+          "frameType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
           },
-          "originAsn": {
-            "type": "string"
+          "length": {
+            "type": "integer"
           },
-          "validity": {
+          "payload": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "originAsn"
+          "frameType",
+          "length"
         ]
       },
-      "Route": {
+      "Http3Settings": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "prefixId": {
-            "type": "string"
+          "identifier": {
+            "type": "integer"
           },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
+          "value": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1208,35 +1228,32 @@
           }
         }
       },
-      "RouteCreate": {
+      "Http3SettingsCreate": {
         "type": "object",
         "properties": {
-          "prefixId": {
-            "type": "string"
+          "identifier": {
+            "type": "integer"
           },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
+          "value": {
+            "type": "integer"
           }
         },
         "required": [
-          "nextHop",
-          "asPath"
+          "identifier",
+          "value"
         ]
       },
-      "Peer": {
+      "QuicConnection": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "asn": {
+          "connectionId": {
             "type": "string"
           },
-          "ipAddress": {
-            "type": "string"
+          "version": {
+            "type": "integer"
           },
           "state": {
             "type": "string"
@@ -1245,169 +1262,38 @@
             "type": "string",
             "format": "date-time"
           },
+          "lastActivityAt": {
+            "type": "string",
+            "format": "date-time"
+          },
           "updatedAt": {
             "type": "string",
             "format": "date-time"
           }
         }
       },
-      "PeerCreate": {
+      "QuicConnectionCreate": {
         "type": "object",
         "properties": {
-          "asn": {
+          "connectionId": {
             "type": "string"
           },
-          "ipAddress": {
-            "type": "string"
+          "version": {
+            "type": "integer"
           },
           "state": {
             "type": "string"
-          }
-        },
-        "required": [
-          "asn",
-          "ipAddress"
-        ]
-      },
-      "Zone": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "serial": {
-            "type": "integer"
-          },
-          "refreshSec": {
-            "type": "integer"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ZoneCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
             "type": "string"
           },
-          "serial": {
-            "type": "integer"
-          },
-          "refreshSec": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "serial"
-        ]
-      },
-      "Record": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RecordCreate": {
-        "type": "object",
-        "properties": {
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
+          "lastActivityAt": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Tunnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TunnelCreate": {
-        "type": "object",
-        "properties": {
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "localAddr",
-          "remoteAddr"
+          "version",
+          "state"
         ]
       }
     }

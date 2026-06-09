@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible deep internet / core routing actor (tcp_ip); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:tcp_ip-compat",
-    "x-wasm-cid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+    "x-wasm-cid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "url": "ipfs://bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/tcpsegments": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List TcpSegments",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/TcpSegment"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a TcpSegment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/TcpSegmentCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/TcpSegment"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/tcpsegments/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a TcpSegment",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/TcpSegment"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a TcpSegment",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/TcpSegmentCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/TcpSegment"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a TcpSegment",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/tcpconnections": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List TcpConnections",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/TcpConnection"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a TcpConnection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/TcpConnectionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/TcpConnection"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/tcpconnections/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a TcpConnection",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/TcpConnection"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a TcpConnection",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/TcpConnectionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/TcpConnection"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a TcpConnection",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/ippackets": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List IpPackets",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/IpPacket"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a IpPacket",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/IpPacketCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/IpPacket"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/ippackets/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a IpPacket",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/IpPacket"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a IpPacket",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/IpPacketCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/IpPacket"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a IpPacket",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/icmpmessages": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List IcmpMessages",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/IcmpMessage"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a IcmpMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/IcmpMessageCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/IcmpMessage"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/icmpmessages/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a IcmpMessage",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/IcmpMessage"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a IcmpMessage",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/IcmpMessageCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/IcmpMessage"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/records": {
-      "get": {
-        "summary": "List Records",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Record"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Record",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/records/{id}": {
-      "get": {
-        "summary": "Get a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tunnels": {
-      "get": {
-        "summary": "List Tunnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tunnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Tunnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tunnels/{id}": {
-      "get": {
-        "summary": "Get a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a IcmpMessage",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +770,35 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "TcpSegment": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
+          "sourcePort": {
+            "type": "integer"
+          },
+          "destinationPort": {
+            "type": "integer"
+          },
+          "sequenceNumber": {
+            "type": "integer"
+          },
+          "acknowledgmentNumber": {
+            "type": "integer"
+          },
+          "dataOffset": {
+            "type": "integer"
+          },
+          "controlBits": {
             "type": "string"
           },
-          "originAsn": {
-            "type": "string"
+          "window": {
+            "type": "integer"
           },
-          "validity": {
-            "type": "string"
+          "urgentPointer": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1165,81 +810,72 @@
           }
         }
       },
-      "PrefixCreate": {
+      "TcpSegmentCreate": {
         "type": "object",
         "properties": {
-          "cidr": {
+          "sourcePort": {
+            "type": "integer"
+          },
+          "destinationPort": {
+            "type": "integer"
+          },
+          "sequenceNumber": {
+            "type": "integer"
+          },
+          "acknowledgmentNumber": {
+            "type": "integer"
+          },
+          "dataOffset": {
+            "type": "integer"
+          },
+          "controlBits": {
             "type": "string"
           },
-          "originAsn": {
-            "type": "string"
+          "window": {
+            "type": "integer"
           },
-          "validity": {
-            "type": "string"
+          "urgentPointer": {
+            "type": "integer"
           }
         },
         "required": [
-          "cidr",
-          "originAsn"
+          "sourcePort",
+          "destinationPort"
         ]
       },
-      "Route": {
+      "TcpConnection": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "prefixId": {
-            "type": "string"
+          "localPort": {
+            "type": "integer"
           },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RouteCreate": {
-        "type": "object",
-        "properties": {
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "nextHop",
-          "asPath"
-        ]
-      },
-      "Peer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
+          "remotePort": {
+            "type": "integer"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "CLOSED",
+              "LISTEN",
+              "SYN-SENT",
+              "SYN-RECEIVED",
+              "ESTABLISHED",
+              "FIN-WAIT-1",
+              "FIN-WAIT-2",
+              "CLOSE-WAIT",
+              "CLOSING",
+              "LAST-ACK",
+              "TIME-WAIT"
+            ]
+          },
+          "sequenceSendNext": {
+            "type": "integer"
+          },
+          "sequenceReceiveNext": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1251,38 +887,78 @@
           }
         }
       },
-      "PeerCreate": {
+      "TcpConnectionCreate": {
         "type": "object",
         "properties": {
-          "asn": {
-            "type": "string"
+          "localPort": {
+            "type": "integer"
           },
-          "ipAddress": {
-            "type": "string"
+          "remotePort": {
+            "type": "integer"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "CLOSED",
+              "LISTEN",
+              "SYN-SENT",
+              "SYN-RECEIVED",
+              "ESTABLISHED",
+              "FIN-WAIT-1",
+              "FIN-WAIT-2",
+              "CLOSE-WAIT",
+              "CLOSING",
+              "LAST-ACK",
+              "TIME-WAIT"
+            ]
+          },
+          "sequenceSendNext": {
+            "type": "integer"
+          },
+          "sequenceReceiveNext": {
+            "type": "integer"
           }
         },
         "required": [
-          "asn",
-          "ipAddress"
+          "localPort",
+          "remotePort"
         ]
       },
-      "Zone": {
+      "IpPacket": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "version": {
+            "type": "integer"
+          },
+          "headerLength": {
+            "type": "integer"
+          },
+          "totalLength": {
+            "type": "integer"
+          },
+          "identification": {
+            "type": "integer"
+          },
+          "flags": {
             "type": "string"
           },
-          "serial": {
+          "fragmentOffset": {
             "type": "integer"
           },
-          "refreshSec": {
+          "timeToLive": {
             "type": "integer"
+          },
+          "protocol": {
+            "type": "integer"
+          },
+          "sourceAddress": {
+            "type": "string"
+          },
+          "destinationAddress": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1294,40 +970,61 @@
           }
         }
       },
-      "ZoneCreate": {
+      "IpPacketCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "version": {
+            "type": "integer"
+          },
+          "headerLength": {
+            "type": "integer"
+          },
+          "totalLength": {
+            "type": "integer"
+          },
+          "identification": {
+            "type": "integer"
+          },
+          "flags": {
             "type": "string"
           },
-          "serial": {
+          "fragmentOffset": {
             "type": "integer"
           },
-          "refreshSec": {
+          "timeToLive": {
             "type": "integer"
+          },
+          "protocol": {
+            "type": "integer"
+          },
+          "sourceAddress": {
+            "type": "string"
+          },
+          "destinationAddress": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
-          "serial"
+          "version",
+          "headerLength"
         ]
       },
-      "Record": {
+      "IcmpMessage": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
             "type": "string"
           },
           "type": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "integer"
+          },
+          "checksum": {
             "type": "string"
           },
-          "value": {
+          "restOfHeader": {
             "type": "string"
           },
           "createdAt": {
@@ -1340,74 +1037,25 @@
           }
         }
       },
-      "RecordCreate": {
+      "IcmpMessageCreate": {
         "type": "object",
         "properties": {
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
           "type": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "integer"
+          },
+          "checksum": {
             "type": "string"
           },
-          "value": {
+          "restOfHeader": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Tunnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TunnelCreate": {
-        "type": "object",
-        "properties": {
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "localAddr",
-          "remoteAddr"
+          "type",
+          "code"
         ]
       }
     }

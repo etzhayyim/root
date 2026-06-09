@@ -12355,17 +12355,16 @@
       "handle": "quic_http3-compat",
       "platform": "quic_http3",
       "bytes": 2124,
-      "wasmCid": "bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "wasmCid": "bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "QuicPacket",
+        "QuicFrame",
+        "Http3Frame",
+        "Http3Settings",
+        "QuicConnection"
       ]
     },
     {
@@ -14718,17 +14717,15 @@
       "handle": "tcp_ip-compat",
       "platform": "tcp_ip",
       "bytes": 2120,
-      "wasmCid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "wasmCid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "TcpSegment",
+        "TcpConnection",
+        "IpPacket",
+        "IcmpMessage"
       ]
     },
     {
@@ -16088,17 +16085,16 @@
       "handle": "webrtc_core-compat",
       "platform": "webrtc_core",
       "bytes": 2125,
-      "wasmCid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "wasmCid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "RTCPeerConnection",
+        "RTCDataChannel",
+        "RTCSessionDescription",
+        "RTCIceCandidate",
+        "RTCRtpTransceiver"
       ]
     },
     {

@@ -5,21 +5,45 @@
   "kind": "compat",
   "title": "tcp_ip clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (tcp_ip); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+  "wasmCid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+  "ipfs": "ipfs://bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
   "schema": "schema/tcp_ip.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc9293",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "TcpSegment",
+      "TcpConnection",
+      "IpPacket",
+      "IcmpMessage"
+    ],
+    "enums": {
+      "TcpConnection": {
+        "state": [
+          "CLOSED",
+          "LISTEN",
+          "SYN-SENT",
+          "SYN-RECEIVED",
+          "ESTABLISHED",
+          "FIN-WAIT-1",
+          "FIN-WAIT-2",
+          "CLOSE-WAIT",
+          "CLOSING",
+          "LAST-ACK",
+          "TIME-WAIT"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "TcpSegment",
+    "TcpConnection",
+    "IpPacket",
+    "IcmpMessage"
   ],
   "adr": [
     "260607",
@@ -31,157 +55,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/tcpsegments",
+          "op": "create TcpSegment"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/tcpsegments",
+          "op": "list TcpSegment"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/tcpsegments/{id}",
+          "op": "get TcpSegment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/tcpsegments/{id}",
+          "op": "update TcpSegment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/tcpsegments/{id}",
+          "op": "delete TcpSegment"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/tcpconnections",
+          "op": "create TcpConnection"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/tcpconnections",
+          "op": "list TcpConnection"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/tcpconnections/{id}",
+          "op": "get TcpConnection"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/tcpconnections/{id}",
+          "op": "update TcpConnection"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/tcpconnections/{id}",
+          "op": "delete TcpConnection"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/ippackets",
+          "op": "create IpPacket"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/ippackets",
+          "op": "list IpPacket"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/ippackets/{id}",
+          "op": "get IpPacket"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/ippackets/{id}",
+          "op": "update IpPacket"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/ippackets/{id}",
+          "op": "delete IpPacket"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/icmpmessages",
+          "op": "create IcmpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/icmpmessages",
+          "op": "list IcmpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/icmpmessages/{id}",
+          "op": "get IcmpMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/icmpmessages/{id}",
+          "op": "update IcmpMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/icmpmessages/{id}",
+          "op": "delete IcmpMessage"
         }
       ],
       "features": {
@@ -244,41 +218,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_tcp_segment",
+          "description": "Create a TcpSegment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
+              "sourcePort": {
+                "type": "integer"
+              },
+              "destinationPort": {
+                "type": "integer"
+              },
+              "sequenceNumber": {
+                "type": "integer"
+              },
+              "acknowledgmentNumber": {
+                "type": "integer"
+              },
+              "dataOffset": {
+                "type": "integer"
+              },
+              "controlBits": {
                 "type": "string"
               },
-              "originAsn": {
-                "type": "string"
+              "window": {
+                "type": "integer"
               },
-              "validity": {
-                "type": "string"
+              "urgentPointer": {
+                "type": "integer"
               }
             },
             "required": [
-              "cidr",
-              "originAsn"
+              "sourcePort",
+              "destinationPort"
             ]
           }
         },
         {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
+          "name": "list_tcp_segments",
+          "description": "List TcpSegments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
+          "name": "get_tcp_segment",
+          "description": "Get a TcpSegment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,22 +281,37 @@
           }
         },
         {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
+          "name": "update_tcp_segment",
+          "description": "Update a TcpSegment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "cidr": {
+              "sourcePort": {
+                "type": "integer"
+              },
+              "destinationPort": {
+                "type": "integer"
+              },
+              "sequenceNumber": {
+                "type": "integer"
+              },
+              "acknowledgmentNumber": {
+                "type": "integer"
+              },
+              "dataOffset": {
+                "type": "integer"
+              },
+              "controlBits": {
                 "type": "string"
               },
-              "originAsn": {
-                "type": "string"
+              "window": {
+                "type": "integer"
               },
-              "validity": {
-                "type": "string"
+              "urgentPointer": {
+                "type": "integer"
               }
             },
             "required": [
@@ -316,53 +320,8 @@
           }
         },
         {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
+          "name": "delete_tcp_segment",
+          "description": "Delete a TcpSegment.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -376,77 +335,44 @@
           }
         },
         {
-          "name": "update_route",
-          "description": "Update a Route.",
+          "name": "create_tcp_connection",
+          "description": "Create a TcpConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "localPort": {
+                "type": "integer"
               },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
+              "remotePort": {
+                "type": "integer"
               },
               "state": {
                 "type": "string"
+              },
+              "sequenceSendNext": {
+                "type": "integer"
+              },
+              "sequenceReceiveNext": {
+                "type": "integer"
               }
             },
             "required": [
-              "asn",
-              "ipAddress"
+              "localPort",
+              "remotePort"
             ]
           }
         },
         {
-          "name": "list_peers",
-          "description": "List Peers.",
+          "name": "list_tcp_connections",
+          "description": "List TcpConnections.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
+          "name": "get_tcp_connection",
+          "description": "Get a TcpConnection by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -460,22 +386,28 @@
           }
         },
         {
-          "name": "update_peer",
-          "description": "Update a Peer.",
+          "name": "update_tcp_connection",
+          "description": "Update a TcpConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "asn": {
-                "type": "string"
+              "localPort": {
+                "type": "integer"
               },
-              "ipAddress": {
-                "type": "string"
+              "remotePort": {
+                "type": "integer"
               },
               "state": {
                 "type": "string"
+              },
+              "sequenceSendNext": {
+                "type": "integer"
+              },
+              "sequenceReceiveNext": {
+                "type": "integer"
               }
             },
             "required": [
@@ -484,8 +416,8 @@
           }
         },
         {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
+          "name": "delete_tcp_connection",
+          "description": "Delete a TcpConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -499,38 +431,59 @@
           }
         },
         {
-          "name": "create_zone",
-          "description": "Create a Zone.",
+          "name": "create_ip_packet",
+          "description": "Create a IpPacket.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "version": {
+                "type": "integer"
+              },
+              "headerLength": {
+                "type": "integer"
+              },
+              "totalLength": {
+                "type": "integer"
+              },
+              "identification": {
+                "type": "integer"
+              },
+              "flags": {
                 "type": "string"
               },
-              "serial": {
+              "fragmentOffset": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "timeToLive": {
                 "type": "integer"
+              },
+              "protocol": {
+                "type": "integer"
+              },
+              "sourceAddress": {
+                "type": "string"
+              },
+              "destinationAddress": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "version",
+              "headerLength"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_ip_packets",
+          "description": "List IpPackets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_ip_packet",
+          "description": "Get a IpPacket by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,22 +497,43 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_ip_packet",
+          "description": "Update a IpPacket.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "version": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "headerLength": {
                 "type": "integer"
+              },
+              "totalLength": {
+                "type": "integer"
+              },
+              "identification": {
+                "type": "integer"
+              },
+              "flags": {
+                "type": "string"
+              },
+              "fragmentOffset": {
+                "type": "integer"
+              },
+              "timeToLive": {
+                "type": "integer"
+              },
+              "protocol": {
+                "type": "integer"
+              },
+              "sourceAddress": {
+                "type": "string"
+              },
+              "destinationAddress": {
+                "type": "string"
               }
             },
             "required": [
@@ -568,8 +542,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_ip_packet",
+          "description": "Delete a IpPacket.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,45 +557,72 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_icmp_message",
+          "description": "Create a IcmpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
                 "type": "string"
               },
-              "name": {
+              "restOfHeader": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "code"
+            ]
+          }
+        },
+        {
+          "name": "list_icmp_messages",
+          "description": "List IcmpMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_icmp_message",
+          "description": "Get a IcmpMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_icmp_message",
+          "description": "Update a IcmpMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "checksum": {
                 "type": "string"
               },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_records",
-          "description": "List Records.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_record",
-          "description": "Get a Record by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "restOfHeader": {
                 "type": "string"
               }
             },
@@ -631,125 +632,8 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "zoneId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_record",
-          "description": "Delete a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "localAddr",
-              "remoteAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_icmp_message",
+          "description": "Delete a IcmpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {

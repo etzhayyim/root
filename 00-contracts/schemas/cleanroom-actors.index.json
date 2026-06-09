@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 875,
-    "L5": 125
+    "L4": 872,
+    "L5": 128
   },
   "actors": [
     {
@@ -13121,10 +13121,10 @@
     {
       "handle": "quic_http3-compat",
       "did": "did:web:etzhayyim.com:actor:quic_http3-compat",
-      "wasmCid": "bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "wasmCid": "bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "quic_http3 clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -15623,10 +15623,10 @@
     {
       "handle": "tcp_ip-compat",
       "did": "did:web:etzhayyim.com:actor:tcp_ip-compat",
-      "wasmCid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "wasmCid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "tcp_ip clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -17081,10 +17081,10 @@
     {
       "handle": "webrtc_core-compat",
       "did": "did:web:etzhayyim.com:actor:webrtc_core-compat",
-      "wasmCid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "wasmCid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "webrtc_core clean-room actor",
       "category": "internet_routing",
       "capabilities": [
