@@ -136,6 +136,9 @@ cells = [
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
   "KaizenPrAgentCell",  # self-evolution actuator — drains observer.ndjson → PR/issue (ADR-2605240200 Wave 4)
   "FeedPostCell",  # kotoba-datomic §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
+  "keizu_relation_ingest",      # 系図 gov power-relation offline seed intake (cron 40 * * * *) (ADR-2606066000; G8 live public-source ingest gated)
+  "keizu_concentration_weave",  # committee cross-organ + money/payer HHI + revolving-door + award-and-fund (cron 45 * * * *) (ADR-2606066000; G4 edge-primary, non-adjudicating)
+  "keizu_relation_persist",     # 系図 power-relations autonomous heartbeat → append-only kotoba Datom log (cron 50 * * * *) (ADR-2606066000; accountability map not target-list; local persist, G8 gated)
 ]
 replicas_of = []
 
