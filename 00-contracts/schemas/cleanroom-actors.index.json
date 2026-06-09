@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 861,
-    "L5": 139
+    "L4": 856,
+    "L5": 144
   },
   "actors": [
     {
@@ -4736,7 +4736,7 @@
       "wasmCid": "bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "drchrono clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -10352,7 +10352,7 @@
       "wasmCid": "bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "miro clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -12476,7 +12476,7 @@
       "wasmCid": "bafkreicrintup4eeza5yxcnofsfkkxpufyyuthm2qs6reghp4t2lhkarzq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paystack clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -16832,7 +16832,7 @@
       "wasmCid": "bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vimeo clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -17462,7 +17462,7 @@
       "wasmCid": "bafkreie55iolfozdkdvxov3belu5wobtydprijjaem4cjngscxehnnx4la",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "x clean-room actor",
       "category": "comms_social",
       "capabilities": [

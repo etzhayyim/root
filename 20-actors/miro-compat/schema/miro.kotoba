@@ -3,68 +3,58 @@
 
 namespace miro {
 
-    entity Workspace {
+    entity Board {
         id: string @unique
         name: string
-        ownerId: string
-        plan: string
+        description: string
+        type: string
+        viewLink: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Item {
         id: string @unique
-        workspaceId: string
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tag {
+        id: string @unique
         title: string
-        contentRef: string
-        ownerId: string
+        fillColor: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Folder {
+    entity BoardMember {
         id: string @unique
-        workspaceId: string
         name: string
-        parentId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
-        documentId: string
-        authorId: string
-        body: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
         role: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity Organization {
         id: string @unique
-        email: string
-        displayName: string
-        status: string
+        name: string
+        plan: string
+        fullLicensesPurchased: integer
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Connector {
+        id: string @unique
+        shape: string
+        isSupported: boolean
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

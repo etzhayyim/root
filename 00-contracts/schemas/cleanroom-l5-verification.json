@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 139,
+  "count": 144,
   "actors": [
     {
       "handle": "square-compat",
@@ -19181,6 +19181,832 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs RFC 8200 + RFC 4443. Enforced enums: Ipv6Header.version[6], DestinationUnreachable.code(0-6), TimeExceeded.code(0-1), ParameterProblem.code(0-2) = 4 enums. Icmpv6.type (extensible) + nextHeader (protocol registry) not enforced."
+    },
+    {
+      "handle": "miro-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/miroapp/api-clients (packages/miro-api/model — official generated REST API v2 SDK)",
+      "remodeled": "Remodeled from the generic office_productivity archetype (Workspace/Document/Folder/Comment/Permission/User — a docs shape shared with the old calendly model) to a faithful Miro whiteboard model (Board/Item/Tag/BoardMember/Organization/Connector), verified field-by-field against the official miroapp/api-clients generated model classes. Item is thin (its data/geometry/position are nested objects). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Board",
+          "source": "model/board.ts",
+          "verifiedFields": [
+            "name",
+            "description",
+            "type",
+            "viewLink"
+          ],
+          "fieldStatus": "confirmed vs Board class (id/name/description/type/viewLink; createdAt/modifiedAt are Date -> scaffold)",
+          "discoveredEnums": {},
+          "gaps": [
+            "owner(object)",
+            "policy(object)",
+            "team(object)",
+            "project(object)",
+            "picture(object)"
+          ]
+        },
+        {
+          "entity": "Item",
+          "source": "model/genericItem.ts",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed vs GenericItem class (id/type); data/geometry/position are nested objects -> not modeled",
+          "discoveredEnums": {},
+          "gaps": [
+            "data(object)",
+            "geometry(object)",
+            "position(object)",
+            "parent(object)"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "model/tag.ts",
+          "verifiedFields": [
+            "title",
+            "fillColor",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Tag class (id/title/fillColor/type)",
+          "discoveredEnums": {
+            "fillColor": [
+              "red",
+              "light_green",
+              "cyan",
+              "yellow",
+              "magenta",
+              "green",
+              "blue",
+              "gray",
+              "violet",
+              "dark_green",
+              "dark_blue"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BoardMember",
+          "source": "model/boardMember.ts",
+          "verifiedFields": [
+            "name",
+            "role",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs BoardMember class (id/name/role/type)",
+          "discoveredEnums": {
+            "role": [
+              "viewer",
+              "commenter",
+              "editor",
+              "coowner",
+              "owner"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Organization",
+          "source": "model/organization.ts",
+          "verifiedFields": [
+            "name",
+            "plan",
+            "fullLicensesPurchased",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Organization class (id/name/plan/fullLicensesPurchased/type)",
+          "discoveredEnums": {
+            "plan": [
+              "company",
+              "consultant",
+              "consultant_slf",
+              "business",
+              "paid_team_org",
+              "integration_org",
+              "edu_team_org",
+              "free_team_org"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Connector",
+          "source": "model/connectorWithLinks.ts",
+          "verifiedFields": [
+            "shape",
+            "isSupported",
+            "type"
+          ],
+          "fieldStatus": "confirmed vs ConnectorWithLinks class (id/shape/isSupported/type)",
+          "discoveredEnums": {
+            "shape": [
+              "straight",
+              "elbowed",
+              "curved"
+            ]
+          },
+          "gaps": [
+            "style(object)",
+            "captions(array)",
+            "startItem(object)",
+            "endItem(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched docs archetype (shared with old calendly) to a faithful whiteboard model. 6/6 entities field-verified vs the official miroapp/api-clients SDK. Discovered closed enums (4): Tag.fillColor, BoardMember.role, Organization.plan, Connector.shape. Item is intentionally thin (polymorphic; data/geometry are nested objects)."
+    },
+    {
+      "handle": "x-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.twitter.com/2/openapi.json (official X/Twitter API v2 OpenAPI)",
+      "remodeled": "Remodeled from the generic comms_social chat archetype (Channel/Message/User/Room/Stream/Webhook) to a faithful X (Twitter) v2 microblog model (Tweet/User/Space/List/Media/Poll), verified field-by-field against X's official API v2 OpenAPI components.schemas. Tweet core fields (text/replySettings/conversationId/authorId) are $ref-typed scalars (TweetText/TweetId/ReplySettings). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Tweet",
+          "source": "openapi.json Tweet",
+          "verifiedFields": [
+            "text",
+            "lang",
+            "source",
+            "paidPartnership",
+            "possiblySensitive",
+            "replySettings",
+            "conversationId",
+            "authorId"
+          ],
+          "fieldStatus": "confirmed vs Tweet schema (text/lang/source/paid_partnership/possibly_sensitive/reply_settings/conversation_id/author_id; created_at->scaffold)",
+          "discoveredEnums": {},
+          "gaps": [
+            "replySettings enum (everyone/mentionedUsers/following/subscribers) is ref-typed, not inline-enumerated",
+            "public_metrics(object)",
+            "entities(object)",
+            "referenced_tweets(array)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "openapi.json User",
+          "verifiedFields": [
+            "name",
+            "description",
+            "location",
+            "url",
+            "protected",
+            "verified",
+            "verifiedType",
+            "subscriptionType",
+            "profileImageUrl",
+            "profileBannerUrl",
+            "receivesYourDm"
+          ],
+          "fieldStatus": "confirmed vs User schema (name/description/location/url/protected/verified/verified_type/subscription_type/profile_image_url/profile_banner_url/receives_your_dm)",
+          "discoveredEnums": {
+            "verifiedType": [
+              "blue",
+              "government",
+              "business",
+              "none"
+            ],
+            "subscriptionType": [
+              "Basic",
+              "Premium",
+              "PremiumPlus",
+              "None"
+            ]
+          },
+          "gaps": [
+            "public_metrics(object)",
+            "entities(object)",
+            "username(ref)"
+          ]
+        },
+        {
+          "entity": "Space",
+          "source": "openapi.json Space",
+          "verifiedFields": [
+            "title",
+            "state",
+            "lang",
+            "isTicketed",
+            "participantCount",
+            "subscriberCount",
+            "scheduledStart",
+            "startedAt",
+            "endedAt"
+          ],
+          "fieldStatus": "confirmed vs Space schema (title/state/lang/is_ticketed/participant_count/subscriber_count/scheduled_start/started_at/ended_at)",
+          "discoveredEnums": {
+            "state": [
+              "live",
+              "scheduled",
+              "ended"
+            ]
+          },
+          "gaps": [
+            "host_ids(array)",
+            "speaker_ids(array)",
+            "topic_ids(array)"
+          ]
+        },
+        {
+          "entity": "List",
+          "source": "openapi.json List",
+          "verifiedFields": [
+            "name",
+            "description",
+            "private",
+            "followerCount",
+            "memberCount"
+          ],
+          "fieldStatus": "confirmed vs List schema (name/description/private/follower_count/member_count)",
+          "discoveredEnums": {},
+          "gaps": [
+            "owner_id(ref)"
+          ]
+        },
+        {
+          "entity": "Media",
+          "source": "openapi.json Media",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed vs Media schema (type); polymorphic (photo/video/animated_gif subtypes carry the rest)",
+          "discoveredEnums": {},
+          "gaps": [
+            "url",
+            "preview_image_url",
+            "public_metrics(object)",
+            "width/height (on subtypes)"
+          ]
+        },
+        {
+          "entity": "Poll",
+          "source": "openapi.json Poll",
+          "verifiedFields": [
+            "durationMinutes",
+            "endDatetime",
+            "votingStatus"
+          ],
+          "fieldStatus": "confirmed vs Poll schema (duration_minutes/end_datetime/voting_status)",
+          "discoveredEnums": {
+            "votingStatus": [
+              "open",
+              "closed"
+            ]
+          },
+          "gaps": [
+            "options(array)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched chat archetype to a faithful microblog model. 6/6 entities field-verified vs X's official API v2 OpenAPI. Discovered closed enums (4): User.verifiedType/subscriptionType, Space.state, Poll.votingStatus. Tweet/List/Media id-and-text fields are $ref-typed scalars in the spec."
+    },
+    {
+      "handle": "paystack-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/PaystackOSS/openapi (dist/paystack.yaml — official Paystack OpenAPI)",
+      "remodeled": "Remodeled from the generic Stripe-shaped payments archetype (Customer/PaymentIntent/Charge/Refund/Payout/PaymentMethod) to a faithful Paystack model (Transaction/Customer/Plan/Subscription/Product/Page), verified field-by-field against Paystack's official OpenAPI (the *Create request schemas define each entity's writable fields). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Transaction",
+          "source": "paystack.yaml TransactionInitialize",
+          "verifiedFields": [
+            "email",
+            "amount",
+            "reference",
+            "callbackUrl",
+            "plan",
+            "invoiceLimit",
+            "splitCode",
+            "subaccount",
+            "transactionCharge",
+            "bearer",
+            "label"
+          ],
+          "fieldStatus": "confirmed vs TransactionInitialize schema (email/amount/reference/callback_url/plan/invoice_limit/split_code/subaccount/transaction_charge/bearer/label)",
+          "discoveredEnums": {
+            "bearer": [
+              "account",
+              "subaccount"
+            ]
+          },
+          "gaps": [
+            "channels(array)",
+            "metadata(object)",
+            "status (on fetch response)"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "paystack.yaml CustomerCreate",
+          "verifiedFields": [
+            "email",
+            "firstName",
+            "lastName",
+            "phone",
+            "metadata"
+          ],
+          "fieldStatus": "confirmed vs CustomerCreate schema (email/first_name/last_name/phone/metadata)",
+          "discoveredEnums": {},
+          "gaps": [
+            "customer_code (on response)",
+            "risk_action"
+          ]
+        },
+        {
+          "entity": "Plan",
+          "source": "paystack.yaml PlanCreate",
+          "verifiedFields": [
+            "name",
+            "amount",
+            "interval",
+            "description",
+            "sendInvoices",
+            "sendSms",
+            "currency",
+            "invoiceLimit"
+          ],
+          "fieldStatus": "confirmed vs PlanCreate schema (name/amount/interval/description/send_invoices/send_sms/currency/invoice_limit)",
+          "discoveredEnums": {
+            "interval": [
+              "daily",
+              "weekly",
+              "monthly",
+              "biannually",
+              "annually"
+            ]
+          },
+          "gaps": [
+            "plan_code (on response)"
+          ]
+        },
+        {
+          "entity": "Subscription",
+          "source": "paystack.yaml SubscriptionCreate",
+          "verifiedFields": [
+            "customer",
+            "plan",
+            "authorization",
+            "startDate"
+          ],
+          "fieldStatus": "confirmed vs SubscriptionCreate schema (customer/plan/authorization/start_date)",
+          "discoveredEnums": {},
+          "gaps": [
+            "subscription_code/status (on response)"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "paystack.yaml ProductCreate",
+          "verifiedFields": [
+            "name",
+            "description",
+            "price",
+            "currency",
+            "unlimited",
+            "quantity",
+            "splitCode",
+            "metadata"
+          ],
+          "fieldStatus": "confirmed vs ProductCreate schema (name/description/price/currency/unlimited/quantity/split_code/metadata)",
+          "discoveredEnums": {},
+          "gaps": [
+            "product_code (on response)",
+            "files(array)"
+          ]
+        },
+        {
+          "entity": "Page",
+          "source": "paystack.yaml PageCreate",
+          "verifiedFields": [
+            "name",
+            "description",
+            "amount",
+            "currency",
+            "slug",
+            "type",
+            "plan",
+            "fixedAmount",
+            "splitCode",
+            "redirectUrl",
+            "successMessage",
+            "notificationEmail",
+            "collectPhone"
+          ],
+          "fieldStatus": "confirmed vs PageCreate schema (name/description/amount/currency/slug/type/plan/fixed_amount/split_code/redirect_url/success_message/notification_email/collect_phone)",
+          "discoveredEnums": {
+            "currency": [
+              "NGN",
+              "GHS",
+              "ZAR",
+              "KES",
+              "USD"
+            ],
+            "type": [
+              "payment",
+              "subscription",
+              "product",
+              "plan"
+            ]
+          },
+          "gaps": [
+            "custom_fields(array)",
+            "metadata(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched Stripe-shaped archetype to a faithful Paystack model. 6/6 entities field-verified vs Paystack's official OpenAPI (writable fields from the *Create request schemas). Discovered closed enums (4): Transaction.bearer, Plan.interval, Page.currency, Page.type. Server-assigned codes (customer_code/plan_code/etc.) are response-only -> recorded as gaps."
+    },
+    {
+      "handle": "vimeo-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "Vimeo official OpenAPI 3.4 (via apis.guru mirror: api.apis.guru/v2/specs/vimeo.com/3.4/openapi.json)",
+      "remodeled": "Remodeled from the generic media_video_cms archetype (Asset/Rendition/Channel/Playlist/ContentEntry/Experiment — a streaming-CMS shape) to a faithful Vimeo model (Video/Channel/Album/User/Group/Category), verified field-by-field against Vimeo's official OpenAPI. Vimeo uses uri/resource_key as identifiers (no numeric id); created_time/modified_time map to scaffold createdAt/updatedAt. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Video",
+          "source": "vimeo OpenAPI video",
+          "verifiedFields": [
+            "name",
+            "description",
+            "duration",
+            "width",
+            "height",
+            "language",
+            "license",
+            "status",
+            "link",
+            "releaseTime",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs video schema (name/description/duration/width/height/language/license/status/link/release_time/resource_key/uri)",
+          "discoveredEnums": {
+            "license": [
+              "by",
+              "by-nc",
+              "by-nc-nd",
+              "by-nc-sa",
+              "by-nd",
+              "by-sa",
+              "cc0"
+            ],
+            "status": [
+              "available",
+              "quota_exceeded",
+              "total_cap_exceeded",
+              "transcode_starting",
+              "transcoding",
+              "transcoding_error",
+              "unavailable",
+              "uploading"
+            ]
+          },
+          "gaps": [
+            "privacy(object)",
+            "stats(object)",
+            "pictures(object)",
+            "files(array)",
+            "embed(object)"
+          ]
+        },
+        {
+          "entity": "Channel",
+          "source": "vimeo OpenAPI channel",
+          "verifiedFields": [
+            "name",
+            "description",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs channel schema (name/description/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "privacy(object)",
+            "pictures(object)",
+            "metadata(object)"
+          ]
+        },
+        {
+          "entity": "Album",
+          "source": "vimeo OpenAPI album",
+          "verifiedFields": [
+            "name",
+            "description",
+            "duration",
+            "layout",
+            "sort",
+            "theme",
+            "brandColor",
+            "allowDownloads",
+            "allowShare",
+            "allowContinuousPlay",
+            "reviewMode",
+            "hideNav",
+            "link",
+            "url",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs album schema (name/description/duration/layout/sort/theme/brand_color/allow_downloads/allow_share/allow_continuous_play/review_mode/hide_nav/link/url/resource_key/uri)",
+          "discoveredEnums": {
+            "layout": [
+              "grid",
+              "player"
+            ],
+            "sort": [
+              "added_first",
+              "added_last",
+              "alphabetical",
+              "arranged",
+              "comments",
+              "likes",
+              "newest",
+              "oldest"
+            ],
+            "theme": [
+              "dark",
+              "standard"
+            ]
+          },
+          "gaps": [
+            "privacy(object)",
+            "embed(object)",
+            "pictures(object)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "vimeo OpenAPI user",
+          "verifiedFields": [
+            "name",
+            "bio",
+            "email",
+            "location",
+            "account",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs user schema (name/bio/email/location/account/link/resource_key/uri)",
+          "discoveredEnums": {
+            "account": [
+              "basic",
+              "business",
+              "live_business",
+              "live_premium",
+              "live_pro",
+              "plus",
+              "pro",
+              "pro_unlimited"
+            ]
+          },
+          "gaps": [
+            "pictures(object)",
+            "websites(array)",
+            "metadata(object)",
+            "preferences(object)"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "vimeo OpenAPI group",
+          "verifiedFields": [
+            "name",
+            "description",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs group schema (name/description/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "privacy(object)",
+            "pictures(object)",
+            "metadata(object)"
+          ]
+        },
+        {
+          "entity": "Category",
+          "source": "vimeo OpenAPI category",
+          "verifiedFields": [
+            "name",
+            "topLevel",
+            "lastVideoFeaturedTime",
+            "link",
+            "resourceKey",
+            "uri"
+          ],
+          "fieldStatus": "confirmed vs category schema (name/top_level/last_video_featured_time/link/resource_key/uri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "subcategories(array)",
+            "pictures(object)",
+            "parent(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched streaming-CMS archetype to a faithful Vimeo model. 6/6 entities field-verified vs Vimeo's official OpenAPI 3.4. Discovered closed enums (6): Video.license/status, Album.layout/sort/theme, User.account. Vimeo identifiers are uri/resource_key (no numeric id)."
+    },
+    {
+      "handle": "drchrono-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "DrChrono official OpenAPI v4 (via apis.guru mirror: drchrono.com)",
+      "remodeled": "Remodeled from the generic FHIR-shaped health archetype (Patient/Encounter/Observation/Medication/Practitioner/Appointment) to DrChrono's PROPRIETARY REST entities (Patient/Appointment/Doctor/Office/ClinicalNote/LabResult) — DrChrono's API is not FHIR. Verified field-by-field against DrChrono's official OpenAPI. API-SHAPE ONLY: the schema models field names/types, never actual PHI. The L5 gate had correctly rejected the prior FHIR-shaped model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Patient",
+          "source": "drchrono OpenAPI Patient",
+          "verifiedFields": [
+            "chartId",
+            "dateOfBirth",
+            "email",
+            "cellPhone",
+            "address",
+            "city",
+            "copay",
+            "defaultPharmacy",
+            "disableSmsMessages",
+            "doctor",
+            "emergencyContactName",
+            "emergencyContactPhone",
+            "employer",
+            "dateOfFirstAppointment",
+            "dateOfLastAppointment"
+          ],
+          "fieldStatus": "confirmed vs Patient schema (45 scalar fields total; modeled the salient subset)",
+          "discoveredEnums": {},
+          "gaps": [
+            "gender/state/country are large ISO/code lists",
+            "insurance fields",
+            "custom demographics"
+          ]
+        },
+        {
+          "entity": "Appointment",
+          "source": "drchrono OpenAPI Appointment",
+          "verifiedFields": [
+            "doctor",
+            "duration",
+            "examRoom",
+            "color",
+            "billingStatus",
+            "ins1Status",
+            "allowOverlapping",
+            "apptIsBreak",
+            "deletedFlag",
+            "baseRecurringAppointment",
+            "billingProvider",
+            "firstBilledDate"
+          ],
+          "fieldStatus": "confirmed vs Appointment schema",
+          "discoveredEnums": {
+            "ins1Status": [
+              "",
+              "Incomplete Information",
+              "In Process Emdeon",
+              "Rejected Emdeon",
+              "Rejected Jopari",
+              "In Process Payor"
+            ]
+          },
+          "gaps": [
+            "status (separate field)",
+            "reason",
+            "profile",
+            "recurring_event(object)"
+          ]
+        },
+        {
+          "entity": "Doctor",
+          "source": "drchrono OpenAPI Doctor",
+          "verifiedFields": [
+            "firstName",
+            "lastName",
+            "email",
+            "cellPhone",
+            "officePhone",
+            "npiNumber",
+            "groupNpiNumber",
+            "specialty",
+            "jobTitle",
+            "practiceGroupName",
+            "isAccountSuspended"
+          ],
+          "fieldStatus": "confirmed vs Doctor schema",
+          "discoveredEnums": {
+            "jobTitle": [
+              "",
+              "Provider/Staff (Private Practice)",
+              "Provider/Staff (Hospital)",
+              "Patients/Interview Candidate",
+              "Educator/Student",
+              "API/Developer"
+            ]
+          },
+          "gaps": [
+            "country (ISO list)",
+            "timezone",
+            "specialty_board"
+          ]
+        },
+        {
+          "entity": "Office",
+          "source": "drchrono OpenAPI Office",
+          "verifiedFields": [
+            "name",
+            "address",
+            "city",
+            "state",
+            "zipCode",
+            "phoneNumber",
+            "faxNumber",
+            "doctor",
+            "archived",
+            "onlineScheduling",
+            "startTime",
+            "endTime",
+            "taxIdNumberProfessional"
+          ],
+          "fieldStatus": "confirmed vs Office schema (state/country are large code lists -> not enumerated)",
+          "discoveredEnums": {},
+          "gaps": [
+            "state/country (ISO lists)",
+            "exam_rooms detail"
+          ]
+        },
+        {
+          "entity": "ClinicalNote",
+          "source": "drchrono OpenAPI ClinicalNote",
+          "verifiedFields": [
+            "patient",
+            "appointment",
+            "archived"
+          ],
+          "fieldStatus": "confirmed vs ClinicalNote schema (thin top-level; note content is in nested sections)",
+          "discoveredEnums": {},
+          "gaps": [
+            "sections(array)",
+            "template(object)"
+          ]
+        },
+        {
+          "entity": "LabResult",
+          "source": "drchrono OpenAPI LabResult",
+          "verifiedFields": [
+            "labTest",
+            "labOrder",
+            "observationCode",
+            "observationDescription",
+            "value",
+            "unit",
+            "normalRange",
+            "abnormalStatus",
+            "status",
+            "comments",
+            "groupCode",
+            "testPerformed",
+            "specimenReceived"
+          ],
+          "fieldStatus": "confirmed vs LabResult schema",
+          "discoveredEnums": {
+            "abnormalStatus": [
+              "L",
+              "LL",
+              "H",
+              "HH",
+              "<",
+              ">"
+            ],
+            "status": [
+              "P",
+              "I",
+              "C",
+              "F",
+              "X"
+            ]
+          },
+          "gaps": [
+            "is_abnormal",
+            "document(int ref)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched FHIR archetype to DrChrono's faithful PROPRIETARY model (DrChrono is not FHIR). 6/6 entities field-verified vs the official OpenAPI. Discovered closed enums (4): Appointment.ins1Status, Doctor.jobTitle, LabResult.abnormalStatus/status. Large ISO code lists (state/country/gender) recorded as gaps. API-shape only — no real PHI is represented."
     }
   ]
 }

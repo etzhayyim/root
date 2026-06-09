@@ -11,15 +11,81 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
   "schema": "schema/vimeo.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "Vimeo official OpenAPI 3.4 (via apis.guru mirror: api.apis.guru/v2/specs/vimeo.com/3.4/openapi.json)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Video",
+      "Channel",
+      "Album",
+      "User",
+      "Group",
+      "Category"
+    ],
+    "enums": {
+      "Video": {
+        "license": [
+          "by",
+          "by-nc",
+          "by-nc-nd",
+          "by-nc-sa",
+          "by-nd",
+          "by-sa",
+          "cc0"
+        ],
+        "status": [
+          "available",
+          "quota_exceeded",
+          "total_cap_exceeded",
+          "transcode_starting",
+          "transcoding",
+          "transcoding_error",
+          "unavailable",
+          "uploading"
+        ]
+      },
+      "Album": {
+        "layout": [
+          "grid",
+          "player"
+        ],
+        "sort": [
+          "added_first",
+          "added_last",
+          "alphabetical",
+          "arranged",
+          "comments",
+          "likes",
+          "newest",
+          "oldest"
+        ],
+        "theme": [
+          "dark",
+          "standard"
+        ]
+      },
+      "User": {
+        "account": [
+          "basic",
+          "business",
+          "live_business",
+          "live_premium",
+          "live_pro",
+          "plus",
+          "pro",
+          "pro_unlimited"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Asset",
-    "Rendition",
+    "Video",
     "Channel",
-    "Playlist",
-    "ContentEntry",
-    "Experiment"
+    "Album",
+    "User",
+    "Group",
+    "Category"
   ],
   "adr": [
     "260607",
@@ -35,53 +101,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/videos",
+          "op": "create Video"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/videos",
+          "op": "list Video"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/videos/{id}",
+          "op": "get Video"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/videos/{id}",
+          "op": "update Video"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/renditions",
-          "op": "create Rendition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/renditions",
-          "op": "list Rendition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/renditions/{id}",
-          "op": "get Rendition"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/renditions/{id}",
-          "op": "update Rendition"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/renditions/{id}",
-          "op": "delete Rendition"
+          "path": "/v1/videos/{id}",
+          "op": "delete Video"
         },
         {
           "method": "POST",
@@ -110,85 +151,110 @@
         },
         {
           "method": "POST",
-          "path": "/v1/playlists",
-          "op": "create Playlist"
+          "path": "/v1/albums",
+          "op": "create Album"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists",
-          "op": "list Playlist"
+          "path": "/v1/albums",
+          "op": "list Album"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists/{id}",
-          "op": "get Playlist"
+          "path": "/v1/albums/{id}",
+          "op": "get Album"
         },
         {
           "method": "PATCH",
-          "path": "/v1/playlists/{id}",
-          "op": "update Playlist"
+          "path": "/v1/albums/{id}",
+          "op": "update Album"
         },
         {
           "method": "DELETE",
-          "path": "/v1/playlists/{id}",
-          "op": "delete Playlist"
+          "path": "/v1/albums/{id}",
+          "op": "delete Album"
         },
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/experiments",
-          "op": "create Experiment"
+          "path": "/v1/groups",
+          "op": "create Group"
         },
         {
           "method": "GET",
-          "path": "/v1/experiments",
-          "op": "list Experiment"
+          "path": "/v1/groups",
+          "op": "list Group"
         },
         {
           "method": "GET",
-          "path": "/v1/experiments/{id}",
-          "op": "get Experiment"
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
         },
         {
           "method": "PATCH",
-          "path": "/v1/experiments/{id}",
-          "op": "update Experiment"
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
         },
         {
           "method": "DELETE",
-          "path": "/v1/experiments/{id}",
-          "op": "delete Experiment"
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/categories",
+          "op": "create Category"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/categories",
+          "op": "list Category"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/categories/{id}",
+          "op": "get Category"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/categories/{id}",
+          "op": "update Category"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/categories/{id}",
+          "op": "delete Category"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,41 +313,65 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
+          "name": "create_video",
+          "description": "Create a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "type": {
+              "description": {
                 "type": "string"
               },
-              "durationMs": {
+              "duration": {
+                "type": "number"
+              },
+              "width": {
                 "type": "integer"
               },
-              "contentRef": {
+              "height": {
+                "type": "integer"
+              },
+              "language": {
+                "type": "string"
+              },
+              "license": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "releaseTime": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
                 "type": "string"
               }
             },
             "required": [
-              "title",
-              "type"
+              "name",
+              "description"
             ]
           }
         },
         {
-          "name": "list_assets",
-          "description": "List Assets.",
+          "name": "list_videos",
+          "description": "List Videos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
+          "name": "get_video",
+          "description": "Get a Video by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,87 +385,48 @@
           }
         },
         {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_video",
+          "description": "Update a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "type": {
+              "description": {
                 "type": "string"
               },
-              "durationMs": {
+              "duration": {
+                "type": "number"
+              },
+              "width": {
                 "type": "integer"
               },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rendition",
-          "description": "Create a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
+              "height": {
                 "type": "integer"
               },
-              "contentRef": {
+              "language": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "format",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_renditions",
-          "description": "List Renditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rendition",
-          "description": "Get a Rendition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "license": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "releaseTime": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
                 "type": "string"
               }
             },
@@ -385,35 +436,8 @@
           }
         },
         {
-          "name": "update_rendition",
-          "description": "Update a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rendition",
-          "description": "Delete a Rendition.",
+          "name": "delete_video",
+          "description": "Delete a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -438,8 +462,14 @@
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
               }
             },
             "required": [
@@ -486,8 +516,14 @@
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
               }
             },
             "required": [
@@ -511,212 +547,77 @@
           }
         },
         {
-          "name": "create_playlist",
-          "description": "Create a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "title",
-              "itemCount"
-            ]
-          }
-        },
-        {
-          "name": "list_playlists",
-          "description": "List Playlists.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_playlist",
-          "description": "Get a Playlist by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_playlist",
-          "description": "Update a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_playlist",
-          "description": "Delete a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_experiment",
-          "description": "Create a Experiment.",
+          "name": "create_album",
+          "description": "Create a Album.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "variant": {
+              "description": {
                 "type": "string"
               },
-              "conversionRate": {
+              "duration": {
                 "type": "number"
+              },
+              "layout": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              },
+              "theme": {
+                "type": "string"
+              },
+              "brandColor": {
+                "type": "string"
+              },
+              "allowDownloads": {
+                "type": "boolean"
+              },
+              "allowShare": {
+                "type": "boolean"
+              },
+              "allowContinuousPlay": {
+                "type": "boolean"
+              },
+              "reviewMode": {
+                "type": "boolean"
+              },
+              "hideNav": {
+                "type": "boolean"
+              },
+              "link": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "variant"
+              "description"
             ]
           }
         },
         {
-          "name": "list_experiments",
-          "description": "List Experiments.",
+          "name": "list_albums",
+          "description": "List Albums.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_experiment",
-          "description": "Get a Experiment by id.",
+          "name": "get_album",
+          "description": "Get a Album by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,8 +631,8 @@
           }
         },
         {
-          "name": "update_experiment",
-          "description": "Update a Experiment.",
+          "name": "update_album",
+          "description": "Update a Album.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -741,11 +642,50 @@
               "name": {
                 "type": "string"
               },
-              "variant": {
+              "description": {
                 "type": "string"
               },
-              "conversionRate": {
+              "duration": {
                 "type": "number"
+              },
+              "layout": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              },
+              "theme": {
+                "type": "string"
+              },
+              "brandColor": {
+                "type": "string"
+              },
+              "allowDownloads": {
+                "type": "boolean"
+              },
+              "allowShare": {
+                "type": "boolean"
+              },
+              "allowContinuousPlay": {
+                "type": "boolean"
+              },
+              "reviewMode": {
+                "type": "boolean"
+              },
+              "hideNav": {
+                "type": "boolean"
+              },
+              "link": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
               }
             },
             "required": [
@@ -754,8 +694,320 @@
           }
         },
         {
-          "name": "delete_experiment",
-          "description": "Delete a Experiment.",
+          "name": "delete_album",
+          "description": "Delete a Album.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "bio": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "account": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "bio"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "bio": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "account": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_group",
+          "description": "Create a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_groups",
+          "description": "List Groups.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_group",
+          "description": "Get a Group by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_group",
+          "description": "Update a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_group",
+          "description": "Delete a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_category",
+          "description": "Create a Category.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "topLevel": {
+                "type": "boolean"
+              },
+              "lastVideoFeaturedTime": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "topLevel"
+            ]
+          }
+        },
+        {
+          "name": "list_categories",
+          "description": "List Categories.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_category",
+          "description": "Get a Category by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_category",
+          "description": "Update a Category.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "topLevel": {
+                "type": "boolean"
+              },
+              "lastVideoFeaturedTime": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "resourceKey": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_category",
+          "description": "Delete a Category.",
           "inputSchema": {
             "type": "object",
             "properties": {
