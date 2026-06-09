@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible headless commerce / logistics actor (algolia); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:algolia-compat",
-    "x-wasm-cid": "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+    "x-wasm-cid": "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+      "url": "ipfs://bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/contententries": {
+    "/v1/indexes": {
       "get": {
-        "summary": "List ContentEntries",
+        "summary": "List Indexes",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
+                        "$ref": "#/components/schemas/Index"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a ContentEntry",
+        "summary": "Create a Index",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/contententries/{id}": {
+    "/v1/indexes/{id}": {
       "get": {
-        "summary": "Get a ContentEntry",
+        "summary": "Get a Index",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ContentEntry",
+        "summary": "Update a Index",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ContentEntry",
+        "summary": "Delete a Index",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/products": {
+    "/v1/apikeys": {
       "get": {
-        "summary": "List Products",
+        "summary": "List ApiKeys",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Product"
+                        "$ref": "#/components/schemas/ApiKey"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Product",
+        "summary": "Create a ApiKey",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/ApiKeyCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/products/{id}": {
+    "/v1/apikeys/{id}": {
       "get": {
-        "summary": "Get a Product",
+        "summary": "Get a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Product",
+        "summary": "Update a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/ApiKeyCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Product",
+        "summary": "Delete a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/shipments": {
+    "/v1/synonyms": {
       "get": {
-        "summary": "List Shipments",
+        "summary": "List Synonyms",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Shipment"
+                        "$ref": "#/components/schemas/Synonym"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Shipment",
+        "summary": "Create a Synonym",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/SynonymCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Synonym"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/shipments/{id}": {
+    "/v1/synonyms/{id}": {
       "get": {
-        "summary": "Get a Shipment",
+        "summary": "Get a Synonym",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Synonym"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Shipment",
+        "summary": "Update a Synonym",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/SynonymCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/Synonym"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Shipment",
+        "summary": "Delete a Synonym",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/searchindexes": {
+    "/v1/rules": {
       "get": {
-        "summary": "List SearchIndexes",
+        "summary": "List Rules",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/SearchIndex"
+                        "$ref": "#/components/schemas/Rule"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a SearchIndex",
+        "summary": "Create a Rule",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/RuleCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Rule"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/searchindexes/{id}": {
+    "/v1/rules/{id}": {
       "get": {
-        "summary": "Get a SearchIndex",
+        "summary": "Get a Rule",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Rule"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a SearchIndex",
+        "summary": "Update a Rule",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/RuleCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Rule"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a SearchIndex",
+        "summary": "Delete a Rule",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/webhooks": {
+    "/v1/tasks": {
       "get": {
-        "summary": "List Webhooks",
+        "summary": "List Tasks",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Webhook"
+                        "$ref": "#/components/schemas/Task"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Webhook",
+        "summary": "Create a Task",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/TaskCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Task"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/webhooks/{id}": {
+    "/v1/tasks/{id}": {
       "get": {
-        "summary": "Get a Webhook",
+        "summary": "Get a Task",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Task"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Webhook",
+        "summary": "Update a Task",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/TaskCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Task"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/orders": {
-      "get": {
-        "summary": "List Orders",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Order"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Order",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/orders/{id}": {
-      "get": {
-        "summary": "Get a Order",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Order",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Order",
+        "summary": "Delete a Task",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +955,34 @@
   },
   "components": {
     "schemas": {
-      "ContentEntry": {
+      "Index": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelName": {
+          "name": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
+          "entries": {
+            "type": "integer"
           },
-          "locale": {
-            "type": "string"
+          "dataSize": {
+            "type": "integer"
           },
-          "published": {
+          "fileSize": {
+            "type": "integer"
+          },
+          "lastBuildTimeS": {
+            "type": "integer"
+          },
+          "numberOfPendingTasks": {
+            "type": "integer"
+          },
+          "pendingTask": {
+            "type": "boolean"
+          },
+          "virtual": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1168,181 +995,188 @@
           }
         }
       },
-      "ContentEntryCreate": {
+      "IndexCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "name": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
+          "entries": {
+            "type": "integer"
           },
-          "locale": {
-            "type": "string"
+          "dataSize": {
+            "type": "integer"
           },
-          "published": {
+          "fileSize": {
+            "type": "integer"
+          },
+          "lastBuildTimeS": {
+            "type": "integer"
+          },
+          "numberOfPendingTasks": {
+            "type": "integer"
+          },
+          "pendingTask": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Product": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
           },
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
+          "virtual": {
+            "type": "boolean"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProductCreate": {
-        "type": "object",
-        "properties": {
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sku",
-          "title"
-        ]
-      },
-      "Shipment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "orderId": {
-            "type": "string"
-          },
-          "carrier": {
-            "type": "string"
-          },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ShipmentCreate": {
-        "type": "object",
-        "properties": {
-          "orderId": {
-            "type": "string"
-          },
-          "carrier": {
-            "type": "string"
-          },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "carrier",
-          "tracking"
-        ]
-      },
-      "SearchIndex": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "recordCount": {
-            "type": "integer"
-          },
-          "primaryKey": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SearchIndexCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "recordCount": {
-            "type": "integer"
-          },
-          "primaryKey": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "recordCount"
+          "entries"
         ]
       },
-      "Webhook": {
+      "ApiKey": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "event": {
+          "value": {
             "type": "string"
           },
-          "url": {
+          "description": {
             "type": "string"
           },
-          "active": {
+          "maxHitsPerQuery": {
+            "type": "integer"
+          },
+          "maxQueriesPerIPPerHour": {
+            "type": "integer"
+          },
+          "validity": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ApiKeyCreate": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "maxHitsPerQuery": {
+            "type": "integer"
+          },
+          "maxQueriesPerIPPerHour": {
+            "type": "integer"
+          },
+          "validity": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value",
+          "description"
+        ]
+      },
+      "Synonym": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "objectID": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "synonym",
+              "onewaysynonym",
+              "altcorrection1",
+              "altcorrection2",
+              "placeholder"
+            ]
+          },
+          "input": {
+            "type": "string"
+          },
+          "word": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "replacements": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SynonymCreate": {
+        "type": "object",
+        "properties": {
+          "objectID": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "synonym",
+              "onewaysynonym",
+              "altcorrection1",
+              "altcorrection2",
+              "placeholder"
+            ]
+          },
+          "input": {
+            "type": "string"
+          },
+          "word": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "replacements": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "objectID",
+          "type"
+        ]
+      },
+      "Rule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "objectID": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1355,41 +1189,39 @@
           }
         }
       },
-      "WebhookCreate": {
+      "RuleCreate": {
         "type": "object",
         "properties": {
-          "event": {
+          "objectID": {
             "type": "string"
           },
-          "url": {
+          "description": {
             "type": "string"
           },
-          "active": {
+          "enabled": {
             "type": "boolean"
           }
         },
         "required": [
-          "event",
-          "url"
+          "objectID",
+          "description"
         ]
       },
-      "Order": {
+      "Task": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
+          "taskID": {
+            "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "published",
+              "notPublished"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1401,25 +1233,23 @@
           }
         }
       },
-      "OrderCreate": {
+      "TaskCreate": {
         "type": "object",
         "properties": {
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
+          "taskID": {
+            "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "published",
+              "notPublished"
+            ]
           }
         },
         "required": [
-          "number",
-          "total"
+          "taskID",
+          "status"
         ]
       }
     }

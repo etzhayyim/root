@@ -121,6 +121,8 @@ def create_pipeline(request):
     err = _require(data, ['id', 'number'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['created', 'errored', 'setup-pending', 'setup', 'pending']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'errored', 'setup-pending', 'setup', 'pending']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("circleci_pip")}
     rec["id"] = data.get('id')
     rec["number"] = _as_int(data.get('number'))
@@ -162,6 +164,8 @@ def update_pipeline(request, eid):
     err = _reject_unknown(data, ['id', 'number', 'state', 'projectSlug', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['created', 'errored', 'setup-pending', 'setup', 'pending']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'errored', 'setup-pending', 'setup', 'pending']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -189,6 +193,8 @@ def create_workflow(request):
     err = _require(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("circleci_wor")}
     rec["id"] = data.get('id')
     rec["pipelineId"] = data.get('pipelineId')
@@ -232,6 +238,8 @@ def update_workflow(request, eid):
     err = _reject_unknown(data, ['id', 'pipelineId', 'name', 'status', 'startedBy', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -259,6 +267,8 @@ def create_job(request):
     err = _require(data, ['id', 'jobNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("circleci_job")}
     rec["id"] = data.get('id')
     rec["jobNumber"] = _as_int(data.get('jobNumber'))
@@ -303,6 +313,8 @@ def update_job(request, eid):
     err = _reject_unknown(data, ['id', 'jobNumber', 'name', 'status', 'duration', 'workflowId', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

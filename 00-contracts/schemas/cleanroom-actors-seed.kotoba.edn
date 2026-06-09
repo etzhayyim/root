@@ -311,11 +311,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible headless commerce / logistics actor (algolia); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "algolia.kotoba"
-   :actor/wasm-cid "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue"
+   :actor/wasm-cid "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:algolia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:algolia-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:algolia-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "alienvault-compat"
    :actor/did "did:web:etzhayyim.com:actor:alienvault-compat"
    :actor/kind :compat
@@ -4185,11 +4185,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible media / video / CMS actor (fastly); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "fastly.kotoba"
-   :actor/wasm-cid "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau"
+   :actor/wasm-cid "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:fastly-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:fastly-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:fastly-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "fatf-compat"
    :actor/did "did:web:etzhayyim.com:actor:fatf-compat"
    :actor/kind :compat

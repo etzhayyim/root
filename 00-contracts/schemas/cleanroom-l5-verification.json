@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 63,
+  "count": 65,
   "actors": [
     {
       "handle": "square-compat",
@@ -8452,7 +8452,7 @@
       "verifiedAt": "2026-06-09",
       "tier": "L5",
       "source": "https://circleci.com/api/v2/openapi.json",
-      "remodeled": "Remodeled from generic devtools_saas to a faithful CircleCI v2 model. Fields verified against the official openapi.json. PARTIAL: enum sets intentionally NOT enforced — the fetch returned a reduced Workflow.status/Pipeline.state vs the documented set (missing on_hold/failing/not_run), so enforcing would false-reject valid API values. Recorded as gaps; honesty over coverage.",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful CircleCI v2 model, verified against the official openapi.json. UPGRADED from partial: a targeted re-fetch confirmed the FULL enum arrays (Workflow.status 9, Pipeline.state 5, Job.status 14) directly from the spec component schemas, so they are now enforced.",
       "resources": [
         {
           "entity": "Pipeline",
@@ -8465,11 +8465,17 @@
             "createdAt",
             "updatedAt"
           ],
-          "fieldStatus": "fields confirmed; state enum not exhaustively confirmed -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "state-enum-not-exhaustive"
-          ]
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "created",
+              "errored",
+              "setup-pending",
+              "setup",
+              "pending"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Workflow",
@@ -8483,11 +8489,21 @@
             "createdAt",
             "stoppedAt"
           ],
-          "fieldStatus": "fields confirmed; status enum appeared reduced (missing on_hold/failing/not_run) -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "status-enum-not-exhaustive"
-          ]
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "success",
+              "canceled",
+              "error",
+              "failed",
+              "failing",
+              "not_run",
+              "on_hold",
+              "running",
+              "unauthorized"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Job",
@@ -8502,11 +8518,26 @@
             "createdAt",
             "stoppedAt"
           ],
-          "fieldStatus": "fields confirmed; status enum not exhaustively confirmed -> not enforced",
-          "discoveredEnums": {},
-          "gaps": [
-            "status-enum-not-exhaustive"
-          ]
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "success",
+              "running",
+              "not_run",
+              "failed",
+              "retried",
+              "queued",
+              "not_running",
+              "infrastructure_fail",
+              "timedout",
+              "on_hold",
+              "terminated-unknown",
+              "blocked",
+              "canceled",
+              "unauthorized"
+            ]
+          },
+          "gaps": []
         },
         {
           "entity": "Project",
@@ -8538,7 +8569,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "PARTIAL: 5/5 entity SCHEMAS verified vs official CircleCI v2 openapi.json; ZERO enums enforced (status/state sets not exhaustively confirmed — refused to enforce an incomplete enum that would false-reject valid values). A clean re-fetch of the full status enums is the recorded follow-up."
+      "note": "FULLY VERIFIED (5/5) vs official CircleCI v2 openapi.json. Enforced enums (re-fetch-confirmed exhaustive): Pipeline.state(5), Workflow.status(9), Job.status(14) = 3 enums. Closes the partial-enum gap logged in the prior round."
     },
     {
       "handle": "linode-compat",
@@ -8846,6 +8877,216 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Heroku Platform API schema. Enforced enums: Dyno.state(5), Addon.state(3), Build.status(3) = 3 enums. Dyno/Formation size are extensible (no closed enum) -> intentionally not enforced."
+    },
+    {
+      "handle": "fastly-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://developer.fastly.com/reference/api",
+      "remodeled": "Remodeled from generic iaas_cloud to a faithful Fastly model. Fields verified against official Fastly API docs. PARTIAL: Fastly publishes no closed enum arrays in its docs and the OpenAPI yaml was unreachable, so ZERO enums are enforced (none fabricated).",
+      "resources": [
+        {
+          "entity": "Service",
+          "source": "https://developer.fastly.com/reference/api/services/service",
+          "verifiedFields": [
+            "id",
+            "name",
+            "type",
+            "customerId",
+            "comment",
+            "paused",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "fields confirmed; type not documented as a closed array -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum-not-published"
+          ]
+        },
+        {
+          "entity": "Version",
+          "source": "https://developer.fastly.com/reference/api/services/version",
+          "verifiedFields": [
+            "id",
+            "serviceId",
+            "number",
+            "active",
+            "locked",
+            "deployed",
+            "staging",
+            "comment",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "environments"
+          ]
+        },
+        {
+          "entity": "Backend",
+          "source": "https://developer.fastly.com/reference/api/services/backend",
+          "verifiedFields": [
+            "name",
+            "serviceId",
+            "versionNumber",
+            "hostname",
+            "port",
+            "comment"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "shieldRegion-enum-not-published"
+          ]
+        },
+        {
+          "entity": "Domain",
+          "source": "https://developer.fastly.com/reference/api/services/domain",
+          "verifiedFields": [
+            "id",
+            "serviceId",
+            "fqdn",
+            "description",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Dictionary",
+          "source": "https://developer.fastly.com/reference/api/services/dictionary",
+          "verifiedFields": [
+            "name",
+            "serviceId",
+            "versionNumber",
+            "description",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "PARTIAL: 5/5 entity SCHEMAS verified vs official Fastly API docs; ZERO enums enforced (Fastly docs publish no closed enum arrays; OpenAPI yaml unreachable). Honesty over coverage — no enum fabricated."
+    },
+    {
+      "handle": "algolia-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search",
+      "remodeled": "Remodeled from generic ai_ml/search to a faithful Algolia model, verified against the official Algolia OpenAPI specs. Array/object fields (acl list, replicas, synonyms, conditions, consequence) dropped — actor models scalar fields only.",
+      "resources": [
+        {
+          "entity": "Index",
+          "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search/common/schemas/listIndicesResponse.yml",
+          "verifiedFields": [
+            "name",
+            "entries",
+            "dataSize",
+            "fileSize",
+            "lastBuildTimeS",
+            "numberOfPendingTasks",
+            "pendingTask",
+            "virtual",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "primary",
+            "replicas(array)"
+          ]
+        },
+        {
+          "entity": "ApiKey",
+          "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search/paths/keys/common/schemas.yml",
+          "verifiedFields": [
+            "value",
+            "description",
+            "maxHitsPerQuery",
+            "maxQueriesPerIPPerHour",
+            "validity"
+          ],
+          "fieldStatus": "fields confirmed; acl is an array of 23 ACL values (not a scalar field) -> not enforced as a field enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "acl(array-of-23)",
+            "indexes(array)",
+            "referers(array)"
+          ]
+        },
+        {
+          "entity": "Synonym",
+          "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search/paths/synonyms/common/schemas.yml",
+          "verifiedFields": [
+            "objectID",
+            "type",
+            "input",
+            "word",
+            "placeholder",
+            "replacements"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "synonym",
+              "onewaysynonym",
+              "altcorrection1",
+              "altcorrection2",
+              "placeholder"
+            ]
+          },
+          "gaps": [
+            "synonyms(array)",
+            "corrections(array)"
+          ]
+        },
+        {
+          "entity": "Rule",
+          "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search/paths/rules/common/schemas.yml",
+          "verifiedFields": [
+            "objectID",
+            "description",
+            "enabled"
+          ],
+          "fieldStatus": "confirmed; anchoring is a nested condition field (not top-level) -> not enforced here",
+          "discoveredEnums": {},
+          "gaps": [
+            "conditions(array)",
+            "consequence(object)"
+          ]
+        },
+        {
+          "entity": "Task",
+          "source": "https://github.com/algolia/api-clients-automation/tree/main/specs/search/common/schemas/GetTaskResponse.yml",
+          "verifiedFields": [
+            "taskID",
+            "status"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "published",
+              "notPublished"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [
+        {
+          "entity": "Record",
+          "reason": "Algolia records are schemaless JSON; only guaranteed field is objectID"
+        }
+      ],
+      "note": "FULLY VERIFIED (5/5 modeled entities) vs official Algolia OpenAPI specs. Enforced enums: Synonym.type(5 canonical lowercase), Task.status(2) = 2. ApiKey.acl(23) is array-valued + Rule.anchoring is nested -> intentionally NOT enforced as scalar field enums."
     }
   ]
 }

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 937,
-    "L5": 63
+    "L4": 935,
+    "L5": 65
   },
   "actors": [
     {
@@ -413,10 +413,10 @@
     {
       "handle": "algolia-compat",
       "did": "did:web:etzhayyim.com:actor:algolia-compat",
-      "wasmCid": "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+      "wasmCid": "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "algolia clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -5777,10 +5777,10 @@
     {
       "handle": "fastly-compat",
       "did": "did:web:etzhayyim.com:actor:fastly-compat",
-      "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+      "wasmCid": "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fastly clean-room actor",
       "category": "media_video_cms",
       "capabilities": [

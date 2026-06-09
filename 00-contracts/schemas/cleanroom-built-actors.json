@@ -390,17 +390,16 @@
       "handle": "algolia-compat",
       "platform": "algolia",
       "bytes": 2121,
-      "wasmCid": "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+      "wasmCid": "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Index",
+        "ApiKey",
+        "Synonym",
+        "Rule",
+        "Task"
       ]
     },
     {
@@ -5453,17 +5452,16 @@
       "handle": "fastly-compat",
       "platform": "fastly",
       "bytes": 2120,
-      "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+      "wasmCid": "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Asset",
-        "Rendition",
-        "Channel",
-        "Playlist",
-        "ContentEntry",
-        "Experiment"
+        "Service",
+        "Version",
+        "Backend",
+        "Domain",
+        "Dictionary"
       ]
     },
     {

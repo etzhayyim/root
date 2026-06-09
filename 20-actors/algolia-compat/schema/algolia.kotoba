@@ -3,71 +3,60 @@
 
 namespace algolia {
 
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Product {
-        id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Shipment {
-        id: string @unique
-        orderId: string
-        carrier: string
-        tracking: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity SearchIndex {
+    entity Index {
         id: string @unique
         name: string
-        recordCount: integer
-        primaryKey: string
+        entries: integer
+        dataSize: integer
+        fileSize: integer
+        lastBuildTimeS: integer
+        numberOfPendingTasks: integer
+        pendingTask: boolean
+        virtual: boolean
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity ApiKey {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        value: string
+        description: string
+        maxHitsPerQuery: integer
+        maxQueriesPerIPPerHour: integer
+        validity: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity Synonym {
         id: string @unique
-        number: string
-        total: float
-        currency: string
+        objectID: string
+        type: string
+        input: string
+        word: string
+        placeholder: string
+        replacements: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Rule {
+        id: string @unique
+        objectID: string
+        description: string
+        enabled: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Task {
+        id: string @unique
+        taskID: integer
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

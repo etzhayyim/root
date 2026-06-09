@@ -5,21 +5,31 @@
   "kind": "compat",
   "title": "fastly clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (fastly); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+  "wasmCid": "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+  "ipfs": "ipfs://bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
   "schema": "schema/fastly.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.fastly.com/reference/api",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Service",
+      "Version",
+      "Backend",
+      "Domain",
+      "Dictionary"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Asset",
-    "Rendition",
-    "Channel",
-    "Playlist",
-    "ContentEntry",
-    "Experiment"
+    "Service",
+    "Version",
+    "Backend",
+    "Domain",
+    "Dictionary"
   ],
   "adr": [
     "260607",
@@ -31,157 +41,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/services",
+          "op": "create Service"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/services",
+          "op": "list Service"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/services/{id}",
+          "op": "get Service"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/services/{id}",
+          "op": "update Service"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/services/{id}",
+          "op": "delete Service"
         },
         {
           "method": "POST",
-          "path": "/v1/renditions",
-          "op": "create Rendition"
+          "path": "/v1/versions",
+          "op": "create Version"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions",
-          "op": "list Rendition"
+          "path": "/v1/versions",
+          "op": "list Version"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions/{id}",
-          "op": "get Rendition"
+          "path": "/v1/versions/{id}",
+          "op": "get Version"
         },
         {
           "method": "PATCH",
-          "path": "/v1/renditions/{id}",
-          "op": "update Rendition"
+          "path": "/v1/versions/{id}",
+          "op": "update Version"
         },
         {
           "method": "DELETE",
-          "path": "/v1/renditions/{id}",
-          "op": "delete Rendition"
+          "path": "/v1/versions/{id}",
+          "op": "delete Version"
         },
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/backends",
+          "op": "create Backend"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/backends",
+          "op": "list Backend"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/backends/{id}",
+          "op": "get Backend"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/backends/{id}",
+          "op": "update Backend"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/backends/{id}",
+          "op": "delete Backend"
         },
         {
           "method": "POST",
-          "path": "/v1/playlists",
-          "op": "create Playlist"
+          "path": "/v1/domains",
+          "op": "create Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists",
-          "op": "list Playlist"
+          "path": "/v1/domains",
+          "op": "list Domain"
         },
         {
           "method": "GET",
-          "path": "/v1/playlists/{id}",
-          "op": "get Playlist"
+          "path": "/v1/domains/{id}",
+          "op": "get Domain"
         },
         {
           "method": "PATCH",
-          "path": "/v1/playlists/{id}",
-          "op": "update Playlist"
+          "path": "/v1/domains/{id}",
+          "op": "update Domain"
         },
         {
           "method": "DELETE",
-          "path": "/v1/playlists/{id}",
-          "op": "delete Playlist"
+          "path": "/v1/domains/{id}",
+          "op": "delete Domain"
         },
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/dictionaries",
+          "op": "create Dictionary"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/dictionaries",
+          "op": "list Dictionary"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/dictionaries/{id}",
+          "op": "get Dictionary"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/dictionaries/{id}",
+          "op": "update Dictionary"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/experiments",
-          "op": "create Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments",
-          "op": "list Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments/{id}",
-          "op": "get Experiment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/experiments/{id}",
-          "op": "update Experiment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/experiments/{id}",
-          "op": "delete Experiment"
+          "path": "/v1/dictionaries/{id}",
+          "op": "delete Dictionary"
         }
       ],
       "features": {
@@ -244,44 +229,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
+          "name": "create_service",
+          "description": "Create a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "durationMs": {
-                "type": "integer"
+              "customerId": {
+                "type": "string"
               },
-              "contentRef": {
+              "comment": {
+                "type": "string"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "title",
-              "type"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_assets",
-          "description": "List Assets.",
+          "name": "list_services",
+          "description": "List Services.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
+          "name": "get_service",
+          "description": "Get a Service by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +292,33 @@
           }
         },
         {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_service",
+          "description": "Update a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "durationMs": {
-                "type": "integer"
+              "customerId": {
+                "type": "string"
               },
-              "contentRef": {
+              "comment": {
+                "type": "string"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
@@ -322,8 +328,8 @@
           }
         },
         {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
+          "name": "delete_service",
+          "description": "Delete a Service.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +343,56 @@
           }
         },
         {
-          "name": "create_rendition",
-          "description": "Create a Rendition.",
+          "name": "create_version",
+          "description": "Create a Version.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "assetId": {
+              "id": {
                 "type": "string"
               },
-              "format": {
+              "serviceId": {
                 "type": "string"
               },
-              "bitrate": {
+              "number": {
                 "type": "integer"
               },
-              "contentRef": {
+              "active": {
+                "type": "boolean"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "deployed": {
+                "type": "boolean"
+              },
+              "staging": {
+                "type": "boolean"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "format",
-              "bitrate"
+              "id",
+              "number"
             ]
           }
         },
         {
-          "name": "list_renditions",
-          "description": "List Renditions.",
+          "name": "list_versions",
+          "description": "List Versions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_rendition",
-          "description": "Get a Rendition by id.",
+          "name": "get_version",
+          "description": "Get a Version by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +406,36 @@
           }
         },
         {
-          "name": "update_rendition",
-          "description": "Update a Rendition.",
+          "name": "update_version",
+          "description": "Update a Version.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "assetId": {
+              "serviceId": {
                 "type": "string"
               },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
+              "number": {
                 "type": "integer"
               },
-              "contentRef": {
+              "active": {
+                "type": "boolean"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "deployed": {
+                "type": "boolean"
+              },
+              "staging": {
+                "type": "boolean"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -412,8 +445,8 @@
           }
         },
         {
-          "name": "delete_rendition",
-          "description": "Delete a Rendition.",
+          "name": "delete_version",
+          "description": "Delete a Version.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,38 +460,149 @@
           }
         },
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_backend",
+          "description": "Create a Backend.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "versionNumber": {
+                "type": "integer"
+              },
+              "hostname": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "versionNumber"
+            ]
+          }
+        },
+        {
+          "name": "list_backends",
+          "description": "List Backends.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_backend",
+          "description": "Get a Backend by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_backend",
+          "description": "Update a Backend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "versionNumber": {
+                "type": "integer"
+              },
+              "hostname": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_backend",
+          "description": "Delete a Backend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_domain",
+          "description": "Create a Domain.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "serviceId": {
+                "type": "string"
+              },
+              "fqdn": {
                 "type": "string"
               },
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "description"
+              "id",
+              "fqdn"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_domains",
+          "description": "List Domains.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_domain",
+          "description": "Get a Domain by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,22 +616,28 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_domain",
+          "description": "Update a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "serviceId": {
+                "type": "string"
+              },
+              "fqdn": {
                 "type": "string"
               },
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -496,8 +646,8 @@
           }
         },
         {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
+          "name": "delete_domain",
+          "description": "Delete a Domain.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,212 +661,47 @@
           }
         },
         {
-          "name": "create_playlist",
-          "description": "Create a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "title",
-              "itemCount"
-            ]
-          }
-        },
-        {
-          "name": "list_playlists",
-          "description": "List Playlists.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_playlist",
-          "description": "Get a Playlist by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_playlist",
-          "description": "Update a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_playlist",
-          "description": "Delete a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_experiment",
-          "description": "Create a Experiment.",
+          "name": "create_dictionary",
+          "description": "Create a Dictionary.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "variant": {
+              "serviceId": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "versionNumber": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "variant"
+              "versionNumber"
             ]
           }
         },
         {
-          "name": "list_experiments",
-          "description": "List Experiments.",
+          "name": "list_dictionaries",
+          "description": "List Dictionaries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_experiment",
-          "description": "Get a Experiment by id.",
+          "name": "get_dictionary",
+          "description": "Get a Dictionary by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,8 +715,8 @@
           }
         },
         {
-          "name": "update_experiment",
-          "description": "Update a Experiment.",
+          "name": "update_dictionary",
+          "description": "Update a Dictionary.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -741,11 +726,20 @@
               "name": {
                 "type": "string"
               },
-              "variant": {
+              "serviceId": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "versionNumber": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -754,8 +748,8 @@
           }
         },
         {
-          "name": "delete_experiment",
-          "description": "Delete a Experiment.",
+          "name": "delete_dictionary",
+          "description": "Delete a Dictionary.",
           "inputSchema": {
             "type": "object",
             "properties": {

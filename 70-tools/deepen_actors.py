@@ -1365,6 +1365,24 @@ PLATFORM_OVERRIDES = {
         "Build": E(id="string", status="string", app="string", createdAt="datetime", updatedAt="datetime"),
         "Formation": E(id="string", quantity="integer", size="string", type="string", createdAt="datetime"),
     },
+    # Faithful Fastly model — fields verified against official Fastly API docs
+    # (developer.fastly.com). PARTIAL: Fastly docs publish no closed enum arrays.
+    "fastly": {
+        "Service": E(id="string", name="string", type="string", customerId="string", comment="string", paused="boolean", createdAt="datetime", updatedAt="datetime"),
+        "Version": E(id="string", serviceId="string", number="integer", active="boolean", locked="boolean", deployed="boolean", staging="boolean", comment="string", createdAt="datetime"),
+        "Backend": E(name="string", serviceId="string", versionNumber="integer", hostname="string", port="integer", comment="string"),
+        "Domain": E(id="string", serviceId="string", fqdn="string", description="string", createdAt="datetime", updatedAt="datetime"),
+        "Dictionary": E(name="string", serviceId="string", versionNumber="integer", description="string", createdAt="datetime", updatedAt="datetime"),
+    },
+    # Faithful Algolia model — verified against the official Algolia OpenAPI
+    # (github.com/algolia/api-clients-automation specs/). Array/object fields dropped.
+    "algolia": {
+        "Index": E(name="string", entries="integer", dataSize="integer", fileSize="integer", lastBuildTimeS="integer", numberOfPendingTasks="integer", pendingTask="boolean", virtual="boolean", createdAt="datetime", updatedAt="datetime"),
+        "ApiKey": E(value="string", description="string", maxHitsPerQuery="integer", maxQueriesPerIPPerHour="integer", validity="integer"),
+        "Synonym": E(objectID="string", type="string", input="string", word="string", placeholder="string", replacements="string"),
+        "Rule": E(objectID="string", description="string", enabled="boolean"),
+        "Task": E(taskID="integer", status="string"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {
