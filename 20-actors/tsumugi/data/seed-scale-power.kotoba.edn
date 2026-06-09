@@ -203,4 +203,27 @@
  {:tie/id "tie.detroit.press.city" :tie/kind :covers :tie/from "org.press.us.detroit-free-press" :tie/to "org.gov.us.detroit" :tie/grasping-load 0.40 :tie/sources ["Detroit Free Press city-hall coverage" "public archives"] :tie/sourcing :representative}
  ;; 系列 (keiretsu): holding custodies two subsidiaries
  {:tie/id "tie.kx.hold.sub1" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx1" :tie/grasping-load 0.78 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}
- {:tie/id "tie.kx.hold.sub2" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx2" :tie/grasping-load 0.72 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}]
+ {:tie/id "tie.kx.hold.sub2" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx2" :tie/grasping-load 0.72 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 6 (/loop): NEW cluster TYPES — financial center + science park ═══════════
+ ;; (18) City of London — a FINANCIAL-center weave (官金報), distinct from company towns; first :kin
+ {:pwr/id "org.gov.uk.boe" :pwr/label "Bank of England (central bank / regulator)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kan :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.uk.city-corp" :pwr/label "City of London Corporation (Square Mile local gov)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "uk.london.city" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.fin.uk.lse" :pwr/label "London Stock Exchange + major banks" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kin :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.uk.ft" :pwr/label "Financial Times" :pwr/standing :institutional :pwr/scale :national :pwr/sector :hou :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (19) Hsinchu Science Park — a 産官学 science-park cluster (TSMC + park admin + universities)
+ {:pwr/id "org.gov.tw.hsinchu-park" :pwr/label "新竹科學園區 管理局 (park administration)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "tw.hsinchu" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.corp.tw.tsmc-hsinchu" :pwr/label "TSMC (Hsinchu fabs + HQ)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "tw.hsinchu" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.univ.tw.nycu-nthu" :pwr/label "陽明交通大学 / 清華大学 (Hsinchu)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "tw.hsinchu" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 6 ties ─────────────
+ ;; City of London (官金報) — regulator oversight + local-gov hosting + financial press
+ {:tie/id "tie.london.boe.lse" :tie/kind :custodies :tie/from "org.gov.uk.boe" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.72 :tie/sources ["Bank of England regulatory mandate (public)" "PRA/FCA public records"] :tie/sourcing :representative}
+ {:tie/id "tie.london.city.lse" :tie/kind :employs :tie/from "org.gov.uk.city-corp" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.60 :tie/sources ["City of London Corporation public data" "Square Mile employment statistics (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.london.ft.lse" :tie/kind :covers :tie/from "org.press.uk.ft" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.44 :tie/sources ["Financial Times markets coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.london.ft.boe" :tie/kind :covers :tie/from "org.press.uk.ft" :tie/to "org.gov.uk.boe" :tie/grasping-load 0.42 :tie/sources ["Financial Times BoE coverage" "public archives"] :tie/sourcing :representative}
+ ;; Hsinchu (産官学)
+ {:tie/id "tie.hsinchu.tsmc.depends" :tie/kind :depends-on :tie/from "org.corp.tw.tsmc-hsinchu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.68 :tie/sources ["Hsinchu Science Park public records" "TSMC annual report (Hsinchu sites)"] :tie/sourcing :representative}
+ {:tie/id "tie.hsinchu.u.depends" :tie/kind :depends-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.corp.tw.tsmc-hsinchu" :tie/grasping-load 0.52 :tie/sources ["university–industry public collaboration records" "TSMC talent-pipeline public info"] :tie/sourcing :representative}
+ {:tie/id "tie.hsinchu.u.park" :tie/kind :seats-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.46 :tie/sources ["park advisory committee public roster" "public records"] :tie/sourcing :representative}]
