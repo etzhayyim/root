@@ -23200,6 +23200,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics.md",
+      "id": "adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
+      "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsumugi-scale-banner-power-dynamics",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsumugi-scale-agnostic-power-dynamics",
+        "tsumugi-hata-banner-ideology-faction"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane",
+        "adr-2605301600-danjo-public-accountability",
+        "adr-2605302300-kanae-fiscal-flow-visualization"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2606061500-tsumugi-diachronic-influence-history",
+        "adr-2606011000-engi-knowledge-graph",
+        "adr-2606011500-spirit-ontology",
+        "adr-2605081300-edge-primary-karma",
+        "adr-2606042330-entity-as-actor-mirror",
+        "adr-2606066000-keizu-government-power-relations",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

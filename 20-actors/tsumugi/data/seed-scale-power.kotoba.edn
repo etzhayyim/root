@@ -1,0 +1,258 @@
+;; tsumugi 紡ぎ — seed scale-power graph (A): scale-agnostic 産官学報 concentration.
+;; ADR-2606092000 · vocab = power-scale-ontology.kotoba.edn
+;;
+;; SCOPE GUARD (S2/S4/S5/S6): institutions + PUBLIC SEATS only (never a private person);
+;; every tie ≥2 public sources; :representative; structural facts only (a plant exists, a
+;; paper is the local paper, an org is in the prefecture) — NEVER a verdict (癒着/談合
+;; unrepresentable) and NEVER a target-list. The "concentration" is the edge-primary
+;; integral of cross-sector co-location, routed to OPENING.
+;;
+;; Three instances, three scales — to show the SAME lens runs everywhere:
+;;   (1) jp.nagasaki  — :local/:regional cross-sector cluster (産官学報) — the flagship case
+;;   (2) jp.gakkai-x  — :intra-org — a 学会 (academic society) board + its journal seat
+;;   (3) jp.keiretsu  — :national — a corporate group (reuses tsumugi seed-power-graph shape)
+
+[;; ───────────────────────── (1) 長崎 local cross-sector cluster ─────────────────────────
+ ;; 産 industry — Mitsubishi Heavy Industries' Nagasaki Shipyard is a public, documented plant.
+ {:pwr/id "org.plant.jp.mhi-nagasaki" :pwr/label "三菱重工 長崎造船所 (plant)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.nagasaki" :pwr/parent "org.corp.jp.7011" :pwr/sourcing :representative}
+ ;; 官 government — the prefecture + a public advisory-council SEAT (not a person)
+ {:pwr/id "org.gov.jp.nagasaki-ken" :pwr/label "長崎県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.nagasaki.shingikai-industry" :pwr/label "長崎県 産業振興審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.nagasaki" :pwr/parent "org.gov.jp.nagasaki-ken" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ ;; 学 academia — the local national university
+ {:pwr/id "org.univ.jp.nagasaki-u" :pwr/label "長崎大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
+ ;; 報 press — the prefecture's local newspaper
+ {:pwr/id "org.press.jp.nagasaki-shimbun" :pwr/label "長崎新聞" :pwr/standing :institutional :pwr/scale :local :pwr/sector :hou :pwr/locality "jp.nagasaki" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── (2) 学会 intra-org (academic society) ─────────────────────────
+ {:pwr/id "org.gakkai.jp.x" :pwr/label "(representative) 学会X — academic society" :pwr/standing :institutional :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/sourcing :representative}
+ {:pwr/id "seat.gakkai.jp.x.board" :pwr/label "学会X — 理事 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/parent "org.gakkai.jp.x" :pwr/sourcing :representative}
+ {:pwr/id "seat.gakkai.jp.x.editor" :pwr/label "学会X — 機関誌 編集委員 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakkai-x" :pwr/parent "org.gakkai.jp.x" :pwr/sourcing :representative}
+ ;; an industry sponsor co-located with the society's intra-org world (産↔学 tie)
+ {:pwr/id "org.corp.jp.gakkai-x-sponsor" :pwr/label "(representative) 学会X 賛助会員企業" :pwr/standing :institutional :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.gakkai-x" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── (3) national keiretsu (compact) ─────────────────────────
+ {:pwr/id "org.corp.jp.7011" :pwr/label "Mitsubishi Heavy Industries" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp" :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.meti" :pwr/label "METI (経済産業省)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kan :pwr/locality "jp" :pwr/sourcing :representative}
+
+ ;; ───────────────────────── 縁 (ties) — S1 edge-primary, S5 factual kinds ─────────────────────────
+ ;; (1) 長崎 cross-sector ties — co-location woven into one local power fabric
+ {:tie/id "tie.nagasaki.mhi.employs" :tie/kind :employs   :tie/from "org.plant.jp.mhi-nagasaki" :tie/to "org.gov.jp.nagasaki-ken" :tie/grasping-load 0.72 :tie/sources ["MHI corporate site — Nagasaki Shipyard" "長崎県 統計年鑑 — 製造業従業者"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.mhi.seats" :tie/kind :seats-on  :tie/from "org.plant.jp.mhi-nagasaki" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.58 :tie/sources ["長崎県 審議会 委員名簿 (公開)" "長崎県 産業振興審議会 設置要綱"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.ken.seats" :tie/kind :co-member :tie/from "org.gov.jp.nagasaki-ken" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.50 :tie/sources ["長崎県 審議会 設置要綱" "長崎県 例規集"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.u.seats" :tie/kind :seats-on  :tie/from "org.univ.jp.nagasaki-u" :tie/to "seat.gov.jp.nagasaki.shingikai-industry" :tie/grasping-load 0.46 :tie/sources ["長崎県 審議会 委員名簿 (公開)" "長崎大学 教員 公務 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.nagasaki-u" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.44 :tie/sources ["長崎大学 産学連携 公開資料" "共同研究 公表実績"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.press.covers" :tie/kind :covers :tie/from "org.press.jp.nagasaki-shimbun" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.40 :tie/sources ["長崎新聞 紙面 (地域経済面)" "長崎新聞 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.nagasaki-shimbun" :tie/to "org.gov.jp.nagasaki-ken" :tie/grasping-load 0.42 :tie/sources ["長崎新聞 紙面 (県政面)" "長崎県 記者クラブ 公開情報"] :tie/sourcing :representative}
+
+ ;; (2) 学会 intra-org ties — faction structure shown STRUCTURALLY (seats under one org)
+ {:tie/id "tie.gakkai.board" :tie/kind :co-member :tie/from "org.gakkai.jp.x" :tie/to "seat.gakkai.jp.x.board" :tie/grasping-load 0.55 :tie/sources ["学会X 定款 (公開)" "学会X 理事名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.editor" :tie/kind :co-member :tie/from "org.gakkai.jp.x" :tie/to "seat.gakkai.jp.x.editor" :tie/grasping-load 0.50 :tie/sources ["学会X 機関誌 編集規程 (公開)" "学会X 編集委員名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.board.editor" :tie/kind :co-member :tie/from "seat.gakkai.jp.x.board" :tie/to "seat.gakkai.jp.x.editor" :tie/grasping-load 0.48 :tie/sources ["学会X 役員名簿 (公開)" "学会X 編集委員名簿 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakkai.sponsor" :tie/kind :funds :tie/from "org.corp.jp.gakkai-x-sponsor" :tie/to "org.gakkai.jp.x" :tie/grasping-load 0.52 :tie/sources ["学会X 賛助会員一覧 (公開)" "学会X 決算報告 (公開)"] :tie/sourcing :representative}
+
+ ;; (3) national keiretsu ties
+ {:tie/id "tie.kr.mhi.parent" :tie/kind :custodies  :tie/from "org.corp.jp.7011" :tie/to "org.plant.jp.mhi-nagasaki" :tie/grasping-load 0.80 :tie/sources ["MHI 有価証券報告書" "MHI 事業所一覧 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.kr.meti.mhi"   :tie/kind :awards     :tie/from "org.gov.jp.meti" :tie/to "org.corp.jp.7011" :tie/grasping-load 0.60 :tie/sources ["政府調達 公示 (公開)" "経済産業省 補助金 交付決定 (公開)"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 1 (ADR-2606092000 /loop): 社内派閥 · 学閥 · community ═══════════
+ ;; (4) 社内派閥 — two factions of public SEATS inside ONE corporation (not a roster of persons)
+ {:pwr/id "org.corp.jp.faction-host" :pwr/label "(representative) 大手企業Y" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.corpY" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "seat.corp.jp.Y.faction-a" :pwr/label "企業Y — 役員会 派閥A seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.corpY" :pwr/parent "org.corp.jp.faction-host" :pwr/collective-kind :intra-org-faction :pwr/sourcing :representative}
+ {:pwr/id "seat.corp.jp.Y.faction-b" :pwr/label "企業Y — 役員会 派閥B seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.corpY" :pwr/parent "org.corp.jp.faction-host" :pwr/collective-kind :intra-org-faction :pwr/sourcing :representative}
+
+ ;; (5) 学閥 — a cross-institution academic CLIQUE of public seats (co-located cluster key)
+ {:pwr/id "seat.univ.jp.A.chair" :pwr/label "(representative) 大学A — 学部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :academic-clique :pwr/sourcing :representative}
+ {:pwr/id "seat.univ.jp.B.chair" :pwr/label "(representative) 大学B — 学部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :gaku :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :academic-clique :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.ministry-council" :pwr/label "(representative) 中央省庁 審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :national :pwr/sector :kan :pwr/locality "jp.gakubatsu-x" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+
+ ;; (6) コミュニティ — a local cooperative + town hall + community paper (community scale)
+ {:pwr/id "org.coop.jp.communityX" :pwr/label "(representative) 地域協同組合X" :pwr/standing :institutional :pwr/scale :local :pwr/sector :min :pwr/locality "jp.communityX" :pwr/collective-kind :community :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.townX" :pwr/label "(representative) X町役場" :pwr/standing :institutional :pwr/scale :local :pwr/sector :kan :pwr/locality "jp.communityX" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.communityX" :pwr/label "(representative) X町 コミュニティ紙" :pwr/standing :institutional :pwr/scale :local :pwr/sector :hou :pwr/locality "jp.communityX" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 1 ties ─────────────
+ ;; 社内派閥: the two factions are tied to each other (rivalry/co-membership) + to outside patrons
+ {:tie/id "tie.Y.factions" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-a" :tie/to "seat.corp.jp.Y.faction-b" :tie/grasping-load 0.50 :tie/sources ["企業Y 有価証券報告書 役員一覧 (公開)" "企業Y コーポレートガバナンス報告書 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.Y.a.host" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-a" :tie/to "org.corp.jp.faction-host" :tie/grasping-load 0.55 :tie/sources ["企業Y 役員一覧 (公開)" "企業Y 招集通知 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.Y.b.host" :tie/kind :co-member :tie/from "seat.corp.jp.Y.faction-b" :tie/to "org.corp.jp.faction-host" :tie/grasping-load 0.55 :tie/sources ["企業Y 役員一覧 (公開)" "企業Y 招集通知 (公開)"] :tie/sourcing :representative}
+ ;; 学閥: the clique = cross-institution co-membership + a shared ministry council seat (学官 weave)
+ {:tie/id "tie.gakubatsu.AB" :tie/kind :co-member :tie/from "seat.univ.jp.A.chair" :tie/to "seat.univ.jp.B.chair" :tie/grasping-load 0.48 :tie/sources ["学会 役員名簿 (公開)" "共同研究 公表実績 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.gakubatsu.A.gov" :tie/kind :seats-on :tie/from "seat.univ.jp.A.chair" :tie/to "seat.gov.jp.ministry-council" :tie/grasping-load 0.52 :tie/sources ["審議会 委員名簿 (公開)" "省庁 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.gakubatsu.B.gov" :tie/kind :seats-on :tie/from "seat.univ.jp.B.chair" :tie/to "seat.gov.jp.ministry-council" :tie/grasping-load 0.46 :tie/sources ["審議会 委員名簿 (公開)" "省庁 公開資料"] :tie/sourcing :representative}
+ ;; コミュニティ: coop ↔ town hall ↔ community paper (民官報 local weave)
+ {:tie/id "tie.communityX.coop.town" :tie/kind :co-member :tie/from "org.coop.jp.communityX" :tie/to "org.gov.jp.townX" :tie/grasping-load 0.40 :tie/sources ["X町 広報 (公開)" "協同組合X 総会資料 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.communityX.press.coop" :tie/kind :covers :tie/from "org.press.jp.communityX" :tie/to "org.coop.jp.communityX" :tie/grasping-load 0.34 :tie/sources ["X町 コミュニティ紙 紙面 (公開)" "協同組合X 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 2 (/loop): more world coverage — real JP regional 産官学報 ═══════════
+ ;; (7) 愛知 — トヨタ城下町: the densest real domestic 産官学報 cluster (structural-public facts)
+ {:pwr/id "org.plant.jp.toyota-aichi" :pwr/label "トヨタ自動車 (愛知 本社・工場群)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.aichi" :pwr/parent "org.corp.jp.7203" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.aichi-ken" :pwr/label "愛知県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.aichi" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.aichi.shingikai" :pwr/label "愛知県 産業労働 審議会 — 委員 seat (public)" :pwr/standing :public-seat :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.aichi" :pwr/parent "org.gov.jp.aichi-ken" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.univ.jp.nagoya-u" :pwr/label "名古屋大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.aichi" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.chunichi" :pwr/label "中日新聞" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :hou :pwr/locality "jp.aichi" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (8) 広島 — マツダ城下町 (structural-public facts)
+ {:pwr/id "org.plant.jp.mazda-hiroshima" :pwr/label "マツダ (広島 本社・工場)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.jp.hiroshima-ken" :pwr/label "広島県 (県庁)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "jp.hiroshima" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.univ.jp.hiroshima-u" :pwr/label "広島大学" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.jp.chugoku-shimbun" :pwr/label "中国新聞" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :hou :pwr/locality "jp.hiroshima" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 2 ties ─────────────
+ ;; 愛知
+ {:tie/id "tie.aichi.toyota.employs" :tie/kind :employs :tie/from "org.plant.jp.toyota-aichi" :tie/to "org.gov.jp.aichi-ken" :tie/grasping-load 0.80 :tie/sources ["トヨタ 有価証券報告書 事業所" "愛知県 統計年鑑 製造業"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.toyota.seats" :tie/kind :seats-on :tie/from "org.plant.jp.toyota-aichi" :tie/to "seat.gov.jp.aichi.shingikai" :tie/grasping-load 0.62 :tie/sources ["愛知県 審議会 委員名簿 (公開)" "愛知県 産業労働部 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.u.seats" :tie/kind :seats-on :tie/from "org.univ.jp.nagoya-u" :tie/to "seat.gov.jp.aichi.shingikai" :tie/grasping-load 0.50 :tie/sources ["愛知県 審議会 委員名簿 (公開)" "名古屋大学 産学連携 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.nagoya-u" :tie/to "org.plant.jp.toyota-aichi" :tie/grasping-load 0.52 :tie/sources ["名古屋大学 共同研究 公表実績" "トヨタ 産学連携 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.press.covers" :tie/kind :covers :tie/from "org.press.jp.chunichi" :tie/to "org.plant.jp.toyota-aichi" :tie/grasping-load 0.44 :tie/sources ["中日新聞 紙面 (経済面)" "中日新聞社 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.aichi.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chunichi" :tie/to "org.gov.jp.aichi-ken" :tie/grasping-load 0.42 :tie/sources ["中日新聞 紙面 (県政面)" "愛知県 記者クラブ 公開情報"] :tie/sourcing :representative}
+ ;; 広島
+ {:tie/id "tie.hiroshima.mazda.employs" :tie/kind :employs :tie/from "org.plant.jp.mazda-hiroshima" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.70 :tie/sources ["マツダ 有価証券報告書 事業所" "広島県 統計年鑑 製造業"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.u.depends" :tie/kind :depends-on :tie/from "org.univ.jp.hiroshima-u" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.44 :tie/sources ["広島大学 産学連携 公開資料" "マツダ 共同研究 公表実績"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.press.covers" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.plant.jp.mazda-hiroshima" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (経済面)" "中国新聞社 社史 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.hiroshima.press.covers-ken" :tie/kind :covers :tie/from "org.press.jp.chugoku-shimbun" :tie/to "org.gov.jp.hiroshima-ken" :tie/grasping-load 0.40 :tie/sources ["中国新聞 紙面 (県政面)" "広島県 記者クラブ 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 3 (/loop): 市区町村・自治体・企業単位 (one scale below 県) ═══════════
+ ;; (9) 豊田市 — the flagship 企業城下町: 市名そのものが企業由来 (real structural-public facts).
+ ;;     municipal scale; トヨタ本社 holds :national power but sits IN 豊田市 → municipal dominance.
+ {:pwr/id "org.gov.jp.toyota-shi" :pwr/label "豊田市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.aichi.toyota-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "seat.gov.jp.toyota-shi.council" :pwr/label "豊田市議会 — 議員 seat (public)" :pwr/standing :public-seat :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.aichi.toyota-shi" :pwr/parent "org.gov.jp.toyota-shi" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.toyota-hq" :pwr/label "トヨタ自動車 本社 (豊田市)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.aichi.toyota-shi" :pwr/parent "org.corp.jp.7203" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.toyota" :pwr/label "豊田商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.aichi.toyota-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (10) 企業単位 — トヨタ本社 の社内・直近軌道 (事業部 seat + 労連; structural-public)
+ {:pwr/id "seat.corp.jp.toyota.division" :pwr/label "トヨタ — 事業部長 seat (public)" :pwr/standing :public-seat :pwr/scale :intra-org :pwr/sector :san :pwr/locality "jp.toyota-unit" :pwr/parent "org.corp.jp.toyota-hq" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.jp.toyota-roren" :pwr/label "全トヨタ労働組合連合会 (労連)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :min :pwr/locality "jp.toyota-unit" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (11) 長崎市 — 市区町村-level cluster distinct from the 長崎県 prefecture cluster
+ {:pwr/id "org.gov.jp.nagasaki-shi" :pwr/label "長崎市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.nagasaki" :pwr/label "長崎商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.nagasaki-local" :pwr/label "(representative) 長崎市 地元企業" :pwr/standing :institutional :pwr/scale :local :pwr/sector :san :pwr/locality "jp.nagasaki.nagasaki-shi" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 3 ties ─────────────
+ ;; 豊田市: 本社↔市役所↔商工会議所↔市議会 — the 企業城下町 municipal weave (産官民)
+ {:tie/id "tie.toyota-shi.hq.employs" :tie/kind :employs :tie/from "org.corp.jp.toyota-hq" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.88 :tie/sources ["トヨタ 有価証券報告書 本社所在地" "豊田市 統計書 製造業従業者・税収"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.hq.funds" :tie/kind :funds :tie/from "org.corp.jp.toyota-hq" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.66 :tie/sources ["豊田市 歳入 法人市民税 (公開)" "豊田市 財政状況資料集 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.hq.seats" :tie/kind :seats-on :tie/from "org.corp.jp.toyota-hq" :tie/to "seat.gov.jp.toyota-shi.council" :tie/grasping-load 0.50 :tie/sources ["豊田市 各種審議会 委員名簿 (公開)" "豊田市 公開資料"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.cci.hq" :tie/kind :co-member :tie/from "org.cci.jp.toyota" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.60 :tie/sources ["豊田商工会議所 会員・役員名簿 (公開)" "豊田商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.toyota" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.46 :tie/sources ["豊田市 産業政策 公開資料" "豊田商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-shi.council.city" :tie/kind :co-member :tie/from "seat.gov.jp.toyota-shi.council" :tie/to "org.gov.jp.toyota-shi" :tie/grasping-load 0.44 :tie/sources ["豊田市議会 会議録 (公開)" "豊田市 例規集 (公開)"] :tie/sourcing :representative}
+ ;; 企業単位: 事業部↔本社, 労連↔本社 (労使)
+ {:tie/id "tie.toyota-unit.div.hq" :tie/kind :co-member :tie/from "seat.corp.jp.toyota.division" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.58 :tie/sources ["トヨタ 役員・組織 公表情報" "トヨタ コーポレートガバナンス報告書 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.toyota-unit.roren.hq" :tie/kind :co-member :tie/from "org.union.jp.toyota-roren" :tie/to "org.corp.jp.toyota-hq" :tie/grasping-load 0.50 :tie/sources ["全トヨタ労連 公開情報" "トヨタ 労使協議 公表情報"] :tie/sourcing :representative}
+ ;; 長崎市: 市役所↔商工会議所↔地元企業 (産官民)
+ {:tie/id "tie.nagasaki-shi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.gov.jp.nagasaki-shi" :tie/grasping-load 0.44 :tie/sources ["長崎市 産業政策 公開資料" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki-shi.cci.local" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.40 :tie/sources ["長崎商工会議所 会員名簿 (公開)" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.nagasaki-shi.city.local" :tie/kind :awards :tie/from "org.gov.jp.nagasaki-shi" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.38 :tie/sources ["長崎市 入札・契約情報 (公開)" "長崎市 公開資料"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 4 (/loop): more 企業城下町 (市区町村) + first OVERSEAS node ═══════════
+ ;; (12) 日立市 — 日立製作所 発祥の地 (structural-public facts)
+ {:pwr/id "org.gov.jp.hitachi-shi" :pwr/label "日立市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.hitachi-works" :pwr/label "日立製作所 (日立事業所群)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.hitachi" :pwr/label "日立商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (13) 北九州市 — 官営八幡製鉄所 (1901) 由来 → 日本製鉄 八幡 (structural-public facts)
+ {:pwr/id "org.gov.jp.kitakyushu-shi" :pwr/label "北九州市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.plant.jp.nipponsteel-yawata" :pwr/label "日本製鉄 九州製鉄所 八幡地区" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/parent "org.corp.jp.5401" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.kitakyushu" :pwr/label "北九州商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (14) Wolfsburg — the first OVERSEAS node: VW の企業城下町 (1938 plant-founded city; the
+ ;;      Western analogue of 豊田市). Structural-public, :representative. 全世界 coverage begins.
+ {:pwr/id "org.gov.de.wolfsburg" :pwr/label "Stadt Wolfsburg (municipality)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "de.wolfsburg" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.de.vw" :pwr/label "Volkswagen AG (Wolfsburg HQ + plant)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "de.wolfsburg" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.de.igmetall-wob" :pwr/label "IG Metall / Betriebsrat (Wolfsburg works council)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "de.wolfsburg" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 4 ties ─────────────
+ ;; 日立市
+ {:tie/id "tie.hitachi.works.employs" :tie/kind :employs :tie/from "org.corp.jp.hitachi-works" :tie/to "org.gov.jp.hitachi-shi" :tie/grasping-load 0.74 :tie/sources ["日立製作所 沿革 (発祥の地, 公開)" "日立市 統計書 製造業 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.hitachi.cci.works" :tie/kind :co-member :tie/from "org.cci.jp.hitachi" :tie/to "org.corp.jp.hitachi-works" :tie/grasping-load 0.52 :tie/sources ["日立商工会議所 会員・役員名簿 (公開)" "日立商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.hitachi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.hitachi" :tie/to "org.gov.jp.hitachi-shi" :tie/grasping-load 0.42 :tie/sources ["日立市 産業政策 公開資料" "日立商工会議所 公開情報"] :tie/sourcing :representative}
+ ;; 北九州市
+ {:tie/id "tie.kitakyushu.steel.employs" :tie/kind :employs :tie/from "org.plant.jp.nipponsteel-yawata" :tie/to "org.gov.jp.kitakyushu-shi" :tie/grasping-load 0.70 :tie/sources ["日本製鉄 事業所一覧 (公開)" "北九州市 統計年鑑 製造業 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.kitakyushu.cci.steel" :tie/kind :co-member :tie/from "org.cci.jp.kitakyushu" :tie/to "org.plant.jp.nipponsteel-yawata" :tie/grasping-load 0.50 :tie/sources ["北九州商工会議所 会員・役員名簿 (公開)" "北九州商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.kitakyushu.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.kitakyushu" :tie/to "org.gov.jp.kitakyushu-shi" :tie/grasping-load 0.42 :tie/sources ["北九州市 産業政策 公開資料" "北九州商工会議所 公開情報"] :tie/sourcing :representative}
+ ;; Wolfsburg
+ {:tie/id "tie.wob.vw.employs" :tie/kind :employs :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.86 :tie/sources ["VW AG annual report (Wolfsburg site)" "Stadt Wolfsburg Statistik (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.wob.vw.funds" :tie/kind :funds :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.64 :tie/sources ["Stadt Wolfsburg Gewerbesteuer (public budget)" "Stadt Wolfsburg Haushalt (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.wob.union.vw" :tie/kind :co-member :tie/from "org.union.de.igmetall-wob" :tie/to "org.corp.de.vw" :tie/grasping-load 0.58 :tie/sources ["VW Aufsichtsrat co-determination (public, Mitbestimmung)" "IG Metall public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 5 (/loop): more OVERSEAS company cities + 系列 (keiretsu) ═══════════
+ ;; (15) Ulsan, KR — Hyundai の企業城下町 (structural-public facts)
+ {:pwr/id "org.gov.kr.ulsan" :pwr/label "Ulsan Metropolitan City (울산광역시)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "kr.ulsan" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.corp.kr.hyundai" :pwr/label "Hyundai Motor / HHI (Ulsan works)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "kr.ulsan" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.kr.hyundai" :pwr/label "Hyundai Motor labour union (공개)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "kr.ulsan" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (16) Detroit, US — auto-industry city; a full 産官民報 overseas weave (incl. the local paper)
+ {:pwr/id "org.gov.us.detroit" :pwr/label "City of Detroit (municipality)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "us.detroit" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.us.gm" :pwr/label "General Motors (Detroit HQ)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.us.uaw" :pwr/label "United Auto Workers (UAW)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :min :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.us.detroit-free-press" :pwr/label "Detroit Free Press" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :hou :pwr/locality "us.detroit" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (17) 系列 (keiretsu) — a holding + two subsidiaries (exercises the :keiretsu granularity)
+ {:pwr/id "org.holding.jp.kx" :pwr/label "(representative) 持株会社KX" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.keiretsu-kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.sub.jp.kx1" :pwr/label "(representative) KX 子会社1" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.keiretsu-kx" :pwr/parent "org.holding.jp.kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.sub.jp.kx2" :pwr/label "(representative) KX 子会社2" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kin :pwr/locality "jp.keiretsu-kx" :pwr/parent "org.holding.jp.kx" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 5 ties ─────────────
+ ;; Ulsan
+ {:tie/id "tie.ulsan.hyundai.employs" :tie/kind :employs :tie/from "org.corp.kr.hyundai" :tie/to "org.gov.kr.ulsan" :tie/grasping-load 0.82 :tie/sources ["Hyundai annual report (Ulsan plant)" "Ulsan City statistics (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.ulsan.union.hyundai" :tie/kind :co-member :tie/from "org.union.kr.hyundai" :tie/to "org.corp.kr.hyundai" :tie/grasping-load 0.56 :tie/sources ["Hyundai labour-relations public filings" "union public records"] :tie/sourcing :representative}
+ ;; Detroit (産官民報)
+ {:tie/id "tie.detroit.gm.employs" :tie/kind :employs :tie/from "org.corp.us.gm" :tie/to "org.gov.us.detroit" :tie/grasping-load 0.70 :tie/sources ["GM 10-K (Detroit HQ)" "City of Detroit public economic data"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.uaw.gm" :tie/kind :co-member :tie/from "org.union.us.uaw" :tie/to "org.corp.us.gm" :tie/grasping-load 0.58 :tie/sources ["UAW–GM national agreement (public)" "NLRB public filings"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.press.gm" :tie/kind :covers :tie/from "org.press.us.detroit-free-press" :tie/to "org.corp.us.gm" :tie/grasping-load 0.40 :tie/sources ["Detroit Free Press business section" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.detroit.press.city" :tie/kind :covers :tie/from "org.press.us.detroit-free-press" :tie/to "org.gov.us.detroit" :tie/grasping-load 0.40 :tie/sources ["Detroit Free Press city-hall coverage" "public archives"] :tie/sourcing :representative}
+ ;; 系列 (keiretsu): holding custodies two subsidiaries
+ {:tie/id "tie.kx.hold.sub1" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx1" :tie/grasping-load 0.78 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.kx.hold.sub2" :tie/kind :custodies :tie/from "org.holding.jp.kx" :tie/to "org.sub.jp.kx2" :tie/grasping-load 0.72 :tie/sources ["KX 有価証券報告書 子会社一覧 (representative)" "KX グループ 公開情報"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 6 (/loop): NEW cluster TYPES — financial center + science park ═══════════
+ ;; (18) City of London — a FINANCIAL-center weave (官金報), distinct from company towns; first :kin
+ {:pwr/id "org.gov.uk.boe" :pwr/label "Bank of England (central bank / regulator)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kan :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.uk.city-corp" :pwr/label "City of London Corporation (Square Mile local gov)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "uk.london.city" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.fin.uk.lse" :pwr/label "London Stock Exchange + major banks" :pwr/standing :institutional :pwr/scale :national :pwr/sector :kin :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.uk.ft" :pwr/label "Financial Times" :pwr/standing :institutional :pwr/scale :national :pwr/sector :hou :pwr/locality "uk.london.city" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; (19) Hsinchu Science Park — a 産官学 science-park cluster (TSMC + park admin + universities)
+ {:pwr/id "org.gov.tw.hsinchu-park" :pwr/label "新竹科學園區 管理局 (park administration)" :pwr/standing :institutional :pwr/scale :regional :pwr/sector :kan :pwr/locality "tw.hsinchu" :pwr/collective-kind :region :pwr/sourcing :representative}
+ {:pwr/id "org.corp.tw.tsmc-hsinchu" :pwr/label "TSMC (Hsinchu fabs + HQ)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "tw.hsinchu" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.univ.tw.nycu-nthu" :pwr/label "陽明交通大学 / 清華大学 (Hsinchu)" :pwr/standing :institutional :pwr/scale :local :pwr/sector :gaku :pwr/locality "tw.hsinchu" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 6 ties ─────────────
+ ;; City of London (官金報) — regulator oversight + local-gov hosting + financial press
+ {:tie/id "tie.london.boe.lse" :tie/kind :custodies :tie/from "org.gov.uk.boe" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.72 :tie/sources ["Bank of England regulatory mandate (public)" "PRA/FCA public records"] :tie/sourcing :representative}
+ {:tie/id "tie.london.city.lse" :tie/kind :employs :tie/from "org.gov.uk.city-corp" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.60 :tie/sources ["City of London Corporation public data" "Square Mile employment statistics (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.london.ft.lse" :tie/kind :covers :tie/from "org.press.uk.ft" :tie/to "org.fin.uk.lse" :tie/grasping-load 0.44 :tie/sources ["Financial Times markets coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.london.ft.boe" :tie/kind :covers :tie/from "org.press.uk.ft" :tie/to "org.gov.uk.boe" :tie/grasping-load 0.42 :tie/sources ["Financial Times BoE coverage" "public archives"] :tie/sourcing :representative}
+ ;; Hsinchu (産官学)
+ {:tie/id "tie.hsinchu.tsmc.depends" :tie/kind :depends-on :tie/from "org.corp.tw.tsmc-hsinchu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.68 :tie/sources ["Hsinchu Science Park public records" "TSMC annual report (Hsinchu sites)"] :tie/sourcing :representative}
+ {:tie/id "tie.hsinchu.u.depends" :tie/kind :depends-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.corp.tw.tsmc-hsinchu" :tie/grasping-load 0.52 :tie/sources ["university–industry public collaboration records" "TSMC talent-pipeline public info"] :tie/sourcing :representative}
+ {:tie/id "tie.hsinchu.u.park" :tie/kind :seats-on :tie/from "org.univ.tw.nycu-nthu" :tie/to "org.gov.tw.hsinchu-park" :tie/grasping-load 0.46 :tie/sources ["park advisory committee public roster" "public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 7 (/loop): SUPRANATIONAL scale — the EU "Brussels bubble" ═══════════
+ ;; (20) Brussels — fills the unused :supranational scale; a 官産報 supranational governance arena
+ ;;      (EU institutions are public; the industry federation + press are :representative placeholders)
+ {:pwr/id "org.gov.eu.commission" :pwr/label "European Commission" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :kan :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.gov.eu.parliament" :pwr/label "European Parliament" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :kan :pwr/locality "eu.brussels" :pwr/collective-kind :advisory-body :pwr/sourcing :representative}
+ {:pwr/id "org.industry.eu.federation" :pwr/label "(representative) European industry federation" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :san :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.eu.brussels" :pwr/label "(representative) Brussels EU-affairs press" :pwr/standing :institutional :pwr/scale :supranational :pwr/sector :hou :pwr/locality "eu.brussels" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 7 ties (官産報 supranational) ─────────────
+ {:tie/id "tie.eu.fed.seats" :tie/kind :seats-on :tie/from "org.industry.eu.federation" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.58 :tie/sources ["EU Transparency Register (public)" "Commission expert-group rosters (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.fed.depends" :tie/kind :depends-on :tie/from "org.industry.eu.federation" :tie/to "org.gov.eu.parliament" :tie/grasping-load 0.50 :tie/sources ["EU Transparency Register (public)" "Parliament intergroup public records"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.press.commission" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.44 :tie/sources ["Brussels press-corps accreditation (public)" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.press.fed" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.industry.eu.federation" :tie/grasping-load 0.40 :tie/sources ["EU-affairs press coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.eu.parl.commission" :tie/kind :co-member :tie/from "org.gov.eu.parliament" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.48 :tie/sources ["EU institutional procedure (public, TFEU)" "public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 8 (/loop): GLOBAL scale — global financial governance ═══════════
+ ;; (21) fills the last unused scale :global; a 官金報 planetary-governance arena (parallels the
+ ;;      London financial cluster, one tier up). Bodies are public; assoc + wire are :representative.
+ {:pwr/id "org.gov.global.imf" :pwr/label "International Monetary Fund (IMF)" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kan :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.fin.global.bis" :pwr/label "Bank for International Settlements (BIS)" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kin :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.fin.global.banking-assoc" :pwr/label "(representative) global banking association" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kin :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.global.wire" :pwr/label "(representative) global financial wire" :pwr/standing :institutional :pwr/scale :global :pwr/sector :hou :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 8 ties (官金報 global) ─────────────
+ {:tie/id "tie.global.imf.bis" :tie/kind :co-member :tie/from "org.gov.global.imf" :tie/to "org.fin.global.bis" :tie/grasping-load 0.56 :tie/sources ["IMF–BIS public coordination (public)" "G20 communiqués (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.global.assoc.imf" :tie/kind :seats-on :tie/from "org.fin.global.banking-assoc" :tie/to "org.gov.global.imf" :tie/grasping-load 0.52 :tie/sources ["IMF consultative-group public records" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.global.wire.imf" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.gov.global.imf" :tie/grasping-load 0.42 :tie/sources ["global financial-wire IMF coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.global.wire.bis" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.fin.global.bis" :tie/grasping-load 0.40 :tie/sources ["global financial-wire BIS coverage" "public archives"] :tie/sourcing :representative}]

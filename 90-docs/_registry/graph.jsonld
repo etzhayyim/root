@@ -14753,6 +14753,24 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
+      "type": "TechArticle",
+      "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
+      "status": "proposed",
+      "topic": "tsumugi-scale-banner-power-dynamics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsumugi-scale-agnostic-power-dynamics",
+        "tsumugi-hata-banner-ideology-faction"
+      ],
+      "related": [
+        "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane",
+        "doc:adr-2605301600-danjo-public-accountability",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
