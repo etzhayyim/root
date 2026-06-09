@@ -404,10 +404,25 @@
             "topic",
             "type"
           ],
-          "fieldStatus": "name/topic/type confirmed on the real Channel object (id present)",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (Channel.type int enum re-fetch-confirmed, 13 values from official Channel Types table)",
+          "discoveredEnums": {
+            "type": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ]
+          },
           "gaps": [
-            "type-enum-values (int-coded GUILD_TEXT=0 etc., not captured)",
             "guild_id",
             "position",
             "nsfw",
@@ -450,7 +465,7 @@
           ]
         }
       ],
-      "note": "3 resource(s) doc-verified; 3 archetype entities have no real vendor counterpart (see notApplicable)",
+      "note": "3 resource(s) doc-verified; 3 archetype entities have no real vendor counterpart (see notApplicable) [+full discord override + Channel.type(13 int) enforced]",
       "notApplicable": [
         {
           "entity": "Webhook",
@@ -4106,7 +4121,7 @@
             "hostId",
             "startTime"
           ],
-          "fieldStatus": "confirmed; type is integer-coded (1=instant..100=breakout — not string-enforced); status string enum enforced",
+          "fieldStatus": "confirmed (Meeting.type int enum re-fetch-confirmed [1,2,3,8] vs official Zoom OpenAPI; recording/webinar codes are separate)",
           "discoveredEnums": {
             "status": [
               "waiting",
@@ -4114,17 +4129,22 @@
               "ended",
               "completed",
               "processing"
+            ],
+            "type": [
+              1,
+              2,
+              3,
+              8
             ]
           },
           "gaps": [
-            "type-enum (integer-coded)",
             "uuid",
             "join_url"
           ]
         }
       ],
       "notApplicable": [],
-      "note": "PARTIAL (1/5): Meeting verified vs official Zoom docs; Webinar/Recording/Registrant/User endpoints 404'd/inferred -> DEFERRED. Enforced enums: Meeting.status."
+      "note": "PARTIAL (1/5): Meeting verified vs official Zoom docs; Webinar/Recording/Registrant/User endpoints 404'd/inferred -> DEFERRED. Enforced enums: Meeting.status. [+enum Meeting.type(4 int)]"
     },
     {
       "handle": "asana-compat",
@@ -5108,7 +5128,7 @@
             "read",
             "adminAssigneeId"
           ],
-          "fieldStatus": "confirmed",
+          "fieldStatus": "confirmed (Conversation.state/priority re-fetch-confirmed vs Intercom-OpenAPI)",
           "discoveredEnums": {
             "state": [
               "open",
@@ -5195,7 +5215,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official Intercom OpenAPI v2.15. Enforced enums: Conversation.state, Conversation.priority, Article.state (3)."
+      "note": "FULLY VERIFIED (6/6) vs official Intercom OpenAPI v2.15. Enforced enums: Conversation.state, Conversation.priority, Article.state (3). [+enum Conversation.state(3)/priority(2)]"
     },
     {
       "handle": "monday-compat",

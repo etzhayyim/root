@@ -1621,6 +1621,15 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Discord model — verified against the official discord-api-docs
+    # (Channel Types table, etc.). Channel.type is the documented int-coded enum.
+    "discord": {
+        "Channel": E(id="string", type="integer", name="string", guildId="string", position="integer", topic="string", nsfw="boolean"),
+        "Guild": E(id="string", name="string", ownerId="string", description="string", premiumTier="integer", verificationLevel="integer"),
+        "Message": E(id="string", channelId="string", content="string", type="integer", pinned="boolean", tts="boolean", timestamp="datetime"),
+        "User": E(id="string", username="string", discriminator="string", globalName="string", bot="boolean"),
+        "Role": E(id="string", name="string", color="integer", position="integer", hoist="boolean", managed="boolean", mentionable="boolean"),
+    },
     # Faithful Monzo model — verified against official docs.monzo.com.
     # amounts integer minor units (pennies).
     "monzo": {

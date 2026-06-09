@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29895,
+  "totalEndpoints": 29890,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -4247,8 +4247,8 @@
       "did": "did:web:etzhayyim.com:actor:discord-compat",
       "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
       "health": "/healthz",
       "features": {
         "pagination": true,

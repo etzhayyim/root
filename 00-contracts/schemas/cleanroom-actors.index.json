@@ -4499,7 +4499,7 @@
     {
       "handle": "discord-compat",
       "did": "did:web:etzhayyim.com:actor:discord-compat",
-      "wasmCid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+      "wasmCid": "bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
       "tier": "L5",

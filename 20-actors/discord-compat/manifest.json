@@ -5,11 +5,11 @@
   "kind": "compat",
   "title": "discord clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (discord); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+  "wasmCid": "bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+  "ipfs": "ipfs://bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
   "schema": "schema/discord.kotoba",
   "tier": "L5",
   "verified": {
@@ -20,15 +20,32 @@
       "Message",
       "User"
     ],
-    "enums": {}
+    "enums": {
+      "Channel": {
+        "type": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    }
   },
   "entities": [
     "Channel",
+    "Guild",
     "Message",
     "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Role"
   ],
   "adr": [
     "260607",
@@ -40,7 +57,7 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
@@ -66,6 +83,31 @@
           "method": "DELETE",
           "path": "/v1/channels/{id}",
           "op": "delete Channel"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/guilds",
+          "op": "create Guild"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guilds",
+          "op": "list Guild"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guilds/{id}",
+          "op": "get Guild"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/guilds/{id}",
+          "op": "update Guild"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/guilds/{id}",
+          "op": "delete Guild"
         },
         {
           "method": "POST",
@@ -119,78 +161,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/roles",
+          "op": "create Role"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/roles",
+          "op": "list Role"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/roles/{id}",
+          "op": "get Role"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/roles/{id}",
+          "op": "update Role"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/roles/{id}",
+          "op": "delete Role"
         }
       ],
       "features": {
@@ -253,7 +245,7 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
           "name": "create_channel",
@@ -261,21 +253,30 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
                 "type": "string"
               },
               "type": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
+              },
+              "guildId": {
+                "type": "string"
+              },
+              "position": {
+                "type": "integer"
               },
               "topic": {
                 "type": "string"
               },
-              "memberCount": {
-                "type": "integer"
+              "nsfw": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
+              "id",
               "type"
             ]
           }
@@ -312,17 +313,23 @@
               "id": {
                 "type": "string"
               },
+              "type": {
+                "type": "integer"
+              },
               "name": {
                 "type": "string"
               },
-              "type": {
+              "guildId": {
                 "type": "string"
+              },
+              "position": {
+                "type": "integer"
               },
               "topic": {
                 "type": "string"
               },
-              "memberCount": {
-                "type": "integer"
+              "nsfw": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -346,27 +353,135 @@
           }
         },
         {
+          "name": "create_guild",
+          "description": "Create a Guild.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "premiumTier": {
+                "type": "integer"
+              },
+              "verificationLevel": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_guilds",
+          "description": "List Guilds.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_guild",
+          "description": "Get a Guild by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_guild",
+          "description": "Update a Guild.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "premiumTier": {
+                "type": "integer"
+              },
+              "verificationLevel": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_guild",
+          "description": "Delete a Guild.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_message",
           "description": "Create a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string"
+              },
               "channelId": {
                 "type": "string"
               },
-              "authorId": {
+              "content": {
                 "type": "string"
               },
-              "body": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "sentAt": {
+              "pinned": {
+                "type": "boolean"
+              },
+              "tts": {
+                "type": "boolean"
+              },
+              "timestamp": {
                 "type": "string"
               }
             },
             "required": [
-              "body",
-              "sentAt"
+              "id",
+              "content"
             ]
           }
         },
@@ -405,13 +520,19 @@
               "channelId": {
                 "type": "string"
               },
-              "authorId": {
+              "content": {
                 "type": "string"
               },
-              "body": {
-                "type": "string"
+              "type": {
+                "type": "integer"
               },
-              "sentAt": {
+              "pinned": {
+                "type": "boolean"
+              },
+              "tts": {
+                "type": "boolean"
+              },
+              "timestamp": {
                 "type": "string"
               }
             },
@@ -441,19 +562,25 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "id": {
                 "type": "string"
               },
-              "displayName": {
+              "username": {
                 "type": "string"
               },
-              "verified": {
+              "discriminator": {
+                "type": "string"
+              },
+              "globalName": {
+                "type": "string"
+              },
+              "bot": {
                 "type": "boolean"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "id",
+              "username"
             ]
           }
         },
@@ -489,13 +616,16 @@
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "username": {
                 "type": "string"
               },
-              "displayName": {
+              "discriminator": {
                 "type": "string"
               },
-              "verified": {
+              "globalName": {
+                "type": "string"
+              },
+              "bot": {
                 "type": "boolean"
               }
             },
@@ -520,53 +650,8 @@
           }
         },
         {
-          "name": "create_room",
-          "description": "Create a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "maxParticipants": {
-                "type": "integer"
-              },
-              "recording": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "maxParticipants"
-            ]
-          }
-        },
-        {
-          "name": "list_rooms",
-          "description": "List Rooms.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_room",
-          "description": "Get a Room by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_room",
-          "description": "Update a Room.",
+          "name": "create_role",
+          "description": "Create a Role.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -576,66 +661,39 @@
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "color": {
                 "type": "integer"
               },
-              "recording": {
+              "position": {
+                "type": "integer"
+              },
+              "hoist": {
+                "type": "boolean"
+              },
+              "managed": {
+                "type": "boolean"
+              },
+              "mentionable": {
                 "type": "boolean"
               }
             },
             "required": [
-              "id"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "roomId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "status",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
+          "name": "list_roles",
+          "description": "List Roles.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
+          "name": "get_role",
+          "description": "Get a Role by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,105 +707,30 @@
           }
         },
         {
-          "name": "update_stream",
-          "description": "Update a Stream.",
+          "name": "update_role",
+          "description": "Update a Role.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "roomId": {
+              "name": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
+              "color": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
-                "type": "string"
               },
-              "url": {
-                "type": "string"
+              "position": {
+                "type": "integer"
               },
-              "active": {
+              "hoist": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
-              "event": {
-                "type": "string"
+              "managed": {
+                "type": "boolean"
               },
-              "url": {
-                "type": "string"
-              },
-              "active": {
+              "mentionable": {
                 "type": "boolean"
               }
             },
@@ -757,8 +740,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_role",
+          "description": "Delete a Role.",
           "inputSchema": {
             "type": "object",
             "properties": {

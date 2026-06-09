@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible communications / social actor (discord); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:discord-compat",
-    "x-wasm-cid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+    "x-wasm-cid": "bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
     "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+      "url": "ipfs://bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -182,6 +182,191 @@
       },
       "delete": {
         "summary": "Delete a Channel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/guilds": {
+      "get": {
+        "summary": "List Guilds",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Guild"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Guild",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuildCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Guild"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/guilds/{id}": {
+      "get": {
+        "summary": "Get a Guild",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Guild"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Guild",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuildCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Guild"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Guild",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +757,9 @@
         }
       }
     },
-    "/v1/rooms": {
+    "/v1/roles": {
       "get": {
-        "summary": "List Rooms",
+        "summary": "List Roles",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Room"
+                        "$ref": "#/components/schemas/Role"
                       }
                     },
                     "has_more": {
@@ -634,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Room",
+        "summary": "Create a Role",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
+                "$ref": "#/components/schemas/RoleCreate"
               }
             }
           }
@@ -651,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Room"
+                  "$ref": "#/components/schemas/Role"
                 }
               }
             }
@@ -662,9 +847,9 @@
         }
       }
     },
-    "/v1/rooms/{id}": {
+    "/v1/roles/{id}": {
       "get": {
-        "summary": "Get a Room",
+        "summary": "Get a Role",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Room"
+                  "$ref": "#/components/schemas/Role"
                 }
               }
             }
@@ -699,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Room",
+        "summary": "Update a Role",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RoomCreate"
+                "$ref": "#/components/schemas/RoleCreate"
               }
             }
           }
@@ -725,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Room"
+                  "$ref": "#/components/schemas/Role"
                 }
               }
             }
@@ -736,377 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Room",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/streams": {
-      "get": {
-        "summary": "List Streams",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Stream"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Stream",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/streams/{id}": {
-      "get": {
-        "summary": "Get a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/webhooks": {
-      "get": {
-        "summary": "List Webhooks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Webhook"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Webhook",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/webhooks/{id}": {
-      "get": {
-        "summary": "Get a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Webhook",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Webhook"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Role",
         "parameters": [
           {
             "name": "id",
@@ -1146,17 +961,38 @@
           "id": {
             "type": "string"
           },
+          "type": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ]
+          },
           "name": {
             "type": "string"
           },
-          "type": {
+          "guildId": {
             "type": "string"
+          },
+          "position": {
+            "type": "integer"
           },
           "topic": {
             "type": "string"
           },
-          "memberCount": {
-            "type": "integer"
+          "nsfw": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1171,22 +1007,104 @@
       "ChannelCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
           "type": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ]
+          },
+          "name": {
             "type": "string"
+          },
+          "guildId": {
+            "type": "string"
+          },
+          "position": {
+            "type": "integer"
           },
           "topic": {
             "type": "string"
           },
-          "memberCount": {
+          "nsfw": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Guild": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "premiumTier": {
+            "type": "integer"
+          },
+          "verificationLevel": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GuildCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "premiumTier": {
+            "type": "integer"
+          },
+          "verificationLevel": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "type"
+          "id",
+          "name"
         ]
       },
       "Message": {
@@ -1198,13 +1116,19 @@
           "channelId": {
             "type": "string"
           },
-          "authorId": {
+          "content": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "sentAt": {
+          "pinned": {
+            "type": "boolean"
+          },
+          "tts": {
+            "type": "boolean"
+          },
+          "timestamp": {
             "type": "string",
             "format": "date-time"
           },
@@ -1221,22 +1145,31 @@
       "MessageCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "channelId": {
             "type": "string"
           },
-          "authorId": {
+          "content": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "sentAt": {
+          "pinned": {
+            "type": "boolean"
+          },
+          "tts": {
+            "type": "boolean"
+          },
+          "timestamp": {
             "type": "string"
           }
         },
         "required": [
-          "body",
-          "sentAt"
+          "id",
+          "content"
         ]
       },
       "User": {
@@ -1245,13 +1178,16 @@
           "id": {
             "type": "string"
           },
-          "handle": {
+          "username": {
             "type": "string"
           },
-          "displayName": {
+          "discriminator": {
             "type": "string"
           },
-          "verified": {
+          "globalName": {
+            "type": "string"
+          },
+          "bot": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1267,22 +1203,28 @@
       "UserCreate": {
         "type": "object",
         "properties": {
-          "handle": {
+          "id": {
             "type": "string"
           },
-          "displayName": {
+          "username": {
             "type": "string"
           },
-          "verified": {
+          "discriminator": {
+            "type": "string"
+          },
+          "globalName": {
+            "type": "string"
+          },
+          "bot": {
             "type": "boolean"
           }
         },
         "required": [
-          "handle",
-          "displayName"
+          "id",
+          "username"
         ]
       },
-      "Room": {
+      "Role": {
         "type": "object",
         "properties": {
           "id": {
@@ -1291,10 +1233,19 @@
           "name": {
             "type": "string"
           },
-          "maxParticipants": {
+          "color": {
             "type": "integer"
           },
-          "recording": {
+          "position": {
+            "type": "integer"
+          },
+          "hoist": {
+            "type": "boolean"
+          },
+          "managed": {
+            "type": "boolean"
+          },
+          "mentionable": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1307,108 +1258,34 @@
           }
         }
       },
-      "RoomCreate": {
+      "RoleCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "maxParticipants": {
+          "color": {
             "type": "integer"
           },
-          "recording": {
+          "position": {
+            "type": "integer"
+          },
+          "hoist": {
+            "type": "boolean"
+          },
+          "managed": {
+            "type": "boolean"
+          },
+          "mentionable": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "maxParticipants"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "roomId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "roomId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "status",
-          "bitrate"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "event",
-          "url"
+          "id",
+          "name"
         ]
       }
     }

@@ -115,17 +115,22 @@ def _expand(rec, params, refs):
 def create_channel(request):
     """Create a Channel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['id', 'type', 'name', 'guildId', 'position', 'topic', 'nsfw'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in [0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14, 15, 16]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14, 15, 16]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("discord_cha")}
+    rec["id"] = data.get('id')
+    rec["type"] = _as_int(data.get('type'))
     rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
+    rec["guildId"] = data.get('guildId')
+    rec["position"] = _as_int(data.get('position'))
     rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
+    rec["nsfw"] = _as_bool(data.get('nsfw'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Channel", rec)
@@ -136,7 +141,7 @@ def list_channels(request):
     """List Channels with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
+    rows = _apply_filters(rows, params, ['id', 'type', 'name', 'guildId', 'position', 'topic', 'nsfw'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +153,7 @@ def get_channel(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'guildId': 'Guild'})
     return rec, 200
 
 @app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
@@ -157,9 +163,11 @@ def update_channel(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['id', 'type', 'name', 'guildId', 'position', 'topic', 'nsfw'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in [0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14, 15, 16]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14, 15, 16]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,21 +185,92 @@ def delete_channel(request, eid):
     db.retract({"entity": f"discord.Channel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/guilds", methods=["POST"])
+def create_guild(request):
+    """Create a Guild."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'ownerId', 'description', 'premiumTier', 'verificationLevel'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("discord_gui")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
+    rec["ownerId"] = data.get('ownerId')
+    rec["description"] = data.get('description')
+    rec["premiumTier"] = _as_int(data.get('premiumTier'))
+    rec["verificationLevel"] = _as_int(data.get('verificationLevel'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Guild", rec)
+    return rec, 201
+
+@app.route("/v1/guilds", methods=["GET"])
+def list_guilds(request):
+    """List Guilds with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Guild")
+    rows = _apply_filters(rows, params, ['id', 'name', 'ownerId', 'description', 'premiumTier', 'verificationLevel'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/guilds/<eid>", methods=["GET"])
+def get_guild(request, eid):
+    """Retrieve a Guild by id (supports ?expand=)."""
+    rows = _query("Guild", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/guilds/<eid>", methods=["POST", "PATCH"])
+def update_guild(request, eid):
+    """Update a Guild."""
+    rows = _query("Guild", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'ownerId', 'description', 'premiumTier', 'verificationLevel'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Guild", rec)
+    return rec, 200
+
+@app.route("/v1/guilds/<eid>", methods=["DELETE"])
+def delete_guild(request, eid):
+    """Delete a Guild."""
+    rows = _query("Guild", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"discord.Guild", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/messages", methods=["POST"])
 def create_message(request):
     """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['id', 'channelId', 'content', 'type', 'pinned', 'tts', 'timestamp'])
     if err:
         return err, 400
-    err = _require(data, ['body', 'sentAt'])
+    err = _require(data, ['id', 'content'])
     if err:
         return err, 400
     rec = {"id": new_id("discord_mes")}
+    rec["id"] = data.get('id')
     rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
+    rec["content"] = data.get('content')
+    rec["type"] = _as_int(data.get('type'))
+    rec["pinned"] = _as_bool(data.get('pinned'))
+    rec["tts"] = _as_bool(data.get('tts'))
+    rec["timestamp"] = data.get('timestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Message", rec)
@@ -202,7 +281,7 @@ def list_messages(request):
     """List Messages with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
+    rows = _apply_filters(rows, params, ['id', 'channelId', 'content', 'type', 'pinned', 'tts', 'timestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -224,7 +303,7 @@ def update_message(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['id', 'channelId', 'content', 'type', 'pinned', 'tts', 'timestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -248,16 +327,18 @@ def delete_message(request, eid):
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['id', 'username', 'discriminator', 'globalName', 'bot'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['id', 'username'])
     if err:
         return err, 400
     rec = {"id": new_id("discord_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec["id"] = data.get('id')
+    rec["username"] = data.get('username')
+    rec["discriminator"] = data.get('discriminator')
+    rec["globalName"] = data.get('globalName')
+    rec["bot"] = _as_bool(data.get('bot'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -268,7 +349,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _apply_filters(rows, params, ['id', 'username', 'discriminator', 'globalName', 'bot'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -289,7 +370,7 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['id', 'username', 'discriminator', 'globalName', 'bot'])
     if err:
         return err, 400
     rec = rows[0]
@@ -309,52 +390,56 @@ def delete_user(request, eid):
     db.retract({"entity": f"discord.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
+@app.route("/v1/roles", methods=["POST"])
+def create_role(request):
+    """Create a Role."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['id', 'name', 'color', 'position', 'hoist', 'managed', 'mentionable'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("discord_roo")}
+    rec = {"id": new_id("discord_rol")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
+    rec["color"] = _as_int(data.get('color'))
+    rec["position"] = _as_int(data.get('position'))
+    rec["hoist"] = _as_bool(data.get('hoist'))
+    rec["managed"] = _as_bool(data.get('managed'))
+    rec["mentionable"] = _as_bool(data.get('mentionable'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
+    _persist("Role", rec)
     return rec, 201
 
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
+@app.route("/v1/roles", methods=["GET"])
+def list_roles(request):
+    """List Roles with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
+    rows = _query("Role")
+    rows = _apply_filters(rows, params, ['id', 'name', 'color', 'position', 'hoist', 'managed', 'mentionable'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
+@app.route("/v1/roles/<eid>", methods=["GET"])
+def get_role(request, eid):
+    """Retrieve a Role by id (supports ?expand=)."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/roles/<eid>", methods=["POST", "PATCH"])
+def update_role(request, eid):
+    """Update a Role."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['id', 'name', 'color', 'position', 'hoist', 'managed', 'mentionable'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,153 +447,22 @@ def update_room(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Room", rec)
+    _persist("Role", rec)
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/roles/<eid>", methods=["DELETE"])
+def delete_role(request, eid):
+    """Delete a Role."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"discord.Room", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("discord_str")}
-    rec["roomId"] = data.get('roomId')
-    rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"discord.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("discord_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"discord.Webhook", "id": eid})
+    db.retract({"entity": f"discord.Role", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "discord-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['Channel', 'Guild', 'Message', 'User', 'Role']}, 200
 
 
 if __name__ == "__main__":
