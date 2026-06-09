@@ -14707,6 +14707,27 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091500-kotoba-evm-datomic-ipfs-l2",
+      "type": "TechArticle",
+      "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
+      "status": "proposed",
+      "topic": "kotoba-evm-l2",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-EVM L2 architecture — Datom state model, CommitDag-as-block, revm execution, IPFS DA, Base L1 anchor",
+        "geth-less migration — retire geth-private as the contract host; redeploy GCC + escrows onto kotoba-EVM",
+        "eth_* JSON-RPC compatibility surface kotoba serves (geth/viem/forge parity)",
+        "EVM-on-Datomic gas/fee model under the Charter (gas-as-write-cost, no speculative gas market)"
+      ],
+      "related": [
+        "doc:2604261717",
+        "doc:2605215000",
+        "doc:50-infra/vultr/geth-private/",
+        "doc:50-infra/etzhayyim-chain-contracts/"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
