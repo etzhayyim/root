@@ -55,6 +55,14 @@ spec:
         # repo-sync: a fresh clone of the public repo each pod start, into the
         # shared emptyDir the agent patches + branches from. Public repo → no
         # auth needed for clone (gh pr/issue create uses GH_TOKEN at push time).
+        #
+        # --depth 1 --single-branch --no-tags: the full root checkout's tracked
+        # files at HEAD are ~54 MiB, but a deeper clone drags in many commits of
+        # yoro static-asset churn (hashed immutable chunks) and overflows the
+        # repo-checkout emptyDir → pod Evicted ("exceeds the limit"). A shallow
+        # single-branch clone keeps the volume small and the actuator alive.
+        # (Verified live 2026-06-08: --depth 50 evicted at 1Gi; --depth 1 stays
+        # well under and the pr-agent runs 0-restart.)
         - name: repo-clone
           image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
@@ -63,7 +71,7 @@ spec:
             - -c
             - >-
               rm -rf /workspace/root &&
-              git clone --depth 50 https://github.com/etzhayyim/root /workspace/root &&
+              git clone --depth 1 --single-branch --no-tags https://github.com/etzhayyim/root /workspace/root &&
               git -C /workspace/root config user.name  "kaizen-pr-agent" &&
               git -C /workspace/root config user.email "kaizen-pr-agent@etzhayyim.com"
           env:
@@ -109,7 +117,10 @@ spec:
               memory: 128Mi
             limits:
               cpu: 500m
-              memory: 512Mi
+              # 2Gi (not 512Mi): a non-dry-run cycle clones + patches + runs git
+              # over the large root checkout; 512Mi OOMKilled (exit 137) the pod
+              # on the live fleet. 2Gi gives the actuator headroom.
+              memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -133,7 +144,9 @@ spec:
         # from it. emptyDir so a restart always starts from a clean origin/main.
         - name: repo-checkout
           emptyDir:
-            sizeLimit: 1Gi
+            # 2Gi headroom for the shallow clone + the agent's working branches
+            # (1Gi evicted the pod on the live fleet during clone).
+            sizeLimit: 2Gi
         - name: tmp
           emptyDir:
             sizeLimit: 256Mi

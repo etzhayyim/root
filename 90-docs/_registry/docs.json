@@ -22705,6 +22705,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606074000-iryo-rezept-claims-engine-charter.md",
+      "id": "adr-2606074000-iryo-rezept-claims-engine-charter",
+      "title": "ADR-2606074000: iryo 医療 — Japan レセプト / 医療保険請求 engine (electronic karte → claims)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "iryo-rezept-claims-engine",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/iryo"
+      ],
+      "related": [
+        "adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md",
       "id": "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
       "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
@@ -23008,6 +23035,35 @@
         "2605192200",
         "2606062100",
         "2605252300"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082500-kaizen-github-independent-self-evolution-kotoba-git.md",
+      "id": "adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git",
+      "title": "ADR-2606082500: GitHub-independent Kaizen self-evolution via kotoba git-protocol (GitRemote abstraction + live fleet)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kaizen-github-independent-self-evolution",
+      "authoritative": true,
+      "authoritative_for": [
+        "Kaizen GitRemote abstraction (GithubRemote / KotobaRemote / select_remote)",
+        "KAIZEN_GIT_REMOTE env switch + KotobaRemote env contract",
+        "kotoba-git fleet deployment (git smart-HTTP push target)",
+        "kaizen-pr-agent fleet resource/clone crash-fix"
+      ],
+      "related": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231525-etzhayyim-no-server-key-invariant"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605266200-kaizen-pr-agent-wave-4"
       ],
       "last_verified": "2026-06-08",
       "amends": [],
