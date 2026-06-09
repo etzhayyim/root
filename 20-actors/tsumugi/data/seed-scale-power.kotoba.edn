@@ -142,4 +142,35 @@
  ;; 長崎市: 市役所↔商工会議所↔地元企業 (産官民)
  {:tie/id "tie.nagasaki-shi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.gov.jp.nagasaki-shi" :tie/grasping-load 0.44 :tie/sources ["長崎市 産業政策 公開資料" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
  {:tie/id "tie.nagasaki-shi.cci.local" :tie/kind :co-member :tie/from "org.cci.jp.nagasaki" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.40 :tie/sources ["長崎商工会議所 会員名簿 (公開)" "長崎商工会議所 公開情報"] :tie/sourcing :representative}
- {:tie/id "tie.nagasaki-shi.city.local" :tie/kind :awards :tie/from "org.gov.jp.nagasaki-shi" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.38 :tie/sources ["長崎市 入札・契約情報 (公開)" "長崎市 公開資料"] :tie/sourcing :representative}]
+ {:tie/id "tie.nagasaki-shi.city.local" :tie/kind :awards :tie/from "org.gov.jp.nagasaki-shi" :tie/to "org.corp.jp.nagasaki-local" :tie/grasping-load 0.38 :tie/sources ["長崎市 入札・契約情報 (公開)" "長崎市 公開資料"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 4 (/loop): more 企業城下町 (市区町村) + first OVERSEAS node ═══════════
+ ;; (12) 日立市 — 日立製作所 発祥の地 (structural-public facts)
+ {:pwr/id "org.gov.jp.hitachi-shi" :pwr/label "日立市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.jp.hitachi-works" :pwr/label "日立製作所 (日立事業所群)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.hitachi" :pwr/label "日立商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.ibaraki.hitachi-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (13) 北九州市 — 官営八幡製鉄所 (1901) 由来 → 日本製鉄 八幡 (structural-public facts)
+ {:pwr/id "org.gov.jp.kitakyushu-shi" :pwr/label "北九州市役所 (基礎自治体)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.plant.jp.nipponsteel-yawata" :pwr/label "日本製鉄 九州製鉄所 八幡地区" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/parent "org.corp.jp.5401" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.cci.jp.kitakyushu" :pwr/label "北九州商工会議所" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "jp.fukuoka.kitakyushu-shi" :pwr/collective-kind :community :pwr/sourcing :representative}
+
+ ;; (14) Wolfsburg — the first OVERSEAS node: VW の企業城下町 (1938 plant-founded city; the
+ ;;      Western analogue of 豊田市). Structural-public, :representative. 全世界 coverage begins.
+ {:pwr/id "org.gov.de.wolfsburg" :pwr/label "Stadt Wolfsburg (municipality)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :kan :pwr/locality "de.wolfsburg" :pwr/collective-kind :municipality :pwr/sourcing :representative}
+ {:pwr/id "org.corp.de.vw" :pwr/label "Volkswagen AG (Wolfsburg HQ + plant)" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "de.wolfsburg" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.union.de.igmetall-wob" :pwr/label "IG Metall / Betriebsrat (Wolfsburg works council)" :pwr/standing :institutional :pwr/scale :municipal :pwr/sector :min :pwr/locality "de.wolfsburg" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 4 ties ─────────────
+ ;; 日立市
+ {:tie/id "tie.hitachi.works.employs" :tie/kind :employs :tie/from "org.corp.jp.hitachi-works" :tie/to "org.gov.jp.hitachi-shi" :tie/grasping-load 0.74 :tie/sources ["日立製作所 沿革 (発祥の地, 公開)" "日立市 統計書 製造業 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.hitachi.cci.works" :tie/kind :co-member :tie/from "org.cci.jp.hitachi" :tie/to "org.corp.jp.hitachi-works" :tie/grasping-load 0.52 :tie/sources ["日立商工会議所 会員・役員名簿 (公開)" "日立商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.hitachi.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.hitachi" :tie/to "org.gov.jp.hitachi-shi" :tie/grasping-load 0.42 :tie/sources ["日立市 産業政策 公開資料" "日立商工会議所 公開情報"] :tie/sourcing :representative}
+ ;; 北九州市
+ {:tie/id "tie.kitakyushu.steel.employs" :tie/kind :employs :tie/from "org.plant.jp.nipponsteel-yawata" :tie/to "org.gov.jp.kitakyushu-shi" :tie/grasping-load 0.70 :tie/sources ["日本製鉄 事業所一覧 (公開)" "北九州市 統計年鑑 製造業 (公開)"] :tie/sourcing :representative}
+ {:tie/id "tie.kitakyushu.cci.steel" :tie/kind :co-member :tie/from "org.cci.jp.kitakyushu" :tie/to "org.plant.jp.nipponsteel-yawata" :tie/grasping-load 0.50 :tie/sources ["北九州商工会議所 会員・役員名簿 (公開)" "北九州商工会議所 公開情報"] :tie/sourcing :representative}
+ {:tie/id "tie.kitakyushu.cci.city" :tie/kind :co-member :tie/from "org.cci.jp.kitakyushu" :tie/to "org.gov.jp.kitakyushu-shi" :tie/grasping-load 0.42 :tie/sources ["北九州市 産業政策 公開資料" "北九州商工会議所 公開情報"] :tie/sourcing :representative}
+ ;; Wolfsburg
+ {:tie/id "tie.wob.vw.employs" :tie/kind :employs :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.86 :tie/sources ["VW AG annual report (Wolfsburg site)" "Stadt Wolfsburg Statistik (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.wob.vw.funds" :tie/kind :funds :tie/from "org.corp.de.vw" :tie/to "org.gov.de.wolfsburg" :tie/grasping-load 0.64 :tie/sources ["Stadt Wolfsburg Gewerbesteuer (public budget)" "Stadt Wolfsburg Haushalt (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.wob.union.vw" :tie/kind :co-member :tie/from "org.union.de.igmetall-wob" :tie/to "org.corp.de.vw" :tie/grasping-load 0.58 :tie/sources ["VW Aufsichtsrat co-determination (public, Mitbestimmung)" "IG Metall public records"] :tie/sourcing :representative}]

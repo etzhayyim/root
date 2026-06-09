@@ -64,6 +64,8 @@ def main():
     scale_names = {s["scale"] for s in result["scales"]}
     check("municipal scale present (市区町村)", ":municipal" in scale_names)
     check("豊田市 (jp.aichi.toyota-shi) cluster surfaces", "jp.aichi.toyota-shi" in by_loc)
+    # 全世界 coverage has begun — at least one non-JP locality present
+    check("overseas (non-jp) locality present", any(not l.startswith("jp") for l in by_loc))
 
     # S1 — output graph carries NO per-node score, only per-locality readouts
     graph = A.render_graph_edn(result)
