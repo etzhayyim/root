@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 112,
+  "count": 114,
   "actors": [
     {
       "handle": "square-compat",
@@ -15835,6 +15835,261 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets (Allscripts/Veradigm FHIR R4 = FHIR R4). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values)."
+    },
+    {
+      "handle": "magento-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://github.com/magento/magento2",
+      "remodeled": "Remodeled from generic category model to a faithful Magento 2 / Adobe Commerce model, verified against the official magento2 source (Sales/Catalog model constants). status/visibility/invoice-state are integer-coded enums. Product.typeId (incomplete in constants) + Shipment.shipmentStatus (only STATUS_NEW seen) left gaps.",
+      "resources": [
+        {
+          "entity": "Order",
+          "source": "https://github.com/magento/magento2 Sales/Model/Order.php",
+          "verifiedFields": [
+            "entityId",
+            "incrementId",
+            "state",
+            "status",
+            "customerId",
+            "customerEmail",
+            "grandTotal",
+            "subtotal",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; status is a configurable label -> not enforced",
+          "discoveredEnums": {
+            "state": [
+              "new",
+              "pending_payment",
+              "processing",
+              "complete",
+              "closed",
+              "canceled",
+              "holded",
+              "payment_review"
+            ]
+          },
+          "gaps": [
+            "status-configurable"
+          ]
+        },
+        {
+          "entity": "Product",
+          "source": "https://github.com/magento/magento2 Catalog/Model/Product/Attribute/Source/Status.php + Visibility.php",
+          "verifiedFields": [
+            "id",
+            "sku",
+            "name",
+            "price",
+            "weight",
+            "status",
+            "visibility",
+            "typeId",
+            "attributeSetId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; typeId incomplete in constants -> not enforced",
+          "discoveredEnums": {
+            "status": [
+              1,
+              2
+            ],
+            "visibility": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "gaps": [
+            "typeId-incomplete"
+          ]
+        },
+        {
+          "entity": "Customer",
+          "source": "https://github.com/magento/magento2 Customer/Model/Customer.php",
+          "verifiedFields": [
+            "id",
+            "email",
+            "firstname",
+            "lastname",
+            "groupId",
+            "storeId",
+            "websiteId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Category",
+          "source": "https://github.com/magento/magento2 Catalog/Model/Category.php",
+          "verifiedFields": [
+            "id",
+            "parentId",
+            "name",
+            "isActive",
+            "position",
+            "level",
+            "path",
+            "productCount"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://github.com/magento/magento2 Sales/Model/Order/Invoice.php",
+          "verifiedFields": [
+            "entityId",
+            "incrementId",
+            "orderId",
+            "state",
+            "grandTotal",
+            "subtotal",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed (int-coded 1=Open/2=Paid/3=Canceled)",
+          "discoveredEnums": {
+            "state": [
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Shipment",
+          "source": "https://github.com/magento/magento2 Sales/Model/Order/Shipment.php",
+          "verifiedFields": [
+            "entityId",
+            "incrementId",
+            "orderId",
+            "storeId",
+            "totalQty",
+            "totalWeight",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; shipmentStatus only STATUS_NEW seen -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "shipmentStatus-partial"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official magento2 source. Enforced enums: Order.state(8 string), Product.status[1,2]/visibility[1,2,3,4] (int), Invoice.state[1,2,3] (int) = 4 enums. typeId/shipmentStatus left gaps (incomplete in source constants)."
+    },
+    {
+      "handle": "cloudinary-compat",
+      "verifiedAt": "2026-06-10",
+      "tier": "L5",
+      "source": "https://cloudinary.com/documentation/admin_api",
+      "remodeled": "Remodeled from generic category model to a faithful Cloudinary Admin API model, verified against cloudinary.com/documentation/admin_api. format is open (codec-dependent) -> not enforced.",
+      "resources": [
+        {
+          "entity": "Resource",
+          "source": "https://cloudinary.com/documentation/admin_api",
+          "verifiedFields": [
+            "assetId",
+            "publicId",
+            "resourceType",
+            "type",
+            "format",
+            "bytes",
+            "width",
+            "height",
+            "version",
+            "url",
+            "secureUrl",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "resourceType": [
+              "image",
+              "raw",
+              "video"
+            ],
+            "type": [
+              "upload",
+              "private",
+              "authenticated",
+              "fetch",
+              "facebook",
+              "twitter",
+              "gravatar",
+              "youtube",
+              "hulu",
+              "vimeo",
+              "animoto",
+              "worldstarhiphop",
+              "dailymotion",
+              "list"
+            ]
+          },
+          "gaps": [
+            "format-open"
+          ]
+        },
+        {
+          "entity": "Folder",
+          "source": "https://cloudinary.com/documentation/admin_api",
+          "verifiedFields": [
+            "name",
+            "path",
+            "externalId",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Transformation",
+          "source": "https://cloudinary.com/documentation/admin_api",
+          "verifiedFields": [
+            "name",
+            "named",
+            "used",
+            "allowedForStrict"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "UploadPreset",
+          "source": "https://cloudinary.com/documentation/admin_api",
+          "verifiedFields": [
+            "name",
+            "unsigned",
+            "externalId",
+            "live"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Tag",
+          "source": "https://cloudinary.com/documentation/admin_api",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Cloudinary Admin API docs. Enforced enums: Resource.resourceType(3), Resource.type(14) = 2 enums."
     }
   ]
 }

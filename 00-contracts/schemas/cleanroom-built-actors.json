@@ -3122,17 +3122,16 @@
       "handle": "cloudinary-compat",
       "platform": "cloudinary",
       "bytes": 2124,
-      "wasmCid": "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+      "wasmCid": "bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Asset",
-        "Rendition",
-        "Channel",
-        "Playlist",
-        "ContentEntry",
-        "Experiment"
+        "Resource",
+        "Folder",
+        "Transformation",
+        "UploadPreset",
+        "Tag"
       ]
     },
     {
@@ -9133,12 +9132,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Product",
-        "Variant",
         "Order",
-        "LineItem",
+        "Product",
         "Customer",
-        "Collection"
+        "Category",
+        "Invoice",
+        "Shipment"
       ]
     },
     {

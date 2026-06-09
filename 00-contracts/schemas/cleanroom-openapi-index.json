@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29825,
+  "totalEndpoints": 29820,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -3123,10 +3123,10 @@
     {
       "handle": "cloudinary-compat",
       "did": "did:web:etzhayyim.com:actor:cloudinary-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -9141,7 +9141,7 @@
     {
       "handle": "magento-compat",
       "did": "did:web:etzhayyim.com:actor:magento-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihggzcn3lv33e5gbmu7xhcirqnrhckymuk7zn65kjgcncugzhq2dq",

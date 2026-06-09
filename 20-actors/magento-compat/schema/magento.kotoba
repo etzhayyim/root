@@ -3,74 +3,90 @@
 
 namespace magento {
 
-    entity Product {
-        id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        inventory: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Variant {
-        id: string @unique
-        productId: string
-        sku: string
-        price: float
-        optionValues: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Order {
         id: string @unique
-        customerId: string
-        number: string
-        total: float
-        currency: string
+        entityId: integer
+        incrementId: string
+        state: string
         status: string
+        customerId: integer
+        customerEmail: string
+        grandTotal: float
+        subtotal: float
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity LineItem {
+    entity Product {
         id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        id: integer
+        sku: string
+        name: string
+        price: float
+        weight: float
+        status: integer
+        visibility: integer
+        typeId: string
+        attributeSetId: integer
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Customer {
         id: string @unique
+        id: integer
         email: string
-        firstName: string
-        lastName: string
-        phone: string
+        firstname: string
+        lastname: string
+        groupId: integer
+        storeId: integer
+        websiteId: integer
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Collection {
+    entity Category {
         id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        id: integer
+        parentId: integer
+        name: string
+        isActive: boolean
+        position: integer
+        level: integer
+        path: string
+        productCount: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Invoice {
+        id: string @unique
+        entityId: integer
+        incrementId: string
+        orderId: integer
+        state: integer
+        grandTotal: float
+        subtotal: float
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Shipment {
+        id: string @unique
+        entityId: integer
+        incrementId: string
+        orderId: integer
+        storeId: integer
+        totalQty: float
+        totalWeight: float
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

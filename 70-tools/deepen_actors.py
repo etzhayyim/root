@@ -1621,6 +1621,24 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
     },
+    # Faithful Magento 2 / Adobe Commerce model — verified against the official
+    # magento2 source (Sales/Catalog model constants). status/visibility are int-coded.
+    "magento": {
+        "Order": E(entityId="integer", incrementId="string", state="string", status="string", customerId="integer", customerEmail="string", grandTotal="float", subtotal="float", createdAt="datetime", updatedAt="datetime"),
+        "Product": E(id="integer", sku="string", name="string", price="float", weight="float", status="integer", visibility="integer", typeId="string", attributeSetId="integer", createdAt="datetime"),
+        "Customer": E(id="integer", email="string", firstname="string", lastname="string", groupId="integer", storeId="integer", websiteId="integer", createdAt="datetime"),
+        "Category": E(id="integer", parentId="integer", name="string", isActive="boolean", position="integer", level="integer", path="string", productCount="integer"),
+        "Invoice": E(entityId="integer", incrementId="string", orderId="integer", state="integer", grandTotal="float", subtotal="float", createdAt="datetime"),
+        "Shipment": E(entityId="integer", incrementId="string", orderId="integer", storeId="integer", totalQty="float", totalWeight="float", createdAt="datetime"),
+    },
+    # Faithful Cloudinary Admin API model — verified against cloudinary.com/documentation.
+    "cloudinary": {
+        "Resource": E(assetId="string", publicId="string", resourceType="string", type="string", format="string", bytes="integer", width="integer", height="integer", version="integer", url="string", secureUrl="string", createdAt="datetime"),
+        "Folder": E(name="string", path="string", externalId="string", createdAt="datetime", updatedAt="datetime"),
+        "Transformation": E(name="string", named="boolean", used="boolean", allowedForStrict="boolean"),
+        "UploadPreset": E(name="string", unsigned="boolean", externalId="string", live="boolean"),
+        "Tag": E(name="string"),
+    },
     # Faithful Cerner/Oracle Health Ignite FHIR R4 model — Cerner Millennium exposes
     # HL7 FHIR R4; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
     "cerner_ignite": {

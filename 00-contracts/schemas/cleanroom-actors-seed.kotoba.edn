@@ -2404,11 +2404,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible media / video / CMS actor (cloudinary); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "cloudinary.kotoba"
-   :actor/wasm-cid "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e"
+   :actor/wasm-cid "bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:cloudinary-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:cloudinary-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:cloudinary-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "cma-compat"
    :actor/did "did:web:etzhayyim.com:actor:cma-compat"
    :actor/kind :compat
