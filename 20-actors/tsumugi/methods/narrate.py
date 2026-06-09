@@ -127,6 +127,37 @@ def build_digest(scale_result: dict, banner_result: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+def build_datoms(scale_result: dict, banner_result: dict) -> str:
+    """Emit the intel as a kotoba Datom transaction (EAVT entity-maps) — the append-only
+    CANONICAL-STATE shape the substrate ingests (ADR-2605312345), content-addressed on commit.
+    Distinct from the digest (a summary map): these are the assertions that land in the log.
+    Aggregate readouts only (S1); mirror; :tsumugi/published false (G7). NOT a per-person fact."""
+    L = [";; tsumugi power-intel Datoms — GENERATED (ADR-2606092000); append-only assertions for",
+         ";; the kotoba Datom log (ADR-2605312345). Aggregate-only (S1), mirror, published=false.",
+         "[;; ── scale clusters (per-locality cross-sector concentration readout) ──"]
+    for x in scale_result["localities"][:8]:
+        L.append(f' {{:db/id "tsumugi.cluster/{x["locality"]}" '
+                 f':cluster/locality {_edn_str(x["locality"])} '
+                 f':cluster/sector-diversity {x["sector_diversity"]} '
+                 f':cluster/concentration {x["concentration"]} '
+                 f':tsumugi/mirror true :tsumugi/published false}}')
+    L.append(" ;; ── vertically-integrated organizations (cross-scale 縦の集中) ──")
+    for x in scale_result.get("vertical", [])[:5]:
+        L.append(f' {{:db/id "tsumugi.vertical/{x["root"]}" '
+                 f':vertical/org {_edn_str(x["label"])} '
+                 f':vertical/scale-span {x["scale_span"]} '
+                 f':vertical/locality-span {x["locality_span"]} '
+                 f':vertical/load {x["load"]} :tsumugi/mirror true :tsumugi/published false}}')
+    L.append(" ;; ── declared 旗 camps (edge-primary reach; non-adjudicating) ──")
+    for c in banner_result["camps"][:8]:
+        L.append(f' {{:db/id "tsumugi.camp/{c["banner"]}" '
+                 f':camp/banner {_edn_str(c["label"])} '
+                 f':camp/reach {c["reach"]} :camp/members {c["member_count"]} '
+                 f':tsumugi/non-adjudicating true :tsumugi/published false}}')
+    L.append("]")
+    return "\n".join(L) + "\n"
+
+
 def infer(prompt: str, *, gate: bool, base_url: str = MURAKUMO_BASE_URL,
           model: str = MURAKUMO_MODEL, timeout: float = 30.0):
     """The `infer` node. Returns (text, status). status ∈ {'dry-run','ok','unreachable'}.
@@ -164,6 +195,9 @@ def run(gate: bool | None = None, out: pathlib.Path | None = None) -> dict:
     # the canonical fused intel digest (kotoba-native; consumed by Murakumo + the Datom log)
     (out / "intel-digest.kotoba.edn").write_text(
         build_digest(scale_result, banner_result), encoding="utf-8")
+    # the append-only kotoba Datom transaction (canonical-state shape; ADR-2605312345)
+    (out / "intel-datoms.kotoba.edn").write_text(
+        build_datoms(scale_result, banner_result), encoding="utf-8")
     text, status = infer(prompt, gate=gate)
     # G7 — dry-run artifact always written; a published post is NOT emitted here.
     (out / "narration.dryrun.md").write_text(

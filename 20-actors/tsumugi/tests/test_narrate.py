@@ -44,6 +44,17 @@ def main():
     check("digest has fused scale+banner sections",
           ":digest/scale-top-localities" in parsed[0] and ":digest/banner-camps" in parsed[0]
           and ":digest/vertical" in parsed[0])
+
+    # kotoba Datom transaction (canonical-state shape) is valid EAVT entity-maps, mirror/published-false
+    datoms = N.build_datoms(scale, banner)
+    dparsed = A.read_edn(datoms)
+    check("datoms are valid EDN entity-maps", isinstance(dparsed, list) and dparsed
+          and all(":db/id" in d for d in dparsed))
+    check("datoms carry mirror + published=false marker",
+          any(d.get(":tsumugi/published") is False for d in dparsed))
+    check("datoms have no per-person entity (S2 — only cluster/vertical/camp)",
+          all(d[":db/id"].startswith(("tsumugi.cluster/", "tsumugi.vertical/", "tsumugi.camp/"))
+              for d in dparsed))
     check("prompt is aggregate-only (no private-person marker)",
           ":private-person" not in prompt and "private-person" not in prompt)
 
