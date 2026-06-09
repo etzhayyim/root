@@ -221,4 +221,18 @@
  ;; design/standard refs for new products
  {:design.ref/id "dr.gpu.pcie"    :design.ref/of "prod.ai-gpu-module" :design.ref/standard "PCIe 5.0" :design.ref/kind :interface-spec :design.ref/body "PCI-SIG" :design.ref/sourcing :representative}
  {:design.ref/id "dr.5g.3gpp"     :design.ref/of "prod.5g-radio" :design.ref/standard "3GPP 5G NR Rel-16" :design.ref/kind :interface-spec :design.ref/body "3GPP" :design.ref/sourcing :representative}
- {:design.ref/id "dr.ac.do178"    :design.ref/of "prod.aircraft-narrowbody" :design.ref/standard "DO-178C" :design.ref/kind :safety-standard :design.ref/body "RTCA" :design.ref/sourcing :representative}]
+ {:design.ref/id "dr.ac.do178"    :design.ref/of "prod.aircraft-narrowbody" :design.ref/standard "DO-178C" :design.ref/kind :safety-standard :design.ref/body "RTCA" :design.ref/sourcing :representative}
+ ;; ── bridged datoms (offline adapters; :representative, G5) ──
+ {:bom.edge/id "bom.03017620422003.sugar" :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.sugar" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 56.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.03017620422003.palm-oil" :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.palm-oil" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 31.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.03017620422003.hazelnut" :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.hazelnut" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 13.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.03017620422003.cocoa" :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.cocoa" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 7.4 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.03017620422003.milk-powder" :bom.edge/parent "gtin.03017620422003" :bom.edge/child "mat.milk-powder" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 6.6 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.05449000000996.water" :bom.edge/parent "gtin.05449000000996" :bom.edge/child "mat.water" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 89.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.05449000000996.sugar" :bom.edge/parent "gtin.05449000000996" :bom.edge/child "mat.sugar" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 11.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.05449000000996.co2" :bom.edge/parent "gtin.05449000000996" :bom.edge/child "mat.co2" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 0.5 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.07613035044289.sugar" :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.sugar" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 47.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.07613035044289.cocoa" :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.cocoa" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 18.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.07613035044289.milk-powder" :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.milk-powder" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 15.0 :bom.edge/qty-unit "%mass"}
+ {:bom.edge/id "bom.07613035044289.palm-oil" :bom.edge/parent "gtin.07613035044289" :bom.edge/child "mat.palm-oil" :bom.edge/tier 1 :bom.edge/criticality 0.3 :bom.edge/sourcing :representative :bom.edge/qty 12.0 :bom.edge/qty-unit "%mass"}
+]

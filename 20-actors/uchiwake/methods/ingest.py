@@ -75,6 +75,24 @@ def bridge_offline():
     bridged = []
     if INGEST_DIR.is_dir():
         for f in sorted(INGEST_DIR.glob("*.json")):
+            # Open Food Facts files are in OFF record shape, not datom shape:
+            # route them through the dedicated normalizer adapter (GTIN-validated).
+            if f.name.startswith("openfoodfacts"):
+                sys.path.insert(0, str(HERE / "adapters"))
+                import openfoodfacts as _off  # noqa: E402
+                recs = json.loads(f.read_text(encoding='utf-8'))
+                if isinstance(recs, dict):
+                    recs = recs.get("products", [])
+                off_datoms, off_stats = _off.normalize_dataset(recs)
+                print(f"  OFF adapter {f.name}: {off_stats['products_ok']} products, "
+                      f"{off_stats['materials']} materials, {off_stats['skipped_bad_gtin']} skipped",
+                      file=sys.stderr)
+                for r in off_datoms:
+                    rid = r.get(':product/id') or r.get(':material/id') or r.get(':bom.edge/id')
+                    if rid and rid in seed_ids:
+                        continue  # seed wins
+                    bridged.append(r)
+                continue
             doc = json.loads(f.read_text(encoding='utf-8'))
             for r in (doc if isinstance(doc, list) else doc.get('datoms', [])):
                 # validate GTIN check digit before admitting a product datom (G5 honesty)
@@ -109,15 +127,33 @@ def main(argv):
           f"{len(g['materials'])} materials, {len(g['bom'])} BOM edges, "
           f"{len(g['ownership'])} ownership edges")
     print(f"bridged (offline data/ingest/*.json): {len(bridged)} new datoms")
-    # R0: merged == seed (no external ingest files committed). Write for downstream parity.
+    # Splice bridged datoms into the merged EDN by inserting them before the seed
+    # vector's closing ']' — preserves the seed text/comments verbatim (seed wins on id).
+    text = SEED.read_text(encoding='utf-8')
     if bridged:
-        text = SEED.read_text(encoding='utf-8')
-        # naive append is unsafe for EDN vectors; R0 keeps merged == seed unless bridged.
-        print("(merged write deferred — bridged datoms present; wire EDN re-emit in a later iteration)")
+        block = _emit_bridged_edn(bridged)
+        cut = text.rstrip().rfind(']')
+        merged = text[:cut] + "\n" + block + "\n]\n"
+        MERGED.write_text(merged, encoding='utf-8')
+        print(f"→ {MERGED} (seed + {len(bridged)} bridged datoms)")
     else:
-        MERGED.write_text(SEED.read_text(encoding='utf-8'), encoding='utf-8')
-        print(f"→ {MERGED} (== seed; no external ingest in R0)")
+        MERGED.write_text(text, encoding='utf-8')
+        print(f"→ {MERGED} (== seed; no external ingest)")
     return 0
+
+
+def _emit_bridged_edn(datoms):
+    """Serialize bridged datom dicts to EDN map literals (one per line)."""
+    def val(v):
+        if isinstance(v, bool):
+            return "true" if v else "false"
+        if isinstance(v, str):
+            return v if v.startswith(':') else ('"' + v.replace('\\', '\\\\').replace('"', '\\"') + '"')
+        return v
+    lines = [" ;; ── bridged datoms (offline adapters; :representative, G5) ──"]
+    for d in datoms:
+        lines.append(" {" + " ".join(f"{k} {val(v)}" for k, v in d.items()) + "}")
+    return "\n".join(lines)
 
 
 if __name__ == '__main__':
