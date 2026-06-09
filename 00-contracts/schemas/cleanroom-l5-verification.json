@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 62,
+  "count": 63,
   "actors": [
     {
       "handle": "square-compat",
@@ -8747,6 +8747,185 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from generic iaas_cloud archetype to a faithful PaaS model. 6/6 entities field-verified vs the official heroku-go SDK (schema-generated). The Go structs type state/status/kind as plain string (the enums live in the Platform API JSON hyper-schema, not the SDK structs) -> recorded as gaps rather than over-claimed/enforced."
+    },
+    {
+      "handle": "pagerduty-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/PagerDuty/api-schema (reference/REST/openapiv3.json — official OpenAPI)",
+      "remodeled": "Remodeled from the generic devtools_apm archetype (Service/Error/Trace/Metric/Alert/Incident — an APM/error-tracking shape) to a faithful PagerDuty incident-response model (Incident/Service/EscalationPolicy/Schedule/User/Team), verified field-by-field against PagerDuty's official OpenAPI components.schemas (downloaded + parsed with allOf/$ref resolution, not memory). The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Incident",
+          "source": "openapiv3.json components.schemas.Incident",
+          "verifiedFields": [
+            "incidentNumber",
+            "title",
+            "status",
+            "incidentKey",
+            "assignedVia",
+            "lastStatusChangeAt",
+            "resolvedAt",
+            "isMergeable",
+            "urgency"
+          ],
+          "fieldStatus": "confirmed vs Incident schema (incident_number/title/status/incident_key/assigned_via/last_status_change_at/resolved_at/is_mergeable/urgency)",
+          "discoveredEnums": {
+            "status": [
+              "triggered",
+              "acknowledged",
+              "resolved"
+            ],
+            "assignedVia": [
+              "escalation_policy",
+              "direct_assignment"
+            ],
+            "urgency": [
+              "high",
+              "low"
+            ]
+          },
+          "gaps": [
+            "service(object)",
+            "assignments(array)",
+            "acknowledgements(array)",
+            "priority(object)",
+            "escalation_policy(object)"
+          ]
+        },
+        {
+          "entity": "Service",
+          "source": "openapiv3.json components.schemas.Service",
+          "verifiedFields": [
+            "name",
+            "description",
+            "autoResolveTimeout",
+            "acknowledgementTimeout",
+            "status",
+            "lastIncidentTimestamp",
+            "alertCreation",
+            "alertGrouping",
+            "alertGroupingTimeout"
+          ],
+          "fieldStatus": "confirmed vs Service schema (name/description/auto_resolve_timeout/acknowledgement_timeout/status/last_incident_timestamp/alert_creation/alert_grouping/alert_grouping_timeout)",
+          "discoveredEnums": {
+            "status": [
+              "active",
+              "warning",
+              "critical",
+              "maintenance",
+              "disabled"
+            ],
+            "alertCreation": [
+              "create_incidents",
+              "create_alerts_and_incidents"
+            ],
+            "alertGrouping": [
+              "time",
+              "intelligent"
+            ]
+          },
+          "gaps": [
+            "escalation_policy(object)",
+            "teams(array)",
+            "integrations(array)",
+            "incident_urgency_rule(object)"
+          ]
+        },
+        {
+          "entity": "EscalationPolicy",
+          "source": "openapiv3.json components.schemas.EscalationPolicy",
+          "verifiedFields": [
+            "name",
+            "description",
+            "numLoops",
+            "onCallHandoffNotifications"
+          ],
+          "fieldStatus": "confirmed vs EscalationPolicy schema (name/description/num_loops/on_call_handoff_notifications)",
+          "discoveredEnums": {
+            "onCallHandoffNotifications": [
+              "if_has_services",
+              "always"
+            ]
+          },
+          "gaps": [
+            "escalation_rules(array)",
+            "services(array)",
+            "teams(array)"
+          ]
+        },
+        {
+          "entity": "Schedule",
+          "source": "openapiv3.json components.schemas.Schedule",
+          "verifiedFields": [
+            "name",
+            "description",
+            "timeZone"
+          ],
+          "fieldStatus": "confirmed vs Schedule schema (name/description/time_zone)",
+          "discoveredEnums": {},
+          "gaps": [
+            "schedule_layers(array)",
+            "final_schedule(object)",
+            "escalation_policies(array)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "openapiv3.json components.schemas.User",
+          "verifiedFields": [
+            "name",
+            "email",
+            "timeZone",
+            "color",
+            "role",
+            "avatarUrl",
+            "description",
+            "invitationSent",
+            "jobTitle",
+            "createdViaSso"
+          ],
+          "fieldStatus": "confirmed vs User schema (name/email/time_zone/color/role/avatar_url/description/invitation_sent/job_title/created_via_sso)",
+          "discoveredEnums": {
+            "role": [
+              "admin",
+              "limited_user",
+              "observer",
+              "owner",
+              "read_only_user",
+              "restricted_access",
+              "read_only_limited_user",
+              "user"
+            ]
+          },
+          "gaps": [
+            "contact_methods(array)",
+            "notification_rules(array)",
+            "teams(array)"
+          ]
+        },
+        {
+          "entity": "Team",
+          "source": "openapiv3.json components.schemas.Team",
+          "verifiedFields": [
+            "name",
+            "description",
+            "defaultRole"
+          ],
+          "fieldStatus": "confirmed vs Team schema (name/description/default_role)",
+          "discoveredEnums": {
+            "defaultRole": [
+              "manager",
+              "none"
+            ]
+          },
+          "gaps": [
+            "parent(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched APM/error-tracking archetype to a faithful incident-response model. 6/6 entities field-verified vs PagerDuty's official OpenAPI. Discovered closed enums (10): Incident.status/assignedVia/urgency, Service.status/alertCreation/alertGrouping, EscalationPolicy.onCallHandoffNotifications, User.role, Team.defaultRole."
     }
   ]
 }

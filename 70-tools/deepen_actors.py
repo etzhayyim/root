@@ -1099,6 +1099,17 @@ PLATFORM_OVERRIDES = {
         "Build": E(status="string", stack="string", outputStreamUrl="string"),
         "Domain": E(hostname="string", cname="string", kind="string", status="string", acmStatus="string", acmStatusReason="string"),
     },
+    # Faithful PagerDuty model (remodeled from the generic devtools_apm archetype
+    # whose Error/Trace/Metric error-tracking entities did not match PagerDuty's
+    # real incident-response API), doc-verified L5 vs PagerDuty/api-schema OpenAPI.
+    "pagerduty": {
+        "Incident": E(incidentNumber="integer", title="string", status="string", incidentKey="string", assignedVia="string", lastStatusChangeAt="datetime", resolvedAt="datetime", isMergeable="boolean", urgency="string"),
+        "Service": E(name="string", description="string", autoResolveTimeout="integer", acknowledgementTimeout="integer", status="string", lastIncidentTimestamp="datetime", alertCreation="string", alertGrouping="string", alertGroupingTimeout="integer"),
+        "EscalationPolicy": E(name="string", description="string", numLoops="integer", onCallHandoffNotifications="string"),
+        "Schedule": E(name="string", description="string", timeZone="string"),
+        "User": E(name="string", email="string", timeZone="string", color="string", role="string", avatarUrl="string", description="string", invitationSent="boolean", jobTitle="string", createdViaSso="boolean"),
+        "Team": E(name="string", description="string", defaultRole="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

@@ -11,15 +11,84 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
   "schema": "schema/pagerduty.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/PagerDuty/api-schema (reference/REST/openapiv3.json — official OpenAPI)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Incident",
+      "Service",
+      "EscalationPolicy",
+      "Schedule",
+      "User",
+      "Team"
+    ],
+    "enums": {
+      "Incident": {
+        "status": [
+          "triggered",
+          "acknowledged",
+          "resolved"
+        ],
+        "assignedVia": [
+          "escalation_policy",
+          "direct_assignment"
+        ],
+        "urgency": [
+          "high",
+          "low"
+        ]
+      },
+      "Service": {
+        "status": [
+          "active",
+          "warning",
+          "critical",
+          "maintenance",
+          "disabled"
+        ],
+        "alertCreation": [
+          "create_incidents",
+          "create_alerts_and_incidents"
+        ],
+        "alertGrouping": [
+          "time",
+          "intelligent"
+        ]
+      },
+      "EscalationPolicy": {
+        "onCallHandoffNotifications": [
+          "if_has_services",
+          "always"
+        ]
+      },
+      "User": {
+        "role": [
+          "admin",
+          "limited_user",
+          "observer",
+          "owner",
+          "read_only_user",
+          "restricted_access",
+          "read_only_limited_user",
+          "user"
+        ]
+      },
+      "Team": {
+        "defaultRole": [
+          "manager",
+          "none"
+        ]
+      }
+    }
+  },
   "entities": [
+    "Incident",
     "Service",
-    "Error",
-    "Trace",
-    "Metric",
-    "Alert",
-    "Incident"
+    "EscalationPolicy",
+    "Schedule",
+    "User",
+    "Team"
   ],
   "adr": [
     "260607",
@@ -33,6 +102,31 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/incidents",
+          "op": "create Incident"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/incidents",
+          "op": "list Incident"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/incidents/{id}",
+          "op": "get Incident"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/incidents/{id}",
+          "op": "update Incident"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/incidents/{id}",
+          "op": "delete Incident"
+        },
         {
           "method": "POST",
           "path": "/v1/services",
@@ -60,135 +154,110 @@
         },
         {
           "method": "POST",
-          "path": "/v1/errors",
-          "op": "create Error"
+          "path": "/v1/escalationpolicies",
+          "op": "create EscalationPolicy"
         },
         {
           "method": "GET",
-          "path": "/v1/errors",
-          "op": "list Error"
+          "path": "/v1/escalationpolicies",
+          "op": "list EscalationPolicy"
         },
         {
           "method": "GET",
-          "path": "/v1/errors/{id}",
-          "op": "get Error"
+          "path": "/v1/escalationpolicies/{id}",
+          "op": "get EscalationPolicy"
         },
         {
           "method": "PATCH",
-          "path": "/v1/errors/{id}",
-          "op": "update Error"
+          "path": "/v1/escalationpolicies/{id}",
+          "op": "update EscalationPolicy"
         },
         {
           "method": "DELETE",
-          "path": "/v1/errors/{id}",
-          "op": "delete Error"
+          "path": "/v1/escalationpolicies/{id}",
+          "op": "delete EscalationPolicy"
         },
         {
           "method": "POST",
-          "path": "/v1/traces",
-          "op": "create Trace"
+          "path": "/v1/schedules",
+          "op": "create Schedule"
         },
         {
           "method": "GET",
-          "path": "/v1/traces",
-          "op": "list Trace"
+          "path": "/v1/schedules",
+          "op": "list Schedule"
         },
         {
           "method": "GET",
-          "path": "/v1/traces/{id}",
-          "op": "get Trace"
+          "path": "/v1/schedules/{id}",
+          "op": "get Schedule"
         },
         {
           "method": "PATCH",
-          "path": "/v1/traces/{id}",
-          "op": "update Trace"
+          "path": "/v1/schedules/{id}",
+          "op": "update Schedule"
         },
         {
           "method": "DELETE",
-          "path": "/v1/traces/{id}",
-          "op": "delete Trace"
+          "path": "/v1/schedules/{id}",
+          "op": "delete Schedule"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
+          "path": "/v1/teams",
+          "op": "create Team"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
+          "path": "/v1/teams",
+          "op": "list Team"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
+          "path": "/v1/teams/{id}",
+          "op": "get Team"
         },
         {
           "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
+          "path": "/v1/teams/{id}",
+          "op": "update Team"
         },
         {
           "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/incidents",
-          "op": "create Incident"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/incidents",
-          "op": "list Incident"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/incidents/{id}",
-          "op": "get Incident"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/incidents/{id}",
-          "op": "update Incident"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/incidents/{id}",
-          "op": "delete Incident"
+          "path": "/v1/teams/{id}",
+          "op": "delete Team"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,6 +316,126 @@
       "toolCount": 30,
       "tools": [
         {
+          "name": "create_incident",
+          "description": "Create a Incident.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "incidentNumber": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "incidentKey": {
+                "type": "string"
+              },
+              "assignedVia": {
+                "type": "string"
+              },
+              "lastStatusChangeAt": {
+                "type": "string"
+              },
+              "resolvedAt": {
+                "type": "string"
+              },
+              "isMergeable": {
+                "type": "boolean"
+              },
+              "urgency": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "incidentNumber",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_incidents",
+          "description": "List Incidents.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_incident",
+          "description": "Get a Incident by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_incident",
+          "description": "Update a Incident.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "incidentNumber": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "incidentKey": {
+                "type": "string"
+              },
+              "assignedVia": {
+                "type": "string"
+              },
+              "lastStatusChangeAt": {
+                "type": "string"
+              },
+              "resolvedAt": {
+                "type": "string"
+              },
+              "isMergeable": {
+                "type": "boolean"
+              },
+              "urgency": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_incident",
+          "description": "Delete a Incident.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_service",
           "description": "Create a Service.",
           "inputSchema": {
@@ -255,16 +444,34 @@
               "name": {
                 "type": "string"
               },
-              "environment": {
+              "description": {
                 "type": "string"
               },
-              "language": {
+              "autoResolveTimeout": {
+                "type": "integer"
+              },
+              "acknowledgementTimeout": {
+                "type": "integer"
+              },
+              "status": {
                 "type": "string"
+              },
+              "lastIncidentTimestamp": {
+                "type": "string"
+              },
+              "alertCreation": {
+                "type": "string"
+              },
+              "alertGrouping": {
+                "type": "string"
+              },
+              "alertGroupingTimeout": {
+                "type": "integer"
               }
             },
             "required": [
               "name",
-              "environment"
+              "description"
             ]
           }
         },
@@ -303,11 +510,29 @@
               "name": {
                 "type": "string"
               },
-              "environment": {
+              "description": {
                 "type": "string"
               },
-              "language": {
+              "autoResolveTimeout": {
+                "type": "integer"
+              },
+              "acknowledgementTimeout": {
+                "type": "integer"
+              },
+              "status": {
                 "type": "string"
+              },
+              "lastIncidentTimestamp": {
+                "type": "string"
+              },
+              "alertCreation": {
+                "type": "string"
+              },
+              "alertGrouping": {
+                "type": "string"
+              },
+              "alertGroupingTimeout": {
+                "type": "integer"
               }
             },
             "required": [
@@ -331,221 +556,41 @@
           }
         },
         {
-          "name": "create_error",
-          "description": "Create a Error.",
+          "name": "create_escalation_policy",
+          "description": "Create a EscalationPolicy.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "message",
-              "culprit"
-            ]
-          }
-        },
-        {
-          "name": "list_errors",
-          "description": "List Errors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_error",
-          "description": "Get a Error by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_error",
-          "description": "Update a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "culprit": {
-                "type": "string"
-              },
-              "count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_error",
-          "description": "Delete a Error.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trace",
-          "description": "Create a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "operation",
-              "durationMs"
-            ]
-          }
-        },
-        {
-          "name": "list_traces",
-          "description": "List Traces.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trace",
-          "description": "Get a Trace by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trace",
-          "description": "Update a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "operation": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trace",
-          "description": "Delete a Trace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "description": {
+                "type": "string"
               },
-              "unit": {
+              "numLoops": {
+                "type": "integer"
+              },
+              "onCallHandoffNotifications": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "value"
+              "description"
             ]
           }
         },
         {
-          "name": "list_metrics",
-          "description": "List Metrics.",
+          "name": "list_escalation_policies",
+          "description": "List EscalationPolicies.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
+          "name": "get_escalation_policy",
+          "description": "Get a EscalationPolicy by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -559,24 +604,24 @@
           }
         },
         {
-          "name": "update_metric",
-          "description": "Update a Metric.",
+          "name": "update_escalation_policy",
+          "description": "Update a EscalationPolicy.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "serviceId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "description": {
+                "type": "string"
               },
-              "unit": {
+              "numLoops": {
+                "type": "integer"
+              },
+              "onCallHandoffNotifications": {
                 "type": "string"
               }
             },
@@ -586,8 +631,8 @@
           }
         },
         {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_escalation_policy",
+          "description": "Delete a EscalationPolicy.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,41 +646,38 @@
           }
         },
         {
-          "name": "create_alert",
-          "description": "Create a Alert.",
+          "name": "create_schedule",
+          "description": "Create a Schedule.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
+              "name": {
                 "type": "string"
               },
-              "condition": {
+              "description": {
                 "type": "string"
               },
-              "severity": {
+              "timeZone": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
-              "condition",
-              "severity"
+              "name",
+              "description"
             ]
           }
         },
         {
-          "name": "list_alerts",
-          "description": "List Alerts.",
+          "name": "list_schedules",
+          "description": "List Schedules.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
+          "name": "get_schedule",
+          "description": "Get a Schedule by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,24 +691,147 @@
           }
         },
         {
-          "name": "update_alert",
-          "description": "Update a Alert.",
+          "name": "update_schedule",
+          "description": "Update a Schedule.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "serviceId": {
+              "name": {
                 "type": "string"
               },
-              "condition": {
+              "description": {
                 "type": "string"
               },
-              "severity": {
+              "timeZone": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_schedule",
+          "description": "Delete a Schedule.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
                 "type": "string"
               },
-              "active": {
+              "email": {
+                "type": "string"
+              },
+              "timeZone": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "avatarUrl": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "invitationSent": {
+                "type": "boolean"
+              },
+              "jobTitle": {
+                "type": "string"
+              },
+              "createdViaSso": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "timeZone": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "avatarUrl": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "invitationSent": {
+                "type": "boolean"
+              },
+              "jobTitle": {
+                "type": "string"
+              },
+              "createdViaSso": {
                 "type": "boolean"
               }
             },
@@ -676,8 +841,8 @@
           }
         },
         {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
+          "name": "delete_user",
+          "description": "Delete a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,41 +856,38 @@
           }
         },
         {
-          "name": "create_incident",
-          "description": "Create a Incident.",
+          "name": "create_team",
+          "description": "Create a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "status": {
+              "description": {
                 "type": "string"
               },
-              "severity": {
-                "type": "string"
-              },
-              "startedAt": {
+              "defaultRole": {
                 "type": "string"
               }
             },
             "required": [
-              "title",
-              "status"
+              "name",
+              "description"
             ]
           }
         },
         {
-          "name": "list_incidents",
-          "description": "List Incidents.",
+          "name": "list_teams",
+          "description": "List Teams.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_incident",
-          "description": "Get a Incident by id.",
+          "name": "get_team",
+          "description": "Get a Team by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +901,21 @@
           }
         },
         {
-          "name": "update_incident",
-          "description": "Update a Incident.",
+          "name": "update_team",
+          "description": "Update a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "status": {
+              "description": {
                 "type": "string"
               },
-              "severity": {
-                "type": "string"
-              },
-              "startedAt": {
+              "defaultRole": {
                 "type": "string"
               }
             },
@@ -766,8 +925,8 @@
           }
         },
         {
-          "name": "delete_incident",
-          "description": "Delete a Incident.",
+          "name": "delete_team",
+          "description": "Delete a Team.",
           "inputSchema": {
             "type": "object",
             "properties": {

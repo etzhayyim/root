@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 938,
-    "L5": 62
+    "L4": 937,
+    "L5": 63
   },
   "actors": [
     {
@@ -12314,7 +12314,7 @@
       "wasmCid": "bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pagerduty clean-room actor",
       "category": "devtools_apm",
       "capabilities": [

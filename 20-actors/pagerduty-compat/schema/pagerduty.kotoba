@@ -3,72 +3,78 @@
 
 namespace pagerduty {
 
+    entity Incident {
+        id: string @unique
+        incidentNumber: integer
+        title: string
+        status: string
+        incidentKey: string
+        assignedVia: string
+        lastStatusChangeAt: datetime
+        resolvedAt: datetime
+        isMergeable: boolean
+        urgency: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Service {
         id: string @unique
         name: string
-        environment: string
-        language: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Error {
-        id: string @unique
-        serviceId: string
-        message: string
-        culprit: string
-        count: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trace {
-        id: string @unique
-        serviceId: string
-        operation: string
-        durationMs: integer
+        description: string
+        autoResolveTimeout: integer
+        acknowledgementTimeout: integer
         status: string
+        lastIncidentTimestamp: datetime
+        alertCreation: string
+        alertGrouping: string
+        alertGroupingTimeout: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity EscalationPolicy {
         id: string @unique
-        serviceId: string
         name: string
-        value: float
-        unit: string
+        description: string
+        numLoops: integer
+        onCallHandoffNotifications: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Alert {
+    entity Schedule {
         id: string @unique
-        serviceId: string
-        condition: string
-        severity: string
-        active: boolean
+        name: string
+        description: string
+        timeZone: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Incident {
+    entity User {
         id: string @unique
-        title: string
-        status: string
-        severity: string
-        startedAt: datetime
+        name: string
+        email: string
+        timeZone: string
+        color: string
+        role: string
+        avatarUrl: string
+        description: string
+        invitationSent: boolean
+        jobTitle: string
+        createdViaSso: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Team {
+        id: string @unique
+        name: string
+        description: string
+        defaultRole: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
