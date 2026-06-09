@@ -41,6 +41,25 @@ class PublishResult:
     object_count: int
     entries: list[dict]
     audit_path: Path
+    remote_pin_url: str | None = None
+    remote_pinned: int = 0       # CIDs successfully pinned to the canonical remote
+    remote_pin_failures: int = 0
+
+
+def _remote_pin(kotobase_pin_url: str | None, cid: str) -> bool:
+    """Best-effort recursive pin of `cid` to the canonical remote (kotobase.net).
+
+    Per ADR-2606091500 the local `ipfs add` is the add/self-pin tier; the durable
+    canonical pin lives on kotobase.net. Fire-and-forget: any failure (endpoint
+    down, auth, network) is swallowed so it never aborts the local publish —
+    the dataset is still locally pinned + CID-addressable.
+    """
+    if not kotobase_pin_url:
+        return False
+    try:
+        return ipfs.pin_add(kotobase_pin_url, cid)
+    except Exception:  # noqa: BLE001 — remote pin is best-effort (ADR-2606091500)
+        return False
 
 
 def _iter_object_files(remote_root: Path) -> list[Path]:
@@ -97,8 +116,14 @@ def publish(
     subdataset_name: str,
     remote_root: Path,
     git_commit: str | None = None,
+    kotobase_pin_url: str | None = None,
 ) -> PublishResult:
-    """Run the sidecar publish-ipfs flow for one subdataset's directory remote."""
+    """Run the sidecar publish-ipfs flow for one subdataset's directory remote.
+
+    `kotobase_pin_url` (ADR-2606091500): after the local `ipfs add`, every object
+    CID + the map CID is also pinned to the canonical remote pin (kotobase.net),
+    best-effort. None disables the fanout (local-only publish).
+    """
     if not remote_root.exists():
         raise FileNotFoundError(f"directory remote not found: {remote_root}")
 
@@ -110,10 +135,17 @@ def publish(
 
     entries: list[dict] = []
     new_keys: list[str] = []
+    remote_pinned = 0
+    remote_failures = 0
     for path in object_files:
         key = _key_from_path(remote_root, path)
         cid = ipfs.add_file(kubo_api, path)
-        entries.append({"key": key, "ipfsCid": cid, "leafName": path.name})
+        pinned = _remote_pin(kotobase_pin_url, cid)
+        if kotobase_pin_url:
+            remote_pinned += int(pinned)
+            remote_failures += int(not pinned)
+        entries.append({"key": key, "ipfsCid": cid, "leafName": path.name,
+                        "remotePinned": pinned})
         if key not in seen_keys:
             new_keys.append(key)
 
@@ -130,6 +162,10 @@ def publish(
     # a directory, breaking `ipfs cat <cid>`. Flatten the subdataset name.
     safe_name = subdataset_name.replace("/", "-").replace(" ", "_")
     map_cid = ipfs.add_bytes(kubo_api, map_bytes, filename=f"{safe_name}-map.json")
+    map_remote_pinned = _remote_pin(kotobase_pin_url, map_cid)
+    if kotobase_pin_url:
+        remote_pinned += int(map_remote_pinned)
+        remote_failures += int(not map_remote_pinned)
 
     audit_file = audit_dir / "published" / f"{git_commit or 'no-commit'}.json"
     audit_file.parent.mkdir(parents=True, exist_ok=True)
@@ -142,6 +178,7 @@ def publish(
     state["last_published_keys"] = sorted({*seen_keys, *new_keys, *[e["key"] for e in entries]})
     state["last_map_cid"] = map_cid
     state["last_published_at"] = map_doc["publishedAt"]
+    state["last_remote_pin_url"] = kotobase_pin_url
     _save_published(audit_dir, state)
 
     return PublishResult(
@@ -150,4 +187,7 @@ def publish(
         object_count=len(entries),
         entries=entries,
         audit_path=audit_file,
+        remote_pin_url=kotobase_pin_url,
+        remote_pinned=remote_pinned,
+        remote_pin_failures=remote_failures,
     )
