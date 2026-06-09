@@ -1,7 +1,7 @@
 ---
 id: adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics
 title: "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: tsumugi-scale-banner-power-dynamics
 authoritative: true
@@ -32,7 +32,7 @@ superseded_by: []
 
 # ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)
 
-**Status**: proposed
+**Status**: accepted (landed 2026-06-09, PR #1502)
 **Date**: 2026-06-09
 **Deciders**: Jun Kawasaki
 
@@ -149,6 +149,38 @@ narration (G6). No published social post.
 - **Inferred ideology (B).** Rejected outright — imputing a hidden ideology is the exact
   thought-policing failure mode; H1 makes it unrepresentable.
 - **Individual-level local dynamics.** Rejected — violates G1 no-doxxing (constitutional).
+
+# Landed (2026-06-09, PR #1502)
+
+Merged to `main` after the initial scaffold + a session `/loop` that detailed the intel across
+the founder-named granularities (組織・地域・コミュニティ・社内派閥・学閥) and kept it
+Murakumo-narratable. Final state:
+
+- **(A) scale-agnostic 産官学報** — `:pwr/scale` exercised end-to-end across **all 7 tiers**
+  (`:global` IMF/BIS → `:supranational` EU Brussels → `:national` → `:regional` 都道府県 →
+  `:municipal` 市区町村 → `:local` → `:intra-org`); `:pwr/collective-kind` axis added with **8
+  kinds all populated** (組織/企業単位 · 地域 · 市区町村 · コミュニティ · 社内派閥 · 学閥 ·
+  系列 · 審議会); **8 cluster TYPES** (企業城下町 / 金融街 / サイエンスパーク / 学閥 / 社内派閥 /
+  系列 / 超国家 / 惑星金融); **all 6 sectors** (産官学報民金); **8 regions** (JP/DE/KR/US/UK/TW/
+  EU/global). Honest density ranking: 愛知 13.2 · 長崎 12.08 · 豊田市 9.3 · Detroit 8.32 · 広島
+  7.76 · Wolfsburg 6.24 · …; flagship 企業城下町 豊田市 (本社 employs/funds/seats 市). **Cross-
+  scale vertical-integration** readout (follows `:pwr/parent` chains): Toyota family threads
+  国→市→社内 (3 scales).
+- **(B) 旗 hata** — **6 axes / 13 banners** (改憲↔護憲 · 原発推進↔脱原発 · 自由貿易↔保護主義 ·
+  緩和↔引締 + 主義 schools), pluralism bridges (多論点 party profiles), genealogy ← historical
+  thought-streams. Thought-policing guard **H1–H7** intact.
+- **Murakumo-only narration** — `methods/narrate.py` (fleet-only, G6, operator-gated, dry-run)
+  + in-WASM `deploy/agent.py` (`kotoba_langgraph → KotobaLLM → host MURAKUMO_DEFAULT_MODEL`
+  gemma4); emits a fused **`intel-digest.kotoba.edn`** + an append-only **`intel-datoms.kotoba.edn`**
+  (EAVT canonical-state shape, ADR-2605312345). `published=false` (G7).
+- **Tests**: 24 scale + 11 banner + 16 narrate green (+ existing 25 tsumugi unaffected); pure
+  stdlib, zero new dependency. All CI (lint-and-test, CodeQL ×8, monorepo-health) green.
+- **Constitutional boundary held**: named private individuals remain unrepresentable (G1/keizu-G1
+  no-doxxing); everything is seat/institution-level, `:representative`, non-adjudicating.
+
+Open (unchanged from R0): `:representative` bounded seeds (学会X/政党A·B·C/企業Y/KX are
+placeholders, not assertions about named orgs); live locality + entity↔banner ingest and any
+published post stay G7 + Council + operator-gated.
 
 # References
 
