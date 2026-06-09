@@ -1864,10 +1864,15 @@
             "templateId",
             "senderId"
           ],
-          "fieldStatus": "name/template_id/sender_id confirmed; status present but the closed enum list is not published in the endpoint spec -> NOT force-enforced",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (status enum re-fetch-confirmed)",
+          "discoveredEnums": {
+            "status": [
+              "draft",
+              "scheduled",
+              "triggered"
+            ]
+          },
           "gaps": [
-            "status-enum (draft/scheduled/sent/paused inferred, not in spec)",
             "list_ids",
             "send_at"
           ]
@@ -1919,7 +1924,7 @@
           ]
         }
       ],
-      "note": "6 resource(s) doc-verified; enforced enums: Template.generation"
+      "note": "6 resource(s) doc-verified; enforced enums: Template.generation [+enum upgrade SingleSend.status(3)]"
     },
     {
       "handle": "gitlab-compat",
@@ -3295,7 +3300,7 @@
             "status",
             "jobPostId"
           ],
-          "fieldStatus": "confirmed (candidate_id, applied_at, job_post_id)",
+          "fieldStatus": "confirmed (status enum re-fetch-confirmed)",
           "discoveredEnums": {
             "status": [
               "active",
@@ -3380,7 +3385,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official Greenhouse Harvest docs. Enforced enums: Application.status (1); Job/Offer/Scorecard enums were INFERRED not doc-enumerated -> intentionally NOT enforced."
+      "note": "FULLY VERIFIED (6/6) vs official Greenhouse Harvest docs. Enforced enums: Application.status (1); Job/Offer/Scorecard enums were INFERRED not doc-enumerated -> intentionally NOT enforced. [+enum upgrade Application.status(4)]"
     },
     {
       "handle": "pipedrive-compat",
@@ -3556,10 +3561,30 @@
             "status",
             "archived"
           ],
-          "fieldStatus": "fields confirmed; status enum not doc-enumerated -> NOT enforced",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (status enum re-fetch-confirmed)",
+          "discoveredEnums": {
+            "status": [
+              "Adding Recipients",
+              "Cancelled",
+              "Cancelled: Account Disabled",
+              "Cancelled: Billing Limit",
+              "Cancelled: Internal Error",
+              "Cancelled: Misconfigured",
+              "Cancelled: No Recipients",
+              "Cancelled: Smart Sending",
+              "Draft",
+              "Preparing to schedule",
+              "Preparing to send",
+              "Queued without Recipients",
+              "Scheduled",
+              "Sending",
+              "Sending Segments",
+              "Sent",
+              "Unknown",
+              "Variations Sent"
+            ]
+          },
           "gaps": [
-            "status-enum (inferred)",
             "send_strategy",
             "audiences"
           ]
@@ -3602,7 +3627,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (6/6) vs official Klaviyo docs. Enforced enums: Flow.status (1); Campaign.status inferred -> not enforced."
+      "note": "FULLY VERIFIED (6/6) vs official Klaviyo docs. Enforced enums: Flow.status (1); Campaign.status inferred -> not enforced. [+enum upgrade Campaign.status(18)]"
     },
     {
       "handle": "databricks-compat",
@@ -3620,10 +3645,20 @@
             "sparkVersion",
             "numWorkers"
           ],
-          "fieldStatus": "fields confirmed (cluster_name, spark_version, num_workers); state full enum not exhaustively listed in SDK source -> NOT enforced",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (state enum re-fetch-confirmed from official databricks-sdk-go)",
+          "discoveredEnums": {
+            "state": [
+              "PENDING",
+              "RUNNING",
+              "RESTARTING",
+              "RESIZING",
+              "TERMINATING",
+              "TERMINATED",
+              "ERROR",
+              "UNKNOWN"
+            ]
+          },
           "gaps": [
-            "state-enum (PENDING/RUNNING/TERMINATED.. abstract in SDK)",
             "node_type_id"
           ]
         },
@@ -3675,15 +3710,22 @@
             "warehouseType",
             "clusterSize"
           ],
-          "fieldStatus": "confirmed (warehouse_type, cluster_size); state enum DEFER",
+          "fieldStatus": "confirmed (state enum re-fetch-confirmed from official databricks-sdk-go)",
           "discoveredEnums": {
             "warehouseType": [
               "CLASSIC",
               "SERVERLESS"
+            ],
+            "state": [
+              "STARTING",
+              "RUNNING",
+              "STOPPING",
+              "STOPPED",
+              "DELETING",
+              "DELETED"
             ]
           },
           "gaps": [
-            "state-enum (STARTING/RUNNING.. DEFER)",
             "enable_photon"
           ]
         },
@@ -3720,7 +3762,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (5/5) vs official Databricks SDK. Enforced enums: Run.state, Warehouse.warehouseType, ObjectInfo.objectType, ObjectInfo.language (4)."
+      "note": "FULLY VERIFIED (5/5) vs official Databricks SDK. Enforced enums: Run.state, Warehouse.warehouseType, ObjectInfo.objectType, ObjectInfo.language (4). [+enum upgrade Cluster.state(8),Warehouse.state(6) via databricks-sdk-go]"
     },
     {
       "handle": "xero-compat",

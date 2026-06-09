@@ -29,6 +29,13 @@
           "legacy",
           "dynamic"
         ]
+      },
+      "SingleSend": {
+        "status": [
+          "draft",
+          "scheduled",
+          "triggered"
+        ]
       }
     }
   },
