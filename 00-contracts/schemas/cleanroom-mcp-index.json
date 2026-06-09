@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29965,
+  "totalTools": 29960,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -5376,10 +5376,10 @@
     {
       "handle": "mux-compat",
       "did": "did:web:etzhayyim.com:actor:mux-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/mux-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -5583,7 +5583,7 @@
     {
       "handle": "netlify-compat",
       "did": "did:web:etzhayyim.com:actor:netlify-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -7653,7 +7653,7 @@
     {
       "handle": "supabase-compat",
       "did": "did:web:etzhayyim.com:actor:supabase-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

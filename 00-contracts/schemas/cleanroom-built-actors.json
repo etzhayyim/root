@@ -10143,17 +10143,16 @@
       "handle": "mux-compat",
       "platform": "mux",
       "bytes": 2117,
-      "wasmCid": "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "wasmCid": "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Asset",
+        "PlaybackId",
+        "Track",
+        "Upload",
+        "LiveStream"
       ]
     },
     {
@@ -10539,12 +10538,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Site",
+        "Deploy",
+        "Build",
+        "DnsZone",
+        "Hook",
+        "Form"
       ]
     },
     {
@@ -14452,12 +14451,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Project",
+        "Organization",
+        "EdgeFunction",
+        "ApiKey",
+        "Branch",
+        "Backup"
       ]
     },
     {

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 926,
-    "L5": 74
+    "L4": 923,
+    "L5": 77
   },
   "actors": [
     {
@@ -10745,10 +10745,10 @@
     {
       "handle": "mux-compat",
       "did": "did:web:etzhayyim.com:actor:mux-compat",
-      "wasmCid": "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "wasmCid": "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mux clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -11162,7 +11162,7 @@
       "wasmCid": "bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "netlify clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -15302,7 +15302,7 @@
       "wasmCid": "bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "supabase clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [

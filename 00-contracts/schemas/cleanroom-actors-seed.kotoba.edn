@@ -7773,11 +7773,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible communications / social actor (mux); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "mux.kotoba"
-   :actor/wasm-cid "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha"
+   :actor/wasm-cid "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:mux-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mux-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mux-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mux-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mux-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mux-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mux-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mux-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "mygovid-compat"
    :actor/did "did:web:etzhayyim.com:actor:mygovid-compat"
    :actor/kind :compat

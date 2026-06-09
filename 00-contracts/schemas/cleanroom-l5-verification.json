@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 74,
+  "count": 77,
   "actors": [
     {
       "handle": "square-compat",
@@ -10468,6 +10468,465 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official WooCommerce REST v3 docs. Enforced enums: Order.status(8), Product.type(4)/status(4)/catalogVisibility(4)/stockStatus(3), Customer.role(7), Coupon.discountType(3), ProductCategory.display(4) = 9 enums."
+    },
+    {
+      "handle": "mux-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.mux.com/docs/api-reference",
+      "remodeled": "Remodeled from generic media/video to a faithful Mux Video model, verified against the official Mux API docs. Asset/PlaybackId/Track fully confirmed; Upload/LiveStream status enums not accessible -> left as gaps (not enforced).",
+      "resources": [
+        {
+          "entity": "Asset",
+          "source": "https://www.mux.com/docs/api-reference",
+          "verifiedFields": [
+            "id",
+            "status",
+            "duration",
+            "resolutionTier",
+            "videoQuality",
+            "aspectRatio",
+            "test",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "preparing",
+              "ready",
+              "errored"
+            ],
+            "resolutionTier": [
+              "audio-only",
+              "720p",
+              "1080p",
+              "1440p",
+              "2160p"
+            ],
+            "videoQuality": [
+              "basic",
+              "plus",
+              "premium"
+            ]
+          },
+          "gaps": [
+            "tracks(array)"
+          ]
+        },
+        {
+          "entity": "PlaybackId",
+          "source": "https://www.mux.com/docs/api-reference",
+          "verifiedFields": [
+            "id",
+            "policy"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "policy": [
+              "public",
+              "signed",
+              "drm"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Track",
+          "source": "https://www.mux.com/docs/api-reference",
+          "verifiedFields": [
+            "id",
+            "type",
+            "duration",
+            "maxWidth",
+            "maxHeight",
+            "status",
+            "primary"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "video",
+              "audio",
+              "text"
+            ],
+            "status": [
+              "preparing",
+              "ready",
+              "errored",
+              "deleted"
+            ]
+          },
+          "gaps": [
+            "textSource"
+          ]
+        },
+        {
+          "entity": "Upload",
+          "source": "https://www.mux.com/docs/api-reference",
+          "verifiedFields": [
+            "id",
+            "status",
+            "timeout",
+            "test"
+          ],
+          "fieldStatus": "fields confirmed; status enum not accessible -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum-not-accessible"
+          ]
+        },
+        {
+          "entity": "LiveStream",
+          "source": "https://www.mux.com/docs/api-reference",
+          "verifiedFields": [
+            "id",
+            "status",
+            "latencyMode"
+          ],
+          "fieldStatus": "fields confirmed; status enum not accessible -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-enum-not-accessible"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "PARTIAL: Asset/PlaybackId/Track FULLY verified vs official Mux docs (6 enforced enums: Asset.status/resolutionTier/videoQuality, PlaybackId.policy, Track.type/status); Upload/LiveStream status enums not publicly accessible -> gaps. Honesty over coverage."
+    },
+    {
+      "handle": "netlify-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/netlify/open-api",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Netlify model, verified against the official Netlify OpenAPI (open-api swagger.yml + Go model structs). Object fields dropped. Hook.type/event left gaps (docs flagged possibly non-exhaustive).",
+      "resources": [
+        {
+          "entity": "Site",
+          "source": "https://github.com/netlify/open-api/blob/master/go/models/site.go",
+          "verifiedFields": [
+            "id",
+            "name",
+            "url",
+            "sslUrl",
+            "adminUrl",
+            "state",
+            "customDomain",
+            "accountId",
+            "ssl",
+            "forceSsl",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "buildSettings(object)"
+          ]
+        },
+        {
+          "entity": "Deploy",
+          "source": "https://github.com/netlify/open-api/blob/master/swagger.yml",
+          "verifiedFields": [
+            "id",
+            "siteId",
+            "url",
+            "state",
+            "draft",
+            "branch",
+            "commitRef",
+            "locked",
+            "createdAt",
+            "publishedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "new",
+              "pending_review",
+              "accepted",
+              "rejected",
+              "enqueued",
+              "building",
+              "uploading",
+              "uploaded",
+              "preparing",
+              "prepared",
+              "processing",
+              "processed",
+              "ready",
+              "error",
+              "retrying"
+            ]
+          },
+          "gaps": [
+            "context"
+          ]
+        },
+        {
+          "entity": "Build",
+          "source": "https://github.com/netlify/open-api/blob/master/go/models/build.go",
+          "verifiedFields": [
+            "id",
+            "deployId",
+            "sha",
+            "done",
+            "error",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "DnsZone",
+          "source": "https://github.com/netlify/open-api/blob/master/go/models/dns_zone.go",
+          "verifiedFields": [
+            "id",
+            "siteId",
+            "domain",
+            "dedicated",
+            "ipv6Enabled",
+            "accountId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "records(array)"
+          ]
+        },
+        {
+          "entity": "Hook",
+          "source": "https://github.com/netlify/open-api/blob/master/go/models/hook.go",
+          "verifiedFields": [
+            "id",
+            "siteId",
+            "type",
+            "event",
+            "disabled",
+            "createdAt"
+          ],
+          "fieldStatus": "fields confirmed; type/event arrays flagged possibly non-exhaustive -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-enum-maybe-partial",
+            "event-enum-maybe-partial"
+          ]
+        },
+        {
+          "entity": "Form",
+          "source": "https://github.com/netlify/open-api/blob/master/go/models/form.go",
+          "verifiedFields": [
+            "id",
+            "siteId",
+            "name",
+            "submissionCount",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6 schemas) vs official Netlify OpenAPI. Enforced enum: Deploy.state(15, full array from swagger). Hook.type/event left gaps (docs may not be exhaustive) — honesty over coverage."
+    },
+    {
+      "handle": "supabase-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.supabase.com/api/v1-json",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Supabase Management API model, verified against the live official OpenAPI (api.supabase.com/api/v1-json). snake_case->camelCase.",
+      "resources": [
+        {
+          "entity": "Project",
+          "source": "https://api.supabase.com/api/v1-json (V1ProjectResponse)",
+          "verifiedFields": [
+            "id",
+            "ref",
+            "organizationSlug",
+            "name",
+            "region",
+            "status",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ],
+            "region": [
+              "us-east-1",
+              "us-east-2",
+              "us-west-1",
+              "us-west-2",
+              "ap-southeast-1",
+              "ap-northeast-1",
+              "ap-northeast-2",
+              "ap-east-1",
+              "ap-southeast-2",
+              "eu-west-1",
+              "eu-west-2",
+              "eu-west-3",
+              "eu-north-1",
+              "eu-central-1",
+              "eu-central-2",
+              "ca-central-1",
+              "ap-south-1",
+              "sa-east-1"
+            ]
+          },
+          "gaps": [
+            "database(object)"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "source": "https://api.supabase.com/api/v1-json (OrganizationResponseV1)",
+          "verifiedFields": [
+            "id",
+            "slug",
+            "name"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "EdgeFunction",
+          "source": "https://api.supabase.com/api/v1-json (FunctionResponse)",
+          "verifiedFields": [
+            "id",
+            "slug",
+            "name",
+            "status",
+            "version",
+            "verifyJwt",
+            "entrypointPath",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "ACTIVE",
+              "REMOVED",
+              "THROTTLED"
+            ]
+          },
+          "gaps": [
+            "importMap"
+          ]
+        },
+        {
+          "entity": "ApiKey",
+          "source": "https://api.supabase.com/api/v1-json (ApiKeyResponse)",
+          "verifiedFields": [
+            "id",
+            "type",
+            "name",
+            "description",
+            "prefix",
+            "insertedAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "legacy",
+              "publishable",
+              "secret"
+            ]
+          },
+          "gaps": [
+            "hash"
+          ]
+        },
+        {
+          "entity": "Branch",
+          "source": "https://api.supabase.com/api/v1-json (BranchResponse)",
+          "verifiedFields": [
+            "id",
+            "name",
+            "projectRef",
+            "parentProjectRef",
+            "isDefault",
+            "persistent",
+            "status",
+            "previewProjectStatus",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "CREATING_PROJECT",
+              "RUNNING_MIGRATIONS",
+              "MIGRATIONS_PASSED",
+              "MIGRATIONS_FAILED",
+              "FUNCTIONS_DEPLOYED",
+              "FUNCTIONS_FAILED"
+            ],
+            "previewProjectStatus": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Backup",
+          "source": "https://api.supabase.com/api/v1-json (V1BackupsResponse)",
+          "verifiedFields": [
+            "id",
+            "status",
+            "isPhysicalBackup",
+            "insertedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "COMPLETED",
+              "FAILED",
+              "PENDING",
+              "REMOVED",
+              "ARCHIVED",
+              "CANCELLED"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs live official Supabase Management OpenAPI. Enforced enums: Project.status(15)/region(18), EdgeFunction.status(3), ApiKey.type(3), Branch.status(6)/previewProjectStatus(15), Backup.status(6) = 7 enums (66 values)."
     }
   ]
 }

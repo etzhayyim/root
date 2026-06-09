@@ -11,15 +11,47 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
   "schema": "schema/netlify.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/netlify/open-api",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Site",
+      "Deploy",
+      "Build",
+      "DnsZone",
+      "Hook",
+      "Form"
+    ],
+    "enums": {
+      "Deploy": {
+        "state": [
+          "new",
+          "pending_review",
+          "accepted",
+          "rejected",
+          "enqueued",
+          "building",
+          "uploading",
+          "uploaded",
+          "preparing",
+          "prepared",
+          "processing",
+          "processed",
+          "ready",
+          "error",
+          "retrying"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "ComputeInstance",
-    "Volume",
-    "Bucket",
-    "Network",
-    "IamRole"
+    "Site",
+    "Deploy",
+    "Build",
+    "DnsZone",
+    "Hook",
+    "Form"
   ],
   "adr": [
     "260607",
@@ -35,153 +67,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/sites",
+          "op": "create Site"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/sites",
+          "op": "list Site"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/sites/{id}",
+          "op": "get Site"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/sites/{id}",
+          "op": "update Site"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
+          "path": "/v1/sites/{id}",
+          "op": "delete Site"
         },
         {
           "method": "POST",
-          "path": "/v1/computeinstances",
-          "op": "create ComputeInstance"
+          "path": "/v1/deploys",
+          "op": "create Deploy"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances",
-          "op": "list ComputeInstance"
+          "path": "/v1/deploys",
+          "op": "list Deploy"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances/{id}",
-          "op": "get ComputeInstance"
+          "path": "/v1/deploys/{id}",
+          "op": "get Deploy"
         },
         {
           "method": "PATCH",
-          "path": "/v1/computeinstances/{id}",
-          "op": "update ComputeInstance"
+          "path": "/v1/deploys/{id}",
+          "op": "update Deploy"
         },
         {
           "method": "DELETE",
-          "path": "/v1/computeinstances/{id}",
-          "op": "delete ComputeInstance"
+          "path": "/v1/deploys/{id}",
+          "op": "delete Deploy"
         },
         {
           "method": "POST",
-          "path": "/v1/volumes",
-          "op": "create Volume"
+          "path": "/v1/builds",
+          "op": "create Build"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes",
-          "op": "list Volume"
+          "path": "/v1/builds",
+          "op": "list Build"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes/{id}",
-          "op": "get Volume"
+          "path": "/v1/builds/{id}",
+          "op": "get Build"
         },
         {
           "method": "PATCH",
-          "path": "/v1/volumes/{id}",
-          "op": "update Volume"
+          "path": "/v1/builds/{id}",
+          "op": "update Build"
         },
         {
           "method": "DELETE",
-          "path": "/v1/volumes/{id}",
-          "op": "delete Volume"
+          "path": "/v1/builds/{id}",
+          "op": "delete Build"
         },
         {
           "method": "POST",
-          "path": "/v1/buckets",
-          "op": "create Bucket"
+          "path": "/v1/dnszones",
+          "op": "create DnsZone"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets",
-          "op": "list Bucket"
+          "path": "/v1/dnszones",
+          "op": "list DnsZone"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets/{id}",
-          "op": "get Bucket"
+          "path": "/v1/dnszones/{id}",
+          "op": "get DnsZone"
         },
         {
           "method": "PATCH",
-          "path": "/v1/buckets/{id}",
-          "op": "update Bucket"
+          "path": "/v1/dnszones/{id}",
+          "op": "update DnsZone"
         },
         {
           "method": "DELETE",
-          "path": "/v1/buckets/{id}",
-          "op": "delete Bucket"
+          "path": "/v1/dnszones/{id}",
+          "op": "delete DnsZone"
         },
         {
           "method": "POST",
-          "path": "/v1/networks",
-          "op": "create Network"
+          "path": "/v1/hooks",
+          "op": "create Hook"
         },
         {
           "method": "GET",
-          "path": "/v1/networks",
-          "op": "list Network"
+          "path": "/v1/hooks",
+          "op": "list Hook"
         },
         {
           "method": "GET",
-          "path": "/v1/networks/{id}",
-          "op": "get Network"
+          "path": "/v1/hooks/{id}",
+          "op": "get Hook"
         },
         {
           "method": "PATCH",
-          "path": "/v1/networks/{id}",
-          "op": "update Network"
+          "path": "/v1/hooks/{id}",
+          "op": "update Hook"
         },
         {
           "method": "DELETE",
-          "path": "/v1/networks/{id}",
-          "op": "delete Network"
+          "path": "/v1/hooks/{id}",
+          "op": "delete Hook"
         },
         {
           "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
+          "path": "/v1/forms",
+          "op": "create Form"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
+          "path": "/v1/forms",
+          "op": "list Form"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
+          "path": "/v1/forms/{id}",
+          "op": "get Form"
         },
         {
           "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
+          "path": "/v1/forms/{id}",
+          "op": "update Form"
         },
         {
           "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
+          "path": "/v1/forms/{id}",
+          "op": "delete Form"
         }
       ],
       "features": {
@@ -247,38 +279,65 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_site",
+          "description": "Create a Site.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "url": {
                 "type": "string"
               },
-              "billingId": {
+              "sslUrl": {
+                "type": "string"
+              },
+              "adminUrl": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "customDomain": {
+                "type": "string"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "ssl": {
+                "type": "boolean"
+              },
+              "forceSsl": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_projects",
-          "description": "List Projects.",
+          "name": "list_sites",
+          "description": "List Sites.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_project",
-          "description": "Get a Project by id.",
+          "name": "get_site",
+          "description": "Get a Site by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +351,8 @@
           }
         },
         {
-          "name": "update_project",
-          "description": "Update a Project.",
+          "name": "update_site",
+          "description": "Update a Site.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,72 +362,111 @@
               "name": {
                 "type": "string"
               },
-              "region": {
+              "url": {
                 "type": "string"
               },
-              "billingId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_project",
-          "description": "Delete a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_compute_instance",
-          "description": "Create a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
+              "sslUrl": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
+              "adminUrl": {
                 "type": "string"
               },
               "state": {
                 "type": "string"
               },
-              "ipAddress": {
+              "customDomain": {
+                "type": "string"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "ssl": {
+                "type": "boolean"
+              },
+              "forceSsl": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "machineType"
+              "id"
             ]
           }
         },
         {
-          "name": "list_compute_instances",
-          "description": "List ComputeInstances.",
+          "name": "delete_site",
+          "description": "Delete a Site.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_deploy",
+          "description": "Create a Deploy.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "siteId": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "draft": {
+                "type": "boolean"
+              },
+              "branch": {
+                "type": "string"
+              },
+              "commitRef": {
+                "type": "string"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "publishedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "url"
+            ]
+          }
+        },
+        {
+          "name": "list_deploys",
+          "description": "List Deploys.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_compute_instance",
-          "description": "Get a ComputeInstance by id.",
+          "name": "get_deploy",
+          "description": "Get a Deploy by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,27 +480,39 @@
           }
         },
         {
-          "name": "update_compute_instance",
-          "description": "Update a ComputeInstance.",
+          "name": "update_deploy",
+          "description": "Update a Deploy.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "siteId": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
+              "url": {
                 "type": "string"
               },
               "state": {
                 "type": "string"
               },
-              "ipAddress": {
+              "draft": {
+                "type": "boolean"
+              },
+              "branch": {
+                "type": "string"
+              },
+              "commitRef": {
+                "type": "string"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "publishedAt": {
                 "type": "string"
               }
             },
@@ -412,8 +522,8 @@
           }
         },
         {
-          "name": "delete_compute_instance",
-          "description": "Delete a ComputeInstance.",
+          "name": "delete_deploy",
+          "description": "Delete a Deploy.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,41 +537,251 @@
           }
         },
         {
-          "name": "create_volume",
-          "description": "Create a Volume.",
+          "name": "create_build",
+          "description": "Create a Build.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "id": {
                 "type": "string"
               },
-              "sizeGb": {
-                "type": "integer"
+              "deployId": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "done": {
+                "type": "boolean"
+              },
+              "error": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "sha"
+            ]
+          }
+        },
+        {
+          "name": "list_builds",
+          "description": "List Builds.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_build",
+          "description": "Get a Build by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_build",
+          "description": "Update a Build.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "deployId": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "done": {
+                "type": "boolean"
+              },
+              "error": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_build",
+          "description": "Delete a Build.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dns_zone",
+          "description": "Create a DnsZone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "siteId": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "dedicated": {
+                "type": "boolean"
+              },
+              "ipv6Enabled": {
+                "type": "boolean"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "domain"
+            ]
+          }
+        },
+        {
+          "name": "list_dns_zones",
+          "description": "List DnsZones.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dns_zone",
+          "description": "Get a DnsZone by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dns_zone",
+          "description": "Update a DnsZone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "siteId": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "dedicated": {
+                "type": "boolean"
+              },
+              "ipv6Enabled": {
+                "type": "boolean"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dns_zone",
+          "description": "Delete a DnsZone.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_hook",
+          "description": "Create a Hook.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "siteId": {
+                "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "attachedTo": {
+              "event": {
+                "type": "string"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "sizeGb",
+              "id",
               "type"
             ]
           }
         },
         {
-          "name": "list_volumes",
-          "description": "List Volumes.",
+          "name": "list_hooks",
+          "description": "List Hooks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_volume",
-          "description": "Get a Volume by id.",
+          "name": "get_hook",
+          "description": "Get a Hook by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,83 +795,89 @@
           }
         },
         {
-          "name": "update_volume",
-          "description": "Update a Volume.",
+          "name": "update_hook",
+          "description": "Update a Hook.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "siteId": {
                 "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
               },
               "type": {
                 "type": "string"
               },
-              "attachedTo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_volume",
-          "description": "Delete a Volume.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_bucket",
-          "description": "Create a Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
+              "event": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "public": {
+              "disabled": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id"
             ]
           }
         },
         {
-          "name": "list_buckets",
-          "description": "List Buckets.",
+          "name": "delete_hook",
+          "description": "Delete a Hook.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_form",
+          "description": "Create a Form.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "siteId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "submissionCount": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_forms",
+          "description": "List Forms.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_bucket",
-          "description": "Get a Bucket by id.",
+          "name": "get_form",
+          "description": "Get a Form by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,39 +891,24 @@
           }
         },
         {
-          "name": "update_bucket",
-          "description": "Update a Bucket.",
+          "name": "update_form",
+          "description": "Update a Form.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "siteId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
+              "submissionCount": {
+                "type": "integer"
               },
-              "public": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_bucket",
-          "description": "Delete a Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -607,161 +918,8 @@
           }
         },
         {
-          "name": "create_network",
-          "description": "Create a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "region"
-            ]
-          }
-        },
-        {
-          "name": "list_networks",
-          "description": "List Networks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_network",
-          "description": "Get a Network by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_network",
-          "description": "Update a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_network",
-          "description": "Delete a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "policy"
-            ]
-          }
-        },
-        {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
+          "name": "delete_form",
+          "description": "Delete a Form.",
           "inputSchema": {
             "type": "object",
             "properties": {

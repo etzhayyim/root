@@ -111,381 +111,280 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
+@app.route("/v1/assets", methods=["POST"])
+def create_asset(request):
+    """Create a Asset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['id', 'status', 'duration', 'resolutionTier', 'videoQuality', 'aspectRatio', 'test', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['id', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("mux_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
-    return rec, 201
-
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Channel", rec)
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.Channel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mux_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
-    if err:
-        return err, 400
-    err = _require(data, ['handle', 'displayName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mux_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
-    return rec, 201
-
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("User", rec)
-    return rec, 200
-
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.User", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mux_roo")}
-    rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
-    return rec, 201
-
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Room", rec)
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.Room", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mux_str")}
-    rec["roomId"] = data.get('roomId')
+    if data.get('status') and data['status'] not in ['preparing', 'ready', 'errored']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['preparing', 'ready', 'errored']), "type": "invalid_request_error"}}, 400
+    if data.get('resolutionTier') and data['resolutionTier'] not in ['audio-only', '720p', '1080p', '1440p', '2160p']:
+        return {"error": {"message": "invalid resolutionTier; allowed: " + ", ".join(['audio-only', '720p', '1080p', '1440p', '2160p']), "type": "invalid_request_error"}}, 400
+    if data.get('videoQuality') and data['videoQuality'] not in ['basic', 'plus', 'premium']:
+        return {"error": {"message": "invalid videoQuality; allowed: " + ", ".join(['basic', 'plus', 'premium']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mux_ass")}
+    rec["id"] = data.get('id')
     rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
+    rec["duration"] = _as_float(data.get('duration'))
+    rec["resolutionTier"] = data.get('resolutionTier')
+    rec["videoQuality"] = data.get('videoQuality')
+    rec["aspectRatio"] = data.get('aspectRatio')
+    rec["test"] = _as_bool(data.get('test'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
+    _persist("Asset", rec)
     return rec, 201
 
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
+@app.route("/v1/assets", methods=["GET"])
+def list_assets(request):
+    """List Assets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
+    rows = _query("Asset")
+    rows = _apply_filters(rows, params, ['id', 'status', 'duration', 'resolutionTier', 'videoQuality', 'aspectRatio', 'test', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
+@app.route("/v1/assets/<eid>", methods=["GET"])
+def get_asset(request, eid):
+    """Retrieve a Asset by id (supports ?expand=)."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
+def update_asset(request, eid):
+    """Update a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['id', 'status', 'duration', 'resolutionTier', 'videoQuality', 'aspectRatio', 'test', 'createdAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['preparing', 'ready', 'errored']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['preparing', 'ready', 'errored']), "type": "invalid_request_error"}}, 400
+    if data.get('resolutionTier') and data['resolutionTier'] not in ['audio-only', '720p', '1080p', '1440p', '2160p']:
+        return {"error": {"message": "invalid resolutionTier; allowed: " + ", ".join(['audio-only', '720p', '1080p', '1440p', '2160p']), "type": "invalid_request_error"}}, 400
+    if data.get('videoQuality') and data['videoQuality'] not in ['basic', 'plus', 'premium']:
+        return {"error": {"message": "invalid videoQuality; allowed: " + ", ".join(['basic', 'plus', 'premium']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stream", rec)
+    _persist("Asset", rec)
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/assets/<eid>", methods=["DELETE"])
+def delete_asset(request, eid):
+    """Delete a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.Stream", "id": eid})
+    db.retract({"entity": f"mux.Asset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/playbackids", methods=["POST"])
+def create_playback_id(request):
+    """Create a PlaybackId."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'policy'])
     if err:
         return err, 400
-    err = _require(data, ['event', 'url'])
+    err = _require(data, ['id', 'policy'])
     if err:
         return err, 400
-    rec = {"id": new_id("mux_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('policy') and data['policy'] not in ['public', 'signed', 'drm']:
+        return {"error": {"message": "invalid policy; allowed: " + ", ".join(['public', 'signed', 'drm']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mux_pla")}
+    rec["id"] = data.get('id')
+    rec["policy"] = data.get('policy')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("PlaybackId", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/playbackids", methods=["GET"])
+def list_playback_ids(request):
+    """List PlaybackIds with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("PlaybackId")
+    rows = _apply_filters(rows, params, ['id', 'policy'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/playbackids/<eid>", methods=["GET"])
+def get_playback_id(request, eid):
+    """Retrieve a PlaybackId by id (supports ?expand=)."""
+    rows = _query("PlaybackId", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/playbackids/<eid>", methods=["POST", "PATCH"])
+def update_playback_id(request, eid):
+    """Update a PlaybackId."""
+    rows = _query("PlaybackId", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'policy'])
+    if err:
+        return err, 400
+    if data.get('policy') and data['policy'] not in ['public', 'signed', 'drm']:
+        return {"error": {"message": "invalid policy; allowed: " + ", ".join(['public', 'signed', 'drm']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("PlaybackId", rec)
+    return rec, 200
+
+@app.route("/v1/playbackids/<eid>", methods=["DELETE"])
+def delete_playback_id(request, eid):
+    """Delete a PlaybackId."""
+    rows = _query("PlaybackId", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mux.PlaybackId", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tracks", methods=["POST"])
+def create_track(request):
+    """Create a Track."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'duration', 'maxWidth', 'maxHeight', 'status', 'primary'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['video', 'audio', 'text']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['video', 'audio', 'text']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['preparing', 'ready', 'errored', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['preparing', 'ready', 'errored', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mux_tra")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["duration"] = _as_float(data.get('duration'))
+    rec["maxWidth"] = _as_int(data.get('maxWidth'))
+    rec["maxHeight"] = _as_int(data.get('maxHeight'))
+    rec["status"] = data.get('status')
+    rec["primary"] = _as_bool(data.get('primary'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Track", rec)
+    return rec, 201
+
+@app.route("/v1/tracks", methods=["GET"])
+def list_tracks(request):
+    """List Tracks with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Track")
+    rows = _apply_filters(rows, params, ['id', 'type', 'duration', 'maxWidth', 'maxHeight', 'status', 'primary'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tracks/<eid>", methods=["GET"])
+def get_track(request, eid):
+    """Retrieve a Track by id (supports ?expand=)."""
+    rows = _query("Track", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/tracks/<eid>", methods=["POST", "PATCH"])
+def update_track(request, eid):
+    """Update a Track."""
+    rows = _query("Track", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'duration', 'maxWidth', 'maxHeight', 'status', 'primary'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['video', 'audio', 'text']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['video', 'audio', 'text']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['preparing', 'ready', 'errored', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['preparing', 'ready', 'errored', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Track", rec)
+    return rec, 200
+
+@app.route("/v1/tracks/<eid>", methods=["DELETE"])
+def delete_track(request, eid):
+    """Delete a Track."""
+    rows = _query("Track", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mux.Track", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/uploads", methods=["POST"])
+def create_upload(request):
+    """Create a Upload."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'status', 'timeout', 'test'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'status'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mux_upl")}
+    rec["id"] = data.get('id')
+    rec["status"] = data.get('status')
+    rec["timeout"] = _as_int(data.get('timeout'))
+    rec["test"] = _as_bool(data.get('test'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Upload", rec)
+    return rec, 201
+
+@app.route("/v1/uploads", methods=["GET"])
+def list_uploads(request):
+    """List Uploads with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Upload")
+    rows = _apply_filters(rows, params, ['id', 'status', 'timeout', 'test'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/uploads/<eid>", methods=["GET"])
+def get_upload(request, eid):
+    """Retrieve a Upload by id (supports ?expand=)."""
+    rows = _query("Upload", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/uploads/<eid>", methods=["POST", "PATCH"])
+def update_upload(request, eid):
+    """Update a Upload."""
+    rows = _query("Upload", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'status', 'timeout', 'test'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +392,87 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Upload", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/uploads/<eid>", methods=["DELETE"])
+def delete_upload(request, eid):
+    """Delete a Upload."""
+    rows = _query("Upload", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mux.Webhook", "id": eid})
+    db.retract({"entity": f"mux.Upload", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/livestreams", methods=["POST"])
+def create_live_stream(request):
+    """Create a LiveStream."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'status', 'latencyMode'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'status'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mux_liv")}
+    rec["id"] = data.get('id')
+    rec["status"] = data.get('status')
+    rec["latencyMode"] = data.get('latencyMode')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("LiveStream", rec)
+    return rec, 201
+
+@app.route("/v1/livestreams", methods=["GET"])
+def list_live_streams(request):
+    """List LiveStreams with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("LiveStream")
+    rows = _apply_filters(rows, params, ['id', 'status', 'latencyMode'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/livestreams/<eid>", methods=["GET"])
+def get_live_stream(request, eid):
+    """Retrieve a LiveStream by id (supports ?expand=)."""
+    rows = _query("LiveStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/livestreams/<eid>", methods=["POST", "PATCH"])
+def update_live_stream(request, eid):
+    """Update a LiveStream."""
+    rows = _query("LiveStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'status', 'latencyMode'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("LiveStream", rec)
+    return rec, 200
+
+@app.route("/v1/livestreams/<eid>", methods=["DELETE"])
+def delete_live_stream(request, eid):
+    """Delete a LiveStream."""
+    rows = _query("LiveStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mux.LiveStream", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mux-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['Asset', 'PlaybackId', 'Track', 'Upload', 'LiveStream']}, 200
 
 
 if __name__ == "__main__":

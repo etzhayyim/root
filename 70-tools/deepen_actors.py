@@ -1473,6 +1473,35 @@ PLATFORM_OVERRIDES = {
         "ProductCategory": E(id="integer", name="string", slug="string", parent="integer", description="string", display="string", menuOrder="integer"),
         "Refund": E(id="integer", amount="float", reason="string", refundedBy="integer", refundedPayment="boolean", dateCreated="datetime"),
     },
+    # Faithful Mux Video model — verified against official Mux docs. Asset/PlaybackId/
+    # Track fully confirmed; Upload/LiveStream status not accessible -> gaps.
+    "mux": {
+        "Asset": E(id="string", status="string", duration="float", resolutionTier="string", videoQuality="string", aspectRatio="string", test="boolean", createdAt="integer"),
+        "PlaybackId": E(id="string", policy="string"),
+        "Track": E(id="string", type="string", duration="float", maxWidth="integer", maxHeight="integer", status="string", primary="boolean"),
+        "Upload": E(id="string", status="string", timeout="integer", test="boolean"),
+        "LiveStream": E(id="string", status="string", latencyMode="string"),
+    },
+    # Faithful Netlify model — verified against the official Netlify OpenAPI
+    # (github.com/netlify/open-api swagger.yml). Object fields dropped.
+    "netlify": {
+        "Site": E(id="string", name="string", url="string", sslUrl="string", adminUrl="string", state="string", customDomain="string", accountId="string", ssl="boolean", forceSsl="boolean", createdAt="datetime", updatedAt="datetime"),
+        "Deploy": E(id="string", siteId="string", url="string", state="string", draft="boolean", branch="string", commitRef="string", locked="boolean", createdAt="datetime", publishedAt="datetime"),
+        "Build": E(id="string", deployId="string", sha="string", done="boolean", error="string", createdAt="datetime"),
+        "DnsZone": E(id="string", siteId="string", domain="string", dedicated="boolean", ipv6Enabled="boolean", accountId="string", createdAt="datetime"),
+        "Hook": E(id="string", siteId="string", type="string", event="string", disabled="boolean", createdAt="datetime"),
+        "Form": E(id="string", siteId="string", name="string", submissionCount="integer", createdAt="datetime"),
+    },
+    # Faithful Supabase Management API model — verified against the live OpenAPI
+    # (api.supabase.com/api/v1-json). _id->id; snake_case->camelCase.
+    "supabase": {
+        "Project": E(id="string", ref="string", organizationSlug="string", name="string", region="string", status="string", createdAt="datetime"),
+        "Organization": E(id="string", slug="string", name="string"),
+        "EdgeFunction": E(id="string", slug="string", name="string", status="string", version="integer", verifyJwt="boolean", entrypointPath="string", createdAt="integer", updatedAt="integer"),
+        "ApiKey": E(id="string", type="string", name="string", description="string", prefix="string", insertedAt="datetime", updatedAt="datetime"),
+        "Branch": E(id="string", name="string", projectRef="string", parentProjectRef="string", isDefault="boolean", persistent="boolean", status="string", previewProjectStatus="string", createdAt="datetime"),
+        "Backup": E(id="integer", status="string", isPhysicalBackup="boolean", insertedAt="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

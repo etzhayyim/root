@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29965,
+  "totalEndpoints": 29960,
   "l4SpecsAvailable": 1000,
   "apis": [
     {
@@ -10144,10 +10144,10 @@
     {
       "handle": "mux-compat",
       "did": "did:web:etzhayyim.com:actor:mux-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -10535,7 +10535,7 @@
     {
       "handle": "netlify-compat",
       "did": "did:web:etzhayyim.com:actor:netlify-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
@@ -14445,7 +14445,7 @@
     {
       "handle": "supabase-compat",
       "did": "did:web:etzhayyim.com:actor:supabase-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
