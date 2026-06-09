@@ -899,7 +899,7 @@ PLATFORM_OVERRIDES = {
         "Call": E(fromNumber="string", toNumber="string", status="string", durationSec="integer"),
         "PhoneNumber": E(e164="string", capabilities="string", friendlyName="string"),
         "Verification": E(toNumber="string", channel="string", status="string"),
-        "Recording": E(callSid="string", durationSec="integer", contentRef="string"),
+        "Recording": E(callSid="string", durationSec="integer", contentRef="string", status="string"),
         "Conference": E(friendlyName="string", status="string", participantCount="integer"),
     },
     "github": {
@@ -1041,7 +1041,7 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(name="string", projectId="string", url="string", readyState="string", target="string", type="string"),
         "Project": E(name="string", accountId="string", nodeVersion="string", framework="string", buildCommand="string"),
         "Domain": E(name="string", verified="boolean", serviceType="string", expiresAt="integer"),
-        "Alias": E(alias="string", deploymentId="string", projectId="string"),
+        "Alias": E(alias="string", deploymentId="string", projectId="string", redirectStatusCode="integer"),
         "Team": E(name="string", slug="string", description="string"),
     },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
@@ -1620,6 +1620,16 @@ PLATFORM_OVERRIDES = {
         "Policy": E(name="string", displayName="string", description="string", enforcementLevel="string", severity="string", message="string"),
         "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
         "Organization": E(name="string", role="string"),
+    },
+    # Faithful World Bank Indicators API model — verified against the live
+    # api.worldbank.org/v2 endpoints (code lists are documented closed sets).
+    "worldbank": {
+        "Country": E(id="string", iso2Code="string", name="string", capitalCity="string", incomeLevelId="string", lendingTypeId="string", regionId="string", longitude="string", latitude="string"),
+        "Indicator": E(id="string", name="string", unit="string", sourceId="string", sourceNote="string", sourceOrganization="string"),
+        "Source": E(id="string", name="string", code="string", lastUpdated="string", dataAvailability="boolean", concepts="integer"),
+        "IncomeLevel": E(id="string", name="string"),
+        "LendingType": E(id="string", name="string"),
+        "Topic": E(id="string", name="string"),
     },
     # Faithful HL7 FHIR R4 model — verified against the official HL7 FHIR R4 spec
     # (hl7.org/fhir/R4). Status fields use the REQUIRED-binding closed value sets.

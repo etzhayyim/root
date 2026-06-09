@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 94,
+  "count": 95,
   "actors": [
     {
       "handle": "square-compat",
@@ -1316,7 +1316,7 @@
             "status",
             "direction"
           ],
-          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to)",
+          "fieldStatus": "confirmed (status/direction re-fetch vs twilio-oai)",
           "discoveredEnums": {
             "status": [
               "queued",
@@ -1330,6 +1330,7 @@
               "accepted",
               "scheduled",
               "read",
+              "partially_delivered",
               "canceled"
             ],
             "direction": [
@@ -1356,17 +1357,17 @@
             "status",
             "durationSec"
           ],
-          "fieldStatus": "all generated fields confirmed (fromNumber=from, toNumber=to, durationSec=duration in seconds)",
+          "fieldStatus": "confirmed (status re-fetch)",
           "discoveredEnums": {
             "status": [
               "queued",
               "ringing",
               "in-progress",
-              "canceled",
               "completed",
               "busy",
               "failed",
-              "no-answer"
+              "no-answer",
+              "canceled"
             ]
           },
           "gaps": [
@@ -1458,17 +1459,26 @@
             "callSid",
             "durationSec"
           ],
-          "fieldStatus": "call_sid + duration (durationSec) confirmed; contentRef maps to the real media URI. status enum exists on the real resource but status is not modeled here -> documented gap, not enforced",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (status re-fetch; field added)",
+          "discoveredEnums": {
+            "status": [
+              "in-progress",
+              "paused",
+              "stopped",
+              "processing",
+              "completed",
+              "absent",
+              "deleted"
+            ]
+          },
           "gaps": [
-            "status (real enum in-progress/paused/stopped/processing/completed/absent/deleted — not modeled)",
             "media_url",
             "channels",
             "source"
           ]
         }
       ],
-      "note": "6 resource(s) doc-verified; enforced enums: Call.status, Conference.status, Message.direction, Message.status, Verification.channel, Verification.status"
+      "note": "6 resource(s) doc-verified; enforced enums: Call.status, Conference.status, Message.direction, Message.status, Verification.channel, Verification.status [+enum Message.status(13)/direction(4), Call.status(8), Recording.status(7)]"
     },
     {
       "handle": "stripe-compat",
@@ -3069,28 +3079,23 @@
             "target",
             "type"
           ],
-          "fieldStatus": "confirmed",
+          "fieldStatus": "confirmed (readyState/target re-fetch-confirmed)",
           "discoveredEnums": {
             "readyState": [
+              "BLOCKED",
               "BUILDING",
+              "CANCELED",
               "ERROR",
               "INITIALIZING",
               "QUEUED",
-              "READY",
-              "CANCELED",
-              "BLOCKED",
-              "DELETED"
+              "READY"
             ],
             "target": [
               "production",
               "staging"
             ]
           },
-          "gaps": [
-            "created (epoch ms)",
-            "creator",
-            "source"
-          ]
+          "gaps": []
         },
         {
           "entity": "Project",
@@ -3140,8 +3145,15 @@
             "deploymentId",
             "projectId"
           ],
-          "fieldStatus": "confirmed",
-          "discoveredEnums": {},
+          "fieldStatus": "confirmed (redirectStatusCode int enum re-fetch)",
+          "discoveredEnums": {
+            "redirectStatusCode": [
+              301,
+              302,
+              307,
+              308
+            ]
+          },
           "gaps": [
             "redirect",
             "redirectStatusCode (int enum)"
@@ -3164,7 +3176,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (5/5) vs official Vercel REST docs. Enforced enums: Deployment.readyState, Deployment.target, Domain.serviceType (3)."
+      "note": "FULLY VERIFIED (5/5) vs official Vercel REST docs. Enforced enums: Deployment.readyState, Deployment.target, Domain.serviceType (3). [+enum Deployment.readyState(7)/target(2), Alias.redirectStatusCode(4 int)]"
     },
     {
       "handle": "airtable-compat",
@@ -13349,6 +13361,159 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs EBI ChEMBL API. Enforced enums: Molecule.moleculeType(8), Target.targetType(13), Document.docType(2) = 3 enums. assayType + maxPhase left gaps (no official enum / ambiguous format)."
+    },
+    {
+      "handle": "worldbank-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://api.worldbank.org/v2",
+      "remodeled": "Remodeled from generic category model to a faithful World Bank Indicators API model, verified against the live api.worldbank.org/v2 endpoints. Code-list ids are documented closed sets. Region left a gap (only 8 of 44 entries carry numeric ids).",
+      "resources": [
+        {
+          "entity": "Country",
+          "source": "https://api.worldbank.org/v2/country",
+          "verifiedFields": [
+            "id",
+            "iso2Code",
+            "name",
+            "capitalCity",
+            "incomeLevelId",
+            "lendingTypeId",
+            "regionId",
+            "longitude",
+            "latitude"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "incomeLevelId": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ],
+            "lendingTypeId": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
+          },
+          "gaps": [
+            "regionId-partial"
+          ]
+        },
+        {
+          "entity": "Indicator",
+          "source": "https://api.worldbank.org/v2/indicator",
+          "verifiedFields": [
+            "id",
+            "name",
+            "unit",
+            "sourceId",
+            "sourceNote",
+            "sourceOrganization"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "topics(array)"
+          ]
+        },
+        {
+          "entity": "Source",
+          "source": "https://api.worldbank.org/v2/source",
+          "verifiedFields": [
+            "id",
+            "name",
+            "code",
+            "lastUpdated",
+            "dataAvailability",
+            "concepts"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "IncomeLevel",
+          "source": "https://api.worldbank.org/v2/incomeLevel",
+          "verifiedFields": [
+            "id",
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "id": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "LendingType",
+          "source": "https://api.worldbank.org/v2/lendingType",
+          "verifiedFields": [
+            "id",
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "id": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Topic",
+          "source": "https://api.worldbank.org/v2/topic",
+          "verifiedFields": [
+            "id",
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "id": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs live World Bank API. Enforced enums: Country.incomeLevelId(7)/lendingTypeId(4), IncomeLevel.id(7), LendingType.id(4), Topic.id(21) = 5 enums. Region left a gap (partial numeric-id coverage)."
     }
   ]
 }

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,376 +17,6 @@
     }
   ],
   "paths": {
-    "/v1/indicators": {
-      "get": {
-        "summary": "List Indicators",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Indicator"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Indicator",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Indicator"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/indicators/{id}": {
-      "get": {
-        "summary": "Get a Indicator",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Indicator"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Indicator",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Indicator"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Indicator",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/observations": {
-      "get": {
-        "summary": "List Observations",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Observation"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Observation",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Observation"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/observations/{id}": {
-      "get": {
-        "summary": "Get a Observation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Observation"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Observation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Observation"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Observation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/v1/countries": {
       "get": {
         "summary": "List Countries",
@@ -572,9 +202,9 @@
         }
       }
     },
-    "/v1/serieses": {
+    "/v1/indicators": {
       "get": {
-        "summary": "List Serieses",
+        "summary": "List Indicators",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Series"
+                        "$ref": "#/components/schemas/Indicator"
                       }
                     },
                     "has_more": {
@@ -634,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Series",
+        "summary": "Create a Indicator",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SeriesCreate"
+                "$ref": "#/components/schemas/IndicatorCreate"
               }
             }
           }
@@ -651,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Series"
+                  "$ref": "#/components/schemas/Indicator"
                 }
               }
             }
@@ -662,9 +292,9 @@
         }
       }
     },
-    "/v1/serieses/{id}": {
+    "/v1/indicators/{id}": {
       "get": {
-        "summary": "Get a Series",
+        "summary": "Get a Indicator",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Series"
+                  "$ref": "#/components/schemas/Indicator"
                 }
               }
             }
@@ -699,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Series",
+        "summary": "Update a Indicator",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SeriesCreate"
+                "$ref": "#/components/schemas/IndicatorCreate"
               }
             }
           }
@@ -725,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Series"
+                  "$ref": "#/components/schemas/Indicator"
                 }
               }
             }
@@ -736,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Series",
+        "summary": "Delete a Indicator",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +387,9 @@
         }
       }
     },
-    "/v1/reports": {
+    "/v1/sources": {
       "get": {
-        "summary": "List Reports",
+        "summary": "List Sources",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Report"
+                        "$ref": "#/components/schemas/Source"
                       }
                     },
                     "has_more": {
@@ -819,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Report",
+        "summary": "Create a Source",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -836,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -847,9 +477,9 @@
         }
       }
     },
-    "/v1/reports/{id}": {
+    "/v1/sources/{id}": {
       "get": {
-        "summary": "Get a Report",
+        "summary": "Get a Source",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -884,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Report",
+        "summary": "Update a Source",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -910,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -921,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Report",
+        "summary": "Delete a Source",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +572,9 @@
         }
       }
     },
-    "/v1/exchangerates": {
+    "/v1/incomelevels": {
       "get": {
-        "summary": "List ExchangeRates",
+        "summary": "List IncomeLevels",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ExchangeRate"
+                        "$ref": "#/components/schemas/IncomeLevel"
                       }
                     },
                     "has_more": {
@@ -1004,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ExchangeRate",
+        "summary": "Create a IncomeLevel",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExchangeRateCreate"
+                "$ref": "#/components/schemas/IncomeLevelCreate"
               }
             }
           }
@@ -1021,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
+                  "$ref": "#/components/schemas/IncomeLevel"
                 }
               }
             }
@@ -1032,9 +662,9 @@
         }
       }
     },
-    "/v1/exchangerates/{id}": {
+    "/v1/incomelevels/{id}": {
       "get": {
-        "summary": "Get a ExchangeRate",
+        "summary": "Get a IncomeLevel",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
+                  "$ref": "#/components/schemas/IncomeLevel"
                 }
               }
             }
@@ -1069,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ExchangeRate",
+        "summary": "Update a IncomeLevel",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExchangeRateCreate"
+                "$ref": "#/components/schemas/IncomeLevelCreate"
               }
             }
           }
@@ -1095,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
+                  "$ref": "#/components/schemas/IncomeLevel"
                 }
               }
             }
@@ -1106,7 +736,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a ExchangeRate",
+        "summary": "Delete a IncomeLevel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/lendingtypes": {
+      "get": {
+        "summary": "List LendingTypes",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LendingType"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a LendingType",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LendingTypeCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LendingType"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/lendingtypes/{id}": {
+      "get": {
+        "summary": "Get a LendingType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LendingType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a LendingType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LendingTypeCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LendingType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a LendingType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/topics": {
+      "get": {
+        "summary": "List Topics",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Topic"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Topic",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/topics/{id}": {
+      "get": {
+        "summary": "Get a Topic",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Topic",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Topic",
         "parameters": [
           {
             "name": "id",
@@ -1140,117 +1140,49 @@
   },
   "components": {
     "schemas": {
-      "Indicator": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IndicatorCreate": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "name"
-        ]
-      },
-      "Observation": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "indicatorId": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ObservationCreate": {
-        "type": "object",
-        "properties": {
-          "indicatorId": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "country",
-          "period"
-        ]
-      },
       "Country": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "iso3": {
+          "iso2Code": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
+          "capitalCity": {
+            "type": "string"
+          },
+          "incomeLevelId": {
+            "type": "string",
+            "enum": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ]
+          },
+          "lendingTypeId": {
+            "type": "string",
+            "enum": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
+          },
+          "regionId": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          },
+          "latitude": {
             "type": "string"
           },
           "createdAt": {
@@ -1266,35 +1198,132 @@
       "CountryCreate": {
         "type": "object",
         "properties": {
-          "iso3": {
+          "id": {
+            "type": "string"
+          },
+          "iso2Code": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
+          "capitalCity": {
+            "type": "string"
+          },
+          "incomeLevelId": {
+            "type": "string",
+            "enum": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ]
+          },
+          "lendingTypeId": {
+            "type": "string",
+            "enum": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
+          },
+          "regionId": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          },
+          "latitude": {
             "type": "string"
           }
         },
         "required": [
-          "iso3",
+          "id",
+          "iso2Code"
+        ]
+      },
+      "Indicator": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "sourceNote": {
+            "type": "string"
+          },
+          "sourceOrganization": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IndicatorCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "sourceNote": {
+            "type": "string"
+          },
+          "sourceOrganization": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
           "name"
         ]
       },
-      "Series": {
+      "Source": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "indicatorId": {
+          "name": {
             "type": "string"
           },
-          "frequency": {
+          "code": {
             "type": "string"
           },
-          "startPeriod": {
+          "lastUpdated": {
             "type": "string"
+          },
+          "dataAvailability": {
+            "type": "boolean"
+          },
+          "concepts": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1306,38 +1335,49 @@
           }
         }
       },
-      "SeriesCreate": {
+      "SourceCreate": {
         "type": "object",
         "properties": {
-          "indicatorId": {
+          "id": {
             "type": "string"
           },
-          "frequency": {
+          "name": {
             "type": "string"
           },
-          "startPeriod": {
+          "code": {
             "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
+          "dataAvailability": {
+            "type": "boolean"
+          },
+          "concepts": {
+            "type": "integer"
           }
         },
         "required": [
-          "frequency",
-          "startPeriod"
+          "id",
+          "name"
         ]
       },
-      "Report": {
+      "IncomeLevel": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "publishedAt": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ]
           },
-          "contentRef": {
+          "name": {
             "type": "string"
           },
           "createdAt": {
@@ -1350,42 +1390,44 @@
           }
         }
       },
-      "ReportCreate": {
+      "IncomeLevelCreate": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string"
+          "id": {
+            "type": "string",
+            "enum": [
+              "HIC",
+              "INX",
+              "LIC",
+              "LMC",
+              "LMY",
+              "MIC",
+              "UMC"
+            ]
           },
-          "publishedAt": {
-            "type": "string"
-          },
-          "contentRef": {
+          "name": {
             "type": "string"
           }
         },
         "required": [
-          "title",
-          "publishedAt"
+          "id",
+          "name"
         ]
       },
-      "ExchangeRate": {
+      "LendingType": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "base": {
-            "type": "string"
-          },
-          "quote": {
-            "type": "string"
-          },
-          "rate": {
-            "type": "number"
-          },
-          "asOf": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
+          },
+          "name": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1397,25 +1439,105 @@
           }
         }
       },
-      "ExchangeRateCreate": {
+      "LendingTypeCreate": {
         "type": "object",
         "properties": {
-          "base": {
-            "type": "string"
+          "id": {
+            "type": "string",
+            "enum": [
+              "IBD",
+              "IDB",
+              "IDX",
+              "LNX"
+            ]
           },
-          "quote": {
-            "type": "string"
-          },
-          "rate": {
-            "type": "number"
-          },
-          "asOf": {
+          "name": {
             "type": "string"
           }
         },
         "required": [
-          "base",
-          "quote"
+          "id",
+          "name"
+        ]
+      },
+      "Topic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TopicCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21"
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ]
       }
     }

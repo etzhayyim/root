@@ -8697,7 +8697,7 @@
     {
       "handle": "worldbank-compat",
       "did": "did:web:etzhayyim.com:actor:worldbank-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

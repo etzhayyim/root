@@ -111,21 +111,103 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/countries", methods=["POST"])
+def create_country(request):
+    """Create a Country."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'iso2Code', 'name', 'capitalCity', 'incomeLevelId', 'lendingTypeId', 'regionId', 'longitude', 'latitude'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'iso2Code'])
+    if err:
+        return err, 400
+    if data.get('incomeLevelId') and data['incomeLevelId'] not in ['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']:
+        return {"error": {"message": "invalid incomeLevelId; allowed: " + ", ".join(['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']), "type": "invalid_request_error"}}, 400
+    if data.get('lendingTypeId') and data['lendingTypeId'] not in ['IBD', 'IDB', 'IDX', 'LNX']:
+        return {"error": {"message": "invalid lendingTypeId; allowed: " + ", ".join(['IBD', 'IDB', 'IDX', 'LNX']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("worldban_cou")}
+    rec["id"] = data.get('id')
+    rec["iso2Code"] = data.get('iso2Code')
+    rec["name"] = data.get('name')
+    rec["capitalCity"] = data.get('capitalCity')
+    rec["incomeLevelId"] = data.get('incomeLevelId')
+    rec["lendingTypeId"] = data.get('lendingTypeId')
+    rec["regionId"] = data.get('regionId')
+    rec["longitude"] = data.get('longitude')
+    rec["latitude"] = data.get('latitude')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Country", rec)
+    return rec, 201
+
+@app.route("/v1/countries", methods=["GET"])
+def list_countries(request):
+    """List Countries with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Country")
+    rows = _apply_filters(rows, params, ['id', 'iso2Code', 'name', 'capitalCity', 'incomeLevelId', 'lendingTypeId', 'regionId', 'longitude', 'latitude'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/countries/<eid>", methods=["GET"])
+def get_country(request, eid):
+    """Retrieve a Country by id (supports ?expand=)."""
+    rows = _query("Country", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'incomeLevelId': 'IncomeLevel', 'lendingTypeId': 'LendingType'})
+    return rec, 200
+
+@app.route("/v1/countries/<eid>", methods=["POST", "PATCH"])
+def update_country(request, eid):
+    """Update a Country."""
+    rows = _query("Country", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'iso2Code', 'name', 'capitalCity', 'incomeLevelId', 'lendingTypeId', 'regionId', 'longitude', 'latitude'])
+    if err:
+        return err, 400
+    if data.get('incomeLevelId') and data['incomeLevelId'] not in ['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']:
+        return {"error": {"message": "invalid incomeLevelId; allowed: " + ", ".join(['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']), "type": "invalid_request_error"}}, 400
+    if data.get('lendingTypeId') and data['lendingTypeId'] not in ['IBD', 'IDB', 'IDX', 'LNX']:
+        return {"error": {"message": "invalid lendingTypeId; allowed: " + ", ".join(['IBD', 'IDB', 'IDX', 'LNX']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Country", rec)
+    return rec, 200
+
+@app.route("/v1/countries/<eid>", methods=["DELETE"])
+def delete_country(request, eid):
+    """Delete a Country."""
+    rows = _query("Country", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"worldbank.Country", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/indicators", methods=["POST"])
 def create_indicator(request):
     """Create a Indicator."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'unit', 'source'])
+    err = _reject_unknown(data, ['id', 'name', 'unit', 'sourceId', 'sourceNote', 'sourceOrganization'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'name'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
     rec = {"id": new_id("worldban_ind")}
-    rec["code"] = data.get('code')
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
     rec["unit"] = data.get('unit')
-    rec["source"] = data.get('source')
+    rec["sourceId"] = data.get('sourceId')
+    rec["sourceNote"] = data.get('sourceNote')
+    rec["sourceOrganization"] = data.get('sourceOrganization')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Indicator", rec)
@@ -136,7 +218,7 @@ def list_indicators(request):
     """List Indicators with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Indicator")
-    rows = _apply_filters(rows, params, ['code', 'name', 'unit', 'source'])
+    rows = _apply_filters(rows, params, ['id', 'name', 'unit', 'sourceId', 'sourceNote', 'sourceOrganization'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +230,7 @@ def get_indicator(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'sourceId': 'Source'})
     return rec, 200
 
 @app.route("/v1/indicators/<eid>", methods=["POST", "PATCH"])
@@ -157,7 +240,7 @@ def update_indicator(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'unit', 'source'])
+    err = _reject_unknown(data, ['id', 'name', 'unit', 'sourceId', 'sourceNote', 'sourceOrganization'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,119 +260,55 @@ def delete_indicator(request, eid):
     db.retract({"entity": f"worldbank.Indicator", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/observations", methods=["POST"])
-def create_observation(request):
-    """Create a Observation."""
+@app.route("/v1/sources", methods=["POST"])
+def create_source(request):
+    """Create a Source."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'country', 'period', 'value'])
+    err = _reject_unknown(data, ['id', 'name', 'code', 'lastUpdated', 'dataAvailability', 'concepts'])
     if err:
         return err, 400
-    err = _require(data, ['country', 'period'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("worldban_obs")}
-    rec["indicatorId"] = data.get('indicatorId')
-    rec["country"] = data.get('country')
-    rec["period"] = data.get('period')
-    rec["value"] = _as_float(data.get('value'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Observation", rec)
-    return rec, 201
-
-@app.route("/v1/observations", methods=["GET"])
-def list_observations(request):
-    """List Observations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['indicatorId', 'country', 'period', 'value'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/observations/<eid>", methods=["GET"])
-def get_observation(request, eid):
-    """Retrieve a Observation by id (supports ?expand=)."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'indicatorId': 'Indicator'})
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
-def update_observation(request, eid):
-    """Update a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'country', 'period', 'value'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Observation", rec)
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["DELETE"])
-def delete_observation(request, eid):
-    """Delete a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"worldbank.Observation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/countries", methods=["POST"])
-def create_country(request):
-    """Create a Country."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['iso3', 'name', 'region'])
-    if err:
-        return err, 400
-    err = _require(data, ['iso3', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("worldban_cou")}
-    rec["iso3"] = data.get('iso3')
+    rec = {"id": new_id("worldban_sou")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
+    rec["code"] = data.get('code')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["dataAvailability"] = _as_bool(data.get('dataAvailability'))
+    rec["concepts"] = _as_int(data.get('concepts'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Country", rec)
+    _persist("Source", rec)
     return rec, 201
 
-@app.route("/v1/countries", methods=["GET"])
-def list_countries(request):
-    """List Countries with filtering + cursor pagination."""
+@app.route("/v1/sources", methods=["GET"])
+def list_sources(request):
+    """List Sources with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Country")
-    rows = _apply_filters(rows, params, ['iso3', 'name', 'region'])
+    rows = _query("Source")
+    rows = _apply_filters(rows, params, ['id', 'name', 'code', 'lastUpdated', 'dataAvailability', 'concepts'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/countries/<eid>", methods=["GET"])
-def get_country(request, eid):
-    """Retrieve a Country by id (supports ?expand=)."""
-    rows = _query("Country", eid)
+@app.route("/v1/sources/<eid>", methods=["GET"])
+def get_source(request, eid):
+    """Retrieve a Source by id (supports ?expand=)."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/countries/<eid>", methods=["POST", "PATCH"])
-def update_country(request, eid):
-    """Update a Country."""
-    rows = _query("Country", eid)
+@app.route("/v1/sources/<eid>", methods=["POST", "PATCH"])
+def update_source(request, eid):
+    """Update a Source."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['iso3', 'name', 'region'])
+    err = _reject_unknown(data, ['id', 'name', 'code', 'lastUpdated', 'dataAvailability', 'concepts'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,219 +316,226 @@ def update_country(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Country", rec)
+    _persist("Source", rec)
     return rec, 200
 
-@app.route("/v1/countries/<eid>", methods=["DELETE"])
-def delete_country(request, eid):
-    """Delete a Country."""
-    rows = _query("Country", eid)
+@app.route("/v1/sources/<eid>", methods=["DELETE"])
+def delete_source(request, eid):
+    """Delete a Source."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"worldbank.Country", "id": eid})
+    db.retract({"entity": f"worldbank.Source", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/serieses", methods=["POST"])
-def create_series(request):
-    """Create a Series."""
+@app.route("/v1/incomelevels", methods=["POST"])
+def create_income_level(request):
+    """Create a IncomeLevel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'frequency', 'startPeriod'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['frequency', 'startPeriod'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("worldban_ser")}
-    rec["indicatorId"] = data.get('indicatorId')
-    rec["frequency"] = data.get('frequency')
-    rec["startPeriod"] = data.get('startPeriod')
+    if data.get('id') and data['id'] not in ['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("worldban_inc")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Series", rec)
+    _persist("IncomeLevel", rec)
     return rec, 201
 
-@app.route("/v1/serieses", methods=["GET"])
-def list_serieses(request):
-    """List Serieses with filtering + cursor pagination."""
+@app.route("/v1/incomelevels", methods=["GET"])
+def list_income_levels(request):
+    """List IncomeLevels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Series")
-    rows = _apply_filters(rows, params, ['indicatorId', 'frequency', 'startPeriod'])
+    rows = _query("IncomeLevel")
+    rows = _apply_filters(rows, params, ['id', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/serieses/<eid>", methods=["GET"])
-def get_series(request, eid):
-    """Retrieve a Series by id (supports ?expand=)."""
-    rows = _query("Series", eid)
+@app.route("/v1/incomelevels/<eid>", methods=["GET"])
+def get_income_level(request, eid):
+    """Retrieve a IncomeLevel by id (supports ?expand=)."""
+    rows = _query("IncomeLevel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'indicatorId': 'Indicator'})
     return rec, 200
 
-@app.route("/v1/serieses/<eid>", methods=["POST", "PATCH"])
-def update_series(request, eid):
-    """Update a Series."""
-    rows = _query("Series", eid)
+@app.route("/v1/incomelevels/<eid>", methods=["POST", "PATCH"])
+def update_income_level(request, eid):
+    """Update a IncomeLevel."""
+    rows = _query("IncomeLevel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'frequency', 'startPeriod'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('id') and data['id'] not in ['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['HIC', 'INX', 'LIC', 'LMC', 'LMY', 'MIC', 'UMC']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Series", rec)
+    _persist("IncomeLevel", rec)
     return rec, 200
 
-@app.route("/v1/serieses/<eid>", methods=["DELETE"])
-def delete_series(request, eid):
-    """Delete a Series."""
-    rows = _query("Series", eid)
+@app.route("/v1/incomelevels/<eid>", methods=["DELETE"])
+def delete_income_level(request, eid):
+    """Delete a IncomeLevel."""
+    rows = _query("IncomeLevel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"worldbank.Series", "id": eid})
+    db.retract({"entity": f"worldbank.IncomeLevel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/lendingtypes", methods=["POST"])
+def create_lending_type(request):
+    """Create a LendingType."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'publishedAt', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'publishedAt'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("worldban_rep")}
-    rec["title"] = data.get('title')
-    rec["publishedAt"] = data.get('publishedAt')
-    rec["contentRef"] = data.get('contentRef')
+    if data.get('id') and data['id'] not in ['IBD', 'IDB', 'IDX', 'LNX']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['IBD', 'IDB', 'IDX', 'LNX']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("worldban_len")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("LendingType", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/lendingtypes", methods=["GET"])
+def list_lending_types(request):
+    """List LendingTypes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['title', 'publishedAt', 'contentRef'])
+    rows = _query("LendingType")
+    rows = _apply_filters(rows, params, ['id', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/lendingtypes/<eid>", methods=["GET"])
+def get_lending_type(request, eid):
+    """Retrieve a LendingType by id (supports ?expand=)."""
+    rows = _query("LendingType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/lendingtypes/<eid>", methods=["POST", "PATCH"])
+def update_lending_type(request, eid):
+    """Update a LendingType."""
+    rows = _query("LendingType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'publishedAt', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('id') and data['id'] not in ['IBD', 'IDB', 'IDX', 'LNX']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['IBD', 'IDB', 'IDX', 'LNX']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("LendingType", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/lendingtypes/<eid>", methods=["DELETE"])
+def delete_lending_type(request, eid):
+    """Delete a LendingType."""
+    rows = _query("LendingType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"worldbank.Report", "id": eid})
+    db.retract({"entity": f"worldbank.LendingType", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/exchangerates", methods=["POST"])
-def create_exchange_rate(request):
-    """Create a ExchangeRate."""
+@app.route("/v1/topics", methods=["POST"])
+def create_topic(request):
+    """Create a Topic."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['base', 'quote', 'rate', 'asOf'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['base', 'quote'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("worldban_exc")}
-    rec["base"] = data.get('base')
-    rec["quote"] = data.get('quote')
-    rec["rate"] = _as_float(data.get('rate'))
-    rec["asOf"] = data.get('asOf')
+    if data.get('id') and data['id'] not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("worldban_top")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ExchangeRate", rec)
+    _persist("Topic", rec)
     return rec, 201
 
-@app.route("/v1/exchangerates", methods=["GET"])
-def list_exchange_rates(request):
-    """List ExchangeRates with filtering + cursor pagination."""
+@app.route("/v1/topics", methods=["GET"])
+def list_topics(request):
+    """List Topics with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ExchangeRate")
-    rows = _apply_filters(rows, params, ['base', 'quote', 'rate', 'asOf'])
+    rows = _query("Topic")
+    rows = _apply_filters(rows, params, ['id', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/exchangerates/<eid>", methods=["GET"])
-def get_exchange_rate(request, eid):
-    """Retrieve a ExchangeRate by id (supports ?expand=)."""
-    rows = _query("ExchangeRate", eid)
+@app.route("/v1/topics/<eid>", methods=["GET"])
+def get_topic(request, eid):
+    """Retrieve a Topic by id (supports ?expand=)."""
+    rows = _query("Topic", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/exchangerates/<eid>", methods=["POST", "PATCH"])
-def update_exchange_rate(request, eid):
-    """Update a ExchangeRate."""
-    rows = _query("ExchangeRate", eid)
+@app.route("/v1/topics/<eid>", methods=["POST", "PATCH"])
+def update_topic(request, eid):
+    """Update a Topic."""
+    rows = _query("Topic", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['base', 'quote', 'rate', 'asOf'])
+    err = _reject_unknown(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('id') and data['id'] not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']:
+        return {"error": {"message": "invalid id; allowed: " + ", ".join(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ExchangeRate", rec)
+    _persist("Topic", rec)
     return rec, 200
 
-@app.route("/v1/exchangerates/<eid>", methods=["DELETE"])
-def delete_exchange_rate(request, eid):
-    """Delete a ExchangeRate."""
-    rows = _query("ExchangeRate", eid)
+@app.route("/v1/topics/<eid>", methods=["DELETE"])
+def delete_topic(request, eid):
+    """Delete a Topic."""
+    rows = _query("Topic", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"worldbank.ExchangeRate", "id": eid})
+    db.retract({"entity": f"worldbank.Topic", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "worldbank-compat", "tier": "L4",
-            "entities": ['Indicator', 'Observation', 'Country', 'Series', 'Report', 'ExchangeRate']}, 200
+            "entities": ['Country', 'Indicator', 'Source', 'IncomeLevel', 'LendingType', 'Topic']}, 200
 
 
 if __name__ == "__main__":

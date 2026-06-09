@@ -11,15 +11,89 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
   "schema": "schema/worldbank.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.worldbank.org/v2",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Country",
+      "Indicator",
+      "Source",
+      "IncomeLevel",
+      "LendingType",
+      "Topic"
+    ],
+    "enums": {
+      "Country": {
+        "incomeLevelId": [
+          "HIC",
+          "INX",
+          "LIC",
+          "LMC",
+          "LMY",
+          "MIC",
+          "UMC"
+        ],
+        "lendingTypeId": [
+          "IBD",
+          "IDB",
+          "IDX",
+          "LNX"
+        ]
+      },
+      "IncomeLevel": {
+        "id": [
+          "HIC",
+          "INX",
+          "LIC",
+          "LMC",
+          "LMY",
+          "MIC",
+          "UMC"
+        ]
+      },
+      "LendingType": {
+        "id": [
+          "IBD",
+          "IDB",
+          "IDX",
+          "LNX"
+        ]
+      },
+      "Topic": {
+        "id": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Indicator",
-    "Observation",
     "Country",
-    "Series",
-    "Report",
-    "ExchangeRate"
+    "Indicator",
+    "Source",
+    "IncomeLevel",
+    "LendingType",
+    "Topic"
   ],
   "adr": [
     "260607",
@@ -33,56 +107,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/indicators",
-          "op": "create Indicator"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/indicators",
-          "op": "list Indicator"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/indicators/{id}",
-          "op": "get Indicator"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/indicators/{id}",
-          "op": "update Indicator"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/indicators/{id}",
-          "op": "delete Indicator"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
-        },
         {
           "method": "POST",
           "path": "/v1/countries",
@@ -110,78 +134,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/serieses",
-          "op": "create Series"
+          "path": "/v1/indicators",
+          "op": "create Indicator"
         },
         {
           "method": "GET",
-          "path": "/v1/serieses",
-          "op": "list Series"
+          "path": "/v1/indicators",
+          "op": "list Indicator"
         },
         {
           "method": "GET",
-          "path": "/v1/serieses/{id}",
-          "op": "get Series"
+          "path": "/v1/indicators/{id}",
+          "op": "get Indicator"
         },
         {
           "method": "PATCH",
-          "path": "/v1/serieses/{id}",
-          "op": "update Series"
+          "path": "/v1/indicators/{id}",
+          "op": "update Indicator"
         },
         {
           "method": "DELETE",
-          "path": "/v1/serieses/{id}",
-          "op": "delete Series"
+          "path": "/v1/indicators/{id}",
+          "op": "delete Indicator"
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/sources",
+          "op": "create Source"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/sources",
+          "op": "list Source"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/sources/{id}",
+          "op": "get Source"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/sources/{id}",
+          "op": "update Source"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/sources/{id}",
+          "op": "delete Source"
         },
         {
           "method": "POST",
-          "path": "/v1/exchangerates",
-          "op": "create ExchangeRate"
+          "path": "/v1/incomelevels",
+          "op": "create IncomeLevel"
         },
         {
           "method": "GET",
-          "path": "/v1/exchangerates",
-          "op": "list ExchangeRate"
+          "path": "/v1/incomelevels",
+          "op": "list IncomeLevel"
         },
         {
           "method": "GET",
-          "path": "/v1/exchangerates/{id}",
-          "op": "get ExchangeRate"
+          "path": "/v1/incomelevels/{id}",
+          "op": "get IncomeLevel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/exchangerates/{id}",
-          "op": "update ExchangeRate"
+          "path": "/v1/incomelevels/{id}",
+          "op": "update IncomeLevel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/exchangerates/{id}",
-          "op": "delete ExchangeRate"
+          "path": "/v1/incomelevels/{id}",
+          "op": "delete IncomeLevel"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/lendingtypes",
+          "op": "create LendingType"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/lendingtypes",
+          "op": "list LendingType"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/lendingtypes/{id}",
+          "op": "get LendingType"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/lendingtypes/{id}",
+          "op": "update LendingType"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/lendingtypes/{id}",
+          "op": "delete LendingType"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/topics",
+          "op": "create Topic"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/topics",
+          "op": "list Topic"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/topics/{id}",
+          "op": "get Topic"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/topics/{id}",
+          "op": "update Topic"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/topics/{id}",
+          "op": "delete Topic"
         }
       ],
       "features": {
@@ -247,12 +321,129 @@
       "toolCount": 30,
       "tools": [
         {
+          "name": "create_country",
+          "description": "Create a Country.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2Code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "capitalCity": {
+                "type": "string"
+              },
+              "incomeLevelId": {
+                "type": "string"
+              },
+              "lendingTypeId": {
+                "type": "string"
+              },
+              "regionId": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "iso2Code"
+            ]
+          }
+        },
+        {
+          "name": "list_countries",
+          "description": "List Countries.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_country",
+          "description": "Get a Country by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_country",
+          "description": "Update a Country.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2Code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "capitalCity": {
+                "type": "string"
+              },
+              "incomeLevelId": {
+                "type": "string"
+              },
+              "lendingTypeId": {
+                "type": "string"
+              },
+              "regionId": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_country",
+          "description": "Delete a Country.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_indicator",
           "description": "Create a Indicator.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "code": {
+              "id": {
                 "type": "string"
               },
               "name": {
@@ -261,12 +452,18 @@
               "unit": {
                 "type": "string"
               },
-              "source": {
+              "sourceId": {
+                "type": "string"
+              },
+              "sourceNote": {
+                "type": "string"
+              },
+              "sourceOrganization": {
                 "type": "string"
               }
             },
             "required": [
-              "code",
+              "id",
               "name"
             ]
           }
@@ -303,16 +500,19 @@
               "id": {
                 "type": "string"
               },
-              "code": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
               "unit": {
                 "type": "string"
               },
-              "source": {
+              "sourceId": {
+                "type": "string"
+              },
+              "sourceNote": {
+                "type": "string"
+              },
+              "sourceOrganization": {
                 "type": "string"
               }
             },
@@ -337,128 +537,47 @@
           }
         },
         {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "indicatorId": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "country",
-              "period"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
+          "name": "create_source",
+          "description": "Create a Source.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_observation",
-          "description": "Update a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "indicatorId": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_country",
-          "description": "Create a Country.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "iso3": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "code": {
                 "type": "string"
+              },
+              "lastUpdated": {
+                "type": "string"
+              },
+              "dataAvailability": {
+                "type": "boolean"
+              },
+              "concepts": {
+                "type": "integer"
               }
             },
             "required": [
-              "iso3",
+              "id",
               "name"
             ]
           }
         },
         {
-          "name": "list_countries",
-          "description": "List Countries.",
+          "name": "list_sources",
+          "description": "List Sources.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_country",
-          "description": "Get a Country by id.",
+          "name": "get_source",
+          "description": "Get a Source by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,22 +591,28 @@
           }
         },
         {
-          "name": "update_country",
-          "description": "Update a Country.",
+          "name": "update_source",
+          "description": "Update a Source.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "iso3": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "code": {
                 "type": "string"
+              },
+              "lastUpdated": {
+                "type": "string"
+              },
+              "dataAvailability": {
+                "type": "boolean"
+              },
+              "concepts": {
+                "type": "integer"
               }
             },
             "required": [
@@ -496,8 +621,8 @@
           }
         },
         {
-          "name": "delete_country",
-          "description": "Delete a Country.",
+          "name": "delete_source",
+          "description": "Delete a Source.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,38 +636,35 @@
           }
         },
         {
-          "name": "create_series",
-          "description": "Create a Series.",
+          "name": "create_income_level",
+          "description": "Create a IncomeLevel.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "indicatorId": {
+              "id": {
                 "type": "string"
               },
-              "frequency": {
-                "type": "string"
-              },
-              "startPeriod": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
-              "frequency",
-              "startPeriod"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_serieses",
-          "description": "List Serieses.",
+          "name": "list_income_levels",
+          "description": "List IncomeLevels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_series",
-          "description": "Get a Series by id.",
+          "name": "get_income_level",
+          "description": "Get a IncomeLevel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,21 +678,15 @@
           }
         },
         {
-          "name": "update_series",
-          "description": "Update a Series.",
+          "name": "update_income_level",
+          "description": "Update a IncomeLevel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "indicatorId": {
-                "type": "string"
-              },
-              "frequency": {
-                "type": "string"
-              },
-              "startPeriod": {
+              "name": {
                 "type": "string"
               }
             },
@@ -580,8 +696,8 @@
           }
         },
         {
-          "name": "delete_series",
-          "description": "Delete a Series.",
+          "name": "delete_income_level",
+          "description": "Delete a IncomeLevel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +711,35 @@
           }
         },
         {
-          "name": "create_report",
-          "description": "Create a Report.",
+          "name": "create_lending_type",
+          "description": "Create a LendingType.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "id": {
                 "type": "string"
               },
-              "publishedAt": {
-                "type": "string"
-              },
-              "contentRef": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
-              "title",
-              "publishedAt"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_reports",
-          "description": "List Reports.",
+          "name": "list_lending_types",
+          "description": "List LendingTypes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_report",
-          "description": "Get a Report by id.",
+          "name": "get_lending_type",
+          "description": "Get a LendingType by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,21 +753,15 @@
           }
         },
         {
-          "name": "update_report",
-          "description": "Update a Report.",
+          "name": "update_lending_type",
+          "description": "Update a LendingType.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
-              },
-              "publishedAt": {
-                "type": "string"
-              },
-              "contentRef": {
+              "name": {
                 "type": "string"
               }
             },
@@ -664,8 +771,8 @@
           }
         },
         {
-          "name": "delete_report",
-          "description": "Delete a Report.",
+          "name": "delete_lending_type",
+          "description": "Delete a LendingType.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,41 +786,35 @@
           }
         },
         {
-          "name": "create_exchange_rate",
-          "description": "Create a ExchangeRate.",
+          "name": "create_topic",
+          "description": "Create a Topic.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "base": {
+              "id": {
                 "type": "string"
               },
-              "quote": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "number"
-              },
-              "asOf": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
-              "base",
-              "quote"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_exchange_rates",
-          "description": "List ExchangeRates.",
+          "name": "list_topics",
+          "description": "List Topics.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_exchange_rate",
-          "description": "Get a ExchangeRate by id.",
+          "name": "get_topic",
+          "description": "Get a Topic by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -727,24 +828,15 @@
           }
         },
         {
-          "name": "update_exchange_rate",
-          "description": "Update a ExchangeRate.",
+          "name": "update_topic",
+          "description": "Update a Topic.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "base": {
-                "type": "string"
-              },
-              "quote": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "number"
-              },
-              "asOf": {
+              "name": {
                 "type": "string"
               }
             },
@@ -754,8 +846,8 @@
           }
         },
         {
-          "name": "delete_exchange_rate",
-          "description": "Delete a ExchangeRate.",
+          "name": "delete_topic",
+          "description": "Delete a Topic.",
           "inputSchema": {
             "type": "object",
             "properties": {

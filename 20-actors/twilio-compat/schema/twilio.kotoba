@@ -47,6 +47,7 @@ namespace twilio {
         callSid: string
         durationSec: integer
         contentRef: string
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
@@ -61,12 +62,3 @@ namespace twilio {
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

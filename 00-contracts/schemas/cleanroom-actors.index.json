@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 906,
-    "L5": 94
+    "L4": 905,
+    "L5": 95
   },
   "actors": [
     {
@@ -17390,7 +17390,7 @@
       "wasmCid": "bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "worldbank clean-room actor",
       "category": "intl_orgs_central_banks",
       "capabilities": [

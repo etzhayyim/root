@@ -16417,7 +16417,7 @@
     {
       "handle": "worldbank-compat",
       "did": "did:web:etzhayyim.com:actor:worldbank-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",

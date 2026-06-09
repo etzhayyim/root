@@ -41,6 +41,7 @@ namespace vercel {
         alias: string
         deploymentId: string
         projectId: string
+        redirectStatusCode: integer
         createdAt: datetime
         updatedAt: datetime
     }
