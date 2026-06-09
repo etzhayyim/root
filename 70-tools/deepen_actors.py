@@ -1156,6 +1156,17 @@ PLATFORM_OVERRIDES = {
         "Asset": E(contentType="string", size="integer", siteId="string", hostedUrl="string", originalFileName="string", displayName="string", altText="string", folderId="string"),
         "Order": E(orderId="string", status="string", comment="string", orderComment="string", disputeLastStatus="string", shippingProvider="string", shippingTracking="string", purchasedItemsCount="float", isCustomerDeleted="boolean", isShippingRequired="boolean", hasDownloads="boolean", paymentProcessor="string"),
     },
+    # Faithful Typeform model (remodeled from the generic cx_survey archetype
+    # whose Ticket/Conversation/Contact helpdesk entities did not match
+    # Typeform's form-builder API), doc-verified L5 vs Typeform/js-api-client.
+    "typeform": {
+        "Form": E(title="string", language="string"),
+        "Response": E(responseId="string", landedAt="datetime", submittedAt="datetime"),
+        "Theme": E(name="string", hasTransparentButton="boolean"),
+        "Image": E(src="string", fileName="string", width="integer", height="integer", hasAlpha="boolean", avgColor="string"),
+        "Webhook": E(formId="string", tag="string", url="string", enabled="boolean", verifySsl="boolean"),
+        "Workspace": E(name="string", default="boolean", shared="boolean", accountId="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

@@ -3,69 +3,62 @@
 
 namespace typeform {
 
-    entity Ticket {
-        id: string @unique
-        subject: string
-        requesterId: string
-        priority: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Survey {
+    entity Form {
         id: string @unique
         title: string
-        type: string
-        status: string
+        language: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Response {
         id: string @unique
-        surveyId: string
-        respondentId: string
-        score: integer
+        responseId: string
+        landedAt: datetime
         submittedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Account {
+    entity Theme {
         id: string @unique
         name: string
-        healthScore: float
-        arr: float
+        hasTransparentButton: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Conversation {
+    entity Image {
         id: string @unique
+        src: string
+        fileName: string
+        width: integer
+        height: integer
+        hasAlpha: boolean
+        avgColor: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Webhook {
+        id: string @unique
+        formId: string
+        tag: string
+        url: string
+        enabled: boolean
+        verifySsl: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Workspace {
+        id: string @unique
+        name: string
+        default: boolean
+        shared: boolean
         accountId: string
-        channel: string
-        sentiment: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contact {
-        id: string @unique
-        email: string
-        firstName: string
-        lastName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

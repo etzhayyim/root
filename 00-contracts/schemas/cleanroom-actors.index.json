@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 933,
-    "L5": 67
+    "L4": 932,
+    "L5": 68
   },
   "actors": [
     {
@@ -16346,7 +16346,7 @@
       "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "typeform clean-room actor",
       "category": "cx_survey",
       "capabilities": [

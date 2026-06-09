@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 67,
+  "count": 68,
   "actors": [
     {
       "handle": "square-compat",
@@ -9513,6 +9513,118 @@
       ],
       "notApplicable": [],
       "note": "Remodeled from a mismatched Zapier-like iPaaS archetype to a faithful CMS/site-builder model. 6/6 entities field-verified vs Webflow's official OpenAPI v2. Discovered closed enums (3): Site.dataCollectionType, Order.status, Order.disputeLastStatus. Schemaless CollectionItem.fieldData intentionally not modeled."
+    },
+    {
+      "handle": "typeform-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/Typeform/js-api-client (src/typeform-types.ts — official SDK type definitions)",
+      "remodeled": "Remodeled from the generic cx_survey archetype (Ticket/Survey/Response/Account/Conversation/Contact — a helpdesk shape) to a faithful Typeform form-builder model (Form/Response/Theme/Image/Webhook/Workspace), verified field-by-field against the official Typeform/js-api-client TypeScript interfaces. Form/Response/Theme are thin at the scalar level because most data lives in nested arrays/objects (fields[]/answers[]/colors{}) — modeled as scalars only. The L5 gate had correctly rejected the prior mismatched model (ADR 260607 §8).",
+      "resources": [
+        {
+          "entity": "Form",
+          "source": "typeform-types.ts Typeform.Form",
+          "verifiedFields": [
+            "title",
+            "language"
+          ],
+          "fieldStatus": "confirmed vs Form interface (id/title/language); rest are nested arrays/objects",
+          "discoveredEnums": {},
+          "gaps": [
+            "language is a closed Language union (~30 locale codes) — not enumerated",
+            "fields(array)",
+            "settings(object)",
+            "theme(object)",
+            "welcome_screens(array)",
+            "workspace(object)"
+          ]
+        },
+        {
+          "entity": "Response",
+          "source": "typeform-types.ts Typeform.Response",
+          "verifiedFields": [
+            "responseId",
+            "landedAt",
+            "submittedAt"
+          ],
+          "fieldStatus": "confirmed vs Response interface (response_id/landed_at/submitted_at)",
+          "discoveredEnums": {},
+          "gaps": [
+            "answers(array)",
+            "hidden(object)",
+            "metadata(object)",
+            "calculated(object)"
+          ]
+        },
+        {
+          "entity": "Theme",
+          "source": "typeform-types.ts Typeform.Theme",
+          "verifiedFields": [
+            "name",
+            "hasTransparentButton"
+          ],
+          "fieldStatus": "confirmed vs Theme interface (id/name/has_transparent_button)",
+          "discoveredEnums": {},
+          "gaps": [
+            "colors(object)",
+            "font",
+            "fields(object)",
+            "background(object)"
+          ]
+        },
+        {
+          "entity": "Image",
+          "source": "typeform-types.ts Typeform.Image",
+          "verifiedFields": [
+            "src",
+            "fileName",
+            "width",
+            "height",
+            "hasAlpha",
+            "avgColor"
+          ],
+          "fieldStatus": "confirmed vs Image interface (id/src/file_name/width/height/has_alpha/avg_color)",
+          "discoveredEnums": {},
+          "gaps": [
+            "media_type"
+          ]
+        },
+        {
+          "entity": "Webhook",
+          "source": "typeform-types.ts Typeform.Webhook",
+          "verifiedFields": [
+            "formId",
+            "tag",
+            "url",
+            "enabled",
+            "verifySsl"
+          ],
+          "fieldStatus": "confirmed vs Webhook interface (id/form_id/tag/url/enabled/verify_ssl/created_at/updated_at)",
+          "discoveredEnums": {},
+          "gaps": [
+            "secret(write-only)"
+          ]
+        },
+        {
+          "entity": "Workspace",
+          "source": "typeform-types.ts Typeform.Workspace",
+          "verifiedFields": [
+            "name",
+            "default",
+            "shared",
+            "accountId"
+          ],
+          "fieldStatus": "confirmed vs Workspace interface (id/name/default/shared/account_id)",
+          "discoveredEnums": {},
+          "gaps": [
+            "forms(object)",
+            "members(array)",
+            "self(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "Remodeled from a mismatched helpdesk archetype to a faithful form-builder model. 6/6 entities field-verified vs the official Typeform/js-api-client SDK types. No closed enums modeled (Form.language is a large locale union, recorded as a gap). Form/Response/Theme are intentionally thin — their substance is in nested arrays/objects an EAVT scalar actor does not model."
     }
   ]
 }
