@@ -241,4 +241,18 @@
  {:tie/id "tie.eu.fed.depends" :tie/kind :depends-on :tie/from "org.industry.eu.federation" :tie/to "org.gov.eu.parliament" :tie/grasping-load 0.50 :tie/sources ["EU Transparency Register (public)" "Parliament intergroup public records"] :tie/sourcing :representative}
  {:tie/id "tie.eu.press.commission" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.44 :tie/sources ["Brussels press-corps accreditation (public)" "public archives"] :tie/sourcing :representative}
  {:tie/id "tie.eu.press.fed" :tie/kind :covers :tie/from "org.press.eu.brussels" :tie/to "org.industry.eu.federation" :tie/grasping-load 0.40 :tie/sources ["EU-affairs press coverage" "public archives"] :tie/sourcing :representative}
- {:tie/id "tie.eu.parl.commission" :tie/kind :co-member :tie/from "org.gov.eu.parliament" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.48 :tie/sources ["EU institutional procedure (public, TFEU)" "public records"] :tie/sourcing :representative}]
+ {:tie/id "tie.eu.parl.commission" :tie/kind :co-member :tie/from "org.gov.eu.parliament" :tie/to "org.gov.eu.commission" :tie/grasping-load 0.48 :tie/sources ["EU institutional procedure (public, TFEU)" "public records"] :tie/sourcing :representative}
+
+ ;; ═══════════ granularity wave 8 (/loop): GLOBAL scale — global financial governance ═══════════
+ ;; (21) fills the last unused scale :global; a 官金報 planetary-governance arena (parallels the
+ ;;      London financial cluster, one tier up). Bodies are public; assoc + wire are :representative.
+ {:pwr/id "org.gov.global.imf" :pwr/label "International Monetary Fund (IMF)" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kan :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.fin.global.bis" :pwr/label "Bank for International Settlements (BIS)" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kin :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.fin.global.banking-assoc" :pwr/label "(representative) global banking association" :pwr/standing :institutional :pwr/scale :global :pwr/sector :kin :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+ {:pwr/id "org.press.global.wire" :pwr/label "(representative) global financial wire" :pwr/standing :institutional :pwr/scale :global :pwr/sector :hou :pwr/locality "global.financial-governance" :pwr/collective-kind :org :pwr/sourcing :representative}
+
+ ;; ───────────── granularity wave 8 ties (官金報 global) ─────────────
+ {:tie/id "tie.global.imf.bis" :tie/kind :co-member :tie/from "org.gov.global.imf" :tie/to "org.fin.global.bis" :tie/grasping-load 0.56 :tie/sources ["IMF–BIS public coordination (public)" "G20 communiqués (public)"] :tie/sourcing :representative}
+ {:tie/id "tie.global.assoc.imf" :tie/kind :seats-on :tie/from "org.fin.global.banking-assoc" :tie/to "org.gov.global.imf" :tie/grasping-load 0.52 :tie/sources ["IMF consultative-group public records" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.global.wire.imf" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.gov.global.imf" :tie/grasping-load 0.42 :tie/sources ["global financial-wire IMF coverage" "public archives"] :tie/sourcing :representative}
+ {:tie/id "tie.global.wire.bis" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.fin.global.bis" :tie/grasping-load 0.40 :tie/sources ["global financial-wire BIS coverage" "public archives"] :tie/sourcing :representative}]
