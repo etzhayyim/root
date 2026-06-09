@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 49,
+  "count": 57,
   "actors": [
     {
       "handle": "square-compat",
@@ -6634,6 +6634,1337 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Marqeta OpenAPI 3.0.40. Enforced enums: Card.state, Card.fulfillmentStatus, User.status, Transaction.state (4). Transaction.type (large open set) + FundingSource.type (undocumented) intentionally NOT enforced."
+    },
+    {
+      "handle": "arxiv_api-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://info.arxiv.org/help/api/user-manual.html",
+      "remodeled": "Replaced the generic Work/Author/Citation/Standard/Record/Subject template with a faithful arXiv Atom-feed model: Entry, Author, Category, Link, SearchQuery, Feed.",
+      "resources": [
+        {
+          "entity": "Entry",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "id",
+            "title",
+            "published",
+            "updated",
+            "summary",
+            "doi",
+            "journalRef",
+            "comment",
+            "primaryCategory"
+          ],
+          "fieldStatus": "confirmed verbatim against the API manual; arxiv:doi/journal_ref/comment/primary_category namespaced elements confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "arxivId modeled separately but doc only shows it embedded in the <id> URL",
+            "category taxonomy (cs.AI, math.GT, …) not enumerated in the manual — links out to arxiv.org/category_taxonomy; term kept free string"
+          ]
+        },
+        {
+          "entity": "Author",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "name",
+            "affiliation"
+          ],
+          "fieldStatus": "<author><name> + arxiv:affiliation confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Category",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "term",
+            "scheme"
+          ],
+          "fieldStatus": "category term + scheme attributes confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Link",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "href",
+            "rel",
+            "title",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "rel": [
+              "alternate",
+              "related"
+            ],
+            "title": [
+              "pdf",
+              "doi"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SearchQuery",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "searchQuery",
+            "idList",
+            "start",
+            "maxResults",
+            "sortBy",
+            "sortOrder"
+          ],
+          "fieldStatus": "search_query/id_list/start/max_results confirmed",
+          "discoveredEnums": {
+            "sortBy": [
+              "relevance",
+              "lastUpdatedDate",
+              "submittedDate"
+            ],
+            "sortOrder": [
+              "ascending",
+              "descending"
+            ],
+            "searchFieldPrefix": [
+              "ti",
+              "au",
+              "abs",
+              "co",
+              "jr",
+              "cat",
+              "rn",
+              "all"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Feed",
+          "source": "https://info.arxiv.org/help/api/user-manual.html",
+          "verifiedFields": [
+            "totalResults",
+            "startIndex",
+            "itemsPerPage"
+          ],
+          "fieldStatus": "opensearch:totalResults/startIndex/itemsPerPage confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "note": "Faithful arXiv Atom-feed remodel; sortBy/sortOrder/link.rel/link.title enums + 8 search field prefixes confirmed verbatim. Category taxonomy left as free string (not enumerated in the manual)."
+    },
+    {
+      "handle": "crossref-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/CrossRef/rest-api-doc/blob/master/api_format.md",
+      "remodeled": "Kept genuine Crossref entities (Work, Author, Reference[renamed from Citation]), remodeled Work with real fields, added verifiable route types (Funder, Journal, Member, Prefix) + a WorkType enum from /types, and dropped non-Crossref template entities (Standard, Record, Subject).",
+      "resources": [
+        {
+          "entity": "Work",
+          "source": "https://github.com/CrossRef/rest-api-doc/blob/master/api_format.md",
+          "verifiedFields": [
+            "doi",
+            "title",
+            "subtitle",
+            "type",
+            "publisher",
+            "containerTitle",
+            "shortContainerTitle",
+            "issn",
+            "issnType",
+            "isbn",
+            "volume",
+            "issue",
+            "page",
+            "articleNumber",
+            "abstract",
+            "subject",
+            "issued",
+            "published",
+            "publishedPrint",
+            "publishedOnline",
+            "created",
+            "deposited",
+            "indexed",
+            "isReferencedByCount"
+          ],
+          "fieldStatus": "core fields confirmed against api_format.md; type drawn from /types controlled vocabulary",
+          "discoveredEnums": {},
+          "gaps": [
+            "score, link, language, prefix, memberId, referencesCount observed in payloads but not all line-confirmed in api_format.md"
+          ]
+        },
+        {
+          "entity": "Author",
+          "source": "https://github.com/CrossRef/rest-api-doc/blob/master/api_format.md",
+          "verifiedFields": [
+            "given",
+            "family",
+            "orcid",
+            "authenticatedOrcid",
+            "sequence",
+            "affiliation",
+            "suffix",
+            "name"
+          ],
+          "fieldStatus": "confirmed; sequence (first/additional) + affiliation[] confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "org-only contributor 'name' is convention"
+          ]
+        },
+        {
+          "entity": "Reference",
+          "source": "https://github.com/CrossRef/rest-api-doc/blob/master/api_format.md",
+          "verifiedFields": [
+            "key",
+            "doi",
+            "doiAssertedBy",
+            "author",
+            "year",
+            "volume",
+            "issue",
+            "firstPage",
+            "journalTitle",
+            "articleTitle",
+            "volumeTitle",
+            "seriesTitle",
+            "issn",
+            "isbn",
+            "unstructured"
+          ],
+          "fieldStatus": "doc-listed reference fields confirmed (Work.reference[])",
+          "discoveredEnums": {},
+          "gaps": [
+            "doi-asserted-by, volume-title, series-title from observed reference payloads"
+          ]
+        },
+        {
+          "entity": "Funder",
+          "source": "https://api.crossref.org/funders",
+          "verifiedFields": [
+            "id",
+            "name",
+            "altNames",
+            "location",
+            "uri",
+            "replaces",
+            "replacedBy",
+            "tokens"
+          ],
+          "fieldStatus": "confirmed via live /funders route",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Journal",
+          "source": "https://api.crossref.org/journals",
+          "verifiedFields": [
+            "title",
+            "publisher",
+            "issn",
+            "issnType",
+            "subjects",
+            "coverage",
+            "counts",
+            "breakdowns",
+            "flags",
+            "lastStatusCheckTime"
+          ],
+          "fieldStatus": "confirmed via live /journals route",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Member",
+          "source": "https://api.crossref.org/members",
+          "verifiedFields": [
+            "id",
+            "primaryName",
+            "names",
+            "location",
+            "prefix",
+            "tokens",
+            "counts",
+            "breakdowns",
+            "coverage",
+            "flags",
+            "lastStatusCheckTime"
+          ],
+          "fieldStatus": "confirmed via live /members route",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Prefix",
+          "source": "https://api.crossref.org/prefixes/10.1037",
+          "verifiedFields": [
+            "prefix",
+            "name",
+            "member"
+          ],
+          "fieldStatus": "confirmed via live /prefixes route",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "WorkType",
+          "source": "https://api.crossref.org/types",
+          "verifiedFields": [
+            "all 30 type IDs confirmed from /types"
+          ],
+          "fieldStatus": "full controlled vocabulary confirmed",
+          "discoveredEnums": {
+            "type": [
+              "book-section",
+              "monograph",
+              "report-component",
+              "report",
+              "peer-review",
+              "book-track",
+              "journal-article",
+              "book-part",
+              "other",
+              "book",
+              "journal-volume",
+              "book-set",
+              "reference-entry",
+              "proceedings-article",
+              "journal",
+              "component",
+              "book-chapter",
+              "proceedings-series",
+              "report-series",
+              "proceedings",
+              "database",
+              "standard",
+              "reference-book",
+              "posted-content",
+              "journal-issue",
+              "dissertation",
+              "grant",
+              "dataset",
+              "book-series",
+              "edited-book"
+            ]
+          },
+          "gaps": [
+            "Work.type kept as string with WorkType enum declared alongside (no enum keyword in .kotoba DSL)"
+          ]
+        }
+      ],
+      "note": "Faithful Crossref remodel; 30-value WorkType vocabulary confirmed from /types. Swagger UI returned no machine-readable fields, so Funder/Journal/Member/Prefix reconciled against live JSON routes. Dropped generic Standard/Record/Subject; renamed Citation→Reference."
+    },
+    {
+      "handle": "doi_system-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.doi.org/the-identifier/resources/factsheets/doi-system-and-the-handle-system",
+      "remodeled": "Replaced the generic template with faithful DOI/Handle resources: Doi (prefix+suffix, RA, resolvedUrl), Prefix (directoryIndicator+registrantCode), Handle (typed handle values), RegistrationAgency, MetadataFormat (content-negotiation types).",
+      "resources": [
+        {
+          "entity": "Doi",
+          "source": "https://www.doi.org/doi-handbook/HTML/prefix.html",
+          "verifiedFields": [
+            "doi",
+            "prefix",
+            "directoryIndicator",
+            "registrantCode",
+            "suffix",
+            "registrationAgency",
+            "resolvedUrl",
+            "contentType"
+          ],
+          "fieldStatus": "DOI = prefix '/' suffix confirmed; prefix = directoryIndicator '.' registrantCode confirmed; '10.' directory indicator confirmed; resolution returns landing URL or RA metadata via content negotiation confirmed",
+          "discoveredEnums": {
+            "directoryIndicator": [
+              "10"
+            ]
+          },
+          "gaps": [
+            "'registrant'/'publisher' discrete field not enumerated in fetched docs",
+            "DataCite resource-type vocabulary not enumerated (handbook 2_numbering 404'd)"
+          ]
+        },
+        {
+          "entity": "Prefix",
+          "source": "https://www.doi.org/doi-handbook/HTML/prefix.html",
+          "verifiedFields": [
+            "prefix",
+            "directoryIndicator",
+            "registrantCode"
+          ],
+          "fieldStatus": "prefix is <directoryIndicator>.<registrantCode>; registrant code numeric with optional full-stop subdivision (10.500.100)",
+          "discoveredEnums": {
+            "directoryIndicator": [
+              "10"
+            ]
+          },
+          "gaps": [
+            "Prefix↔RA 1:1 implied but not explicitly stated"
+          ]
+        },
+        {
+          "entity": "Handle",
+          "source": "https://www.doi.org/the-identifier/resources/factsheets/doi-system-and-the-handle-system",
+          "verifiedFields": [
+            "handle"
+          ],
+          "fieldStatus": "DOI uses the Handle System; a DOI name resolves to handle records/values (incl. a URL value) confirmed",
+          "discoveredEnums": {
+            "type": [
+              "URL"
+            ]
+          },
+          "gaps": [
+            "index/type/data/ttl/timestamp are standard Handle System (RFC 3650) fields but not explicitly enumerated in the fetched DOI docs"
+          ]
+        },
+        {
+          "entity": "RegistrationAgency",
+          "source": "https://citation.doi.org/docs.html",
+          "verifiedFields": [
+            "raName",
+            "metadataService"
+          ],
+          "fieldStatus": "RAs and per-RA content-negotiation metadata service confirmed",
+          "discoveredEnums": {
+            "raName": [
+              "Crossref",
+              "DataCite",
+              "mEDRA"
+            ]
+          },
+          "gaps": [
+            "RA list non-exhaustive (only the 3 content-negotiation RAs enumerated; JaLC/KISTI etc. not in fetched docs)"
+          ]
+        },
+        {
+          "entity": "MetadataFormat",
+          "source": "https://citation.doi.org/docs.html",
+          "verifiedFields": [
+            "formatName",
+            "mimeType",
+            "registrationAgency"
+          ],
+          "fieldStatus": "full format-name→MIME-type table with per-RA support matrix confirmed",
+          "discoveredEnums": {
+            "mimeType": [
+              "application/rdf+xml",
+              "text/turtle",
+              "application/vnd.citationstyles.csl+json",
+              "application/vnd.schemaorg.ld+json",
+              "text/x-bibliography",
+              "application/x-research-info-systems",
+              "application/x-bibtex",
+              "application/vnd.crossref.unixref+xml",
+              "application/vnd.crossref.unixsd+xml",
+              "application/vnd.datacite.datacite+xml",
+              "application/vnd.medra.onixdoi+xml"
+            ]
+          },
+          "gaps": [
+            "per-format q=/style=/locale= parameters not modeled"
+          ]
+        }
+      ],
+      "note": "Faithful DOI/Handle remodel; DOI syntax (10.<registrantCode>/<suffix>), 3 content-negotiation RAs, and full content-type MIME enum confirmed. Handle-value internals flagged as gaps (standard Handle System, not in fetched DOI docs)."
+    },
+    {
+      "handle": "ietf_rfcs-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.rfc-editor.org/about/",
+      "remodeled": "Replaced the generic template with a faithful RFC model verified against the authoritative rfc-index.xsd: Rfc (mirrors <rfc-entry>), Author, Authorship (ordered link), RfcRelationship (obsoletes/updates/is-also/see-also documentRefs).",
+      "resources": [
+        {
+          "entity": "Rfc",
+          "source": "https://www.rfc-editor.org/rfc-index.xsd",
+          "verifiedFields": [
+            "docId",
+            "title",
+            "dateMonth",
+            "dateDay",
+            "dateYear",
+            "pageCount",
+            "abstract",
+            "draft",
+            "notes",
+            "currentStatus",
+            "publicationStatus",
+            "stream",
+            "area",
+            "wgAcronym",
+            "errataUrl",
+            "doi",
+            "fileFormats",
+            "keywords"
+          ],
+          "fieldStatus": "all map 1:1 to rfc-index.xsd elements; doc-id pattern RFC\\d{1,5}; doi pattern 10.\\d{1,5}/...; area+wg_acronym IETF-stream-only per XSD annotation",
+          "discoveredEnums": {
+            "status": [
+              "INTERNET STANDARD",
+              "DRAFT STANDARD",
+              "PROPOSED STANDARD",
+              "UNKNOWN",
+              "BEST CURRENT PRACTICE",
+              "FOR YOUR INFORMATION",
+              "EXPERIMENTAL",
+              "HISTORIC",
+              "INFORMATIONAL"
+            ],
+            "stream": [
+              "IETF",
+              "IAB",
+              "IRTF",
+              "INDEPENDENT",
+              "Editorial",
+              "Legacy"
+            ]
+          },
+          "gaps": [
+            "publishedAt synthesized datetime (source splits date into month/day/year; day optional)",
+            "fileFormat {ASCII,PS,PDF,TGZ,HTML,XML,TEXT} + monthName stored as free string/json"
+          ]
+        },
+        {
+          "entity": "Author",
+          "source": "https://www.rfc-editor.org/rfc-index.xsd",
+          "verifiedFields": [
+            "name",
+            "title",
+            "organization",
+            "orgAbbrev"
+          ],
+          "fieldStatus": "<author> complexType (name required; title/organization/org-abbrev optional); <name> may be person or org",
+          "discoveredEnums": {},
+          "gaps": [
+            "no author identifier (ORCID) in rfc-index.xsd; entity id is a surrogate key"
+          ]
+        },
+        {
+          "entity": "Authorship",
+          "source": "https://www.rfc-editor.org/rfc-index.xsd",
+          "verifiedFields": [
+            "position"
+          ],
+          "fieldStatus": "models the <author maxOccurs=unbounded> ordered sequence; rfcDocId/authorId are surrogate join keys",
+          "discoveredEnums": {},
+          "gaps": [
+            "normalization helper, not a distinct rfc-index element"
+          ]
+        },
+        {
+          "entity": "RfcRelationship",
+          "source": "https://www.rfc-editor.org/rfc-index.xsd",
+          "verifiedFields": [
+            "relationType"
+          ],
+          "fieldStatus": "relationType enumerates the six documentRef elements: obsoletes/obsoleted-by/updates/updated-by/is-also/see-also",
+          "discoveredEnums": {
+            "relationType": [
+              "OBSOLETES",
+              "OBSOLETED_BY",
+              "UPDATES",
+              "UPDATED_BY",
+              "IS_ALSO",
+              "SEE_ALSO"
+            ]
+          },
+          "gaps": [
+            "relationType is a clean-room encoding of the six XSD element names, not itself an XSD enum"
+          ]
+        }
+      ],
+      "note": "Verified against rfc-editor.org/rfc-index.xsd (authoritative metadata schema). Corrected prompt's enum hints to XSD-verbatim: status has 9 values incl. 'FOR YOUR INFORMATION'; stream has 6 incl. uppercase 'INDEPENDENT' and 'Legacy'."
+    },
+    {
+      "handle": "ncbi-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.ncbi.nlm.nih.gov/books/NBK25501/",
+      "remodeled": "Replaced the generic template with 11 faithful Entrez E-utilities resources: Database, DatabaseField, Query, SearchResultId, EntrezRecord, Link, GlobalQueryResult, SpellResult, CitationMatch, EFetchFormat. The 9 E-utilities are captured as the Query.utility enum.",
+      "resources": [
+        {
+          "entity": "Database",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "dbName",
+            "menuName",
+            "description",
+            "count",
+            "lastUpdate"
+          ],
+          "fieldStatus": "einfo response fields confirmed (DbName/MenuName/Description/Count/LastUpdate)",
+          "discoveredEnums": {
+            "dbName": [
+              "pubmed",
+              "protein",
+              "nucleotide",
+              "nuccore",
+              "pmc",
+              "gene",
+              "genome",
+              "sra",
+              "snp"
+            ]
+          },
+          "gaps": [
+            "dbName list is the documented examples, not the full ~38 Entrez db enumeration"
+          ]
+        },
+        {
+          "entity": "DatabaseField",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "name",
+            "fullName",
+            "description",
+            "termCount",
+            "isDate",
+            "isNumerical",
+            "isHidden",
+            "isTruncatable",
+            "isRangeable"
+          ],
+          "fieldStatus": "einfo FieldList fields confirmed; IsTruncatable/IsRangeable are version=2.0 additions",
+          "discoveredEnums": {},
+          "gaps": [
+            "databaseId is a modeling FK"
+          ]
+        },
+        {
+          "entity": "Query",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "utility",
+            "db",
+            "term",
+            "field",
+            "sort",
+            "idType",
+            "dateType",
+            "relDate",
+            "minDate",
+            "maxDate",
+            "useHistory",
+            "retMax",
+            "retStart",
+            "retMode",
+            "retType",
+            "count",
+            "queryKey",
+            "webEnv",
+            "queryTranslation"
+          ],
+          "fieldStatus": "esearch params + results (Count/QueryKey/WebEnv/QueryTranslation) all doc-confirmed",
+          "discoveredEnums": {
+            "utility": [
+              "einfo",
+              "esearch",
+              "epost",
+              "esummary",
+              "efetch",
+              "elink",
+              "egquery",
+              "espell",
+              "ecitmatch"
+            ],
+            "sort": [
+              "relevance",
+              "pub_date",
+              "Author",
+              "JournalName"
+            ],
+            "dateType": [
+              "mdat",
+              "pdat",
+              "edat"
+            ],
+            "retMode": [
+              "xml",
+              "json",
+              "text",
+              "asn.1",
+              "default"
+            ],
+            "retType": [
+              "uilist",
+              "count"
+            ]
+          },
+          "gaps": [
+            "sort values are PubMed-specific, vary by db"
+          ]
+        },
+        {
+          "entity": "SearchResultId",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "uid"
+          ],
+          "fieldStatus": "uid confirmed as esearch IdList / epost id member; accession.version when idtype=acc",
+          "discoveredEnums": {},
+          "gaps": [
+            "queryId is a modeling FK; position inferred from list order"
+          ]
+        },
+        {
+          "entity": "EntrezRecord",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "uid",
+            "caption",
+            "title"
+          ],
+          "fieldStatus": "esummary DocumentSummary fields uid/Caption/Title confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "full esummary field set is db-specific (version=2.0 schemas differ per db)"
+          ]
+        },
+        {
+          "entity": "Link",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "dbFrom",
+            "dbTo",
+            "linkName",
+            "cmd",
+            "score",
+            "queryKey",
+            "webEnv"
+          ],
+          "fieldStatus": "elink params confirmed; LinkName format dbfrom_db_subset confirmed",
+          "discoveredEnums": {
+            "cmd": [
+              "neighbor",
+              "neighbor_score",
+              "neighbor_history",
+              "acheck",
+              "ncheck",
+              "lcheck",
+              "llinks",
+              "llinkslib",
+              "prlinks"
+            ]
+          },
+          "gaps": [
+            "exact element nesting (LinkSetDb/Link/Id) not modeled"
+          ]
+        },
+        {
+          "entity": "GlobalQueryResult",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "term",
+            "dbName",
+            "menuName",
+            "count",
+            "status"
+          ],
+          "fieldStatus": "egquery ResultItem fields DbName/MenuName/Count/Status confirmed",
+          "discoveredEnums": {
+            "status": [
+              "Ok"
+            ]
+          },
+          "gaps": [
+            "full status enum beyond Ok not enumerated"
+          ]
+        },
+        {
+          "entity": "SpellResult",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "db",
+            "query",
+            "correctedQuery"
+          ],
+          "fieldStatus": "espell Database/Query/CorrectedQuery confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "CitationMatch",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "db",
+            "journal",
+            "year",
+            "volume",
+            "firstPage",
+            "author",
+            "yourKey",
+            "pmid"
+          ],
+          "fieldStatus": "ecitmatch bdata pipe format journal|year|volume|first_page|author|your_key| confirmed; output PMID confirmed",
+          "discoveredEnums": {
+            "db": [
+              "pubmed"
+            ]
+          },
+          "gaps": [
+            "rettype fixed to xml (modeled implicitly)"
+          ]
+        },
+        {
+          "entity": "EFetchFormat",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/",
+          "verifiedFields": [
+            "db",
+            "retType",
+            "retMode",
+            "description"
+          ],
+          "fieldStatus": "efetch rettype/retmode-by-db combinations confirmed from NBK25499 Table 1",
+          "discoveredEnums": {
+            "retMode": [
+              "xml",
+              "text",
+              "asn.1",
+              "json",
+              "html",
+              "default"
+            ],
+            "retType": [
+              "docsum",
+              "uilist",
+              "abstract",
+              "medline",
+              "gb",
+              "gp",
+              "fasta",
+              "ft",
+              "gene_table",
+              "ipg",
+              "fasta_cds_na",
+              "fasta_cds_aa"
+            ]
+          },
+          "gaps": [
+            "full per-db matrix (SNP/taxonomy/clinvar/gtr/structure) larger, only partially enumerated"
+          ]
+        }
+      ],
+      "note": "L5 against NBK25501 + NBK25499. 9 E-utilities captured as Query.utility enum; elink cmd (9 values), retmode, rettype, datetype enums captured. .kotoba has no enum keyword so enums live in inline comments + string fields. Full Entrez db list + per-db efetch matrix flagged as gaps (need live einfo introspection)."
+    },
+    {
+      "handle": "orcid-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/",
+      "remodeled": "Replaced 6 generic entities with 12 faithful ORCID resources: Record + person sub-resources (OtherName/Keyword/ResearcherUrl/Email/Address/ExternalIdentifier), Work + WorkExternalId, Employment + Education affiliations, Funding. putCode modeled as long; visibility captured across resources.",
+      "resources": [
+        {
+          "entity": "Record",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "orcidId",
+            "givenNames",
+            "familyName",
+            "creditName",
+            "biography"
+          ],
+          "fieldStatus": "personal-details confirmed; orcidId = 0000-0000-0000-0000 16-digit identifier",
+          "discoveredEnums": {},
+          "gaps": [
+            "createdAt/updatedAt are clean-room audit (ORCID exposes record-container created/last-modified, not per-field)"
+          ]
+        },
+        {
+          "entity": "OtherName",
+          "source": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/",
+          "verifiedFields": [
+            "content",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/other-names repeatable person sub-section with put-code + visibility",
+          "discoveredEnums": {},
+          "gaps": [
+            "recordId synthetic FK"
+          ]
+        },
+        {
+          "entity": "Keyword",
+          "source": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/",
+          "verifiedFields": [
+            "content",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/keywords repeatable sub-section",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ResearcherUrl",
+          "source": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/",
+          "verifiedFields": [
+            "urlName",
+            "url",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/researcher-urls confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Email",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "email",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/email confirmed; defaults to 'only me' visibility",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Address",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "country",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/address confirmed; country = ISO 3166-1 alpha-2",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ExternalIdentifier",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "externalIdType",
+            "externalIdValue",
+            "externalIdUrl",
+            "externalIdRelationship",
+            "putCode",
+            "visibility"
+          ],
+          "fieldStatus": "/external-identifiers confirmed (common-id structure type/value/url/relationship)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Work",
+          "source": "https://github.com/ORCID/ORCID-Source/blob/main/orcid-api-web/tutorial/works.md",
+          "verifiedFields": [
+            "putCode",
+            "title",
+            "subtitle",
+            "translatedTitle",
+            "journalTitle",
+            "shortDescription",
+            "citationType",
+            "citationValue",
+            "type",
+            "publicationDate",
+            "url",
+            "languageCode",
+            "country",
+            "visibility"
+          ],
+          "fieldStatus": "all from works.md",
+          "discoveredEnums": {
+            "type": [
+              "book",
+              "book-chapter",
+              "conference-paper",
+              "journal-article",
+              "preprint",
+              "dissertation-thesis",
+              "working-paper",
+              "review",
+              "book-review",
+              "journal-issue",
+              "report",
+              "data-set",
+              "software",
+              "patent",
+              "other"
+            ],
+            "citationType": [
+              "APA",
+              "BIBTEX",
+              "CHICAGO",
+              "HARVARD",
+              "IEEE",
+              "MLA",
+              "RIS",
+              "UNSPECIFIED",
+              "VANCOUVER"
+            ]
+          },
+          "gaps": [
+            "work-contributors not modeled this revision",
+            "publication-date is partial year/month/day in ORCID, flattened to datetime",
+            "type enum truncated to common subset of ~58 values"
+          ]
+        },
+        {
+          "entity": "WorkExternalId",
+          "source": "https://github.com/ORCID/ORCID-Source/blob/main/orcid-api-web/tutorial/works.md",
+          "verifiedFields": [
+            "externalIdType",
+            "externalIdValue",
+            "externalIdUrl",
+            "externalIdRelationship"
+          ],
+          "fieldStatus": "external-id-type (doi/issn) / value / url / relationship confirmed",
+          "discoveredEnums": {
+            "externalIdRelationship": [
+              "self",
+              "part-of",
+              "version-of",
+              "funded-by"
+            ]
+          },
+          "gaps": [
+            "external-id-type controlled vocab not enumerated inline"
+          ]
+        },
+        {
+          "entity": "Employment",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "putCode",
+            "organizationName",
+            "departmentName",
+            "roleTitle",
+            "city",
+            "region",
+            "country",
+            "startDate",
+            "endDate",
+            "visibility"
+          ],
+          "fieldStatus": "affiliation shared fields confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "disambiguated-organization not modeled; partial dates flattened to datetime"
+          ]
+        },
+        {
+          "entity": "Education",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "putCode",
+            "organizationName",
+            "departmentName",
+            "roleTitle",
+            "city",
+            "region",
+            "country",
+            "startDate",
+            "endDate",
+            "visibility"
+          ],
+          "fieldStatus": "same affiliation structure as Employment (educations subsection)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Funding",
+          "source": "https://info.orcid.org/documentation/integration-guide/orcid-record/",
+          "verifiedFields": [
+            "type",
+            "title",
+            "organizationName",
+            "startDate",
+            "endDate",
+            "url"
+          ],
+          "fieldStatus": "/fundings activity subsection confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "funding type controlled vocab not enumerated; amount + external-ids not modeled"
+          ]
+        }
+      ],
+      "note": "Faithful ORCID remodel against 3 official docs. Person split into Record + 6 repeatable sub-resources; Work split into Work + WorkExternalId. Work.type + citation-type + external-id-relationship enums captured. Affiliations as parallel Employment/Education. Synthetic EAVT keys/FKs + partial-date flattening flagged in gaps."
+    },
+    {
+      "handle": "pubmed-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+      "remodeled": "Replaced the generic template with faithful PubMed resources Article, Author, MeshHeading, Journal, EutilsQuery; field names trace the PubmedArticle DTD (pubmed_190101.dtd) element names + E-utilities params (NBK25499).",
+      "resources": [
+        {
+          "entity": "Article",
+          "source": "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd",
+          "verifiedFields": [
+            "pmid",
+            "title",
+            "abstract",
+            "journalTitle",
+            "isoAbbreviation",
+            "issn",
+            "issnType",
+            "volume",
+            "issue",
+            "pages",
+            "pubDateYear",
+            "pubDateMonth",
+            "pubDateDay",
+            "medlineDate",
+            "doi",
+            "pmc",
+            "pmcid",
+            "language",
+            "languages",
+            "publicationTypes",
+            "vernacularTitle"
+          ],
+          "fieldStatus": "all doc-confirmed against DTD element names (PMID/ArticleTitle/AbstractText/Journal/ISSN/Pagination/PubDate/ArticleId)",
+          "discoveredEnums": {
+            "issnType": [
+              "Electronic",
+              "Print"
+            ]
+          },
+          "gaps": [
+            "publishedAt synthesized (PubDate is Year/Month/Day or MedlineDate)",
+            "PublicationType is #PCDATA in the DTD — 'Journal Article/Review/...' vocab is an external NLM list, not enumerable from the DTD"
+          ]
+        },
+        {
+          "entity": "Author",
+          "source": "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd",
+          "verifiedFields": [
+            "lastName",
+            "foreName",
+            "initials",
+            "suffix",
+            "collectiveName",
+            "affiliation",
+            "orcid"
+          ],
+          "fieldStatus": "all doc-confirmed; orcid derived from Identifier where @Source=ORCID (CDATA free-text, by NLM convention)",
+          "discoveredEnums": {},
+          "gaps": [
+            "Identifier/@Source is CDATA — ORCID not enumerable from DTD"
+          ]
+        },
+        {
+          "entity": "MeshHeading",
+          "source": "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd",
+          "verifiedFields": [
+            "descriptorName",
+            "descriptorUi",
+            "majorTopic",
+            "qualifiers"
+          ],
+          "fieldStatus": "all doc-confirmed; majorTopic modeled as bool from @MajorTopicYN",
+          "discoveredEnums": {
+            "majorTopicYN": [
+              "Y",
+              "N"
+            ]
+          },
+          "gaps": [
+            "articleId is a FK convention"
+          ]
+        },
+        {
+          "entity": "Journal",
+          "source": "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd",
+          "verifiedFields": [
+            "issn",
+            "issnType",
+            "issnLinking",
+            "title",
+            "isoAbbreviation",
+            "nlmUniqueId",
+            "medlineTa",
+            "country"
+          ],
+          "fieldStatus": "confirmed against Journal + MedlineJournalInfo content models",
+          "discoveredEnums": {
+            "issnType": [
+              "Electronic",
+              "Print"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "EutilsQuery",
+          "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+          "verifiedFields": [
+            "db",
+            "term",
+            "retmode",
+            "rettype",
+            "retstart",
+            "retmax",
+            "sort",
+            "datetype",
+            "reldate",
+            "minDate",
+            "maxDate",
+            "usehistory",
+            "webEnv",
+            "queryKey"
+          ],
+          "fieldStatus": "esearch/efetch params confirmed from NBK25499",
+          "discoveredEnums": {
+            "retmode": [
+              "xml",
+              "json",
+              "text"
+            ],
+            "esearchRettype": [
+              "uilist",
+              "count"
+            ],
+            "efetchRettype": [
+              "abstract",
+              "medline"
+            ],
+            "datetype": [
+              "mdat",
+              "pdat",
+              "edat"
+            ],
+            "sort": [
+              "pub_date",
+              "Author",
+              "JournalName",
+              "relevance"
+            ]
+          },
+          "gaps": [
+            "efetch rettype full list is db-varying — docs enumerate only examples"
+          ]
+        }
+      ],
+      "note": "L5 verified. Five faithful resources trace PubmedArticle DTD element names + E-utilities params. Confirmed enums: ISSN/@IssnType {Electronic,Print}, MajorTopicYN {Y,N}, retmode, esearch rettype, datetype. PublicationType kept as json (DTD #PCDATA — controlled vocab is external NLM list, not asserted as enum)."
+    },
+    {
+      "handle": "w3c_specs-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://w3c.github.io/w3c-api/",
+      "remodeled": "Replaced the generic template with 5 faithful W3C resources (Specification, SpecVersion, Group, Series, User) reconciled against authoritative live api.w3.org responses (the github.io overview + w3.org/standards/types are JS-rendered and opaque to fetch).",
+      "resources": [
+        {
+          "entity": "Specification",
+          "source": "https://api.w3.org/specifications/css-flexbox-1",
+          "verifiedFields": [
+            "shortname",
+            "title",
+            "description",
+            "editorDraft",
+            "seriesVersion",
+            "shortlink"
+          ],
+          "fieldStatus": "core fields confirmed; _links flattened to *Uri (latestVersionUri/firstVersionUri/seriesUri/versionHistoryUri)",
+          "discoveredEnums": {},
+          "gaps": [
+            "*Uri fields derived from _links hrefs, not top-level scalars"
+          ]
+        },
+        {
+          "entity": "SpecVersion",
+          "source": "https://api.w3.org/specifications/css-flexbox-1/versions/20181119",
+          "verifiedFields": [
+            "status",
+            "recTrack",
+            "editorDraft",
+            "uri",
+            "date",
+            "informative",
+            "title",
+            "shortlink",
+            "processRules"
+          ],
+          "fieldStatus": "top-level scalars confirmed; editors/deliverers/predecessor/successor confirmed as _links keys → json/*Uri",
+          "discoveredEnums": {
+            "status": [
+              "First Public Working Draft",
+              "Working Draft",
+              "Candidate Recommendation Snapshot",
+              "Candidate Recommendation Draft",
+              "Proposed Recommendation",
+              "Recommendation",
+              "Group Note",
+              "Superseded Recommendation",
+              "Rescinded Recommendation",
+              "Editor's Draft",
+              "Amended Recommendation",
+              "Obsolete Recommendation"
+            ]
+          },
+          "gaps": [
+            "API returns full human-readable status string, NOT the WD/CR/CRD/PR/REC/NOTE/RSCND/SPSD/ED/FPWD abbreviations (those are the standards/types short codes, a distinct vocabulary)",
+            "editors[]/deliverers[] only confirmed as _links collection endpoints, modeled as json"
+          ]
+        },
+        {
+          "entity": "Group",
+          "source": "https://api.w3.org/groups/wg/css",
+          "verifiedFields": [
+            "id",
+            "name",
+            "isClosed",
+            "description",
+            "shortname",
+            "discr",
+            "type",
+            "startDate"
+          ],
+          "fieldStatus": "all confirmed; type value confirmed = 'working group'; endDate + homepageUri also observed",
+          "discoveredEnums": {
+            "type": [
+              "working group",
+              "interest group",
+              "community group",
+              "coordination group",
+              "business group"
+            ]
+          },
+          "gaps": [
+            "only 'working group' directly observed on the sampled group; remaining long-form type strings inferred from group-path abbreviations wg/ig/cg/bg/coord"
+          ]
+        },
+        {
+          "entity": "Series",
+          "source": "https://api.w3.org/specification-series/css-flexbox",
+          "verifiedFields": [
+            "shortname",
+            "name"
+          ],
+          "fieldStatus": "confirmed; currentSpecificationUri/specificationsUri derived from _links",
+          "discoveredEnums": {},
+          "gaps": [
+            "*Uri are _links hrefs, not scalar fields"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://api.w3.org/users",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "User resource exists per overview (/users); detailed field set not fetched this pass",
+          "discoveredEnums": {},
+          "gaps": [
+            "givenName/familyName/connectedAccountsUri unverified against a live /users/{id} response — plausible model fields, unconfirmed"
+          ]
+        }
+      ],
+      "note": "5 faithful W3C resources reconciled against live api.w3.org. Real fields are kebab-case (editor-draft/rec-track/is-closed/start-date) mapped to camelCase; _links flattened to *Uri scalars or json. KEY HONESTY NOTE: the API returns version status as full strings ('Candidate Recommendation Snapshot'), NOT the WD/CR/REC abbreviation set from w3.org/standards/types (a distinct vocabulary)."
     }
   ]
 }

@@ -11,8 +11,57 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
   "schema": "schema/doi_system.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.doi.org/the-identifier/resources/factsheets/doi-system-and-the-handle-system",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Doi",
+      "Prefix",
+      "Handle",
+      "RegistrationAgency",
+      "MetadataFormat"
+    ],
+    "enums": {
+      "Doi": {
+        "directoryIndicator": [
+          "10"
+        ]
+      },
+      "Prefix": {
+        "directoryIndicator": [
+          "10"
+        ]
+      },
+      "Handle": {
+        "type": [
+          "URL"
+        ]
+      },
+      "RegistrationAgency": {
+        "raName": [
+          "Crossref",
+          "DataCite",
+          "mEDRA"
+        ]
+      },
+      "MetadataFormat": {
+        "mimeType": [
+          "application/rdf+xml",
+          "text/turtle",
+          "application/vnd.citationstyles.csl+json",
+          "application/vnd.schemaorg.ld+json",
+          "text/x-bibliography",
+          "application/x-research-info-systems",
+          "application/x-bibtex",
+          "application/vnd.crossref.unixref+xml",
+          "application/vnd.crossref.unixsd+xml",
+          "application/vnd.datacite.datacite+xml",
+          "application/vnd.medra.onixdoi+xml"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

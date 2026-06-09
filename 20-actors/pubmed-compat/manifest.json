@@ -11,8 +11,64 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigu6k377oacuy6lve73kggkuf7r53qo7mypfsom3hncnmodfahjh4",
   "schema": "schema/pubmed.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Article",
+      "Author",
+      "MeshHeading",
+      "Journal",
+      "EutilsQuery"
+    ],
+    "enums": {
+      "Article": {
+        "issnType": [
+          "Electronic",
+          "Print"
+        ]
+      },
+      "MeshHeading": {
+        "majorTopicYN": [
+          "Y",
+          "N"
+        ]
+      },
+      "Journal": {
+        "issnType": [
+          "Electronic",
+          "Print"
+        ]
+      },
+      "EutilsQuery": {
+        "retmode": [
+          "xml",
+          "json",
+          "text"
+        ],
+        "esearchRettype": [
+          "uilist",
+          "count"
+        ],
+        "efetchRettype": [
+          "abstract",
+          "medline"
+        ],
+        "datetype": [
+          "mdat",
+          "pdat",
+          "edat"
+        ],
+        "sort": [
+          "pub_date",
+          "Author",
+          "JournalName",
+          "relevance"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

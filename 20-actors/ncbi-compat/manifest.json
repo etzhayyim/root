@@ -11,8 +11,120 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiep6qnj4lpass7gbboudgbg6wl4vqjtyvbw3murstp5wnwuaazrmy",
   "schema": "schema/ncbi.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.ncbi.nlm.nih.gov/books/NBK25501/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Database",
+      "DatabaseField",
+      "Query",
+      "SearchResultId",
+      "EntrezRecord",
+      "Link",
+      "GlobalQueryResult",
+      "SpellResult",
+      "CitationMatch",
+      "EFetchFormat"
+    ],
+    "enums": {
+      "Database": {
+        "dbName": [
+          "pubmed",
+          "protein",
+          "nucleotide",
+          "nuccore",
+          "pmc",
+          "gene",
+          "genome",
+          "sra",
+          "snp"
+        ]
+      },
+      "Query": {
+        "utility": [
+          "einfo",
+          "esearch",
+          "epost",
+          "esummary",
+          "efetch",
+          "elink",
+          "egquery",
+          "espell",
+          "ecitmatch"
+        ],
+        "sort": [
+          "relevance",
+          "pub_date",
+          "Author",
+          "JournalName"
+        ],
+        "dateType": [
+          "mdat",
+          "pdat",
+          "edat"
+        ],
+        "retMode": [
+          "xml",
+          "json",
+          "text",
+          "asn.1",
+          "default"
+        ],
+        "retType": [
+          "uilist",
+          "count"
+        ]
+      },
+      "Link": {
+        "cmd": [
+          "neighbor",
+          "neighbor_score",
+          "neighbor_history",
+          "acheck",
+          "ncheck",
+          "lcheck",
+          "llinks",
+          "llinkslib",
+          "prlinks"
+        ]
+      },
+      "GlobalQueryResult": {
+        "status": [
+          "Ok"
+        ]
+      },
+      "CitationMatch": {
+        "db": [
+          "pubmed"
+        ]
+      },
+      "EFetchFormat": {
+        "retMode": [
+          "xml",
+          "text",
+          "asn.1",
+          "json",
+          "html",
+          "default"
+        ],
+        "retType": [
+          "docsum",
+          "uilist",
+          "abstract",
+          "medline",
+          "gb",
+          "gp",
+          "fasta",
+          "ft",
+          "gene_table",
+          "ipg",
+          "fasta_cds_na",
+          "fasta_cds_aa"
+        ]
+      }
+    }
+  },
   "entities": [
     "Patient",
     "Observation",

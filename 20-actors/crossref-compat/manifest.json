@@ -11,8 +11,57 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreid4crbveuot63ykgbu7oicpxf7ves5pybohg46v3xxydvilrreoli",
   "schema": "schema/crossref.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/CrossRef/rest-api-doc/blob/master/api_format.md",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Work",
+      "Author",
+      "Reference",
+      "Funder",
+      "Journal",
+      "Member",
+      "Prefix",
+      "WorkType"
+    ],
+    "enums": {
+      "WorkType": {
+        "type": [
+          "book-section",
+          "monograph",
+          "report-component",
+          "report",
+          "peer-review",
+          "book-track",
+          "journal-article",
+          "book-part",
+          "other",
+          "book",
+          "journal-volume",
+          "book-set",
+          "reference-entry",
+          "proceedings-article",
+          "journal",
+          "component",
+          "book-chapter",
+          "proceedings-series",
+          "report-series",
+          "proceedings",
+          "database",
+          "standard",
+          "reference-book",
+          "posted-content",
+          "journal-issue",
+          "dissertation",
+          "grant",
+          "dataset",
+          "book-series",
+          "edited-book"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

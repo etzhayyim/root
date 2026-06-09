@@ -1286,6 +1286,26 @@ PLATFORM_OVERRIDES = {
         "Transaction": E(token="string", amount="float", type="string", state="string", cardToken="string", userToken="string", createdTime="datetime"),
         "FundingSource": E(token="string", type="string", active="boolean", isDefaultAccount="boolean", createdTime="datetime"),
     },
+    # Faithful Plaid model — verified against the official Plaid OpenAPI
+    # (github.com/plaid/plaid-openapi 2020-09-14.yml). Object/array fields dropped.
+    "plaid": {
+        "Account": E(accountId="string", name="string", officialName="string", mask="string", type="string", subtype="string", verificationStatus="string"),
+        "AccountBalance": E(available="float", current="float", limit="float", isoCurrencyCode="string", lastUpdatedDatetime="datetime"),
+        "Transaction": E(accountId="string", transactionId="string", amount="float", date="datetime", pending="boolean", name="string", merchantName="string", isoCurrencyCode="string", paymentChannel="string", checkNumber="string"),
+        "Item": E(itemId="string", institutionId="string", institutionName="string", webhook="string", authMethod="string", oauth="boolean"),
+        "Institution": E(institutionId="string", name="string", url="string", oauth="boolean"),
+        "Holding": E(accountId="string", securityId="string", symbol="string", name="string", quantity="float", institutionValue="float", costBasis="float", currencyCode="string"),
+    },
+    # Faithful Adyen model — verified against the official Adyen OpenAPI
+    # (github.com/Adyen/adyen-openapi). PARTIAL: resultCode closed sets enforced;
+    # eventCode flagged non-exhaustive by source -> left as gap. Object refs dropped.
+    "adyen": {
+        "Payment": E(pspReference="string", merchantReference="string", merchantAccount="string", reference="string", resultCode="string", shopperReference="string"),
+        "Amount": E(value="integer", currency="string"),
+        "ModificationResult": E(pspReference="string", resultCode="string", response="string"),
+        "PaymentMethod": E(type="string", storedPaymentMethodId="string"),
+        "Notification": E(eventCode="string", pspReference="string", merchantReference="string", eventDate="datetime", success="boolean"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

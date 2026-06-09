@@ -221,17 +221,16 @@
       "handle": "adyen-compat",
       "platform": "adyen",
       "bytes": 2119,
-      "wasmCid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+      "wasmCid": "bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "PaymentRequest",
-        "PaymentResponse",
+        "Payment",
         "Amount",
-        "PaymentRefundRequest",
-        "PaymentRefundResponse",
-        "PaymentCaptureResponse"
+        "ModificationResult",
+        "PaymentMethod",
+        "Notification"
       ]
     },
     {
@@ -11954,12 +11953,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Item",
         "Account",
+        "AccountBalance",
         "Transaction",
+        "Item",
         "Institution",
-        "Identity",
-        "Liability"
+        "Holding"
       ]
     },
     {

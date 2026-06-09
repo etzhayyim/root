@@ -5,11 +5,11 @@
   "kind": "compat",
   "title": "adyen clean-room actor",
   "description": "Clean-room, API-compatible payments / money movement actor (adyen); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+  "wasmCid": "bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+  "ipfs": "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
   "schema": "schema/adyen.kotoba",
   "tier": "L5",
   "verified": {
@@ -75,12 +75,11 @@
     }
   },
   "entities": [
-    "PaymentRequest",
-    "PaymentResponse",
+    "Payment",
     "Amount",
-    "PaymentRefundRequest",
-    "PaymentRefundResponse",
-    "PaymentCaptureResponse"
+    "ModificationResult",
+    "PaymentMethod",
+    "Notification"
   ],
   "adr": [
     "260607",
@@ -92,57 +91,32 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/paymentrequests",
-          "op": "create PaymentRequest"
+          "path": "/v1/payments",
+          "op": "create Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrequests",
-          "op": "list PaymentRequest"
+          "path": "/v1/payments",
+          "op": "list Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrequests/{id}",
-          "op": "get PaymentRequest"
+          "path": "/v1/payments/{id}",
+          "op": "get Payment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentrequests/{id}",
-          "op": "update PaymentRequest"
+          "path": "/v1/payments/{id}",
+          "op": "update Payment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentrequests/{id}",
-          "op": "delete PaymentRequest"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/paymentresponses",
-          "op": "create PaymentResponse"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/paymentresponses",
-          "op": "list PaymentResponse"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/paymentresponses/{id}",
-          "op": "get PaymentResponse"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/paymentresponses/{id}",
-          "op": "update PaymentResponse"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/paymentresponses/{id}",
-          "op": "delete PaymentResponse"
+          "path": "/v1/payments/{id}",
+          "op": "delete Payment"
         },
         {
           "method": "POST",
@@ -171,78 +145,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/paymentrefundrequests",
-          "op": "create PaymentRefundRequest"
+          "path": "/v1/modificationresults",
+          "op": "create ModificationResult"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrefundrequests",
-          "op": "list PaymentRefundRequest"
+          "path": "/v1/modificationresults",
+          "op": "list ModificationResult"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrefundrequests/{id}",
-          "op": "get PaymentRefundRequest"
+          "path": "/v1/modificationresults/{id}",
+          "op": "get ModificationResult"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentrefundrequests/{id}",
-          "op": "update PaymentRefundRequest"
+          "path": "/v1/modificationresults/{id}",
+          "op": "update ModificationResult"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentrefundrequests/{id}",
-          "op": "delete PaymentRefundRequest"
+          "path": "/v1/modificationresults/{id}",
+          "op": "delete ModificationResult"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentrefundresponses",
-          "op": "create PaymentRefundResponse"
+          "path": "/v1/paymentmethods",
+          "op": "create PaymentMethod"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrefundresponses",
-          "op": "list PaymentRefundResponse"
+          "path": "/v1/paymentmethods",
+          "op": "list PaymentMethod"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentrefundresponses/{id}",
-          "op": "get PaymentRefundResponse"
+          "path": "/v1/paymentmethods/{id}",
+          "op": "get PaymentMethod"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentrefundresponses/{id}",
-          "op": "update PaymentRefundResponse"
+          "path": "/v1/paymentmethods/{id}",
+          "op": "update PaymentMethod"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentrefundresponses/{id}",
-          "op": "delete PaymentRefundResponse"
+          "path": "/v1/paymentmethods/{id}",
+          "op": "delete PaymentMethod"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentcaptureresponses",
-          "op": "create PaymentCaptureResponse"
+          "path": "/v1/notifications",
+          "op": "create Notification"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentcaptureresponses",
-          "op": "list PaymentCaptureResponse"
+          "path": "/v1/notifications",
+          "op": "list Notification"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentcaptureresponses/{id}",
-          "op": "get PaymentCaptureResponse"
+          "path": "/v1/notifications/{id}",
+          "op": "get Notification"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentcaptureresponses/{id}",
-          "op": "update PaymentCaptureResponse"
+          "path": "/v1/notifications/{id}",
+          "op": "update Notification"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentcaptureresponses/{id}",
-          "op": "delete PaymentCaptureResponse"
+          "path": "/v1/notifications/{id}",
+          "op": "delete Notification"
         }
       ],
       "features": {
@@ -305,149 +279,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_payment_request",
-          "description": "Create a PaymentRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "reference": {
-                "type": "string"
-              },
-              "merchantAccount": {
-                "type": "string"
-              },
-              "shopperEmail": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "recurringProcessingModel": {
-                "type": "string"
-              },
-              "storePaymentMethod": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "reference",
-              "merchantAccount"
-            ]
-          }
-        },
-        {
-          "name": "list_payment_requests",
-          "description": "List PaymentRequests.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payment_request",
-          "description": "Get a PaymentRequest by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payment_request",
-          "description": "Update a PaymentRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "reference": {
-                "type": "string"
-              },
-              "merchantAccount": {
-                "type": "string"
-              },
-              "shopperEmail": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "recurringProcessingModel": {
-                "type": "string"
-              },
-              "storePaymentMethod": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payment_request",
-          "description": "Delete a PaymentRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payment_response",
-          "description": "Create a PaymentResponse.",
+          "name": "create_payment",
+          "description": "Create a Payment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "pspReference": {
                 "type": "string"
               },
-              "resultCode": {
-                "type": "string"
-              },
               "merchantReference": {
                 "type": "string"
               },
-              "refusalReason": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "refusalReasonCode": {
+              "reference": {
+                "type": "string"
+              },
+              "resultCode": {
+                "type": "string"
+              },
+              "shopperReference": {
                 "type": "string"
               }
             },
             "required": [
               "pspReference",
-              "resultCode"
+              "merchantReference"
             ]
           }
         },
         {
-          "name": "list_payment_responses",
-          "description": "List PaymentResponses.",
+          "name": "list_payments",
+          "description": "List Payments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_response",
-          "description": "Get a PaymentResponse by id.",
+          "name": "get_payment",
+          "description": "Get a Payment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -461,8 +336,8 @@
           }
         },
         {
-          "name": "update_payment_response",
-          "description": "Update a PaymentResponse.",
+          "name": "update_payment",
+          "description": "Update a Payment.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,16 +347,19 @@
               "pspReference": {
                 "type": "string"
               },
-              "resultCode": {
-                "type": "string"
-              },
               "merchantReference": {
                 "type": "string"
               },
-              "refusalReason": {
+              "merchantAccount": {
                 "type": "string"
               },
-              "refusalReasonCode": {
+              "reference": {
+                "type": "string"
+              },
+              "resultCode": {
+                "type": "string"
+              },
+              "shopperReference": {
                 "type": "string"
               }
             },
@@ -491,8 +369,8 @@
           }
         },
         {
-          "name": "delete_payment_response",
-          "description": "Delete a PaymentResponse.",
+          "name": "delete_payment",
+          "description": "Delete a Payment.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,16 +389,16 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "currency": {
-                "type": "string"
-              },
               "value": {
                 "type": "integer"
+              },
+              "currency": {
+                "type": "string"
               }
             },
             "required": [
-              "currency",
-              "value"
+              "value",
+              "currency"
             ]
           }
         },
@@ -556,11 +434,11 @@
               "id": {
                 "type": "string"
               },
-              "currency": {
-                "type": "string"
-              },
               "value": {
                 "type": "integer"
+              },
+              "currency": {
+                "type": "string"
               }
             },
             "required": [
@@ -584,128 +462,38 @@
           }
         },
         {
-          "name": "create_payment_refund_request",
-          "description": "Create a PaymentRefundRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "merchantAccount": {
-                "type": "string"
-              },
-              "reference": {
-                "type": "string"
-              },
-              "merchantRefundReason": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "merchantAccount",
-              "reference"
-            ]
-          }
-        },
-        {
-          "name": "list_payment_refund_requests",
-          "description": "List PaymentRefundRequests.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payment_refund_request",
-          "description": "Get a PaymentRefundRequest by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payment_refund_request",
-          "description": "Update a PaymentRefundRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "merchantAccount": {
-                "type": "string"
-              },
-              "reference": {
-                "type": "string"
-              },
-              "merchantRefundReason": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payment_refund_request",
-          "description": "Delete a PaymentRefundRequest.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payment_refund_response",
-          "description": "Create a PaymentRefundResponse.",
+          "name": "create_modification_result",
+          "description": "Create a ModificationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "pspReference": {
                 "type": "string"
               },
-              "paymentPspReference": {
+              "resultCode": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              },
-              "merchantRefundReason": {
-                "type": "string"
-              },
-              "reference": {
+              "response": {
                 "type": "string"
               }
             },
             "required": [
               "pspReference",
-              "paymentPspReference"
+              "resultCode"
             ]
           }
         },
         {
-          "name": "list_payment_refund_responses",
-          "description": "List PaymentRefundResponses.",
+          "name": "list_modification_results",
+          "description": "List ModificationResults.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_refund_response",
-          "description": "Get a PaymentRefundResponse by id.",
+          "name": "get_modification_result",
+          "description": "Get a ModificationResult by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -719,8 +507,8 @@
           }
         },
         {
-          "name": "update_payment_refund_response",
-          "description": "Update a PaymentRefundResponse.",
+          "name": "update_modification_result",
+          "description": "Update a ModificationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,16 +518,10 @@
               "pspReference": {
                 "type": "string"
               },
-              "paymentPspReference": {
+              "resultCode": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              },
-              "merchantRefundReason": {
-                "type": "string"
-              },
-              "reference": {
+              "response": {
                 "type": "string"
               }
             },
@@ -749,8 +531,8 @@
           }
         },
         {
-          "name": "delete_payment_refund_response",
-          "description": "Delete a PaymentRefundResponse.",
+          "name": "delete_modification_result",
+          "description": "Delete a ModificationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -764,44 +546,34 @@
           }
         },
         {
-          "name": "create_payment_capture_response",
-          "description": "Create a PaymentCaptureResponse.",
+          "name": "create_payment_method",
+          "description": "Create a PaymentMethod.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pspReference": {
+              "type": {
                 "type": "string"
               },
-              "paymentPspReference": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "merchantAccount": {
-                "type": "string"
-              },
-              "reference": {
+              "storedPaymentMethodId": {
                 "type": "string"
               }
             },
             "required": [
-              "pspReference",
-              "paymentPspReference"
+              "type"
             ]
           }
         },
         {
-          "name": "list_payment_capture_responses",
-          "description": "List PaymentCaptureResponses.",
+          "name": "list_payment_methods",
+          "description": "List PaymentMethods.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_capture_response",
-          "description": "Get a PaymentCaptureResponse by id.",
+          "name": "get_payment_method",
+          "description": "Get a PaymentMethod by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -815,27 +587,84 @@
           }
         },
         {
-          "name": "update_payment_capture_response",
-          "description": "Update a PaymentCaptureResponse.",
+          "name": "update_payment_method",
+          "description": "Update a PaymentMethod.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "storedPaymentMethodId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment_method",
+          "description": "Delete a PaymentMethod.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_notification",
+          "description": "Create a Notification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "eventCode": {
                 "type": "string"
               },
               "pspReference": {
                 "type": "string"
               },
-              "paymentPspReference": {
+              "merchantReference": {
                 "type": "string"
               },
-              "status": {
+              "eventDate": {
                 "type": "string"
               },
-              "merchantAccount": {
-                "type": "string"
-              },
-              "reference": {
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "eventCode",
+              "pspReference"
+            ]
+          }
+        },
+        {
+          "name": "list_notifications",
+          "description": "List Notifications.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_notification",
+          "description": "Get a Notification by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -845,8 +674,38 @@
           }
         },
         {
-          "name": "delete_payment_capture_response",
-          "description": "Delete a PaymentCaptureResponse.",
+          "name": "update_notification",
+          "description": "Update a Notification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "eventCode": {
+                "type": "string"
+              },
+              "pspReference": {
+                "type": "string"
+              },
+              "merchantReference": {
+                "type": "string"
+              },
+              "eventDate": {
+                "type": "string"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_notification",
+          "description": "Delete a Notification.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29995,
+  "totalTools": 29990,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -121,9 +121,9 @@
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
       "tier": "L5",
-      "endpoint": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+      "endpoint": "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/adyen-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -498,7 +498,7 @@
     {
       "handle": "arxiv_api-compat",
       "did": "did:web:etzhayyim.com:actor:arxiv_api-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicmhtff5wvqvmourkghxxmrplja4udyw66lvvg2d46dzzb4j7cbme",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -1929,7 +1929,7 @@
     {
       "handle": "crossref-compat",
       "did": "did:web:etzhayyim.com:actor:crossref-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreid4crbveuot63ykgbu7oicpxf7ves5pybohg46v3xxydvilrreoli",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -2325,7 +2325,7 @@
     {
       "handle": "doi_system-compat",
       "did": "did:web:etzhayyim.com:actor:doi_system-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -3990,7 +3990,7 @@
     {
       "handle": "ietf_rfcs-compat",
       "did": "did:web:etzhayyim.com:actor:ietf_rfcs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreicerupscmo2jopsqmzuazv2hralxnjbafct6naidh7flnvfiwe77e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -5502,7 +5502,7 @@
     {
       "handle": "ncbi-compat",
       "did": "did:web:etzhayyim.com:actor:ncbi-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiep6qnj4lpass7gbboudgbg6wl4vqjtyvbw3murstp5wnwuaazrmy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6114,7 +6114,7 @@
     {
       "handle": "orcid-compat",
       "did": "did:web:etzhayyim.com:actor:orcid-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreialfeh4maep4chx4v4ragbdtoafuncebzsqyw3pdahxb7jukoxzau",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -6501,7 +6501,7 @@
     {
       "handle": "pubmed-compat",
       "did": "did:web:etzhayyim.com:actor:pubmed-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreigu6k377oacuy6lve73kggkuf7r53qo7mypfsom3hncnmodfahjh4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
@@ -8499,7 +8499,7 @@
     {
       "handle": "w3c_specs-compat",
       "did": "did:web:etzhayyim.com:actor:w3c_specs-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreige2ujb7zmylz5mzsaefsk4vlditnizcw7z56insp2rsvb5snatgm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,

@@ -11,8 +11,45 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreige2ujb7zmylz5mzsaefsk4vlditnizcw7z56insp2rsvb5snatgm",
   "schema": "schema/w3c_specs.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://w3c.github.io/w3c-api/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Specification",
+      "SpecVersion",
+      "Group",
+      "Series",
+      "User"
+    ],
+    "enums": {
+      "SpecVersion": {
+        "status": [
+          "First Public Working Draft",
+          "Working Draft",
+          "Candidate Recommendation Snapshot",
+          "Candidate Recommendation Draft",
+          "Proposed Recommendation",
+          "Recommendation",
+          "Group Note",
+          "Superseded Recommendation",
+          "Rescinded Recommendation",
+          "Editor's Draft",
+          "Amended Recommendation",
+          "Obsolete Recommendation"
+        ]
+      },
+      "Group": {
+        "type": [
+          "working group",
+          "interest group",
+          "community group",
+          "coordination group",
+          "business group"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

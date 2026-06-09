@@ -11,8 +11,52 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicmhtff5wvqvmourkghxxmrplja4udyw66lvvg2d46dzzb4j7cbme",
   "schema": "schema/arxiv_api.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://info.arxiv.org/help/api/user-manual.html",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Entry",
+      "Author",
+      "Category",
+      "Link",
+      "SearchQuery",
+      "Feed"
+    ],
+    "enums": {
+      "Link": {
+        "rel": [
+          "alternate",
+          "related"
+        ],
+        "title": [
+          "pdf",
+          "doi"
+        ]
+      },
+      "SearchQuery": {
+        "sortBy": [
+          "relevance",
+          "lastUpdatedDate",
+          "submittedDate"
+        ],
+        "sortOrder": [
+          "ascending",
+          "descending"
+        ],
+        "searchFieldPrefix": [
+          "ti",
+          "au",
+          "abs",
+          "co",
+          "jr",
+          "cat",
+          "rn",
+          "all"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

@@ -3,64 +3,50 @@
 
 namespace adyen {
 
-    entity PaymentRequest {
-        id: string @unique
-        reference: string
-        merchantAccount: string
-        shopperEmail: string
-        channel: string
-        recurringProcessingModel: string
-        storePaymentMethod: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentResponse {
+    entity Payment {
         id: string @unique
         pspReference: string
-        resultCode: string
         merchantReference: string
-        refusalReason: string
-        refusalReasonCode: string
+        merchantAccount: string
+        reference: string
+        resultCode: string
+        shopperReference: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Amount {
         id: string @unique
-        currency: string
         value: integer
+        currency: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentRefundRequest {
-        id: string @unique
-        merchantAccount: string
-        reference: string
-        merchantRefundReason: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentRefundResponse {
+    entity ModificationResult {
         id: string @unique
         pspReference: string
-        paymentPspReference: string
-        status: string
-        merchantRefundReason: string
-        reference: string
+        resultCode: string
+        response: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentCaptureResponse {
+    entity PaymentMethod {
         id: string @unique
+        type: string
+        storedPaymentMethodId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Notification {
+        id: string @unique
+        eventCode: string
         pspReference: string
-        paymentPspReference: string
-        status: string
-        merchantAccount: string
-        reference: string
+        merchantReference: string
+        eventDate: datetime
+        success: boolean
         createdAt: datetime
         updatedAt: datetime
     }

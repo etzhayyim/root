@@ -181,11 +181,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible payments / money movement actor (adyen); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "adyen.kotoba"
-   :actor/wasm-cid "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4"
+   :actor/wasm-cid "bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:adyen-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:adyen-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:adyen-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "aftership-compat"
    :actor/did "did:web:etzhayyim.com:actor:aftership-compat"
    :actor/kind :compat

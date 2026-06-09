@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "adyen.kotoba")
-ENTITIES = ['PaymentRequest', 'PaymentResponse', 'Amount', 'PaymentRefundRequest', 'PaymentRefundResponse', 'PaymentCaptureResponse']
-PLURALS = {'PaymentRequest': 'paymentrequests', 'PaymentResponse': 'paymentresponses', 'Amount': 'amounts', 'PaymentRefundRequest': 'paymentrefundrequests', 'PaymentRefundResponse': 'paymentrefundresponses', 'PaymentCaptureResponse': 'paymentcaptureresponses'}
+ENTITIES = ['Payment', 'Amount', 'ModificationResult', 'PaymentMethod', 'Notification']
+PLURALS = {'Payment': 'payments', 'Amount': 'amounts', 'ModificationResult': 'modificationresults', 'PaymentMethod': 'paymentmethods', 'Notification': 'notifications'}
 
 
 class AdyenContract(unittest.TestCase):
@@ -62,12 +62,6 @@ class AdyenContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
-
-    def test_verified_enums_enforced(self):
-        """L5: discovered enums from official docs are enforced."""
-        for field in ['channel', 'merchantRefundReason', 'recurringProcessingModel', 'resultCode']:
-            self.assertIn(f"invalid {field}; allowed:", self.src,
-                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

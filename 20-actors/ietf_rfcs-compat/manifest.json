@@ -11,8 +11,50 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicerupscmo2jopsqmzuazv2hralxnjbafct6naidh7flnvfiwe77e",
   "schema": "schema/ietf_rfcs.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.rfc-editor.org/about/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Rfc",
+      "Author",
+      "Authorship",
+      "RfcRelationship"
+    ],
+    "enums": {
+      "Rfc": {
+        "status": [
+          "INTERNET STANDARD",
+          "DRAFT STANDARD",
+          "PROPOSED STANDARD",
+          "UNKNOWN",
+          "BEST CURRENT PRACTICE",
+          "FOR YOUR INFORMATION",
+          "EXPERIMENTAL",
+          "HISTORIC",
+          "INFORMATIONAL"
+        ],
+        "stream": [
+          "IETF",
+          "IAB",
+          "IRTF",
+          "INDEPENDENT",
+          "Editorial",
+          "Legacy"
+        ]
+      },
+      "RfcRelationship": {
+        "relationType": [
+          "OBSOLETES",
+          "OBSOLETED_BY",
+          "UPDATES",
+          "UPDATED_BY",
+          "IS_ALSO",
+          "SEE_ALSO"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",

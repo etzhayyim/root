@@ -11,8 +11,65 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreialfeh4maep4chx4v4ragbdtoafuncebzsqyw3pdahxb7jukoxzau",
   "schema": "schema/orcid.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Record",
+      "OtherName",
+      "Keyword",
+      "ResearcherUrl",
+      "Email",
+      "Address",
+      "ExternalIdentifier",
+      "Work",
+      "WorkExternalId",
+      "Employment",
+      "Education",
+      "Funding"
+    ],
+    "enums": {
+      "Work": {
+        "type": [
+          "book",
+          "book-chapter",
+          "conference-paper",
+          "journal-article",
+          "preprint",
+          "dissertation-thesis",
+          "working-paper",
+          "review",
+          "book-review",
+          "journal-issue",
+          "report",
+          "data-set",
+          "software",
+          "patent",
+          "other"
+        ],
+        "citationType": [
+          "APA",
+          "BIBTEX",
+          "CHICAGO",
+          "HARVARD",
+          "IEEE",
+          "MLA",
+          "RIS",
+          "UNSPECIFIED",
+          "VANCOUVER"
+        ]
+      },
+      "WorkExternalId": {
+        "externalIdRelationship": [
+          "self",
+          "part-of",
+          "version-of",
+          "funded-by"
+        ]
+      }
+    }
+  },
   "entities": [
     "Work",
     "Author",
