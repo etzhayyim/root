@@ -115,16 +115,17 @@ def _expand(rec, params, refs):
 def create_model(request):
     """Create a Model."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownedBy', 'contextWindow'])
+    err = _reject_unknown(data, ['id', 'object', 'created', 'ownedBy'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'ownedBy'])
+    err = _require(data, ['id', 'object'])
     if err:
         return err, 400
     rec = {"id": new_id("openai_mod")}
-    rec["name"] = data.get('name')
+    rec["id"] = data.get('id')
+    rec["object"] = data.get('object')
+    rec["created"] = _as_int(data.get('created'))
     rec["ownedBy"] = data.get('ownedBy')
-    rec["contextWindow"] = _as_int(data.get('contextWindow'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Model", rec)
@@ -135,7 +136,7 @@ def list_models(request):
     """List Models with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'ownedBy', 'contextWindow'])
+    rows = _apply_filters(rows, params, ['id', 'object', 'created', 'ownedBy'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -156,7 +157,7 @@ def update_model(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownedBy', 'contextWindow'])
+    err = _reject_unknown(data, ['id', 'object', 'created', 'ownedBy'])
     if err:
         return err, 400
     rec = rows[0]
@@ -176,155 +177,25 @@ def delete_model(request, eid):
     db.retract({"entity": f"openai.Model", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/chatcompletions", methods=["POST"])
-def create_chat_completion(request):
-    """Create a ChatCompletion."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'promptTokens', 'completionTokens'])
-    if err:
-        return err, 400
-    err = _require(data, ['prompt', 'output'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("openai_cha")}
-    rec["modelId"] = data.get('modelId')
-    rec["prompt"] = data.get('prompt')
-    rec["output"] = data.get('output')
-    rec["promptTokens"] = _as_int(data.get('promptTokens'))
-    rec["completionTokens"] = _as_int(data.get('completionTokens'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ChatCompletion", rec)
-    return rec, 201
-
-@app.route("/v1/chatcompletions", methods=["GET"])
-def list_chat_completions(request):
-    """List ChatCompletions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ChatCompletion")
-    rows = _apply_filters(rows, params, ['modelId', 'prompt', 'output', 'promptTokens', 'completionTokens'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/chatcompletions/<eid>", methods=["GET"])
-def get_chat_completion(request, eid):
-    """Retrieve a ChatCompletion by id (supports ?expand=)."""
-    rows = _query("ChatCompletion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/chatcompletions/<eid>", methods=["POST", "PATCH"])
-def update_chat_completion(request, eid):
-    """Update a ChatCompletion."""
-    rows = _query("ChatCompletion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'promptTokens', 'completionTokens'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ChatCompletion", rec)
-    return rec, 200
-
-@app.route("/v1/chatcompletions/<eid>", methods=["DELETE"])
-def delete_chat_completion(request, eid):
-    """Delete a ChatCompletion."""
-    rows = _query("ChatCompletion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openai.ChatCompletion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/embeddings", methods=["POST"])
-def create_embedding(request):
-    """Create a Embedding."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['input', 'dimensions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("openai_emb")}
-    rec["modelId"] = data.get('modelId')
-    rec["input"] = data.get('input')
-    rec["dimensions"] = _as_int(data.get('dimensions'))
-    rec["vectorRef"] = data.get('vectorRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Embedding", rec)
-    return rec, 201
-
-@app.route("/v1/embeddings", methods=["GET"])
-def list_embeddings(request):
-    """List Embeddings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Embedding")
-    rows = _apply_filters(rows, params, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["GET"])
-def get_embedding(request, eid):
-    """Retrieve a Embedding by id (supports ?expand=)."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["POST", "PATCH"])
-def update_embedding(request, eid):
-    """Update a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Embedding", rec)
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["DELETE"])
-def delete_embedding(request, eid):
-    """Delete a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openai.Embedding", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/finetuningjobs", methods=["POST"])
 def create_fine_tuning_job(request):
     """Create a FineTuningJob."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModel', 'trainingFile', 'status'])
+    err = _reject_unknown(data, ['id', 'model', 'status', 'fineTunedModel', 'createdAt', 'finishedAt'])
     if err:
         return err, 400
-    err = _require(data, ['baseModel', 'trainingFile'])
+    err = _require(data, ['id', 'model'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['validating_files', 'queued', 'running', 'succeeded', 'failed', 'cancelled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['validating_files', 'queued', 'running', 'succeeded', 'failed', 'cancelled']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("openai_fin")}
-    rec["baseModel"] = data.get('baseModel')
-    rec["trainingFile"] = data.get('trainingFile')
+    rec["id"] = data.get('id')
+    rec["model"] = data.get('model')
     rec["status"] = data.get('status')
+    rec["fineTunedModel"] = data.get('fineTunedModel')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["finishedAt"] = _as_int(data.get('finishedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("FineTuningJob", rec)
@@ -335,7 +206,7 @@ def list_fine_tuning_jobs(request):
     """List FineTuningJobs with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("FineTuningJob")
-    rows = _apply_filters(rows, params, ['baseModel', 'trainingFile', 'status'])
+    rows = _apply_filters(rows, params, ['id', 'model', 'status', 'fineTunedModel', 'createdAt', 'finishedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -356,9 +227,11 @@ def update_fine_tuning_job(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModel', 'trainingFile', 'status'])
+    err = _reject_unknown(data, ['id', 'model', 'status', 'fineTunedModel', 'createdAt', 'finishedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['validating_files', 'queued', 'running', 'succeeded', 'failed', 'cancelled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['validating_files', 'queued', 'running', 'succeeded', 'failed', 'cancelled']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -376,20 +249,101 @@ def delete_fine_tuning_job(request, eid):
     db.retract({"entity": f"openai.FineTuningJob", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/batches", methods=["POST"])
+def create_batch(request):
+    """Create a Batch."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'object', 'endpoint', 'model', 'status', 'inputFileId', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'object'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['validating', 'failed', 'in_progress', 'finalizing', 'completed', 'expired', 'cancelling', 'cancelled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['validating', 'failed', 'in_progress', 'finalizing', 'completed', 'expired', 'cancelling', 'cancelled']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("openai_bat")}
+    rec["id"] = data.get('id')
+    rec["object"] = data.get('object')
+    rec["endpoint"] = data.get('endpoint')
+    rec["model"] = data.get('model')
+    rec["status"] = data.get('status')
+    rec["inputFileId"] = data.get('inputFileId')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Batch", rec)
+    return rec, 201
+
+@app.route("/v1/batches", methods=["GET"])
+def list_batches(request):
+    """List Batches with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Batch")
+    rows = _apply_filters(rows, params, ['id', 'object', 'endpoint', 'model', 'status', 'inputFileId', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/batches/<eid>", methods=["GET"])
+def get_batch(request, eid):
+    """Retrieve a Batch by id (supports ?expand=)."""
+    rows = _query("Batch", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/batches/<eid>", methods=["POST", "PATCH"])
+def update_batch(request, eid):
+    """Update a Batch."""
+    rows = _query("Batch", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'object', 'endpoint', 'model', 'status', 'inputFileId', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['validating', 'failed', 'in_progress', 'finalizing', 'completed', 'expired', 'cancelling', 'cancelled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['validating', 'failed', 'in_progress', 'finalizing', 'completed', 'expired', 'cancelling', 'cancelled']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Batch", rec)
+    return rec, 200
+
+@app.route("/v1/batches/<eid>", methods=["DELETE"])
+def delete_batch(request, eid):
+    """Delete a Batch."""
+    rows = _query("Batch", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"openai.Batch", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/files", methods=["POST"])
 def create_file(request):
     """Create a File."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'bytes'])
+    err = _reject_unknown(data, ['id', 'bytes', 'filename', 'object', 'purpose', 'status', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['purpose', 'filename'])
+    err = _require(data, ['id', 'bytes'])
     if err:
         return err, 400
+    if data.get('purpose') and data['purpose'] not in ['assistants', 'assistants_output', 'batch', 'batch_output', 'fine-tune', 'fine-tune-results', 'vision', 'user_data']:
+        return {"error": {"message": "invalid purpose; allowed: " + ", ".join(['assistants', 'assistants_output', 'batch', 'batch_output', 'fine-tune', 'fine-tune-results', 'vision', 'user_data']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['uploaded', 'processed', 'error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['uploaded', 'processed', 'error']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("openai_fil")}
-    rec["purpose"] = data.get('purpose')
-    rec["filename"] = data.get('filename')
+    rec["id"] = data.get('id')
     rec["bytes"] = _as_int(data.get('bytes'))
+    rec["filename"] = data.get('filename')
+    rec["object"] = data.get('object')
+    rec["purpose"] = data.get('purpose')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("File", rec)
@@ -400,7 +354,7 @@ def list_files(request):
     """List Files with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("File")
-    rows = _apply_filters(rows, params, ['purpose', 'filename', 'bytes'])
+    rows = _apply_filters(rows, params, ['id', 'bytes', 'filename', 'object', 'purpose', 'status', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -421,9 +375,13 @@ def update_file(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'bytes'])
+    err = _reject_unknown(data, ['id', 'bytes', 'filename', 'object', 'purpose', 'status', 'createdAt'])
     if err:
         return err, 400
+    if data.get('purpose') and data['purpose'] not in ['assistants', 'assistants_output', 'batch', 'batch_output', 'fine-tune', 'fine-tune-results', 'vision', 'user_data']:
+        return {"error": {"message": "invalid purpose; allowed: " + ", ".join(['assistants', 'assistants_output', 'batch', 'batch_output', 'fine-tune', 'fine-tune-results', 'vision', 'user_data']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['uploaded', 'processed', 'error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['uploaded', 'processed', 'error']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -441,53 +399,51 @@ def delete_file(request, eid):
     db.retract({"entity": f"openai.File", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/assistants", methods=["POST"])
-def create_assistant(request):
-    """Create a Assistant."""
+@app.route("/v1/embeddings", methods=["POST"])
+def create_embedding(request):
+    """Create a Embedding."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'modelId', 'instructions'])
+    err = _reject_unknown(data, ['index', 'object'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'instructions'])
+    err = _require(data, ['index', 'object'])
     if err:
         return err, 400
-    rec = {"id": new_id("openai_ass")}
-    rec["name"] = data.get('name')
-    rec["modelId"] = data.get('modelId')
-    rec["instructions"] = data.get('instructions')
+    rec = {"id": new_id("openai_emb")}
+    rec["index"] = _as_int(data.get('index'))
+    rec["object"] = data.get('object')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Assistant", rec)
+    _persist("Embedding", rec)
     return rec, 201
 
-@app.route("/v1/assistants", methods=["GET"])
-def list_assistants(request):
-    """List Assistants with filtering + cursor pagination."""
+@app.route("/v1/embeddings", methods=["GET"])
+def list_embeddings(request):
+    """List Embeddings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Assistant")
-    rows = _apply_filters(rows, params, ['name', 'modelId', 'instructions'])
+    rows = _query("Embedding")
+    rows = _apply_filters(rows, params, ['index', 'object'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/assistants/<eid>", methods=["GET"])
-def get_assistant(request, eid):
-    """Retrieve a Assistant by id (supports ?expand=)."""
-    rows = _query("Assistant", eid)
+@app.route("/v1/embeddings/<eid>", methods=["GET"])
+def get_embedding(request, eid):
+    """Retrieve a Embedding by id (supports ?expand=)."""
+    rows = _query("Embedding", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
     return rec, 200
 
-@app.route("/v1/assistants/<eid>", methods=["POST", "PATCH"])
-def update_assistant(request, eid):
-    """Update a Assistant."""
-    rows = _query("Assistant", eid)
+@app.route("/v1/embeddings/<eid>", methods=["POST", "PATCH"])
+def update_embedding(request, eid):
+    """Update a Embedding."""
+    rows = _query("Embedding", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'modelId', 'instructions'])
+    err = _reject_unknown(data, ['index', 'object'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,64 +451,65 @@ def update_assistant(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Assistant", rec)
+    _persist("Embedding", rec)
     return rec, 200
 
-@app.route("/v1/assistants/<eid>", methods=["DELETE"])
-def delete_assistant(request, eid):
-    """Delete a Assistant."""
-    rows = _query("Assistant", eid)
+@app.route("/v1/embeddings/<eid>", methods=["DELETE"])
+def delete_embedding(request, eid):
+    """Delete a Embedding."""
+    rows = _query("Embedding", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openai.Assistant", "id": eid})
+    db.retract({"entity": f"openai.Embedding", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/threads", methods=["POST"])
-def create_thread(request):
-    """Create a Thread."""
+@app.route("/v1/chatcompletions", methods=["POST"])
+def create_chat_completion(request):
+    """Create a ChatCompletion."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assistantId', 'status'])
+    err = _reject_unknown(data, ['id', 'model', 'object', 'created'])
     if err:
         return err, 400
-    err = _require(data, ['status'])
+    err = _require(data, ['id', 'model'])
     if err:
         return err, 400
-    rec = {"id": new_id("openai_thr")}
-    rec["assistantId"] = data.get('assistantId')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("openai_cha")}
+    rec["id"] = data.get('id')
+    rec["model"] = data.get('model')
+    rec["object"] = data.get('object')
+    rec["created"] = _as_int(data.get('created'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Thread", rec)
+    _persist("ChatCompletion", rec)
     return rec, 201
 
-@app.route("/v1/threads", methods=["GET"])
-def list_threads(request):
-    """List Threads with filtering + cursor pagination."""
+@app.route("/v1/chatcompletions", methods=["GET"])
+def list_chat_completions(request):
+    """List ChatCompletions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Thread")
-    rows = _apply_filters(rows, params, ['assistantId', 'status'])
+    rows = _query("ChatCompletion")
+    rows = _apply_filters(rows, params, ['id', 'model', 'object', 'created'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/threads/<eid>", methods=["GET"])
-def get_thread(request, eid):
-    """Retrieve a Thread by id (supports ?expand=)."""
-    rows = _query("Thread", eid)
+@app.route("/v1/chatcompletions/<eid>", methods=["GET"])
+def get_chat_completion(request, eid):
+    """Retrieve a ChatCompletion by id (supports ?expand=)."""
+    rows = _query("ChatCompletion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'assistantId': 'Assistant'})
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["POST", "PATCH"])
-def update_thread(request, eid):
-    """Update a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/chatcompletions/<eid>", methods=["POST", "PATCH"])
+def update_chat_completion(request, eid):
+    """Update a ChatCompletion."""
+    rows = _query("ChatCompletion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assistantId', 'status'])
+    err = _reject_unknown(data, ['id', 'model', 'object', 'created'])
     if err:
         return err, 400
     rec = rows[0]
@@ -560,22 +517,22 @@ def update_thread(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Thread", rec)
+    _persist("ChatCompletion", rec)
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["DELETE"])
-def delete_thread(request, eid):
-    """Delete a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/chatcompletions/<eid>", methods=["DELETE"])
+def delete_chat_completion(request, eid):
+    """Delete a ChatCompletion."""
+    rows = _query("ChatCompletion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openai.Thread", "id": eid})
+    db.retract({"entity": f"openai.ChatCompletion", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "openai-compat", "tier": "L4",
-            "entities": ['Model', 'ChatCompletion', 'Embedding', 'FineTuningJob', 'File', 'Assistant', 'Thread']}, 200
+            "entities": ['Model', 'FineTuningJob', 'Batch', 'File', 'Embedding', 'ChatCompletion']}, 200
 
 
 if __name__ == "__main__":

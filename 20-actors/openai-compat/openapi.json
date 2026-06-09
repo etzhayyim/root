@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI / ML inference actor (openai); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:openai-compat",
-    "x-wasm-cid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+    "x-wasm-cid": "bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "url": "ipfs://bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -182,376 +182,6 @@
       },
       "delete": {
         "summary": "Delete a Model",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/chatcompletions": {
-      "get": {
-        "summary": "List ChatCompletions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ChatCompletion"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ChatCompletion",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatCompletionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatCompletion"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/chatcompletions/{id}": {
-      "get": {
-        "summary": "Get a ChatCompletion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatCompletion"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ChatCompletion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatCompletionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatCompletion"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ChatCompletion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/embeddings": {
-      "get": {
-        "summary": "List Embeddings",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Embedding"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Embedding",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Embedding"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/embeddings/{id}": {
-      "get": {
-        "summary": "Get a Embedding",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Embedding"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Embedding",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Embedding"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Embedding",
         "parameters": [
           {
             "name": "id",
@@ -757,6 +387,191 @@
         }
       }
     },
+    "/v1/batches": {
+      "get": {
+        "summary": "List Batches",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Batch"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Batch",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Batch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/batches/{id}": {
+      "get": {
+        "summary": "Get a Batch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Batch"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Batch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Batch"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Batch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
     "/v1/files": {
       "get": {
         "summary": "List Files",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/assistants": {
+    "/v1/embeddings": {
       "get": {
-        "summary": "List Assistants",
+        "summary": "List Embeddings",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Assistant"
+                        "$ref": "#/components/schemas/Embedding"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Assistant",
+        "summary": "Create a Embedding",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssistantCreate"
+                "$ref": "#/components/schemas/EmbeddingCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Assistant"
+                  "$ref": "#/components/schemas/Embedding"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/assistants/{id}": {
+    "/v1/embeddings/{id}": {
       "get": {
-        "summary": "Get a Assistant",
+        "summary": "Get a Embedding",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Assistant"
+                  "$ref": "#/components/schemas/Embedding"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Assistant",
+        "summary": "Update a Embedding",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssistantCreate"
+                "$ref": "#/components/schemas/EmbeddingCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Assistant"
+                  "$ref": "#/components/schemas/Embedding"
                 }
               }
             }
@@ -1106,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Assistant",
+        "summary": "Delete a Embedding",
         "parameters": [
           {
             "name": "id",
@@ -1127,9 +942,9 @@
         }
       }
     },
-    "/v1/threads": {
+    "/v1/chatcompletions": {
       "get": {
-        "summary": "List Threads",
+        "summary": "List ChatCompletions",
         "parameters": [
           {
             "name": "limit",
@@ -1169,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Thread"
+                        "$ref": "#/components/schemas/ChatCompletion"
                       }
                     },
                     "has_more": {
@@ -1189,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Thread",
+        "summary": "Create a ChatCompletion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreadCreate"
+                "$ref": "#/components/schemas/ChatCompletionCreate"
               }
             }
           }
@@ -1206,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/ChatCompletion"
                 }
               }
             }
@@ -1217,9 +1032,9 @@
         }
       }
     },
-    "/v1/threads/{id}": {
+    "/v1/chatcompletions/{id}": {
       "get": {
-        "summary": "Get a Thread",
+        "summary": "Get a ChatCompletion",
         "parameters": [
           {
             "name": "id",
@@ -1243,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/ChatCompletion"
                 }
               }
             }
@@ -1254,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Thread",
+        "summary": "Update a ChatCompletion",
         "parameters": [
           {
             "name": "id",
@@ -1269,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreadCreate"
+                "$ref": "#/components/schemas/ChatCompletionCreate"
               }
             }
           }
@@ -1280,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/ChatCompletion"
                 }
               }
             }
@@ -1291,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Thread",
+        "summary": "Delete a ChatCompletion",
         "parameters": [
           {
             "name": "id",
@@ -1331,14 +1146,14 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "object": {
             "type": "string"
+          },
+          "created": {
+            "type": "integer"
           },
           "ownedBy": {
             "type": "string"
-          },
-          "contextWindow": {
-            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1353,41 +1168,125 @@
       "ModelCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "created": {
+            "type": "integer"
           },
           "ownedBy": {
             "type": "string"
-          },
-          "contextWindow": {
-            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "ownedBy"
+          "id",
+          "object"
         ]
       },
-      "ChatCompletion": {
+      "FineTuningJob": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelId": {
+          "model": {
             "type": "string"
           },
-          "prompt": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "validating_files",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "fineTunedModel": {
             "type": "string"
           },
-          "output": {
-            "type": "string"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "promptTokens": {
+          "finishedAt": {
             "type": "integer"
           },
-          "completionTokens": {
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FineTuningJobCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "validating_files",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "fineTunedModel": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "integer"
+          },
+          "finishedAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "model"
+        ]
+      },
+      "Batch": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "validating",
+              "failed",
+              "in_progress",
+              "finalizing",
+              "completed",
+              "expired",
+              "cancelling",
+              "cancelled"
+            ]
+          },
+          "inputFileId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1399,28 +1298,135 @@
           }
         }
       },
-      "ChatCompletionCreate": {
+      "BatchCreate": {
         "type": "object",
         "properties": {
-          "modelId": {
+          "id": {
             "type": "string"
           },
-          "prompt": {
+          "object": {
             "type": "string"
           },
-          "output": {
+          "endpoint": {
             "type": "string"
           },
-          "promptTokens": {
-            "type": "integer"
+          "model": {
+            "type": "string"
           },
-          "completionTokens": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "validating",
+              "failed",
+              "in_progress",
+              "finalizing",
+              "completed",
+              "expired",
+              "cancelling",
+              "cancelled"
+            ]
+          },
+          "inputFileId": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "integer"
           }
         },
         "required": [
-          "prompt",
-          "output"
+          "id",
+          "object"
+        ]
+      },
+      "File": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bytes": {
+            "type": "integer"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "assistants",
+              "assistants_output",
+              "batch",
+              "batch_output",
+              "fine-tune",
+              "fine-tune-results",
+              "vision",
+              "user_data"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "uploaded",
+              "processed",
+              "error"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FileCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bytes": {
+            "type": "integer"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "assistants",
+              "assistants_output",
+              "batch",
+              "batch_output",
+              "fine-tune",
+              "fine-tune-results",
+              "vision",
+              "user_data"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "uploaded",
+              "processed",
+              "error"
+            ]
+          },
+          "createdAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "bytes"
         ]
       },
       "Embedding": {
@@ -1429,16 +1435,10 @@
           "id": {
             "type": "string"
           },
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
+          "index": {
             "type": "integer"
           },
-          "vectorRef": {
+          "object": {
             "type": "string"
           },
           "createdAt": {
@@ -1454,80 +1454,31 @@
       "EmbeddingCreate": {
         "type": "object",
         "properties": {
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
+          "index": {
             "type": "integer"
           },
-          "vectorRef": {
+          "object": {
             "type": "string"
           }
         },
         "required": [
-          "input",
-          "dimensions"
+          "index",
+          "object"
         ]
       },
-      "FineTuningJob": {
+      "ChatCompletion": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "baseModel": {
+          "model": {
             "type": "string"
           },
-          "trainingFile": {
+          "object": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FineTuningJobCreate": {
-        "type": "object",
-        "properties": {
-          "baseModel": {
-            "type": "string"
-          },
-          "trainingFile": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "baseModel",
-          "trainingFile"
-        ]
-      },
-      "File": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "bytes": {
+          "created": {
             "type": "integer"
           },
           "createdAt": {
@@ -1540,101 +1491,25 @@
           }
         }
       },
-      "FileCreate": {
+      "ChatCompletionCreate": {
         "type": "object",
         "properties": {
-          "purpose": {
+          "id": {
             "type": "string"
           },
-          "filename": {
+          "model": {
             "type": "string"
           },
-          "bytes": {
+          "object": {
+            "type": "string"
+          },
+          "created": {
             "type": "integer"
           }
         },
         "required": [
-          "purpose",
-          "filename"
-        ]
-      },
-      "Assistant": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "modelId": {
-            "type": "string"
-          },
-          "instructions": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AssistantCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "modelId": {
-            "type": "string"
-          },
-          "instructions": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "instructions"
-        ]
-      },
-      "Thread": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "assistantId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ThreadCreate": {
-        "type": "object",
-        "properties": {
-          "assistantId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status"
+          "id",
+          "model"
         ]
       }
     }

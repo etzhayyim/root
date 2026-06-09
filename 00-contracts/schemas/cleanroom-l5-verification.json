@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 77,
+  "count": 79,
   "actors": [
     {
       "handle": "square-compat",
@@ -10927,6 +10927,279 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs live official Supabase Management OpenAPI. Enforced enums: Project.status(15)/region(18), EdgeFunction.status(3), ApiKey.type(3), Branch.status(6)/previewProjectStatus(15), Backup.status(6) = 7 enums (66 values)."
+    },
+    {
+      "handle": "openai-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+      "remodeled": "Remodeled from generic ai_ml to a faithful OpenAI model, verified against the official openai-openapi openapi.yaml. timestamps Unix int seconds; embedding float-array dropped.",
+      "resources": [
+        {
+          "entity": "Model",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "id",
+            "object",
+            "created",
+            "ownedBy"
+          ],
+          "fieldStatus": "confirmed; object is const 'model'",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "FineTuningJob",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "id",
+            "model",
+            "status",
+            "fineTunedModel",
+            "createdAt",
+            "finishedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "validating_files",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "gaps": [
+            "hyperparameters(object)"
+          ]
+        },
+        {
+          "entity": "Batch",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "id",
+            "object",
+            "endpoint",
+            "model",
+            "status",
+            "inputFileId",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "validating",
+              "failed",
+              "in_progress",
+              "finalizing",
+              "completed",
+              "expired",
+              "cancelling",
+              "cancelled"
+            ]
+          },
+          "gaps": [
+            "requestCounts(object)"
+          ]
+        },
+        {
+          "entity": "File",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "id",
+            "bytes",
+            "filename",
+            "object",
+            "purpose",
+            "status",
+            "createdAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "purpose": [
+              "assistants",
+              "assistants_output",
+              "batch",
+              "batch_output",
+              "fine-tune",
+              "fine-tune-results",
+              "vision",
+              "user_data"
+            ],
+            "status": [
+              "uploaded",
+              "processed",
+              "error"
+            ]
+          },
+          "gaps": [
+            "status-deprecated-in-spec"
+          ]
+        },
+        {
+          "entity": "Embedding",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "index",
+            "object"
+          ],
+          "fieldStatus": "confirmed; embedding float-array dropped",
+          "discoveredEnums": {},
+          "gaps": [
+            "embedding(float-array)"
+          ]
+        },
+        {
+          "entity": "ChatCompletion",
+          "source": "https://github.com/openai/openai-openapi/blob/master/openapi.yaml",
+          "verifiedFields": [
+            "id",
+            "model",
+            "object",
+            "created"
+          ],
+          "fieldStatus": "confirmed; choices array dropped",
+          "discoveredEnums": {},
+          "gaps": [
+            "choices(array)",
+            "usage(object)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official openai-openapi openapi.yaml. Enforced enums: FineTuningJob.status(6), Batch.status(8), File.purpose(8), File.status(3) = 4 enums. ChatCompletion role enum is nested in messages (not a top-level field) -> not enforced here."
+    },
+    {
+      "handle": "typeform-compat",
+      "verifiedAt": "2026-06-09",
+      "tier": "L5",
+      "source": "https://www.typeform.com/developers",
+      "remodeled": "Remodeled from generic devtools_saas to a faithful Typeform model, verified against the official Typeform Create + Responses API docs. Object/array fields dropped. Webhook.eventType left a gap (only form_response documented in examples).",
+      "resources": [
+        {
+          "entity": "Form",
+          "source": "https://www.typeform.com/developers/create/reference/create-form/",
+          "verifiedFields": [
+            "id",
+            "title",
+            "type"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "fields(array)",
+            "settings(object)"
+          ]
+        },
+        {
+          "entity": "Field",
+          "source": "https://www.typeform.com/developers/create/reference/create-form/",
+          "verifiedFields": [
+            "ref",
+            "id",
+            "title",
+            "type"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "calendar",
+              "contact_info",
+              "date",
+              "dropdown",
+              "email",
+              "file_upload",
+              "group",
+              "legal",
+              "long_text",
+              "matrix",
+              "multi_format",
+              "multiple_choice",
+              "nps",
+              "number",
+              "opinion_scale",
+              "payment",
+              "phone_number",
+              "picture_choice",
+              "ranking",
+              "rating",
+              "short_text",
+              "statement",
+              "website",
+              "yes_no"
+            ]
+          },
+          "gaps": [
+            "properties(object)",
+            "validations(object)"
+          ]
+        },
+        {
+          "entity": "Response",
+          "source": "https://www.typeform.com/developers/responses/JSON-response-explanation/",
+          "verifiedFields": [
+            "token",
+            "landedAt",
+            "submittedAt",
+            "formId"
+          ],
+          "fieldStatus": "confirmed; no closed enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "answers(array)",
+            "hidden(object)"
+          ]
+        },
+        {
+          "entity": "Answer",
+          "source": "https://www.typeform.com/developers/responses/JSON-response-explanation/",
+          "verifiedFields": [
+            "fieldId",
+            "fieldType",
+            "type",
+            "value"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "text",
+              "choice",
+              "choices",
+              "email",
+              "url",
+              "file_url",
+              "multi_format",
+              "boolean",
+              "number",
+              "date",
+              "payment",
+              "phone_number",
+              "signature",
+              "checkbox"
+            ]
+          },
+          "gaps": [
+            "value-type-varies-by-answer-type"
+          ]
+        },
+        {
+          "entity": "Webhook",
+          "source": "https://www.typeform.com/developers/webhooks/example-payload/",
+          "verifiedFields": [
+            "eventId",
+            "eventType",
+            "timestamp"
+          ],
+          "fieldStatus": "fields confirmed; eventType only 'form_response' documented -> not enforced",
+          "discoveredEnums": {},
+          "gaps": [
+            "eventType-enum-maybe-partial"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Typeform docs. Enforced enums: Field.type(24), Answer.type(14) = 2 enums (38 values). Webhook.eventType left a gap (only form_response in examples) — honesty over coverage."
     }
   ]
 }

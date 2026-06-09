@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29960,
+  "totalTools": 29950,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -5970,10 +5970,10 @@
     {
       "handle": "openai-compat",
       "did": "did:web:etzhayyim.com:actor:openai-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 35,
+      "toolCount": 30,
       "manifest": "20-actors/openai-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -8175,10 +8175,10 @@
     {
       "handle": "typeform-compat",
       "did": "did:web:etzhayyim.com:actor:typeform-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "manifest": "20-actors/typeform-compat/manifest.json#/capabilities/mcp"
     },
     {

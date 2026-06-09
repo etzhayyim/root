@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible customer experience / survey actor (typeform); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:typeform-compat",
-    "x-wasm-cid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+    "x-wasm-cid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "url": "ipfs://bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/tickets": {
+    "/v1/forms": {
       "get": {
-        "summary": "List Tickets",
+        "summary": "List Forms",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Ticket"
+                        "$ref": "#/components/schemas/Form"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Ticket",
+        "summary": "Create a Form",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/tickets/{id}": {
+    "/v1/forms/{id}": {
       "get": {
-        "summary": "Get a Ticket",
+        "summary": "Get a Form",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Ticket",
+        "summary": "Update a Form",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Ticket",
+        "summary": "Delete a Form",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/surveys": {
+    "/v1/fields": {
       "get": {
-        "summary": "List Surveys",
+        "summary": "List Fields",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Survey"
+                        "$ref": "#/components/schemas/Field"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Survey",
+        "summary": "Create a Field",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SurveyCreate"
+                "$ref": "#/components/schemas/FieldCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Survey"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/surveys/{id}": {
+    "/v1/fields/{id}": {
       "get": {
-        "summary": "Get a Survey",
+        "summary": "Get a Field",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Survey"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Survey",
+        "summary": "Update a Field",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SurveyCreate"
+                "$ref": "#/components/schemas/FieldCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Survey"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Survey",
+        "summary": "Delete a Field",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/accounts": {
+    "/v1/answers": {
       "get": {
-        "summary": "List Accounts",
+        "summary": "List Answers",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Account"
+                        "$ref": "#/components/schemas/Answer"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Account",
+        "summary": "Create a Answer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/AnswerCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Answer"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/accounts/{id}": {
+    "/v1/answers/{id}": {
       "get": {
-        "summary": "Get a Account",
+        "summary": "Get a Answer",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Answer"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Account",
+        "summary": "Update a Answer",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/AnswerCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Answer"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Account",
+        "summary": "Delete a Answer",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/conversations": {
+    "/v1/webhooks": {
       "get": {
-        "summary": "List Conversations",
+        "summary": "List Webhooks",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Conversation"
+                        "$ref": "#/components/schemas/Webhook"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Conversation",
+        "summary": "Create a Webhook",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConversationCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Conversation"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/conversations/{id}": {
+    "/v1/webhooks/{id}": {
       "get": {
-        "summary": "Get a Conversation",
+        "summary": "Get a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Conversation"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Conversation",
+        "summary": "Update a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConversationCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Conversation"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Conversation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/contacts": {
-      "get": {
-        "summary": "List Contacts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Contact"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Contact",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContactCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contact"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/contacts/{id}": {
-      "get": {
-        "summary": "Get a Contact",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contact"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Contact",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContactCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contact"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Contact",
+        "summary": "Delete a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +955,16 @@
   },
   "components": {
     "schemas": {
-      "Ticket": {
+      "Form": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "subject": {
+          "title": {
             "type": "string"
           },
-          "requesterId": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "status": {
+          "type": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,41 +977,64 @@
           }
         }
       },
-      "TicketCreate": {
+      "FormCreate": {
         "type": "object",
         "properties": {
-          "subject": {
+          "id": {
             "type": "string"
           },
-          "requesterId": {
+          "title": {
             "type": "string"
           },
-          "priority": {
-            "type": "string"
-          },
-          "status": {
+          "type": {
             "type": "string"
           }
         },
         "required": [
-          "subject",
-          "priority"
+          "id",
+          "title"
         ]
       },
-      "Survey": {
+      "Field": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "ref": {
             "type": "string"
           },
           "title": {
             "type": "string"
           },
           "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "calendar",
+              "contact_info",
+              "date",
+              "dropdown",
+              "email",
+              "file_upload",
+              "group",
+              "legal",
+              "long_text",
+              "matrix",
+              "multi_format",
+              "multiple_choice",
+              "nps",
+              "number",
+              "opinion_scale",
+              "payment",
+              "phone_number",
+              "picture_choice",
+              "ranking",
+              "rating",
+              "short_text",
+              "statement",
+              "website",
+              "yes_no"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1214,22 +1046,51 @@
           }
         }
       },
-      "SurveyCreate": {
+      "FieldCreate": {
         "type": "object",
         "properties": {
+          "ref": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
           "title": {
             "type": "string"
           },
           "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "calendar",
+              "contact_info",
+              "date",
+              "dropdown",
+              "email",
+              "file_upload",
+              "group",
+              "legal",
+              "long_text",
+              "matrix",
+              "multi_format",
+              "multiple_choice",
+              "nps",
+              "number",
+              "opinion_scale",
+              "payment",
+              "phone_number",
+              "picture_choice",
+              "ranking",
+              "rating",
+              "short_text",
+              "statement",
+              "website",
+              "yes_no"
+            ]
           }
         },
         "required": [
-          "title",
-          "type"
+          "ref",
+          "id"
         ]
       },
       "Response": {
@@ -1238,18 +1099,19 @@
           "id": {
             "type": "string"
           },
-          "surveyId": {
+          "token": {
             "type": "string"
           },
-          "respondentId": {
-            "type": "string"
-          },
-          "score": {
-            "type": "integer"
+          "landedAt": {
+            "type": "string",
+            "format": "date-time"
           },
           "submittedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "formId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1264,123 +1126,56 @@
       "ResponseCreate": {
         "type": "object",
         "properties": {
-          "surveyId": {
+          "token": {
             "type": "string"
           },
-          "respondentId": {
+          "landedAt": {
             "type": "string"
-          },
-          "score": {
-            "type": "integer"
           },
           "submittedAt": {
             "type": "string"
+          },
+          "formId": {
+            "type": "string"
           }
         },
         "required": [
-          "score",
-          "submittedAt"
+          "token",
+          "landedAt"
         ]
       },
-      "Account": {
+      "Answer": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "fieldId": {
             "type": "string"
           },
-          "healthScore": {
-            "type": "number"
+          "fieldType": {
+            "type": "string"
           },
-          "arr": {
-            "type": "number"
-          },
-          "createdAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "text",
+              "choice",
+              "choices",
+              "email",
+              "url",
+              "file_url",
+              "multi_format",
+              "boolean",
+              "number",
+              "date",
+              "payment",
+              "phone_number",
+              "signature",
+              "checkbox"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AccountCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "healthScore": {
-            "type": "number"
-          },
-          "arr": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "healthScore"
-        ]
-      },
-      "Conversation": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "sentiment": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ConversationCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "sentiment": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "channel",
-          "sentiment"
-        ]
-      },
-      "Contact": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
+          "value": {
             "type": "string"
           },
           "createdAt": {
@@ -1393,22 +1188,85 @@
           }
         }
       },
-      "ContactCreate": {
+      "AnswerCreate": {
         "type": "object",
         "properties": {
-          "email": {
+          "fieldId": {
             "type": "string"
           },
-          "firstName": {
+          "fieldType": {
             "type": "string"
           },
-          "lastName": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "choice",
+              "choices",
+              "email",
+              "url",
+              "file_url",
+              "multi_format",
+              "boolean",
+              "number",
+              "date",
+              "payment",
+              "phone_number",
+              "signature",
+              "checkbox"
+            ]
+          },
+          "value": {
             "type": "string"
           }
         },
         "required": [
-          "email",
-          "firstName"
+          "fieldType",
+          "type"
+        ]
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WebhookCreate": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "eventType",
+          "timestamp"
         ]
       }
     }

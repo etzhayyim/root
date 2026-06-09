@@ -11263,18 +11263,17 @@
       "handle": "openai-compat",
       "platform": "openai",
       "bytes": 2120,
-      "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "wasmCid": "bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Model",
-        "ChatCompletion",
-        "Embedding",
         "FineTuningJob",
+        "Batch",
         "File",
-        "Assistant",
-        "Thread"
+        "Embedding",
+        "ChatCompletion"
       ]
     },
     {
@@ -15431,17 +15430,16 @@
       "handle": "typeform-compat",
       "platform": "typeform",
       "bytes": 2122,
-      "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "wasmCid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Ticket",
-        "Survey",
+        "Form",
+        "Field",
         "Response",
-        "Account",
-        "Conversation",
-        "Contact"
+        "Answer",
+        "Webhook"
       ]
     },
     {

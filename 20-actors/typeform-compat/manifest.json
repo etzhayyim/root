@@ -5,21 +5,78 @@
   "kind": "compat",
   "title": "typeform clean-room actor",
   "description": "Clean-room, API-compatible customer experience / survey actor (typeform); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+  "wasmCid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+  "ipfs": "ipfs://bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
   "schema": "schema/typeform.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.typeform.com/developers",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Form",
+      "Field",
+      "Response",
+      "Answer",
+      "Webhook"
+    ],
+    "enums": {
+      "Field": {
+        "type": [
+          "calendar",
+          "contact_info",
+          "date",
+          "dropdown",
+          "email",
+          "file_upload",
+          "group",
+          "legal",
+          "long_text",
+          "matrix",
+          "multi_format",
+          "multiple_choice",
+          "nps",
+          "number",
+          "opinion_scale",
+          "payment",
+          "phone_number",
+          "picture_choice",
+          "ranking",
+          "rating",
+          "short_text",
+          "statement",
+          "website",
+          "yes_no"
+        ]
+      },
+      "Answer": {
+        "type": [
+          "text",
+          "choice",
+          "choices",
+          "email",
+          "url",
+          "file_url",
+          "multi_format",
+          "boolean",
+          "number",
+          "date",
+          "payment",
+          "phone_number",
+          "signature",
+          "checkbox"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Ticket",
-    "Survey",
+    "Form",
+    "Field",
     "Response",
-    "Account",
-    "Conversation",
-    "Contact"
+    "Answer",
+    "Webhook"
   ],
   "adr": [
     "260607",
@@ -31,57 +88,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/tickets",
-          "op": "create Ticket"
+          "path": "/v1/forms",
+          "op": "create Form"
         },
         {
           "method": "GET",
-          "path": "/v1/tickets",
-          "op": "list Ticket"
+          "path": "/v1/forms",
+          "op": "list Form"
         },
         {
           "method": "GET",
-          "path": "/v1/tickets/{id}",
-          "op": "get Ticket"
+          "path": "/v1/forms/{id}",
+          "op": "get Form"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tickets/{id}",
-          "op": "update Ticket"
+          "path": "/v1/forms/{id}",
+          "op": "update Form"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tickets/{id}",
-          "op": "delete Ticket"
+          "path": "/v1/forms/{id}",
+          "op": "delete Form"
         },
         {
           "method": "POST",
-          "path": "/v1/surveys",
-          "op": "create Survey"
+          "path": "/v1/fields",
+          "op": "create Field"
         },
         {
           "method": "GET",
-          "path": "/v1/surveys",
-          "op": "list Survey"
+          "path": "/v1/fields",
+          "op": "list Field"
         },
         {
           "method": "GET",
-          "path": "/v1/surveys/{id}",
-          "op": "get Survey"
+          "path": "/v1/fields/{id}",
+          "op": "get Field"
         },
         {
           "method": "PATCH",
-          "path": "/v1/surveys/{id}",
-          "op": "update Survey"
+          "path": "/v1/fields/{id}",
+          "op": "update Field"
         },
         {
           "method": "DELETE",
-          "path": "/v1/surveys/{id}",
-          "op": "delete Survey"
+          "path": "/v1/fields/{id}",
+          "op": "delete Field"
         },
         {
           "method": "POST",
@@ -110,78 +167,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/answers",
+          "op": "create Answer"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/answers",
+          "op": "list Answer"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/answers/{id}",
+          "op": "get Answer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/answers/{id}",
+          "op": "update Answer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/answers/{id}",
+          "op": "delete Answer"
         },
         {
           "method": "POST",
-          "path": "/v1/conversations",
-          "op": "create Conversation"
+          "path": "/v1/webhooks",
+          "op": "create Webhook"
         },
         {
           "method": "GET",
-          "path": "/v1/conversations",
-          "op": "list Conversation"
+          "path": "/v1/webhooks",
+          "op": "list Webhook"
         },
         {
           "method": "GET",
-          "path": "/v1/conversations/{id}",
-          "op": "get Conversation"
+          "path": "/v1/webhooks/{id}",
+          "op": "get Webhook"
         },
         {
           "method": "PATCH",
-          "path": "/v1/conversations/{id}",
-          "op": "update Conversation"
+          "path": "/v1/webhooks/{id}",
+          "op": "update Webhook"
         },
         {
           "method": "DELETE",
-          "path": "/v1/conversations/{id}",
-          "op": "delete Conversation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/contacts",
-          "op": "create Contact"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contacts",
-          "op": "list Contact"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contacts/{id}",
-          "op": "get Contact"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/contacts/{id}",
-          "op": "update Contact"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/contacts/{id}",
-          "op": "delete Contact"
+          "path": "/v1/webhooks/{id}",
+          "op": "delete Webhook"
         }
       ],
       "features": {
@@ -244,146 +276,11 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_ticket",
-          "description": "Create a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "subject": {
-                "type": "string"
-              },
-              "requesterId": {
-                "type": "string"
-              },
-              "priority": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "subject",
-              "priority"
-            ]
-          }
-        },
-        {
-          "name": "list_tickets",
-          "description": "List Tickets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_ticket",
-          "description": "Get a Ticket by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_ticket",
-          "description": "Update a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "subject": {
-                "type": "string"
-              },
-              "requesterId": {
-                "type": "string"
-              },
-              "priority": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_ticket",
-          "description": "Delete a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_survey",
-          "description": "Create a Survey.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_surveys",
-          "description": "List Surveys.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_survey",
-          "description": "Get a Survey by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_survey",
-          "description": "Update a Survey.",
+          "name": "create_form",
+          "description": "Create a Form.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -395,8 +292,29 @@
               },
               "type": {
                 "type": "string"
-              },
-              "status": {
+              }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_forms",
+          "description": "List Forms.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_form",
+          "description": "Get a Form by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -406,8 +324,116 @@
           }
         },
         {
-          "name": "delete_survey",
-          "description": "Delete a Survey.",
+          "name": "update_form",
+          "description": "Update a Form.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_form",
+          "description": "Delete a Form.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_field",
+          "description": "Create a Field.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ref",
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "list_fields",
+          "description": "List Fields.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_field",
+          "description": "Get a Field by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_field",
+          "description": "Update a Field.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_field",
+          "description": "Delete a Field.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -426,22 +452,22 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "surveyId": {
+              "token": {
                 "type": "string"
               },
-              "respondentId": {
+              "landedAt": {
                 "type": "string"
-              },
-              "score": {
-                "type": "integer"
               },
               "submittedAt": {
+                "type": "string"
+              },
+              "formId": {
                 "type": "string"
               }
             },
             "required": [
-              "score",
-              "submittedAt"
+              "token",
+              "landedAt"
             ]
           }
         },
@@ -477,16 +503,16 @@
               "id": {
                 "type": "string"
               },
-              "surveyId": {
+              "token": {
                 "type": "string"
               },
-              "respondentId": {
+              "landedAt": {
                 "type": "string"
-              },
-              "score": {
-                "type": "integer"
               },
               "submittedAt": {
+                "type": "string"
+              },
+              "formId": {
                 "type": "string"
               }
             },
@@ -511,38 +537,41 @@
           }
         },
         {
-          "name": "create_account",
-          "description": "Create a Account.",
+          "name": "create_answer",
+          "description": "Create a Answer.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "fieldId": {
                 "type": "string"
               },
-              "healthScore": {
-                "type": "number"
+              "fieldType": {
+                "type": "string"
               },
-              "arr": {
-                "type": "number"
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "healthScore"
+              "fieldType",
+              "type"
             ]
           }
         },
         {
-          "name": "list_accounts",
-          "description": "List Accounts.",
+          "name": "list_answers",
+          "description": "List Answers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_account",
-          "description": "Get a Account by id.",
+          "name": "get_answer",
+          "description": "Get a Answer by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,36 +585,24 @@
           }
         },
         {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "update_answer",
+          "description": "Update a Answer.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "fieldId": {
                 "type": "string"
               },
-              "healthScore": {
-                "type": "number"
+              "fieldType": {
+                "type": "string"
               },
-              "arr": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "type": {
+                "type": "string"
+              },
+              "value": {
                 "type": "string"
               }
             },
@@ -595,38 +612,53 @@
           }
         },
         {
-          "name": "create_conversation",
-          "description": "Create a Conversation.",
+          "name": "delete_answer",
+          "description": "Delete a Answer.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
+              "id": {
                 "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "sentiment": {
-                "type": "number"
               }
             },
             "required": [
-              "channel",
-              "sentiment"
+              "id"
             ]
           }
         },
         {
-          "name": "list_conversations",
-          "description": "List Conversations.",
+          "name": "create_webhook",
+          "description": "Create a Webhook.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "eventId": {
+                "type": "string"
+              },
+              "eventType": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "eventType",
+              "timestamp"
+            ]
+          }
+        },
+        {
+          "name": "list_webhooks",
+          "description": "List Webhooks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_conversation",
-          "description": "Get a Conversation by id.",
+          "name": "get_webhook",
+          "description": "Get a Webhook by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,36 +672,21 @@
           }
         },
         {
-          "name": "update_conversation",
-          "description": "Update a Conversation.",
+          "name": "update_webhook",
+          "description": "Update a Webhook.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "accountId": {
+              "eventId": {
                 "type": "string"
               },
-              "channel": {
+              "eventType": {
                 "type": "string"
               },
-              "sentiment": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_conversation",
-          "description": "Delete a Conversation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "timestamp": {
                 "type": "string"
               }
             },
@@ -679,77 +696,8 @@
           }
         },
         {
-          "name": "create_contact",
-          "description": "Create a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "email",
-              "firstName"
-            ]
-          }
-        },
-        {
-          "name": "list_contacts",
-          "description": "List Contacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contact",
-          "description": "Get a Contact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contact",
-          "description": "Update a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contact",
-          "description": "Delete a Contact.",
+          "name": "delete_webhook",
+          "description": "Delete a Webhook.",
           "inputSchema": {
             "type": "object",
             "properties": {

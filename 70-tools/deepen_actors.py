@@ -1502,6 +1502,25 @@ PLATFORM_OVERRIDES = {
         "Branch": E(id="string", name="string", projectRef="string", parentProjectRef="string", isDefault="boolean", persistent="boolean", status="string", previewProjectStatus="string", createdAt="datetime"),
         "Backup": E(id="integer", status="string", isPhysicalBackup="boolean", insertedAt="datetime"),
     },
+    # Faithful OpenAI model — verified against the official OpenAPI
+    # (github.com/openai/openai-openapi openapi.yaml). timestamps Unix int seconds.
+    "openai": {
+        "Model": E(id="string", object="string", created="integer", ownedBy="string"),
+        "FineTuningJob": E(id="string", model="string", status="string", fineTunedModel="string", createdAt="integer", finishedAt="integer"),
+        "Batch": E(id="string", object="string", endpoint="string", model="string", status="string", inputFileId="string", createdAt="integer"),
+        "File": E(id="string", bytes="integer", filename="string", object="string", purpose="string", status="string", createdAt="integer"),
+        "Embedding": E(index="integer", object="string"),
+        "ChatCompletion": E(id="string", model="string", object="string", created="integer"),
+    },
+    # Faithful Typeform model — verified against the official Typeform Create +
+    # Responses API docs. Object/array fields dropped.
+    "typeform": {
+        "Form": E(id="string", title="string", type="string"),
+        "Field": E(ref="string", id="string", title="string", type="string"),
+        "Response": E(token="string", landedAt="datetime", submittedAt="datetime", formId="string"),
+        "Answer": E(fieldId="string", fieldType="string", type="string", value="string"),
+        "Webhook": E(eventId="string", eventType="string", timestamp="datetime"),
+    },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).
     "square": {

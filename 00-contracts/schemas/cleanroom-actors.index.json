@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 923,
-    "L5": 77
+    "L4": 921,
+    "L5": 79
   },
   "actors": [
     {
@@ -11933,10 +11933,10 @@
     {
       "handle": "openai-compat",
       "did": "did:web:etzhayyim.com:actor:openai-compat",
-      "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "wasmCid": "bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "openai clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -16343,10 +16343,10 @@
     {
       "handle": "typeform-compat",
       "did": "did:web:etzhayyim.com:actor:typeform-compat",
-      "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "wasmCid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "typeform clean-room actor",
       "category": "cx_survey",
       "capabilities": [
