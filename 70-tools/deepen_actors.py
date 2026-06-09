@@ -1044,6 +1044,17 @@ PLATFORM_OVERRIDES = {
         "Alias": E(alias="string", deploymentId="string", projectId="string"),
         "Team": E(name="string", slug="string", description="string"),
     },
+    # Faithful DigitalOcean model (remodeled from the generic iaas_cloud
+    # archetype whose GCP/AWS-shaped ComputeInstance/Bucket/IamRole entities did
+    # not match DO's real API), doc-verified L5 vs github.com/digitalocean/openapi.
+    "digitalocean": {
+        "Droplet": E(name="string", memory="integer", vcpus="integer", disk="integer", locked="boolean", status="string", sizeSlug="string", vpcUuid="string"),
+        "Volume": E(name="string", description="string", sizeGigabytes="integer", filesystemType="string", filesystemLabel="string"),
+        "Image": E(name="string", type="string", distribution="string", slug="string", public="boolean", minDiskSize="integer", sizeGigabytes="float", description="string", status="string"),
+        "Project": E(ownerUuid="string", ownerId="integer", name="string", description="string", purpose="string", environment="string", isDefault="boolean"),
+        "Region": E(slug="string", name="string", available="boolean"),
+        "Database": E(name="string", engine="string", version="string", semanticVersion="string", status="string", region="string", size="string", numNodes="integer"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

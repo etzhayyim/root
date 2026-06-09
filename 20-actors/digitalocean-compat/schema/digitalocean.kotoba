@@ -3,71 +3,80 @@
 
 namespace digitalocean {
 
-    entity Project {
+    entity Droplet {
         id: string @unique
         name: string
-        region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
+        memory: integer
+        vcpus: integer
+        disk: integer
+        locked: boolean
+        status: string
+        sizeSlug: string
+        vpcUuid: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Volume {
         id: string @unique
-        projectId: string
-        sizeGb: integer
+        name: string
+        description: string
+        sizeGigabytes: integer
+        filesystemType: string
+        filesystemLabel: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Image {
+        id: string @unique
+        name: string
         type: string
-        attachedTo: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Bucket {
-        id: string @unique
-        projectId: string
-        name: string
-        region: string
+        distribution: string
+        slug: string
         public: boolean
+        minDiskSize: integer
+        sizeGigabytes: float
+        description: string
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Network {
+    entity Project {
         id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
+        ownerUuid: string
+        ownerId: integer
         name: string
-        policy: string
+        description: string
+        purpose: string
+        environment: string
+        isDefault: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Region {
+        id: string @unique
+        slug: string
+        name: string
+        available: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Database {
+        id: string @unique
+        name: string
+        engine: string
+        version: string
+        semanticVersion: string
+        status: string
+        region: string
+        size: string
+        numNodes: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

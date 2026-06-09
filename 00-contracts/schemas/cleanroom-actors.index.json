@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 943,
-    "L5": 57
+    "L4": 942,
+    "L5": 58
   },
   "actors": [
     {
@@ -4430,7 +4430,7 @@
       "wasmCid": "bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "digitalocean clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
