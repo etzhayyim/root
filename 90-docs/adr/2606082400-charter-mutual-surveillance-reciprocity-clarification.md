@@ -117,10 +117,15 @@ durable artifact; this ADR is its human-readable basis). Ratified by Council Lv7
   clause byte-identical to v3.0.
 - Root `CLAUDE.md` (License line + "Do not weaken" note) updated to v3.1 and to the
   reciprocity framing. `deps.toml` §2 enumeration updated.
-- **Mechanical follow-up (out of scope here):** `charter-rider-applicator` re-stamping the
-  per-package NOTICE version string (v3.0 → v3.1) across vendored packages is a separate,
-  non-constitutional sweep; a one-clause clarification does not invalidate existing v3.0
-  NOTICEs.
+- **Mechanical follow-up — DONE (PR #1487).** `charter-rider-applicator` re-stamping the
+  per-package NOTICE version string → v3.1 landed as a separate, non-constitutional sweep:
+  `apply.sh` + `verify.sh` are now version-aware (verify derives the current version from
+  `CHARTER-RIDER.md` and flags stale stamps), and **407/407 NOTICE files are at v3.1** (verify:
+  0 stale). NOTICE-only — no ADR/README historical version references were touched. The Rider
+  *text* per package was always current (symlink to root `CHARTER-RIDER.md`); only the stamp
+  drifted (it had been stale since v3.0). **Still tracked, separate:** ~284 packages that were
+  never first-stamped at all (newer actors, incl. shiori) need a first-stamp `apply.sh` run —
+  distinct from this version re-stamp.
 
 ## 4. Actor reconciliation (shiori)
 
@@ -148,8 +153,8 @@ watcher) are the guardrails — intimate-class data is encrypted-held, and asymm
 *prohibited*, so this is reciprocal accountability, not top-down surveillance. (2) The asymmetry
 test must be applied honestly to etzhayyim's own actors (an actor that accumulated a one-sided
 record of non-members would violate (ii)); the mirror actors are already aggregate / public-only
-by their own G1s. (3) Version drift with vendored v3.0 NOTICE stamps until the applicator sweep
-runs (tracked, non-blocking).
+by their own G1s. (3) Version drift in NOTICE stamps — **RESOLVED (PR #1487)**: the applicator
+sweep ran, 407/407 NOTICEs are at v3.1, and `verify.sh` now flags any future stale stamp.
 
 # Alternatives Considered
 

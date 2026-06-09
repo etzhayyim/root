@@ -11,7 +11,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 43;
+export const TIER_B_TOTAL_COUNT = 46;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "akashi": {
@@ -419,6 +419,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "shionome": {
+    description: "Ingests PUBLIC market data across asset classes (equities / govt-bonds / credit / commodities / FX / crypto / real-estate / cash) and weaves OBSERVED capital rotation — どこからどこへ資金が流れているか — into one kotoba Datom flow-graph + dry-run social posts. Observational mirror of where money MOVED; NEVER trades, never a buy/sell signal, never a price target (トレードはしない). Aggregate-first, edge-primary, non-advisory.",
+    glyph: "潮目",
+    displayName: "潮目 — Cross-Asset Capital-Flow Observatory",
+    primaryLexicon: "com.etzhayyim.shionome.capitalFlowObservation",
+    adrs: ["2606072200", "2606051800"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:shionome#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "shomei": {
     description: "Binds MULTIPLE external identities (government IDs, SNS accounts, crypto wallets) and existing etzhayyim substrate commitments to a single member DID via self-sovereign, cryptographically-verifiable claims, then aggregates them into an Identity Assurance Level + W3C Verifiable Credential + proof-of-personhood. The believer's passport-equivalent — DID-centric, self-sovereign, no central KYC.",
     glyph: "証明",
@@ -545,6 +559,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsutae#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "uchiwake": {
+    description: "The product-level layer beneath kabuto 兜. Datafies the world's TRADE ITEMS keyed on the GS1 GTIN, decomposed to their bill of materials (PRODUCT → PART → raw MATERIAL) plus the PROCESS steps that make them, the LOGISTICS legs that move them, and the DESIGN/standard refs that specify them, into the kotoba Datom log. Brand-owners link into kabuto's :company/id space; ownership edges roll a brand-owning SUBSIDIARY up to its ULTIMATE parent (子会社, GLEIF Level-2 RR). Surfaces material / processing-jurisdiction / ultimate-parent CONCENTRATION routed to redundancy + accountability. A resilience map, never a target-list and never a clone/counterfeit recipe.",
+    glyph: "内訳",
+    displayName: "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.uchiwake",
+    adrs: ["2606081800"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:uchiwake#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
