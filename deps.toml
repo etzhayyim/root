@@ -10339,6 +10339,29 @@ description = "shiori (栞 — the 枝折り branch-marker that marks a path thr
 adr = ["2606082100", "2606082400", "2605264000", "2605231902", "2605181100", "2605301600", "2606011800", "2606066000", "2605302300", "2605312345", "2605215000"]
 schema = "00-contracts/schemas/wellbecoming-ontology.kotoba.edn"
 
+[[adrs]]
+id = "2606081800"
+title = "uchiwake 内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0"
+status = "proposed"
+status_note = "The product-level layer beneath kabuto 兜 (company→company supply edges). Datafies the world's TRADE ITEMS keyed on the GS1 GTIN (normalized GTIN-14, mod-10 check-digit validated), decomposed PRODUCT → PART → raw MATERIAL via first-class :bom.edge, plus :process.step (加工) / :logistics.leg (運送) / :design.ref (設計) and :company.ownership (子会社, GLEIF Level-2 RR) rolling a brand-owning subsidiary up to its ultimate parent. Brand-owners/suppliers/operators/carriers reuse kabuto's org.corp.* id space; commodity codes reuse the UNSPSC space. Cells: analyze.py (recursive BOM material-closure → material/processing-jurisdiction/ultimate-parent concentration → single-source candidates, aggregate-first) + ingest.py (offline bridge; live full-universe G7-gated) + crosscheck.py (MEASURES cross-actor integration: ~80.8% of company refs resolve into kabuto, reverse coverage product-BOM detail on ~6.4% of kabuto's supply-chain companies / ~1.2% of all 1,719, with a prioritized ingest worklist). 4 lexicons (registerProduct/registerBomEdge/registerOwnership/publishResilienceReport). Gates G1..G12 (kabuto family) + G2 'never a clone/counterfeit recipe' + G5 GTIN check-digit validation. Bounded real seed (11 products, 2 real :authoritative GTINs; 46 BOM edges); full GS1 GDSN / GLEIF-RR / Open Product Data universe ingest is R1 Council+operator gated (ADR-2606082700). 27 tests green incl. the Open Food Facts bulk-ingest adapter. did:web:etzhayyim.com:actor:uchiwake. Deciders: Jun Kawasaki."
+path = "90-docs/adr/2606081800-uchiwake-world-product-bom-gtin-kg.md"
+
+[[adrs]]
+id = "2606090900"
+title = "Session-Close — uchiwake (内訳) product-BOM/GTIN worldwide-coverage wave"
+status = "accepted"
+status_note = "Session-close record for the /loop wave (2026-06-08…06-09) that built the product-level GTIN coverage layer beneath kabuto: actor (ADR-2606081800, merged), cross-actor measurement (crosscheck.py: 80.8% linkage, ~1.2% reverse coverage with self-correcting worklist), registration (DID-resolvable + /search + 4 lexicons), Open Food Facts bulk-ingest adapter (the scale path, proven offline), and the G7 worldwide-ingest authorization proposal (ADR-2606082700, non-self-executing Council request, phased OFF→GS1→GLEIF-RR→Open-Product-Data). HONEST: code+governance path to worldwide coverage complete; literal coverage intentionally G7-gated. No Charter amendments. Loop stopped at no-op steady state."
+path = "90-docs/adr/2606090900-session-close-uchiwake-product-bom-gtin-worldwide-coverage.md"
+
+[[modules]]
+path = "20-actors/uchiwake"
+kind = "tier-b-world-product-bom-gtin-knowledge-graph-actor"
+version = "0.1.0-r0"
+status = "R0-actor-merged-27-tests-green-registration-adapter-g7-proposal-in-review"
+description = "uchiwake (内訳) world product bill-of-materials / GTIN knowledge graph — the PRODUCT-level layer beneath kabuto 兜. GS1 GTIN-keyed (mod-10 validated) trade items decomposed PRODUCT→PART→raw MATERIAL + :process.step(加工)/:logistics.leg(運送)/:design.ref(設計) + :company.ownership(子会社, GLEIF L2 RR ultimate-parent rollup). Brand-owner/supplier/operator/carrier reuse kabuto org.corp.*; commodity codes reuse UNSPSC. Cells: analyze.py (aggregate-first BOM material-closure + material/jurisdiction/ultimate-parent concentration), ingest.py (offline bridge; live G7-gated) + methods/adapters/openfoodfacts.py (bulk normalizer: OFF CC-BY-SA ~3M items → datoms, GTIN-validated, :representative), crosscheck.py (MEASURES cross-actor integration: 80.8% linkage into kabuto, reverse coverage ~1.2% of 1,719 + prioritized worklist). 4 lexicons. Gates G1..G12 + G2 no-clone-recipe + G5 GTIN-validation; resilience map never a target-list. 27 tests green. Full-universe ingest = R1 Council+operator gated (ADR-2606082700)."
+adr = ["2606081800", "2606082700", "2606022000", "2606042330", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"]
+schema = "00-contracts/schemas/product-bom-ontology.kotoba.edn"
+
 [etzhayyim.milestones.260607_cognitive_world_state]
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
 adrs = ["260607-clean-room-actors-600-generation.md", "260607-cognitive-actors-and-root-router.md"]

@@ -14614,6 +14614,24 @@
       "lastVerified": "2026-06-08"
     },
     {
+      "id": "doc:adr-2606090900",
+      "type": "TechArticle",
+      "title": "ADR-2606090900: Session-Close — uchiwake (内訳) product-BOM/GTIN worldwide-coverage wave",
+      "status": "accepted",
+      "topic": "session-close-uchiwake-product-bom-gtin-coverage",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the uchiwake product-BOM/GTIN wave (2026-06-08 … 06-09)",
+        "deps.toml registration of the uchiwake module + ADR-2606081800"
+      ],
+      "related": [
+        "doc:adr-2606081800-uchiwake-world-product-bom-gtin-kg",
+        "doc:adr-2606082700-uchiwake-g7-worldwide-ingest-authorization-proposal",
+        "doc:adr-2606022000-kabuto-public-company-supply-chain-kg"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
