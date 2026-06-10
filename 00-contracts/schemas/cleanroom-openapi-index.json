@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29650,
+  "totalEndpoints": 29640,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 143,
-  "totalVerifiedEnumFields": 634,
+  "l5VerifiedActors": 146,
+  "totalVerifiedEnumFields": 641,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -9305,10 +9305,10 @@
     {
       "handle": "kafka-compat",
       "did": "did:web:etzhayyim.com:actor:kafka-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -9317,8 +9317,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/kafka-compat/openapi.json"
     },
     {
@@ -12744,10 +12744,10 @@
     {
       "handle": "openxr-compat",
       "did": "did:web:etzhayyim.com:actor:openxr-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -12756,8 +12756,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/openxr-compat/openapi.json"
     },
     {
@@ -13751,7 +13751,7 @@
     {
       "handle": "px4_autopilot-compat",
       "did": "did:web:etzhayyim.com:actor:px4_autopilot-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
@@ -13763,8 +13763,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/px4_autopilot-compat/openapi.json"
     },
     {

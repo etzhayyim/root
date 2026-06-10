@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 853,
-    "L5": 147
+    "L4": 850,
+    "L5": 150
   },
   "actors": [
     {
@@ -8819,10 +8819,10 @@
     {
       "handle": "kafka-compat",
       "did": "did:web:etzhayyim.com:actor:kafka-compat",
-      "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kafka clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [
@@ -12077,10 +12077,10 @@
     {
       "handle": "openxr-compat",
       "did": "did:web:etzhayyim.com:actor:openxr-compat",
-      "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "openxr clean-room actor",
       "category": "xr_spatial",
       "capabilities": [
@@ -13034,7 +13034,7 @@
       "wasmCid": "bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "px4_autopilot clean-room actor",
       "category": "drone_robotics",
       "capabilities": [

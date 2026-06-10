@@ -5,21 +5,58 @@
   "kind": "compat",
   "title": "openxr clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (openxr); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+  "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+  "ipfs": "ipfs://bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
   "schema": "schema/openxr.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml (spec 1.1)",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Instance",
+      "System",
+      "Session",
+      "ViewConfiguration",
+      "Swapchain"
+    ],
+    "enums": {
+      "System": {
+        "formFactor": [
+          1,
+          2
+        ]
+      },
+      "Session": {
+        "state": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "ViewConfiguration": {
+        "environmentBlendMode": [
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  },
   "entities": [
-    "Anchor",
-    "Scene",
-    "Mesh",
+    "Instance",
+    "System",
     "Session",
-    "Asset",
-    "Device"
+    "ViewConfiguration",
+    "Swapchain"
   ],
   "adr": [
     "260607",
@@ -31,82 +68,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/anchors",
-          "op": "create Anchor"
+          "path": "/v1/instances",
+          "op": "create Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/anchors",
-          "op": "list Anchor"
+          "path": "/v1/instances",
+          "op": "list Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/anchors/{id}",
-          "op": "get Anchor"
+          "path": "/v1/instances/{id}",
+          "op": "get Instance"
         },
         {
           "method": "PATCH",
-          "path": "/v1/anchors/{id}",
-          "op": "update Anchor"
+          "path": "/v1/instances/{id}",
+          "op": "update Instance"
         },
         {
           "method": "DELETE",
-          "path": "/v1/anchors/{id}",
-          "op": "delete Anchor"
+          "path": "/v1/instances/{id}",
+          "op": "delete Instance"
         },
         {
           "method": "POST",
-          "path": "/v1/scenes",
-          "op": "create Scene"
+          "path": "/v1/systems",
+          "op": "create System"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes",
-          "op": "list Scene"
+          "path": "/v1/systems",
+          "op": "list System"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes/{id}",
-          "op": "get Scene"
+          "path": "/v1/systems/{id}",
+          "op": "get System"
         },
         {
           "method": "PATCH",
-          "path": "/v1/scenes/{id}",
-          "op": "update Scene"
+          "path": "/v1/systems/{id}",
+          "op": "update System"
         },
         {
           "method": "DELETE",
-          "path": "/v1/scenes/{id}",
-          "op": "delete Scene"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/meshes",
-          "op": "create Mesh"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meshes",
-          "op": "list Mesh"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meshes/{id}",
-          "op": "get Mesh"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/meshes/{id}",
-          "op": "update Mesh"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/meshes/{id}",
-          "op": "delete Mesh"
+          "path": "/v1/systems/{id}",
+          "op": "delete System"
         },
         {
           "method": "POST",
@@ -135,53 +147,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/viewconfigurations",
+          "op": "create ViewConfiguration"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/viewconfigurations",
+          "op": "list ViewConfiguration"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/viewconfigurations/{id}",
+          "op": "get ViewConfiguration"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/viewconfigurations/{id}",
+          "op": "update ViewConfiguration"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/viewconfigurations/{id}",
+          "op": "delete ViewConfiguration"
         },
         {
           "method": "POST",
-          "path": "/v1/devices",
-          "op": "create Device"
+          "path": "/v1/swapchains",
+          "op": "create Swapchain"
         },
         {
           "method": "GET",
-          "path": "/v1/devices",
-          "op": "list Device"
+          "path": "/v1/swapchains",
+          "op": "list Swapchain"
         },
         {
           "method": "GET",
-          "path": "/v1/devices/{id}",
-          "op": "get Device"
+          "path": "/v1/swapchains/{id}",
+          "op": "get Swapchain"
         },
         {
           "method": "PATCH",
-          "path": "/v1/devices/{id}",
-          "op": "update Device"
+          "path": "/v1/swapchains/{id}",
+          "op": "update Swapchain"
         },
         {
           "method": "DELETE",
-          "path": "/v1/devices/{id}",
-          "op": "delete Device"
+          "path": "/v1/swapchains/{id}",
+          "op": "delete Swapchain"
         }
       ],
       "features": {
@@ -244,47 +256,158 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_anchor",
-          "description": "Create a Anchor.",
+          "name": "create_instance",
+          "description": "Create a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "sceneId": {
+              "applicationName": {
                 "type": "string"
               },
-              "x": {
-                "type": "number"
+              "applicationVersion": {
+                "type": "integer"
               },
-              "y": {
-                "type": "number"
+              "engineName": {
+                "type": "string"
               },
-              "z": {
-                "type": "number"
+              "engineVersion": {
+                "type": "integer"
               },
-              "persistent": {
+              "apiVersion": {
+                "type": "integer"
+              },
+              "enabledExtensionCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "applicationName",
+              "applicationVersion"
+            ]
+          }
+        },
+        {
+          "name": "list_instances",
+          "description": "List Instances.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_instance",
+          "description": "Get a Instance by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_instance",
+          "description": "Update a Instance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "applicationName": {
+                "type": "string"
+              },
+              "applicationVersion": {
+                "type": "integer"
+              },
+              "engineName": {
+                "type": "string"
+              },
+              "engineVersion": {
+                "type": "integer"
+              },
+              "apiVersion": {
+                "type": "integer"
+              },
+              "enabledExtensionCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_instance",
+          "description": "Delete a Instance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_system",
+          "description": "Create a System.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "systemId": {
+                "type": "integer"
+              },
+              "formFactor": {
+                "type": "integer"
+              },
+              "systemName": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "integer"
+              },
+              "maxSwapchainImageWidth": {
+                "type": "integer"
+              },
+              "maxSwapchainImageHeight": {
+                "type": "integer"
+              },
+              "orientationTracking": {
+                "type": "boolean"
+              },
+              "positionTracking": {
                 "type": "boolean"
               }
             },
             "required": [
-              "x",
-              "y"
+              "formFactor",
+              "systemName"
             ]
           }
         },
         {
-          "name": "list_anchors",
-          "description": "List Anchors.",
+          "name": "list_systems",
+          "description": "List Systems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_anchor",
-          "description": "Get a Anchor by id.",
+          "name": "get_system",
+          "description": "Get a System by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -298,27 +421,36 @@
           }
         },
         {
-          "name": "update_anchor",
-          "description": "Update a Anchor.",
+          "name": "update_system",
+          "description": "Update a System.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "sceneId": {
+              "systemId": {
+                "type": "integer"
+              },
+              "formFactor": {
+                "type": "integer"
+              },
+              "systemName": {
                 "type": "string"
               },
-              "x": {
-                "type": "number"
+              "vendorId": {
+                "type": "integer"
               },
-              "y": {
-                "type": "number"
+              "maxSwapchainImageWidth": {
+                "type": "integer"
               },
-              "z": {
-                "type": "number"
+              "maxSwapchainImageHeight": {
+                "type": "integer"
               },
-              "persistent": {
+              "orientationTracking": {
+                "type": "boolean"
+              },
+              "positionTracking": {
                 "type": "boolean"
               }
             },
@@ -328,174 +460,8 @@
           }
         },
         {
-          "name": "delete_anchor",
-          "description": "Delete a Anchor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_scene",
-          "description": "Create a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "meshRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_scenes",
-          "description": "List Scenes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_scene",
-          "description": "Get a Scene by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_scene",
-          "description": "Update a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "meshRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_scene",
-          "description": "Delete a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mesh",
-          "description": "Create a Mesh.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sceneId": {
-                "type": "string"
-              },
-              "vertexCount": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "vertexCount"
-            ]
-          }
-        },
-        {
-          "name": "list_meshes",
-          "description": "List Meshes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_mesh",
-          "description": "Get a Mesh by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_mesh",
-          "description": "Update a Mesh.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sceneId": {
-                "type": "string"
-              },
-              "vertexCount": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_mesh",
-          "description": "Delete a Mesh.",
+          "name": "delete_system",
+          "description": "Delete a System.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -514,18 +480,19 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "deviceId": {
-                "type": "string"
+              "systemId": {
+                "type": "integer"
               },
-              "appId": {
-                "type": "string"
+              "createFlags": {
+                "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
+              "state": {
+                "type": "integer"
               }
             },
             "required": [
-              "startedAt"
+              "createFlags",
+              "state"
             ]
           }
         },
@@ -561,14 +528,14 @@
               "id": {
                 "type": "string"
               },
-              "deviceId": {
-                "type": "string"
+              "systemId": {
+                "type": "integer"
               },
-              "appId": {
-                "type": "string"
+              "createFlags": {
+                "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
+              "state": {
+                "type": "integer"
               }
             },
             "required": [
@@ -592,37 +559,44 @@
           }
         },
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
+          "name": "create_view_configuration",
+          "description": "Create a ViewConfiguration.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "sceneId": {
-                "type": "string"
+              "viewConfigurationType": {
+                "type": "integer"
               },
-              "type": {
-                "type": "string"
+              "recommendedImageRectWidth": {
+                "type": "integer"
               },
-              "contentRef": {
-                "type": "string"
+              "recommendedImageRectHeight": {
+                "type": "integer"
+              },
+              "recommendedSwapchainSampleCount": {
+                "type": "integer"
+              },
+              "environmentBlendMode": {
+                "type": "integer"
               }
             },
             "required": [
-              "type"
+              "viewConfigurationType",
+              "recommendedImageRectWidth"
             ]
           }
         },
         {
-          "name": "list_assets",
-          "description": "List Assets.",
+          "name": "list_view_configurations",
+          "description": "List ViewConfigurations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
+          "name": "get_view_configuration",
+          "description": "Get a ViewConfiguration by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,21 +610,42 @@
           }
         },
         {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_view_configuration",
+          "description": "Update a ViewConfiguration.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "sceneId": {
-                "type": "string"
+              "viewConfigurationType": {
+                "type": "integer"
               },
-              "type": {
-                "type": "string"
+              "recommendedImageRectWidth": {
+                "type": "integer"
               },
-              "contentRef": {
+              "recommendedImageRectHeight": {
+                "type": "integer"
+              },
+              "recommendedSwapchainSampleCount": {
+                "type": "integer"
+              },
+              "environmentBlendMode": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_view_configuration",
+          "description": "Delete a ViewConfiguration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -660,53 +655,56 @@
           }
         },
         {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
+          "name": "create_swapchain",
+          "description": "Create a Swapchain.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "createFlags": {
+                "type": "integer"
+              },
+              "usageFlags": {
+                "type": "integer"
+              },
+              "format": {
+                "type": "integer"
+              },
+              "sampleCount": {
+                "type": "integer"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "faceCount": {
+                "type": "integer"
+              },
+              "arraySize": {
+                "type": "integer"
+              },
+              "mipCount": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "createFlags",
+              "usageFlags"
             ]
           }
         },
         {
-          "name": "create_device",
-          "description": "Create a Device.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "model": {
-                "type": "string"
-              },
-              "platform": {
-                "type": "string"
-              },
-              "trackingMode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "model",
-              "platform"
-            ]
-          }
-        },
-        {
-          "name": "list_devices",
-          "description": "List Devices.",
+          "name": "list_swapchains",
+          "description": "List Swapchains.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_device",
-          "description": "Get a Device by id.",
+          "name": "get_swapchain",
+          "description": "Get a Swapchain by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -720,22 +718,40 @@
           }
         },
         {
-          "name": "update_device",
-          "description": "Update a Device.",
+          "name": "update_swapchain",
+          "description": "Update a Swapchain.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "model": {
-                "type": "string"
+              "createFlags": {
+                "type": "integer"
               },
-              "platform": {
-                "type": "string"
+              "usageFlags": {
+                "type": "integer"
               },
-              "trackingMode": {
-                "type": "string"
+              "format": {
+                "type": "integer"
+              },
+              "sampleCount": {
+                "type": "integer"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "faceCount": {
+                "type": "integer"
+              },
+              "arraySize": {
+                "type": "integer"
+              },
+              "mipCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -744,8 +760,8 @@
           }
         },
         {
-          "name": "delete_device",
-          "description": "Delete a Device.",
+          "name": "delete_swapchain",
+          "description": "Delete a Swapchain.",
           "inputSchema": {
             "type": "object",
             "properties": {

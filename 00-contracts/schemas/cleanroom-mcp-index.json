@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29650,
-  "l5VerifiedActors": 143,
-  "totalVerifiedEnumFields": 634,
+  "totalTools": 29640,
+  "l5VerifiedActors": 146,
+  "totalVerifiedEnumFields": 641,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -5393,12 +5393,12 @@
     {
       "handle": "kafka-compat",
       "did": "did:web:etzhayyim.com:actor:kafka-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/kafka-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7384,12 +7384,12 @@
     {
       "handle": "openxr-compat",
       "did": "did:web:etzhayyim.com:actor:openxr-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/openxr-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -7967,12 +7967,12 @@
     {
       "handle": "px4_autopilot-compat",
       "did": "did:web:etzhayyim.com:actor:px4_autopilot-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/px4_autopilot-compat/manifest.json#/capabilities/mcp"
     },
     {

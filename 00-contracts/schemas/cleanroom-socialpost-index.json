@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 143,
-  "totalVerifiedEnumFields": 634,
+  "l5VerifiedActors": 146,
+  "totalVerifiedEnumFields": 641,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -4907,8 +4907,8 @@
       "source": "kafka.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "kajabi-compat",
@@ -6717,8 +6717,8 @@
       "source": "openxr.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "opera_pms-compat",
@@ -7247,8 +7247,8 @@
       "source": "px4_autopilot.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "qkd_bb84-compat",

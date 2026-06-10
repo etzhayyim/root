@@ -1851,6 +1851,38 @@ PLATFORM_OVERRIDES = {
         "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
         "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
     },
+    # px4_autopilot shares the verified MAVLink common.xml model (PX4 docs officially
+    # state MAVLink is its protocol — normative-standard leverage, 3rd MAVLink-family member).
+    "px4_autopilot": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # Faithful OpenXR model (official Khronos xr.xml registry, spec 1.1). Extension-free
+    # core enums enforced: formFactor(2), sessionState(9), environmentBlendMode(3).
+    # viewConfigurationType / referenceSpaceType have vendor-extension values -> gapped
+    # (core-only enforcement would false-reject valid Varjo/MSFT values).
+    "openxr": {
+        "Instance": E(applicationName="string", applicationVersion="integer", engineName="string", engineVersion="integer", apiVersion="integer", enabledExtensionCount="integer"),
+        "System": E(systemId="integer", formFactor="integer", systemName="string", vendorId="integer", maxSwapchainImageWidth="integer", maxSwapchainImageHeight="integer", orientationTracking="boolean", positionTracking="boolean"),
+        "Session": E(systemId="integer", createFlags="integer", state="integer"),
+        "ViewConfiguration": E(viewConfigurationType="integer", recommendedImageRectWidth="integer", recommendedImageRectHeight="integer", recommendedSwapchainSampleCount="integer", environmentBlendMode="integer"),
+        "Swapchain": E(createFlags="integer", usageFlags="integer", format="integer", sampleCount="integer", width="integer", height="integer", faceCount="integer", arraySize="integer", mipCount="integer"),
+    },
+    # Faithful Apache Kafka model (official apache/kafka Java enums + protocol guide).
+    # permissionType + isolationLevel stable since 2017 -> enforced. operation
+    # (TWO_PHASE_COMMIT 2025) / groupState (KIP-848) / resourceType (USER added) are
+    # version-growing; ApiKeys + error codes are large growing tables -> all gapped.
+    "kafka": {
+        "Topic": E(name="string", numPartitions="integer", replicationFactor="integer", isInternal="boolean", minInsyncReplicas="integer"),
+        "Partition": E(topicName="string", partitionIndex="integer", leader="integer", replicas="string", isr="string"),
+        "AclBinding": E(resourceType="string", resourceName="string", principal="string", host="string", operation="string", permissionType="string"),
+        "ConsumerGroup": E(groupId="string", protocolType="string", state="string", generationId="integer"),
+        "FetchRequest": E(topicName="string", partitionIndex="integer", fetchOffset="integer", maxBytes="integer", isolationLevel="string"),
+    },
     # Faithful ONNX model (official onnx/onnx onnx.proto3, commit ef516e7b). attributeType
     # (15, stable since IR v8) + dataLocation (2) enforced. dataType is version-growing
     # (FP8 v9 / INT4 v10 / FP4 v11 / INT2 v13, ~yearly) -> gapped per MAVLink precedent.

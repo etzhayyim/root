@@ -6,7 +6,7 @@
  ],
  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
- "count": 147,
+ "count": 150,
  "actors": [
   {
    "handle": "square-compat",
@@ -20155,6 +20155,360 @@
    ],
    "notApplicable": [],
    "note": "FULLY VERIFIED (4/4) vs official ros2 rolling .msg files. Enforced enums: GoalStatus.status(7), NavSatFix.status(5)+positionCovarianceType(4), BatteryState.powerSupplyStatus(5)+powerSupplyHealth(9) = 5 enum fields. service bitmask + powerSupplyTechnology version-growing gapped."
+  },
+  {
+   "handle": "px4_autopilot-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0",
+   "remodeled": "Shares the verified MAVLink common.xml model with mavlink_drones (normative-standard leverage, 3rd MAVLink-family member). Official PX4 docs (docs.px4.io/main/en/mavlink/) explicitly state PX4 uses MAVLink to communicate with ground stations and SDKs. Same enum discipline: MAV_STATE + MAV_MISSION_TYPE enforced, version-growing sets gapped.",
+   "resources": [
+    {
+     "entity": "Heartbeat",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/minimal.xml",
+     "verifiedFields": [
+      "type",
+      "autopilot",
+      "baseMode",
+      "customMode",
+      "systemStatus",
+      "mavlinkVersion"
+     ],
+     "fieldStatus": "confirmed; type(MAV_TYPE)/autopilot(MAV_AUTOPILOT) are version-growing -> not enforced",
+     "discoveredEnums": {
+      "systemStatus": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     "gaps": [
+      "type-version-growing",
+      "autopilot-version-growing"
+     ]
+    },
+    {
+     "entity": "SysStatus",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "load",
+      "voltageBattery",
+      "currentBattery",
+      "batteryRemaining",
+      "dropRateComm",
+      "errorsComm"
+     ],
+     "fieldStatus": "confirmed; no closed scalar enum (sensor masks are bitmasks)",
+     "discoveredEnums": {},
+     "gaps": [
+      "sensor-bitmasks"
+     ]
+    },
+    {
+     "entity": "GpsRawInt",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeUsec",
+      "fixType",
+      "lat",
+      "lon",
+      "alt",
+      "vel",
+      "satellitesVisible"
+     ],
+     "fieldStatus": "confirmed; GPS_FIX_TYPE version-growing (STATIC/PPP) -> not enforced",
+     "discoveredEnums": {},
+     "gaps": [
+      "fixType-version-growing"
+     ]
+    },
+    {
+     "entity": "Attitude",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeBootMs",
+      "roll",
+      "pitch",
+      "yaw",
+      "rollspeed",
+      "pitchspeed",
+      "yawspeed"
+     ],
+     "fieldStatus": "confirmed; no closed enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "GlobalPositionInt",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeBootMs",
+      "lat",
+      "lon",
+      "alt",
+      "relativeAlt",
+      "vx",
+      "vy",
+      "vz",
+      "hdg"
+     ],
+     "fieldStatus": "confirmed; no closed enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "MissionItem",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "targetSystem",
+      "targetComponent",
+      "seq",
+      "frame",
+      "command",
+      "current",
+      "autocontinue",
+      "x",
+      "y",
+      "z",
+      "missionType"
+     ],
+     "fieldStatus": "confirmed; frame(MAV_FRAME) version-growing -> not enforced",
+     "discoveredEnums": {
+      "missionType": [
+       0,
+       1,
+       2,
+       255
+      ]
+     },
+     "gaps": [
+      "frame-version-growing",
+      "command-MAV_CMD-large"
+     ]
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (6/6 schemas) via the mavlink_drones-verified official mavlink XML + official PX4 MAVLink conformance statement. Enforced enums: Heartbeat.systemStatus (MAV_STATE 9) + MissionItem.missionType (MAV_MISSION_TYPE 4) = 2 enums. Version-growing enums gapped."
+  },
+  {
+   "handle": "openxr-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml (spec 1.1)",
+   "remodeled": "Remodeled from generic category model to a faithful OpenXR model verified against the official Khronos xr.xml registry (spec 1.1). Extension-free core enums enforced: XrFormFactor(2), XrSessionState(9), XrEnvironmentBlendMode(3). XrViewConfigurationType + XrReferenceSpaceType carry vendor-extension values (Varjo/MSFT, >=1000000000) -> gapped (core-only enforcement would false-reject valid extension values). XrResult/XrStructureType huge extension-growing -> not modeled.",
+   "resources": [
+    {
+     "entity": "Instance",
+     "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml",
+     "verifiedFields": [
+      "applicationName",
+      "applicationVersion",
+      "engineName",
+      "engineVersion",
+      "apiVersion",
+      "enabledExtensionCount"
+     ],
+     "fieldStatus": "confirmed (XrInstanceCreateInfo/XrApplicationInfo)",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "System",
+     "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml",
+     "verifiedFields": [
+      "systemId",
+      "formFactor",
+      "systemName",
+      "vendorId",
+      "maxSwapchainImageWidth",
+      "maxSwapchainImageHeight",
+      "orientationTracking",
+      "positionTracking"
+     ],
+     "fieldStatus": "confirmed (XrSystemProperties; formFactor core-complete, no extensions)",
+     "discoveredEnums": {
+      "formFactor": [
+       1,
+       2
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "Session",
+     "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml",
+     "verifiedFields": [
+      "systemId",
+      "createFlags",
+      "state"
+     ],
+     "fieldStatus": "confirmed (XrSessionState core-complete, no extensions)",
+     "discoveredEnums": {
+      "state": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "ViewConfiguration",
+     "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml",
+     "verifiedFields": [
+      "viewConfigurationType",
+      "recommendedImageRectWidth",
+      "recommendedImageRectHeight",
+      "recommendedSwapchainSampleCount",
+      "environmentBlendMode"
+     ],
+     "fieldStatus": "confirmed; viewConfigurationType has vendor extensions -> gapped; environmentBlendMode core-complete",
+     "discoveredEnums": {
+      "environmentBlendMode": [
+       1,
+       2,
+       3
+      ]
+     },
+     "gaps": [
+      "viewConfigurationType-vendor-extensions"
+     ]
+    },
+    {
+     "entity": "Swapchain",
+     "source": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-Docs/main/specification/registry/xr.xml",
+     "verifiedFields": [
+      "createFlags",
+      "usageFlags",
+      "format",
+      "sampleCount",
+      "width",
+      "height",
+      "faceCount",
+      "arraySize",
+      "mipCount"
+     ],
+     "fieldStatus": "confirmed (XrSwapchainCreateInfo); flags are bitmasks, format is graphics-API-dependent -> no enums",
+     "discoveredEnums": {},
+     "gaps": [
+      "createFlags-bitmask",
+      "usageFlags-bitmask",
+      "format-graphics-api-dependent"
+     ]
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (5/5) vs official Khronos xr.xml (spec 1.1). Enforced enums: System.formFactor(2), Session.state(9), ViewConfiguration.environmentBlendMode(3) = 3 enum fields. Extension-bearing enums (viewConfigurationType/referenceSpaceType) + bitmasks gapped."
+  },
+  {
+   "handle": "kafka-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://github.com/apache/kafka (trunk Java enums) + https://kafka.apache.org/protocol.html",
+   "remodeled": "Remodeled from generic category model to a faithful Apache Kafka model verified against the official apache/kafka trunk Java enum sources + protocol guide. permissionType (AclPermissionType, 4) + isolationLevel (IsolationLevel, 2) stable since 2017 -> enforced. AclOperation (TWO_PHASE_COMMIT added 2025), GroupState (KIP-848 4.x expansion), ResourceType (USER added, recency unconfirmed) are version-growing -> gapped. ApiKeys (90+, grows every release) + error codes (60+) -> gapped.",
+   "resources": [
+    {
+     "entity": "Topic",
+     "source": "https://kafka.apache.org/protocol.html",
+     "verifiedFields": [
+      "name",
+      "numPartitions",
+      "replicationFactor",
+      "isInternal",
+      "minInsyncReplicas"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "Partition",
+     "source": "https://kafka.apache.org/protocol.html",
+     "verifiedFields": [
+      "topicName",
+      "partitionIndex",
+      "leader",
+      "replicas",
+      "isr"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "AclBinding",
+     "source": "https://raw.githubusercontent.com/apache/kafka/trunk/clients/src/main/java/org/apache/kafka/common/acl/AclPermissionType.java",
+     "verifiedFields": [
+      "resourceType",
+      "resourceName",
+      "principal",
+      "host",
+      "operation",
+      "permissionType"
+     ],
+     "fieldStatus": "confirmed; operation/resourceType version-growing -> gapped",
+     "discoveredEnums": {
+      "permissionType": [
+       "UNKNOWN",
+       "ANY",
+       "DENY",
+       "ALLOW"
+      ]
+     },
+     "gaps": [
+      "operation-version-growing-2025",
+      "resourceType-version-growing"
+     ]
+    },
+    {
+     "entity": "ConsumerGroup",
+     "source": "https://raw.githubusercontent.com/apache/kafka/trunk/clients/src/main/java/org/apache/kafka/common/GroupState.java",
+     "verifiedFields": [
+      "groupId",
+      "protocolType",
+      "state",
+      "generationId"
+     ],
+     "fieldStatus": "confirmed; state version-growing (KIP-848) -> gapped",
+     "discoveredEnums": {},
+     "gaps": [
+      "state-kip848-growing"
+     ]
+    },
+    {
+     "entity": "FetchRequest",
+     "source": "https://raw.githubusercontent.com/apache/kafka/trunk/clients/src/main/java/org/apache/kafka/common/IsolationLevel.java",
+     "verifiedFields": [
+      "topicName",
+      "partitionIndex",
+      "fetchOffset",
+      "maxBytes",
+      "isolationLevel"
+     ],
+     "fieldStatus": "confirmed (IsolationLevel closed, stable since 0.11/2017)",
+     "discoveredEnums": {
+      "isolationLevel": [
+       "READ_UNCOMMITTED",
+       "READ_COMMITTED"
+      ]
+     },
+     "gaps": []
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (5/5) vs official apache/kafka trunk Java enums + protocol guide. Enforced enums: AclBinding.permissionType(4), FetchRequest.isolationLevel(2) = 2 enum fields. Version-growing enums (AclOperation/GroupState/ResourceType) + ApiKeys/error-code tables gapped — honesty over coverage."
   }
  ]
 }

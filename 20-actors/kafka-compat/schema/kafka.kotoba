@@ -3,69 +3,59 @@
 
 namespace kafka {
 
-    entity Connector {
+    entity Topic {
         id: string @unique
         name: string
-        source: string
-        destination: string
-        status: string
+        numPartitions: integer
+        replicationFactor: integer
+        isInternal: boolean
+        minInsyncReplicas: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Sync {
+    entity Partition {
         id: string @unique
-        connectorId: string
-        status: string
-        rows: integer
-        startedAt: datetime
+        topicName: string
+        partitionIndex: integer
+        leader: integer
+        replicas: string
+        isr: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Model {
+    entity AclBinding {
         id: string @unique
-        name: string
-        materialization: string
-        sql: string
+        resourceType: string
+        resourceName: string
+        principal: string
+        host: string
+        operation: string
+        permissionType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Stream {
+    entity ConsumerGroup {
         id: string @unique
-        name: string
-        partitions: integer
-        retentionMs: integer
+        groupId: string
+        protocolType: string
+        state: string
+        generationId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Schema {
+    entity FetchRequest {
         id: string @unique
-        name: string
-        database: string
-        tableCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Test {
-        id: string @unique
-        modelName: string
-        type: string
-        passed: boolean
+        topicName: string
+        partitionIndex: integer
+        fetchOffset: integer
+        maxBytes: integer
+        isolationLevel: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

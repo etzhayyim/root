@@ -8297,17 +8297,16 @@
       "handle": "kafka-compat",
       "platform": "kafka",
       "bytes": 2119,
-      "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Topic",
+        "Partition",
+        "AclBinding",
+        "ConsumerGroup",
+        "FetchRequest"
       ]
     },
     {
@@ -11360,17 +11359,16 @@
       "handle": "openxr-compat",
       "platform": "openxr",
       "bytes": 2120,
-      "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Anchor",
-        "Scene",
-        "Mesh",
+        "Instance",
+        "System",
         "Session",
-        "Asset",
-        "Device"
+        "ViewConfiguration",
+        "Swapchain"
       ]
     },
     {
@@ -12262,12 +12260,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
