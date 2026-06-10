@@ -23347,6 +23347,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md",
+      "id": "adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+      "title": "ADR-2606101540: Session close — 潮目 stock pyramid + entity grounding + first live EDGAR ingest (kanjō) + fleet-heartbeat runner",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606032000-kanjo-world-public-company-financial-disclosure-kg",
+        "adr-2606022000-kabuto-world-public-company-supply-chain-kg",
+        "adr-2606073400-hokorobi-world-systemic-finance-risk-observatory",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606101800-ibuki-ecosystem-maturation-food-web-symbiosis.md",
       "id": "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
       "title": "ADR-2606101800: 息吹 (ibuki) ecosystem maturation — the colony as a symbiotic food web (植物→粘菌→カビ→人類), 7 waves",
