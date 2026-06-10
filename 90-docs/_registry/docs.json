@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-09",
+  "updated_at": "2026-06-10",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -23258,6 +23258,31 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge.md",
+      "id": "adr-2606101130",
+      "title": "ADR-2606101130: Session-Close — basic-infrastructure robotics 3-layer wave + kami-genesis physics bridge",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-infra-robotics-3layer-kami-physics-bridge",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the infra-robotics 3-layer + kami-physics-bridge wave (2026-06-09 … 06-10)",
+        "deps.toml registration of ADR-2606091800 + the kuni-umi/robotics module"
+      ],
+      "related": [
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606091800 (the substance of this session)"
+      ],
+      "last_verified": "2026-06-10",
       "amends": [],
       "amended_by": []
     },
