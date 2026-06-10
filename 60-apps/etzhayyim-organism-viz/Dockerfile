@@ -30,7 +30,6 @@ COPY organism-pkg /app/organism-pkg
 # Force-include in pyproject.toml expects web/dist at the same relative path
 # the host has, so the wheel build can locate it. Use BOTH locations.
 COPY --from=web /web/dist /app/web/dist
-COPY --from=web /web/dist /app/src/etzhayyim_organism_viz/dist
 
 RUN pip install --no-cache-dir \
       "fastapi>=0.115.0" \

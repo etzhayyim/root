@@ -20,5 +20,4 @@ build-backend = "hatchling.build"
 packages = ["src/etzhayyim_organism_viz"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"src/etzhayyim_organism_viz/frontend" = "etzhayyim_organism_viz/frontend"
 "web/dist" = "etzhayyim_organism_viz/dist"
