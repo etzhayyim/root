@@ -46,6 +46,7 @@ OUTCOMES = ROOT / "data" / "kaizen-outcomes.ndjson"
 BEAT_MS = 45 * 60_000   # one beat = 45 logical minutes (crosses the joyful 30m cooldown,
                         # sits inside the calm/neutral 2h one — moods visibly change cadence)
 AS_OF_BASE = 2606100000
+HEALTH_EVERY = 10       # colony self-audit cadence (health.py → :health/* checkpoints)
 
 
 def beat_events(beat: int) -> list[str]:
@@ -123,6 +124,12 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
     # drain (Gap 6): queue → member-sign-ready envelopes, checkpointed :prepared
     drained = drainer.drain(QUEUE, as_of=as_of, beat=beat)
     out += drained["datoms"]
+
+    # 健全化: every HEALTH_EVERY beats the colony audits its own log and checkpoints the
+    # verdict (`:health/*`) — Wellbecoming as as-of history, measured not assumed
+    if beat % HEALTH_EVERY == 0:
+        import health
+        out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
     return out
 
 

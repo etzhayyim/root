@@ -58,6 +58,7 @@ _NODE_TO_SHARD = {"joseph": 0, "issachar": 1, "dan": 2}
 BEAT_MS = 45 * 60_000
 AS_OF_BASE = 2606100000
 DEFAULT_BATCH = 256
+HEALTH_EVERY = 10       # colony self-audit cadence (health.py → :health/* checkpoints)
 
 
 def resolve_registry_path() -> pathlib.Path:
@@ -240,6 +241,11 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
     drained, next_line = drain_incremental(queue_path, from_line, as_of=as_of, beat=beat)
     out += drained
     idx.drain_line[shard_name] = next_line
+
+    # 健全化: periodic colony self-audit over this shard's log (health.py)
+    if beat % HEALTH_EVERY == 0:
+        import health
+        out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
 
     # durable sweep cursor checkpoint — the crash-resume point of the round-robin
     new_cursor = (start + min(batch_size, n)) % n if n else 0
