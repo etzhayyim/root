@@ -21,6 +21,7 @@ SUITES=(
   "methods/test_health.py"
   "methods/test_symbiosis.py"
   "methods/test_quorum.py"
+  "methods/test_digest.py"
   "methods/test_ecosystem.py"
   "methods/test_charter_invariants.py"
 )
