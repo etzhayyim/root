@@ -1,0 +1,104 @@
+# ibuki (息吹) — organism autonomy R2 gap-closure substrate
+
+**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1+R2+R3 · **ADR**: 2606101200
+
+**Read the root `/CLAUDE.md` Charter + substrate rules first.** ibuki-specific invariants below
+OVERRIDE nothing in the Charter; they make it concrete for this package.
+
+## The one-sentence identity
+
+息吹 (ibuki = the breath of life) closes the seven gaps that kept the artificial-organism
+programme (UNSPSC W1/W2, post sink, Kaizen) from being a closed autonomous loop: organism state
+(joucho mood / heartbeat cadence / posts / kaizen learning) now lives **as-of queryable on the
+append-only kotoba Datom log**, narration is **Murakumo-only**, posting is **member-signed
+(Wave-3 drainer)**, and Kaizen outcomes **flow back** so the colony learns.
+
+## The beat cycle (autorun.py)
+
+```
+replay ─▶ perceive ─▶ feel ─▶ decide ─▶ narrate ─▶ act ─▶ checkpoint ─▶ append tx
+(log →    (beat       (event   (durable   (Murakumo-  (:dry-run    (joucho +     (content-
+ durable   events,     fold →   cooldown    only /      post datom   heartbeat     addressed,
+ state)    G8-bounded) mood)    due check)  template)   + queue)     datoms)       verified)
+```
+
+Crash-resume is structural: every beat replays the log, so a 2-beat run + death + 1 more beat
+produces a head CID **byte-identical** to an uninterrupted 3-beat run.
+
+## Gates — do NOT weaken (each has a test in test_charter_invariants.py)
+
+- **G6 Murakumo-only** — `infer.MURAKUMO_ALLOWED_HOSTS` is the LiteLLM loopback + EVO-X2 LAN +
+  per-node Ollama fleet (ADR-2605215000). Any other endpoint raises `MurakumoOnlyViolation`.
+  Offline / failure → deterministic template (fail-open; the organism keeps living).
+- **G7 no-server-key** — drainer envelopes carry `requiresMemberSignature:true` +
+  `serverHeldKey:false`; `submit()` refuses without an injected member signer AND
+  `operator_ack=True`; `drainer.py` has no network import and no credential read
+  (ADR-2605231525).
+- **G8 outward — code-complete (R2), structurally member-principal** — `:post/status` is
+  `:dry-run` only; `:drain/status` is `:prepared` only; `:published` is unwritable by ibuki
+  (what went out is a member-attributed `:receipt/*`, receipts.py). Live posting =
+  `member_submit.py`: the MEMBER's own env credentials (`IBUKI_MEMBER_*`) at runtime, https
+  only, `--yes` required, and **cron contexts refused outright** (`IBUKI_CRON=1` →
+  `MemberSignatureRequired`). Live perception = `perception.py`: read-only public-AppView
+  allowlist (violation raises before I/O), credential-free, `IBUKI_PERCEPTION_LIVE=1` to
+  enable, fail-open to the representative pattern. Per founder direction 2026-06-10 the
+  Council gate is exercised as PR merge — `cells/fleet_beat/cell.py` `.solve()` RUNS the
+  beat (registered on joseph/issachar/dan in `50-infra/murakumo/fleet.toml`).
+- **非終末論 append-only** — `:db/add` only; no retraction op exists; re-observation is a new
+  datom, never an overwrite.
+- **Closed vocabularies raise, never guess** — joucho event kinds, kaizen outcomes, queue
+  schema version.
+- **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
+  no SQL / columnar store (N7).
+
+## Build / test / run autonomously
+
+```
+./run_tests.sh                                  # all 13 suites (134 tests), hermetic
+cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
+                                                # prints per-organism mood as-of tx 1 vs head
+cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh
+                                                # R1: FULL 18,342-organism fleet sweep on one
+                                                # verified chain (~35 s; jacob/joseph/issachar/
+                                                # dan sharding mirrors fleet_cell_main)
+# R2 member-principal live posting (run AS THE MEMBER, never from cron):
+#   IBUKI_MEMBER_HANDLE=… IBUKI_MEMBER_APP_PASSWORD=… [IBUKI_MEMBER_PDS=…] \
+#     python3 member_submit.py --queue ../data/fleet-posts.queue.ndjson \
+#       --receipts ../data/receipts.ndjson --yes
+#   then fold the receipts back: receipts.ingest(receipts_path, log_path)
+# R3 push the local log into the LIVE kotoba engine (default = no-I/O dry-run export):
+#   IBUKI_KOTOBA_LIVE=1 IBUKI_KOTOBA_OPERATOR_DID=<node public did> \
+#     python3 kotoba_bridge.py --log ../data/ibuki-fleet.datoms.kotoba.edn --graph ibuki
+# R3 collect real PR outcomes for the Wave-4 loop (operator-principal, read-only gh):
+#   python3 kaizen_outcomes.py --proposals ../data/kaizen-proposals.ndjson \
+#     --outcomes ../data/kaizen-outcomes.ndjson
+```
+
+Generated artifacts (`data/ibuki*.datoms.kotoba.edn`, `data/*posts.queue.ndjson`) are
+gitignored — the committed seed is `data/seed-organisms.kotoba.edn`; the R1 fleet universe is
+the committed monorepo registry `00-contracts/actor-registry/unispsc.json` (18,342 agents).
+R1 sweep state is durable: `:fleet.shard/cursor` (round-robin) + `:fleet.shard/drain-line`
+(each queue line prepared EXACTLY once) are datoms, so a mid-sweep crash resumes losslessly.
+
+## Do not
+
+- Do not add a non-Murakumo host to `MURAKUMO_ALLOWED_HOSTS`, or make `narrate` skip
+  `assert_murakumo` — G6.
+- Do not give `drainer.py` a network path, a credential read, or a default signer — G7. The
+  member's runtime is INJECTED, never embedded.
+- Do not make `:published` writable by ibuki (receipts say `:submitted-by-member`), remove
+  `member_submit.refuse_if_cron`, default `operator_ack`/`--yes` to true, or add a
+  credential source other than the member's own `IBUKI_MEMBER_*` env — the member-principal
+  boundary is Tier-1, not a flippable gate.
+- Do not widen `perception.ALLOWED_XRPC_HOSTS` beyond read-only public AppViews, give
+  perception a credential, or let a live-perception failure crash the beat (fail-open).
+- Do not widen `kotoba_bridge.ALLOWED_KOTOBA_HOSTS` beyond the fleet (:8077 loopback +
+  EVO-X2), give the bridge key material (the operator bearer is an explicitly UNSIGNED
+  token carrying only the node's public DID), or remove the `:bridge/*` exactly-once
+  cursor / `:ibuki.tx/*` provenance meta.
+- Do not let `kaizen_outcomes` grow a write surface toward GitHub (`gh pr view` only) or
+  run from cron.
+- Do not introduce a retraction op or mutate an existing log line — append-only (非終末論).
+- Do not add a wall-clock call (`time.time`, `datetime.now`) to any method — determinism +
+  crash-resume depend on logical time.
+- Do not widen a closed vocabulary by accepting unknown members instead of raising.

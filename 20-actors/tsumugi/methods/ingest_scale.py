@@ -149,12 +149,28 @@ def normalize_rows(rows: list[dict], seed: str):
             dropped.append((child or "?", "missing/degenerate org pair")); continue
         if re.fullmatch(r"Q\d+", child) or re.fullmatch(r"Q\d+", parent):
             dropped.append((child, "no real label (raw QID) — quality drop")); continue
-        cnode = make_org_node(child, r.get("country"))
-        pnode = make_org_node(parent, r.get("country"))
-        for n in (pnode, cnode):
+        # label-variant reconciliation, BOTH ends: an alias that resolves to an org already
+        # in the graph reuses that id (no parallel node) — "Google"→google-llc as a parent,
+        # "Audi AG"→audi as a child (Wikidata returns the same org under variant labels).
+        candidates = []
+        calias = PARENT_ALIASES.get(child.lower())
+        if calias and calias in seen_nodes:
+            child_id = calias
+        else:
+            cnode = make_org_node(child, r.get("country"))
+            child_id = cnode[":pwr/id"]
+            candidates.append(cnode)
+        palias = PARENT_ALIASES.get(parent.lower())
+        if palias and palias in seen_nodes:
+            parent_id = palias
+        else:
+            pnode = make_org_node(parent, r.get("country"))
+            parent_id = pnode[":pwr/id"]
+            candidates.insert(0, pnode)
+        for n in candidates:
             if n[":pwr/id"] not in seen_nodes and _admit(n, dropped):
                 new_nodes.append(n); seen_nodes.add(n[":pwr/id"])
-        tie = make_custody_tie(pnode[":pwr/id"], cnode[":pwr/id"], child, parent, r.get("childRef"))
+        tie = make_custody_tie(parent_id, child_id, child, parent, r.get("childRef"))
         if tie[":tie/id"] not in seen_ties and _admit_tie(tie, dropped):
             new_ties.append(tie); seen_ties.add(tie[":tie/id"])
     return nodes, ties, new_nodes, new_ties, dropped
@@ -187,6 +203,79 @@ LIMIT %d
 # person OUT cheaply — without the P31/P279* org-class transitive closure, which is too heavy
 # and times out on WDQS. Person-exclusion preserved; query is performant (<1s vs timeout).
 
+# ── ANCHORED mode (the honest follow-up of PR #1534) ─────────────────────────
+# The unanchored LIMIT returns arbitrary low-relevance orgs (the Prague school tree).
+# Anchoring fetches P749 CHILDREN OF ORGS ALREADY IN THE SEED — connected, significant
+# data by construction. ANCHOR_QIDS maps seed org families → their Wikidata QIDs; the
+# operator verifies labels at vet time (a wrong QID yields visibly-wrong children, and
+# the promotion PR review catches it — anchors never bypass the human-review step).
+ANCHOR_QIDS = {
+    "Q53268":    "Toyota Motor",                 # org.corp.jp.7203 / org.ext.toyota-motor
+    "Q20800404": "Alphabet Inc.",                # org.ext.alphabet-inc
+    "Q380":      "Meta Platforms",               # org.ext.meta-platforms
+    "Q156578":   "Volkswagen Group",             # org.corp.de.vw / org.ext.volkswagen-ag
+    "Q188958":   "SoftBank Group",               # org.ext.softbank-group
+    "Q81965":    "General Motors",               # org.corp.us.gm
+    "Q132964":   "Hitachi",                      # org.corp.jp.hitachi-works
+    "Q713418":   "TSMC",                         # org.corp.tw.tsmc-hsinchu
+    "Q41187":    "Sony Group",                   # org.corp.jp.6758 (base power-graph)
+    "Q725085":   "Mitsubishi Heavy Industries",  # org.corp.jp.7011
+}
+
+WIKIDATA_ANCHORED_SPARQL = """
+SELECT ?child ?childLabel ?parent ?parentLabel ?countryLabel WHERE {
+  VALUES ?parent { %s }
+  ?child wdt:P749 ?parent .
+  ?child rdfs:label ?en . FILTER(LANG(?en) = "en")
+  FILTER NOT EXISTS { ?child wdt:P31 wd:Q5 }
+  OPTIONAL { ?child wdt:P17 ?country . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT %d
+"""
+
+
+def build_anchored_query(limit: int, anchors=None) -> str:
+    values = " ".join(f"wd:{q}" for q in sorted(anchors or ANCHOR_QIDS))
+    return WIKIDATA_ANCHORED_SPARQL % (values, int(limit))
+
+
+def derive_seed_qids(seed_path: str | pathlib.Path) -> set[str]:
+    """RING-2 self-expansion: every promoted tie cites its child's Wikidata item URL, so the
+    committed seed ALREADY NAMES the QIDs of orgs in the graph. Deriving anchors from those
+    citations makes the expansion loop self-sustaining — each Council-ratified promotion
+    enriches the anchor set for the next fetch, ring by ring, with connectivity guaranteed
+    by construction (an anchor is only ever an org already in the seed)."""
+    text = pathlib.Path(seed_path).read_text(encoding="utf-8")
+    return set(re.findall(r"https://www\.wikidata\.org/wiki/(Q\d+)", text))
+
+
+# Wikidata's labels differ from the seed's ("Toyota" vs "Toyota Motor", "Meta" vs
+# "Meta Platforms") — without reconciliation an anchored fetch would mint PARALLEL parent
+# nodes instead of attaching children to the org already in the graph. Label → existing
+# seed :pwr/id (scale seed). Children are never aliased — only the anchor parents.
+PARENT_ALIASES = {
+    "toyota": "org.ext.toyota-motor",
+    "toyota motor": "org.ext.toyota-motor",
+    "meta": "org.ext.meta-platforms",
+    "meta platforms": "org.ext.meta-platforms",
+    "volkswagen group": "org.ext.volkswagen-ag",
+    "volkswagen ag": "org.ext.volkswagen-ag",
+    "alphabet inc.": "org.ext.alphabet-inc",
+    "general motors": "org.corp.us.gm",
+    "tsmc": "org.corp.tw.tsmc-hsinchu",
+    "softbank group": "org.ext.softbank-group",
+    "hitachi": "org.corp.jp.hitachi-works",
+    "mitsubishi heavy industries": "org.corp.jp.7011",
+    # ring-2 label variants (children promoted in P2 whose Wikidata label differs)
+    "google": "org.ext.google-llc",
+    "google llc": "org.ext.google-llc",
+    "audi ag": "org.ext.audi",
+    "audi": "org.ext.audi",
+    "volkswagen": "org.ext.volkswagen-ag",
+    "sony": "org.ext.sony-group",
+}
+
 
 def parse_wikidata_orgs(obj: dict) -> list[dict]:
     """WDQS JSON → [{child, parent, country, childRef}]. S2: query already org-constrained."""
@@ -201,8 +290,9 @@ def parse_wikidata_orgs(obj: dict) -> list[dict]:
     return rows
 
 
-def fetch_wikidata_orgs(limit: int = 200, timeout: int = 60) -> list[dict]:
-    q = WIKIDATA_ORG_SPARQL % int(limit)
+def fetch_wikidata_orgs(limit: int = 200, timeout: int = 60, anchored: bool = False,
+                        anchors=None) -> list[dict]:
+    q = build_anchored_query(limit, anchors) if anchored else (WIKIDATA_ORG_SPARQL % int(limit))
     url = WDQS_ENDPOINT + "?" + urllib.parse.urlencode({"query": q, "format": "json"})
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT,
                                                "Accept": "application/sparql-results+json"})
@@ -243,9 +333,18 @@ def main():
                 "G7 — live scale ingest refused. Requires TSUMUGI_OPERATOR_GATE=1 + "
                 "TSUMUGI_OPERATOR_DID=<operator attestation> (Council-ratified). "
                 "Offline fixture ingest runs without --live.")
+        anchors = None
+        mode = "unanchored"
+        if "--ring2" in sys.argv:
+            # ring-2 self-expansion: hand-curated anchors ∪ QIDs the seed's own citations name
+            anchors = set(ANCHOR_QIDS) | derive_seed_qids(seed)
+            mode = f"RING-2 ({len(anchors)} anchors: {len(ANCHOR_QIDS)} curated + seed-derived)"
+        elif "--anchored" in sys.argv:
+            mode = f"ANCHORED to {len(ANCHOR_QIDS)} seed orgs"
         print(f"⚠ G7 live gate satisfied (operator={os.environ['TSUMUGI_OPERATOR_DID']}) — "
-              f"fetching Wikidata P749 orgs (limit {limit})…")
-        rows = fetch_wikidata_orgs(limit)
+              f"fetching Wikidata P749 orgs (limit {limit}, {mode})…")
+        rows = fetch_wikidata_orgs(limit, anchored=("--anchored" in sys.argv or "--ring2" in sys.argv),
+                                   anchors=anchors)
         print(f"✓ WDQS returned {len(rows)} org parent-child rows")
         nodes, ties, new_nodes, new_ties, dropped = normalize_rows(rows, seed)
         add_file, combined = write_merge(outdir, seed, new_nodes, new_ties, "-live")
