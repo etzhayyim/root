@@ -155,6 +155,7 @@ cells = [
   "ConstructionOrchestrationCell",  # kuni-umi Phase 3 (ADR-2605201400)
   "UnispscAgentExecutorCell",  # unispsc segments 10-29 (~4597 agents)
   "UnispscOrganismFleetCell",  # 4597 organisms, segments 10-29 (ADR-2605240000)
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard joseph segs 10-29 → local kotoba Datom log (cron 3 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
 ]
 shard_index = 0
 total_shards = 3
@@ -169,6 +170,7 @@ cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
   "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8541 agents — heaviest shard, segments 31/41/42)
   "UnispscOrganismFleetCell",  # 8541 organisms, segments 30-44 (ADR-2605240000)
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard issachar segs 30-44 → local kotoba Datom log (cron 33 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
   "ossekai_arbitrage_observer",
   "ossekai_intel_analyzer",
   "ossekai_aggregate_publisher",
@@ -201,6 +203,7 @@ cells = [
   "DecommissionCell",  # kuni-umi end-of-life (ADR-2605201400)
   "UnispscAgentExecutorCell",  # unispsc segments 45-60 (~5204 agents)
   "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard dan segs 45-60 → local kotoba Datom log (cron 43 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
   "shionome_rotation_weave",    # 潮目 rotation pairs + regime (cron 15 * * * *) (ADR-2606072200)
   "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
   "ipaddress_persist",          # IP/ASN autonomous heartbeat → append-only kotoba Datom log (cron 17 * * * *) (ADR-2605301400 §T2; local persist, G8 live-node push gated)

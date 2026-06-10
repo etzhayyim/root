@@ -87,6 +87,53 @@ def main():
     _, _, lv_nodes, lv_ties, _ = I.normalize_rows(rows, SEED)
     check("live rows normalize to org nodes + custody ties", bool(lv_nodes) and bool(lv_ties))
 
+    # ANCHORED mode (hermetic): query builder pins to seed-org QIDs; aliases reconcile parents
+    q = I.build_anchored_query(50)
+    check("anchored query uses VALUES over anchor QIDs",
+          "VALUES ?parent" in q and all(f"wd:{qid}" in q for qid in I.ANCHOR_QIDS))
+    check("anchored query keeps S2 human-exclusion filter", "wd:Q5" in q)
+    arow = [{"child": "Cruise LLC", "parent": "General Motors", "country": "United States"}]
+    _, _, a_nodes, a_ties, _ = I.normalize_rows(arow, SEED)
+    check("alias: GM children attach to existing seed org (no parallel parent)",
+          bool(a_ties) and a_ties[0][":tie/from"] == "org.corp.us.gm"
+          and all(n[":pwr/id"] != "org.ext.general-motors" for n in a_nodes))
+
+    # RING-2 (hermetic): anchors derive from the seed's own citation QIDs; child-side alias
+    qids = I.derive_seed_qids(SEED)
+    check("ring-2: seed-derived anchor QIDs found", len(qids) >= 100 and "Q95" in qids)
+    q2 = I.build_anchored_query(10, sorted(qids)[:5])
+    check("ring-2: query builds over derived anchors", "VALUES ?parent" in q2)
+    crow = [{"child": "Audi AG", "parent": "Volkswagen Group", "country": "Germany"}]
+    _, _, c_nodes, c_ties, _ = I.normalize_rows(crow, SEED)
+    check("alias: child-side variant reuses existing seed org (no duplicate Audi)",
+          all(n[":pwr/id"] != "org.ext.audi-ag" for n in c_nodes))
+
+    # FORAGE (粘菌/菌糸, hermetic): offline plan from the seed — harvested vs frontier tips
+    plan = I.forage_plan(SEED)
+    check("forage: separates harvested anchors from frontier tips",
+          plan["harvested_anchors"] >= 1 and plan["frontier_tips"] >= 1)
+    check("forage: emits a grow-or-fruit recommendation",
+          ("GROW" in plan["recommendation"]) or ("FRUIT" in plan["recommendation"]))
+    check("forage: not starving while Wikidata anchors remain",
+          plan["starving"] is (plan["anchor_qids_available"] == 0 or plan["frontier_tips"] == 0))
+
+    # GLEIF source (hermetic): recorded L2 page parses; rows carry GLEIF citations; membrane holds
+    gleif_obj = {"data": [{"id": "TESTLEI00000000000AA", "attributes": {"entity": {
+        "legalName": {"name": "Test Subsidiary GmbH"},
+        "legalAddress": {"country": "DE"}}}}]}
+    grows = I.parse_gleif_children(gleif_obj, "Volkswagen AG")
+    check("gleif: recorded page parses to rows", len(grows) == 1
+          and grows[0]["child"] == "Test Subsidiary GmbH" and grows[0]["country"] == "DE")
+    check("gleif: row carries L2-RR citation + real record URL",
+          grows[0]["cite"][0].startswith("GLEIF Level-2")
+          and grows[0]["cite"][1] == "https://search.gleif.org/#/record/TESTLEI00000000000AA")
+    _, _, g_nodes, g_ties, _ = I.normalize_rows(grows, SEED)
+    check("gleif: rows cross the membrane (attach to seed VW, GLEIF citations kept)",
+          bool(g_ties) and g_ties[0][":tie/from"] == "org.ext.volkswagen-ag"
+          and g_ties[0][":tie/sources"][0].startswith("GLEIF Level-2"))
+    check("gleif: ISO-2 country maps to locality (DE→de, GB→uk)",
+          I.locality_of("DE") == "de" and I.locality_of("GB") == "uk")
+
     # committed seed is NEVER mutated by a merge write
     before = pathlib.Path(SEED).read_bytes()
     with tempfile.TemporaryDirectory() as d:

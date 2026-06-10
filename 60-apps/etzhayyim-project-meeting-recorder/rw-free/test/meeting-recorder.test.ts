@@ -12,6 +12,10 @@ import {
   recordSegment,
   listSegments,
   coverage,
+  generateMinutes,
+  getMinutes,
+  listMinutes,
+  LIVE_LLM_GATE_ENV,
 } from "../src/index.js";
 
 const OWNER = "did:web:meeting-recorder.etzhayyim.com";
@@ -153,6 +157,144 @@ describe("meeting-recorder rw-free (WAVE 2 kotoba-E2E split)", () => {
       expect(cov.transcriptSegmentCount).toBe(1);
       expect(cov.sessionsByProvider?.teams).toBe(2);
       expect(cov.sessionsByProvider?.zoom).toBe(1);
+    });
+  });
+
+  describe("meetingMinutes 議事録 (E2E-ENCRYPTED, generated from segments)", () => {
+    const NO_GATE = {};
+
+    async function seedTranscript() {
+      await recordSegment(e, { sessionId: "m1", chunkSeq: 0, seq: 0, startedAtMs: 0, endedAtMs: 5000, speakerHash: "spkA", lang: "ja", confidencePct: 95, text: "本日はリリース計画の会議です。スケジュールとリリース範囲を議論します。" });
+      await recordSegment(e, { sessionId: "m1", chunkSeq: 0, seq: 1, startedAtMs: 5000, endedAtMs: 12000, speakerHash: "spkB", lang: "ja", confidencePct: 93, text: "リリース日は 6 月 20 日に決定しました。スコープは認証機能までで合意です。" });
+      await recordSegment(e, { sessionId: "m1", chunkSeq: 0, seq: 2, startedAtMs: 12000, endedAtMs: 20000, speakerHash: "spkA", lang: "ja", confidencePct: 94, text: "では私がリリースノートを 2026-06-18 までに準備します。レビューをお願いします。" });
+      await recordSegment(e, { sessionId: "m1", chunkSeq: 0, seq: 3, startedAtMs: 20000, endedAtMs: 26000, speakerHash: "spkC", lang: "en", confidencePct: 90, text: "Agreed. I will send the deployment checklist tomorrow." });
+      // unrelated session must not leak into m1 minutes
+      await recordSegment(e, { sessionId: "other", chunkSeq: 0, seq: 0, startedAtMs: 0, endedAtMs: 1000, confidencePct: 90, text: "別件の決定事項です。決定しました。" });
+    }
+
+    it("generates extractive minutes: summary + decisions + action items (owner/due) + topics + participants", async () => {
+      await seedTranscript();
+      const out = await generateMinutes(e, { sessionId: "m1" }, { env: NO_GATE });
+      expect(out.status).toBe("generated");
+      expect(out.generator).toBe("extractive");
+      expect(out.keyId).toBeTruthy();
+      const m = out.minutes!;
+      expect(m.sessionId).toBe("m1");
+      expect(m.sourceSegmentCount).toBe(4);
+      expect(m.lang).toBe("ja"); // majority lang
+      expect(m.summary.length).toBeGreaterThan(0);
+      // decisions: 決定 + 合意 + Agreed sentences
+      expect(m.decisions.some((d) => d.includes("決定しました"))).toBe(true);
+      expect(m.decisions.some((d) => d.includes("合意"))).toBe(true);
+      // action items: 準備します/お願いします (spkA, due 2026-06-18) + "I will send" (spkC)
+      const due = m.actionItems.find((a) => a.dueDate === "2026-06-18");
+      expect(due?.ownerHash).toBe("spkA");
+      expect(m.actionItems.some((a) => a.ownerHash === "spkC")).toBe(true);
+      // participants: distinct speaker hashes
+      expect(m.participantHashes).toEqual(["spkA", "spkB", "spkC"]);
+      // unrelated session's text must not leak
+      expect(m.summary.includes("別件")).toBe(false);
+      expect(m.decisions.some((d) => d.includes("別件"))).toBe(false);
+    });
+
+    it("round-trips via getMinutes / listMinutes and regenerates deterministically", async () => {
+      await seedTranscript();
+      await generateMinutes(e, { sessionId: "m1" }, { env: NO_GATE });
+      const got = await getMinutes(e, { sessionId: "m1" });
+      expect(got.minutes?.generator).toBe("extractive");
+      expect(got.minutes?.sourceSegmentCount).toBe(4);
+      expect((await getMinutes(e, { sessionId: "nope" })).error).toBe("notFound");
+
+      // a later segment then regenerate → latest minutes reflect it
+      await recordSegment(e, { sessionId: "m1", chunkSeq: 0, seq: 4, startedAtMs: 26000, endedAtMs: 30000, speakerHash: "spkB", lang: "ja", confidencePct: 91, text: "追加で監視ダッシュボードの更新を担当します。" });
+      await generateMinutes(e, { sessionId: "m1" }, { env: NO_GATE });
+      const regen = await getMinutes(e, { sessionId: "m1" });
+      expect(regen.minutes?.sourceSegmentCount).toBe(5);
+
+      expect((await listMinutes(e, { sessionId: "m1" })).total).toBeGreaterThanOrEqual(1);
+      expect((await listMinutes(e, { generator: "murakumo" })).total).toBe(0);
+    });
+
+    it("validates input: missing sessionId / no segments / invalid maxSegments", async () => {
+      expect((await generateMinutes(e, { sessionId: "" }, { env: NO_GATE })).error).toBe("missingSessionId");
+      expect((await generateMinutes(e, { sessionId: "empty" }, { env: NO_GATE })).error).toBe("noSegments");
+      expect((await generateMinutes(e, { sessionId: "m1", maxSegments: 0 }, { env: NO_GATE })).error).toBe("invalidMaxSegments");
+      expect((await generateMinutes(e, { sessionId: "m1", maxSegments: 1.5 as any }, { env: NO_GATE })).error).toBe("invalidMaxSegments");
+    });
+
+    it("refuses allowLive without the operator gate (no silent fallback)", async () => {
+      await seedTranscript();
+      const out = await generateMinutes(e, { sessionId: "m1", allowLive: true }, { env: NO_GATE });
+      expect(out.status).toBe("rejected");
+      expect(out.error).toBe("liveLLMRefused");
+      // nothing written
+      expect((await getMinutes(e, { sessionId: "m1" })).error).toBe("notFound");
+    });
+
+    it("gated Murakumo path: loopback LiteLLM JSON → murakumo minutes", async () => {
+      await seedTranscript();
+      const gateOn = { [LIVE_LLM_GATE_ENV]: "1" };
+      const fetchFn = async (url: string, init: any) => {
+        expect(url).toBe("http://127.0.0.1:4000/v1/chat/completions");
+        const req = JSON.parse(init.body);
+        expect(req.model).toBe("gemma3:4b");
+        expect(req.messages[1].content).toContain("[spkA]");
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            choices: [{ message: { content: JSON.stringify({
+              summary: "リリース計画会議。6/20 リリースで決定。",
+              decisions: ["リリース日は 6 月 20 日"],
+              actionItems: [{ description: "リリースノート準備", ownerHash: "spkA", dueDate: "2026-06-18" }],
+              topics: ["リリース", "認証"],
+            }) } }],
+          }),
+        };
+      };
+      const out = await generateMinutes(e, { sessionId: "m1", allowLive: true }, { env: gateOn, fetchFn: fetchFn as any });
+      expect(out.status).toBe("generated");
+      expect(out.generator).toBe("murakumo");
+      expect(out.minutes?.model).toBe("gemma3:4b");
+      expect(out.minutes?.actionItems[0]?.dueDate).toBe("2026-06-18");
+      expect((await getMinutes(e, { sessionId: "m1" })).minutes?.generator).toBe("murakumo");
+    });
+
+    it("gated Murakumo path fails honestly (transport error / non-JSON / G4 non-loopback)", async () => {
+      await seedTranscript();
+      const gateOn = { [LIVE_LLM_GATE_ENV]: "1" };
+      const broken = async () => ({ ok: false, status: 503, json: async () => ({}) });
+      const out1 = await generateMinutes(e, { sessionId: "m1", allowLive: true }, { env: gateOn, fetchFn: broken as any });
+      expect(out1.status).toBe("rejected");
+      expect(out1.error).toContain("murakumoFailed");
+
+      const nonJson = async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "not json" } }] }) });
+      const out2 = await generateMinutes(e, { sessionId: "m1", allowLive: true }, { env: gateOn, fetchFn: nonJson as any });
+      expect(out2.error).toContain("non-JSON");
+
+      // G4: a non-loopback MURAKUMO_ENDPOINT is a hard violation
+      const out3 = await generateMinutes(e, { sessionId: "m1", allowLive: true }, {
+        env: { ...gateOn, MURAKUMO_ENDPOINT: "https://api.openai.com/v1/chat/completions" },
+        fetchFn: nonJson as any,
+      });
+      expect(out3.status).toBe("rejected");
+      expect(out3.error).toContain("G4");
+    });
+
+    it("enforces read-cap: outsider cannot read minutes", async () => {
+      await seedTranscript();
+      await generateMinutes(e, { sessionId: "m1" }, { env: NO_GATE });
+      const outsider: any = new MockEtzhayyim({ did: "did:web:outsider.example" });
+      expect((await listMinutes(outsider)).total).toBe(0);
+      expect((await getMinutes(outsider, { sessionId: "m1" })).error).toBe("notFound");
+    });
+
+    it("coverage counts minutes as its own inner-type", async () => {
+      await seedTranscript();
+      await generateMinutes(e, { sessionId: "m1" }, { env: NO_GATE });
+      const cov = await coverage(e);
+      expect(cov.meetingMinutesCount).toBe(1);
+      expect(cov.transcriptSegmentCount).toBe(5);
     });
   });
 });
