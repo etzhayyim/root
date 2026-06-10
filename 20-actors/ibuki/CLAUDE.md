@@ -1,0 +1,70 @@
+# ibuki (息吹) — organism autonomy R2 gap-closure substrate
+
+**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0 · **ADR**: 2606101200
+
+**Read the root `/CLAUDE.md` Charter + substrate rules first.** ibuki-specific invariants below
+OVERRIDE nothing in the Charter; they make it concrete for this package.
+
+## The one-sentence identity
+
+息吹 (ibuki = the breath of life) closes the seven gaps that kept the artificial-organism
+programme (UNSPSC W1/W2, post sink, Kaizen) from being a closed autonomous loop: organism state
+(joucho mood / heartbeat cadence / posts / kaizen learning) now lives **as-of queryable on the
+append-only kotoba Datom log**, narration is **Murakumo-only**, posting is **member-signed
+(Wave-3 drainer)**, and Kaizen outcomes **flow back** so the colony learns.
+
+## The beat cycle (autorun.py)
+
+```
+replay ─▶ perceive ─▶ feel ─▶ decide ─▶ narrate ─▶ act ─▶ checkpoint ─▶ append tx
+(log →    (beat       (event   (durable   (Murakumo-  (:dry-run    (joucho +     (content-
+ durable   events,     fold →   cooldown    only /      post datom   heartbeat     addressed,
+ state)    G8-bounded) mood)    due check)  template)   + queue)     datoms)       verified)
+```
+
+Crash-resume is structural: every beat replays the log, so a 2-beat run + death + 1 more beat
+produces a head CID **byte-identical** to an uninterrupted 3-beat run.
+
+## Gates — do NOT weaken (each has a test in test_charter_invariants.py)
+
+- **G6 Murakumo-only** — `infer.MURAKUMO_ALLOWED_HOSTS` is the LiteLLM loopback + EVO-X2 LAN +
+  per-node Ollama fleet (ADR-2605215000). Any other endpoint raises `MurakumoOnlyViolation`.
+  Offline / failure → deterministic template (fail-open; the organism keeps living).
+- **G7 no-server-key** — drainer envelopes carry `requiresMemberSignature:true` +
+  `serverHeldKey:false`; `submit()` refuses without an injected member signer AND
+  `operator_ack=True`; `drainer.py` has no network import and no credential read
+  (ADR-2605231525).
+- **G8 outward-gated** — `:post/status` is `:dry-run` only; `:drain/status` is `:prepared`
+  only; `:published` is unwritable by ibuki. Perception at R0 is a bounded `:representative`
+  stimulus pattern (no live firehose).
+- **非終末論 append-only** — `:db/add` only; no retraction op exists; re-observation is a new
+  datom, never an overwrite.
+- **Closed vocabularies raise, never guess** — joucho event kinds, kaizen outcomes, queue
+  schema version.
+- **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
+  no SQL / columnar store (N7).
+
+## Build / test / run autonomously
+
+```
+./run_tests.sh                                  # all 8 suites (78 tests), hermetic
+cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
+                                                # prints per-organism mood as-of tx 1 vs head
+```
+
+Generated artifacts (`data/ibuki.datoms.kotoba.edn`, `data/organism-posts.queue.ndjson`) are
+gitignored — the committed seed is `data/seed-organisms.kotoba.edn` (3 `:representative`
+UNSPSC organisms; the 18,342-code fleet binds at R1).
+
+## Do not
+
+- Do not add a non-Murakumo host to `MURAKUMO_ALLOWED_HOSTS`, or make `narrate` skip
+  `assert_murakumo` — G6.
+- Do not give `drainer.py` a network path, a credential read, or a default signer — G7. The
+  member's runtime is INJECTED, never embedded.
+- Do not make `:published` writable, or wire `autorun.py` / perception to live external I/O —
+  G8 (Council gate).
+- Do not introduce a retraction op or mutate an existing log line — append-only (非終末論).
+- Do not add a wall-clock call (`time.time`, `datetime.now`) to any method — determinism +
+  crash-resume depend on logical time.
+- Do not widen a closed vocabulary by accepting unknown members instead of raising.
