@@ -166,6 +166,11 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
     if beat % HEALTH_EVERY == 0:
         import health
         out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
+        # the colony REASONS about its ecosystem + reports to humanity (Murakumo-only,
+        # dry-run): a mirror of where its life became a gift (digest.py). Uses `txs` (the log
+        # BEFORE this beat) so it never reads its own in-flight datoms.
+        import digest
+        out += digest.make(txs, beat=beat, as_of=as_of)["datoms"]
     return out
 
 

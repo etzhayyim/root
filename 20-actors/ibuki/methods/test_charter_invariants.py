@@ -178,12 +178,29 @@ def test_symbiosis_draw_is_member_principal_keyfree():
         assert needle not in src, f"symbiosis must stay key-free + offline: {needle}"
 
 
+def test_digest_is_murakumo_only_and_dry_run():
+    """The colony digest reasons via the Murakumo fleet ONLY (G6) and reports DRY-RUN only
+    (G8): :published is unrepresentable, exactly like organism posts."""
+    src = _all_source()["digest.py"]
+    assert '":published"' not in src
+    assert '":dry-run"' in src
+    for banned in ("api.openai.com", "runpod", "bedrock", "http://", "https://"):
+        assert banned not in src.lower(), f"digest must route inference via infer.py: {banned}"
+
+
+def test_infer_text_enforces_murakumo_allowlist():
+    import infer
+    expect_raises(lambda: infer.infer_text("p", "fallback",
+                                           endpoint="https://api.openai.com/v1/chat/completions"),
+                  contains="Murakumo")
+
+
 def test_stdlib_only():
     import ast
     allowed_local = {"datoms", "drainer", "heartbeat", "joucho", "kaizen_feedback",
                      "infer", "autorun", "_edn", "_t", "perception", "member_submit",
                      "receipts", "fleet", "kotoba_bridge", "kaizen_outcomes",
-                     "ecosystem", "health", "symbiosis", "quorum"}
+                     "ecosystem", "health", "symbiosis", "quorum", "digest"}
     for p in SOURCES:
         tree = ast.parse(p.read_text(encoding="utf-8"))
         for node in ast.walk(tree):

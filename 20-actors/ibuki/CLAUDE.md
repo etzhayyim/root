@@ -98,13 +98,20 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   the beat's commons → extra gift to humanity when the colony thrives); ≥2/3 stressed →
   **:dormant** (sporulation, observational, no mood pressure); else **:neutral**. Checkpointed
   as `:quorum/*` (as-of, aggregate — never a per-organism verdict). Wired into autorun + fleet.
+- **Colony digest (the colony reasons + reports to humanity)** — `digest.py`: assembles the
+  colony's log-derived state (health verdict + eco-maturity + commons offered/available to
+  humanity + quorum history), narrates it in human-readable words via the Murakumo fleet ONLY
+  (`infer.infer_text`, allowlist-enforced, fail-open to a deterministic template), and emits a
+  `:digest/*` post — `:digest/status :dry-run` ONLY (G8; :published unrepresentable). A mirror
+  REPORT of where the colony's life became a gift (黒カビ→クエン酸→人類), never advice; emitted
+  every HEALTH_EVERY beats. Aggregate, never a per-organism verdict.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 17 suites (198 tests), hermetic
+./run_tests.sh                                  # all 18 suites (208 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
