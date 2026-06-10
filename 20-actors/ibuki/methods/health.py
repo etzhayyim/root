@@ -43,7 +43,10 @@ DROUGHT_FACTOR = 3       # beats-without-post > FACTOR × slowest cooldown (in b
 BEAT_MS = 45 * 60_000    # autorun/fleet logical beat
 
 RULES = ("organism-muted", "axis-saturation", "stress-excess",
-         "checkpoint-divergence", "posting-drought", "mood-monoculture")
+         "checkpoint-divergence", "posting-drought", "mood-monoculture",
+         "ecosystem-starved")
+
+ECO_GRACE_BEATS = 6      # don't flag a broken web before the colony has had time to feed
 
 
 def _walk(txs: list[dict]) -> dict:
@@ -148,6 +151,22 @@ def audit(txs: list[dict]) -> dict:
                          "rule": "mood-monoculture", "organism": "*",
                          "detail": f"all {len(per)} organisms share mood "
                                    f"{next(iter(head_moods))!r} — personality collapsed"})
+
+    # ecosystem completeness: primary production is happening but nothing reaches humanity —
+    # a broken food web (a missing niche / failed routing). Read straight off the log so
+    # health.py stays decoupled from ecosystem.py. Grace period avoids flagging a young colony.
+    substrate_beats, commons_seen = set(), False
+    for tx in txs:
+        for _op, _e, a, v in tx.get(":tx/datoms", []):
+            if a == ":metabolite/kind" and v == ":substrate":
+                substrate_beats.add(tx[":tx/id"])
+            elif a == ":metabolite/commons" and v is True:
+                commons_seen = True
+    if len(substrate_beats) > ECO_GRACE_BEATS and not commons_seen:
+        findings.append({"proposalId": "health-ecosystem-starved-colony",
+                         "rule": "ecosystem-starved", "organism": "*",
+                         "detail": "primary production occurs but no commons metabolite "
+                                   "reaches humanity — the food web is broken"})
 
     return {"organisms": organisms,
             "colony": {"count": len(per), "mood_diversity": head_moods,

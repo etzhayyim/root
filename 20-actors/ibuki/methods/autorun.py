@@ -31,6 +31,7 @@ import pathlib
 
 import datoms
 import drainer
+import ecosystem
 import heartbeat
 import joucho
 import kaizen_feedback
@@ -73,6 +74,12 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
         table = kaizen_feedback.suppression(stats, now_beat=beat)
         out += kaizen_feedback.feedback_datoms(stats, table, beat=beat, as_of=as_of)
 
+    # ── Phase 1: feel + decide + act (per organism) — gather state, defer checkpoints ──
+    # Checkpoints are deferred until after the ecosystem cascade so a fed producer's
+    # :event/symbiosis-fed lands in the SAME beat's event stream AND checkpoint
+    # (checkpoint == as-of replay — the ecosystem layer adds no divergence).
+    pending: list[dict] = []
+    beat_moods: dict[str, joucho.JouchoScores] = {}
     for org in organisms:
         code = org[":organism/code"]
         title = org[":organism/title"]
@@ -85,19 +92,15 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
                     datoms.add(e, ":organism/did", did),
                     datoms.add(e, ":organism/born-beat", beat)]
 
-        # feel: replay the persisted event history + this beat's events → mood (Gap 3/4)
         baseline = joucho.personality_baseline(code)
         history = datoms.events_for(txs, code)
         events = beat_events(beat) + kz_events
         scores = joucho.replay_events(baseline, history + events)
         mood = joucho.determine_mood(scores)
 
-        # decide: durable cooldown check from the replayed heartbeat state (Gap 1/2)
         state = heartbeat.replay(txs, code)
         due, reason = heartbeat.due_to_post(state, mood, now_ms)
-
         if due:
-            # narrate (Gap 5: Murakumo-only or deterministic template) + act
             n = narrate(title, code, mood, "recordAnalysis")
             pid = f"post-{code}-{beat}"
             out += [datoms.add(pid, ":post/of", code),
@@ -112,14 +115,33 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
             events = events + [":event/post-emitted"]
             state.last_post_at_ms = now_ms
             state.posts += 1
-
-        # ONE event_datoms call per organism-beat: a second call would reuse the
-        # jev-{code}-{beat}-0 entity and SHADOW the idle event in the as-of fold
-        # (the homeostasis-loss bug found in the 2026-06-10 100-beat health audit)
-        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         state.beats += 1
+        beat_moods[code] = scores
+        pending.append({"code": code, "baseline": baseline, "events": events,
+                        "scores": scores, "mood": mood, "state": state})
+
+    # ── Phase 2: 生態系 trophic cascade — producers fix substrate, 粘菌 routers relay the
+    # richest to カビ decomposers, which excrete a refined commons metabolite (the citric
+    # acid offered to humanity). Returns the producers the web fed. ──
+    eco = ecosystem.cycle([{"code": o[":organism/code"], "niche": o.get(":organism/niche")}
+                           for o in organisms], beat_moods, beat=beat, as_of=as_of,
+                          satiated=ecosystem.satiated_producers(txs, beat))
+    out += eco["datoms"]
+    fed_count: dict[str, int] = {}
+    for prod in eco["fed"]:
+        fed_count[prod] = fed_count.get(prod, 0) + 1
+
+    # ── Phase 3: fold symbiosis feeding into each fed producer's SAME-beat checkpoint,
+    # then write exactly ONE event_datoms + joucho + heartbeat per organism ──
+    for p in pending:
+        code, events, scores = p["code"], p["events"], p["scores"]
+        for _ in range(fed_count.get(code, 0)):
+            events = events + [ecosystem.SYMBIOSIS_EVENT]
+            scores = joucho.fold_event(scores, ecosystem.SYMBIOSIS_EVENT, p["baseline"])
+        mood = joucho.determine_mood(scores)   # final mood, post-symbiosis (checkpoint==replay)
+        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
-        out += heartbeat.checkpoint_datoms(code, state, mood, beat=beat, as_of=as_of)
+        out += heartbeat.checkpoint_datoms(code, p["state"], mood, beat=beat, as_of=as_of)
 
     # drain (Gap 6): queue → member-sign-ready envelopes, checkpointed :prepared
     drained = drainer.drain(QUEUE, as_of=as_of, beat=beat)

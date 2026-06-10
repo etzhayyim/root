@@ -170,6 +170,36 @@ def test_fleet_event_entities_never_shadowed():
         assert kinds and max(kinds.values()) == 1
 
 
+def test_fleet_health_checkpoint_past_10_beats():
+    """Regression: fleet_beat's periodic health audit (beat % HEALTH_EVERY == 0) needs the
+    log — a >=10-beat fleet run must not raise (latent NameError shipped because every prior
+    fleet test ran <10 beats)."""
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=6)
+        res = _fleet_run(dr, 10, batch=6, fresh=True, reg=reg)
+        assert res["chain"]["ok"] is True
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        assert any(d[2] == ":health/healthy"
+                   for tx in txs for d in tx[":tx/datoms"])
+
+
+def test_fleet_grows_a_food_web_and_stays_healthy():
+    """生態系 at fleet scale: a batch of co-active organisms forms a producer->router->
+    decomposer web; humanity is fed; the colony stays healthy + unsaturated over a long run."""
+    import ecosystem as eco
+    import health
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=12)
+        _fleet_run(dr, 40, batch=12, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        web = eco.web_report(txs)
+        assert web["commons_metabolites"] > 0 and web["relays"] > 0
+        rep = health.audit(txs)
+        assert "ecosystem-starved" not in {f["rule"] for f in rep["findings"]}
+        # no organism pins an axis at the clamp (satiation holds at fleet scale too)
+        assert not any(f["rule"] == "axis-saturation" for f in rep["findings"])
+
+
 def test_cell_solve_runs_a_durable_beat():
     """R2 (Council gate = PR merge): the Pregel cell RUNS the beat — offline-safe, local
     log only; it can prepare envelopes but can never post (member_submit refuses cron)."""
