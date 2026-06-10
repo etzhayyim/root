@@ -39,7 +39,12 @@ FLOW_KINDS = (
 # observations are signals in other units (zscore / pct / bps), not capital amounts, so mixing
 # them into the money totals would be a unit error.
 CAPITAL_MOVEMENT_KINDS = ("rotation", "fund-inflow", "fund-outflow", "fx-flow")
-SNAPSHOT_METRICS = ("return-pct", "net-fund-flow", "volume-z", "yield-pct", "spread-bps", "drawdown-pct")
+SNAPSHOT_METRICS = ("return-pct", "net-fund-flow", "volume-z", "yield-pct", "spread-bps", "drawdown-pct", "outstanding-usd")
+# the snapshot metric carrying a STOCK (the total SIZE of an asset class in USD trillions), as
+# opposed to a flow/rate metric. `stock_pyramid` aggregates this into the money-and-markets
+# sizing view. A size is a factual observed quantity (like return/yield), NEVER summed with flow
+# magnitudes (usd-bn) — different unit — and NEVER a rating/signal/target (G2/G4 untouched).
+STOCK_METRIC = "outstanding-usd"
 REGIMES = ("risk-on", "risk-off", "mixed", "indeterminate")
 SOURCING = ("representative", "authoritative")
 
@@ -390,6 +395,58 @@ def assert_integrity(g: dict) -> None:
         )
 
 
+# ── stock layer (the money-and-markets pyramid) ───────────────────────────────────
+def latest_stock_by_bucket(g: dict) -> dict:
+    """For each bucket carrying an :outstanding-usd snapshot, the LATEST observed stock size
+    (USD trillions), taken by max :snap/as-of (G10 append-only — the newest observation wins on
+    read, the older ones are never deleted). Returns {bucket_id: (value, as_of)}. Factual sizes,
+    never a rating/signal (G2/G4)."""
+    latest: dict[str, tuple[float, int]] = {}
+    for s in g["snapshots"]:
+        if _kw(s.get(":snap/metric")) != STOCK_METRIC:
+            continue
+        bid = s.get(":snap/bucket")
+        if not bid:
+            continue
+        as_of = int(s.get(":snap/as-of", 0))
+        val = float(s.get(":snap/value", 0.0))
+        if bid not in latest or as_of >= latest[bid][1]:
+            latest[bid] = (val, as_of)
+    return latest
+
+
+def stock_pyramid(g: dict) -> dict:
+    """THE 'how big is everything' SIZING VIEW — the Visual-Capitalist money-and-markets pyramid.
+    Aggregates the latest :outstanding-usd stock per bucket up to the ASSET-CLASS level and sizes
+    each layer against the grand total (share of all observed capital). This is a FACTUAL stock
+    sizing — descriptive, NOT a per-asset rating/signal/target and NOT advice (G2/G4): it says how
+    large each pool of capital is, never what to do with it (トレードはしない). Stock values are
+    USD trillions; they are NEVER mixed with flow magnitudes (usd-bn) — a separate, on-read view."""
+    latest = latest_stock_by_bucket(g)
+    layers: dict[str, dict] = {}
+    for bid, (val, _as_of) in latest.items():
+        ac = g["buckets"].get(bid, {}).get(":bucket/asset-class", "(unknown)")
+        slot = layers.setdefault(ac, {"asset_class": ac, "usd_tn": 0.0, "buckets": 0})
+        slot["usd_tn"] += val
+        slot["buckets"] += 1
+    grand = sum(l["usd_tn"] for l in layers.values())
+    rows = []
+    for l in sorted(layers.values(), key=lambda x: (-x["usd_tn"], x["asset_class"])):
+        rows.append({
+            "asset_class": l["asset_class"],
+            "usd_tn": round(l["usd_tn"], 4),
+            "share": round(l["usd_tn"] / grand, 4) if grand else 0.0,
+            "buckets": l["buckets"],
+        })
+    return {
+        "layers": rows,
+        "grand_total_usd_tn": round(grand, 4),
+        "bucket_count": len(latest),
+        "unit": "usd-tn",
+        "no_trade_notice": True,   # G2 — a size, never advice (トレードはしない)
+    }
+
+
 def concentration(g: dict) -> dict:
     """The full aggregate-first flow report (G3/G4). All metrics are derived on read from
     flows/snapshots; nothing is a per-bucket rating/signal/target/score (トレードはしない)."""
@@ -402,6 +459,7 @@ def concentration(g: dict) -> dict:
         "inflow_concentration": inflow_concentration(g),
         "by_asset_class": by_asset_class(g),
         "by_region": by_region(g),
+        "stock_pyramid": stock_pyramid(g),
         "regime": regime(g),
         "correlation_clusters": correlation_clusters(g),
         "integrity": check_integrity(g),
@@ -426,6 +484,11 @@ if __name__ == "__main__":
         print(f"- {r['from_label']} → {r['to_label']}: {r['magnitude']:.2f}")
     ic = c["inflow_concentration"]
     print(f"\n## inflow concentration — HHI={ic['hhi']} over total {ic['total']:.2f}")
+    sp = c["stock_pyramid"]
+    print(f"\n## stock pyramid — how big is everything (USD tn; grand total {sp['grand_total_usd_tn']:.1f})")
+    for r in sp["layers"]:
+        bar = "█" * max(1, round(r["share"] * 40))
+        print(f"- {r['asset_class']:<14} {r['usd_tn']:>8.1f} tn  {r['share']*100:5.1f}%  {bar}")
     print(f"\n## cross-asset regime: {c['regime']['regime']} "
           f"(risk_net={c['regime']['risk_net']:+.2f} safe_net={c['regime']['safe_net']:+.2f}) "
           f"— descriptive, NOT advice (トレードはしない)")

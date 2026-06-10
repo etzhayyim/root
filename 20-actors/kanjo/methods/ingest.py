@@ -35,6 +35,16 @@ from concept_map import canonical, CONCEPTS  # noqa: E402
 EDGAR_CIK_TO_ORG = {
     "0000320193": "org.corp.us.apple",
     "0000789019": "org.corp.us.microsoft",
+    "0001045810": "org.corp.us.nvidia",
+    "0001018724": "org.corp.us.amazon",
+    "0001652044": "org.corp.us.alphabet",
+    "0001326801": "org.corp.us.meta",
+    "0001067983": "org.corp.us.berkshire",
+    "0001730168": "org.corp.us.broadcom",
+    "0001318605": "org.corp.us.tesla",
+    "0000050863": "org.corp.us.intel",
+    "0000002488": "org.corp.us.amd",
+    "0000723125": "org.corp.us.micron",
 }
 # which canonical concept lives on which statement (for :fin.fact/statement)
 CONCEPT_STMT = {c: CONCEPTS[c][0] for c in CONCEPTS}

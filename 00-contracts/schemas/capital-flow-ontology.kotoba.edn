@@ -9,6 +9,15 @@
 ;; pairs between them — aggregate-first and edge-primary. An observational MIRROR of where
 ;; money is moving, never a trade signal, never a recommendation, never a price target.
 ;;
+;; STOCK LAYER (ADR-2606072200 R1) — alongside the FLOW graph, a bucket may carry an
+;; :outstanding-usd snapshot: the observed total SIZE (stock) of an asset class, in USD
+;; trillions. Read-side `stock_pyramid` aggregates the latest such snapshot per asset class
+;; into the "how big is everything" sizing view (the Visual Capitalist money-and-markets
+;; pyramid: physical currency < broad money < equities < debt < real estate < derivatives
+;; notional, with gold / crypto sized against them). This is a FACTUAL observed quantity,
+;; exactly like :return-pct / :yield-pct — NOT a per-bucket rating/signal/target (G2/G4
+;; untouched): a size is descriptive, never a trade instruction (トレードはしない).
+;;
 ;; THE DEFINING INVARIANT — トレードはしない (G2 no-trade / non-advisory): shionome NEVER
 ;; emits a buy/sell signal, a price target, an over/under-weight call, or any portfolio
 ;; instruction. The :flow/kind vocab is purely FACTUAL/observational; advisory + trade tokens
@@ -39,8 +48,10 @@
  ;;      a trade instruction is unrepresentable; トレードはしない).
  :ontology/flow-kinds       [:rotation :fund-inflow :fund-outflow :price-move
                              :cross-correlation :volume-shift :yield-shift :fx-flow]
- ;; G2 — snapshot metrics are FACTUAL observed quantities (return / net-flow / volume / yield).
- :ontology/snapshot-metrics [:return-pct :net-fund-flow :volume-z :yield-pct :spread-bps :drawdown-pct]
+ ;; G2 — snapshot metrics are FACTUAL observed quantities (return / net-flow / volume / yield /
+ ;;      spread / drawdown / outstanding-usd). :outstanding-usd = the observed total SIZE (stock)
+ ;;      of a bucket in USD trillions — the money-pyramid layer; a size, never a signal/target.
+ :ontology/snapshot-metrics [:return-pct :net-fund-flow :volume-z :yield-pct :spread-bps :drawdown-pct :outstanding-usd]
  ;; A FACTUAL cross-asset regime descriptor (descriptive, NOT advice — carries the no-trade
  ;; notice). :buy-the-dip / :rotate-into / any imperative ABSENT.
  :ontology/regimes          [:risk-on :risk-off :mixed :indeterminate]
@@ -97,7 +108,8 @@
   {:db/ident :snap/id            :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
   {:db/ident :snap/bucket        :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one :db/doc "→ :bucket/id"}
   {:db/ident :snap/metric        :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
-   :db/allowed [:return-pct :net-fund-flow :volume-z :yield-pct :spread-bps :drawdown-pct]}
+   :db/allowed [:return-pct :net-fund-flow :volume-z :yield-pct :spread-bps :drawdown-pct :outstanding-usd]
+   :db/doc ":outstanding-usd = observed total SIZE (stock) of the bucket in USD trillions (the money-pyramid layer). FACTUAL, like the other metrics — NOT a rating/signal/target (G2/G4); summed only with other :outstanding-usd values, never with flow magnitudes (different unit)."}
   {:db/ident :snap/value         :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
   {:db/ident :snap/as-of         :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
   {:db/ident :snap/sourcing      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
