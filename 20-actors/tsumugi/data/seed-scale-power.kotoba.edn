@@ -255,4 +255,28 @@
  {:tie/id "tie.global.imf.bis" :tie/kind :co-member :tie/from "org.gov.global.imf" :tie/to "org.fin.global.bis" :tie/grasping-load 0.56 :tie/sources ["IMF–BIS public coordination (public)" "G20 communiqués (public)"] :tie/sourcing :representative}
  {:tie/id "tie.global.assoc.imf" :tie/kind :seats-on :tie/from "org.fin.global.banking-assoc" :tie/to "org.gov.global.imf" :tie/grasping-load 0.52 :tie/sources ["IMF consultative-group public records" "public archives"] :tie/sourcing :representative}
  {:tie/id "tie.global.wire.imf" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.gov.global.imf" :tie/grasping-load 0.42 :tie/sources ["global financial-wire IMF coverage" "public archives"] :tie/sourcing :representative}
- {:tie/id "tie.global.wire.bis" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.fin.global.bis" :tie/grasping-load 0.40 :tie/sources ["global financial-wire BIS coverage" "public archives"] :tie/sourcing :representative}]
+ {:tie/id "tie.global.wire.bis" :tie/kind :covers :tie/from "org.press.global.wire" :tie/to "org.fin.global.bis" :tie/grasping-load 0.40 :tie/sources ["global financial-wire BIS coverage" "public archives"] :tie/sourcing :representative}
+
+ ;; ═══════════ INGEST PROMOTION 1 — Council-ratified (G7), via PR ═══════════
+ ;; Promoted from the G7-gated ingest_scale.py (Wikidata P749 parent-organization custody).
+ ;; Curated, high-relevance structural-public org pairs. The live unanchored-LIMIT path returns
+ ;; arbitrary low-relevance orgs (e.g. Prague's municipal school tree), so the promoted batch is
+ ;; the vetted significant-org set, NOT the raw live blob; bulk-live promotion awaits an ANCHORED
+ ;; query (P749 neighbours of seed orgs). :representative; S1/S2/S4/S5 hold.
+ {:pwr/id "org.ext.alphabet-inc" :pwr/label "Alphabet Inc." :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.google-llc" :pwr/label "Google LLC" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.meta-platforms" :pwr/label "Meta Platforms" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.instagram" :pwr/label "Instagram" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.volkswagen-ag" :pwr/label "Volkswagen AG" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "de" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.audi" :pwr/label "Audi" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "de" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.toyota-motor" :pwr/label "Toyota Motor" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.daihatsu" :pwr/label "Daihatsu" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "jp" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.softbank-group" :pwr/label "SoftBank Group" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "uk" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.arm-holdings" :pwr/label "Arm Holdings" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "uk" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.deepmind" :pwr/label "DeepMind" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "uk" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:tie/id "tie.ext.alphabet-inc.google-llc" :tie/kind :custodies :tie/from "org.ext.alphabet-inc" :tie/to "org.ext.google-llc" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q95"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.meta-platforms.instagram" :tie/kind :custodies :tie/from "org.ext.meta-platforms" :tie/to "org.ext.instagram" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q209330"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.volkswagen-ag.audi" :tie/kind :custodies :tie/from "org.ext.volkswagen-ag" :tie/to "org.ext.audi" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q23317"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.toyota-motor.daihatsu" :tie/kind :custodies :tie/from "org.ext.toyota-motor" :tie/to "org.ext.daihatsu" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q186578"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.softbank-group.arm-holdings" :tie/kind :custodies :tie/from "org.ext.softbank-group" :tie/to "org.ext.arm-holdings" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: Arm Holdings (P749 parent → SoftBank Group)"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.alphabet-inc.deepmind" :tie/kind :custodies :tie/from "org.ext.alphabet-inc" :tie/to "org.ext.deepmind" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: DeepMind (P749 parent → Alphabet Inc.)"] :tie/sourcing :representative}]

@@ -6,6 +6,10 @@
     {"child": "Audi", "parent": "Volkswagen AG", "country": "Germany", "childRef": "Q23317"},
     {"child": "Daihatsu", "parent": "Toyota Motor", "country": "Japan", "childRef": "Q186578"},
     {"child": "Arm Holdings", "parent": "SoftBank Group", "country": "United Kingdom"},
-    {"child": "DeepMind", "parent": "Alphabet Inc.", "country": "United Kingdom"}
+    {"child": "DeepMind", "parent": "Alphabet Inc.", "country": "United Kingdom"},
+    {"child": "GEICO", "parent": "Berkshire Hathaway", "country": "United States"},
+    {"child": "Louis Vuitton", "parent": "LVMH", "country": "France"},
+    {"child": "Nespresso", "parent": "Nestlé", "country": "Switzerland"},
+    {"child": "Skoda Auto", "parent": "Volkswagen AG", "country": "Czech Republic"}
   ]
 }

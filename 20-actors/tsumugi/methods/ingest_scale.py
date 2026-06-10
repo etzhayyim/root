@@ -50,6 +50,8 @@ COUNTRY_CODE = {
     "united kingdom": "uk", "germany": "de", "south korea": "kr",
     "republic of korea": "kr", "taiwan": "tw", "france": "fr", "china": "cn",
     "netherlands": "nl", "switzerland": "ch", "canada": "ca", "india": "in",
+    "czech republic": "cz", "czechia": "cz", "italy": "it", "spain": "es",
+    "sweden": "se", "australia": "au", "brazil": "br", "russia": "ru",
 }
 
 
@@ -145,6 +147,8 @@ def normalize_rows(rows: list[dict], seed: str):
         child, parent = (r.get("child") or "").strip(), (r.get("parent") or "").strip()
         if not child or not parent or child == parent:
             dropped.append((child or "?", "missing/degenerate org pair")); continue
+        if re.fullmatch(r"Q\d+", child) or re.fullmatch(r"Q\d+", parent):
+            dropped.append((child, "no real label (raw QID) — quality drop")); continue
         cnode = make_org_node(child, r.get("country"))
         pnode = make_org_node(parent, r.get("country"))
         for n in (pnode, cnode):
@@ -170,13 +174,18 @@ def ingest_offline(fixtures_dir: pathlib.Path, seed: str):
 WIKIDATA_ORG_SPARQL = """
 SELECT ?child ?childLabel ?parent ?parentLabel ?countryLabel WHERE {
   ?child wdt:P749 ?parent .
-  ?child wdt:P31/wdt:P279* wd:Q43229 .
-  ?parent wdt:P31/wdt:P279* wd:Q43229 .
-  OPTIONAL { ?child wdt:P17 ?country . }
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". }
+  ?child wdt:P17 ?country .
+  ?child rdfs:label ?en . FILTER(LANG(?en) = "en")
+  FILTER NOT EXISTS { ?child  wdt:P31 wd:Q5 }
+  FILTER NOT EXISTS { ?parent wdt:P31 wd:Q5 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 LIMIT %d
 """
+# S2 NOTE: P749 (parent organization) is org-domain by definition, so its subject is an org;
+# the explicit FILTER NOT EXISTS {?x wdt:P31 wd:Q5} (instance-of-HUMAN) keeps any mislabeled
+# person OUT cheaply — without the P31/P279* org-class transitive closure, which is too heavy
+# and times out on WDQS. Person-exclusion preserved; query is performant (<1s vs timeout).
 
 
 def parse_wikidata_orgs(obj: dict) -> list[dict]:
