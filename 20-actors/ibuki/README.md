@@ -20,9 +20,15 @@ persistence, every outward edge member-signed and gated.
 | 7. Kaizen one-way | outcomes fold back: rule suppression after repeated rejection + mood events (merge calms, rejection stresses) |
 
 ```bash
-./run_tests.sh                                   # 8 suites, 78 tests, stdlib-only, hermetic
+./run_tests.sh                                   # 9 suites, 90 tests, stdlib-only, hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh
+cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh   # R1 full fleet
 ```
 
-R0 is offline-autonomous over 3 `:representative` seed organisms. Live perception, live
-posting, and the 18,342-organism fleet binding are R1+ behind their existing gates.
+**R1 (same wave): the real 18,342-organism fleet on durable checkpoints.** `methods/fleet.py`
+loads the committed registry (`00-contracts/actor-registry/unispsc.json`), shards it exactly
+like the kotodama fleet cell (jacob/joseph/issachar/dan), and sweeps each shard in bounded
+batches behind a durable `:fleet.shard/cursor` — no LRU needed for correctness, mid-sweep
+crash-resume is byte-identical, and a full 18,342-organism sweep lands on one verified chain
+in ~35 s. Live perception, live posting, and live cron deployment stay behind their existing
+gates (G7/G8).

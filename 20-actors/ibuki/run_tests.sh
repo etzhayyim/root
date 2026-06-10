@@ -13,6 +13,7 @@ SUITES=(
   "methods/test_drainer.py"
   "methods/test_kaizen_feedback.py"
   "methods/test_autorun.py"
+  "methods/test_fleet.py"
   "methods/test_charter_invariants.py"
 )
 

@@ -103,10 +103,38 @@ substrate package that closes gaps 1–7. One module per gap, one integrating lo
 - **N7 / 非終末論**: kotoba Datom log only; `:db/add` only — no retraction op exists.
 - Closed vocabularies raise, never guess (joucho events, kaizen outcomes, queue schema v).
 
+## R1 — the 18,342-organism fleet on durable checkpoints (same wave)
+
+`methods/fleet.py` binds the FULL UNSPSC fleet (the committed monorepo registry
+`00-contracts/actor-registry/unispsc.json`, 18,342 agents) to the durable substrate,
+replacing the kotodama fleet cell's RAM-fragility (4,096-organism LRU whose state dies with
+the pod) with log-native state:
+
+- **No LRU needed for correctness** — an organism's state is never "evicted"; it is replayed
+  from the log when its slice comes around.
+- **Bounded beats at any fleet size** — each beat ticks the next `batch_size` organisms,
+  round-robin over the shard via a DURABLE `:fleet.shard/cursor` datom; an incremental
+  `:fleet.shard/drain-line` cursor guarantees each queue line is prepared EXACTLY once.
+- **Single-pass log index** (`index_log`) — per-entity folds are O(log) each (quadratic
+  poison at 18k organisms); the index recovers identical facts in one scan
+  (`test_index_log_matches_per_entity_folds`).
+- **Sharding mirrors fleet_cell_main** — jacob -1 (all) / joseph 0 (segments 10-29) /
+  issachar 1 (30-44) / dan 2 (45-60); same env resolution
+  (`UNISPSC_ORGANISM_SHARD_ALL` / `UNISPSC_ORGANISM_SHARD_INDEX` / `ETZHAYYIM_NODE`);
+  the partition is asserted complete + disjoint against the real registry.
+- **Crash-resume at fleet scale** — kill the runner mid-sweep, resume: head CID
+  byte-identical to an uninterrupted sweep (`test_crash_resume_equals_uninterrupted_sweep`).
+- **Verified at full scale** — `python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh`
+  brings all **18,342/18,342 organisms alive on one verified chain in ~35 s** (46 MB log,
+  gitignored).
+- `cells/fleet_beat/cell.py` `.solve()` raises — live cron deployment of continuous fleet
+  operation stays Council Lv6+ + operator gated (G8), the same gate the kotodama fleet cell
+  awaits.
+
 ### R0 scope honesty
 
-- 3 `:representative` seed organisms stand in for the 18,342-code fleet; R1 binds the
-  kotodama fleet cell (`fleet_cell_main.py`) to these durable checkpoints.
+- 3 `:representative` seed organisms in `autorun.py` demonstrate the single-organism loop;
+  `fleet.py` (R1) runs the real 18,342-code registry offline.
 - The drainer prepares; it cannot publish. Live submission needs the member's own signing
   runtime (ameno passkey session) + operator ack — one human gate-flip away, per design.
 - Kaizen outcomes arrive via an operator-written NDJSON file (from `gh pr view`), not via
@@ -119,6 +147,6 @@ substrate package that closes gaps 1–7. One module per gap, one integrating lo
   member-signed and operator-gated.
 - "What was organism X's mood at tx N" is now a pure log query — Wellbecoming as as-of
   history (ADR-2606011500's discipline) reaches the organism layer.
-- 78 tests across 8 standalone suites (`./run_tests.sh`), stdlib-only, hermetic.
-- Future: R1 = kotodama fleet-cell binding + ameno member-signing runtime for the drainer;
-  R2 = live perception membrane (G8 Council gate) + Murakumo live narration on fleet nodes.
+- 90 tests across 9 standalone suites (`./run_tests.sh`), stdlib-only, hermetic.
+- Future: R2 = ameno member-signing runtime for the drainer + live perception membrane
+  (G8 Council gate) + Murakumo live narration on fleet nodes + cron-cell deploy (G8).

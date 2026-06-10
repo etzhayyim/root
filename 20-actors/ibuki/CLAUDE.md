@@ -1,6 +1,6 @@
 # ibuki (息吹) — organism autonomy R2 gap-closure substrate
 
-**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0 · **ADR**: 2606101200
+**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1 · **ADR**: 2606101200
 
 **Read the root `/CLAUDE.md` Charter + substrate rules first.** ibuki-specific invariants below
 OVERRIDE nothing in the Charter; they make it concrete for this package.
@@ -47,14 +47,20 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 8 suites (78 tests), hermetic
+./run_tests.sh                                  # all 9 suites (90 tests), hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
                                                 # prints per-organism mood as-of tx 1 vs head
+cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh
+                                                # R1: FULL 18,342-organism fleet sweep on one
+                                                # verified chain (~35 s; jacob/joseph/issachar/
+                                                # dan sharding mirrors fleet_cell_main)
 ```
 
-Generated artifacts (`data/ibuki.datoms.kotoba.edn`, `data/organism-posts.queue.ndjson`) are
-gitignored — the committed seed is `data/seed-organisms.kotoba.edn` (3 `:representative`
-UNSPSC organisms; the 18,342-code fleet binds at R1).
+Generated artifacts (`data/ibuki*.datoms.kotoba.edn`, `data/*posts.queue.ndjson`) are
+gitignored — the committed seed is `data/seed-organisms.kotoba.edn`; the R1 fleet universe is
+the committed monorepo registry `00-contracts/actor-registry/unispsc.json` (18,342 agents).
+R1 sweep state is durable: `:fleet.shard/cursor` (round-robin) + `:fleet.shard/drain-line`
+(each queue line prepared EXACTLY once) are datoms, so a mid-sweep crash resumes losslessly.
 
 ## Do not
 
@@ -62,8 +68,9 @@ UNSPSC organisms; the 18,342-code fleet binds at R1).
   `assert_murakumo` — G6.
 - Do not give `drainer.py` a network path, a credential read, or a default signer — G7. The
   member's runtime is INJECTED, never embedded.
-- Do not make `:published` writable, or wire `autorun.py` / perception to live external I/O —
-  G8 (Council gate).
+- Do not make `:published` writable, or wire `autorun.py` / `fleet.py` / perception to live
+  external I/O — G8 (Council gate). `cells/fleet_beat/cell.py` `.solve()` raises at R1; do
+  not wire it to a live cron trigger.
 - Do not introduce a retraction op or mutate an existing log line — append-only (非終末論).
 - Do not add a wall-clock call (`time.time`, `datetime.now`) to any method — determinism +
   crash-resume depend on logical time.
