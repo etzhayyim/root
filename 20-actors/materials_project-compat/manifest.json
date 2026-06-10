@@ -11,15 +11,46 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqfuuqikbf5h7ruvu7kwxtq3fh4kub6gsgjrnkdb2nw7hgqy2ggy",
   "schema": "schema/materials_project.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.materialsproject.org/openapi.json",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "SummaryDoc",
+      "MaterialsDoc",
+      "ThermoDoc",
+      "CoreTaskDoc",
+      "ElectronicStructureDoc",
+      "MagnetismDoc"
+    ],
+    "enums": {
+      "SummaryDoc": {
+        "ordering": [
+          "FM",
+          "AFM",
+          "FiM",
+          "NM",
+          "Unknown"
+        ]
+      },
+      "MagnetismDoc": {
+        "ordering": [
+          "FM",
+          "AFM",
+          "FiM",
+          "NM",
+          "Unknown"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Substance",
-    "Compound",
-    "Structure",
-    "Material",
-    "Standard",
-    "Property"
+    "SummaryDoc",
+    "MaterialsDoc",
+    "ThermoDoc",
+    "CoreTaskDoc",
+    "ElectronicStructureDoc",
+    "MagnetismDoc"
   ],
   "adr": [
     "260607",
@@ -35,160 +66,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/substances",
-          "op": "create Substance"
+          "path": "/v1/summarydocs",
+          "op": "create SummaryDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/substances",
-          "op": "list Substance"
+          "path": "/v1/summarydocs",
+          "op": "list SummaryDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/substances/{id}",
-          "op": "get Substance"
+          "path": "/v1/summarydocs/{id}",
+          "op": "get SummaryDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/substances/{id}",
-          "op": "update Substance"
+          "path": "/v1/summarydocs/{id}",
+          "op": "update SummaryDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/substances/{id}",
-          "op": "delete Substance"
+          "path": "/v1/summarydocs/{id}",
+          "op": "delete SummaryDoc"
         },
         {
           "method": "POST",
-          "path": "/v1/compounds",
-          "op": "create Compound"
+          "path": "/v1/materialsdocs",
+          "op": "create MaterialsDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/compounds",
-          "op": "list Compound"
+          "path": "/v1/materialsdocs",
+          "op": "list MaterialsDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/compounds/{id}",
-          "op": "get Compound"
+          "path": "/v1/materialsdocs/{id}",
+          "op": "get MaterialsDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/compounds/{id}",
-          "op": "update Compound"
+          "path": "/v1/materialsdocs/{id}",
+          "op": "update MaterialsDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/compounds/{id}",
-          "op": "delete Compound"
+          "path": "/v1/materialsdocs/{id}",
+          "op": "delete MaterialsDoc"
         },
         {
           "method": "POST",
-          "path": "/v1/structures",
-          "op": "create Structure"
+          "path": "/v1/thermodocs",
+          "op": "create ThermoDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/structures",
-          "op": "list Structure"
+          "path": "/v1/thermodocs",
+          "op": "list ThermoDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/structures/{id}",
-          "op": "get Structure"
+          "path": "/v1/thermodocs/{id}",
+          "op": "get ThermoDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/structures/{id}",
-          "op": "update Structure"
+          "path": "/v1/thermodocs/{id}",
+          "op": "update ThermoDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/structures/{id}",
-          "op": "delete Structure"
+          "path": "/v1/thermodocs/{id}",
+          "op": "delete ThermoDoc"
         },
         {
           "method": "POST",
-          "path": "/v1/materials",
-          "op": "create Material"
+          "path": "/v1/coretaskdocs",
+          "op": "create CoreTaskDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/materials",
-          "op": "list Material"
+          "path": "/v1/coretaskdocs",
+          "op": "list CoreTaskDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/materials/{id}",
-          "op": "get Material"
+          "path": "/v1/coretaskdocs/{id}",
+          "op": "get CoreTaskDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/materials/{id}",
-          "op": "update Material"
+          "path": "/v1/coretaskdocs/{id}",
+          "op": "update CoreTaskDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/materials/{id}",
-          "op": "delete Material"
+          "path": "/v1/coretaskdocs/{id}",
+          "op": "delete CoreTaskDoc"
         },
         {
           "method": "POST",
-          "path": "/v1/standards",
-          "op": "create Standard"
+          "path": "/v1/electronicstructuredocs",
+          "op": "create ElectronicStructureDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/standards",
-          "op": "list Standard"
+          "path": "/v1/electronicstructuredocs",
+          "op": "list ElectronicStructureDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/standards/{id}",
-          "op": "get Standard"
+          "path": "/v1/electronicstructuredocs/{id}",
+          "op": "get ElectronicStructureDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/standards/{id}",
-          "op": "update Standard"
+          "path": "/v1/electronicstructuredocs/{id}",
+          "op": "update ElectronicStructureDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/standards/{id}",
-          "op": "delete Standard"
+          "path": "/v1/electronicstructuredocs/{id}",
+          "op": "delete ElectronicStructureDoc"
         },
         {
           "method": "POST",
-          "path": "/v1/properties",
-          "op": "create Property"
+          "path": "/v1/magnetismdocs",
+          "op": "create MagnetismDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/properties",
-          "op": "list Property"
+          "path": "/v1/magnetismdocs",
+          "op": "list MagnetismDoc"
         },
         {
           "method": "GET",
-          "path": "/v1/properties/{id}",
-          "op": "get Property"
+          "path": "/v1/magnetismdocs/{id}",
+          "op": "get MagnetismDoc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/properties/{id}",
-          "op": "update Property"
+          "path": "/v1/magnetismdocs/{id}",
+          "op": "update MagnetismDoc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/properties/{id}",
-          "op": "delete Property"
+          "path": "/v1/magnetismdocs/{id}",
+          "op": "delete MagnetismDoc"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,41 +278,101 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_substance",
-          "description": "Create a Substance.",
+          "name": "create_summary_doc",
+          "description": "Create a SummaryDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "casNumber": {
+              "material_id": {
                 "type": "string"
               },
-              "name": {
+              "formula_pretty": {
                 "type": "string"
               },
-              "formula": {
+              "formula_anonymous": {
                 "type": "string"
               },
-              "molarMass": {
+              "chemsys": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "number"
+              },
+              "density": {
+                "type": "number"
+              },
+              "density_atomic": {
+                "type": "number"
+              },
+              "nsites": {
+                "type": "integer"
+              },
+              "nelements": {
+                "type": "integer"
+              },
+              "theoretical": {
+                "type": "boolean"
+              },
+              "deprecated": {
+                "type": "boolean"
+              },
+              "is_stable": {
+                "type": "boolean"
+              },
+              "is_magnetic": {
+                "type": "boolean"
+              },
+              "is_metal": {
+                "type": "boolean"
+              },
+              "is_gap_direct": {
+                "type": "boolean"
+              },
+              "band_gap": {
+                "type": "number"
+              },
+              "efermi": {
+                "type": "number"
+              },
+              "formation_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_above_hull": {
+                "type": "number"
+              },
+              "uncorrected_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_per_atom": {
+                "type": "number"
+              },
+              "equilibrium_reaction_energy_per_atom": {
+                "type": "number"
+              },
+              "total_magnetization": {
+                "type": "number"
+              },
+              "total_magnetization_normalized_vol": {
                 "type": "number"
               }
             },
             "required": [
-              "casNumber",
-              "name"
+              "material_id",
+              "formula_pretty"
             ]
           }
         },
         {
-          "name": "list_substances",
-          "description": "List Substances.",
+          "name": "list_summary_docs",
+          "description": "List SummaryDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_substance",
-          "description": "Get a Substance by id.",
+          "name": "get_summary_doc",
+          "description": "Get a SummaryDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +386,84 @@
           }
         },
         {
-          "name": "update_substance",
-          "description": "Update a Substance.",
+          "name": "update_summary_doc",
+          "description": "Update a SummaryDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "casNumber": {
+              "material_id": {
                 "type": "string"
               },
-              "name": {
+              "formula_pretty": {
                 "type": "string"
               },
-              "formula": {
+              "formula_anonymous": {
                 "type": "string"
               },
-              "molarMass": {
+              "chemsys": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "number"
+              },
+              "density": {
+                "type": "number"
+              },
+              "density_atomic": {
+                "type": "number"
+              },
+              "nsites": {
+                "type": "integer"
+              },
+              "nelements": {
+                "type": "integer"
+              },
+              "theoretical": {
+                "type": "boolean"
+              },
+              "deprecated": {
+                "type": "boolean"
+              },
+              "is_stable": {
+                "type": "boolean"
+              },
+              "is_magnetic": {
+                "type": "boolean"
+              },
+              "is_metal": {
+                "type": "boolean"
+              },
+              "is_gap_direct": {
+                "type": "boolean"
+              },
+              "band_gap": {
+                "type": "number"
+              },
+              "efermi": {
+                "type": "number"
+              },
+              "formation_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_above_hull": {
+                "type": "number"
+              },
+              "uncorrected_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_per_atom": {
+                "type": "number"
+              },
+              "equilibrium_reaction_energy_per_atom": {
+                "type": "number"
+              },
+              "total_magnetization": {
+                "type": "number"
+              },
+              "total_magnetization_normalized_vol": {
                 "type": "number"
               }
             },
@@ -322,8 +473,8 @@
           }
         },
         {
-          "name": "delete_substance",
-          "description": "Delete a Substance.",
+          "name": "delete_summary_doc",
+          "description": "Delete a SummaryDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,38 +488,59 @@
           }
         },
         {
-          "name": "create_compound",
-          "description": "Create a Compound.",
+          "name": "create_materials_doc",
+          "description": "Create a MaterialsDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "inchiKey": {
+              "material_id": {
                 "type": "string"
               },
-              "smiles": {
+              "formula_pretty": {
                 "type": "string"
               },
-              "name": {
+              "formula_anonymous": {
+                "type": "string"
+              },
+              "chemsys": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "number"
+              },
+              "density": {
+                "type": "number"
+              },
+              "density_atomic": {
+                "type": "number"
+              },
+              "nsites": {
+                "type": "integer"
+              },
+              "nelements": {
+                "type": "integer"
+              },
+              "last_updated": {
                 "type": "string"
               }
             },
             "required": [
-              "inchiKey",
-              "smiles"
+              "material_id",
+              "formula_pretty"
             ]
           }
         },
         {
-          "name": "list_compounds",
-          "description": "List Compounds.",
+          "name": "list_materials_docs",
+          "description": "List MaterialsDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_compound",
-          "description": "Get a Compound by id.",
+          "name": "get_materials_doc",
+          "description": "Get a MaterialsDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,21 +554,42 @@
           }
         },
         {
-          "name": "update_compound",
-          "description": "Update a Compound.",
+          "name": "update_materials_doc",
+          "description": "Update a MaterialsDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "inchiKey": {
+              "material_id": {
                 "type": "string"
               },
-              "smiles": {
+              "formula_pretty": {
                 "type": "string"
               },
-              "name": {
+              "formula_anonymous": {
+                "type": "string"
+              },
+              "chemsys": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "number"
+              },
+              "density": {
+                "type": "number"
+              },
+              "density_atomic": {
+                "type": "number"
+              },
+              "nsites": {
+                "type": "integer"
+              },
+              "nelements": {
+                "type": "integer"
+              },
+              "last_updated": {
                 "type": "string"
               }
             },
@@ -406,8 +599,8 @@
           }
         },
         {
-          "name": "delete_compound",
-          "description": "Delete a Compound.",
+          "name": "delete_materials_doc",
+          "description": "Delete a MaterialsDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,41 +614,59 @@
           }
         },
         {
-          "name": "create_structure",
-          "description": "Create a Structure.",
+          "name": "create_thermo_doc",
+          "description": "Create a ThermoDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pdbId": {
+              "material_id": {
                 "type": "string"
               },
-              "title": {
+              "thermo_type": {
                 "type": "string"
               },
-              "method": {
+              "energy_type": {
                 "type": "string"
               },
-              "resolution": {
+              "uncorrected_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_per_atom": {
+                "type": "number"
+              },
+              "formation_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_above_hull": {
+                "type": "number"
+              },
+              "is_stable": {
+                "type": "boolean"
+              },
+              "equilibrium_reaction_energy_per_atom": {
+                "type": "number"
+              },
+              "decomposition_enthalpy": {
                 "type": "number"
               }
             },
             "required": [
-              "title",
-              "method"
+              "material_id",
+              "thermo_type"
             ]
           }
         },
         {
-          "name": "list_structures",
-          "description": "List Structures.",
+          "name": "list_thermo_docs",
+          "description": "List ThermoDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_structure",
-          "description": "Get a Structure by id.",
+          "name": "get_thermo_doc",
+          "description": "Get a ThermoDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -469,24 +680,42 @@
           }
         },
         {
-          "name": "update_structure",
-          "description": "Update a Structure.",
+          "name": "update_thermo_doc",
+          "description": "Update a ThermoDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "pdbId": {
+              "material_id": {
                 "type": "string"
               },
-              "title": {
+              "thermo_type": {
                 "type": "string"
               },
-              "method": {
+              "energy_type": {
                 "type": "string"
               },
-              "resolution": {
+              "uncorrected_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_per_atom": {
+                "type": "number"
+              },
+              "formation_energy_per_atom": {
+                "type": "number"
+              },
+              "energy_above_hull": {
+                "type": "number"
+              },
+              "is_stable": {
+                "type": "boolean"
+              },
+              "equilibrium_reaction_energy_per_atom": {
+                "type": "number"
+              },
+              "decomposition_enthalpy": {
                 "type": "number"
               }
             },
@@ -496,8 +725,8 @@
           }
         },
         {
-          "name": "delete_structure",
-          "description": "Delete a Structure.",
+          "name": "delete_thermo_doc",
+          "description": "Delete a ThermoDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,38 +740,59 @@
           }
         },
         {
-          "name": "create_material",
-          "description": "Create a Material.",
+          "name": "create_core_task_doc",
+          "description": "Create a CoreTaskDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "materialId": {
+              "task_id": {
                 "type": "string"
               },
-              "formula": {
+              "task_type": {
                 "type": "string"
               },
-              "bandGap": {
-                "type": "number"
+              "run_type": {
+                "type": "string"
+              },
+              "calc_type": {
+                "type": "string"
+              },
+              "batch_id": {
+                "type": "string"
+              },
+              "dir_name": {
+                "type": "string"
+              },
+              "vasp_version": {
+                "type": "string"
+              },
+              "completed_at": {
+                "type": "string"
+              },
+              "last_updated": {
+                "type": "string"
+              },
+              "nsites": {
+                "type": "integer"
               }
             },
             "required": [
-              "formula",
-              "bandGap"
+              "task_id",
+              "task_type"
             ]
           }
         },
         {
-          "name": "list_materials",
-          "description": "List Materials.",
+          "name": "list_core_task_docs",
+          "description": "List CoreTaskDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_material",
-          "description": "Get a Material by id.",
+          "name": "get_core_task_doc",
+          "description": "Get a CoreTaskDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,77 +806,113 @@
           }
         },
         {
-          "name": "update_material",
-          "description": "Update a Material.",
+          "name": "update_core_task_doc",
+          "description": "Update a CoreTaskDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "materialId": {
+              "task_id": {
                 "type": "string"
               },
-              "formula": {
+              "task_type": {
                 "type": "string"
               },
-              "bandGap": {
+              "run_type": {
+                "type": "string"
+              },
+              "calc_type": {
+                "type": "string"
+              },
+              "batch_id": {
+                "type": "string"
+              },
+              "dir_name": {
+                "type": "string"
+              },
+              "vasp_version": {
+                "type": "string"
+              },
+              "completed_at": {
+                "type": "string"
+              },
+              "last_updated": {
+                "type": "string"
+              },
+              "nsites": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_core_task_doc",
+          "description": "Delete a CoreTaskDoc.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_electronic_structure_doc",
+          "description": "Create a ElectronicStructureDoc.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "material_id": {
+                "type": "string"
+              },
+              "band_gap": {
                 "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_material",
-          "description": "Delete a Material.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_standard",
-          "description": "Create a Standard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "designation": {
-                "type": "string"
               },
-              "title": {
-                "type": "string"
+              "cbm": {
+                "type": "number"
               },
-              "organization": {
+              "vbm": {
+                "type": "number"
+              },
+              "efermi": {
+                "type": "number"
+              },
+              "is_gap_direct": {
+                "type": "boolean"
+              },
+              "is_metal": {
+                "type": "boolean"
+              },
+              "magnetic_ordering": {
                 "type": "string"
               }
             },
             "required": [
-              "designation",
-              "title"
+              "material_id",
+              "band_gap"
             ]
           }
         },
         {
-          "name": "list_standards",
-          "description": "List Standards.",
+          "name": "list_electronic_structure_docs",
+          "description": "List ElectronicStructureDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_standard",
-          "description": "Get a Standard by id.",
+          "name": "get_electronic_structure_doc",
+          "description": "Get a ElectronicStructureDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,80 +926,110 @@
           }
         },
         {
-          "name": "update_standard",
-          "description": "Update a Standard.",
+          "name": "update_electronic_structure_doc",
+          "description": "Update a ElectronicStructureDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "designation": {
+              "material_id": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
-              },
-              "organization": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_standard",
-          "description": "Delete a Standard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_property",
-          "description": "Create a Property.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "substanceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
+              "band_gap": {
                 "type": "number"
               },
-              "unit": {
+              "cbm": {
+                "type": "number"
+              },
+              "vbm": {
+                "type": "number"
+              },
+              "efermi": {
+                "type": "number"
+              },
+              "is_gap_direct": {
+                "type": "boolean"
+              },
+              "is_metal": {
+                "type": "boolean"
+              },
+              "magnetic_ordering": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "value"
+              "id"
             ]
           }
         },
         {
-          "name": "list_properties",
-          "description": "List Properties.",
+          "name": "delete_electronic_structure_doc",
+          "description": "Delete a ElectronicStructureDoc.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_magnetism_doc",
+          "description": "Create a MagnetismDoc.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "material_id": {
+                "type": "string"
+              },
+              "ordering": {
+                "type": "string"
+              },
+              "is_magnetic": {
+                "type": "boolean"
+              },
+              "total_magnetization": {
+                "type": "number"
+              },
+              "total_magnetization_normalized_vol": {
+                "type": "number"
+              },
+              "total_magnetization_normalized_formula_units": {
+                "type": "number"
+              },
+              "num_magnetic_sites": {
+                "type": "integer"
+              },
+              "num_unique_magnetic_sites": {
+                "type": "integer"
+              },
+              "exchange_symmetry": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "material_id",
+              "ordering"
+            ]
+          }
+        },
+        {
+          "name": "list_magnetism_docs",
+          "description": "List MagnetismDocs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_property",
-          "description": "Get a Property by id.",
+          "name": "get_magnetism_doc",
+          "description": "Get a MagnetismDoc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -727,25 +1043,40 @@
           }
         },
         {
-          "name": "update_property",
-          "description": "Update a Property.",
+          "name": "update_magnetism_doc",
+          "description": "Update a MagnetismDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "substanceId": {
+              "material_id": {
                 "type": "string"
               },
-              "name": {
+              "ordering": {
                 "type": "string"
               },
-              "value": {
+              "is_magnetic": {
+                "type": "boolean"
+              },
+              "total_magnetization": {
                 "type": "number"
               },
-              "unit": {
-                "type": "string"
+              "total_magnetization_normalized_vol": {
+                "type": "number"
+              },
+              "total_magnetization_normalized_formula_units": {
+                "type": "number"
+              },
+              "num_magnetic_sites": {
+                "type": "integer"
+              },
+              "num_unique_magnetic_sites": {
+                "type": "integer"
+              },
+              "exchange_symmetry": {
+                "type": "integer"
               }
             },
             "required": [
@@ -754,8 +1085,8 @@
           }
         },
         {
-          "name": "delete_property",
-          "description": "Delete a Property.",
+          "name": "delete_magnetism_doc",
+          "description": "Delete a MagnetismDoc.",
           "inputSchema": {
             "type": "object",
             "properties": {

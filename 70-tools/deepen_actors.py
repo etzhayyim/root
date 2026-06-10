@@ -1044,6 +1044,78 @@ PLATFORM_OVERRIDES = {
         "Alias": E(alias="string", deploymentId="string", projectId="string", redirectStatusCode="integer"),
         "Team": E(name="string", slug="string", description="string"),
     },
+    # Faithful Benchling (synthetic-biology R&D cloud) model — doc-verified vs benchling.com/api/v2/openapi.yaml
+    "benchling": {
+        "CustomEntity": E(apiURL="string", entityRegistryId="string", folderId="string", modifiedAt="datetime", name="string", registryId="string", url="string", webURL="string"),
+        "DnaSequence": E(apiURL="string", bases="string", entityRegistryId="string", folderId="string", isCircular="boolean", length="integer", modifiedAt="datetime", name="string", registryId="string", url="string", webURL="string"),
+        "Entry": E(apiURL="string", displayId="string", entryTemplateId="string", folderId="string", modifiedAt="string", name="string", webURL="string"),
+        "Folder": E(name="string", parentFolderId="string", projectId="string"),
+        "Project": E(name="string"),
+        "Request": E(apiURL="string", displayId="string", projectId="string", requestStatus="string", scheduledOn="datetime", webURL="string"),
+    },
+    # Faithful Autodesk Platform Services (APS Data Management) model — doc-verified vs aps.autodesk.com
+    "autodesk": {
+        "Hub": E(name="string", region="string"),
+        "Project": E(name="string"),
+        "Folder": E(name="string", displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", lastModifiedTimeRollup="datetime", objectCount="integer", hidden="boolean"),
+        "Item": E(displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", hidden="boolean", reserved="boolean", reservedTime="datetime", reservedUserId="string", reservedUserName="string"),
+        "Version": E(name="string", displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", versionNumber="integer", storageSize="integer", fileType="string"),
+        "Command": E(status="string"),
+    },
+    # Faithful Universal Robots model (RTDE + Dashboard Server) — doc-verified vs universal-robots.com interface docs
+    "universal_robots": {
+        "RtdeRobotState": E(timestamp="float", robot_mode="integer", robot_status_bits="integer", safety_mode="integer", safety_status_bits="integer", actual_main_voltage="float", actual_robot_voltage="float", actual_robot_current="float"),
+        "RtdeExecutionState": E(runtime_state="integer", actual_execution_time="float", speed_scaling="float", target_speed_fraction="float"),
+        "RtdeToolState": E(tool_mode="integer", tool_output_voltage="integer", tool_output_current="float", tool_temperature="float"),
+        "DashboardRobotState": E(robotmode="string", safetystatus="string", running="boolean"),
+        "DashboardProgram": E(programName="string", state="string"),
+        "DashboardInstallation": E(installationName="string"),
+    },
+    # Faithful Materials Project model — doc-verified vs api.materialsproject.org/openapi.json
+    "materials_project": {
+        "SummaryDoc": E(material_id="string", formula_pretty="string", formula_anonymous="string", chemsys="string", volume="float", density="float", density_atomic="float", nsites="integer", nelements="integer", theoretical="boolean", deprecated="boolean", is_stable="boolean", is_magnetic="boolean", is_metal="boolean", is_gap_direct="boolean", band_gap="float", efermi="float", formation_energy_per_atom="float", energy_above_hull="float", uncorrected_energy_per_atom="float", energy_per_atom="float", equilibrium_reaction_energy_per_atom="float", total_magnetization="float", total_magnetization_normalized_vol="float"),
+        "MaterialsDoc": E(material_id="string", formula_pretty="string", formula_anonymous="string", chemsys="string", volume="float", density="float", density_atomic="float", nsites="integer", nelements="integer", last_updated="datetime"),
+        "ThermoDoc": E(material_id="string", thermo_type="string", energy_type="string", uncorrected_energy_per_atom="float", energy_per_atom="float", formation_energy_per_atom="float", energy_above_hull="float", is_stable="boolean", equilibrium_reaction_energy_per_atom="float", decomposition_enthalpy="float"),
+        "CoreTaskDoc": E(task_id="string", task_type="string", run_type="string", calc_type="string", batch_id="string", dir_name="string", vasp_version="string", completed_at="datetime", last_updated="datetime", nsites="integer"),
+        "ElectronicStructureDoc": E(material_id="string", band_gap="float", cbm="float", vbm="float", efermi="float", is_gap_direct="boolean", is_metal="boolean", magnetic_ordering="string"),
+        "MagnetismDoc": E(material_id="string", ordering="string", is_magnetic="boolean", total_magnetization="float", total_magnetization_normalized_vol="float", total_magnetization_normalized_formula_units="float", num_magnetic_sites="integer", num_unique_magnetic_sites="integer", exchange_symmetry="integer"),
+    },
+    # Faithful athenahealth (cloud EHR) model — doc-verified vs docs.athenahealth.com/api (API-shape only, no PHI)
+    "athenahealth": {
+        "Patient": E(homeboundyn="boolean", assignedsexatbirth="string", altfirstname="string", ethnicitycode="string", industrycode="integer", language6392code="string", localpatientid="string", deceaseddate="string", firstappointment="string", primaryproviderid="integer", genderidentityother="string", preferredpronouns="string", lastappointment="string", donotcallyn="boolean", primarydepartmentid="integer", status="string", lastemail="string", racecode="string", sexualorientation="string", genderidentity="string", emailexistsyn="boolean", occupationcode="integer", sexualorientationother="string", patientid="integer"),
+        "Appointment": E(reasonid="integer", appointmentstatus="string", cancelleddatetime="string", chargeentrynotrequired="boolean", hl7providerid="integer", cancelreasonname="string", chargeentrynotrequiredreason="string", lastmodified="string", departmentid="integer", checkoutdatetime="string", copay="string", encounterid="string", scheduledby="string", checkindatetime="string", cancelledby="string", stopintakedatetime="string", encounterstatus="string", frozenyn="boolean", appointmenttype="string", appointmenttypeid="integer", cancelreasonid="integer", cancelreasonnoshow="boolean", cancelreasonslotavailable="boolean", coordinatorenterpriseyn="boolean"),
+        "Encounter": E(encounterid="integer", appointmentid="integer", departmentid="integer", encountervisitname="string", encountertype="string", status="string", patientlocationid="integer", patientlocation="string", patientstatusid="integer", patientstatus="string", encounterdate="string", stage="string", providerid="integer", providerfirstname="string", providerlastname="string", providerphone="string", lastupdated="string"),
+        "Claim": E(referringproviderid="integer", claimcreateddate="string", billedservicedate="string", billedproviderid="integer", appointmentid="integer", chargeamount="string", transactionid="integer", claimid="integer"),
+        "Provider": E(billable="boolean", ansispecialtycode="string", firstname="string", entitytype="string", otherprovideridlist="string", ansinamecode="string", displayname="string", homedepartment="string", providerid="integer", providertypeid="string", providerusername="string", supervisingproviderid="integer", providertype="string", createencounterprovideridlist="string", schedulingname="string", usualdepartmentid="string", createencounteroncheckinyn="boolean", specialty="string", hideinportalyn="boolean", lastname="string", npi="integer", providergrouplist="string", federalidnumber="string", supervisingproviderusername="string"),
+        "Department": E(timezoneoffset="integer", singleappointmentcontractmax="string", state="string", placeofservicefacility="boolean", latitude="string", departmentid="integer", address="string", placeofservicetypeid="string", longitude="string", clinicals="string", timezone="integer", name="string", patientdepartmentname="string", chartsharinggroupid="string", placeofservicetypename="string", zip="string", timezonename="string", communicatorbrandid="string", medicationhistoryconsent="boolean", ishospitaldepartment="boolean", providergroupid="string", portalurl="string", city="string", servicedepartment="boolean"),
+    },
+    # Faithful Epic on FHIR R4 model — doc-verified vs fhir.epic.com (API-shape only, no PHI)
+    "epic-systems": {
+        "Patient": E(resourceType="string", implicitRules="string", language="string", active="boolean", gender="string", birthDate="string", deceasedBoolean="boolean", deceasedDateTime="string", multipleBirthBoolean="boolean", multipleBirthInteger="integer"),
+        "Observation": E(resourceType="string", implicitRules="string", language="string", status="string", issued="string"),
+        "Encounter": E(resourceType="string", implicitRules="string", language="string", status="string"),
+        "Condition": E(resourceType="string", implicitRules="string", language="string", recordedDate="string"),
+        "MedicationRequest": E(resourceType="string", implicitRules="string", language="string", status="string", intent="string", priority="string", doNotPerform="boolean", reportedBoolean="boolean", authoredOn="string", instantiatesUri="string"),
+        "Procedure": E(resourceType="string", implicitRules="string", language="string", instantiatesUri="string", status="string"),
+    },
+    # Faithful Oracle Health/Cerner Millennium FHIR R4 model — doc-verified vs fhir.cerner.com/millennium/r4 (API-shape only, no PHI)
+    "cerner": {
+        "Patient": E(active="boolean", gender="string", birthDate="datetime", deceasedBoolean="boolean", deceasedDateTime="datetime", multipleBirthBoolean="boolean", multipleBirthInteger="integer"),
+        "Observation": E(status="string", effectiveDateTime="datetime", effectiveInstant="datetime", issued="datetime", valueString="string", valueBoolean="boolean", valueInteger="integer", valueDateTime="datetime"),
+        "Encounter": E(status="string"),
+        "Condition": E(recordedDate="datetime", onsetDateTime="datetime", abatementDateTime="datetime"),
+        "MedicationRequest": E(status="string", intent="string", priority="string", doNotPerform="boolean", reportedBoolean="boolean", authoredOn="datetime"),
+        "AllergyIntolerance": E(type="string", criticality="string", recordedDate="datetime", onsetDateTime="datetime", lastOccurrence="datetime"),
+    },
+    # Faithful Bentley iTwin Platform model — doc-verified vs developer.bentley.com/apis
+    "bentley": {
+        "iModel": E(name="string", description="string", iTwinId="string", state="string", createdDateTime="datetime", dataCenterLocation="string", initialized="boolean", displayName="string"),
+        "iTwin": E(subClass="string", type="string", status="string", displayName="string", number="string", iTwinAccountId="string"),
+        "Changeset": E(index="integer", displayName="string", description="string", parentId="string", pushDateTime="datetime", creatorId="string", briefcaseId="integer", changesetGroupId="string", fileSize="integer", state="string"),
+        "NamedVersion": E(displayName="string", changesetId="string", changesetIndex="integer", name="string", description="string", createdDateTime="datetime", state="string"),
+        "Connection": E(displayName="string", description="string", iModelId="string", iTwinId="string", connectorName="string", authenticationType="string"),
+        "Job": E(status="string", progress="integer", createdDateTime="datetime", lastModifiedDateTime="datetime", iModelId="string", iTwinId="string", testId="string", changesetId="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),
