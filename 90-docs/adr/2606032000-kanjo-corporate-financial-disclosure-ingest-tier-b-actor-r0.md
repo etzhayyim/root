@@ -145,6 +145,18 @@ terminal data · N4 NOT fraud/solvency adjudication (state/court matter) · N5 N
 予想 · N6 NOT real-time quotes / valuation · N7 NOT private-company financials · N8 NOT tax/accounting
 advice.
 
+## First live EDGAR ingest (R1 first leg — 2026-06-10, PR #1533, recorded in ADR-2606101540)
+
+The G7 gate was flipped by **explicit operator instruction** for the first time: 12 real EDGAR
+filers (Apple / Microsoft / NVIDIA / Amazon / Alphabet / Meta / Berkshire / Broadcom / Tesla /
+Intel / AMD / Micron) ingested via the documented offline-bridge workflow (companyfacts JSON →
+`data/ingest/` (gitignored) → offline merge). Result, committed as `data/facts.merged.kotoba.edn`:
+**183 filings / 2,484 facts (2,462 `:authoritative`) / 15 companies → 1,631 `:synthesized` metrics
++ 88 aggregates**; `EDGAR_CIK_TO_ORG` extended 2→12 preserving kabuto `org.corp.*` linkage; the
+autorun heartbeat weaves the live graph (+~40k datoms/cycle, chain OK); 1,744 autorun tests green.
+This is the cohort's first `:authoritative` live capture. EDINET live fetch, the full
+EDINET/EDGAR-universe parse, and any live-node push remain Council + operator gated (G7 unchanged).
+
 # Consequences
 
 ## Positive

@@ -333,6 +333,32 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2605302300"],
   },
+  shionome: {
+    description:
+      "潮目 — cross-asset capital-flow observatory. Weaves observed capital rotation (どこからどこへ) + the :outstanding-usd money-and-markets stock pyramid into the kotoba Datom flow-graph; aggregate-first, edge-primary, observational MIRROR — トレードはしない (no buy/sell signal, price target, or per-asset rating; structurally unrepresentable, G2/G4). Per ADR-2606072200 + 2606101540.",
+    glyph: "潮目",
+    displayName: "Shionome — Cross-Asset Capital-Flow Observatory",
+    primaryLexicon: "com.etzhayyim.shionome",
+    primarySchema: "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
+    // Content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+    // Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
+    // / donated mesh (ADR-2606015200). The componentize-py 18.5MB component remains the
+    // separate T2 dag-pb artifact.
+    wasmCid: "bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:shionome#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072200", "2606101540"],
+  },
   kyber: {
     description:
       "Kyber — open-kyber ERP as a content-addressed kotoba WASM actor. The ERP business logic (accounting GL / AP-AR / inventory / the kotoba-native productivity suite) compiled to a `kotoba-node` WASM component that the kotoba host / e7m-wasm-runner stores on IPFS (by CID) and runs, writing canonical ERP state straight into the kotoba Datom log via the `kqe` host import — no Cloudflare Worker, no XRPC→PDS hop. Multi-command dispatch over `run(ctx_cbor)`. R3 PoC (kyber-erp-core: createAccount / seedChartOfAccounts / createJournalEntry double-entry-validated + best-effort trial-balance/coverage reads); full 28-command port per WORKER-AS-WASM-ACTOR-MIGRATION.md. Per ADR-2606037200.",

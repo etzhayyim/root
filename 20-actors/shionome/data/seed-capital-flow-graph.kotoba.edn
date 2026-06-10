@@ -42,7 +42,27 @@
   {:bucket/id "sector-energy" :bucket/scope :sector :bucket/label "Energy sector" :bucket/asset-class "equities" :bucket/region "us" :bucket/risk :risk
    :bucket/sourcing :representative :bucket/sources ["https://www.eia.gov/" "https://www.sec.gov/"]}
   {:bucket/id "theme-ai" :bucket/scope :theme :bucket/label "AI theme" :bucket/asset-class "equities" :bucket/region "global" :bucket/risk :risk
-   :bucket/sourcing :representative :bucket/sources ["https://www.sec.gov/" "https://www.bls.gov/"]}]
+   :bucket/sourcing :representative :bucket/sources ["https://www.sec.gov/" "https://www.bls.gov/"]}
+  ;; global money-pyramid layers (each carries an :outstanding-usd stock snapshot below) —
+  ;; the "how big is everything" view (Visual Capitalist money & markets). Distinct asset-class
+  ;; per layer so stock_pyramid sizes each one against the grand total; these are STOCK buckets
+  ;; (sizes), not flow nodes — no flows reference them. :representative rounded public figures.
+  {:bucket/id "global-coins-banknotes" :bucket/scope :asset-class :bucket/label "Physical currency (coins & banknotes)" :bucket/asset-class "cash" :bucket/region "global" :bucket/risk :safe
+   :bucket/sourcing :representative :bucket/sources ["https://www.bis.org/statistics/" "https://www.imf.org/en/Data"]}
+  {:bucket/id "global-broad-money" :bucket/scope :asset-class :bucket/label "Broad money (M2-equivalent)" :bucket/asset-class "broad-money" :bucket/region "global" :bucket/risk :safe
+   :bucket/sourcing :representative :bucket/sources ["https://data.worldbank.org/indicator/FM.LBL.BMNY.CN" "https://www.imf.org/en/Data"]}
+  {:bucket/id "global-equities" :bucket/scope :asset-class :bucket/label "Global stock markets" :bucket/asset-class "equities" :bucket/region "global" :bucket/risk :risk
+   :bucket/sourcing :representative :bucket/sources ["https://www.world-exchanges.org/" "https://www.sifma.org/resources/research/"]}
+  {:bucket/id "global-debt" :bucket/scope :asset-class :bucket/label "Global debt securities (bond markets)" :bucket/asset-class "debt" :bucket/region "global" :bucket/risk :neutral
+   :bucket/sourcing :representative :bucket/sources ["https://www.bis.org/statistics/secstats.htm" "https://www.sifma.org/resources/research/"]}
+  {:bucket/id "global-real-estate" :bucket/scope :asset-class :bucket/label "Global real estate" :bucket/asset-class "real-estate" :bucket/region "global" :bucket/risk :risk
+   :bucket/sourcing :representative :bucket/sources ["https://www.savills.com/research/" "https://data.worldbank.org/"]}
+  {:bucket/id "global-gold" :bucket/scope :asset-class :bucket/label "Gold (above-ground stock)" :bucket/asset-class "gold" :bucket/region "global" :bucket/risk :safe
+   :bucket/sourcing :representative :bucket/sources ["https://www.gold.org/goldhub/data" "https://www.lbma.org.uk/"]}
+  {:bucket/id "global-crypto" :bucket/scope :asset-class :bucket/label "Cryptocurrency" :bucket/asset-class "crypto" :bucket/region "global" :bucket/risk :risk
+   :bucket/sourcing :representative :bucket/sources ["https://www.blockchain.com/explorer" "https://www.sec.gov/"]}
+  {:bucket/id "global-derivatives" :bucket/scope :asset-class :bucket/label "Derivatives (OTC gross notional)" :bucket/asset-class "derivatives" :bucket/region "global" :bucket/risk :risk
+   :bucket/sourcing :representative :bucket/sources ["https://www.bis.org/statistics/derstats.htm" "https://www.isda.org/"]}]
 
  ;; ── flows: OBSERVED capital movements (G2 factual, ≥2 sources, no-trade-notice) ──
  ;; story: capital rotating OUT of Treasuries + cash INTO equities, crypto, and the AI
@@ -93,4 +113,24 @@
   {:snap/id "s-btc-flow" :snap/bucket "crypto-btc" :snap/metric :net-fund-flow :snap/value 5.6 :snap/as-of 20260605
    :snap/sourcing :representative :snap/sources ["https://www.blockchain.com/explorer"]}
   {:snap/id "s-credit-spread" :snap/bucket "credit-ig" :snap/metric :spread-bps :snap/value 92.0 :snap/as-of 20260605
-   :snap/sourcing :representative :snap/sources ["https://fred.stlouisfed.org/"]}]}
+   :snap/sourcing :representative :snap/sources ["https://fred.stlouisfed.org/"]}
+  ;; ── stock layer: :outstanding-usd = total SIZE per money-pyramid layer, in USD TRILLIONS ──
+  ;; FACTUAL sizes (G2 — a size, never a signal/target); :representative rounded public figures,
+  ;; NOT a live capture. stock_pyramid sizes these against the grand total. Derivatives is GROSS
+  ;; NOTIONAL (not market value) — by far the largest layer, exactly as the source basis reports.
+  {:snap/id "s-stock-coins" :snap/bucket "global-coins-banknotes" :snap/metric :outstanding-usd :snap/value 8.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.bis.org/statistics/"]}
+  {:snap/id "s-stock-broad-money" :snap/bucket "global-broad-money" :snap/metric :outstanding-usd :snap/value 121.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://data.worldbank.org/indicator/FM.LBL.BMNY.CN"]}
+  {:snap/id "s-stock-equities" :snap/bucket "global-equities" :snap/metric :outstanding-usd :snap/value 115.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.world-exchanges.org/"]}
+  {:snap/id "s-stock-debt" :snap/bucket "global-debt" :snap/metric :outstanding-usd :snap/value 140.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.bis.org/statistics/secstats.htm"]}
+  {:snap/id "s-stock-real-estate" :snap/bucket "global-real-estate" :snap/metric :outstanding-usd :snap/value 380.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.savills.com/research/"]}
+  {:snap/id "s-stock-gold" :snap/bucket "global-gold" :snap/metric :outstanding-usd :snap/value 16.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.gold.org/goldhub/data"]}
+  {:snap/id "s-stock-crypto" :snap/bucket "global-crypto" :snap/metric :outstanding-usd :snap/value 3.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.blockchain.com/explorer"]}
+  {:snap/id "s-stock-derivatives" :snap/bucket "global-derivatives" :snap/metric :outstanding-usd :snap/value 600.0 :snap/as-of 20260605
+   :snap/sourcing :representative :snap/sources ["https://www.bis.org/statistics/derstats.htm"]}]}

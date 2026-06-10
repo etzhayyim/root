@@ -41,6 +41,7 @@ export const PROVIDER_CATALOG_COLLECTION = "com.etzhayyim.apps.meetingRecorder.p
 export const SESSION_INNER_TYPE = "com.etzhayyim.apps.meetingRecorder.session";
 export const CHUNK_INNER_TYPE = "com.etzhayyim.apps.meetingRecorder.recordingChunk";
 export const SEGMENT_INNER_TYPE = "com.etzhayyim.apps.meetingRecorder.transcriptSegment";
+export const MINUTES_INNER_TYPE = "com.etzhayyim.apps.meetingRecorder.meetingMinutes";
 
 export const MR_DID_PREFIX = "did:web:meeting-recorder.etzhayyim.com:" as const;
 
@@ -262,6 +263,77 @@ export interface ListSegmentsOutput {
   total: number;
 }
 
+// ─── Meeting minutes 議事録 (E2E-ENCRYPTED, generated from segments) ──
+
+export type MinutesGenerator = "extractive" | "murakumo";
+
+export interface ActionItem {
+  description: string;
+  /** speakerHash of the participant the item is attributed to. */
+  ownerHash?: string;
+  /** ISO-8601 date (YYYY-MM-DD) when one was stated in the meeting. */
+  dueDate?: string;
+}
+
+export interface MeetingMinutesBody {
+  sessionId: string;
+  lang?: string;
+  summary: string;
+  decisions: string[];
+  actionItems: ActionItem[];
+  topics: string[];
+  participantHashes: string[];
+  generator: MinutesGenerator;
+  /** Set when generator=murakumo (e.g. gemma3:4b). */
+  model?: string;
+  sourceSegmentCount: number;
+  generatedAt: string;
+}
+export interface MeetingMinutesView extends MeetingMinutesBody {
+  uri: string;
+  sender: string;
+  createdAt: string;
+}
+export interface GenerateMinutesInput {
+  sessionId: string;
+  lang?: string;
+  /**
+   * Request the Murakumo LLM path. Honored only when the operator gate
+   * (MEETING_RECORDER_LIVE_LLM=1) is also on; otherwise the call is refused
+   * (no silent fallback) — same membrane as karakuri nl_plan (G4/G6).
+   */
+  allowLive?: boolean;
+  maxSegments?: number;
+  recipients?: string[];
+}
+export interface GenerateMinutesOutput {
+  status: "generated" | "rejected";
+  uri?: string;
+  keyId?: string;
+  sessionId?: string;
+  generator?: MinutesGenerator;
+  minutes?: MeetingMinutesBody;
+  error?: string;
+}
+export interface GetMinutesInput {
+  sessionId: string;
+}
+export interface GetMinutesOutput {
+  minutes?: MeetingMinutesView;
+  error?: string;
+}
+export interface ListMinutesInput {
+  sessionId?: string;
+  generator?: MinutesGenerator;
+  limit?: number;
+  cursor?: string;
+}
+export interface ListMinutesOutput {
+  items: MeetingMinutesView[];
+  cursor?: string;
+  total: number;
+}
+
 // ─── Coverage rollup ────────────────────────────────────────────────
 
 export interface CoverageInput {
@@ -272,6 +344,7 @@ export interface CoverageOutput {
   sessionCount?: number;
   recordingChunkCount?: number;
   transcriptSegmentCount?: number;
+  meetingMinutesCount?: number;
   sessionsByProvider?: Record<string, number>;
   truncated?: boolean;
   error?: string;
@@ -299,4 +372,7 @@ export function chunkRkey(sessionId: string, seq: number): string {
 }
 export function segmentRkey(sessionId: string, seq: number): string {
   return `seg-${sessionId.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${seq}`;
+}
+export function minutesRkey(sessionId: string): string {
+  return `minutes-${sessionId.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 }

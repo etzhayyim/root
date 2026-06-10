@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-09",
+  "updated_at": "2026-06-10",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -1423,6 +1423,25 @@
       "related": [
         "2605262130"
       ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/260610-meeting-recorder-minutes-closing.md",
+      "id": "260610-meeting-recorder-minutes-closing",
+      "title": "meeting-recorder 議事録 generation — 2026-06-10 closing summary",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "meeting-recorder minutes generation closing",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+        "90-docs/260422-meeting-recorder-session-summary.md"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
@@ -23220,6 +23239,296 @@
         "2605192200"
       ],
       "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091800-infra-robotics-3layer-operational-substrate.md",
+      "id": "adr-2606091800-infra-robotics-3layer-operational-substrate",
+      "title": "ADR-2606091800: Basic-infrastructure robotics — 3-layer operational substrate (electric/water/gas/telecom)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "infra-robotics-3layer-operational-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-robotics-operational-substrate",
+        "kuni-umi-robotics-reference-engine"
+      ],
+      "related": [
+        "2605201400",
+        "2605261100",
+        "2605263100",
+        "2606051500",
+        "2606051600",
+        "2605215000",
+        "2605312345",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics.md",
+      "id": "adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
+      "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsumugi-scale-banner-power-dynamics",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsumugi-scale-agnostic-power-dynamics",
+        "tsumugi-hata-banner-ideology-faction"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane",
+        "adr-2605301600-danjo-public-accountability",
+        "adr-2605302300-kanae-fiscal-flow-visualization"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2606061500-tsumugi-diachronic-influence-history",
+        "adr-2606011000-engi-knowledge-graph",
+        "adr-2606011500-spirit-ontology",
+        "adr-2605081300-edge-primary-karma",
+        "adr-2606042330-entity-as-actor-mirror",
+        "adr-2606066000-keizu-government-power-relations",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101000-rasen-public-genetics-mirror.md",
+      "id": "adr-2606101000-rasen-public-genetics-mirror",
+      "title": "ADR-2606101000: rasen 螺旋 public-genetics KG mirror (gene-scale sibling of inochi 命)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "rasen-public-genetics-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "rasen 螺旋 actor (public-genetics / 公開遺伝 KG mirror)",
+        "genome-ontology"
+      ],
+      "related": [
+        "2606014500",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073800",
+        "2606011000",
+        "2606011500",
+        "2605312345",
+        "2605215000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge.md",
+      "id": "adr-2606101130",
+      "title": "ADR-2606101130: Session-Close — basic-infrastructure robotics 3-layer wave + kami-genesis physics bridge",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-infra-robotics-3layer-kami-physics-bridge",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the infra-robotics 3-layer + kami-physics-bridge wave (2026-06-09 … 06-10)",
+        "deps.toml registration of ADR-2606091800 + the kuni-umi/robotics module"
+      ],
+      "related": [
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606091800 (the substance of this session)"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101200-ibuki-organism-autonomy-r2-gap-closure.md",
+      "id": "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+      "title": "ADR-2606101200: 息吹 (ibuki) — organism autonomy R2 gap-closure substrate (as-of state on kotoba · durable heartbeat · Murakumo narration · Wave-3 drainer · Wave-4 kaizen feedback)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-autonomy-gap-closure",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-organism-autonomy-substrate",
+        "organism-state-as-of-kotoba",
+        "organism-wave3-post-drainer",
+        "organism-wave4-kaizen-feedback"
+      ],
+      "related": [
+        "adr-2605270930-organism-r0-r1-sprint",
+        "adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unspsc-organism-w1",
+        "adr-2605240000-unspsc-organism-w2-mass-deploy",
+        "adr-2605240100-unspsc-post-sink",
+        "adr-2605240200-kaizen-self-reflection",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101500-session-close-ibuki-organism-autonomy-r0-r3.md",
+      "id": "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+      "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-ibuki-organism-autonomy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md",
+      "id": "adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+      "title": "ADR-2606101540: Session close — 潮目 stock pyramid + entity grounding + first live EDGAR ingest (kanjō) + fleet-heartbeat runner",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606032000-kanjo-world-public-company-financial-disclosure-kg",
+        "adr-2606022000-kabuto-world-public-company-supply-chain-kg",
+        "adr-2606073400-hokorobi-world-systemic-finance-risk-observatory",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101800-ibuki-ecosystem-maturation-food-web-symbiosis.md",
+      "id": "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+      "title": "ADR-2606101800: 息吹 (ibuki) ecosystem maturation — the colony as a symbiotic food web (植物→粘菌→カビ→人類), 7 waves",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-organism-ecosystem",
+        "artificial-organism-food-web",
+        "colony-commons-symbiosis"
+      ],
+      "related": [
+        "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2606062100-moyai-inference-reciprocity-credit",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+      "id": "adr-2606101920",
+      "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "meeting-recorder minutes generation",
+      "authoritative": true,
+      "related": [
+        "90-docs/260422-meeting-recorder-session-summary.md",
+        "90-docs/260610-meeting-recorder-minutes-closing.md",
+        "ADR-2605181100 (kotoba E2E encrypted-record envelope)",
+        "ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
+        "ADR-2606011400 (Consensys product-front / infra-back)",
+        "https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
+        "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
+      ],
+      "depends_on": [
+        "ADR-2605181100",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606102000-session-close-ibuki-digest-live-run-robustness.md",
+      "id": "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+      "title": "ADR-2606102000: Session close — 息吹 (ibuki) digest (reason+report) + 実運用 live-run + robustness verification",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
       "amends": [],
       "amended_by": []
     },

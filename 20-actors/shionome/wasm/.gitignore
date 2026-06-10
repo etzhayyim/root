@@ -6,3 +6,6 @@ transpiled/
 _bindings/
 node_modules/
 package-lock.json
+# T1 Rust build artifacts (reproducible via build-t1.sh; CID = the durable record)
+shionome-core/target/
+shionome-core/dist/

@@ -1,9 +1,10 @@
 /**
  * meeting-recorder.etzhayyim.com — Multi-provider meeting recorder control-plane Worker.
  *
- * 5 XRPC procedures + 2 records (com.etzhayyim.apps.meetingRecorder.*):
- *   joinMeeting / leaveMeeting / getSession / listSessions / getTranscript
- *   + recordingChunk (record) + transcriptSegment (record)
+ * 6 XRPC procedures + 3 records (com.etzhayyim.apps.meetingRecorder.*):
+ *   joinMeeting / leaveMeeting / getSession / listSessions / getTranscript /
+ *   getMinutes
+ *   + recordingChunk + transcriptSegment + meetingMinutes (records)
  *
  * Architecture (ADR-0050):
  *   - This Worker is the control-plane: XRPC handler + MCP facade (ADR-0042) +
@@ -598,6 +599,42 @@ async function cmdGetTranscript(sdk: HostSDK, body: Uint8Array) {
   return { sessionId, segments, limit };
 }
 
+// ── Query: getMinutes ──────────────────────────────────────────────────────
+
+async function cmdGetMinutes(sdk: HostSDK, body: Uint8Array) {
+  const input = parseLexiconInput("com.etzhayyim.apps.meetingRecorder.getMinutes", body) as {
+    sessionId: string;
+  };
+  const { sessionId } = input;
+  if (!sessionId) return { error: "sessionId required" };
+
+  const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
+  const sessionRow = await db.selectFrom("vertex_meetingrecorder_session")
+    .select(["session_did", "on_behalf_of_did"])
+    .where("session_id", "=", sessionId)
+    .executeTakeFirst() as { session_did?: string; on_behalf_of_did?: string } | undefined;
+  if (!sessionRow?.session_did) return { sessionId, error: "not found" };
+
+  // Access control: caller must match on_behalf_of_did (same rule as getSession).
+  const ctx = getReqCtx();
+  if (ctx.accountDid && sessionRow.on_behalf_of_did !== ctx.accountDid) {
+    return { sessionId, error: "forbidden" };
+  }
+
+  const row = await db.selectFrom("vertex_meetingrecorder_minutes")
+    .select(["session_did as sessionDid", "provider", "lang",
+             "summary_cipher as summaryCipher", "decisions_cipher as decisionsCipher",
+             "action_items_cipher as actionItemsCipher", "topics_cipher as topicsCipher",
+             "participant_hashes as participantHashes", "generator", "model",
+             "source_segment_count as sourceSegmentCount", "generated_at as generatedAt"])
+    .where("session_did", "=", sessionRow.session_did)
+    .orderBy("generated_at", "desc")
+    .executeTakeFirst() as Record<string, unknown> | undefined;
+  if (!row) return { sessionId, error: "not found" };
+
+  return { sessionId, ...row };
+}
+
 // ── sha256 helper ──────────────────────────────────────────────────────────
 
 async function sha256Hex(s: string): Promise<string> {
@@ -628,6 +665,10 @@ const _workerInner = createWorkerExport((sdk) => {
     .command(nsid("com.etzhayyim.apps.meetingRecorder.getTranscript"),
       (_ctx, body) => cmdGetTranscript(sdk, body),
       asAgentTool("Fetch transcript segments (signal:v1: encrypted). Caller decrypts client-side."),
+      withCapabilityTags("record", "query", "e2e-encrypted"))
+    .command(nsid("com.etzhayyim.apps.meetingRecorder.getMinutes"),
+      (_ctx, body) => cmdGetMinutes(sdk, body),
+      asAgentTool("Fetch generated meeting minutes 議事録 for a session (signal:v1: encrypted content; same session key as the transcript). Caller must be onBehalfOfDid and decrypts client-side."),
       withCapabilityTags("record", "query", "e2e-encrypted"));
 });
 
