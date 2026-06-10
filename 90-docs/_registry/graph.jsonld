@@ -14791,7 +14791,24 @@
         "doc:adr-2605301600-danjo-public-accountability",
         "doc:adr-2605302300-kanae-fiscal-flow-visualization"
       ],
-      "lastVerified": "2026-06-09"
+      "lastVerified": "2026-06-10"
+    },
+    {
+      "id": "doc:adr-2606101000-rasen-public-genetics-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606101000: rasen 螺旋 public-genetics KG mirror (gene-scale sibling of inochi 命)",
+      "status": "accepted",
+      "topic": "rasen-public-genetics-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "rasen 螺旋 actor (public-genetics / 公開遺伝 KG mirror)",
+        "genome-ontology"
+      ],
+      "related": [
+        "doc:2606014500",
+        "doc:2606014600"
+      ],
+      "lastVerified": "2026-06-10"
     },
     {
       "id": "doc:adr-2606101130",
@@ -14845,6 +14862,16 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+      "type": "TechArticle",
+      "title": "ADR-2606101540: Session close — 潮目 stock pyramid + entity grounding + first live EDGAR ingest (kanjō) + fleet-heartbeat runner",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md",
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
       "type": "TechArticle",
       "title": "ADR-2606101800: 息吹 (ibuki) ecosystem maturation — the colony as a symbiotic food web (植物→粘菌→カビ→人類), 7 waves",
@@ -14874,6 +14901,19 @@
         "doc:ADR-2605181100 (kotoba E2E encrypted-record envelope)",
         "doc:ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
         "doc:ADR-2606011400 (Consensys product-front / infra-back)"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
+      "id": "doc:adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+      "type": "TechArticle",
+      "title": "ADR-2606102000: Session close — 息吹 (ibuki) digest (reason+report) + 実運用 live-run + robustness verification",
+      "status": "accepted",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "doc:adr-2606062100-moyai-inference-reciprocity-credit"
       ],
       "lastVerified": "2026-06-10"
     },

@@ -1,0 +1,159 @@
+;; rasen 螺旋 — seed public-genetics graph (real, PUBLIC reference data only)
+;; ADR-2606101000 · vocabulary: genome-ontology (00-contracts/schemas/genome-ontology.kotoba.edn)
+;;
+;; SCOPE GUARD (constitutional, G1 — read first):
+;;   - rasen is a CARE / RESEARCH map of PUBLIC reference genetics, NEVER an individual-genotype
+;;     registry or a discrimination / eugenic / insurance / forensic-identification tool. NO
+;;     individual genotypes, NO identifiable personal/sample/family sequence appear here.
+;;   - The unit is ALWAYS a gene / variant / population-AGGREGATE. Allele frequencies are
+;;     super-population aggregates (gnomAD scale) that cannot reconstruct a person. Chromosomal
+;;     location is COARSE (cytoband) only — never a precise re-identifiable coordinate.
+;;   - The lens is integrated CLINICAL/FUNCTIONAL evidence burden over a gene, routed to CARE &
+;;     RESEARCH. karma lives ONLY on edges (:en/grasping-load × disclosed :en/clinsig; N1).
+;;
+;; SOURCING: gene models (Ensembl/HGNC), variant ids (dbSNP), clinical significance (ClinVar /
+;;   OMIM), pathway membership (GO/Reactome) and population allele frequencies (gnomAD super-
+;;   populations) are :authoritative publicly-disclosed reference facts; the SAMPLE is a bounded
+;;   illustrative seed (:representative coverage), NOT exhaustive. Coverage of all genes/variants
+;;   is ~0 by design. Live ingest (ClinVar/gnomAD/Ensembl/GWAS-Catalog APIs) is G7/Council-gated.
+;;   Clinical-significance categories are DISCLOSED facts, never rasen adjudications (N3).
+;;
+;; LIFE, NOT JUST HUMANS: the seed spans Homo sapiens medical genetics AND non-human public
+;;   reference genetics — elephant TP53 (cancer resistance; cross-links inochi), rice SUB1A
+;;   (submergence tolerance; agricultural), bacterial TEM-1 (antimicrobial resistance).
+
+[;; ───────────────────────────── genes (nodes) ───────────────────────────────
+ {:genome/id "gene.brca1" :genome/kind :gene :genome/label "BRCA1 DNA-repair gene" :gene/symbol "BRCA1" :gene/cytoband "17q21.31" :gene/ensembl "ENSG00000012048" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.brca2" :genome/kind :gene :genome/label "BRCA2 DNA-repair gene" :gene/symbol "BRCA2" :gene/cytoband "13q13.1" :gene/ensembl "ENSG00000139618" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.tp53" :genome/kind :gene :genome/label "TP53 tumour-suppressor" :gene/symbol "TP53" :gene/cytoband "17p13.1" :gene/ensembl "ENSG00000141510" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.mlh1" :genome/kind :gene :genome/label "MLH1 mismatch-repair gene" :gene/symbol "MLH1" :gene/cytoband "3p22.2" :gene/ensembl "ENSG00000076242" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.cftr" :genome/kind :gene :genome/label "CFTR chloride channel" :gene/symbol "CFTR" :gene/cytoband "7q31.2" :gene/ensembl "ENSG00000001626" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.hbb" :genome/kind :gene :genome/label "HBB β-globin" :gene/symbol "HBB" :gene/cytoband "11p15.4" :gene/ensembl "ENSG00000244734" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.apoe" :genome/kind :gene :genome/label "APOE apolipoprotein E" :gene/symbol "APOE" :gene/cytoband "19q13.32" :gene/ensembl "ENSG00000130203" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.ldlr" :genome/kind :gene :genome/label "LDLR LDL receptor" :gene/symbol "LDLR" :gene/cytoband "19p13.2" :gene/ensembl "ENSG00000130164" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.htt" :genome/kind :gene :genome/label "HTT huntingtin" :gene/symbol "HTT" :gene/cytoband "4p16.3" :gene/ensembl "ENSG00000197386" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.pah" :genome/kind :gene :genome/label "PAH phenylalanine hydroxylase" :gene/symbol "PAH" :gene/cytoband "12q23.2" :gene/ensembl "ENSG00000171759" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.f8" :genome/kind :gene :genome/label "F8 coagulation factor VIII" :gene/symbol "F8" :gene/cytoband "Xq28" :gene/ensembl "ENSG00000185010" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.g6pd" :genome/kind :gene :genome/label "G6PD glucose-6-phosphate dehydrogenase" :gene/symbol "G6PD" :gene/cytoband "Xq28" :gene/ensembl "ENSG00000160211" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.mthfr" :genome/kind :gene :genome/label "MTHFR methylenetetrahydrofolate reductase" :gene/symbol "MTHFR" :gene/cytoband "1p36.22" :gene/ensembl "ENSG00000177000" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+
+ ;; non-human public reference genetics (life is broader than humans)
+ {:genome/id "gene.tp53-retro-lox" :genome/kind :gene :genome/label "TP53 retrogene expansion (elephant, cancer resistance)" :gene/symbol "TP53-RTG" :gene/taxon :loxodonta :genome/links "bio.species.loxodonta-cyclotis" :genome/sourcing :authoritative}
+ {:genome/id "gene.os-sub1a" :genome/kind :gene :genome/label "SUB1A submergence-tolerance gene (rice)" :gene/symbol "SUB1A" :gene/taxon :oryza-sativa :genome/sourcing :authoritative}
+ {:genome/id "gene.bla-tem" :genome/kind :gene :genome/label "blaTEM β-lactamase (bacterial AMR)" :gene/symbol "blaTEM" :gene/taxon :bacteria :genome/sourcing :authoritative}
+
+ ;; ───────────────────────────── variants (nodes) ────────────────────────────
+ ;; PUBLIC reference variants only — dbSNP ids / canonical named alleles. No individual genotypes.
+ {:genome/id "var.rs334" :genome/kind :variant :genome/label "HBB rs334 (HbS, Glu6Val)" :variant/rsid "rs334" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.cftr-f508del" :genome/kind :variant :genome/label "CFTR F508del (ΔF508)" :variant/rsid "rs199826652" :variant/category :indel :genome/sourcing :authoritative}
+ {:genome/id "var.rs429358" :genome/kind :variant :genome/label "APOE-ε4 defining variant (rs429358)" :variant/rsid "rs429358" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.htt-cag" :genome/kind :variant :genome/label "HTT CAG repeat expansion (≥36)" :variant/category :repeat-expansion :genome/sourcing :authoritative}
+ {:genome/id "var.brca1-185delag" :genome/kind :variant :genome/label "BRCA1 c.68_69delAG (185delAG)" :variant/rsid "rs80357914" :variant/category :indel :genome/sourcing :authoritative}
+ {:genome/id "var.tp53-r175h" :genome/kind :variant :genome/label "TP53 p.Arg175His (R175H)" :variant/rsid "rs28934578" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.ldlr-path" :genome/kind :variant :genome/label "LDLR pathogenic FH allele (FH-Boston class)" :variant/category :snv :genome/sourcing :representative}
+ {:genome/id "var.f8-inv22" :genome/kind :variant :genome/label "F8 intron-22 inversion" :variant/category :structural :genome/sourcing :authoritative}
+ {:genome/id "var.g6pd-med" :genome/kind :variant :genome/label "G6PD Mediterranean (c.563C>T)" :variant/rsid "rs5030868" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs1801133" :genome/kind :variant :genome/label "MTHFR C677T (rs1801133)" :variant/rsid "rs1801133" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.sub1a-1" :genome/kind :variant :genome/label "SUB1A-1 tolerance allele (rice)" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.tem1" :genome/kind :variant :genome/label "TEM-1 wild-type β-lactamase allele" :variant/category :snv :genome/sourcing :authoritative}
+
+ ;; ───────────────────────────── phenotypes / conditions (nodes) ─────────────
+ {:genome/id "ph.sickle-cell" :genome/kind :phenotype :genome/label "Sickle cell anaemia" :phenotype/code "MONDO:0011382" :phenotype/inheritance :AR :genome/sourcing :authoritative}
+ {:genome/id "ph.cystic-fibrosis" :genome/kind :phenotype :genome/label "Cystic fibrosis" :phenotype/code "MONDO:0009061" :phenotype/inheritance :AR :genome/sourcing :authoritative}
+ {:genome/id "ph.alzheimer-lo" :genome/kind :phenotype :genome/label "Late-onset Alzheimer disease" :phenotype/code "MONDO:0004975" :phenotype/inheritance :complex :genome/sourcing :authoritative}
+ {:genome/id "ph.huntington" :genome/kind :phenotype :genome/label "Huntington disease" :phenotype/code "MONDO:0007739" :phenotype/inheritance :AD :genome/sourcing :authoritative}
+ {:genome/id "ph.hboc" :genome/kind :phenotype :genome/label "Hereditary breast & ovarian cancer" :phenotype/code "MONDO:0003582" :phenotype/inheritance :AD :genome/sourcing :authoritative}
+ {:genome/id "ph.li-fraumeni" :genome/kind :phenotype :genome/label "Li-Fraumeni syndrome" :phenotype/code "MONDO:0018875" :phenotype/inheritance :AD :genome/sourcing :authoritative}
+ {:genome/id "ph.lynch" :genome/kind :phenotype :genome/label "Lynch syndrome" :phenotype/code "MONDO:0005835" :phenotype/inheritance :AD :genome/sourcing :authoritative}
+ {:genome/id "ph.fh" :genome/kind :phenotype :genome/label "Familial hypercholesterolaemia" :phenotype/code "MONDO:0005439" :phenotype/inheritance :AD :genome/sourcing :authoritative}
+ {:genome/id "ph.pku" :genome/kind :phenotype :genome/label "Phenylketonuria" :phenotype/code "MONDO:0009861" :phenotype/inheritance :AR :genome/sourcing :authoritative}
+ {:genome/id "ph.hemophilia-a" :genome/kind :phenotype :genome/label "Haemophilia A" :phenotype/code "MONDO:0010602" :phenotype/inheritance :XL :genome/sourcing :authoritative}
+ {:genome/id "ph.g6pd-def" :genome/kind :phenotype :genome/label "G6PD deficiency (favism)" :phenotype/code "MONDO:0010714" :phenotype/inheritance :XL :genome/sourcing :authoritative}
+ {:genome/id "ph.hyperhomocysteinemia" :genome/kind :phenotype :genome/label "Mild hyperhomocysteinaemia" :phenotype/inheritance :complex :genome/sourcing :authoritative}
+ {:genome/id "ph.beta-lactam-resistance" :genome/kind :phenotype :genome/label "β-lactam antibiotic resistance" :phenotype/inheritance :trait :genome/sourcing :authoritative}
+ {:genome/id "ph.submergence-tolerance" :genome/kind :phenotype :genome/label "Flood/submergence tolerance (rice)" :phenotype/inheritance :trait :genome/sourcing :authoritative}
+
+ ;; ───────────────────────────── populations (AGGREGATE — gnomAD super-pops) ──
+ ;; population-LEVEL aggregate only (G1). These can never reconstruct an individual.
+ {:genome/id "pop.global" :genome/kind :population :genome/label "Global (all super-populations)" :population/code :global :genome/sourcing :authoritative}
+ {:genome/id "pop.afr" :genome/kind :population :genome/label "African / African-American (AFR)" :population/code :AFR :genome/sourcing :authoritative}
+ {:genome/id "pop.eur" :genome/kind :population :genome/label "European (EUR)" :population/code :EUR :genome/sourcing :authoritative}
+ {:genome/id "pop.eas" :genome/kind :population :genome/label "East Asian (EAS)" :population/code :EAS :genome/sourcing :authoritative}
+ {:genome/id "pop.sas" :genome/kind :population :genome/label "South Asian (SAS)" :population/code :SAS :genome/sourcing :authoritative}
+ {:genome/id "pop.amr" :genome/kind :population :genome/label "Admixed American (AMR)" :population/code :AMR :genome/sourcing :authoritative}
+
+ ;; ───────────────────────────── pathways (nodes) ────────────────────────────
+ {:genome/id "pw.dna-repair" :genome/kind :pathway :genome/label "DNA repair" :pathway/source :GO :pathway/acc "GO:0006281" :genome/sourcing :authoritative}
+ {:genome/id "pw.lipid-metab" :genome/kind :pathway :genome/label "Lipoprotein / cholesterol metabolism" :pathway/source :reactome :pathway/acc "R-HSA-174824" :genome/sourcing :authoritative}
+ {:genome/id "pw.hemoglobin" :genome/kind :pathway :genome/label "Oxygen transport (haemoglobin)" :pathway/source :GO :pathway/acc "GO:0015671" :genome/sourcing :authoritative}
+ {:genome/id "pw.aa-metab" :genome/kind :pathway :genome/label "Amino-acid metabolism" :pathway/source :GO :pathway/acc "GO:0006520" :genome/sourcing :authoritative}
+ {:genome/id "pw.folate" :genome/kind :pathway :genome/label "Folate / one-carbon metabolism" :pathway/source :reactome :pathway/acc "R-HSA-196757" :genome/sourcing :authoritative}
+
+ ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
+ ;; (A) :located-in — variant → gene (provenance, no clinsig)
+ {:en/from "var.rs334" :en/to "gene.hbb" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.cftr-f508del" :en/to "gene.cftr" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "gene.apoe" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.htt-cag" :en/to "gene.htt" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.brca1-185delag" :en/to "gene.brca1" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.tp53-r175h" :en/to "gene.tp53" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.ldlr-path" :en/to "gene.ldlr" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :representative}
+ {:en/from "var.f8-inv22" :en/to "gene.f8" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.g6pd-med" :en/to "gene.g6pd" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.rs1801133" :en/to "gene.mthfr" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.sub1a-1" :en/to "gene.os-sub1a" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+ {:en/from "var.tem1" :en/to "gene.bla-tem" :en/kind :located-in :en/grasping-load 1.0 :en/sourcing :authoritative}
+
+ ;; (B) :associated-with — variant → phenotype; :en/clinsig DISCLOSED (ClinVar-style), load = effect/evidence strength
+ {:en/from "var.rs334" :en/to "ph.sickle-cell" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.95 :en/sourcing :authoritative}
+ {:en/from "var.cftr-f508del" :en/to "ph.cystic-fibrosis" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.95 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.alzheimer-lo" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.65 :en/sourcing :authoritative}
+ {:en/from "var.htt-cag" :en/to "ph.huntington" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.98 :en/sourcing :authoritative}
+ {:en/from "var.brca1-185delag" :en/to "ph.hboc" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "var.tp53-r175h" :en/to "ph.li-fraumeni" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "var.ldlr-path" :en/to "ph.fh" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.85 :en/sourcing :authoritative}
+ {:en/from "var.f8-inv22" :en/to "ph.hemophilia-a" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.92 :en/sourcing :authoritative}
+ {:en/from "var.g6pd-med" :en/to "ph.g6pd-def" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "var.g6pd-med" :en/to "ph.g6pd-def" :en/kind :associated-with :en/clinsig :drug-response :en/grasping-load 0.70 :en/sourcing :authoritative}
+ {:en/from "var.rs1801133" :en/to "ph.hyperhomocysteinemia" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.30 :en/sourcing :authoritative}
+ {:en/from "var.tem1" :en/to "ph.beta-lactam-resistance" :en/kind :associated-with :en/clinsig :drug-response :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "var.sub1a-1" :en/to "ph.submergence-tolerance" :en/kind :associated-with :en/clinsig :protective :en/grasping-load 0.75 :en/sourcing :authoritative}
+
+ ;; (C) :linked-to — gene → phenotype (Mendelian gene-disease linkage; OMIM-style)
+ {:en/from "gene.brca1" :en/to "ph.hboc" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.85 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "ph.hboc" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "ph.li-fraumeni" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "ph.lynch" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.85 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "ph.cystic-fibrosis" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "ph.sickle-cell" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "ph.huntington" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.95 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "ph.fh" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.85 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "ph.pku" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "ph.hemophilia-a" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "ph.g6pd-def" :en/kind :linked-to :en/clinsig :pathogenic :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "ph.alzheimer-lo" :en/kind :linked-to :en/clinsig :risk-factor :en/grasping-load 0.50 :en/sourcing :authoritative}
+
+ ;; (D) :participates-in — gene → pathway (functional context; pleiotropy/cascade)
+ {:en/from "gene.brca1" :en/to "pw.dna-repair" :en/kind :participates-in :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.dna-repair" :en/kind :participates-in :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.dna-repair" :en/kind :participates-in :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.dna-repair" :en/kind :participates-in :en/grasping-load 0.85 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.lipid-metab" :en/kind :participates-in :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.lipid-metab" :en/kind :participates-in :en/grasping-load 0.80 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.hemoglobin" :en/kind :participates-in :en/grasping-load 0.95 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.aa-metab" :en/kind :participates-in :en/grasping-load 0.90 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.folate" :en/kind :participates-in :en/grasping-load 0.90 :en/sourcing :authoritative}
+
+ ;; (E) :allele-frequency — population → variant (AGGREGATE super-population frequency; G1: never individual)
+ {:en/from "pop.afr" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0.05 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.cftr-f508del" :en/kind :allele-frequency :en/grasping-load 0.017 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.14 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs1801133" :en/kind :allele-frequency :en/grasping-load 0.33 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs1801133" :en/kind :allele-frequency :en/grasping-load 0.42 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.htt-cag" :en/kind :allele-frequency :en/grasping-load 0.0001 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.g6pd-med" :en/kind :allele-frequency :en/grasping-load 0.008 :en/sourcing :authoritative}
+
+ ;; (F) :interacts-with — gene → gene (functional interaction; the web of the genome)
+ {:en/from "gene.brca1" :en/to "gene.tp53" :en/kind :interacts-with :en/grasping-load 0.60 :en/sourcing :representative}
+ {:en/from "gene.brca1" :en/to "gene.brca2" :en/kind :interacts-with :en/grasping-load 0.70 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "gene.ldlr" :en/kind :interacts-with :en/grasping-load 0.55 :en/sourcing :representative}]
