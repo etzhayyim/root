@@ -1,0 +1,50 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:shionome",
+  "alsoKnownAs": [
+    "did:web:shionome.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:shionome#wasm",
+      "type": "EtzhayyimWasmComponent",
+      "serviceEndpoint": "ipfs://bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly",
+      "x-exec": "browser-local|donated-mesh",
+      "x-cid-codec": "raw",
+      "x-runtime": "kotoba-wasm"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:shionome#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.etzhayyim.com"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
+      "2606072200",
+      "2606101540"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r0",
+    "glyph": "潮目",
+    "wasmCid": "bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly",
+    "execModel": "wasm-local (browser/donated-mesh)",
+    "primaryLexicon": "com.etzhayyim.shionome",
+    "primarySchema": "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}
