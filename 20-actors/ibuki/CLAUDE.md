@@ -77,13 +77,18 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   cannot close: the precise diagnosis behind a starved web) and `niche-imbalance` (Pielou
   evenness below the floor → one role dominates, fragile). `:health/eco-maturity` (evenness)
   is checkpointed each audit — the colony's ecological maturity, an aggregate not a soul-score.
+  **Stigmergy** (`ecosystem.TRAIL_DECAY`): the 粘菌 router is an ADAPTIVE Physarum optimizer —
+  past relays deposit a trail on the producer→decomposer path that EVAPORATES (trail at beat B
+  = Σ decay^age over recent relays), and routing prefers nutrient × (1 + trail). Good tubes
+  self-reinforce while stale ones fade (the Tokyo-rail-network behaviour); the router has
+  memory, not per-beat greed. Trail is log-derived (`trail_strengths`), deterministic.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 15 suites (172 tests), hermetic
+./run_tests.sh                                  # all 15 suites (175 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):

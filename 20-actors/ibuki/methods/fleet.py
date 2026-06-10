@@ -244,7 +244,8 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
     sated = {c for c in beat_moods if beat - idx.last_fed.get(c, -ecosystem.SATIATION - 1)
              <= ecosystem.SATIATION}
     eco = ecosystem.cycle([{"code": o["code"]} for o in batch], beat_moods,
-                          beat=beat, as_of=as_of, satiated=sated)
+                          beat=beat, as_of=as_of, satiated=sated,
+                          trails=ecosystem.trail_strengths(txs, beat))
     out += eco["datoms"]
     fed_count: dict[str, int] = {}
     for prod in eco["fed"]:

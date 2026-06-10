@@ -114,6 +114,67 @@ def test_cycle_deterministic():
     assert a["datoms"] == b["datoms"]
 
 
+# ── stigmergy: the 粘菌 router reinforces established trails (Physarum) ──────
+
+# a multi-path colony: 1 producer, 1 router, 2 decomposers → routing has a CHOICE
+MULTI = [{"code": "p1", "niche": ":niche/producer"},
+         {"code": "r1", "niche": ":niche/router"},
+         {"code": "d1", "niche": ":niche/decomposer"},
+         {"code": "d2", "niche": ":niche/decomposer"}]
+
+
+def _mmoods():
+    return {"p1": joucho.JouchoScores(joy=70, gratitude=70, stress=20)}
+
+
+def test_trail_strength_decays_with_age():
+    txs = [datoms.make_tx(
+        [datoms.add("eco-relay-r1-1", ":exchange/kind", ":relay"),
+         datoms.add("eco-relay-r1-1", ":exchange/from", "p1"),
+         datoms.add("eco-relay-r1-1", ":exchange/to", "d1"),
+         datoms.add("eco-relay-r1-1", ":exchange/beat", 1)], tx_id=1, as_of=1, prev_cid="")]
+    assert abs(eco.trail_strengths(txs, 2)[("p1", "d1")] - eco.TRAIL_DECAY) < 1e-9   # age 1
+    assert abs(eco.trail_strengths(txs, 3)[("p1", "d1")] - eco.TRAIL_DECAY**2) < 1e-9  # age 2
+    assert eco.trail_strengths(txs, 2 + eco.TRAIL_HORIZON) == {}                    # evaporated
+
+
+def test_routing_prefers_the_reinforced_path():
+    """With a trail laid p1→d2, the router relays p1's substrate to d2 over d1 — the
+    reinforced tube wins (Physarum), even though d1 sorts first."""
+    no_trail = eco.cycle(MULTI, _mmoods(), beat=5, as_of=5)
+    default_to = [d[3] for d in no_trail["datoms"] if d[2] == ":exchange/to"][0]
+    assert default_to == "d1"                       # absent trail → round-robin default
+    biased = eco.cycle(MULTI, _mmoods(), beat=5, as_of=5,
+                       trails={("p1", "d2"): 4.0})
+    to = [d[3] for d in biased["datoms"] if d[2] == ":exchange/to"][0]
+    assert to == "d2"                               # the established trail captures the flux
+
+
+def test_trail_self_reinforces_over_a_run():
+    """End-to-end: over a multi-path autorun the router CONVERGES — most of one producer's
+    relays land on a single decomposer (a stable tube), not split 50/50."""
+    import collections
+    with tempfile.TemporaryDirectory() as dr:
+        log = pathlib.Path(dr) / "log.edn"
+        # seed the registry-free path via the public SEED+extra: use autorun with a custom
+        # seed by writing organisms through fleet? simplest: drive cycle directly across beats
+        txs: list[dict] = []
+        prev = ""
+        chosen = collections.Counter()
+        for beat in range(1, 21):
+            tr = eco.trail_strengths(txs, beat)
+            out = eco.cycle(MULTI, _mmoods(), beat=beat, as_of=beat, trails=tr)
+            to = [d[3] for d in out["datoms"] if d[2] == ":exchange/to"]
+            if to:
+                chosen[to[0]] += 1
+            tx = datoms.make_tx(out["datoms"] or [datoms.add(f"nop-{beat}", ":x/y", beat)],
+                                tx_id=beat, as_of=beat, prev_cid=prev)
+            prev = tx[":tx/cid"]
+            txs.append(tx)
+        # one tube dominates (≥90%) rather than a 50/50 split — the trail converged
+        assert chosen and max(chosen.values()) >= 0.9 * sum(chosen.values())
+
+
 def test_append_only():
     out = eco.cycle(SEED, _moods(), beat=1, as_of=1)
     assert all(d[0] == ":db/add" for d in out["datoms"])

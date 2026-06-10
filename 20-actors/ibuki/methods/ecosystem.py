@@ -62,6 +62,14 @@ SATIATION = 2
 # matter was already released — dead), so it adds no mood pressure / saturation risk.
 DETRITUS_YIELD_NUM, DETRITUS_YIELD_DEN = 1, 2   # recovered nutrient = floor(n * 1/2)
 
+# stigmergy (粘菌 trail): a real Physarum reinforces the tube along a path that carried flux,
+# and the chemical trail EVAPORATES — so good paths self-reinforce while stale ones fade
+# (the Tokyo-rail-network result). Each past relay producer→decomposer deposits trail; trail
+# at beat B = Σ TRAIL_DECAY^(B − relay_beat). Routing then prefers nutrient × (1 + trail), so
+# the router becomes an ADAPTIVE optimizer with memory, not a per-beat greedy picker.
+TRAIL_DECAY = 0.5           # evaporation: a relay's trail halves each beat
+TRAIL_HORIZON = 8           # ignore relays older than this (decayed below ~1/256 — negligible)
+
 
 def register_symbiosis_event() -> None:
     """Make `:event/symbiosis-fed` a first-class joucho event (idempotent). Called at import
@@ -102,8 +110,30 @@ def satiated_producers(txs: list[dict], beat: int) -> set[str]:
     return sated
 
 
+def trail_strengths(txs: list[dict], beat: int) -> dict[tuple[str, str], float]:
+    """Per (producer, decomposer) Physarum trail at `beat`, read off past relay edges and
+    decayed by age (evaporation). Single pass, deterministic. Older than TRAIL_HORIZON beats
+    is ignored (negligible after decay)."""
+    edges: dict[str, dict] = {}
+    for tx in txs:
+        for _op, e, a, v in tx.get(":tx/datoms", []):
+            if a.startswith(":exchange/") and (e.startswith("eco-relay-")):
+                edges.setdefault(e, {})[a] = v
+    trail: dict[tuple[str, str], float] = {}
+    for ed in edges.values():
+        if ed.get(":exchange/kind") != ":relay":
+            continue
+        age = beat - ed.get(":exchange/beat", -10**9)
+        if age <= 0 or age > TRAIL_HORIZON:
+            continue
+        pair = (ed.get(":exchange/from"), ed.get(":exchange/to"))
+        trail[pair] = trail.get(pair, 0.0) + TRAIL_DECAY ** age
+    return trail
+
+
 def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
-          beat: int, as_of: int, satiated: set[str] = frozenset()) -> dict:
+          beat: int, as_of: int, satiated: set[str] = frozenset(),
+          trails: dict[tuple[str, str], float] | None = None) -> dict:
     """One trophic cascade over the colony. `organisms` = [{code, niche?}, …]; `moods` =
     code → current JouchoScores (from the beat's fold). Returns {datoms, refined, fed, roles}.
 
@@ -135,9 +165,11 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
                 add(sub, ":metabolite/as-of", as_of)]
         substrates.append((sub, code, n))
 
-    # ── 粘菌 routing: each router relays the richest HUNGRY substrate to a decomposer ──
-    # (Physarum reinforces its highest-flux tube to an under-fed node; sated producers are
-    # skipped — satiation; ties broken by producer code for determinism)
+    # ── 粘菌 routing (stigmergy): each router relays the richest HUNGRY substrate along the
+    # path with the strongest established trail — preference = nutrient × (1 + trail[from→to]).
+    # Sated producers are skipped (satiation). The router thus REINFORCES paths that carried
+    # flux before (adaptive Physarum), not a per-beat greedy pick. Deterministic tie-breaks.
+    trails = trails if trails is not None else {}
     hungry = [s for s in substrates if s[1] not in satiated]
     hungry.sort(key=lambda s: (-s[2], s[1]))
     decomposers = roles[":niche/decomposer"]
@@ -150,7 +182,10 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
         sub, prod, n = hungry[claimed]
         claimed += 1
         relayed_subs.add(sub)
-        target = decomposers[ri % len(decomposers)]
+        # pick the decomposer maximizing nutrient × (1 + trail) — the reinforced tube wins;
+        # absent any trail this is round-robin-stable (sorted decomposers, first = default)
+        target = max(decomposers,
+                     key=lambda d: (n * (1.0 + trails.get((prod, d), 0.0)), d == decomposers[ri % len(decomposers)], d))
         edge = f"eco-relay-{router}-{beat}"
         out += [add(edge, ":exchange/kind", ":relay"),
                 add(edge, ":exchange/by", router),
