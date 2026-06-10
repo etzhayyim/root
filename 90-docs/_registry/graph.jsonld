@@ -14895,6 +14895,26 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101400-tedai-member-computer-operation",
+      "type": "TechArticle",
+      "title": "ADR-2606101400: tedai (手代) — member-computer-operation Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "tedai-member-computer-operation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tedai",
+        "com.etzhayyim.tedai.*"
+      ],
+      "related": [
+        "doc:2606034800",
+        "doc:2606042100",
+        "doc:2606033600",
+        "doc:2605302130",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-2606101430",
       "type": "TechArticle",
       "title": "ADR-2606101430: Infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop",
