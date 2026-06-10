@@ -143,6 +143,61 @@ def test_operator_bearer_requires_public_did_env_only():
         os.environ.pop(kb.ENV_OPERATOR_DID, None)
 
 
+def _deleg(graph="ibuki", exp=9999999999):
+    return {"cacao_b64": "bWVtYmVyLXNpZ25lZA", "aud": "did:web:etzhayyim.com:actor:ibuki",
+            "capability": "datom:transact", "graph": graph, "exp": exp, "nonce": "beef"}
+
+
+def test_delegation_requires_now_epoch():
+    with tempfile.TemporaryDirectory() as dr:
+        log = _log(dr, n=1)
+        expect_raises(lambda: kb.push(log, graph="ibuki", live=True,
+                                      transport=_fake_transport([]), delegation=_deleg()),
+                      contains="now_epoch")
+
+
+def test_usable_delegation_presents_cacao_and_drops_operator_bearer():
+    """The leash in force: a usable member-issued delegation → the body carries cacao_b64 and
+    the push principal is the delegation, not the operator."""
+    with tempfile.TemporaryDirectory() as dr:
+        log = _log(dr, n=2)
+        calls = []
+        res = kb.push(log, graph="ibuki", live=True, transport=_fake_transport(calls),
+                      delegation=_deleg(), now_epoch=1000)
+        assert res["delegated"] is True
+        assert all(b.get("cacao_b64") == "bWVtYmVyLXNpZ25lZA" for b in calls)
+
+
+def test_expired_delegation_falls_back_to_operator():
+    """An unrenewed leash never crashes the organism — it reverts to the node-operator
+    principal (fail-open) and carries no cacao_b64."""
+    with tempfile.TemporaryDirectory() as dr:
+        log = _log(dr, n=1)
+        calls = []
+        res = kb.push(log, graph="ibuki", live=True, transport=_fake_transport(calls),
+                      delegation=_deleg(exp=500), now_epoch=1000)
+        assert res["delegated"] is False and "expired" in res["principal"]
+        assert all("cacao_b64" not in b for b in calls)
+
+
+def test_off_scope_delegation_not_used():
+    with tempfile.TemporaryDirectory() as dr:
+        log = _log(dr, n=1)
+        calls = []
+        res = kb.push(log, graph="ibuki", live=True, transport=_fake_transport(calls),
+                      delegation=_deleg(graph="other"), now_epoch=1)
+        assert res["delegated"] is False and "scoped to graph" in res["principal"]
+
+
+def test_dry_run_reports_delegation_principal():
+    os.environ.pop(kb.LIVE_ENV, None)
+    with tempfile.TemporaryDirectory() as dr:
+        log = _log(dr, n=1)
+        res = kb.push(log, graph="ibuki", live=False, delegation=_deleg(), now_epoch=1000)
+        assert res["mode"] == "dry-run" and res["delegated"] is True
+        assert all(b.get("cacao_b64") for b in res["bodies"])
+
+
 if __name__ == "__main__":
     run("kotoba_bridge", [(n, f) for n, f in sorted(globals().items())
                           if n.startswith("test_") and callable(f)])

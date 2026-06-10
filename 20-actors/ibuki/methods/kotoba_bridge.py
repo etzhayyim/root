@@ -26,6 +26,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import urllib.error
 import urllib.request
 from urllib.parse import urlsplit
 
@@ -102,13 +103,24 @@ def operator_bearer() -> str:
     return f"{enc({'alg': 'none'})}.{enc({'sub': did})}.unsigned-loopback"
 
 
-def _default_transport(url: str, body: dict, timeout_s: float = 60.0) -> dict:
+def _default_transport(url: str, body: dict, timeout_s: float = 60.0,
+                       operator_auth: bool = True) -> dict:
+    """POST a transact. When `operator_auth` (the loopback fallback) → attach the unsigned
+    operator bearer. When NOT (the delegated path) → send NO Authorization header: auth is the
+    member-signed `cacao_b64` already in the body, and the actor is the principal, not the
+    operator."""
     assert_kotoba(url)
-    req = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"),
-                                 headers={"Content-Type": "application/json",
-                                          "Authorization": f"Bearer {operator_bearer()}"})
-    with urllib.request.urlopen(req, timeout=timeout_s) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    headers = {"Content-Type": "application/json"}
+    if operator_auth:
+        headers["Authorization"] = f"Bearer {operator_bearer()}"
+    req = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"), headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        # surface the server's reason (e.g. a CACAO-verification message on the delegated
+        # path) so a delegation issuer can see WHY a capability was rejected
+        raise RuntimeError(f"kotoba transact HTTP {e.code}: {e.read().decode()[:200]}") from None
 
 
 def bridge_state(txs: list[dict]) -> dict:
@@ -125,14 +137,33 @@ def bridge_state(txs: list[dict]) -> dict:
 
 
 def push(log_path: pathlib.Path = datoms.LOG_DEFAULT, *, graph: str = DEFAULT_GRAPH,
-         endpoint: str = DEFAULT_ENDPOINT, transport=None, live: bool | None = None) -> dict:
+         endpoint: str = DEFAULT_ENDPOINT, transport=None, live: bool | None = None,
+         delegation: dict | None = None, now_epoch: int | None = None) -> dict:
     """Push every local tx the cursor has not yet sent, one transact call per tx, oldest
     first. Live mode requires IBUKI_KOTOBA_LIVE=1 (or live=True); otherwise this is a
-    DRY-RUN export: the exact request bodies are returned and NOTHING is sent or
-    checkpointed. After a live push, ONE `:bridge/*` checkpoint tx is appended to the
-    local log (exactly-once: the next run starts after it)."""
+    DRY-RUN export. After a live push, ONE `:bridge/*` checkpoint tx is appended.
+
+    Auth principal (the leash, ADR-2606101200 §委任): if a usable member-issued `delegation`
+    bundle is given (delegation.is_usable at `now_epoch`, scoped to this graph), the push
+    presents the member-signed `cacao_b64` and the organism writes AS ITS OWN actor DID — no
+    operator bearer, no held key. If the delegation is absent/expired/mis-scoped, the push
+    FALLS BACK to the operator-bearer loopback (the node persisting on the organism's behalf)
+    — fail-open, so an unrenewed leash never crashes the organism, it just reverts to the
+    node-operator principal."""
     assert_kotoba(endpoint)
     graph_id = graph if graph.startswith("b") and len(graph) > 40 else graph_cid(graph)
+
+    # decide the auth principal for this push
+    delegated, deleg_reason = False, "operator-bearer (no delegation supplied)"
+    if delegation is not None:
+        if now_epoch is None:
+            raise KotobaBoundaryViolation(
+                "now_epoch required to check a delegation's expiry (caller supplies it — no "
+                "wall clock inside ibuki)")
+        import delegation as _deleg  # the actor-side leash module
+        ok, deleg_reason = _deleg.is_usable(delegation, now_epoch=now_epoch, graph=graph)
+        delegated = ok
+
     txs = datoms.read_log(log_path)
     state = bridge_state(txs)
     pending = [tx for tx in txs if tx[":tx/id"] > state["pushed_to"]]
@@ -140,6 +171,8 @@ def push(log_path: pathlib.Path = datoms.LOG_DEFAULT, *, graph: str = DEFAULT_GR
     parent = state["parent_commit"]
     for tx in pending:
         body = {"graph": graph_id, "tx_edn": tx_to_edn_vec(tx)}
+        if delegated:
+            body["cacao_b64"] = delegation["cacao_b64"]   # member-signed capability, presented
         if parent:
             body["expected_parent"] = parent
         bodies.append(body)
@@ -148,6 +181,7 @@ def push(log_path: pathlib.Path = datoms.LOG_DEFAULT, *, graph: str = DEFAULT_GR
     is_live = (os.environ.get(LIVE_ENV) == "1") if live is None else live
     if not is_live:
         return {"mode": "dry-run", "pending": len(bodies), "bodies": bodies,
+                "delegated": delegated, "principal": deleg_reason,
                 "pushed_to": state["pushed_to"]}
 
     t = transport or _default_transport
@@ -157,7 +191,8 @@ def push(log_path: pathlib.Path = datoms.LOG_DEFAULT, *, graph: str = DEFAULT_GR
     for tx, body in zip(pending, bodies):
         if last_commit:
             body["expected_parent"] = last_commit
-        out = t(endpoint, body)
+        out = t(endpoint, body, operator_auth=not delegated) if transport is None \
+            else t(endpoint, body)
         if out.get("status") not in ("ok", "committed", "success"):
             raise RuntimeError(f"kotoba transact refused tx {tx[':tx/id']}: {out}")
         remote_cids.append(out.get("tx_cid", ""))
@@ -181,6 +216,7 @@ def push(log_path: pathlib.Path = datoms.LOG_DEFAULT, *, graph: str = DEFAULT_GR
         datoms.append_tx(ck, log_path)
     return {"mode": "live", "pushed": len(pending), "remote_tx_cids": remote_cids,
             "parent_commit": last_commit, "datoms_confirmed": datoms_confirmed,
+            "delegated": delegated, "principal": deleg_reason,
             "pushed_to": pending[-1][":tx/id"] if pending else state["pushed_to"]}
 
 
