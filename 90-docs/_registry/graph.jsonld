@@ -14753,6 +14753,29 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606091800: Basic-infrastructure robotics — 3-layer operational substrate (electric/water/gas/telecom)",
+      "status": "accepted",
+      "topic": "infra-robotics-3layer-operational-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "infra-robotics-operational-substrate",
+        "kuni-umi-robotics-reference-engine"
+      ],
+      "related": [
+        "doc:2605201400",
+        "doc:2605261100",
+        "doc:2605263100",
+        "doc:2606051500",
+        "doc:2606051600",
+        "doc:2605215000",
+        "doc:2605312345",
+        "doc:2605231525"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
       "type": "TechArticle",
       "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
