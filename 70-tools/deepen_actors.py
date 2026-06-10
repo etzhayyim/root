@@ -1851,6 +1851,17 @@ PLATFORM_OVERRIDES = {
         "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
         "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
     },
+    # mavlink_swarm shares the verified MAVLink common.xml model (same official spec as
+    # mavlink_drones — normative-standard leverage, FHIR-family pattern). Same enum
+    # discipline: MAV_STATE + MAV_MISSION_TYPE enforced; version-growing sets gapped.
+    "mavlink_swarm": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
     # Faithful Modbus TCP model — verified against the Modbus Application Protocol spec
     # (public function/exception code tables). protocolId is always 0 for Modbus/TCP.
     "modbus_tcp": {

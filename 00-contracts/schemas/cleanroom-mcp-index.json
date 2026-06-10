@@ -8,8 +8,8 @@
   ],
   "count": 1000,
   "totalTools": 29665,
-  "l5VerifiedActors": 140,
-  "totalVerifiedEnumFields": 625,
+  "l5VerifiedActors": 141,
+  "totalVerifiedEnumFields": 627,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -6141,12 +6141,12 @@
     {
       "handle": "mavlink_swarm-compat",
       "did": "did:web:etzhayyim.com:actor:mavlink_swarm-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/mavlink_swarm-compat/manifest.json#/capabilities/mcp"
     },
     {

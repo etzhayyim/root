@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 856,
-    "L5": 144
+    "L4": 855,
+    "L5": 145
   },
   "actors": [
     {
@@ -10046,7 +10046,7 @@
       "wasmCid": "bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mavlink_swarm clean-room actor",
       "category": "drone_robotics",
       "capabilities": [

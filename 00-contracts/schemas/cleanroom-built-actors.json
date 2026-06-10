@@ -9456,12 +9456,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {

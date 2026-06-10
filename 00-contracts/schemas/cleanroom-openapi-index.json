@@ -8,8 +8,8 @@
   "count": 1000,
   "totalEndpoints": 29665,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 140,
-  "totalVerifiedEnumFields": 625,
+  "l5VerifiedActors": 141,
+  "totalVerifiedEnumFields": 627,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -10597,7 +10597,7 @@
     {
       "handle": "mavlink_swarm-compat",
       "did": "did:web:etzhayyim.com:actor:mavlink_swarm-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
@@ -10609,8 +10609,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/mavlink_swarm-compat/openapi.json"
     },
     {

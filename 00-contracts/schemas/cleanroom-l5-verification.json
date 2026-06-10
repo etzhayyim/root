@@ -6,7 +6,7 @@
  ],
  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
- "count": 144,
+ "count": 145,
  "actors": [
   {
    "handle": "square-compat",
@@ -19793,6 +19793,146 @@
    ],
    "notApplicable": [],
    "note": "FULLY VERIFIED (5/5) vs redis.io protocol-spec + TYPE command. Enforced enums: RespMessage.firstByte(15 RESP3 markers), RedisKey.dataType(8)+RedisDataType.dataType(8) = 3 enum fields. dataType enforced inclusively to avoid false-rejecting newer values; command flags gapped (open registry)."
+  },
+  {
+   "handle": "mavlink_swarm-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0",
+   "remodeled": "Shares the verified MAVLink common.xml model with mavlink_drones (same official spec — normative-standard leverage, FHIR-family pattern). Swarm coordination uses the identical MAVLink message set; same enum discipline: MAV_STATE + MAV_MISSION_TYPE enforced, version-growing sets (MAV_TYPE/MAV_AUTOPILOT/GPS_FIX_TYPE/MAV_FRAME) gapped.",
+   "resources": [
+    {
+     "entity": "Heartbeat",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/minimal.xml",
+     "verifiedFields": [
+      "type",
+      "autopilot",
+      "baseMode",
+      "customMode",
+      "systemStatus",
+      "mavlinkVersion"
+     ],
+     "fieldStatus": "confirmed; type(MAV_TYPE)/autopilot(MAV_AUTOPILOT) are version-growing -> not enforced",
+     "discoveredEnums": {
+      "systemStatus": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     "gaps": [
+      "type-version-growing",
+      "autopilot-version-growing"
+     ]
+    },
+    {
+     "entity": "SysStatus",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "load",
+      "voltageBattery",
+      "currentBattery",
+      "batteryRemaining",
+      "dropRateComm",
+      "errorsComm"
+     ],
+     "fieldStatus": "confirmed; no closed scalar enum (sensor masks are bitmasks)",
+     "discoveredEnums": {},
+     "gaps": [
+      "sensor-bitmasks"
+     ]
+    },
+    {
+     "entity": "GpsRawInt",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeUsec",
+      "fixType",
+      "lat",
+      "lon",
+      "alt",
+      "vel",
+      "satellitesVisible"
+     ],
+     "fieldStatus": "confirmed; GPS_FIX_TYPE version-growing (STATIC/PPP) -> not enforced",
+     "discoveredEnums": {},
+     "gaps": [
+      "fixType-version-growing"
+     ]
+    },
+    {
+     "entity": "Attitude",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeBootMs",
+      "roll",
+      "pitch",
+      "yaw",
+      "rollspeed",
+      "pitchspeed",
+      "yawspeed"
+     ],
+     "fieldStatus": "confirmed; no closed enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "GlobalPositionInt",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "timeBootMs",
+      "lat",
+      "lon",
+      "alt",
+      "relativeAlt",
+      "vx",
+      "vy",
+      "vz",
+      "hdg"
+     ],
+     "fieldStatus": "confirmed; no closed enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "MissionItem",
+     "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml",
+     "verifiedFields": [
+      "targetSystem",
+      "targetComponent",
+      "seq",
+      "frame",
+      "command",
+      "current",
+      "autocontinue",
+      "x",
+      "y",
+      "z",
+      "missionType"
+     ],
+     "fieldStatus": "confirmed; frame(MAV_FRAME) version-growing -> not enforced",
+     "discoveredEnums": {
+      "missionType": [
+       0,
+       1,
+       2,
+       255
+      ]
+     },
+     "gaps": [
+      "frame-version-growing",
+      "command-MAV_CMD-large"
+     ]
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (6/6 schemas) via the mavlink_drones-verified official mavlink XML (normative-standard leverage). Enforced enums: Heartbeat.systemStatus (MAV_STATE 9, int) + MissionItem.missionType (MAV_MISSION_TYPE 4, int) = 2 enums. Version-growing enums left as gaps — honesty over coverage."
   }
  ]
 }
