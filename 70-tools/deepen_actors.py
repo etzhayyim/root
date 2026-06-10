@@ -1757,6 +1757,15 @@ PLATFORM_OVERRIDES = {
         "ParameterProblem": E(type="integer", code="integer", pointer="integer"),
         "NdpMessage": E(type="integer", code="integer", targetAddress="string"),
     },
+    # Faithful MPLS model (RFC 3032/3031 + IANA mpls-label-values). General labels
+    # 16+ are user-allocated -> not enforced; reserved labels 0-15 + TC + NHLFE ops closed.
+    "mpls": {
+        "LabelStackEntry": E(label="integer", tc="integer", s="boolean", ttl="integer"),
+        "MplsHeader": E(stackDepth="integer", topLabel="integer", trafficClass="integer", bottomOfStack="boolean", timeToLive="integer"),
+        "ReservedLabel": E(value="integer", name="string", purpose="string"),
+        "NhlfeOperation": E(operationType="string", newLabel="integer", nextHopDestination="string"),
+        "MplsForwardingState": E(incomingLabel="integer", fecRef="string", hopCount="integer"),
+    },
     # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
     # shipType (0-99) is a large IMO code list -> not enforced.
     "ais_marine": {

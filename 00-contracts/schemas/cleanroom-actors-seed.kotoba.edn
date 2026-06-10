@@ -7682,11 +7682,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible deep internet / core routing actor (mpls); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "mpls.kotoba"
-   :actor/wasm-cid "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq"
+   :actor/wasm-cid "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:mpls-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mpls-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:mpls-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "mrisoftware-compat"
    :actor/did "did:web:etzhayyim.com:actor:mrisoftware-compat"
    :actor/kind :compat

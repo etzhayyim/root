@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 861,
-    "L5": 139
+    "L4": 860,
+    "L5": 140
   },
   "actors": [
     {
@@ -10619,10 +10619,10 @@
     {
       "handle": "mpls-compat",
       "did": "did:web:etzhayyim.com:actor:mpls-compat",
-      "wasmCid": "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "wasmCid": "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mpls clean-room actor",
       "category": "internet_routing",
       "capabilities": [

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29690,
+  "totalEndpoints": 29685,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 135,
-  "totalVerifiedEnumFields": 604,
+  "l5VerifiedActors": 136,
+  "totalVerifiedEnumFields": 608,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -11205,10 +11205,10 @@
     {
       "handle": "mpls-compat",
       "did": "did:web:etzhayyim.com:actor:mpls-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -11217,8 +11217,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/mpls-compat/openapi.json"
     },
     {

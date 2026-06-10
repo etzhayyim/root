@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29690,
-  "l5VerifiedActors": 135,
-  "totalVerifiedEnumFields": 604,
+  "totalTools": 29685,
+  "l5VerifiedActors": 136,
+  "totalVerifiedEnumFields": 608,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -6493,12 +6493,12 @@
     {
       "handle": "mpls-compat",
       "did": "did:web:etzhayyim.com:actor:mpls-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "manifest": "20-actors/mpls-compat/manifest.json#/capabilities/mcp"
     },
     {

@@ -9994,17 +9994,16 @@
       "handle": "mpls-compat",
       "platform": "mpls",
       "bytes": 2118,
-      "wasmCid": "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "wasmCid": "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "LabelStackEntry",
+        "MplsHeader",
+        "ReservedLabel",
+        "NhlfeOperation",
+        "MplsForwardingState"
       ]
     },
     {
