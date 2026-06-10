@@ -54,13 +54,23 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   datoms + KaizenProposal lines (the Wave-4 loop carries health complaints to humans). No
   per-organism wellbeing SCORE is ever asserted (edge-primary); muteness is structurally
   recoverable (baseline stress ≤65 + idle drift) and the audit verifies recovery.
+- **生態系, not individuals** — `ecosystem.py` makes the colony a food web with differentiated
+  niches (`:organism/niche`): **植物 producer** (fixes a `:metabolite/substrate` from its
+  mood-richness each beat) → **粘菌 router** (Physarum relay of the richest HUNGRY substrate)
+  → **カビ decomposer** (saprotroph excreting a refined `:metabolite/commons` — the citric-acid
+  analogue offered to humanity in symbiosis). A fed producer earns `:event/symbiosis-fed`
+  (mutualism), folded into its SAME-beat checkpoint (checkpoint == replay). **Satiation**
+  (`ecosystem.SATIATION`): a recently-fed producer is skipped so its mood EQUILIBRATES rather
+  than saturating. Niche differentiation structurally prevents the mood-monoculture pathology.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 14 suites (146 tests), hermetic
+./run_tests.sh                                  # all 15 suites (162 tests), hermetic
+# 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
+#   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
 #   cd methods && python3 health.py --log <log.edn> [--proposals out/health-proposals.ndjson]
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
