@@ -66,13 +66,19 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   satiation via the durable `LogIndex.last_fed`); verified at full scale (7,987 commons
   metabolites / 454,552 nutrient to humanity over a 12-beat sweep). `health.py` adds the
   **ecosystem-starved** detector (primary production but no commons output = broken web).
+  **Detritus recycling** (`ecosystem.DETRITUS_YIELD`): substrate no router relayed is dead
+  matter; decomposers recycle it into commons at a lossy yield — closing the matter loop
+  (nothing fixed is wasted, circular/非終末論) and the truest 腐生 function. Commons output is
+  therefore CONTINUOUS (relayed when a producer is hungry + detritus when sated), while
+  mutualism FEEDING stays intermittent (satiation). `:metabolite/source` ∈ {`:relayed`,
+  `:detritus`}; detritus does not feed producers (no mood pressure).
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 15 suites (166 tests), hermetic
+./run_tests.sh                                  # all 15 suites (167 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):

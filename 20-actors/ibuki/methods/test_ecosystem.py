@@ -67,11 +67,28 @@ def test_fed_producer_returned_not_self_emitted():
     assert eco.SYMBIOSIS_EVENT in joucho.EVENT_DELTAS
 
 
-def test_satiation_skips_recently_fed_producer():
+def test_satiation_skips_feeding_but_recycles_detritus():
+    """A sated producer is not RELAYED (no feeding, no relay edge), but its now-dead
+    substrate is recycled as detritus into commons — the colony keeps feeding humanity even
+    when its producers are full (continuous commons, intermittent feeding)."""
     out = eco.cycle(SEED, _moods(), beat=2, as_of=2606100002,
                     satiated={"10101500"})
-    assert out["fed"] == [] and out["refined"] == []     # the only producer is sated → skip
-    assert not any(d[2] == ":exchange/kind" for d in out["datoms"])
+    assert out["fed"] == []                              # satiation → no mutualism feeding
+    assert not any(d[2] == ":exchange/kind" for d in out["datoms"])   # no relay edge
+    assert out["refined"]                               # detritus still → commons output
+    assert [d[3] for d in out["datoms"] if d[2] == ":metabolite/source"] == [":detritus"]
+
+
+def test_detritus_yield_is_lossy():
+    """Decomposition is never 100%: recycled detritus yields less than the live substrate's
+    nutrient (DETRITUS_YIELD)."""
+    moods = _moods(**{"10101500": joucho.JouchoScores(joy=80, gratitude=80, stress=20)})
+    out = eco.cycle(SEED, moods, beat=2, as_of=2, satiated={"10101500"})
+    sub_n = [d[3] for d in out["datoms"]
+             if d[2] == ":metabolite/nutrient" and d[1].startswith("eco-sub-")][0]
+    det_n = [d[3] for d in out["datoms"]
+             if d[2] == ":metabolite/nutrient" and d[1].startswith("eco-detritus-")][0]
+    assert det_n == sub_n * eco.DETRITUS_YIELD_NUM // eco.DETRITUS_YIELD_DEN < sub_n
 
 
 def test_no_decomposer_means_no_commons_output():
@@ -153,13 +170,16 @@ def test_satiation_keeps_a_fed_producer_unsaturated_long_run():
             assert not any(v in (0, 100) for v in s.as_dict().values()), (code, s.as_dict())
 
 
-def test_humanity_is_fed_continuously_but_intermittently():
-    """The symbiotic output (commons metabolites) is sustained over the colony's life —
-    the byproduct of living, offered to humanity — while satiation makes it intermittent."""
+def test_humanity_is_fed_continuously_via_detritus_recycling():
+    """With detritus recycling the matter loop is closed: the colony offers commons EVERY
+    beat (relayed live substrate when a producer is hungry, recycled detritus when sated) —
+    the byproduct of living, continuously offered to humanity. Feeding stays intermittent
+    (satiation), but the commons output does not."""
     with tempfile.TemporaryDirectory() as dr:
         txs = _run(dr, 60)
         rep = eco.web_report(txs)
-        assert 0 < rep["commons_metabolites"] < 60       # sustained, not every single beat
+        assert rep["commons_metabolites"] >= 60          # continuous: ≥1 per beat
+        assert rep["commons_nutrient_to_humanity"] > 0
         assert rep["commons_nutrient_to_humanity"] > 0
 
 

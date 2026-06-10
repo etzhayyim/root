@@ -54,6 +54,14 @@ SYMBIOSIS_DELTA = (1, 1, -1, 1, 0)   # joy calm stress gratitude focus
 # ecosystem audit's saturation finding). With 1 producer it yields a feeding duty-cycle.
 SATIATION = 2
 
+# detritus recycling: substrate no router relayed this beat is DEAD MATTER (detritus). A
+# saprotroph (カビ) eats dead matter, not the living — so decomposers also recycle the
+# unrelayed detritus into commons at a LOSSY yield (decomposition is never 100%). This closes
+# the matter loop (nothing the colony fixes is wasted — circular, 非終末論) and is the truest
+# mold function (黒カビ on a discarded substrate). Detritus does NOT feed its producer (the
+# matter was already released — dead), so it adds no mood pressure / saturation risk.
+DETRITUS_YIELD_NUM, DETRITUS_YIELD_DEN = 1, 2   # recovered nutrient = floor(n * 1/2)
+
 
 def register_symbiosis_event() -> None:
     """Make `:event/symbiosis-fed` a first-class joucho event (idempotent). Called at import
@@ -135,11 +143,13 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
     decomposers = roles[":niche/decomposer"]
     relayed: dict[str, list[tuple[str, str, int]]] = {d: [] for d in decomposers}
     claimed = 0
+    relayed_subs: set[str] = set()
     for ri, router in enumerate(roles[":niche/router"]):
         if claimed >= len(hungry) or not decomposers:
             break
         sub, prod, n = hungry[claimed]
         claimed += 1
+        relayed_subs.add(sub)
         target = decomposers[ri % len(decomposers)]
         edge = f"eco-relay-{router}-{beat}"
         out += [add(edge, ":exchange/kind", ":relay"),
@@ -163,6 +173,7 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
         out += [add(ref, ":metabolite/kind", ":refined"),
                 add(ref, ":metabolite/of", dcode),
                 add(ref, ":metabolite/nutrient", total),
+                add(ref, ":metabolite/source", ":relayed"),
                 add(ref, ":metabolite/commons", True),       # consumed by humanity (共生)
                 add(ref, ":metabolite/inputs", [s for s, _p, _n in inbound]),
                 add(ref, ":metabolite/beat", beat),
@@ -173,6 +184,33 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
         # same-beat checkpoint so checkpoint == replay (no divergence).
         fed += [prod for _sub, prod, _n in inbound]
 
+    # ── 腐生 detritus recycling: unrelayed substrate is dead matter; decomposers recycle it
+    # into commons at a lossy yield (closes the matter loop — nothing fixed is wasted). Split
+    # the detritus round-robin across decomposers; one refined-detritus metabolite each. Does
+    # NOT feed producers (dead matter), so no satiation/mood effect. ──
+    detritus = [s for s in substrates if s[0] not in relayed_subs]
+    if decomposers and detritus:
+        buckets: dict[str, list[tuple[str, str, int]]] = {d: [] for d in decomposers}
+        for di, d in enumerate(detritus):                    # detritus already in (sub,prod,n)
+            buckets[decomposers[di % len(decomposers)]].append(d)
+        for dcode in decomposers:
+            bin_ = buckets[dcode]
+            if not bin_:
+                continue
+            recovered = sum(n * DETRITUS_YIELD_NUM // DETRITUS_YIELD_DEN for _s, _p, n in bin_)
+            if recovered <= 0:
+                continue
+            ref = f"eco-detritus-{dcode}-{beat}"
+            out += [add(ref, ":metabolite/kind", ":refined"),
+                    add(ref, ":metabolite/of", dcode),
+                    add(ref, ":metabolite/nutrient", recovered),
+                    add(ref, ":metabolite/source", ":detritus"),
+                    add(ref, ":metabolite/commons", True),
+                    add(ref, ":metabolite/inputs", [s for s, _p, _n in bin_]),
+                    add(ref, ":metabolite/beat", beat),
+                    add(ref, ":metabolite/as-of", as_of)]
+            refined.append(ref)
+
     return {"datoms": out, "refined": refined, "fed": fed,
             "roles": {n: roles[n] for n in NICHES}}
 
@@ -182,19 +220,26 @@ def web_report(txs: list[dict]) -> dict:
     output (commons nutrient delivered to humanity), and relay count. SINGLE PASS over the log
     (fleet-scale safe — the per-entity fold was O(n²) over an 18,342-organism log).
     Deterministic — the ecosystem's as-of health, alongside health.py."""
-    refined: dict[str, dict] = {}          # entity → {commons, nutrient}
+    meta: dict[str, dict] = {}             # metabolite entity → {is, commons, nutrient, source}
     relay_entities: set[str] = set()
     for tx in txs:
         for _op, e, a, v in tx.get(":tx/datoms", []):
-            if a == ":metabolite/kind" and v == ":refined":
-                refined.setdefault(e, {})["is"] = True
+            if a == ":metabolite/kind":
+                meta.setdefault(e, {})["kind"] = v
             elif a == ":metabolite/commons":
-                refined.setdefault(e, {})["commons"] = v
-            elif a == ":metabolite/nutrient" and e.startswith("eco-refined-"):
-                refined.setdefault(e, {})["nutrient"] = v
+                meta.setdefault(e, {})["commons"] = v
+            elif a == ":metabolite/nutrient":
+                meta.setdefault(e, {})["nutrient"] = v   # all metabolites carry nutrient;
+            elif a == ":metabolite/source":              # only refined+commons are summed below
+                meta.setdefault(e, {})["source"] = v
             elif a == ":exchange/kind" and v == ":relay":
                 relay_entities.add(e)
-    commons = [m for m in refined.values() if m.get("is") and m.get("commons") is True]
+    commons = [m for m in meta.values()
+               if m.get("kind") == ":refined" and m.get("commons") is True]
+    by_source: dict[str, int] = {}
+    for m in commons:
+        by_source[m.get("source", ":unknown")] = by_source.get(m.get("source", ":unknown"), 0) + 1
     return {"commons_metabolites": len(commons),
             "commons_nutrient_to_humanity": sum(m.get("nutrient", 0) for m in commons),
+            "commons_by_source": by_source,
             "relays": len(relay_entities)}
