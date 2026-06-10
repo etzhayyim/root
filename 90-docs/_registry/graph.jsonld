@@ -14794,6 +14794,40 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+      "type": "TechArticle",
+      "title": "ADR-2606101200: 息吹 (ibuki) — organism autonomy R2 gap-closure substrate (as-of state on kotoba · durable heartbeat · Murakumo narration · Wave-3 drainer · Wave-4 kaizen feedback)",
+      "status": "accepted",
+      "topic": "ibuki-organism-autonomy-gap-closure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ibuki-organism-autonomy-substrate",
+        "organism-state-as-of-kotoba",
+        "organism-wave3-post-drainer",
+        "organism-wave4-kaizen-feedback"
+      ],
+      "related": [
+        "doc:adr-2605270930-organism-r0-r1-sprint",
+        "doc:adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "doc:adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
+      "id": "doc:adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+      "type": "TechArticle",
+      "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
+      "status": "accepted",
+      "topic": "session-close-ibuki-organism-autonomy",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "doc:adr-2605231525-server-side-signing-capability-boundary",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

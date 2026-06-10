@@ -1,0 +1,14 @@
+;; ibuki R0 seed — three :representative UNSPSC organisms (ADR-2606101200).
+;; Bounded, deterministic stand-ins for the 18,342-code fleet (ADR-2605240000); the full
+;; fleet binds at R1 via the kotodama fleet cell. Codes + titles are public UNSPSC taxonomy.
+{:seed/kind :representative
+ :seed/organisms
+ [{:organism/code "10101500"
+   :organism/title "Live cattle stewardship"
+   :organism/did "did:web:etzhayyim.com:actor:unspsc-10101500"}
+  {:organism/code "14111500"
+   :organism/title "Printing and writing paper commons"
+   :organism/did "did:web:etzhayyim.com:actor:unspsc-14111500"}
+  {:organism/code "50221000"
+   :organism/title "Cereal grains provisioning"
+   :organism/did "did:web:etzhayyim.com:actor:unspsc-50221000"}]}
