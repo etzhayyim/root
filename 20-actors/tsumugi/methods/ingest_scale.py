@@ -258,6 +258,42 @@ def derive_seed_qids(seed_path: str | pathlib.Path) -> set[str]:
     return set(re.findall(r"https://www\.wikidata\.org/wiki/(Q\d+)", text))
 
 
+def forage_plan(seed_path: str | pathlib.Path) -> dict:
+    """粘菌/菌糸 foraging — offline, derived from the seed itself. A 粘菌 reinforces tubes that
+    reach food and prunes ones that don't; a fungus grows at its hyphal TIPS into fresh
+    substrate. Mapping: an org that already appears as a `:tie/from` has been HARVESTED (its
+    children fetched); an org leaf (no outgoing tie) is a FRONTIER TIP — the live growth front
+    for the next ring. When the QID-bearing frontier empties, the Wikidata substrate is
+    exhausted (STARVATION) → fruit: switch to the next substrate (GLEIF / a new registry).
+    Pure-offline + deterministic; the cloud loop reads this to grow toward food, not on a clock."""
+    nodes, ties = load(seed_path)
+    parents = {t.get(":tie/from") for t in ties}
+    seed_qids = derive_seed_qids(seed_path)
+    # map an org's citation QID (from its incident tie sources) to its id, to know which leaves
+    # are Wikidata-addressable as next anchors
+    text = pathlib.Path(seed_path).read_text(encoding="utf-8")
+    frontier, harvested = [], []
+    for nid, n in nodes.items():
+        if nid in parents:
+            harvested.append(nid)
+        elif n.get(":pwr/sector") and nid.startswith("org."):
+            frontier.append(nid)
+    # a frontier tip is "addressable" if a Wikidata QID for it is citable in the seed
+    addressable = [f for f in frontier if f"/{f.rsplit('.', 1)[-1]}" in text or True]  # heuristic: all leaves
+    starving = len(seed_qids) == 0 or len(frontier) == 0
+    return {
+        "harvested_anchors": len(harvested),
+        "frontier_tips": len(frontier),
+        "frontier_sample": sorted(frontier)[:15],
+        "anchor_qids_available": len(seed_qids),
+        "starving": starving,
+        "recommendation": ("FRUIT → switch substrate (Wikidata exhausted): run --gleif, or add a "
+                           "new registry anchor source" if starving else
+                           f"GROW → next ring anchors on {len(frontier)} frontier tips (--ring2)"),
+        "niche": "植物-producer also publishes (publish.py) — the colony feeds humanity, not only itself",
+    }
+
+
 # Wikidata's labels differ from the seed's ("Toyota" vs "Toyota Motor", "Meta" vs
 # "Meta Platforms") — without reconciliation an anchored fetch would mint PARALLEL parent
 # nodes instead of attaching children to the org already in the graph. Label → existing
@@ -407,6 +443,16 @@ def main():
     outdir = pathlib.Path(sys.argv[sys.argv.index('--out') + 1]) if '--out' in sys.argv else here / "out"
     outdir.mkdir(parents=True, exist_ok=True)
     limit = int(sys.argv[sys.argv.index('--limit') + 1]) if '--limit' in sys.argv else 200
+
+    if "--forage" in sys.argv:
+        import json as _json
+        plan = forage_plan(seed)
+        (outdir / "forage-plan.json").write_text(_json.dumps(plan, ensure_ascii=False, indent=2),
+                                                 encoding="utf-8")
+        print(f"[tsumugi/forage] {plan['recommendation']}  "
+              f"(harvested {plan['harvested_anchors']} · frontier {plan['frontier_tips']} tips · "
+              f"starving={plan['starving']}) → out/forage-plan.json")
+        return
 
     if "--live" in sys.argv:
         if not (os.environ.get("TSUMUGI_OPERATOR_GATE") == "1" and os.environ.get("TSUMUGI_OPERATOR_DID")):

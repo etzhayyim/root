@@ -108,6 +108,15 @@ def main():
     check("alias: child-side variant reuses existing seed org (no duplicate Audi)",
           all(n[":pwr/id"] != "org.ext.audi-ag" for n in c_nodes))
 
+    # FORAGE (粘菌/菌糸, hermetic): offline plan from the seed — harvested vs frontier tips
+    plan = I.forage_plan(SEED)
+    check("forage: separates harvested anchors from frontier tips",
+          plan["harvested_anchors"] >= 1 and plan["frontier_tips"] >= 1)
+    check("forage: emits a grow-or-fruit recommendation",
+          ("GROW" in plan["recommendation"]) or ("FRUIT" in plan["recommendation"]))
+    check("forage: not starving while Wikidata anchors remain",
+          plan["starving"] is (plan["anchor_qids_available"] == 0 or plan["frontier_tips"] == 0))
+
     # GLEIF source (hermetic): recorded L2 page parses; rows carry GLEIF citations; membrane holds
     gleif_obj = {"data": [{"id": "TESTLEI00000000000AA", "attributes": {"entity": {
         "legalName": {"name": "Test Subsidiary GmbH"},

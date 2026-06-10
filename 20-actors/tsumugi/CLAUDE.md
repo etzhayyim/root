@@ -285,3 +285,24 @@ python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/
   ≥2 citations, S5 factual, **G7** offline-by-default / `--live` gated to operator + Council,
   **seed never auto-mutated**. **Banner (旗) live ingest is deliberately NOT automated** —
   auto-imputing ideology is the H1 failure mode; banners stay human-authored.
+
+## etzhayyim as a power-data PROVIDER + biological foraging (ADR-2606092000 wave 3)
+
+```bash
+# PUBLISH the woven graph as self-sovereign linked data (etzhayyim's OWN vocabulary)
+python3 20-actors/tsumugi/methods/publish.py        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
+python3 20-actors/tsumugi/tests/test_publish.py     # 14 tests
+# FORAGE — 粘菌/菌糸 growth plan (offline, from the seed): harvested vs frontier tips, starvation→fruit
+python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-plan.json
+```
+
+- **Provider** (`publish.py`): the inversion of dependence — etzhayyim stops being only a
+  Wikidata/GLEIF *consumer* and becomes a *source*. Vocabulary `https://etzhayyim.com/ns/power#`,
+  entity IRIs `https://etzhayyim.com/id/power/<id>`; JSON-LD + N-Triples (SPARQL-loadable) + DCAT
+  manifest (license + `did:web:etzhayyim.com:actor:tsumugi` publisher + **content-hash = the
+  dataset's self-sovereign identity**). Publishes the layers no upstream has (産官学報
+  concentration, scale/sector/collective-kind, vertical integration) as etzhayyim-authored
+  (`epw:derivedBy`). S2 survives (only `epw:Org`/`:PublicSeat`/`:Locality`). = the 植物-producer
+  niche of ibuki's food web — the colony feeds humanity, not only itself.
+- **Foraging** (`--forage`): cadence by HUNGER not clock — harvested anchors vs frontier tips,
+  and substrate-starvation → fruit (switch source). The daily routine reads `out/forage-plan.json`.
