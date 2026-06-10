@@ -10,6 +10,9 @@
     {"child": "GEICO", "parent": "Berkshire Hathaway", "country": "United States"},
     {"child": "Louis Vuitton", "parent": "LVMH", "country": "France"},
     {"child": "Nespresso", "parent": "Nestlé", "country": "Switzerland"},
-    {"child": "Skoda Auto", "parent": "Volkswagen AG", "country": "Czech Republic"}
+    {"child": "Skoda Auto", "parent": "Volkswagen AG", "country": "Czech Republic"},
+    {"child": "BNSF Railway", "parent": "Berkshire Hathaway", "country": "United States", "childRef": "Q2823751"},
+    {"child": "Christian Dior", "parent": "LVMH", "country": "France", "childRef": "Q191158"},
+    {"child": "Purina", "parent": "Nestlé", "country": "United States", "childRef": "Q861685"}
   ]
 }

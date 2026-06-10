@@ -318,6 +318,9 @@ PARENT_ALIASES = {
     "audi": "org.ext.audi",
     "volkswagen": "org.ext.volkswagen-ag",
     "sony": "org.ext.sony-group",
+    # near-duplicate prevention: ASCII "Skoda Auto" → canonical Škoda id (PROMOTION 3)
+    "skoda auto": "org.ext.koda-auto",
+    "skoda": "org.ext.koda-auto",
 }
 
 
