@@ -20,7 +20,7 @@ persistence, every outward edge member-signed and gated.
 | 7. Kaizen one-way | outcomes fold back: rule suppression after repeated rejection + mood events (merge calms, rejection stresses) |
 
 ```bash
-./run_tests.sh                                   # 11 suites, 114 tests, stdlib-only, hermetic
+./run_tests.sh                                   # 13 suites, 134 tests, stdlib-only, hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh
 cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh   # R1 full fleet
 ```
@@ -41,3 +41,13 @@ required, **cron contexts structurally refused**); `receipts.py` folds member-at
 `cells/fleet_beat/cell.py` `.solve()` runs the durable beat and is registered on
 joseph/issachar/dan in `50-infra/murakumo/fleet.toml`. E2E verified: beat → 64 envelopes →
 member-signed → 64 receipts on one verified chain.
+
+**R3 (same wave): the local log lands on the LIVE kotoba engine.** `kotoba_bridge.py`
+pushes each local tx as one `datomic.transact` to a running kotoba node (fleet allowlist
+:8077; graph id = `KotobaCid::from_bytes(name)` pinned against the live engine; remote
+commits chained via `expected_parent`; `:ibuki.tx/*` provenance meta; exactly-once
+`:bridge/*` cursor; default no-I/O dry-run; operator auth = unsigned bearer carrying only
+the node's PUBLIC DID — no key held). **Verified live 2026-06-10**: 2 fleet beats → 2
+transacts → `status:ok`, 780 datoms confirmed by the engine, IPNS head advanced, re-push
+sent nothing twice. `kaizen_outcomes.py` fills the Wave-4 outcomes file from real PR
+states (`gh pr view`, operator-principal, read-only).

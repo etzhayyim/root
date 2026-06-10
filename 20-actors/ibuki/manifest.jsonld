@@ -16,10 +16,11 @@
     "master": "etzhayyim:adr:2606101200",
     "r0": "etzhayyim:adr:2606101200",
     "r1": "etzhayyim:adr:2606101200",
-    "r2": "etzhayyim:adr:2606101200"
+    "r2": "etzhayyim:adr:2606101200",
+    "r3": "etzhayyim:adr:2606101200"
   },
   "tier": "substrate",
-  "status": "R0+R1+R2-code-complete-member-principal-outward",
+  "status": "R0+R1+R2+R3-live-kotoba-engine-verified",
   "substrate": {
     "state": "kotoba Datom log (ADR-2605312345) — append-only content-addressed EAVT (data/ibuki.datoms.kotoba.edn at R0)",
     "inference": "Murakumo-only (ADR-2605215000)",

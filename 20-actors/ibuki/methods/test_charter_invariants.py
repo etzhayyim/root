@@ -140,11 +140,35 @@ def test_receipts_never_assert_published():
     assert ":submitted-by-member" in src     # honest attribution, not a status upgrade
 
 
+def test_kotoba_bridge_targets_the_fleet_only():
+    """The R3 transact bridge can only reach the kotoba fleet (loopback + EVO-X2 :8077);
+    anything else raises before I/O, and the default mode is a no-I/O dry-run export."""
+    import kotoba_bridge as kb
+    assert kb.ALLOWED_KOTOBA_HOSTS == frozenset({
+        "127.0.0.1:8077", "localhost:8077", "192.168.1.70:8077"})
+    expect_raises(lambda: kb.assert_kotoba("http://203.0.113.7:8077/xrpc/x"),
+                  contains="allowlist")
+    import os
+    os.environ.pop(kb.LIVE_ENV, None)
+
+
+def test_kaizen_outcomes_is_operator_principal_readonly():
+    import os
+    import kaizen_outcomes as ko
+    os.environ[ko.ENV_CRON] = "1"
+    try:
+        expect_raises(lambda: ko.collect(pathlib.Path("/nonexistent")), contains="cron")
+    finally:
+        os.environ.pop(ko.ENV_CRON, None)
+    src = _all_source()["kaizen_outcomes.py"]
+    assert "view" in src and "--json" in src     # read-only gh surface
+
+
 def test_stdlib_only():
     import ast
     allowed_local = {"datoms", "drainer", "heartbeat", "joucho", "kaizen_feedback",
                      "infer", "autorun", "_edn", "_t", "perception", "member_submit",
-                     "receipts", "fleet"}
+                     "receipts", "fleet", "kotoba_bridge", "kaizen_outcomes"}
     for p in SOURCES:
         tree = ast.parse(p.read_text(encoding="utf-8"))
         for node in ast.walk(tree):

@@ -117,13 +117,22 @@ def submit_queue(queue_path: pathlib.Path, *, from_line: int = 0, operator_ack: 
     return {"receipts": receipts, "errors": errors, "next_line": from_line + len(pending)}
 
 
+# the ONLY keys a receipt file may carry — a structural whitelist so no credential-shaped
+# field (password / accessJwt / Authorization) can ever reach disk, whatever a future
+# receipt dict accidentally contains
+RECEIPT_FILE_KEYS = ("uri", "cid", "of", "queueTs", "collection", "submittedBy", "status")
+
+
 def write_receipts(receipts: list[dict], path: pathlib.Path) -> int:
-    """Append receipts as NDJSON (receipts.py folds them onto the Datom log)."""
+    """Append receipts as NDJSON (receipts.py folds them onto the Datom log). Each line is
+    rebuilt from the RECEIPT_FILE_KEYS whitelist — credentials are unrepresentable in this
+    file by construction."""
     p = pathlib.Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     with p.open("a", encoding="utf-8") as fh:
         for r in receipts:
-            fh.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n")
+            safe = {k: r[k] for k in RECEIPT_FILE_KEYS if k in r}
+            fh.write(json.dumps(safe, ensure_ascii=False, sort_keys=True) + "\n")
     return len(receipts)
 
 

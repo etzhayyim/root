@@ -152,6 +152,36 @@ End-to-end verified: 2 fleet beats (64 organisms, real registry) → 64 member-s
 envelopes → member-signed submission (injected transport) → 64 `:receipt/*` datoms ingested
 onto the SAME verified chain (`{'ok': True, 'length': 3}`).
 
+## R3 — the local log lands on the LIVE kotoba engine (same wave)
+
+The local EDN tx log was kotoba-native by design; R3 closes the final hop with
+`methods/kotoba_bridge.py` + `methods/kaizen_outcomes.py`:
+
+- **transact bridge** — each local tx becomes one
+  `com.etzhayyim.apps.kotoba.datomic.transact` call against a running kotoba node
+  (allowlist: loopback + EVO-X2 `:8077` only — anything else raises before I/O). The
+  `graph` id is `KotobaCid::from_bytes(name)` recomputed in Python and **pinned against the
+  CID the live engine accepted**; `expected_parent` chains remote commits (optimistic
+  concurrency — a forked remote head fails loudly); every pushed tx carries `:ibuki.tx/*`
+  provenance meta (local tx id / CID / prev) so the distributed graph maps back to the
+  local commit-DAG; the push cursor is a `:bridge/*` checkpoint ON the local log
+  (exactly-once: a re-run never resends). Default = no-I/O dry-run export;
+  `IBUKI_KOTOBA_LIVE=1` to push. Operator auth = an explicitly **unsigned** bearer whose
+  `sub` is the node's PUBLIC operator DID (`IBUKI_KOTOBA_OPERATOR_DID`) — the kotoba
+  server documents loopback/edge as the signature trust boundary; **no key material is
+  held or read** (engine reads on private graphs require the owner's CACAO and stay out
+  of scope by design).
+- **VERIFIED LIVE 2026-06-10** against the running local node (`kotoba-server`,
+  `KOTOBA_STORE_PATH=~/.local/kotoba-etzhayyim/sled`): 2 fleet beats (16 organisms, real
+  registry) pushed as 2 transacts → engine returned `status:ok`, per-tx `tx_cid` +
+  `commit_cid`, **780 datoms confirmed**, IPNS head advanced; re-push sent only the bridge
+  checkpoint (exactly-once observed live).
+- **kaizen outcome collector** — `kaizen_outcomes.py` fills the Wave-4 outcomes file from
+  the real source of truth (`gh pr view --json state`, operator-principal: operator's own
+  `gh` auth, cron contexts refused, READ-ONLY — merge/close/comment unrepresentable);
+  MERGED→merged / CLOSED→rejected / OPEN→pending feed `kaizen_feedback` end-to-end
+  (collector → fold → suppression verified in one test).
+
 ### R0 scope honesty
 
 - 3 `:representative` seed organisms in `autorun.py` demonstrate the single-organism loop;
@@ -168,8 +198,10 @@ onto the SAME verified chain (`{'ok': True, 'length': 3}`).
   member-signed and operator-gated.
 - "What was organism X's mood at tx N" is now a pure log query — Wellbecoming as as-of
   history (ADR-2606011500's discipline) reaches the organism layer.
-- 114 tests across 11 standalone suites (`./run_tests.sh`), stdlib-only, hermetic.
+- 134 tests across 13 standalone suites (`./run_tests.sh`), stdlib-only, hermetic; the
+  engine hop additionally verified against the LIVE local kotoba node.
 - Future: operator turn-up of the live flags on fleet nodes (IBUKI_PERCEPTION_LIVE /
-  IBUKI_MURAKUMO_LIVE) + a member running member_submit against a real PDS + ameno
-  passkey-session signer as an alternative member runtime; the kotoba-engine ingest of the
-  EDN tx log (the body shape is already kotoba-native).
+  IBUKI_MURAKUMO_LIVE / IBUKI_KOTOBA_LIVE) + a member running member_submit against a
+  real PDS + ameno passkey-session signer as an alternative member runtime + owner-CACAO
+  read path for private-graph queries (kept out of scope: it would require wielding the
+  node key).

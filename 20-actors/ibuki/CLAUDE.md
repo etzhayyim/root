@@ -1,6 +1,6 @@
 # ibuki (息吹) — organism autonomy R2 gap-closure substrate
 
-**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1+R2 · **ADR**: 2606101200
+**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1+R2+R3 · **ADR**: 2606101200
 
 **Read the root `/CLAUDE.md` Charter + substrate rules first.** ibuki-specific invariants below
 OVERRIDE nothing in the Charter; they make it concrete for this package.
@@ -54,7 +54,7 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 11 suites (114 tests), hermetic
+./run_tests.sh                                  # all 13 suites (134 tests), hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
                                                 # prints per-organism mood as-of tx 1 vs head
 cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh
@@ -66,6 +66,12 @@ cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh
 #     python3 member_submit.py --queue ../data/fleet-posts.queue.ndjson \
 #       --receipts ../data/receipts.ndjson --yes
 #   then fold the receipts back: receipts.ingest(receipts_path, log_path)
+# R3 push the local log into the LIVE kotoba engine (default = no-I/O dry-run export):
+#   IBUKI_KOTOBA_LIVE=1 IBUKI_KOTOBA_OPERATOR_DID=<node public did> \
+#     python3 kotoba_bridge.py --log ../data/ibuki-fleet.datoms.kotoba.edn --graph ibuki
+# R3 collect real PR outcomes for the Wave-4 loop (operator-principal, read-only gh):
+#   python3 kaizen_outcomes.py --proposals ../data/kaizen-proposals.ndjson \
+#     --outcomes ../data/kaizen-outcomes.ndjson
 ```
 
 Generated artifacts (`data/ibuki*.datoms.kotoba.edn`, `data/*posts.queue.ndjson`) are
@@ -86,6 +92,12 @@ R1 sweep state is durable: `:fleet.shard/cursor` (round-robin) + `:fleet.shard/d
   boundary is Tier-1, not a flippable gate.
 - Do not widen `perception.ALLOWED_XRPC_HOSTS` beyond read-only public AppViews, give
   perception a credential, or let a live-perception failure crash the beat (fail-open).
+- Do not widen `kotoba_bridge.ALLOWED_KOTOBA_HOSTS` beyond the fleet (:8077 loopback +
+  EVO-X2), give the bridge key material (the operator bearer is an explicitly UNSIGNED
+  token carrying only the node's public DID), or remove the `:bridge/*` exactly-once
+  cursor / `:ibuki.tx/*` provenance meta.
+- Do not let `kaizen_outcomes` grow a write surface toward GitHub (`gh pr view` only) or
+  run from cron.
 - Do not introduce a retraction op or mutate an existing log line — append-only (非終末論).
 - Do not add a wall-clock call (`time.time`, `datetime.now`) to any method — determinism +
   crash-resume depend on logical time.

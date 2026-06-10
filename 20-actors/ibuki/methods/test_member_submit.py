@@ -41,13 +41,17 @@ def _member_env(on: bool):
 
 
 def _fake_transport(calls):
+    # NOTE: the fake PDS answers with literals only — it must not echo request-body
+    # fields back (a body echo would route the createSession password into the
+    # session→receipt flow and trip clear-text-storage taint analysis; a real PDS
+    # never returns the password either).
     def t(url, body=None, headers=None):
         calls.append({"url": url, "body": body, "headers": headers or {}})
         if url.endswith("com.atproto.server.createSession"):
-            return {"did": "did:plc:member123", "handle": body["identifier"],
+            return {"did": "did:plc:member123", "handle": "member.example.com",
                     "accessJwt": "jwt-test"}
         if url.endswith("com.atproto.repo.createRecord"):
-            return {"uri": f"at://did:plc:member123/{body['collection']}/{len(calls)}",
+            return {"uri": f"at://did:plc:member123/post/{len(calls)}",
                     "cid": f"bafyfake{len(calls)}"}
         raise AssertionError(f"unexpected url {url}")
     return t
