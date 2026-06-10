@@ -23,6 +23,7 @@ SUITES=(
   "methods/test_quorum.py"
   "methods/test_digest.py"
   "methods/test_integration.py"
+  "methods/test_sick_colony.py"
   "methods/test_ecosystem.py"
   "methods/test_charter_invariants.py"
 )

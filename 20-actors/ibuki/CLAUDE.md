@@ -111,7 +111,7 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 19 suites (216 tests), hermetic
+./run_tests.sh                                  # all 20 suites (222 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
