@@ -10448,3 +10448,29 @@ sibling_modules = [
 [etzhayyim.milestones.260607_cognitive_world_state]
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
 adrs = ["260607-clean-room-actors-600-generation.md", "260607-cognitive-actors-and-root-router.md"]
+
+
+# ─── rasen (螺旋) public-genetics KG mirror — gene-scale sibling of inochi 命 (ADR-2606101000) ──
+
+[[adrs]]
+id = "2606101000"
+title = "rasen (螺旋) — public-genetics KG mirror (gene-scale sibling of inochi 命); hosts PUBLIC reference genetics in the kotoba Datom log + IPFS, edge-primary clinical/functional evidence routed to CARE & RESEARCH, never an individual-genotype registry"
+status = "accepted"
+status_note = "Answers 「人や生命の遺伝子情報を kotoba で store して分析できる actor は?」→ inochi 命 stops at the species scale; rasen is its gene/variant-scale counterpart. Then 「個人は不要、公開されているものを kotoba ipfs で取り込んで」→ a live PUBLIC ingest cell. R0 = genome-ontology.kotoba.edn EAVT vocab + hand-curated seed (genes/variants/phenotypes/populations/pathways across human/elephant/rice/bacteria) + 3 pure-stdlib cells (analyze edge-primary care-priority = Σ incident variant-association via :located-in + gene-linkage × DISCLOSED clinsig; datom_emit EAVT; coverage honest gap-map) + 10 tests. R1 = cell:rasen.ingest (methods/ingest.py) pulls a BOUNDED PUBLIC slice from MyGene.info (gene→Ensembl+coarse cytoband) + MyVariant.info (rsID→ClinVar significance + gnomAD SUPER-POPULATION AGGREGATE allele frequencies), normalises to genome-ontology EDN, datom-projects it, and content-addresses the artifact to a kotoba IPFS CIDv1 (raw/sha2-256, methods/cid.py — byte-identical to `ipfs add --cid-version=1 --raw-leaves`, verified vs ipfs 0.41.0, no daemon needed). First live run 2026-06-10: 20 genes + 12 variants, 0 errors → 88 nodes / 103 縁; graph CID bafkreidtkdiz5cantzxgbwalugqovpvsn6yc3rlnat2jr2uwckfm7yvdmy (ipfs pin matched); provenance in out/ingest-provenance.json; 15 tests green (network-free). 8 gates: G1 CARE/RESEARCH-map-never-an-individual-genotype-registry (no individual/sample/family genotypes; unit is gene/variant/population-AGGREGATE; gnomAD super-pop af_* only, never sex-stratified/cohort; coarse cytoband never precise coords — enforced by tests + by construction) · G2 edge-primary (no :genome/score-of-gene) · G3 non-adjudicating (ClinVar significance is DISCLOSED, copied not re-judged) · G4 public venue · G5 sourcing-honest (bounded; coverage ~0 by design) · G6 Murakumo-only narration · G7 outward-gated (scope expansion beyond the bounded public slice = Council + operator DID) · G8 no-git-lfs (DataLad→IPFS). Individual/clinical/cohort genome ingest is explicitly OUT OF SCOPE for rasen and would require a separate himotoki-enveloped, consent-bound actor — never bolted on. Deciders: Jun Kawasaki."
+path = "90-docs/adr/2606101000-rasen-public-genetics-mirror.md"
+adr = ["2606101000", "2606073000", "2606073800", "2606011000", "2606011500", "2605312345", "2605231525", "2605215000", "2605181100", "2606014500", "2606014600"]
+
+[[modules]]
+path = "20-actors/rasen"
+kind = "tier-b-public-genetics-kg-mirror-actor"
+version = "0.1.0-r1"
+status = "R1-public-ingest-live"
+description = "rasen (螺旋) — public-genetics KG mirror, gene-scale sibling of inochi 命. PUBLIC reference genetics only (genes/variants/phenotypes/pathways + population-AGGREGATE allele frequencies) across human/elephant/rice/bacteria in the kotoba Datom log; edge-primary care-priority routed to CARE & RESEARCH, never an individual-genotype registry (G1). 4 cells (analyze/datom_emit/coverage/ingest) + cid.py kotoba-IPFS content-address (ipfs-parity, no daemon) + seed + ingest-sources allowlist + manifest.jsonld + CLAUDE.md + deps.toml + 15 network-free tests. Live PUBLIC ingest (MyGene.info + MyVariant.info → ClinVar + gnomAD aggregate) content-addressed + ipfs-pinned (CID match verified). Charter-clean: G1 no-individual-genotypes (aggregate/public by construction), G2 edge-primary, G3 non-adjudicating, G4 public, G5 sourcing-honest, G6 Murakumo-only, G7 ingest-scope-expansion-gated, G8 no-git-lfs."
+adr = ["2606101000", "2606073000", "2606073800", "2605312345", "2605231525", "2605215000", "2605181100"]
+
+[[modules]]
+path = "00-contracts/schemas/genome-ontology.kotoba.edn"
+adr = "2606101000"
+kind = "kotoba-eavt-schema"
+status = "shipped"
+description = "genome-ontology — public-genetics EAVT vocabulary for rasen 螺旋. nodes :gene/:variant/:phenotype/:population/:pathway; edges :located-in/:associated-with/:linked-to/:participates-in/:allele-frequency/:interacts-with carrying :en/grasping-load + DISCLOSED :en/clinsig; derived :bond/care-priority·:bond/locus-burden·:bond/pleiotropy (transient, on-read, N1/G2); :clinsig/weight DISCLOSED scale. G1 inversion baked into the schema doc: PUBLIC reference + population-AGGREGATE only, never individual genotypes; coarse cytoband never precise coords."
