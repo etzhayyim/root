@@ -915,6 +915,19 @@
       "related": "doc:2605262130"
     },
     {
+      "id": "doc:260610-meeting-recorder-minutes-closing",
+      "type": "Article",
+      "title": "meeting-recorder 議事録 generation — 2026-06-10 closing summary",
+      "status": "active",
+      "topic": "meeting-recorder minutes generation closing",
+      "authoritative": false,
+      "related": [
+        "doc:90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+        "doc:90-docs/260422-meeting-recorder-session-summary.md"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:ADR-2605291700",
       "type": "TechArticle",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -14893,14 +14906,18 @@
       "id": "doc:adr-2606101920",
       "type": "TechArticle",
       "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
-      "status": "proposed",
+      "status": "active",
       "topic": "meeting-recorder minutes generation",
       "authoritative": true,
       "related": [
         "doc:90-docs/260422-meeting-recorder-session-summary.md",
+        "doc:90-docs/260610-meeting-recorder-minutes-closing.md",
         "doc:ADR-2605181100 (kotoba E2E encrypted-record envelope)",
         "doc:ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
-        "doc:ADR-2606011400 (Consensys product-front / infra-back)"
+        "doc:ADR-2606011400 (Consensys product-front / infra-back)",
+        "doc:https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "doc:https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
+        "doc:https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
       ],
       "lastVerified": "2026-06-10"
     },

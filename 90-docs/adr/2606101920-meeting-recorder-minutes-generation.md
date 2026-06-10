@@ -1,16 +1,20 @@
 ---
 id: adr-2606101920
 title: meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator
-status: proposed
+status: active
 doc_type: adr
 topic: meeting-recorder minutes generation
 authoritative: true
 last_verified: 2026-06-10
 related:
   - 90-docs/260422-meeting-recorder-session-summary.md
+  - 90-docs/260610-meeting-recorder-minutes-closing.md
   - ADR-2605181100 (kotoba E2E encrypted-record envelope)
   - ADR-2605215000 (Murakumo-only inference, no commercial GPU)
   - ADR-2606011400 (Consensys product-front / infra-back)
+  - https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)
+  - https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)
+  - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)
 depends_on:
   - ADR-2605181100
   - ADR-2605215000
@@ -83,6 +87,13 @@ in the vendor execution plane.
    `leaveMeeting`, and the three provider SDK adapters (Teams .NET 8 sidecar,
    Meet Media API gRPC stream, Zoom C++ sidecar) — all flagged 大作業 in the
    04-22 summary and requiring vendor credentials.
+
+   *2026-06-10 status*: vendor-side auto-generation on leave + lexicons +
+   `vertex_meetingrecorder_minutes` graph migration landed in
+   gftdcojp/ai-gftd-apps-gftdcojp#1440 (ADR-0089 D6); the appview `getMinutes`
+   read path landed in PR #1590. Provider SDK sidecars (Teams .NET 8 / Zoom
+   C++ / Meet WebRTC media bridge) remain credential-gated — see
+   `90-docs/260610-meeting-recorder-minutes-closing.md`.
 
 ## Consequences
 
