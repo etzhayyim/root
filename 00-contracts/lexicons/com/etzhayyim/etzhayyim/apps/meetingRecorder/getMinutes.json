@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.getMinutes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch the generated meeting minutes for a session. The body is E2E-sealed in the kotoba envelope; only the owner DID and explicitly granted recipients can decrypt.",
+      "parameters": {
+        "type": "params",
+        "required": ["sessionId"],
+        "properties": {
+          "sessionId": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "minutes": {"type": "ref", "ref": "com.etzhayyim.apps.meetingRecorder.meetingMinutes"},
+            "uri": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -14863,6 +14863,21 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101920",
+      "type": "TechArticle",
+      "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
+      "status": "proposed",
+      "topic": "meeting-recorder minutes generation",
+      "authoritative": true,
+      "related": [
+        "doc:90-docs/260422-meeting-recorder-session-summary.md",
+        "doc:ADR-2605181100 (kotoba E2E encrypted-record envelope)",
+        "doc:ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
+        "doc:ADR-2606011400 (Consensys product-front / infra-back)"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
