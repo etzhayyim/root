@@ -10075,6 +10075,22 @@ path = "90-docs/adr/2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dyna
 adr = ["2606092000", "2606011800", "2606061500", "2606011000", "2606011500", "2605081300", "2606042330", "2606066000", "2605262130", "2605192100"]
 
 [[adrs]]
+id = "2606091800"
+title = "basic-infrastructure robotics — 3-layer operational substrate (電気/水道/ガス/通信)"
+status = "accepted"
+status_note = "Answers 「電気水道ガス通信などの基本インフラを運営設計する robotics の設計はどれぐらいできているか / 実際に稼働する前提まで進めて」. Audit: wide scaffolding, almost no runnable robotics — every domain cell.py .solve() raised RuntimeError; the open-ot IEC 61499 Rust WASM PLC (8 BFBs) connected to nothing; kuni-umi commissioning/cell.py raised NotImplementedError at the open-ot seam; kami-engine submodule un-checked-out; only real control code = noroshi's fibre aligner. Built ONE shared 3-layer substrate at 20-actors/kuni-umi/robotics/ (stdlib, deterministic, :representative): plant (MicrogridPlant swing-eqn+SoC, FirstOrderPlant — the kami-genesis stand-in) + control (PID anti-windup / Droop / DroopPI / simulate() — the open-ot field-tier floating-point twin) + kinematics (PlanarArm FK + analytic IK + joint_trajectory) + safety (closed-world civilian allowlist N1 · require_member_signature no-server-key G15/G7 · witness_quorum_ok ≥2 G8 · SafetyEnvelope human-proximity joint-rate ceiling) + commissioning (kuni-umi→open-ot handoff: droop-P-f load-step acceptance + windowed ROCOF guard → dry-run loop-DID registration; the NotImplementedError seam now delegates to it, live XRPC deps.sdk-gated). Replicated across 4 verticals, each safety crux structural: hikari 電気 (droop+PI restores 50 Hz after a load step; ROCOF trips islanding-scale; Otete panel-install reach/IK/envelope) · mizuho 水道 (reservoir PI; chlorination residual HARD-clamped ≤4.0 mg/L WHO/EPA via doser-clamp + plant-ceiling defence-in-depth; G6 fluoride per-member consent; G3 community-scale cap) · kamado ガス/精製 (PI purge drives H₂S/benzene below entry limits; entry into an un-purged zone raises SafetyError before any motion; G3 decommission-only; G9 displacement cohort) · noroshi 通信 (fibre lay→align→splice reusing the EXISTING Hooke-Jeeves aligner + IEC 60825 gate; fusion splice ≤0.10 dB; weapon laser unenergisable). No-live-actuation preserved: all cell.py .solve() Council-gated; every record server_held_key=false + dry_run=true; stdlib-only, no hardware/network; open-ot stays the hard-RT SSoT under a certified IEC 61508/61511 PLC. LANDED 2026-06-10 (PR #1531 squash 19e8e702e7), 375 tests green. FOLLOW-UP LANDED (PR #1538, kami-physics-bridge): submodule populated; kami-bridge/ Rust crate (path-deps, no submodule edits) emits a deterministic golden FK/IK trace from the REAL kami-genesis Featherstone solver (2-link parity URDF with exact PlanarArm((1.2,1.0)) geometry + real giemon_arm6 6-DOF fixture); committed golden + test_kami_parity.py (+8) prove FK parity on a 56-sample grid, Rust IK solutions verify under Python FK, Python analytic ik2 solves every reachable target (incl. one DLS stall — recorded asymmetry), giemon_arm6 6-DOF ready (limits sane, FK in workspace, position-IK <1mm) → the ADR's 'mechanical swap' promise is proven, 383 tests green. Honest: lumped-parameter :representative plants, test-tuned gains; R1 device-in-the-loop needs each actor's R1 trigger list."
+path = "90-docs/adr/2606091800-infra-robotics-3layer-operational-substrate.md"
+adr = ["2606091800", "2605201400", "2605261100", "2605263100", "2606051500", "2606051600", "2605215000", "2605312345", "2605231525"]
+
+[[adrs]]
+id = "2606101130"
+title = "session close — infra-robotics 3-layer wave + kami-genesis physics bridge"
+status = "accepted"
+status_note = "Process record of the 2026-06-09…06-10 session: Wave 1 = ADR-2606091800 (3-layer substrate + 4 verticals, PR #1531 merged); Wave 2 = kami-genesis physics bridge (PR #1538: submodule populated, kami-bridge golden trace, test_kami_parity.py — Python :representative kinematics PROVEN against the real Featherstone solver, giemon_arm6 swap target verified live); registrations = this deps.toml entry pair + [[modules]] kuni-umi/robotics + CLAUDE.md status row. 383 tests green. Follow-ups (gated): R1 device-in-the-loop per actor (Council triggers), full 6-DOF giemon_arm6 task sims (kami-engine repo lane), open-ot gate-a-rig acceptance integration."
+path = "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge.md"
+adr = ["2606101130", "2606091800", "2605201400"]
+
+[[adrs]]
 id = "2606042330"
 title = "entity-as-actor — society-scale social mirror graph"
 status = "accepted"
@@ -10416,6 +10432,18 @@ status = "R0+R1+R2+R3-live-kotoba-engine-verified-134-tests-green"
 description = "息吹 (ibuki) — organism autonomy substrate closing the 7 gaps of the artificial-organism loop (shionome pattern, pure stdlib): as-of organism state (joucho 情緒 event-fold mood / durable heartbeat cadence / posts / kaizen learning) on an append-only content-addressed kotoba Datom log; 18,342-organism UNSPSC fleet sharded jacob/joseph/issachar/dan behind durable cursors (no LRU, crash-resume byte-identical); Murakumo-only narration (template fail-open); Wave-3 member-sign-ready drainer + MEMBER-principal submitter (cron-refusing) + member-attributed receipts; Wave-4 kaizen feedback (rule suppression + mood events) + read-only gh outcome collector; live perception membrane (read-only allowlisted public XRPC); kotoba_bridge per-tx datomic.transact into the live engine (verified: 780 datoms confirmed, IPNS head advanced, exactly-once). fleet_beat Pregel cell registered in 50-infra/murakumo/fleet.toml (cron 3/33/43)."
 adr = ["2606101200", "2606101500", "2605232345", "2605240000", "2605240100", "2605240200", "2606072200", "2605312345", "2605231525", "2605215000"]
 schema = "20-actors/ibuki/data/seed-organisms.kotoba.edn"
+
+[[modules]]
+path = "20-actors/kuni-umi/robotics"
+kind = "infra-robotics-3layer-operational-substrate"
+version = "0.1.0-r0"
+status = "R0-landed-36-tests-green-parity-proven-against-kami-genesis"
+description = "Shared 3-layer infra-robotics operational substrate (ADR-2606091800; stdlib-only, deterministic, :representative): plant.py (Plant protocol + FirstOrderPlant + MicrogridPlant swing-eqn+SoC — the kami-genesis stand-in) + control.py (PID anti-windup / Droop / DroopPI / simulate() closed-loop runner — the floating-point twin of the open-ot IEC 61499 Rust WASM field tier) + kinematics.py (PlanarArm FK + analytic 2-link IK + joint_trajectory) + safety.py (closed-world civilian allowlist N1 · no-server-key G15/G7 · witness quorum ≥2 G8 · SafetyEnvelope human-proximity joint-rate ceiling) + commissioning.py (runnable kuni-umi→open-ot handoff: droop-P-f acceptance + windowed ROCOF guard → dry-run loop-DID registration). Composed by the 4 basic-infra verticals (hikari 電気 / mizuho 水道 / kamado ガス / noroshi 通信) via per-actor methods/_substrate.py shims. kami-bridge/ (standalone Rust crate, path-deps into the 40-engine/kami-engine submodule, no submodule edits) regenerates golden/kami_fk_ik_trace.json from the REAL kami-genesis Featherstone solver; test_kami_parity.py proves FK/IK parity + giemon_arm6 6-DOF swap readiness without requiring Rust at test time. No live actuation: domain cell.py .solve() stays Council-gated; every record server_held_key=false + dry_run=true."
+adr = ["2606091800", "2606101130", "2605201400", "2605261100", "2605263100", "2606051500", "2606051600", "2605231525", "2605215000"]
+sibling_modules = [
+  "60-apps/etzhayyim-project-open-ot",                   # hard-RT field-tier SSoT (Rust WASM BFBs)
+  "40-engine/kami-engine",                               # physics submodule (parity-proven swap target)
+]
 
 [etzhayyim.milestones.260607_cognitive_world_state]
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."

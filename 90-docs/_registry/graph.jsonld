@@ -14794,6 +14794,23 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606101130",
+      "type": "TechArticle",
+      "title": "ADR-2606101130: Session-Close — basic-infrastructure robotics 3-layer wave + kami-genesis physics bridge",
+      "status": "accepted",
+      "topic": "session-close-infra-robotics-3layer-kami-physics-bridge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the infra-robotics 3-layer + kami-physics-bridge wave (2026-06-09 … 06-10)",
+        "deps.toml registration of ADR-2606091800 + the kuni-umi/robotics module"
+      ],
+      "related": [
+        "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "doc:adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
       "type": "TechArticle",
       "title": "ADR-2606101200: 息吹 (ibuki) — organism autonomy R2 gap-closure substrate (as-of state on kotoba · durable heartbeat · Murakumo narration · Wave-3 drainer · Wave-4 kaizen feedback)",
