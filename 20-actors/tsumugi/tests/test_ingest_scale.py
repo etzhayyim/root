@@ -108,6 +108,23 @@ def main():
     check("alias: child-side variant reuses existing seed org (no duplicate Audi)",
           all(n[":pwr/id"] != "org.ext.audi-ag" for n in c_nodes))
 
+    # GLEIF source (hermetic): recorded L2 page parses; rows carry GLEIF citations; membrane holds
+    gleif_obj = {"data": [{"id": "TESTLEI00000000000AA", "attributes": {"entity": {
+        "legalName": {"name": "Test Subsidiary GmbH"},
+        "legalAddress": {"country": "DE"}}}}]}
+    grows = I.parse_gleif_children(gleif_obj, "Volkswagen AG")
+    check("gleif: recorded page parses to rows", len(grows) == 1
+          and grows[0]["child"] == "Test Subsidiary GmbH" and grows[0]["country"] == "DE")
+    check("gleif: row carries L2-RR citation + real record URL",
+          grows[0]["cite"][0].startswith("GLEIF Level-2")
+          and grows[0]["cite"][1] == "https://search.gleif.org/#/record/TESTLEI00000000000AA")
+    _, _, g_nodes, g_ties, _ = I.normalize_rows(grows, SEED)
+    check("gleif: rows cross the membrane (attach to seed VW, GLEIF citations kept)",
+          bool(g_ties) and g_ties[0][":tie/from"] == "org.ext.volkswagen-ag"
+          and g_ties[0][":tie/sources"][0].startswith("GLEIF Level-2"))
+    check("gleif: ISO-2 country maps to locality (DE→de, GB→uk)",
+          I.locality_of("DE") == "de" and I.locality_of("GB") == "uk")
+
     # committed seed is NEVER mutated by a merge write
     before = pathlib.Path(SEED).read_bytes()
     with tempfile.TemporaryDirectory() as d:
