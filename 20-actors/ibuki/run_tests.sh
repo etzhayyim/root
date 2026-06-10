@@ -19,6 +19,12 @@ SUITES=(
   "methods/test_kotoba_bridge.py"
   "methods/test_kaizen_outcomes.py"
   "methods/test_health.py"
+  "methods/test_symbiosis.py"
+  "methods/test_quorum.py"
+  "methods/test_digest.py"
+  "methods/test_integration.py"
+  "methods/test_sick_colony.py"
+  "methods/test_ecosystem.py"
   "methods/test_charter_invariants.py"
 )
 

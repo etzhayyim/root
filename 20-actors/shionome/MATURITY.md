@@ -13,9 +13,34 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **153 tests** across weave (42) / ingest (14) / social (11) /
-  export (6) / sources (8) / registry (7) / charter-invariants (18) / analyze (4) / lexicons (5) /
-  consistency (7) / kotoba (9) / autorun (6) / cells-state-machines (13) / cells-membrane-flow (3).
+- **Tests**: `./run_tests.sh` green — **182 tests** across weave (47) / grounding (24) / ingest (14) /
+  social (11) / export (6) / sources (8) / registry (7) / charter-invariants (18) / analyze (4) /
+  lexicons (5) / consistency (7) / kotoba (9) / autorun (6) / cells-state-machines (13) /
+  cells-membrane-flow (3).
+- **Stock layer (the money-and-markets pyramid)**: alongside the FLOW graph, a bucket may carry an
+  `:outstanding-usd` snapshot — the observed total SIZE of an asset class in USD trillions.
+  `weave.stock_pyramid` aggregates the latest such snapshot per asset class into the "how big is
+  everything" sizing view (the Visual Capitalist money & markets pyramid). On the `:representative`
+  seed the 8 global layers total **1,383 tn** (derivatives gross notional 600 / real-estate 380 /
+  debt 140 / broad-money 121 / equities 115 / gold 16 / cash 8 / crypto 3). A SIZE is a factual
+  observed quantity carrying `no_trade_notice=true` — never a per-asset rating/signal/target
+  (G2/G4 untouched); stock (usd-tn) is never summed with flow magnitudes (usd-bn).
+- **Entity grounding (`methods/grounding.py`)** — answers *who is inside each layer?* by
+  decomposing a pyramid layer into the NAMED real entities sibling actors already mirror, and
+  reporting the coverage gap HONESTLY. On the checked-out seeds: the **equities** layer is grounded
+  by kabuto's **1,719** listed companies — value coverage **$46.8tn / $115tn ≈ 40.7%** (a stated
+  LOWER BOUND: only the 205 companies that report a market-cap contribute), count coverage
+  **1,719 / ~55,000 ≈ 3.1%** of the listed universe (a `:representative` denominator). A
+  cross-cutting **systemic-institutions overlay** (hokorobi, 17 institutions, 14 authoritative) and
+  the **7 ungrounded layers** (cash/broad-money/debt/real-estate/gold/crypto/derivatives) are named
+  explicitly. **Disclosure DEPTH** (kanjō): of the named equity constituents, **5** carry
+  primary-disclosure financials (Apple/Sony/Nintendo/Toyota/Microsoft) — an authoritative-depth
+  signal, not a fundamental rating. A **per-layer grounding roadmap** (`grounding_roadmap`) records,
+  for every layer, the candidate sibling actor and — where it is `ungroundable-at-r0` — the explicit
+  reason (e.g. derivatives = BIS gross-notional aggregate, not entity-decomposable; debt = bond-market
+  size ≠ corporate balance-sheet liabilities, so kanjō must NOT be conflated with the debt layer).
+  Fail-open (a missing sibling ledger → that layer reported ungrounded, never a crash); shionome's
+  core (weave/concentration) does NOT import the bridge. Sizes/counts only, no advice.
 - **The no-trade invariant (トレードはしない, G2) is enforced in four homes**: the ontology
   closed-vocab (trade tokens are not enum members + no `:bucket/rating` attr), the lexicons
   (`noTradeNotice` const true on flows/findings/posts), `weave.TRADE_TOKENS` (refused on every

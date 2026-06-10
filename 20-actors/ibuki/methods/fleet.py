@@ -38,6 +38,7 @@ import pathlib
 
 import datoms
 import drainer
+import ecosystem
 import heartbeat
 import joucho
 import perception
@@ -124,6 +125,7 @@ class LogIndex:
         self.drain_line: dict[str, int] = {}    # shard name → queue lines already drained
         self.followers: dict[str, int] = {}     # code → last live :perception/followers
         self._perc_beat: dict[str, int] = {}
+        self.last_fed: dict[str, int] = {}       # code → last :event/symbiosis-fed beat (satiation)
 
 
 def index_log(txs: list[dict]) -> LogIndex:
@@ -154,6 +156,9 @@ def index_log(txs: list[dict]) -> LogIndex:
         of, kind = ent.get(":joucho.event/of"), ent.get(":joucho.event/kind")
         if of and kind:
             idx.events.setdefault(of, []).append(kind)
+            if kind == ecosystem.SYMBIOSIS_EVENT:
+                b = ent.get(":joucho.event/beat", -1)
+                idx.last_fed[of] = max(idx.last_fed.get(of, -1), b)
     for ent in hb_entity.values():
         of, beat = ent.get(":heartbeat/of"), ent.get(":heartbeat/beat", -1)
         if of is None:
@@ -178,25 +183,29 @@ def index_log(txs: list[dict]) -> LogIndex:
 
 
 def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat: int,
-               batch_size: int, queue_path: pathlib.Path) -> list[list]:
+               batch_size: int, queue_path: pathlib.Path, txs: list[dict]) -> list[list]:
     """One beat = the next `batch_size` organisms of the shard (durable round-robin cursor)
-    + an incremental drain of queue lines this shard has not yet prepared."""
+    + an incremental drain of queue lines this shard has not yet prepared. `txs` is the log
+    read this beat (for the periodic health audit)."""
     now_ms = beat * BEAT_MS
     as_of = AS_OF_BASE + beat
     out: list[list] = []
     n = len(shard_slice)
     start = idx.cursor.get(shard_name, 0) % n if n else 0
 
-    for k in range(min(batch_size, n)):
-        org = shard_slice[(start + k) % n]
+    # ── Phase 1: feel + decide + act for the batch; defer checkpoints for the eco cascade ──
+    batch = [shard_slice[(start + k) % n] for k in range(min(batch_size, n))]
+    pending: list[dict] = []
+    beat_moods: dict[str, joucho.JouchoScores] = {}
+    for org in batch:
         code, did, title = org["code"], org["did"], org["title"]
         state = idx.hb.get(code, heartbeat.HeartbeatState())
-
         if state.beats == 0:    # first tick of this organism: birth assertion
             e = f"org-{code}"
             out += [datoms.add(e, ":organism/code", code),
                     datoms.add(e, ":organism/title", title),
                     datoms.add(e, ":organism/did", did),
+                    datoms.add(e, ":organism/niche", ecosystem.niche_of(code)),
                     datoms.add(e, ":organism/born-beat", beat)]
 
         baseline = joucho.personality_baseline(code)
@@ -225,16 +234,46 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
             events = events + [":event/post-emitted"]
             state.last_post_at_ms = now_ms
             state.posts += 1
-
-        # ONE event_datoms call per organism-beat — a second call would reuse
-        # jev-{code}-{beat}-0 and shadow the idle event in the as-of fold
-        # (homeostasis-loss bug, 2026-06-10 health audit)
-        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         state.beats += 1
+        beat_moods[code] = scores
+        pending.append({"code": code, "baseline": baseline, "events": events,
+                        "scores": scores, "state": state})
+
+    # ── Phase 2: 生態系 cascade over the co-active batch (niches hash-derived at fleet
+    # scale; satiation from the durable last-fed index) ──
+    sated = {c for c in beat_moods if beat - idx.last_fed.get(c, -ecosystem.SATIATION - 1)
+             <= ecosystem.SATIATION}
+    eco = ecosystem.cycle([{"code": o["code"]} for o in batch], beat_moods,
+                          beat=beat, as_of=as_of, satiated=sated,
+                          trails=ecosystem.trail_strengths(txs, beat))
+    out += eco["datoms"]
+    fed_count: dict[str, int] = {}
+    for prod in eco["fed"]:
+        fed_count[prod] = fed_count.get(prod, 0) + 1
+
+    # ── Phase 3: fold symbiosis into the SAME-beat checkpoint; ONE event_datoms per organism ──
+    final_moods: dict[str, str] = {}
+    for p in pending:
+        code, events, scores, state = p["code"], p["events"], p["scores"], p["state"]
+        for _ in range(fed_count.get(code, 0)):
+            events = events + [ecosystem.SYMBIOSIS_EVENT]
+            scores = joucho.fold_event(scores, ecosystem.SYMBIOSIS_EVENT, p["baseline"])
+        if fed_count.get(code, 0):
+            idx.last_fed[code] = beat
+        mood = joucho.determine_mood(scores)
+        final_moods[code] = mood
+        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
         out += heartbeat.checkpoint_datoms(code, state, mood, beat=beat, as_of=as_of)
         idx.hb[code] = state
         idx.events.setdefault(code, []).extend(events)
+
+    # 定足数 quorum sensing over the co-active batch — collective fruiting / dormancy
+    import quorum
+    beat_commons = sum(d[3] for d in eco["datoms"]
+                       if d[2] == ":metabolite/nutrient" and d[1].startswith(("eco-refined-",
+                                                                              "eco-detritus-")))
+    out += quorum.sense(final_moods, beat_commons, beat=beat, as_of=as_of)["datoms"]
 
     # incremental drain: only lines this shard has not yet prepared (durable line cursor)
     from_line = idx.drain_line.get(shard_name, 0)
@@ -242,10 +281,14 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
     out += drained
     idx.drain_line[shard_name] = next_line
 
-    # 健全化: periodic colony self-audit over this shard's log (health.py)
+    # 健全化: periodic colony self-audit over this shard's log (health.py) + the colony's
+    # human-readable report (digest.py) — the deployed fleet path reports to humanity too,
+    # not just the seed demo. Both read `txs` (the log BEFORE this beat), so no self-read.
     if beat % HEALTH_EVERY == 0:
         import health
+        import digest
         out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
+        out += digest.make(txs, beat=beat, as_of=as_of)["datoms"]
 
     # durable sweep cursor checkpoint — the crash-resume point of the round-robin
     new_cursor = (start + min(batch_size, n)) % n if n else 0
@@ -335,7 +378,7 @@ def fleet_autorun(cycles: int, *, shard_index: int | None = None,
         idx = index_log(txs)
         beat = len(txs) + 1
         body = fleet_beat(slice_, idx, shard_name=shard_name, beat=beat,
-                          batch_size=batch_size, queue_path=queue)
+                          batch_size=batch_size, queue_path=queue, txs=txs)
         tx = datoms.make_tx(body, tx_id=beat, as_of=AS_OF_BASE + beat,
                             prev_cid=datoms.head_cid(log))
         datoms.append_tx(tx, log)

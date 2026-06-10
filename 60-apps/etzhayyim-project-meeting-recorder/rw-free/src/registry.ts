@@ -16,6 +16,7 @@
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
+import { countMinutes } from "./minutes.js";
 import {
   CHUNK_INNER_TYPE,
   PROVIDER_CATALOG_COLLECTION,
@@ -287,16 +288,19 @@ export async function coverage(e: Etzhayyim, input: CoverageInput = {}): Promise
   const sessionCount = sessions.length;
   const recordingChunkCount = (await scanChunks(e, maxScan)).length;
   const transcriptSegmentCount = (await scanSegments(e, maxScan)).length;
+  const meetingMinutesCount = await countMinutes(e, maxScan);
   return {
     providerCapabilityCount,
     sessionCount,
     recordingChunkCount,
     transcriptSegmentCount,
+    meetingMinutesCount,
     sessionsByProvider,
     truncated:
       providerCapabilityCount >= maxScan ||
       sessionCount >= maxScan ||
       recordingChunkCount >= maxScan ||
-      transcriptSegmentCount >= maxScan,
+      transcriptSegmentCount >= maxScan ||
+      meetingMinutesCount >= maxScan,
   };
 }

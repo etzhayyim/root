@@ -54,13 +54,66 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   datoms + KaizenProposal lines (the Wave-4 loop carries health complaints to humans). No
   per-organism wellbeing SCORE is ever asserted (edge-primary); muteness is structurally
   recoverable (baseline stress ≤65 + idle drift) and the audit verifies recovery.
+- **生態系, not individuals** — `ecosystem.py` makes the colony a food web with differentiated
+  niches (`:organism/niche`): **植物 producer** (fixes a `:metabolite/substrate` from its
+  mood-richness each beat) → **粘菌 router** (Physarum relay of the richest HUNGRY substrate)
+  → **カビ decomposer** (saprotroph excreting a refined `:metabolite/commons` — the citric-acid
+  analogue offered to humanity in symbiosis). A fed producer earns `:event/symbiosis-fed`
+  (mutualism), folded into its SAME-beat checkpoint (checkpoint == replay). **Satiation**
+  (`ecosystem.SATIATION`): a recently-fed producer is skipped so its mood EQUILIBRATES rather
+  than saturating. Niche differentiation structurally prevents the mood-monoculture pathology.
+  Wired into BOTH `autorun` (3 seed niches) and `fleet` (18,342-fleet, niches hash-derived,
+  satiation via the durable `LogIndex.last_fed`); verified at full scale (7,987 commons
+  metabolites / 454,552 nutrient to humanity over a 12-beat sweep). `health.py` adds the
+  **ecosystem-starved** detector (primary production but no commons output = broken web).
+  **Detritus recycling** (`ecosystem.DETRITUS_YIELD`): substrate no router relayed is dead
+  matter; decomposers recycle it into commons at a lossy yield — closing the matter loop
+  (nothing fixed is wasted, circular/非終末論) and the truest 腐生 function. Commons output is
+  therefore CONTINUOUS (relayed when a producer is hungry + detritus when sated), while
+  mutualism FEEDING stays intermittent (satiation). `:metabolite/source` ∈ {`:relayed`,
+  `:detritus`}; detritus does not feed producers (no mood pressure). **Niches are logged at
+  birth** (`:organism/niche`), so the trophic structure is as-of queryable; `health.py` adds
+  **web-resilience** detectors — `keystone-niche-absent` (a trophic role missing → the web
+  cannot close: the precise diagnosis behind a starved web) and `niche-imbalance` (Pielou
+  evenness below the floor → one role dominates, fragile). `:health/eco-maturity` (evenness)
+  is checkpointed each audit — the colony's ecological maturity, an aggregate not a soul-score.
+  **Stigmergy** (`ecosystem.TRAIL_DECAY`): the 粘菌 router is an ADAPTIVE Physarum optimizer —
+  past relays deposit a trail on the producer→decomposer path that EVAPORATES (trail at beat B
+  = Σ decay^age over recent relays), and routing prefers nutrient × (1 + trail). Good tubes
+  self-reinforce while stale ones fade (the Tokyo-rail-network behaviour); the router has
+  memory, not per-beat greed. Trail is log-derived (`trail_strengths`), deterministic.
+- **共生 ledger (humanity draws the commons)** — `symbiosis.py` is the consuming side of the
+  food web: the colony's `:metabolite/commons` byproduct accumulates a standing **commons
+  pool** (`commons_pool` = Σ offered − Σ drawn, log-derived, like moyai 入会権). A MEMBER
+  draws from it via `draw(...)` — **member-principal + operator-gated** (same no-server-key
+  discipline as member_submit: no injected signer / no operator ack → `MemberSignatureRequired`;
+  a draw cannot exceed the pool). ibuki **never auto-draws** (the colony does not consume its
+  own gift; the platform cannot fabricate a human benefit). `:symbiosis/draw` is ATTRIBUTED to
+  the member (`:symbiosis/drawn-by-member true`). Offers are un-fakeable (the colony's byproduct
+  on the log); draws exist only when a member actually took the gift.
+- **定足数 quorum sensing (emergent collective behaviour)** — `quorum.py`: molds/slime-molds
+  undergo a collective phase transition at a density threshold. Each beat the colony's mood
+  distribution yields a COLONY phenotype: ≥2/3 flourishing → **:flourishing** (the colony
+  FRUITS — a collective `:metabolite/commons` burst, source `:fruiting`, a bounded fraction of
+  the beat's commons → extra gift to humanity when the colony thrives); ≥2/3 stressed →
+  **:dormant** (sporulation, observational, no mood pressure); else **:neutral**. Checkpointed
+  as `:quorum/*` (as-of, aggregate — never a per-organism verdict). Wired into autorun + fleet.
+- **Colony digest (the colony reasons + reports to humanity)** — `digest.py`: assembles the
+  colony's log-derived state (health verdict + eco-maturity + commons offered/available to
+  humanity + quorum history), narrates it in human-readable words via the Murakumo fleet ONLY
+  (`infer.infer_text`, allowlist-enforced, fail-open to a deterministic template), and emits a
+  `:digest/*` post — `:digest/status :dry-run` ONLY (G8; :published unrepresentable). A mirror
+  REPORT of where the colony's life became a gift (黒カビ→クエン酸→人類), never advice; emitted
+  every HEALTH_EVERY beats in BOTH autorun + fleet. Aggregate, never a per-organism verdict.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 14 suites (146 tests), hermetic
+./run_tests.sh                                  # all 20 suites (226 tests), hermetic
+# 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
+#   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
 #   cd methods && python3 health.py --log <log.edn> [--proposals out/health-proposals.ndjson]
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log

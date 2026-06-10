@@ -170,6 +170,36 @@ def test_fleet_event_entities_never_shadowed():
         assert kinds and max(kinds.values()) == 1
 
 
+def test_fleet_health_checkpoint_past_10_beats():
+    """Regression: fleet_beat's periodic health audit (beat % HEALTH_EVERY == 0) needs the
+    log — a >=10-beat fleet run must not raise (latent NameError shipped because every prior
+    fleet test ran <10 beats)."""
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=6)
+        res = _fleet_run(dr, 10, batch=6, fresh=True, reg=reg)
+        assert res["chain"]["ok"] is True
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        assert any(d[2] == ":health/healthy"
+                   for tx in txs for d in tx[":tx/datoms"])
+
+
+def test_fleet_grows_a_food_web_and_stays_healthy():
+    """生態系 at fleet scale: a batch of co-active organisms forms a producer->router->
+    decomposer web; humanity is fed; the colony stays healthy + unsaturated over a long run."""
+    import ecosystem as eco
+    import health
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=12)
+        _fleet_run(dr, 40, batch=12, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        web = eco.web_report(txs)
+        assert web["commons_metabolites"] > 0 and web["relays"] > 0
+        rep = health.audit(txs)
+        assert "ecosystem-starved" not in {f["rule"] for f in rep["findings"]}
+        # no organism pins an axis at the clamp (satiation holds at fleet scale too)
+        assert not any(f["rule"] == "axis-saturation" for f in rep["findings"])
+
+
 def test_cell_solve_runs_a_durable_beat():
     """R2 (Council gate = PR merge): the Pregel cell RUNS the beat — offline-safe, local
     log only; it can prepare envelopes but can never post (member_submit refuses cron)."""
@@ -186,6 +216,82 @@ def test_cell_solve_runs_a_durable_beat():
             "queue_path": str(pathlib.Path(dr) / "queue.ndjson")})
         assert out["beats"] == 1 and out["chain_ok"] is True
         assert out["shard"] == "joseph" and out["organisms_alive"] == 16
+
+
+# ── fleet-scale ECOSYSTEM full stack (the deployed path, not just autorun/seed) ──
+
+
+def test_fleet_grows_the_full_ecosystem_stack():
+    """The 18,342-organism deployed path must run the WHOLE ecosystem, not just autonomy:
+    a multi-batch synthetic-fleet sweep leaves metabolite + exchange + quorum + health +
+    niche datoms on one verified chain, and the report functions agree."""
+    import ecosystem
+    import health
+    import quorum
+    import symbiosis
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=60)
+        # batch 20 < 60 → the cursor sweeps; 12 beats crosses HEALTH_EVERY (digest+health)
+        _fleet_run(dr, 12, batch=20, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        attrs = {d[2] for tx in txs for d in tx[":tx/datoms"]}
+        for fam in (":metabolite/kind", ":exchange/kind", ":quorum/state",
+                    ":health/healthy", ":organism/niche"):
+            assert fam in attrs, f"fleet ecosystem datom missing: {fam}"
+        # the report stack is single-pass + consistent at fleet scale
+        web = ecosystem.web_report(txs)
+        pool = symbiosis.commons_pool(txs)
+        assert web["commons_metabolites"] > 0 and pool["offered"] == web["commons_nutrient_to_humanity"]
+        assert pool["drawn"] == 0                      # the fleet never self-draws
+        rep = health.audit(txs)
+        assert rep["colony"]["niche_population"]       # niches logged at birth, fleet-wide
+        qh = quorum.quorum_history(txs)
+        assert sum(qh["states"].values()) >= 1         # quorum sensed each batched beat
+
+
+def test_fleet_health_audit_correct_at_scale():
+    """health.audit over a fleet log returns a correct verdict (single-pass _walk; the
+    measured cost is ~0.2s over 18,342 organisms — fleet-safe, guarded here by correctness
+    rather than a flaky wall-clock assertion)."""
+    import health
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=60)
+        _fleet_run(dr, 10, batch=30, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        rep = health.audit(txs)
+        # every organism that has ticked carries niche + heartbeat; the audit sees them all
+        assert rep["colony"]["count"] >= 30
+        assert isinstance(rep["healthy"], bool)
+        # the niche populations sum to the number of distinct organisms born
+        born = {d[1] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":organism/niche"}
+        assert sum(rep["colony"]["niche_population"].values()) == len(born)
+
+
+def test_fleet_crash_resume_preserves_ecosystem():
+    """Mid-sweep crash-resume keeps the WHOLE ecosystem (not just heartbeat): the head CID of
+    6+6 across a process death equals an uninterrupted 12-beat fleet run — metabolite,
+    quorum, drain cursors and all."""
+    with tempfile.TemporaryDirectory() as d1, tempfile.TemporaryDirectory() as d2:
+        reg1 = _synthetic_registry(d1, n=24)
+        _fleet_run(d1, 6, batch=8, fresh=True, reg=reg1)
+        resumed = _fleet_run(d1, 6, batch=8, fresh=False, reg=reg1)
+        straight = _fleet_run(d2, 12, batch=8, fresh=True, reg=_synthetic_registry(d2, n=24))
+        assert resumed["head"] == straight["head"]
+
+
+def test_fleet_emits_digest_to_humanity():
+    """The deployed fleet path reports to humanity too: a digest is emitted at the health
+    cadence, dry-run only, narrated via the Murakumo path (template offline)."""
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=24)
+        _fleet_run(dr, 10, batch=24, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        texts = [d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/text"]
+        statuses = {d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/status"}
+        vias = {d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/via"}
+        assert texts and "息吹" in texts[-1]            # the colony spoke
+        assert statuses == {":dry-run"}                # G8
+        assert vias <= {":template", ":murakumo"}      # Murakumo-only or offline template
 
 
 if __name__ == "__main__":
