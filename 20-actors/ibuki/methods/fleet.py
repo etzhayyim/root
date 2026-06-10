@@ -252,6 +252,7 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
         fed_count[prod] = fed_count.get(prod, 0) + 1
 
     # ── Phase 3: fold symbiosis into the SAME-beat checkpoint; ONE event_datoms per organism ──
+    final_moods: dict[str, str] = {}
     for p in pending:
         code, events, scores, state = p["code"], p["events"], p["scores"], p["state"]
         for _ in range(fed_count.get(code, 0)):
@@ -260,11 +261,19 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
         if fed_count.get(code, 0):
             idx.last_fed[code] = beat
         mood = joucho.determine_mood(scores)
+        final_moods[code] = mood
         out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
         out += heartbeat.checkpoint_datoms(code, state, mood, beat=beat, as_of=as_of)
         idx.hb[code] = state
         idx.events.setdefault(code, []).extend(events)
+
+    # 定足数 quorum sensing over the co-active batch — collective fruiting / dormancy
+    import quorum
+    beat_commons = sum(d[3] for d in eco["datoms"]
+                       if d[2] == ":metabolite/nutrient" and d[1].startswith(("eco-refined-",
+                                                                              "eco-detritus-")))
+    out += quorum.sense(final_moods, beat_commons, beat=beat, as_of=as_of)["datoms"]
 
     # incremental drain: only lines this shard has not yet prepared (durable line cursor)
     from_line = idx.drain_line.get(shard_name, 0)
