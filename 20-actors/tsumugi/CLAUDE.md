@@ -256,3 +256,27 @@ Gemma-4 Murakumo fleet. Standing structure:
 python3 20-actors/tsumugi/methods/narrate.py            # dry-run → out/narration.dryrun.md
 python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only + aggregate-safe)
 ```
+
+## Coverage measurement + G7-gated live ingest — scale/旗 (ADR-2606092000)
+
+```bash
+# honest gap audit (per-scale/kind/sector/country + denominators, all ~0 real by design)
+python3 20-actors/tsumugi/methods/coverage_scale.py        # → out/coverage-report.md
+python3 20-actors/tsumugi/tests/test_coverage_scale.py     # 6 tests
+# OFFLINE structural-public org ingest (Wikidata-P749-shaped fixtures → :pwr + :tie :custodies)
+python3 20-actors/tsumugi/methods/ingest_scale.py
+#   → out/seed-plus-ingest-scale.kotoba.edn — run analyze_scale on THIS for the lift
+# LIVE Wikidata P749 fetch (stdlib urllib) — G7-gated, refused without the operator gate:
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 20-actors/tsumugi/methods/ingest_scale.py --live --limit 200
+#   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR).
+python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 14 tests (S2/S4/S5/G7 + seed-not-mutated)
+```
+
+- **`coverage_scale.py`** measures the gap honestly: scales 7/7 · kinds 8/8 · sectors 6/6 ·
+  countries 8/195 (4.1%) — machinery fully exercised, real-world coverage ~0 BY DESIGN.
+- **`ingest_scale.py`** is the path that scales (A) coverage: STRUCTURAL-PUBLIC only (orgs +
+  parent-org `:custodies`), **S2 person-excluded** (live query constrained to org class), S4
+  ≥2 citations, S5 factual, **G7** offline-by-default / `--live` gated to operator + Council,
+  **seed never auto-mutated**. **Banner (旗) live ingest is deliberately NOT automated** —
+  auto-imputing ideology is the H1 failure mode; banners stay human-authored.
