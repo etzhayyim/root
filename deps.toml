@@ -541,6 +541,31 @@ deploy_status = "live"
 # ROLE: CIDv1 cold/interop backstop ONLY — durability authority is kotoba-dht
 # (ADR-2606011330). IPFS no longer owns the retention guarantee.
 role = "CIDv1 cold/interop backstop (demoted from durability authority per ADR-2606011330)"
+# This is the LOCAL self-pin tier (the kotoba node is its own IPFS node). The
+# canonical durable REMOTE pin is kotobase.net — see [platform.kotobase_pin]
+# (ADR-2606091500). Two-tier: local self-pin (hot, ≤~1 GB) + kotobase.net pin.
+remote_pin_service = "kotobase.net"
+remote_pin_adr = "2606091500"
+
+[platform.kotobase_pin]
+# ADR-2606091500 — canonical remote IPFS pin service, repo-wide. The kotoba node
+# self-pins its local block tier ([platform.ipfs] above, ~1 GB free); kotobase.net
+# holds the durable, content-addressed canonical pins (>1 GB extended) that
+# survive pod GC. Kubo-compatible HTTP API. Supersedes the kotobase.etzhayyim.com
+# name (kotoba.etzhayyim.com is pruned / read-only).
+endpoint = "https://kotobase.net"
+api_surface = "Kubo-compatible: POST /api/v0/pin/add?arg=<cid>&recursive=true (+ pin/rm, pin/ls)"
+role = "canonical durable remote IPFS pin (content-addressed; block.put target; >1GB extended pin)"
+tier_model = "kotoba node local self-pin (hot) + kotobase.net (durable canonical remote pin)"
+best_effort = true  # fire-and-forget fanout; a pin failure warns, never fails a put/publish
+adr = "2606091500"
+# Env wiring (on by default → kotobase.net; opt out for dev/test):
+#   kotoba-store / kotoba-server: KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net;
+#                                 set off|none|disabled to skip), KOTOBA_IPFS_PIN_JWT (optional Bearer)
+#   e7m-dataset publish-ipfs:     ETZ_KOTOBASE_PIN (default https://kotobase.net)
+env_kotoba = ["KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net; off|none|disabled to skip)", "KOTOBA_IPFS_PIN_JWT (optional)"]
+env_e7m_dataset = ["ETZ_KOTOBASE_PIN (default https://kotobase.net)"]
+supersedes_name = "kotobase.etzhayyim.com"
 
 [platform.dataset_substrate]
 # ADR-2605241500 — DataLad + git-annex (directory remote) + sidecar IPFS
@@ -552,6 +577,10 @@ superdataset_path = "90-docs/baien/datasets"
 manifest_path = "90-docs/baien/datasets.jsonl"
 lexicon = "com.etzhayyim.substrate.datasetPin"
 operator_cli = "70-tools/e7m-dataset"
+# publish-ipfs fans out every object CID + map CID to the canonical remote pin
+# kotobase.net after the local `ipfs add` (ADR-2606091500); best-effort.
+remote_pin_endpoint = "https://kotobase.net"  # ETZ_KOTOBASE_PIN; see [platform.kotobase_pin]
+remote_pin_adr = "2606091500"
 replication_min = 2                 # ADR §D6 invariant; warn-only until 2nd node lands
 replication_status = "warn-only-single-node"  # bootstrap window
 charter_rider_gate = "kotodama.organism.sensors.charter_rider.scan"

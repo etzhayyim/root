@@ -26,6 +26,13 @@ superseded_by: []
 
 # ADR-2606041130: kotoba IPFS block-store off-host cold pin to Backblaze B2
 
+> **Amendment (2026-06-09, ADR-2606091500):** the canonical **remote IPFS pin**
+> service is **kotobase.net** (Kubo-compatible). The kotoba node self-pins its
+> local block tier and fans every recursive pin out to kotobase.net by default
+> (`KOTOBA_IPFS_PIN_ENDPOINT`, default `https://kotobase.net`); this B2 cold pin
+> remains the colder DataLad/git-annex archival tier beneath it. The earlier
+> `kotobase.etzhayyim.com` name is superseded. See ADR-2606091500.
+
 **Status**: accepted
 **Date**: 2026-06-04
 **Deciders**: Jun Kawasaki
