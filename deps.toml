@@ -10472,6 +10472,14 @@ sibling_modules = [
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
 adrs = ["260607-clean-room-actors-600-generation.md", "260607-cognitive-actors-and-root-router.md"]
 
+[etzhayyim.milestones.260609_world_papers_ingest_and_kotoba_persistence_verified]
+description = "Closed the world-papers ingestion gap and confirmed the kotoba persistence/query substrate end-to-end on real hardware (PR #1491 merged, mergeCommit bf28f7e3). (1) bunken 文献書誌 — implemented the CDX collection pipeline (collectFromCdx → fetchCdxBatch → enrichBatch → registerDids → linkSameAs) in 60-apps/etzhayyim-project-bunken/rw-free/src/collection.ts; 9-scheme id extraction (NDL/CiNii/LoC/WorldCat/VIAF/DOI/ARK), DJB2 dedup, era auto-classification, immutable cross-scheme SAME_AS; all network + Murakumo I/O injected via CollectionDeps (Murakumo-only preserved, no external LLM wired); 23/23 vitest, tsc clean. (2) 8 scholarly clean-room actors (arxiv_api/crossref/doi_system/ietf_rfcs/ncbi/orcid/pubmed/w3c_specs) remodeled from the generic Work/Author/Citation/Standard/Record/Subject template to faithful real-API schemas reconciled field-for-field against official docs (WebFetch provenance), L4→L5 (49→57 L5 in cleanroom-l5-verification.json); verify_cleanroom_system.py PASS 0/0. (3) kotoba persistence/query verified: kotoba-datomic 142 tests + kotoba-ipfs 27 tests (own Kubo-compatible IPFS node) + crash_recovery/survives_reopen/tiered-durable/shelf-survives-restart + ipfs_e2e; LIVE binary (built with the SovereignCrypto re-genesis fix) — serve → ingest → SELECT/ASK/DESCRIBE/CONSTRUCT → commit (durable seal to ProllyTrees + Kubo) → kill → restart → server B reloaded server-A's exact commit head for graph kotobase-kg-v1 from the disk-persistent IPNS head + Kubo blocks (durability confirmed)."
+adrs = ["2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified.md"]
+known_limitations = [
+  "installed/brew kotoba (d6815..., behind upstream d3086...) bricks on startup with Keychain identity + Kubo (stale SovereignCrypto wrapped-key pointer); upstream re-genesis fix resolves it — brew tap needs refresh",
+  "durable cross-restart requires a persisted operator identity (kotoba init) + the Kubo cold tier; KOTOBA_IPFS=off keeps blocks in memory = not durable across restart",
+  "the kotoba sparql CLI subcommand resolves the default graph differently than kotoba demo's internal sparql_req (returns empty against the wrong graph) — client-side quirk, file upstream",
+]
 
 # ─── rasen (螺旋) public-genetics KG mirror — gene-scale sibling of inochi 命 (ADR-2606101000) ──
 

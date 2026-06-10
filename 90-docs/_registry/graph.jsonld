@@ -14745,6 +14745,20 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified",
+      "type": "TechArticle",
+      "title": "ADR-2606091141: bunken CDX collection pipeline, scholarly actors → L5, and kotoba persistence/query verified live",
+      "status": "approved",
+      "topic": "knowledge-ingestion-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps/etzhayyim-project-bunken",
+        "20-actors/{arxiv_api,crossref,doi_system,ietf_rfcs,ncbi,orcid,pubmed,w3c_specs}-compat",
+        "kotoba persistence/query verification (40-engine/kotoba submodule)"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "type": "TechArticle",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",

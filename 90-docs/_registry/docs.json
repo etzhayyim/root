@@ -23184,6 +23184,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified.md",
+      "id": "adr-2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified",
+      "title": "ADR-2606091141: bunken CDX collection pipeline, scholarly actors → L5, and kotoba persistence/query verified live",
+      "status": "approved",
+      "doc_type": "adr",
+      "topic": "knowledge-ingestion-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps/etzhayyim-project-bunken",
+        "20-actors/{arxiv_api,crossref,doi_system,ietf_rfcs,ncbi,orcid,pubmed,w3c_specs}-compat",
+        "kotoba persistence/query verification (40-engine/kotoba submodule)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606091500-kotoba-evm-datomic-ipfs-l2.md",
       "id": "adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
