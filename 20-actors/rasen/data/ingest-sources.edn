@@ -22,6 +22,12 @@
  [{:source/id :mygene   :source/url "https://mygene.info/v3/query"   :source/scope "gene reference (Ensembl/NCBI)" :source/individual? false}
   {:source/id :myvariant :source/url "https://myvariant.info/v1/query" :source/scope "ClinVar significance + gnomAD aggregate AF" :source/individual? false}]
 
+ ;; GO pathway ingest (public Gene Ontology / EBI-GOA annotations via MyGene `go.<category>`).
+ ;; Bounded (G5): per gene, dedupe GO terms, keep best evidence weight, cap :max-per-gene.
+ ;; Feeds :participates-in edges (gene→pathway) → enriches the pleiotropy/cascade readout.
+ :ingest/go
+ {:category "BP" :max-per-gene 6}
+
  ;; gnomAD af subfield → our super-population aggregate code (AGGREGATE only; G1)
  :ingest/population-map
  {"af" :global "af_afr" :AFR "af_amr" :AMR "af_eas" :EAS "af_nfe" :EUR "af_sas" :SAS}

@@ -17,7 +17,7 @@ python3 methods/analyze.py          # → out/care-report.md          (gene care
 python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT canonical state)
 python3 methods/coverage_report.py  # → out/coverage-report.md       (honest coverage + gaps)
 python3 methods/ingest.py           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py  # 15 green
+python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py  # 17 green
 ```
 
 `ingest.py` pulls a bounded, **public + aggregate-only** slice (MyGene.info + MyVariant.info →

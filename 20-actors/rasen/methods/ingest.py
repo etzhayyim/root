@@ -65,6 +65,51 @@ def gene_node_from_mygene(hit: dict, symbol: str) -> dict:
     return n
 
 
+# GO evidence code → representative confidence weight (modeling weight; the GO annotation
+# itself is the DISCLOSED fact, N3). Experimental > author-stated > phylogenetic > computational.
+GO_EVIDENCE_WEIGHT = {
+    "EXP": 0.9, "IDA": 0.9, "IPI": 0.9, "IMP": 0.9, "IGI": 0.9, "IEP": 0.9, "HDA": 0.9, "HMP": 0.9,
+    "TAS": 0.7, "NAS": 0.7, "IC": 0.7,
+    "IBA": 0.6, "IBD": 0.6,
+    "ISS": 0.5, "ISA": 0.5, "ISO": 0.5, "ISM": 0.5, "IGC": 0.5, "RCA": 0.5,
+    "IEA": 0.4,
+}
+
+
+def build_gene_pathways(hit: dict, gene_id: str, category: str = "BP", max_per_gene: int = 6):
+    """From a MyGene hit's `go.<category>`, return (pathway_nodes, :participates-in edges).
+
+    PUBLIC GO annotations only (Gene Ontology / EBI-GOA). Bounded: dedupe by GO id, keep the
+    best evidence weight per term, cap to `max_per_gene` (G5 honesty — documented in provenance).
+    """
+    go = hit.get("go") or {}
+    terms = go.get(category) or []
+    if isinstance(terms, dict):
+        terms = [terms]
+    best = {}  # GO id → (weight, term)
+    for t in terms:
+        if not isinstance(t, dict):
+            continue
+        gid = t.get("id")
+        if not gid or not str(gid).startswith("GO:"):
+            continue
+        w = GO_EVIDENCE_WEIGHT.get(str(t.get("evidence", "")).upper(), 0.4)
+        term = t.get("term") or gid
+        if gid not in best or w > best[gid][0]:
+            best[gid] = (w, term)
+
+    ranked = sorted(best.items(), key=lambda kv: (-kv[1][0], kv[0]))[:max_per_gene]
+    pw_nodes, edges = {}, []
+    for gid, (w, term) in ranked:
+        pw_id = "pw." + gid.lower().replace(":", "-")  # GO:0006281 → pw.go-0006281
+        pw_nodes[pw_id] = {":genome/id": pw_id, ":genome/kind": ":pathway",
+                           ":genome/label": term, ":pathway/source": ":GO",
+                           ":pathway/acc": gid, ":genome/sourcing": ":authoritative"}
+        edges.append({":en/from": gene_id, ":en/to": pw_id, ":en/kind": ":participates-in",
+                      ":en/grasping-load": w, ":en/sourcing": ":authoritative"})
+    return pw_nodes, edges
+
+
 def normalise_variant(rsid: str, hit: dict, clinsig_map: dict, pop_map: dict):
     """Return (variant_node, gene_id_or_None, phenotype_nodes, edges) from a MyVariant hit."""
     vid = f"var.{rsid}"
@@ -209,19 +254,29 @@ def ingest(sources: dict, outdir: pathlib.Path, prov: dict):
     gene_url = next(s[":source/url"] for s in sources[":ingest/sources"] if s[":source/id"] == ":mygene")
     var_url = next(s[":source/url"] for s in sources[":ingest/sources"] if s[":source/id"] == ":myvariant")
 
+    go_cfg = sources.get(":ingest/go") or {}
+    go_category = (go_cfg.get(":category") or "BP")
+    go_max = int(go_cfg.get(":max-per-gene") or 6)
+
     nodes, edges = {}, []
     nodes.update(population_nodes(pop_map))
 
-    # genes
+    # genes (+ GO pathway membership)
     for sym in sources[":ingest/genes"]:
         try:
             data, q = _get_json(gene_url, {"q": f"symbol:{sym}", "species": "human",
-                                           "fields": "symbol,name,ensembl.gene,map_location,taxid", "size": 1})
+                                           "fields": "symbol,name,ensembl.gene,map_location,taxid,"
+                                                     f"go.{go_category}", "size": 1})
             hits = data.get("hits") or []
             if hits:
                 n = gene_node_from_mygene(hits[0], sym)
                 nodes[n[":genome/id"]] = n
                 prov["fetched"]["genes"] += 1
+                pw_nodes, pw_edges = build_gene_pathways(hits[0], n[":genome/id"], go_category, go_max)
+                for pid, pn in pw_nodes.items():
+                    nodes.setdefault(pid, pn)
+                edges.extend(pw_edges)
+                prov["fetched"]["go_edges"] += len(pw_edges)
             else:
                 prov["errors"].append(f"gene {sym}: no hit")
         except (urllib.error.URLError, urllib.error.HTTPError, ValueError, TimeoutError) as e:
@@ -279,7 +334,7 @@ def main(argv):
             "sources": [{"id": s[":source/id"].lstrip(":"), "url": s[":source/url"],
                          "scope": s[":source/scope"], "individual_level": s.get(":source/individual?", False)}
                         for s in sources[":ingest/sources"]],
-            "fetched": {"genes": 0, "variants": 0}, "errors": [], "counts": {}}
+            "fetched": {"genes": 0, "variants": 0, "go_edges": 0}, "errors": [], "counts": {}}
 
     if offline:
         if not graph_path.exists():

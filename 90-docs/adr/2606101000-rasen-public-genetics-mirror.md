@@ -152,6 +152,31 @@ aggregate only.**
 - **Open / next**: (1) public publish/pin beyond the local ipfs node (Pinata / `ipfs name
   publish` / DataLad → `80-data/genome`) — NOT done this session; (2) componentize-py WASM
   build + DID-doc CID advertisement (gated, ADR-2606014500/2606014600); (3) widen the bounded
-  allowlist or add sources — G7 (Council + operator DID); (4) pathway/GO ingest (MyGene `go`
-  field) to populate `:participates-in` from live data (currently seed-only).
+  allowlist or add sources — G7 (Council + operator DID); (4) ~~pathway/GO ingest~~ **DONE**
+  (see GO addendum below).
 - **Deciders**: Jun Kawasaki. **Status**: 🟢 R1 — public ingest live.
+
+# Addendum (2026-06-10): live GO pathway ingest
+
+Closes next-step (4): `:participates-in` (gene→pathway) edges are now populated from **live
+public data**, not just the hand seed.
+
+- **Source**: Gene Ontology / EBI-GOA annotations via MyGene `go.BP` (already a fetched
+  field — no new endpoint, same bounded gene allowlist, still PUBLIC + no individual data).
+- **Normalisation** (`build_gene_pathways`): per gene, dedupe GO terms by accession, keep the
+  **best evidence weight** (`GO_EVIDENCE_WEIGHT`: experimental IDA/IMP/IPI 0.9 > author-stated
+  TAS/NAS 0.7 > phylogenetic IBA 0.6 > computational IEA 0.4 — the GO annotation is the
+  DISCLOSED fact, rasen does not re-judge it, N3), and **cap** at `:ingest/go :max-per-gene`
+  (default 6, G5 honesty). Each kept term → a `:pathway` node (`pw.go-<acc>`, `:pathway/source
+  :GO`) + a `:participates-in` edge weighted by that evidence confidence.
+- **Effect on analysis**: GO membership feeds the **pleiotropy / cascade** readout (the
+  breadth of pathways/phenotypes a gene touches) — previously the ingested graph had zero
+  pathway edges; genes now rank on real functional context.
+- **Live run**: 20 genes + 12 variants → **192 nodes / 220 縁** (117 GO `:participates-in`
+  edges, 104 GO pathway nodes), 0 errors; graph CID
+  `bafkreicct2g36hnfoeavh3ztgplsyuq2fzlhfocv2oql2lemugmh7j27vi` (ipfs pin matched). Provenance
+  gains `fetched.go_edges`. **17 tests green** (network-free; +2 GO dedup/weight/cap tests with
+  a bundled `mygene_brca1_go.json` fixture).
+- **Boundary unchanged**: still PUBLIC reference only; GO annotations carry no individual data.
+  Adding non-GO pathway sources (Reactome/KEGG live) or widening the gene allowlist stays
+  G7-gated.
