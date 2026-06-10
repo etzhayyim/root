@@ -5,7 +5,7 @@ status: accepted
 doc_type: adr
 topic: tsumugi-scale-banner-power-dynamics
 authoritative: true
-last_verified: 2026-06-09
+last_verified: 2026-06-10
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -181,6 +181,40 @@ Murakumo-narratable. Final state:
 Open (unchanged from R0): `:representative` bounded seeds (学会X/政党A·B·C/企業Y/KX are
 placeholders, not assertions about named orgs); live locality + entity↔banner ingest and any
 published post stay G7 + Council + operator-gated.
+
+# Landed wave 2 — G7 live ingest + self-expanding promotion loop (2026-06-10)
+
+The "live locality ingest" left open above was built, Council-ratified (founder 1/1, each
+ratification **enacted as a PR**), and run to a steady operating loop in one session:
+
+- **Coverage measurement** (`coverage_scale.py`, PR #1529 — Gemini-CLI authored under
+  delegation, reviewed head-to-head vs a Codex-CLI implementation; Gemini's adopted for honest
+  per-category denominators): scales/kinds/sectors exercised-vs-missing + per-country +
+  approximate denominators. Made "残り coverage は?" machine-measurable.
+- **G7-gated live ingest** (`ingest_scale.py`, PR #1532): Wikidata P749 org custody through the
+  full S1/S2/S4/S5 membrane (re-validated via `analyze_scale`'s own validators); offline
+  fixtures default; `--live` raises `LiveGateRefused` without `TSUMUGI_OPERATOR_GATE=1` +
+  operator DID; output to `out/` ONLY — **the committed seed is never auto-mutated; promotion
+  = a reviewed PR (= the Council ratification act)**. Banner (旗) live ingest deliberately NOT
+  automated (auto-imputed ideology = the H1 failure mode).
+- **The promotion ladder** (each a ratification PR):
+  | P | PR | source | seed |
+  |---|---|---|---|
+  | P1 | #1534 | curated significant orgs (live unanchored returned the Prague school tree → vetted subset only; + WDQS query perf fix: P31/P279* closure → NOT-EXISTS human filter) | 72→83 |
+  | P2 | #1537 | `--anchored` — VALUES-pinned to 10 seed-org QIDs → connected subsidiaries (Toyota 42 · Sony 38 · GM 35 · VW 27…); PARENT_ALIASES label reconciliation | →260 |
+  | P3 | #1556 | `--ring2` — **self-expanding**: `derive_seed_qids()` harvests anchors from the seed's own citation URLs (10→189 anchors); grandchildren (SIE→PlayStation Studios/Bungie…); aliases extended to BOTH tie ends | →408 |
+  | P4 | #1574 | `--gleif` — **second source**: GLEIF Level-2 RR (api.gleif.org), curated VERIFIED LEIs (name-search is fuzzy; even exact names collide) + runtime legalName guard; VW 109 · GM/Alphabet/Meta 11 each; landed **while WDQS was in outage** | →542 |
+  | P5 | #1579 | ring-3 after WDQS recovery (337 anchors); great-grandchildren (PlayStation Studios 17 · EMI 11 · Aniplex 10…) | →**619 / 631 ties** |
+- **Country coverage 4.1% → 20.5%**; tests grew to 24 scale + 11 banner + 16 narrate + 6
+  coverage + **24 ingest** (hermetic: recorded WDQS/GLEIF fixtures, no network).
+- **Operational honesty exercised, not just declared**: WDQS's outage rate-limit (429,
+  "1 req/min") was respected — deferred via scheduled retries, never circumvented by mirror/UA
+  switching; the wait was used to build the GLEIF second source (no single point of failure).
+  GLEIF L2 coverage note: strong where mandated (EU/US), JP filers use consolidation
+  exceptions (Toyota/Sony/Hitachi → 0 children there; Wikidata covers those).
+- **Standing loop**: measure (`coverage_scale`) → fetch (`--ring2` Wikidata ∪ `--gleif`) →
+  vet (parents/standing/raw-QID) → promote via PR (= Council ratification) → the new
+  citations enrich the next ring's anchors. Convergence is visible as rising dedup ratios.
 
 # References
 

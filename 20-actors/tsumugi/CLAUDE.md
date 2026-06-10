@@ -268,9 +268,14 @@ python3 20-actors/tsumugi/methods/ingest_scale.py
 #   → out/seed-plus-ingest-scale.kotoba.edn — run analyze_scale on THIS for the lift
 # LIVE Wikidata P749 fetch (stdlib urllib) — G7-gated, refused without the operator gate:
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
-  python3 20-actors/tsumugi/methods/ingest_scale.py --live --limit 200
-#   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR).
-python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 14 tests (S2/S4/S5/G7 + seed-not-mutated)
+  python3 20-actors/tsumugi/methods/ingest_scale.py --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 20-actors/tsumugi/methods/ingest_scale.py --live --gleif --limit 150   # GLEIF L2 (second source)
+#   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR =
+#     the Council ratification act). --ring2 derives anchors from the seed's own citation QIDs
+#     (each promotion enriches the next ring); --gleif uses curated VERIFIED LEIs + a runtime
+#     legalName guard (GLEIF name-search is fuzzy; even exact names collide).
+python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/G7 + anchored/ring2/gleif)
 ```
 
 - **`coverage_scale.py`** measures the gap honestly: scales 7/7 · kinds 8/8 · sectors 6/6 ·
