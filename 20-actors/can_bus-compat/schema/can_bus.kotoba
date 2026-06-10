@@ -3,71 +3,60 @@
 
 namespace can_bus {
 
-    entity Vehicle {
+    entity CanFrame {
         id: string @unique
-        vin: string
-        model: string
-        state: string
-        odometerKm: float
+        identifier: integer
+        frameType: string
+        format: string
+        dlc: integer
+        rtr: boolean
+        data: string
+        crc: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Signal {
+    entity CanFdFrame {
         id: string @unique
-        vehicleId: string
-        name: string
-        value: float
-        unit: string
+        identifier: integer
+        frameType: string
+        format: string
+        dlc: integer
+        brs: boolean
+        esi: boolean
+        data: string
+        crc: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ChargeSession {
+    entity ErrorFrame {
         id: string @unique
-        vehicleId: string
-        connectorId: string
-        energyKwh: float
-        status: string
+        errorType: string
+        errorFlag: string
+        transmitErrorCounter: integer
+        receiveErrorCounter: integer
+        nodeState: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connector {
+    entity RemoteFrame {
         id: string @unique
-        stationId: string
-        standard: string
-        powerKw: float
-        status: string
+        identifier: integer
+        format: string
+        dlc: integer
+        rtr: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Trip {
+    entity OverloadFrame {
         id: string @unique
-        vehicleId: string
-        distanceKm: float
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Command {
-        id: string @unique
-        vehicleId: string
-        name: string
-        status: string
+        overloadFlag: string
+        timestamp: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

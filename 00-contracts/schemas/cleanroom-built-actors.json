@@ -1607,17 +1607,15 @@
       "handle": "bgp_rpki-compat",
       "platform": "bgp_rpki",
       "bytes": 2122,
-      "wasmCid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+      "wasmCid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "RouteOriginAuthorization",
+        "ValidationResult",
+        "RpkiToRouterPdu",
+        "PrefixPdu"
       ]
     },
     {
@@ -2423,17 +2421,16 @@
       "handle": "can_bus-compat",
       "platform": "can_bus",
       "bytes": 2121,
-      "wasmCid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+      "wasmCid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "CanFrame",
+        "CanFdFrame",
+        "ErrorFrame",
+        "RemoteFrame",
+        "OverloadFrame"
       ]
     },
     {

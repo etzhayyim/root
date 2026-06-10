@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 860,
-    "L5": 140
+    "L4": 858,
+    "L5": 142
   },
   "actors": [
     {
@@ -1709,10 +1709,10 @@
     {
       "handle": "bgp_rpki-compat",
       "did": "did:web:etzhayyim.com:actor:bgp_rpki-compat",
-      "wasmCid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+      "wasmCid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bgp_rpki clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -2573,10 +2573,10 @@
     {
       "handle": "can_bus-compat",
       "did": "did:web:etzhayyim.com:actor:can_bus-compat",
-      "wasmCid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+      "wasmCid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "can_bus clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [

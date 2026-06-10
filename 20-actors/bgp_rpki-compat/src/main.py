@@ -111,118 +111,55 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/routeoriginauthorizations", methods=["POST"])
+def create_route_origin_authorization(request):
+    """Create a RouteOriginAuthorization."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['version', 'asn', 'prefix', 'prefixLength', 'maxLength', 'addressFamily'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bgprpki_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
-    return rec, 201
-
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Prefix", rec)
-    return rec, 200
-
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Prefix", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
-    if err:
-        return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['version', 'asn'])
     if err:
         return err, 400
     rec = {"id": new_id("bgprpki_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
+    rec["version"] = _as_int(data.get('version'))
+    rec["asn"] = _as_int(data.get('asn'))
+    rec["prefix"] = data.get('prefix')
+    rec["prefixLength"] = _as_int(data.get('prefixLength'))
+    rec["maxLength"] = _as_int(data.get('maxLength'))
+    rec["addressFamily"] = data.get('addressFamily')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
+    _persist("RouteOriginAuthorization", rec)
     return rec, 201
 
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
+@app.route("/v1/routeoriginauthorizations", methods=["GET"])
+def list_route_origin_authorizations(request):
+    """List RouteOriginAuthorizations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
+    rows = _query("RouteOriginAuthorization")
+    rows = _apply_filters(rows, params, ['version', 'asn', 'prefix', 'prefixLength', 'maxLength', 'addressFamily'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
+@app.route("/v1/routeoriginauthorizations/<eid>", methods=["GET"])
+def get_route_origin_authorization(request, eid):
+    """Retrieve a RouteOriginAuthorization by id (supports ?expand=)."""
+    rows = _query("RouteOriginAuthorization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/routeoriginauthorizations/<eid>", methods=["POST", "PATCH"])
+def update_route_origin_authorization(request, eid):
+    """Update a RouteOriginAuthorization."""
+    rows = _query("RouteOriginAuthorization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['version', 'asn', 'prefix', 'prefixLength', 'maxLength', 'addressFamily'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,196 +167,209 @@ def update_route(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Route", rec)
+    _persist("RouteOriginAuthorization", rec)
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/routeoriginauthorizations/<eid>", methods=["DELETE"])
+def delete_route_origin_authorization(request, eid):
+    """Delete a RouteOriginAuthorization."""
+    rows = _query("RouteOriginAuthorization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Route", "id": eid})
+    db.retract({"entity": f"bgp_rpki.RouteOriginAuthorization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
+@app.route("/v1/validationresults", methods=["POST"])
+def create_validation_result(request):
+    """Create a ValidationResult."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['asn', 'prefix', 'prefixLength', 'validationState'])
     if err:
         return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
+    err = _require(data, ['asn', 'prefix'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprpki_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
+    if data.get('validationState') and data['validationState'] not in ['valid', 'invalid', 'not-found']:
+        return {"error": {"message": "invalid validationState; allowed: " + ", ".join(['valid', 'invalid', 'not-found']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bgprpki_val")}
+    rec["asn"] = _as_int(data.get('asn'))
+    rec["prefix"] = data.get('prefix')
+    rec["prefixLength"] = _as_int(data.get('prefixLength'))
+    rec["validationState"] = data.get('validationState')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("ValidationResult", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/validationresults", methods=["GET"])
+def list_validation_results(request):
+    """List ValidationResults with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("ValidationResult")
+    rows = _apply_filters(rows, params, ['asn', 'prefix', 'prefixLength', 'validationState'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/validationresults/<eid>", methods=["GET"])
+def get_validation_result(request, eid):
+    """Retrieve a ValidationResult by id (supports ?expand=)."""
+    rows = _query("ValidationResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/validationresults/<eid>", methods=["POST", "PATCH"])
+def update_validation_result(request, eid):
+    """Update a ValidationResult."""
+    rows = _query("ValidationResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['asn', 'prefix', 'prefixLength', 'validationState'])
     if err:
         return err, 400
+    if data.get('validationState') and data['validationState'] not in ['valid', 'invalid', 'not-found']:
+        return {"error": {"message": "invalid validationState; allowed: " + ", ".join(['valid', 'invalid', 'not-found']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("ValidationResult", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/validationresults/<eid>", methods=["DELETE"])
+def delete_validation_result(request, eid):
+    """Delete a ValidationResult."""
+    rows = _query("ValidationResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Peer", "id": eid})
+    db.retract({"entity": f"bgp_rpki.ValidationResult", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
+@app.route("/v1/rpkitorouterpdus", methods=["POST"])
+def create_rpki_to_router_pdu(request):
+    """Create a RpkiToRouterPdu."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['protocolVersion', 'pduType', 'sessionId', 'serialNumber', 'length'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'serial'])
+    err = _require(data, ['protocolVersion', 'pduType'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprpki_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    if data.get('pduType') and data['pduType'] not in [0, 1, 2, 3, 4, 6, 7, 8, 9, 10]:
+        return {"error": {"message": "invalid pduType; allowed: " + ", ".join([0, 1, 2, 3, 4, 6, 7, 8, 9, 10]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bgprpki_rpk")}
+    rec["protocolVersion"] = _as_int(data.get('protocolVersion'))
+    rec["pduType"] = _as_int(data.get('pduType'))
+    rec["sessionId"] = _as_int(data.get('sessionId'))
+    rec["serialNumber"] = _as_int(data.get('serialNumber'))
+    rec["length"] = _as_int(data.get('length'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("RpkiToRouterPdu", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/rpkitorouterpdus", methods=["GET"])
+def list_rpki_to_router_pdus(request):
+    """List RpkiToRouterPdus with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("RpkiToRouterPdu")
+    rows = _apply_filters(rows, params, ['protocolVersion', 'pduType', 'sessionId', 'serialNumber', 'length'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/rpkitorouterpdus/<eid>", methods=["GET"])
+def get_rpki_to_router_pdu(request, eid):
+    """Retrieve a RpkiToRouterPdu by id (supports ?expand=)."""
+    rows = _query("RpkiToRouterPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/rpkitorouterpdus/<eid>", methods=["POST", "PATCH"])
+def update_rpki_to_router_pdu(request, eid):
+    """Update a RpkiToRouterPdu."""
+    rows = _query("RpkiToRouterPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['protocolVersion', 'pduType', 'sessionId', 'serialNumber', 'length'])
     if err:
         return err, 400
+    if data.get('pduType') and data['pduType'] not in [0, 1, 2, 3, 4, 6, 7, 8, 9, 10]:
+        return {"error": {"message": "invalid pduType; allowed: " + ", ".join([0, 1, 2, 3, 4, 6, 7, 8, 9, 10]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("RpkiToRouterPdu", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/rpkitorouterpdus/<eid>", methods=["DELETE"])
+def delete_rpki_to_router_pdu(request, eid):
+    """Delete a RpkiToRouterPdu."""
+    rows = _query("RpkiToRouterPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Zone", "id": eid})
+    db.retract({"entity": f"bgp_rpki.RpkiToRouterPdu", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/prefixpdus", methods=["POST"])
+def create_prefix_pdu(request):
+    """Create a PrefixPdu."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['protocolVersion', 'pduType', 'flags', 'prefixLength', 'maxLength', 'prefix', 'asn'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['protocolVersion', 'pduType'])
     if err:
         return err, 400
-    rec = {"id": new_id("bgprpki_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    rec = {"id": new_id("bgprpki_pre")}
+    rec["protocolVersion"] = _as_int(data.get('protocolVersion'))
+    rec["pduType"] = _as_int(data.get('pduType'))
+    rec["flags"] = _as_int(data.get('flags'))
+    rec["prefixLength"] = _as_int(data.get('prefixLength'))
+    rec["maxLength"] = _as_int(data.get('maxLength'))
+    rec["prefix"] = data.get('prefix')
+    rec["asn"] = _as_int(data.get('asn'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("PrefixPdu", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/prefixpdus", methods=["GET"])
+def list_prefix_pdus(request):
+    """List PrefixPdus with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("PrefixPdu")
+    rows = _apply_filters(rows, params, ['protocolVersion', 'pduType', 'flags', 'prefixLength', 'maxLength', 'prefix', 'asn'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/prefixpdus/<eid>", methods=["GET"])
+def get_prefix_pdu(request, eid):
+    """Retrieve a PrefixPdu by id (supports ?expand=)."""
+    rows = _query("PrefixPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/prefixpdus/<eid>", methods=["POST", "PATCH"])
+def update_prefix_pdu(request, eid):
+    """Update a PrefixPdu."""
+    rows = _query("PrefixPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['protocolVersion', 'pduType', 'flags', 'prefixLength', 'maxLength', 'prefix', 'asn'])
     if err:
         return err, 400
     rec = rows[0]
@@ -427,88 +377,22 @@ def update_record(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("PrefixPdu", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/prefixpdus/<eid>", methods=["DELETE"])
+def delete_prefix_pdu(request, eid):
+    """Delete a PrefixPdu."""
+    rows = _query("PrefixPdu", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Record", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bgprpki_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
-    return rec, 201
-
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bgp_rpki.Tunnel", "id": eid})
+    db.retract({"entity": f"bgp_rpki.PrefixPdu", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bgp_rpki-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['RouteOriginAuthorization', 'ValidationResult', 'RpkiToRouterPdu', 'PrefixPdu']}, 200
 
 
 if __name__ == "__main__":

@@ -111,319 +111,351 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/vehicles", methods=["POST"])
-def create_vehicle(request):
-    """Create a Vehicle."""
+@app.route("/v1/canframes", methods=["POST"])
+def create_can_frame(request):
+    """Create a CanFrame."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['identifier', 'frameType', 'format', 'dlc', 'rtr', 'data', 'crc'])
     if err:
         return err, 400
-    err = _require(data, ['vin', 'model'])
+    err = _require(data, ['identifier', 'frameType'])
     if err:
         return err, 400
-    rec = {"id": new_id("canbus_veh")}
-    rec["vin"] = data.get('vin')
-    rec["model"] = data.get('model')
-    rec["state"] = data.get('state')
-    rec["odometerKm"] = _as_float(data.get('odometerKm'))
+    if data.get('frameType') and data['frameType'] not in ['DataFrame', 'RemoteFrame', 'ErrorFrame', 'OverloadFrame']:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join(['DataFrame', 'RemoteFrame', 'ErrorFrame', 'OverloadFrame']), "type": "invalid_request_error"}}, 400
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("canbus_can")}
+    rec["identifier"] = _as_int(data.get('identifier'))
+    rec["frameType"] = data.get('frameType')
+    rec["format"] = data.get('format')
+    rec["dlc"] = _as_int(data.get('dlc'))
+    rec["rtr"] = _as_bool(data.get('rtr'))
+    rec["data"] = data.get('data')
+    rec["crc"] = _as_int(data.get('crc'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vehicle", rec)
+    _persist("CanFrame", rec)
     return rec, 201
 
-@app.route("/v1/vehicles", methods=["GET"])
-def list_vehicles(request):
-    """List Vehicles with filtering + cursor pagination."""
+@app.route("/v1/canframes", methods=["GET"])
+def list_can_frames(request):
+    """List CanFrames with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['vin', 'model', 'state', 'odometerKm'])
+    rows = _query("CanFrame")
+    rows = _apply_filters(rows, params, ['identifier', 'frameType', 'format', 'dlc', 'rtr', 'data', 'crc'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["GET"])
-def get_vehicle(request, eid):
-    """Retrieve a Vehicle by id (supports ?expand=)."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/canframes/<eid>", methods=["GET"])
+def get_can_frame(request, eid):
+    """Retrieve a CanFrame by id (supports ?expand=)."""
+    rows = _query("CanFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
-def update_vehicle(request, eid):
-    """Update a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/canframes/<eid>", methods=["POST", "PATCH"])
+def update_can_frame(request, eid):
+    """Update a CanFrame."""
+    rows = _query("CanFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['identifier', 'frameType', 'format', 'dlc', 'rtr', 'data', 'crc'])
     if err:
         return err, 400
+    if data.get('frameType') and data['frameType'] not in ['DataFrame', 'RemoteFrame', 'ErrorFrame', 'OverloadFrame']:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join(['DataFrame', 'RemoteFrame', 'ErrorFrame', 'OverloadFrame']), "type": "invalid_request_error"}}, 400
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vehicle", rec)
+    _persist("CanFrame", rec)
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["DELETE"])
-def delete_vehicle(request, eid):
-    """Delete a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/canframes/<eid>", methods=["DELETE"])
+def delete_can_frame(request, eid):
+    """Delete a CanFrame."""
+    rows = _query("CanFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.Vehicle", "id": eid})
+    db.retract({"entity": f"can_bus.CanFrame", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
+@app.route("/v1/canfdframes", methods=["POST"])
+def create_can_fd_frame(request):
+    """Create a CanFdFrame."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['identifier', 'frameType', 'format', 'dlc', 'brs', 'esi', 'data', 'crc'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['identifier', 'frameType'])
     if err:
         return err, 400
-    rec = {"id": new_id("canbus_sig")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("canbus_can")}
+    rec["identifier"] = _as_int(data.get('identifier'))
+    rec["frameType"] = data.get('frameType')
+    rec["format"] = data.get('format')
+    rec["dlc"] = _as_int(data.get('dlc'))
+    rec["brs"] = _as_bool(data.get('brs'))
+    rec["esi"] = _as_bool(data.get('esi'))
+    rec["data"] = data.get('data')
+    rec["crc"] = _as_int(data.get('crc'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
+    _persist("CanFdFrame", rec)
     return rec, 201
 
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
+@app.route("/v1/canfdframes", methods=["GET"])
+def list_can_fd_frames(request):
+    """List CanFdFrames with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'value', 'unit'])
+    rows = _query("CanFdFrame")
+    rows = _apply_filters(rows, params, ['identifier', 'frameType', 'format', 'dlc', 'brs', 'esi', 'data', 'crc'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
+@app.route("/v1/canfdframes/<eid>", methods=["GET"])
+def get_can_fd_frame(request, eid):
+    """Retrieve a CanFdFrame by id (supports ?expand=)."""
+    rows = _query("CanFdFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/canfdframes/<eid>", methods=["POST", "PATCH"])
+def update_can_fd_frame(request, eid):
+    """Update a CanFdFrame."""
+    rows = _query("CanFdFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['identifier', 'frameType', 'format', 'dlc', 'brs', 'esi', 'data', 'crc'])
     if err:
         return err, 400
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Signal", rec)
+    _persist("CanFdFrame", rec)
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/canfdframes/<eid>", methods=["DELETE"])
+def delete_can_fd_frame(request, eid):
+    """Delete a CanFdFrame."""
+    rows = _query("CanFdFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.Signal", "id": eid})
+    db.retract({"entity": f"can_bus.CanFdFrame", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/chargesessions", methods=["POST"])
-def create_charge_session(request):
-    """Create a ChargeSession."""
+@app.route("/v1/errorframes", methods=["POST"])
+def create_error_frame(request):
+    """Create a ErrorFrame."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['errorType', 'errorFlag', 'transmitErrorCounter', 'receiveErrorCounter', 'nodeState'])
     if err:
         return err, 400
-    err = _require(data, ['energyKwh', 'status'])
+    err = _require(data, ['errorType', 'errorFlag'])
     if err:
         return err, 400
-    rec = {"id": new_id("canbus_cha")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["connectorId"] = data.get('connectorId')
-    rec["energyKwh"] = _as_float(data.get('energyKwh'))
-    rec["status"] = data.get('status')
+    if data.get('errorType') and data['errorType'] not in ['BitError', 'StuffError', 'CrcError', 'FormError', 'AcknowledgmentError']:
+        return {"error": {"message": "invalid errorType; allowed: " + ", ".join(['BitError', 'StuffError', 'CrcError', 'FormError', 'AcknowledgmentError']), "type": "invalid_request_error"}}, 400
+    if data.get('errorFlag') and data['errorFlag'] not in ['ActiveErrorFlag', 'PassiveErrorFlag']:
+        return {"error": {"message": "invalid errorFlag; allowed: " + ", ".join(['ActiveErrorFlag', 'PassiveErrorFlag']), "type": "invalid_request_error"}}, 400
+    if data.get('nodeState') and data['nodeState'] not in ['ErrorActive', 'ErrorPassive', 'BusOff']:
+        return {"error": {"message": "invalid nodeState; allowed: " + ", ".join(['ErrorActive', 'ErrorPassive', 'BusOff']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("canbus_err")}
+    rec["errorType"] = data.get('errorType')
+    rec["errorFlag"] = data.get('errorFlag')
+    rec["transmitErrorCounter"] = _as_int(data.get('transmitErrorCounter'))
+    rec["receiveErrorCounter"] = _as_int(data.get('receiveErrorCounter'))
+    rec["nodeState"] = data.get('nodeState')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ChargeSession", rec)
+    _persist("ErrorFrame", rec)
     return rec, 201
 
-@app.route("/v1/chargesessions", methods=["GET"])
-def list_charge_sessions(request):
-    """List ChargeSessions with filtering + cursor pagination."""
+@app.route("/v1/errorframes", methods=["GET"])
+def list_error_frames(request):
+    """List ErrorFrames with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ChargeSession")
-    rows = _apply_filters(rows, params, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    rows = _query("ErrorFrame")
+    rows = _apply_filters(rows, params, ['errorType', 'errorFlag', 'transmitErrorCounter', 'receiveErrorCounter', 'nodeState'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["GET"])
-def get_charge_session(request, eid):
-    """Retrieve a ChargeSession by id (supports ?expand=)."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/errorframes/<eid>", methods=["GET"])
+def get_error_frame(request, eid):
+    """Retrieve a ErrorFrame by id (supports ?expand=)."""
+    rows = _query("ErrorFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle', 'connectorId': 'Connector'})
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["POST", "PATCH"])
-def update_charge_session(request, eid):
-    """Update a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/errorframes/<eid>", methods=["POST", "PATCH"])
+def update_error_frame(request, eid):
+    """Update a ErrorFrame."""
+    rows = _query("ErrorFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['errorType', 'errorFlag', 'transmitErrorCounter', 'receiveErrorCounter', 'nodeState'])
     if err:
         return err, 400
+    if data.get('errorType') and data['errorType'] not in ['BitError', 'StuffError', 'CrcError', 'FormError', 'AcknowledgmentError']:
+        return {"error": {"message": "invalid errorType; allowed: " + ", ".join(['BitError', 'StuffError', 'CrcError', 'FormError', 'AcknowledgmentError']), "type": "invalid_request_error"}}, 400
+    if data.get('errorFlag') and data['errorFlag'] not in ['ActiveErrorFlag', 'PassiveErrorFlag']:
+        return {"error": {"message": "invalid errorFlag; allowed: " + ", ".join(['ActiveErrorFlag', 'PassiveErrorFlag']), "type": "invalid_request_error"}}, 400
+    if data.get('nodeState') and data['nodeState'] not in ['ErrorActive', 'ErrorPassive', 'BusOff']:
+        return {"error": {"message": "invalid nodeState; allowed: " + ", ".join(['ErrorActive', 'ErrorPassive', 'BusOff']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ChargeSession", rec)
+    _persist("ErrorFrame", rec)
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["DELETE"])
-def delete_charge_session(request, eid):
-    """Delete a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/errorframes/<eid>", methods=["DELETE"])
+def delete_error_frame(request, eid):
+    """Delete a ErrorFrame."""
+    rows = _query("ErrorFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.ChargeSession", "id": eid})
+    db.retract({"entity": f"can_bus.ErrorFrame", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/remoteframes", methods=["POST"])
+def create_remote_frame(request):
+    """Create a RemoteFrame."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['identifier', 'format', 'dlc', 'rtr'])
     if err:
         return err, 400
-    err = _require(data, ['standard', 'powerKw'])
+    err = _require(data, ['identifier', 'format'])
     if err:
         return err, 400
-    rec = {"id": new_id("canbus_con")}
-    rec["stationId"] = data.get('stationId')
-    rec["standard"] = data.get('standard')
-    rec["powerKw"] = _as_float(data.get('powerKw'))
-    rec["status"] = data.get('status')
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("canbus_rem")}
+    rec["identifier"] = _as_int(data.get('identifier'))
+    rec["format"] = data.get('format')
+    rec["dlc"] = _as_int(data.get('dlc'))
+    rec["rtr"] = _as_bool(data.get('rtr'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
+    _persist("RemoteFrame", rec)
     return rec, 201
 
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
+@app.route("/v1/remoteframes", methods=["GET"])
+def list_remote_frames(request):
+    """List RemoteFrames with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['stationId', 'standard', 'powerKw', 'status'])
+    rows = _query("RemoteFrame")
+    rows = _apply_filters(rows, params, ['identifier', 'format', 'dlc', 'rtr'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
+@app.route("/v1/remoteframes/<eid>", methods=["GET"])
+def get_remote_frame(request, eid):
+    """Retrieve a RemoteFrame by id (supports ?expand=)."""
+    rows = _query("RemoteFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/remoteframes/<eid>", methods=["POST", "PATCH"])
+def update_remote_frame(request, eid):
+    """Update a RemoteFrame."""
+    rows = _query("RemoteFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['identifier', 'format', 'dlc', 'rtr'])
     if err:
         return err, 400
+    if data.get('format') and data['format'] not in ['Standard', 'Extended']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['Standard', 'Extended']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connector", rec)
+    _persist("RemoteFrame", rec)
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/remoteframes/<eid>", methods=["DELETE"])
+def delete_remote_frame(request, eid):
+    """Delete a RemoteFrame."""
+    rows = _query("RemoteFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.Connector", "id": eid})
+    db.retract({"entity": f"can_bus.RemoteFrame", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/trips", methods=["POST"])
-def create_trip(request):
-    """Create a Trip."""
+@app.route("/v1/overloadframes", methods=["POST"])
+def create_overload_frame(request):
+    """Create a OverloadFrame."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['overloadFlag', 'timestamp'])
     if err:
         return err, 400
-    err = _require(data, ['distanceKm', 'startedAt'])
+    err = _require(data, ['overloadFlag', 'timestamp'])
     if err:
         return err, 400
-    rec = {"id": new_id("canbus_tri")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["distanceKm"] = _as_float(data.get('distanceKm'))
-    rec["startedAt"] = data.get('startedAt')
+    rec = {"id": new_id("canbus_ove")}
+    rec["overloadFlag"] = data.get('overloadFlag')
+    rec["timestamp"] = data.get('timestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trip", rec)
+    _persist("OverloadFrame", rec)
     return rec, 201
 
-@app.route("/v1/trips", methods=["GET"])
-def list_trips(request):
-    """List Trips with filtering + cursor pagination."""
+@app.route("/v1/overloadframes", methods=["GET"])
+def list_overload_frames(request):
+    """List OverloadFrames with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['vehicleId', 'distanceKm', 'startedAt'])
+    rows = _query("OverloadFrame")
+    rows = _apply_filters(rows, params, ['overloadFlag', 'timestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/trips/<eid>", methods=["GET"])
-def get_trip(request, eid):
-    """Retrieve a Trip by id (supports ?expand=)."""
-    rows = _query("Trip", eid)
+@app.route("/v1/overloadframes/<eid>", methods=["GET"])
+def get_overload_frame(request, eid):
+    """Retrieve a OverloadFrame by id (supports ?expand=)."""
+    rows = _query("OverloadFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
-def update_trip(request, eid):
-    """Update a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/overloadframes/<eid>", methods=["POST", "PATCH"])
+def update_overload_frame(request, eid):
+    """Update a OverloadFrame."""
+    rows = _query("OverloadFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['overloadFlag', 'timestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -431,88 +463,22 @@ def update_trip(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trip", rec)
+    _persist("OverloadFrame", rec)
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["DELETE"])
-def delete_trip(request, eid):
-    """Delete a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/overloadframes/<eid>", methods=["DELETE"])
+def delete_overload_frame(request, eid):
+    """Delete a OverloadFrame."""
+    rows = _query("OverloadFrame", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.Trip", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("canbus_com")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
-    return rec, 201
-
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Command", rec)
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"can_bus.Command", "id": eid})
+    db.retract({"entity": f"can_bus.OverloadFrame", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "can_bus-compat", "tier": "L4",
-            "entities": ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']}, 200
+            "entities": ['CanFrame', 'CanFdFrame', 'ErrorFrame', 'RemoteFrame', 'OverloadFrame']}, 200
 
 
 if __name__ == "__main__":

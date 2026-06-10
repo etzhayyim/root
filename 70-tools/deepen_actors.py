@@ -1667,6 +1667,25 @@ PLATFORM_OVERRIDES = {
         "Http3Settings": E(identifier="integer", value="integer"),
         "QuicConnection": E(connectionId="string", version="integer", state="string", createdAt="datetime", lastActivityAt="datetime"),
     },
+    # Faithful RPKI model (RFC 6811 origin validation + RFC 6482 ROA + RFC 8210 RPKI-Router).
+    # validationState (valid/invalid/not-found) is the closed RFC 6811 §2 set; pduType is the
+    # fully-enumerated RFC 8210 §5 set (type 5 unassigned). PrefixPdu.flags is a bitfield -> gapped.
+    "bgp_rpki": {
+        "RouteOriginAuthorization": E(version="integer", asn="integer", prefix="string", prefixLength="integer", maxLength="integer", addressFamily="string"),
+        "ValidationResult": E(asn="integer", prefix="string", prefixLength="integer", validationState="string"),
+        "RpkiToRouterPdu": E(protocolVersion="integer", pduType="integer", sessionId="integer", serialNumber="integer", length="integer"),
+        "PrefixPdu": E(protocolVersion="integer", pduType="integer", flags="integer", prefixLength="integer", maxLength="integer", prefix="string", asn="integer"),
+    },
+    # Faithful CAN bus model (ISO 11898 / Bosch CAN 2.0 + CAN FD). frameType, format, errorType,
+    # errorFlag, nodeState are documented closed sets. CanFdFrame.frameType gapped (FD remote-frame
+    # nuance); dlc is a numeric field (0-8 classic / 0-15 FD) -> not an enum.
+    "can_bus": {
+        "CanFrame": E(identifier="integer", frameType="string", format="string", dlc="integer", rtr="boolean", data="string", crc="integer"),
+        "CanFdFrame": E(identifier="integer", frameType="string", format="string", dlc="integer", brs="boolean", esi="boolean", data="string", crc="integer"),
+        "ErrorFrame": E(errorType="string", errorFlag="string", transmitErrorCounter="integer", receiveErrorCounter="integer", nodeState="string"),
+        "RemoteFrame": E(identifier="integer", format="string", dlc="integer", rtr="boolean"),
+        "OverloadFrame": E(overloadFlag="string", timestamp="datetime"),
+    },
     # Faithful TCP/IP model (RFC 9293 TCP + RFC 792 ICMP + IANA). ICMP type + IP protocol
     # are large extensible IANA registries -> not enforced as closed enums.
     "tcp_ip": {

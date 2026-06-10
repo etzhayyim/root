@@ -5,21 +5,51 @@
   "kind": "compat",
   "title": "bgp_rpki clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (bgp_rpki); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+  "wasmCid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+  "ipfs": "ipfs://bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
   "schema": "schema/bgp_rpki.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc6811",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "RouteOriginAuthorization",
+      "ValidationResult",
+      "RpkiToRouterPdu",
+      "PrefixPdu"
+    ],
+    "enums": {
+      "ValidationResult": {
+        "validationState": [
+          "valid",
+          "invalid",
+          "not-found"
+        ]
+      },
+      "RpkiToRouterPdu": {
+        "pduType": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "RouteOriginAuthorization",
+    "ValidationResult",
+    "RpkiToRouterPdu",
+    "PrefixPdu"
   ],
   "adr": [
     "260607",
@@ -31,157 +61,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/routeoriginauthorizations",
+          "op": "create RouteOriginAuthorization"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/routeoriginauthorizations",
+          "op": "list RouteOriginAuthorization"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/routeoriginauthorizations/{id}",
+          "op": "get RouteOriginAuthorization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/routeoriginauthorizations/{id}",
+          "op": "update RouteOriginAuthorization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/routeoriginauthorizations/{id}",
+          "op": "delete RouteOriginAuthorization"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/validationresults",
+          "op": "create ValidationResult"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/validationresults",
+          "op": "list ValidationResult"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/validationresults/{id}",
+          "op": "get ValidationResult"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/validationresults/{id}",
+          "op": "update ValidationResult"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/validationresults/{id}",
+          "op": "delete ValidationResult"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/rpkitorouterpdus",
+          "op": "create RpkiToRouterPdu"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/rpkitorouterpdus",
+          "op": "list RpkiToRouterPdu"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/rpkitorouterpdus/{id}",
+          "op": "get RpkiToRouterPdu"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/rpkitorouterpdus/{id}",
+          "op": "update RpkiToRouterPdu"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/rpkitorouterpdus/{id}",
+          "op": "delete RpkiToRouterPdu"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/prefixpdus",
+          "op": "create PrefixPdu"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/prefixpdus",
+          "op": "list PrefixPdu"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/prefixpdus/{id}",
+          "op": "get PrefixPdu"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/prefixpdus/{id}",
+          "op": "update PrefixPdu"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/prefixpdus/{id}",
+          "op": "delete PrefixPdu"
         }
       ],
       "features": {
@@ -244,41 +224,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_route_origin_authorization",
+          "description": "Create a RouteOriginAuthorization.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
+              "version": {
+                "type": "integer"
+              },
+              "asn": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "originAsn": {
-                "type": "string"
+              "prefixLength": {
+                "type": "integer"
               },
-              "validity": {
+              "maxLength": {
+                "type": "integer"
+              },
+              "addressFamily": {
                 "type": "string"
               }
             },
             "required": [
-              "cidr",
-              "originAsn"
+              "version",
+              "asn"
             ]
           }
         },
         {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
+          "name": "list_route_origin_authorizations",
+          "description": "List RouteOriginAuthorizations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
+          "name": "get_route_origin_authorization",
+          "description": "Get a RouteOriginAuthorization by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +281,30 @@
           }
         },
         {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
+          "name": "update_route_origin_authorization",
+          "description": "Update a RouteOriginAuthorization.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "cidr": {
+              "version": {
+                "type": "integer"
+              },
+              "asn": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "originAsn": {
-                "type": "string"
+              "prefixLength": {
+                "type": "integer"
               },
-              "validity": {
+              "maxLength": {
+                "type": "integer"
+              },
+              "addressFamily": {
                 "type": "string"
               }
             },
@@ -316,53 +314,8 @@
           }
         },
         {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
+          "name": "delete_route_origin_authorization",
+          "description": "Delete a RouteOriginAuthorization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -376,77 +329,41 @@
           }
         },
         {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
+          "name": "create_validation_result",
+          "description": "Create a ValidationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "asn": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "ipAddress": {
-                "type": "string"
+              "prefixLength": {
+                "type": "integer"
               },
-              "state": {
+              "validationState": {
                 "type": "string"
               }
             },
             "required": [
               "asn",
-              "ipAddress"
+              "prefix"
             ]
           }
         },
         {
-          "name": "list_peers",
-          "description": "List Peers.",
+          "name": "list_validation_results",
+          "description": "List ValidationResults.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
+          "name": "get_validation_result",
+          "description": "Get a ValidationResult by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -460,8 +377,8 @@
           }
         },
         {
-          "name": "update_peer",
-          "description": "Update a Peer.",
+          "name": "update_validation_result",
+          "description": "Update a ValidationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -469,12 +386,15 @@
                 "type": "string"
               },
               "asn": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "ipAddress": {
-                "type": "string"
+              "prefixLength": {
+                "type": "integer"
               },
-              "state": {
+              "validationState": {
                 "type": "string"
               }
             },
@@ -484,8 +404,8 @@
           }
         },
         {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
+          "name": "delete_validation_result",
+          "description": "Delete a ValidationResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -499,38 +419,44 @@
           }
         },
         {
-          "name": "create_zone",
-          "description": "Create a Zone.",
+          "name": "create_rpki_to_router_pdu",
+          "description": "Create a RpkiToRouterPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "protocolVersion": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "pduType": {
+                "type": "integer"
+              },
+              "sessionId": {
+                "type": "integer"
+              },
+              "serialNumber": {
+                "type": "integer"
+              },
+              "length": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "protocolVersion",
+              "pduType"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_rpki_to_router_pdus",
+          "description": "List RpkiToRouterPdus.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_rpki_to_router_pdu",
+          "description": "Get a RpkiToRouterPdu by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +470,27 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_rpki_to_router_pdu",
+          "description": "Update a RpkiToRouterPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "protocolVersion": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "pduType": {
+                "type": "integer"
+              },
+              "sessionId": {
+                "type": "integer"
+              },
+              "serialNumber": {
+                "type": "integer"
+              },
+              "length": {
                 "type": "integer"
               }
             },
@@ -568,8 +500,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_rpki_to_router_pdu",
+          "description": "Delete a RpkiToRouterPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,41 +515,50 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_prefix_pdu",
+          "description": "Create a PrefixPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "protocolVersion": {
+                "type": "integer"
+              },
+              "pduType": {
+                "type": "integer"
+              },
+              "flags": {
+                "type": "integer"
+              },
+              "prefixLength": {
+                "type": "integer"
+              },
+              "maxLength": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
+              "asn": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "type"
+              "protocolVersion",
+              "pduType"
             ]
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
+          "name": "list_prefix_pdus",
+          "description": "List PrefixPdus.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "get_prefix_pdu",
+          "description": "Get a PrefixPdu by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,25 +572,34 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "update_prefix_pdu",
+          "description": "Update a PrefixPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "zoneId": {
+              "protocolVersion": {
+                "type": "integer"
+              },
+              "pduType": {
+                "type": "integer"
+              },
+              "flags": {
+                "type": "integer"
+              },
+              "prefixLength": {
+                "type": "integer"
+              },
+              "maxLength": {
+                "type": "integer"
+              },
+              "prefix": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
+              "asn": {
+                "type": "integer"
               }
             },
             "required": [
@@ -658,98 +608,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "localAddr",
-              "remoteAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_prefix_pdu",
+          "description": "Delete a PrefixPdu.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -5,21 +5,74 @@
   "kind": "compat",
   "title": "can_bus clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (can_bus); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+  "wasmCid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+  "ipfs": "ipfs://bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
   "schema": "schema/can_bus.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://en.wikipedia.org/wiki/CAN_bus",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "CanFrame",
+      "CanFdFrame",
+      "ErrorFrame",
+      "RemoteFrame",
+      "OverloadFrame"
+    ],
+    "enums": {
+      "CanFrame": {
+        "frameType": [
+          "DataFrame",
+          "RemoteFrame",
+          "ErrorFrame",
+          "OverloadFrame"
+        ],
+        "format": [
+          "Standard",
+          "Extended"
+        ]
+      },
+      "CanFdFrame": {
+        "format": [
+          "Standard",
+          "Extended"
+        ]
+      },
+      "ErrorFrame": {
+        "errorType": [
+          "BitError",
+          "StuffError",
+          "CrcError",
+          "FormError",
+          "AcknowledgmentError"
+        ],
+        "errorFlag": [
+          "ActiveErrorFlag",
+          "PassiveErrorFlag"
+        ],
+        "nodeState": [
+          "ErrorActive",
+          "ErrorPassive",
+          "BusOff"
+        ]
+      },
+      "RemoteFrame": {
+        "format": [
+          "Standard",
+          "Extended"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Vehicle",
-    "Signal",
-    "ChargeSession",
-    "Connector",
-    "Trip",
-    "Command"
+    "CanFrame",
+    "CanFdFrame",
+    "ErrorFrame",
+    "RemoteFrame",
+    "OverloadFrame"
   ],
   "adr": [
     "260607",
@@ -31,157 +84,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/canframes",
+          "op": "create CanFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/canframes",
+          "op": "list CanFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/canframes/{id}",
+          "op": "get CanFrame"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/canframes/{id}",
+          "op": "update CanFrame"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/canframes/{id}",
+          "op": "delete CanFrame"
         },
         {
           "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
+          "path": "/v1/canfdframes",
+          "op": "create CanFdFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
+          "path": "/v1/canfdframes",
+          "op": "list CanFdFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
+          "path": "/v1/canfdframes/{id}",
+          "op": "get CanFdFrame"
         },
         {
           "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
+          "path": "/v1/canfdframes/{id}",
+          "op": "update CanFdFrame"
         },
         {
           "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/canfdframes/{id}",
+          "op": "delete CanFdFrame"
         },
         {
           "method": "POST",
-          "path": "/v1/chargesessions",
-          "op": "create ChargeSession"
+          "path": "/v1/errorframes",
+          "op": "create ErrorFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions",
-          "op": "list ChargeSession"
+          "path": "/v1/errorframes",
+          "op": "list ErrorFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions/{id}",
-          "op": "get ChargeSession"
+          "path": "/v1/errorframes/{id}",
+          "op": "get ErrorFrame"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chargesessions/{id}",
-          "op": "update ChargeSession"
+          "path": "/v1/errorframes/{id}",
+          "op": "update ErrorFrame"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chargesessions/{id}",
-          "op": "delete ChargeSession"
+          "path": "/v1/errorframes/{id}",
+          "op": "delete ErrorFrame"
         },
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/remoteframes",
+          "op": "create RemoteFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/remoteframes",
+          "op": "list RemoteFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/remoteframes/{id}",
+          "op": "get RemoteFrame"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/remoteframes/{id}",
+          "op": "update RemoteFrame"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/remoteframes/{id}",
+          "op": "delete RemoteFrame"
         },
         {
           "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
+          "path": "/v1/overloadframes",
+          "op": "create OverloadFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
+          "path": "/v1/overloadframes",
+          "op": "list OverloadFrame"
         },
         {
           "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
+          "path": "/v1/overloadframes/{id}",
+          "op": "get OverloadFrame"
         },
         {
           "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
+          "path": "/v1/overloadframes/{id}",
+          "op": "update OverloadFrame"
         },
         {
           "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/overloadframes/{id}",
+          "op": "delete OverloadFrame"
         }
       ],
       "features": {
@@ -244,44 +272,53 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_can_frame",
+          "description": "Create a CanFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vin": {
+              "identifier": {
+                "type": "integer"
+              },
+              "frameType": {
                 "type": "string"
               },
-              "model": {
+              "format": {
                 "type": "string"
               },
-              "state": {
+              "dlc": {
+                "type": "integer"
+              },
+              "rtr": {
+                "type": "boolean"
+              },
+              "data": {
                 "type": "string"
               },
-              "odometerKm": {
-                "type": "number"
+              "crc": {
+                "type": "integer"
               }
             },
             "required": [
-              "vin",
-              "model"
+              "identifier",
+              "frameType"
             ]
           }
         },
         {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
+          "name": "list_can_frames",
+          "description": "List CanFrames.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
+          "name": "get_can_frame",
+          "description": "Get a CanFrame by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +332,34 @@
           }
         },
         {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
+          "name": "update_can_frame",
+          "description": "Update a CanFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vin": {
+              "identifier": {
+                "type": "integer"
+              },
+              "frameType": {
                 "type": "string"
               },
-              "model": {
+              "format": {
                 "type": "string"
               },
-              "state": {
+              "dlc": {
+                "type": "integer"
+              },
+              "rtr": {
+                "type": "boolean"
+              },
+              "data": {
                 "type": "string"
               },
-              "odometerKm": {
-                "type": "number"
+              "crc": {
+                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +368,8 @@
           }
         },
         {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
+          "name": "delete_can_frame",
+          "description": "Delete a CanFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +383,53 @@
           }
         },
         {
-          "name": "create_signal",
-          "description": "Create a Signal.",
+          "name": "create_can_fd_frame",
+          "description": "Create a CanFdFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
+              "identifier": {
+                "type": "integer"
+              },
+              "frameType": {
                 "type": "string"
               },
-              "name": {
+              "format": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "dlc": {
+                "type": "integer"
               },
-              "unit": {
+              "brs": {
+                "type": "boolean"
+              },
+              "esi": {
+                "type": "boolean"
+              },
+              "data": {
                 "type": "string"
+              },
+              "crc": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "value"
+              "identifier",
+              "frameType"
             ]
           }
         },
         {
-          "name": "list_signals",
-          "description": "List Signals.",
+          "name": "list_can_fd_frames",
+          "description": "List CanFdFrames.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
+          "name": "get_can_fd_frame",
+          "description": "Get a CanFdFrame by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +443,51 @@
           }
         },
         {
-          "name": "update_signal",
-          "description": "Update a Signal.",
+          "name": "update_can_fd_frame",
+          "description": "Update a CanFdFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "identifier": {
+                "type": "integer"
+              },
+              "frameType": {
                 "type": "string"
               },
-              "name": {
+              "format": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "dlc": {
+                "type": "integer"
               },
-              "unit": {
+              "brs": {
+                "type": "boolean"
+              },
+              "esi": {
+                "type": "boolean"
+              },
+              "data": {
+                "type": "string"
+              },
+              "crc": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_can_fd_frame",
+          "description": "Delete a CanFdFrame.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -412,56 +497,44 @@
           }
         },
         {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
+          "name": "create_error_frame",
+          "description": "Create a ErrorFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "errorType": {
+                "type": "string"
+              },
+              "errorFlag": {
+                "type": "string"
+              },
+              "transmitErrorCounter": {
+                "type": "integer"
+              },
+              "receiveErrorCounter": {
+                "type": "integer"
+              },
+              "nodeState": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "errorType",
+              "errorFlag"
             ]
           }
         },
         {
-          "name": "create_charge_session",
-          "description": "Create a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "energyKwh": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "energyKwh",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_charge_sessions",
-          "description": "List ChargeSessions.",
+          "name": "list_error_frames",
+          "description": "List ErrorFrames.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge_session",
-          "description": "Get a ChargeSession by id.",
+          "name": "get_error_frame",
+          "description": "Get a ErrorFrame by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +548,27 @@
           }
         },
         {
-          "name": "update_charge_session",
-          "description": "Update a ChargeSession.",
+          "name": "update_error_frame",
+          "description": "Update a ErrorFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "errorType": {
                 "type": "string"
               },
-              "connectorId": {
+              "errorFlag": {
                 "type": "string"
               },
-              "energyKwh": {
-                "type": "number"
+              "transmitErrorCounter": {
+                "type": "integer"
               },
-              "status": {
+              "receiveErrorCounter": {
+                "type": "integer"
+              },
+              "nodeState": {
                 "type": "string"
               }
             },
@@ -502,8 +578,8 @@
           }
         },
         {
-          "name": "delete_charge_session",
-          "description": "Delete a ChargeSession.",
+          "name": "delete_error_frame",
+          "description": "Delete a ErrorFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -517,41 +593,41 @@
           }
         },
         {
-          "name": "create_connector",
-          "description": "Create a Connector.",
+          "name": "create_remote_frame",
+          "description": "Create a RemoteFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "stationId": {
+              "identifier": {
+                "type": "integer"
+              },
+              "format": {
                 "type": "string"
               },
-              "standard": {
-                "type": "string"
+              "dlc": {
+                "type": "integer"
               },
-              "powerKw": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
+              "rtr": {
+                "type": "boolean"
               }
             },
             "required": [
-              "standard",
-              "powerKw"
+              "identifier",
+              "format"
             ]
           }
         },
         {
-          "name": "list_connectors",
-          "description": "List Connectors.",
+          "name": "list_remote_frames",
+          "description": "List RemoteFrames.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
+          "name": "get_remote_frame",
+          "description": "Get a RemoteFrame by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,24 +641,39 @@
           }
         },
         {
-          "name": "update_connector",
-          "description": "Update a Connector.",
+          "name": "update_remote_frame",
+          "description": "Update a RemoteFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "stationId": {
+              "identifier": {
+                "type": "integer"
+              },
+              "format": {
                 "type": "string"
               },
-              "standard": {
-                "type": "string"
+              "dlc": {
+                "type": "integer"
               },
-              "powerKw": {
-                "type": "number"
-              },
-              "status": {
+              "rtr": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_remote_frame",
+          "description": "Delete a RemoteFrame.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -592,53 +683,35 @@
           }
         },
         {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
+          "name": "create_overload_frame",
+          "description": "Create a OverloadFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "overloadFlag": {
+                "type": "string"
+              },
+              "timestamp": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "overloadFlag",
+              "timestamp"
             ]
           }
         },
         {
-          "name": "create_trip",
-          "description": "Create a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
-                "type": "number"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "distanceKm",
-              "startedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_trips",
-          "description": "List Trips.",
+          "name": "list_overload_frames",
+          "description": "List OverloadFrames.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
+          "name": "get_overload_frame",
+          "description": "Get a OverloadFrame by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,21 +725,18 @@
           }
         },
         {
-          "name": "update_trip",
-          "description": "Update a Trip.",
+          "name": "update_overload_frame",
+          "description": "Update a OverloadFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "overloadFlag": {
                 "type": "string"
               },
-              "distanceKm": {
-                "type": "number"
-              },
-              "startedAt": {
+              "timestamp": {
                 "type": "string"
               }
             },
@@ -676,92 +746,8 @@
           }
         },
         {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_command",
-          "description": "Create a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_commands",
-          "description": "List Commands.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_command",
-          "description": "Get a Command by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_command",
-          "description": "Update a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_overload_frame",
+          "description": "Delete a OverloadFrame.",
           "inputSchema": {
             "type": "object",
             "properties": {
