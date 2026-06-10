@@ -281,10 +281,14 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
     out += drained
     idx.drain_line[shard_name] = next_line
 
-    # 健全化: periodic colony self-audit over this shard's log (health.py)
+    # 健全化: periodic colony self-audit over this shard's log (health.py) + the colony's
+    # human-readable report (digest.py) — the deployed fleet path reports to humanity too,
+    # not just the seed demo. Both read `txs` (the log BEFORE this beat), so no self-read.
     if beat % HEALTH_EVERY == 0:
         import health
+        import digest
         out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
+        out += digest.make(txs, beat=beat, as_of=as_of)["datoms"]
 
     # durable sweep cursor checkpoint — the crash-resume point of the round-robin
     new_cursor = (start + min(batch_size, n)) % n if n else 0

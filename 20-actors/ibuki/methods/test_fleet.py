@@ -279,6 +279,21 @@ def test_fleet_crash_resume_preserves_ecosystem():
         assert resumed["head"] == straight["head"]
 
 
+def test_fleet_emits_digest_to_humanity():
+    """The deployed fleet path reports to humanity too: a digest is emitted at the health
+    cadence, dry-run only, narrated via the Murakumo path (template offline)."""
+    with tempfile.TemporaryDirectory() as dr:
+        reg = _synthetic_registry(dr, n=24)
+        _fleet_run(dr, 10, batch=24, fresh=True, reg=reg)
+        txs = datoms.read_log(pathlib.Path(dr) / "log.edn")
+        texts = [d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/text"]
+        statuses = {d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/status"}
+        vias = {d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":digest/via"}
+        assert texts and "息吹" in texts[-1]            # the colony spoke
+        assert statuses == {":dry-run"}                # G8
+        assert vias <= {":template", ":murakumo"}      # Murakumo-only or offline template
+
+
 if __name__ == "__main__":
     run("fleet", [(n, f) for n, f in sorted(globals().items())
                   if n.startswith("test_") and callable(f)])
