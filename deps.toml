@@ -10099,6 +10099,14 @@ path = "90-docs/adr/2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm
 adr = ["2606101430", "2606091800", "2606101130", "2606101200", "2605201400", "2605231525"]
 
 [[adrs]]
+id = "2606101845"
+title = "session close — infra-robotics R1 device-in-the-loop wave"
+status = "accepted"
+status_note = "Process record of the 2026-06-10 R1 wave (authoritative design = ADR-2606101430, PR #1568): device-loop-host (open-ot risk1, gate-a-rig sibling, LOAD/INIT/TICK line protocol) + device_loop.py + committed golden — the real droop_p_f.wasm + anti_islanding_rocof.wasm close the microgrid loop under Wasmtime against the same MicrogridPlant scenarios the Python twin passes (50.0 Hz restored, real guard latches on islanding step, twin parity 0.0001 kW = µkW quantisation, verdict match); two real-cell semantics test-pinned (DROOP_P_F incremental — feed the FIXED dispatch base; R_twin = f_nom*R_dev/P_rated); commissioning acceptance_tier python-twin -> device-wasm (evidence only tightens); validate-cell-abi ALLOWED_WIRE drift fixed (red on main -> green). Tests 48 robotics / 395 sweep / 26 validator. Follow-ups (gated): BLACK_START_SEQ + remaining BFBs into the loop, WAMR-AOT timing leg on target hardware, per-actor R1 hardware triggers before live dispatch."
+path = "90-docs/adr/2606101845-session-close-infra-robotics-r1-device-in-the-loop.md"
+adr = ["2606101845", "2606101430", "2606091800"]
+
+[[adrs]]
 id = "2606042330"
 title = "entity-as-actor — society-scale social mirror graph"
 status = "accepted"

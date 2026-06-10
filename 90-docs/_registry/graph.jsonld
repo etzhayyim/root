@@ -14863,6 +14863,24 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101845",
+      "type": "TechArticle",
+      "title": "ADR-2606101845: Session-Close — infra-robotics R1 device-in-the-loop wave (real open-ot WASM in the commissioning loop)",
+      "status": "accepted",
+      "topic": "session-close-infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the R1 device-in-the-loop wave (2026-06-10)",
+        "deps.toml registration of ADR-2606101430"
+      ],
+      "related": [
+        "doc:adr-2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm",
+        "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "doc:adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
