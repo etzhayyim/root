@@ -82,13 +82,22 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   = Σ decay^age over recent relays), and routing prefers nutrient × (1 + trail). Good tubes
   self-reinforce while stale ones fade (the Tokyo-rail-network behaviour); the router has
   memory, not per-beat greed. Trail is log-derived (`trail_strengths`), deterministic.
+- **共生 ledger (humanity draws the commons)** — `symbiosis.py` is the consuming side of the
+  food web: the colony's `:metabolite/commons` byproduct accumulates a standing **commons
+  pool** (`commons_pool` = Σ offered − Σ drawn, log-derived, like moyai 入会権). A MEMBER
+  draws from it via `draw(...)` — **member-principal + operator-gated** (same no-server-key
+  discipline as member_submit: no injected signer / no operator ack → `MemberSignatureRequired`;
+  a draw cannot exceed the pool). ibuki **never auto-draws** (the colony does not consume its
+  own gift; the platform cannot fabricate a human benefit). `:symbiosis/draw` is ATTRIBUTED to
+  the member (`:symbiosis/drawn-by-member true`). Offers are un-fakeable (the colony's byproduct
+  on the log); draws exist only when a member actually took the gift.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 15 suites (175 tests), hermetic
+./run_tests.sh                                  # all 16 suites (187 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):

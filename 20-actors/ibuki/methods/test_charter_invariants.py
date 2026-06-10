@@ -164,11 +164,26 @@ def test_kaizen_outcomes_is_operator_principal_readonly():
     assert "view" in src and "--json" in src     # read-only gh surface
 
 
+def test_symbiosis_draw_is_member_principal_keyfree():
+    """A commons draw can only happen by a MEMBER (injected signer + operator ack); ibuki
+    holds no key and never auto-draws the colony's gift on a human's behalf."""
+    import symbiosis as sym
+    expect_raises(lambda: sym.draw([], 1, member="did:web:x", beat=1, as_of=1),
+                  contains="no member signer")
+    expect_raises(lambda: sym.draw([], 1, member="did:web:x", beat=1, as_of=1,
+                                   member_signer=lambda c: c),
+                  contains="operator_ack")
+    src = _all_source()["symbiosis.py"]
+    for needle in ("urllib", "password", "accessJwt", "Authorization"):
+        assert needle not in src, f"symbiosis must stay key-free + offline: {needle}"
+
+
 def test_stdlib_only():
     import ast
     allowed_local = {"datoms", "drainer", "heartbeat", "joucho", "kaizen_feedback",
                      "infer", "autorun", "_edn", "_t", "perception", "member_submit",
-                     "receipts", "fleet", "kotoba_bridge", "kaizen_outcomes"}
+                     "receipts", "fleet", "kotoba_bridge", "kaizen_outcomes",
+                     "ecosystem", "health", "symbiosis"}
     for p in SOURCES:
         tree = ast.parse(p.read_text(encoding="utf-8"))
         for node in ast.walk(tree):
