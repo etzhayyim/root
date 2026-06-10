@@ -107,6 +107,30 @@ charter violation representable. `methods/test_charter_invariants.py` guards thi
 - Tests are standalone-runnable (`python3 test_*.py`); run everything with `./run_tests.sh`
   (79 tests across 6 suites). See MATURITY.md.
 
+## Autonomous on the Murakumo fleet (`methods/autorun.py` + `methods/kotoba.py`)
+
+`methods/autorun.py` is the self-driving heartbeat — the constitution-permitted form of
+"kotoba で自律的に稼働", the same shape the infra-intel/observatory family uses (shionome / danjo /
+keizu …). Each cycle it weaves the OFFLINE seed → report → **persists a content-addressed
+transaction** (graph datoms + derived `:kosatsu.div/*`) to the append-only **local** kotoba Datom
+log (`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG.
+`autorun._canonical_order` sorts datoms by canonical JSON before hashing → CID reproducible across
+processes (verified stable under `PYTHONHASHSEED=random`). **The defining gates hold by
+construction**: every designation event carries its own `:designation/asserter` and the loop's test
+asserts the asserter is NEVER etzhayyim (G1/G2 — etzhayyim authors no designation); no
+`:subject/risk-score` / verdict attr can reach the log (G7); the per-subject `:kosatsu.div/class`
+is one of {`:contested` | `:unanimous` | `:single-asserter`} (a neutral fact, never a judgement);
+designations are append-only `:listed`/`:delisted` events (G4, 非終末論). Fleet cells
+`kosatsu_designation_ingest` (cron 8) + `kosatsu_divergence_weave` (cron 13) + `kosatsu_claim_persist`
+(cron 18) on `naphtali` — see `50-infra/murakumo/fleet.toml`. Live list ingest + posting stay
+G8-gated (the loop persists to the LOCAL log only). Invariants guarded by `methods/test_autorun.py`
+(commit-DAG verify, tamper-detect, canonical-order determinism, append-only, **every-designation-
+attributed (non-etzhayyim)**, **no-score/no-verdict + neutral-class**, no-external-I/O).
+
+```bash
+cd methods && python3 autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+```
+
 ## Honest R0
 
 Design + data-model + offline analyzer + dry-run posts only. The seed is bounded

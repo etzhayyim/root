@@ -7,8 +7,9 @@ from _edn import load_edn
 from _t import expect_raises, run
 from weave import (CAPITAL_MOVEMENT_KINDS, TRADE_TOKENS, by_asset_class, by_region,
                    concentration, correlation_clusters, inflow_concentration,
-                   net_flow_by_bucket, regime, rotation_pairs, source_denied,
-                   trade_token_in, validate_bucket, validate_flow, validate_snapshot, weave)
+                   latest_stock_by_bucket, net_flow_by_bucket, regime, rotation_pairs,
+                   source_denied, stock_pyramid, trade_token_in, validate_bucket,
+                   validate_flow, validate_snapshot, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-capital-flow-graph.kotoba.edn"
 
@@ -156,9 +157,9 @@ def test_trade_tokens_have_core_set():
 # ── seed weave + metrics ─────────────────────────────────────────────────────────
 def test_seed_weaves():
     g = _g()
-    assert len(g["buckets"]) == 13
+    assert len(g["buckets"]) == 21   # 13 flow/sector/theme + 8 global money-pyramid stock buckets
     assert len(g["flows"]) == 11
-    assert len(g["snapshots"]) == 5
+    assert len(g["snapshots"]) == 13  # 5 flow/rate snapshots + 8 :outstanding-usd stock snapshots
 
 
 def test_net_flow_top_is_us_equities():
@@ -224,8 +225,49 @@ def test_capital_movement_kinds_subset():
 def test_concentration_full_report():
     c = concentration(_g())
     for k in ("net_flow_by_bucket", "rotation_pairs", "inflow_concentration",
-              "by_asset_class", "by_region", "regime", "correlation_clusters", "integrity"):
+              "by_asset_class", "by_region", "stock_pyramid", "regime",
+              "correlation_clusters", "integrity"):
         assert k in c
+
+
+# ── stock layer / money-and-markets pyramid ──────────────────────────────────────
+def test_latest_stock_picks_eight_buckets():
+    # exactly the 8 global money-pyramid buckets carry an :outstanding-usd snapshot
+    latest = latest_stock_by_bucket(_g())
+    assert len(latest) == 8
+    assert "global-derivatives" in latest and "global-equities" in latest
+    # a flow/rate bucket (us-equities carries only :return-pct) is NOT a stock bucket
+    assert "us-equities" not in latest
+
+
+def test_stock_pyramid_layers_and_total():
+    sp = stock_pyramid(_g())
+    assert sp["unit"] == "usd-tn"
+    assert sp["bucket_count"] == 8
+    classes = {r["asset_class"] for r in sp["layers"]}
+    assert {"cash", "broad-money", "equities", "debt", "real-estate", "gold",
+            "crypto", "derivatives"} <= classes
+    # grand total = 8+121+115+140+380+16+3+600
+    assert abs(sp["grand_total_usd_tn"] - 1383.0) < 1e-6
+
+
+def test_stock_pyramid_sorted_descending_derivatives_top():
+    layers = stock_pyramid(_g())["layers"]
+    vals = [r["usd_tn"] for r in layers]
+    assert vals == sorted(vals, reverse=True)
+    assert layers[0]["asset_class"] == "derivatives"   # gross notional is the largest layer
+    assert 0.99 < sum(r["share"] for r in layers) <= 1.0001
+
+
+def test_stock_pyramid_carries_no_trade_notice():
+    # a SIZE is descriptive, never advice (G2 / トレードはしない)
+    assert stock_pyramid(_g())["no_trade_notice"] is True
+
+
+def test_stock_metric_not_summed_with_flows():
+    # stock (usd-tn) and flow (usd-bn) are distinct units — net flow must ignore stock buckets
+    nf = {r["bucket"] for r in net_flow_by_bucket(_g())}
+    assert "global-equities" not in nf and "global-derivatives" not in nf
 
 
 def test_integrity_clean_on_seed():

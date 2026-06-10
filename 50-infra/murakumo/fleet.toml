@@ -70,6 +70,9 @@ cells = [
   "CharterRehabilitationCell",
   "SiteSurveyCell",  # kuni-umi Phase 1 (ADR-2605201400)
   "shionome_social_post",  # 潮目 dry-run capital-flow post (cron 0 9 * * *) (ADR-2606072200)
+  "kosatsu_designation_ingest",  # 高札 crime/sanctions designation-event offline seed intake (cron 8 * * * *) (ADR-2606072000; G8 live list ingest gated)
+  "kosatsu_divergence_weave",    # competing-claim divergence {contested|unanimous|single-asserter} + agreement index + by-authority (cron 13 * * * *) (ADR-2606072000; G2 asserter-mandatory, no verdict/score)
+  "kosatsu_claim_persist",       # 高札 competing-claim autonomous heartbeat → append-only kotoba Datom log (cron 18 * * * *) (ADR-2606072000; every designation ATTRIBUTED, etzhayyim authors none; local persist, G8 gated)
 ]
 replicas_of = []
 
@@ -136,6 +139,9 @@ cells = [
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
   "KaizenPrAgentCell",  # self-evolution actuator — drains observer.ndjson → PR/issue (ADR-2605240200 Wave 4)
   "FeedPostCell",  # kotoba-datomic §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
+  "keizu_relation_ingest",      # 系図 gov power-relation offline seed intake (cron 40 * * * *) (ADR-2606066000; G8 live public-source ingest gated)
+  "keizu_concentration_weave",  # committee cross-organ + money/payer HHI + revolving-door + award-and-fund (cron 45 * * * *) (ADR-2606066000; G4 edge-primary, non-adjudicating)
+  "keizu_relation_persist",     # 系図 power-relations autonomous heartbeat → append-only kotoba Datom log (cron 50 * * * *) (ADR-2606066000; accountability map not target-list; local persist, G8 gated)
 ]
 replicas_of = []
 
@@ -149,6 +155,7 @@ cells = [
   "ConstructionOrchestrationCell",  # kuni-umi Phase 3 (ADR-2605201400)
   "UnispscAgentExecutorCell",  # unispsc segments 10-29 (~4597 agents)
   "UnispscOrganismFleetCell",  # 4597 organisms, segments 10-29 (ADR-2605240000)
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard joseph segs 10-29 → local kotoba Datom log (cron 3 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
 ]
 shard_index = 0
 total_shards = 3
@@ -163,6 +170,7 @@ cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
   "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8541 agents — heaviest shard, segments 31/41/42)
   "UnispscOrganismFleetCell",  # 8541 organisms, segments 30-44 (ADR-2605240000)
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard issachar segs 30-44 → local kotoba Datom log (cron 33 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
   "ossekai_arbitrage_observer",
   "ossekai_intel_analyzer",
   "ossekai_aggregate_publisher",
@@ -195,6 +203,7 @@ cells = [
   "DecommissionCell",  # kuni-umi end-of-life (ADR-2605201400)
   "UnispscAgentExecutorCell",  # unispsc segments 45-60 (~5204 agents)
   "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
+  "ibuki_fleet_beat",      # 息吹 durable organism beat, shard dan segs 45-60 → local kotoba Datom log (cron 43 * * * *) (ADR-2606101200; posting = member-principal only, cell cannot post)
   "shionome_rotation_weave",    # 潮目 rotation pairs + regime (cron 15 * * * *) (ADR-2606072200)
   "shionome_regime_observer",   # 潮目 cross-asset regime (cron 20 * * * *) (ADR-2606072200)
   "ipaddress_persist",          # IP/ASN autonomous heartbeat → append-only kotoba Datom log (cron 17 * * * *) (ADR-2605301400 §T2; local persist, G8 live-node push gated)
@@ -214,6 +223,9 @@ cells = [
   "ForceAuthorizationCell",
   "ForceLogMonitoringCell",
   "EthicsContentClassifierCell",
+  "danjo_corpus_ingest",        # 弾正 pre-published gov procurement corpus intake (cron 25 * * * *) (ADR-2605301600; G3 passive-only, no live portal fetch)
+  "danjo_crossref_weave",       # open-method discrepancy detectors (single-bidder-streak …) over the public record (cron 30 * * * *) (ADR-2605301600; G4 non-adjudicating, G5 ≥2 CIDs, G6 method-note)
+  "danjo_oversight_persist",    # 弾正 public-accountability autonomous heartbeat → append-only kotoba Datom log (cron 35 * * * *) (ADR-2605301600; censor's EYE never SWORD; named-party publish G10+1SBT gated)
 ]
 replicas_of = []
 
