@@ -9697,11 +9697,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible data / analytics actor (redis); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "redis.kotoba"
-   :actor/wasm-cid "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq"
+   :actor/wasm-cid "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:redis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:redis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:redis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:redis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:redis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:redis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:redis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:redis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "redknee-compat"
    :actor/did "did:web:etzhayyim.com:actor:redknee-compat"
    :actor/kind :compat

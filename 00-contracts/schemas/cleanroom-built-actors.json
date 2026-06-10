@@ -11197,12 +11197,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Meter",
-        "Reading",
         "Node",
-        "LoadForecast",
-        "MarketBid",
-        "Tag"
+        "ReferenceDescription",
+        "ReadValueId",
+        "MonitoredItem",
+        "CreateSubscriptionRequest",
+        "ReadRequest"
       ]
     },
     {
@@ -12613,17 +12613,16 @@
       "handle": "redis-compat",
       "platform": "redis",
       "bytes": 2119,
-      "wasmCid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "wasmCid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "RespMessage",
+        "RedisCommand",
+        "RedisKey",
+        "RedisDataType",
+        "RespProtocolVersion"
       ]
     },
     {

@@ -1686,6 +1686,28 @@ PLATFORM_OVERRIDES = {
         "RemoteFrame": E(identifier="integer", format="string", dlc="integer", rtr="boolean"),
         "OverloadFrame": E(overloadFlag="string", timestamp="datetime"),
     },
+    # Faithful OPC UA model (IEC 62541, OPC Foundation UA-Nodeset Opc.Ua.Types.bsd +
+    # AttributeIds.csv). nodeClass (bitmask 0..128), attributeId (1..27), monitoringMode
+    # (0..2), timestampsToReturn (0..4) are documented closed integer enums.
+    "opc_ua": {
+        "Node": E(nodeId="string", nodeClass="integer", browseName="string", displayName="string", description="string", writeMask="integer", accessLevel="integer", valueRank="integer", historizing="boolean"),
+        "ReferenceDescription": E(referenceTypeId="string", isForward="boolean", nodeId="string", browseName="string", displayName="string", nodeClass="integer", typeDefinition="string"),
+        "ReadValueId": E(nodeId="string", attributeId="integer", indexRange="string", dataEncoding="string"),
+        "MonitoredItem": E(clientHandle="integer", monitoringMode="integer", samplingInterval="float", queueSize="integer", discardOldest="boolean"),
+        "CreateSubscriptionRequest": E(requestedPublishingInterval="float", requestedLifetimeCount="integer", requestedMaxKeepAliveCount="integer", maxNotificationsPerPublish="integer", publishingEnabled="boolean", priority="integer"),
+        "ReadRequest": E(maxAge="float", timestampsToReturn="integer"),
+    },
+    # Faithful Redis RESP model (redis.io official protocol-spec + TYPE command). firstByte
+    # is the definitively-closed RESP3 first-byte marker set (superset of RESP2). dataType is
+    # the TYPE-command return set (inclusive of newer vectorset to avoid false-reject). Command
+    # flags are an open/extensible set -> not enforced.
+    "redis": {
+        "RespMessage": E(firstByte="string", respType="string", payload="string", elementCount="integer", length="integer"),
+        "RedisCommand": E(commandName="string", arity="integer", flags="string", keyPosition="integer"),
+        "RedisKey": E(keyName="string", dataType="string", ttl="integer", encoding="string"),
+        "RedisDataType": E(dataType="string", encoding="string", isBinary="boolean"),
+        "RespProtocolVersion": E(majorVersion="integer", supportedSince="string"),
+    },
     # Faithful TCP/IP model (RFC 9293 TCP + RFC 792 ICMP + IANA). ICMP type + IP protocol
     # are large extensible IANA registries -> not enforced as closed enums.
     "tcp_ip": {

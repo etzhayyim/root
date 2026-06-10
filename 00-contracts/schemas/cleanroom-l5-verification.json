@@ -6,7 +6,7 @@
  ],
  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
- "count": 142,
+ "count": 144,
  "actors": [
   {
    "handle": "square-compat",
@@ -19511,6 +19511,288 @@
    ],
    "notApplicable": [],
    "note": "FULLY VERIFIED (5/5) vs ISO 11898 / Bosch CAN 2.0 + CAN FD. Enforced enums: CanFrame.frameType(4)+format(2), CanFdFrame.format(2), ErrorFrame.errorType(5)+errorFlag(2)+nodeState(3), RemoteFrame.format(2) = 8 enums."
+  },
+  {
+   "handle": "opc_ua-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://reference.opcfoundation.org/",
+   "remodeled": "Remodeled from generic category model to a faithful OPC UA (IEC 62541) model verified against the OPC Foundation UA-Nodeset schema (Opc.Ua.Types.bsd) + AttributeIds.csv. nodeClass/attributeId/monitoringMode/timestampsToReturn are documented closed integer enums; object-typed sub-structures (filter, itemToMonitor) flattened/omitted (type set limited to scalar kinds).",
+   "resources": [
+    {
+     "entity": "Node",
+     "source": "https://github.com/OPCFoundation/UA-Nodeset Schema/Opc.Ua.Types.bsd (NodeClass)",
+     "verifiedFields": [
+      "nodeId",
+      "nodeClass",
+      "browseName",
+      "displayName",
+      "description",
+      "writeMask",
+      "accessLevel",
+      "valueRank",
+      "historizing"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {
+      "nodeClass": [
+       0,
+       1,
+       2,
+       4,
+       8,
+       16,
+       32,
+       64,
+       128
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "ReferenceDescription",
+     "source": "https://github.com/OPCFoundation/UA-Nodeset Schema/Opc.Ua.Types.bsd",
+     "verifiedFields": [
+      "referenceTypeId",
+      "isForward",
+      "nodeId",
+      "browseName",
+      "displayName",
+      "nodeClass",
+      "typeDefinition"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {
+      "nodeClass": [
+       0,
+       1,
+       2,
+       4,
+       8,
+       16,
+       32,
+       64,
+       128
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "ReadValueId",
+     "source": "https://github.com/OPCFoundation/UA-Nodeset Schema/AttributeIds.csv",
+     "verifiedFields": [
+      "nodeId",
+      "attributeId",
+      "indexRange",
+      "dataEncoding"
+     ],
+     "fieldStatus": "confirmed (AttributeIds.csv full 27-value set)",
+     "discoveredEnums": {
+      "attributeId": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "MonitoredItem",
+     "source": "https://github.com/OPCFoundation/UA-Nodeset Schema/Opc.Ua.Types.bsd (MonitoringMode)",
+     "verifiedFields": [
+      "clientHandle",
+      "monitoringMode",
+      "samplingInterval",
+      "queueSize",
+      "discardOldest"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {
+      "monitoringMode": [
+       0,
+       1,
+       2
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "CreateSubscriptionRequest",
+     "source": "https://reference.opcfoundation.org/",
+     "verifiedFields": [
+      "requestedPublishingInterval",
+      "requestedLifetimeCount",
+      "requestedMaxKeepAliveCount",
+      "maxNotificationsPerPublish",
+      "publishingEnabled",
+      "priority"
+     ],
+     "fieldStatus": "confirmed; no closed enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "ReadRequest",
+     "source": "https://github.com/OPCFoundation/UA-Nodeset Schema/Opc.Ua.Types.bsd (TimestampsToReturn)",
+     "verifiedFields": [
+      "maxAge",
+      "timestampsToReturn"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {
+      "timestampsToReturn": [
+       0,
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     "gaps": []
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (6/6) vs OPC Foundation UA-Nodeset (Opc.Ua.Types.bsd + AttributeIds.csv). Enforced enums: Node.nodeClass(9)+ReferenceDescription.nodeClass(9), ReadValueId.attributeId(27), MonitoredItem.monitoringMode(3), ReadRequest.timestampsToReturn(5) = 5 enum fields. MessageSecurityMode confirmed closed (Invalid/None/Sign/SignAndEncrypt) but no SecureChannel entity modeled this pass."
+  },
+  {
+   "handle": "redis-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://redis.io/docs/latest/develop/reference/protocol-spec/",
+   "remodeled": "Remodeled from generic category model to a faithful Redis RESP model verified against the official redis.io protocol-spec + TYPE command docs. firstByte = the definitively-closed RESP3 first-byte marker set (superset of RESP2's 5). dataType = TYPE-command return set, enforced INCLUSIVELY (incl. newer vectorset + none) to avoid false-rejecting valid newer values. Command flags are open/extensible -> not enforced.",
+   "resources": [
+    {
+     "entity": "RespMessage",
+     "source": "https://redis.io/docs/latest/develop/reference/protocol-spec/",
+     "verifiedFields": [
+      "firstByte",
+      "respType",
+      "payload",
+      "elementCount",
+      "length"
+     ],
+     "fieldStatus": "confirmed (RESP3 marker set)",
+     "discoveredEnums": {
+      "firstByte": [
+       "+",
+       "-",
+       ":",
+       "$",
+       "*",
+       "_",
+       "#",
+       ",",
+       "(",
+       "!",
+       "=",
+       "%",
+       "|",
+       "~",
+       ">"
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "RedisCommand",
+     "source": "https://redis.io/docs/latest/develop/reference/command-tips/",
+     "verifiedFields": [
+      "commandName",
+      "arity",
+      "flags",
+      "keyPosition"
+     ],
+     "fieldStatus": "confirmed; flags open/extensible -> not enforced",
+     "discoveredEnums": {},
+     "gaps": [
+      "flags-open-registry"
+     ]
+    },
+    {
+     "entity": "RedisKey",
+     "source": "https://redis.io/docs/latest/commands/type/",
+     "verifiedFields": [
+      "keyName",
+      "dataType",
+      "ttl",
+      "encoding"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {
+      "dataType": [
+       "string",
+       "list",
+       "set",
+       "zset",
+       "hash",
+       "stream",
+       "vectorset",
+       "none"
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "RedisDataType",
+     "source": "https://redis.io/docs/latest/commands/type/",
+     "verifiedFields": [
+      "dataType",
+      "encoding",
+      "isBinary"
+     ],
+     "fieldStatus": "confirmed (TYPE return set, inclusive of vectorset/none)",
+     "discoveredEnums": {
+      "dataType": [
+       "string",
+       "list",
+       "set",
+       "zset",
+       "hash",
+       "stream",
+       "vectorset",
+       "none"
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "RespProtocolVersion",
+     "source": "https://redis.io/docs/latest/develop/reference/protocol-spec/",
+     "verifiedFields": [
+      "majorVersion",
+      "supportedSince"
+     ],
+     "fieldStatus": "confirmed; only RESP2/RESP3 exist",
+     "discoveredEnums": {},
+     "gaps": []
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (5/5) vs redis.io protocol-spec + TYPE command. Enforced enums: RespMessage.firstByte(15 RESP3 markers), RedisKey.dataType(8)+RedisDataType.dataType(8) = 3 enum fields. dataType enforced inclusively to avoid false-rejecting newer values; command flags gapped (open registry)."
   }
  ]
 }

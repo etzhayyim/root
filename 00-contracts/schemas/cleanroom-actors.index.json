@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 858,
-    "L5": 142
+    "L4": 856,
+    "L5": 144
   },
   "actors": [
     {
@@ -11900,7 +11900,7 @@
       "wasmCid": "bafkreibc3earfwuo227bwzsjsebwxw7v6wu2dws7spsd5weyalbrfuyvye",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "opc_ua clean-room actor",
       "category": "energy_grid_utilities",
       "capabilities": [
@@ -13409,10 +13409,10 @@
     {
       "handle": "redis-compat",
       "did": "did:web:etzhayyim.com:actor:redis-compat",
-      "wasmCid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "wasmCid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "redis clean-room actor",
       "category": "data_analytics",
       "capabilities": [

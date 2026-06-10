@@ -11,15 +11,101 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibc3earfwuo227bwzsjsebwxw7v6wu2dws7spsd5weyalbrfuyvye",
   "schema": "schema/opc_ua.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://reference.opcfoundation.org/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Node",
+      "ReferenceDescription",
+      "ReadValueId",
+      "MonitoredItem",
+      "CreateSubscriptionRequest",
+      "ReadRequest"
+    ],
+    "enums": {
+      "Node": {
+        "nodeClass": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128
+        ]
+      },
+      "ReferenceDescription": {
+        "nodeClass": [
+          0,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128
+        ]
+      },
+      "ReadValueId": {
+        "attributeId": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27
+        ]
+      },
+      "MonitoredItem": {
+        "monitoringMode": [
+          0,
+          1,
+          2
+        ]
+      },
+      "ReadRequest": {
+        "timestampsToReturn": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    }
+  },
   "entities": [
-    "Meter",
-    "Reading",
     "Node",
-    "LoadForecast",
-    "MarketBid",
-    "Tag"
+    "ReferenceDescription",
+    "ReadValueId",
+    "MonitoredItem",
+    "CreateSubscriptionRequest",
+    "ReadRequest"
   ],
   "adr": [
     "260607",
@@ -33,56 +119,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/meters",
-          "op": "create Meter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meters",
-          "op": "list Meter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meters/{id}",
-          "op": "get Meter"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/meters/{id}",
-          "op": "update Meter"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/meters/{id}",
-          "op": "delete Meter"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/readings",
-          "op": "create Reading"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/readings",
-          "op": "list Reading"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/readings/{id}",
-          "op": "get Reading"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/readings/{id}",
-          "op": "update Reading"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/readings/{id}",
-          "op": "delete Reading"
-        },
         {
           "method": "POST",
           "path": "/v1/nodes",
@@ -110,78 +146,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/loadforecasts",
-          "op": "create LoadForecast"
+          "path": "/v1/referencedescriptions",
+          "op": "create ReferenceDescription"
         },
         {
           "method": "GET",
-          "path": "/v1/loadforecasts",
-          "op": "list LoadForecast"
+          "path": "/v1/referencedescriptions",
+          "op": "list ReferenceDescription"
         },
         {
           "method": "GET",
-          "path": "/v1/loadforecasts/{id}",
-          "op": "get LoadForecast"
+          "path": "/v1/referencedescriptions/{id}",
+          "op": "get ReferenceDescription"
         },
         {
           "method": "PATCH",
-          "path": "/v1/loadforecasts/{id}",
-          "op": "update LoadForecast"
+          "path": "/v1/referencedescriptions/{id}",
+          "op": "update ReferenceDescription"
         },
         {
           "method": "DELETE",
-          "path": "/v1/loadforecasts/{id}",
-          "op": "delete LoadForecast"
+          "path": "/v1/referencedescriptions/{id}",
+          "op": "delete ReferenceDescription"
         },
         {
           "method": "POST",
-          "path": "/v1/marketbids",
-          "op": "create MarketBid"
+          "path": "/v1/readvalueids",
+          "op": "create ReadValueId"
         },
         {
           "method": "GET",
-          "path": "/v1/marketbids",
-          "op": "list MarketBid"
+          "path": "/v1/readvalueids",
+          "op": "list ReadValueId"
         },
         {
           "method": "GET",
-          "path": "/v1/marketbids/{id}",
-          "op": "get MarketBid"
+          "path": "/v1/readvalueids/{id}",
+          "op": "get ReadValueId"
         },
         {
           "method": "PATCH",
-          "path": "/v1/marketbids/{id}",
-          "op": "update MarketBid"
+          "path": "/v1/readvalueids/{id}",
+          "op": "update ReadValueId"
         },
         {
           "method": "DELETE",
-          "path": "/v1/marketbids/{id}",
-          "op": "delete MarketBid"
+          "path": "/v1/readvalueids/{id}",
+          "op": "delete ReadValueId"
         },
         {
           "method": "POST",
-          "path": "/v1/tags",
-          "op": "create Tag"
+          "path": "/v1/monitoreditems",
+          "op": "create MonitoredItem"
         },
         {
           "method": "GET",
-          "path": "/v1/tags",
-          "op": "list Tag"
+          "path": "/v1/monitoreditems",
+          "op": "list MonitoredItem"
         },
         {
           "method": "GET",
-          "path": "/v1/tags/{id}",
-          "op": "get Tag"
+          "path": "/v1/monitoreditems/{id}",
+          "op": "get MonitoredItem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tags/{id}",
-          "op": "update Tag"
+          "path": "/v1/monitoreditems/{id}",
+          "op": "update MonitoredItem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tags/{id}",
-          "op": "delete Tag"
+          "path": "/v1/monitoreditems/{id}",
+          "op": "delete MonitoredItem"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/createsubscriptionrequests",
+          "op": "create CreateSubscriptionRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/createsubscriptionrequests",
+          "op": "list CreateSubscriptionRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/createsubscriptionrequests/{id}",
+          "op": "get CreateSubscriptionRequest"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/createsubscriptionrequests/{id}",
+          "op": "update CreateSubscriptionRequest"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/createsubscriptionrequests/{id}",
+          "op": "delete CreateSubscriptionRequest"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/readrequests",
+          "op": "create ReadRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/readrequests",
+          "op": "list ReadRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/readrequests/{id}",
+          "op": "get ReadRequest"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/readrequests/{id}",
+          "op": "update ReadRequest"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/readrequests/{id}",
+          "op": "delete ReadRequest"
         }
       ],
       "features": {
@@ -247,198 +333,42 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_meter",
-          "description": "Create a Meter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serial": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "serial",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_meters",
-          "description": "List Meters.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_meter",
-          "description": "Get a Meter by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_meter",
-          "description": "Update a Meter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serial": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_meter",
-          "description": "Delete a Meter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_reading",
-          "description": "Create a Reading.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "meterId": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "readAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "value",
-              "unit"
-            ]
-          }
-        },
-        {
-          "name": "list_readings",
-          "description": "List Readings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_reading",
-          "description": "Get a Reading by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_reading",
-          "description": "Update a Reading.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "meterId": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "readAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_reading",
-          "description": "Delete a Reading.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_node",
           "description": "Create a Node.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "nodeId": {
                 "type": "string"
               },
-              "region": {
+              "nodeClass": {
+                "type": "integer"
+              },
+              "browseName": {
                 "type": "string"
               },
-              "voltageKv": {
-                "type": "number"
+              "displayName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "writeMask": {
+                "type": "integer"
+              },
+              "accessLevel": {
+                "type": "integer"
+              },
+              "valueRank": {
+                "type": "integer"
+              },
+              "historizing": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "region"
+              "nodeClass",
+              "browseName"
             ]
           }
         },
@@ -474,14 +404,32 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "nodeId": {
                 "type": "string"
               },
-              "region": {
+              "nodeClass": {
+                "type": "integer"
+              },
+              "browseName": {
                 "type": "string"
               },
-              "voltageKv": {
-                "type": "number"
+              "displayName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "writeMask": {
+                "type": "integer"
+              },
+              "accessLevel": {
+                "type": "integer"
+              },
+              "valueRank": {
+                "type": "integer"
+              },
+              "historizing": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -505,38 +453,50 @@
           }
         },
         {
-          "name": "create_load_forecast",
-          "description": "Create a LoadForecast.",
+          "name": "create_reference_description",
+          "description": "Create a ReferenceDescription.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "referenceTypeId": {
+                "type": "string"
+              },
+              "isForward": {
+                "type": "boolean"
+              },
               "nodeId": {
                 "type": "string"
               },
-              "period": {
+              "browseName": {
                 "type": "string"
               },
-              "megawatts": {
-                "type": "number"
+              "displayName": {
+                "type": "string"
+              },
+              "nodeClass": {
+                "type": "integer"
+              },
+              "typeDefinition": {
+                "type": "string"
               }
             },
             "required": [
-              "period",
-              "megawatts"
+              "isForward",
+              "browseName"
             ]
           }
         },
         {
-          "name": "list_load_forecasts",
-          "description": "List LoadForecasts.",
+          "name": "list_reference_descriptions",
+          "description": "List ReferenceDescriptions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_load_forecast",
-          "description": "Get a LoadForecast by id.",
+          "name": "get_reference_description",
+          "description": "Get a ReferenceDescription by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -550,22 +510,34 @@
           }
         },
         {
-          "name": "update_load_forecast",
-          "description": "Update a LoadForecast.",
+          "name": "update_reference_description",
+          "description": "Update a ReferenceDescription.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
+              },
+              "referenceTypeId": {
+                "type": "string"
+              },
+              "isForward": {
+                "type": "boolean"
               },
               "nodeId": {
                 "type": "string"
               },
-              "period": {
+              "browseName": {
                 "type": "string"
               },
-              "megawatts": {
-                "type": "number"
+              "displayName": {
+                "type": "string"
+              },
+              "nodeClass": {
+                "type": "integer"
+              },
+              "typeDefinition": {
+                "type": "string"
               }
             },
             "required": [
@@ -574,8 +546,8 @@
           }
         },
         {
-          "name": "delete_load_forecast",
-          "description": "Delete a LoadForecast.",
+          "name": "delete_reference_description",
+          "description": "Delete a ReferenceDescription.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -589,41 +561,41 @@
           }
         },
         {
-          "name": "create_market_bid",
-          "description": "Create a MarketBid.",
+          "name": "create_read_value_id",
+          "description": "Create a ReadValueId.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "nodeId": {
                 "type": "string"
               },
-              "price": {
-                "type": "number"
+              "attributeId": {
+                "type": "integer"
               },
-              "megawatts": {
-                "type": "number"
+              "indexRange": {
+                "type": "string"
               },
-              "interval": {
+              "dataEncoding": {
                 "type": "string"
               }
             },
             "required": [
-              "price",
-              "megawatts"
+              "indexRange",
+              "dataEncoding"
             ]
           }
         },
         {
-          "name": "list_market_bids",
-          "description": "List MarketBids.",
+          "name": "list_read_value_ids",
+          "description": "List ReadValueIds.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_market_bid",
-          "description": "Get a MarketBid by id.",
+          "name": "get_read_value_id",
+          "description": "Get a ReadValueId by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -637,8 +609,8 @@
           }
         },
         {
-          "name": "update_market_bid",
-          "description": "Update a MarketBid.",
+          "name": "update_read_value_id",
+          "description": "Update a ReadValueId.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -648,13 +620,13 @@
               "nodeId": {
                 "type": "string"
               },
-              "price": {
-                "type": "number"
+              "attributeId": {
+                "type": "integer"
               },
-              "megawatts": {
-                "type": "number"
+              "indexRange": {
+                "type": "string"
               },
-              "interval": {
+              "dataEncoding": {
                 "type": "string"
               }
             },
@@ -664,8 +636,8 @@
           }
         },
         {
-          "name": "delete_market_bid",
-          "description": "Delete a MarketBid.",
+          "name": "delete_read_value_id",
+          "description": "Delete a ReadValueId.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,41 +651,44 @@
           }
         },
         {
-          "name": "create_tag",
-          "description": "Create a Tag.",
+          "name": "create_monitored_item",
+          "description": "Create a MonitoredItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "nodeId": {
-                "type": "string"
+              "clientHandle": {
+                "type": "integer"
               },
-              "address": {
-                "type": "string"
+              "monitoringMode": {
+                "type": "integer"
               },
-              "value": {
+              "samplingInterval": {
                 "type": "number"
               },
-              "quality": {
-                "type": "string"
+              "queueSize": {
+                "type": "integer"
+              },
+              "discardOldest": {
+                "type": "boolean"
               }
             },
             "required": [
-              "address",
-              "value"
+              "clientHandle",
+              "monitoringMode"
             ]
           }
         },
         {
-          "name": "list_tags",
-          "description": "List Tags.",
+          "name": "list_monitored_items",
+          "description": "List MonitoredItems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tag",
-          "description": "Get a Tag by id.",
+          "name": "get_monitored_item",
+          "description": "Get a MonitoredItem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -727,24 +702,42 @@
           }
         },
         {
-          "name": "update_tag",
-          "description": "Update a Tag.",
+          "name": "update_monitored_item",
+          "description": "Update a MonitoredItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "nodeId": {
-                "type": "string"
+              "clientHandle": {
+                "type": "integer"
               },
-              "address": {
-                "type": "string"
+              "monitoringMode": {
+                "type": "integer"
               },
-              "value": {
+              "samplingInterval": {
                 "type": "number"
               },
-              "quality": {
+              "queueSize": {
+                "type": "integer"
+              },
+              "discardOldest": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_monitored_item",
+          "description": "Delete a MonitoredItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -754,8 +747,173 @@
           }
         },
         {
-          "name": "delete_tag",
-          "description": "Delete a Tag.",
+          "name": "create_create_subscription_request",
+          "description": "Create a CreateSubscriptionRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "requestedPublishingInterval": {
+                "type": "number"
+              },
+              "requestedLifetimeCount": {
+                "type": "integer"
+              },
+              "requestedMaxKeepAliveCount": {
+                "type": "integer"
+              },
+              "maxNotificationsPerPublish": {
+                "type": "integer"
+              },
+              "publishingEnabled": {
+                "type": "boolean"
+              },
+              "priority": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "requestedPublishingInterval",
+              "requestedLifetimeCount"
+            ]
+          }
+        },
+        {
+          "name": "list_create_subscription_requests",
+          "description": "List CreateSubscriptionRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_create_subscription_request",
+          "description": "Get a CreateSubscriptionRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_create_subscription_request",
+          "description": "Update a CreateSubscriptionRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "requestedPublishingInterval": {
+                "type": "number"
+              },
+              "requestedLifetimeCount": {
+                "type": "integer"
+              },
+              "requestedMaxKeepAliveCount": {
+                "type": "integer"
+              },
+              "maxNotificationsPerPublish": {
+                "type": "integer"
+              },
+              "publishingEnabled": {
+                "type": "boolean"
+              },
+              "priority": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_create_subscription_request",
+          "description": "Delete a CreateSubscriptionRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_read_request",
+          "description": "Create a ReadRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "maxAge": {
+                "type": "number"
+              },
+              "timestampsToReturn": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "maxAge",
+              "timestampsToReturn"
+            ]
+          }
+        },
+        {
+          "name": "list_read_requests",
+          "description": "List ReadRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_read_request",
+          "description": "Get a ReadRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_read_request",
+          "description": "Update a ReadRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "maxAge": {
+                "type": "number"
+              },
+              "timestampsToReturn": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_read_request",
+          "description": "Delete a ReadRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {
