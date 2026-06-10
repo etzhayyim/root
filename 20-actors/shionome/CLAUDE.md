@@ -48,6 +48,15 @@ SIZE is a factual observed quantity (like `:return-pct`) carrying `no_trade_noti
 rating/signal/target (G2/G4 untouched). Stock (usd-tn) is **never** summed with flow magnitudes
 (usd-bn): two distinct on-read views over the same append-only graph.
 
+`methods/grounding.py` is an OPTIONAL **entity-grounding bridge** answering *who is inside each
+layer?* — it decomposes a pyramid layer into the named real entities sibling actors already mirror
+(equities ← kabuto listed-company ledger; a systemic-institutions overlay ← hokorobi) and reports
+the coverage gap honestly (value coverage as a stated lower bound, a `:representative` count
+denominator, and the explicitly-named ungrounded layers). Rules: it is **fail-open** (a missing
+sibling ledger → that layer is reported ungrounded, never a crash); the **core path
+(`weave`/`concentration`) must NOT import it** (no sibling-file coupling in the hermetic core);
+its figures are sizes/counts/fractions only — never a per-entity rating/signal/target (G2/G4).
+
 `methods/autorun.py` is the **autonomous heartbeat**: each cycle it runs the whole pipeline by
 itself and persists a content-addressed transaction to the append-only kotoba Datom log
 (`methods/kotoba.py`). That is "kotoba で自律的に稼働" in the charter-permitted form — live external
@@ -101,7 +110,7 @@ made a charter violation representable. `methods/test_charter_invariants.py` gua
 - `.solve()` raises `RuntimeError` on every cell at R0 — live execution is G8-gated. Do not wire a
   cell to a live market-data fetch or a live firehose post.
 - Tests are standalone-runnable (`python3 test_*.py`); run everything with `./run_tests.sh`
-  (158 tests across 14 suites, hermetic). See MATURITY.md for the per-suite breakdown.
+  (174 tests across 15 suites, hermetic). See MATURITY.md for the per-suite breakdown.
 
 ## Honest R0
 
@@ -116,8 +125,9 @@ publication under 1 SBT = 1 vote).
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                          # all 14 suites (158 tests)
+./run_tests.sh                          # all 15 suites (174 tests)
 cd methods && python3 weave.py          # concentration + stock pyramid over the :representative seed
+cd methods && python3 grounding.py      # decompose pyramid layers into named entities (kabuto/hokorobi) + coverage
 cd methods && python3 analyze.py        # end-to-end dry-run → methods/out/intel-report.md
 cd methods && python3 social.py         # dry-run social posts
 cd methods && python3 ingest.py         # offline normalize (──live refuses without the G8 gate)

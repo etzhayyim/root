@@ -149,6 +149,27 @@ snapshot mechanism is extended with one metric rather than a new entity type:
   flow magnitudes (usd-bn) — a unit guard, not a new capability. The no-trade boundary is unchanged:
   shionome now says how large each pool of capital is, still never what to do with it (トレードはしない).
 
+### Entity grounding (R1 addendum, 2026-06-10) — *who is inside each layer?*
+
+The pyramid sizes each layer in aggregate; it does not say which real entities constitute it.
+`methods/grounding.py` is an OPTIONAL read-side bridge that decomposes a layer into the named real
+entities that sibling actors ALREADY mirror, and reports the coverage gap honestly:
+
+- **equities** layer ← **kabuto** 兜 listed-company ledger (org.corp.* — name / ticker / market-cap);
+- a cross-cutting **systemic-institutions overlay** ← **hokorobi** 綻び (G-SIB banks / insurers /
+  pensions / CCPs span equities+debt+pensions, so they are an overlay, not one layer).
+
+On the checked-out `:representative` seeds this grounds the equities layer with **1,719** named
+companies — value coverage **$46.8tn / $115tn ≈ 40.7%** (a stated LOWER BOUND: only the 205
+companies that report a market-cap contribute), count coverage **≈ 3.1%** of a `:representative`
+~55,000 listed universe — and names the **7 ungrounded layers** explicitly
+(cash/broad-money/debt/real-estate/gold/crypto/derivatives). It is **fail-open** (a missing sibling
+ledger → that layer reported ungrounded, never a crash); shionome's hermetic core
+(`weave`/`concentration`) does **not** import it; and every figure is a size/count/coverage
+fraction — never a per-entity rating/signal/target (G2/G4). This makes the honest answer to "what
+real-world entity coverage underpins the capital data?" a computed, test-pinned output rather than
+a prose claim.
+
 ## Consequences
 
 - **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,
