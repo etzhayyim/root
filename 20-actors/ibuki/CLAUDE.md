@@ -48,13 +48,21 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   datom, never an overwrite.
 - **Closed vocabularies raise, never guess** — joucho event kinds, kaizen outcomes, queue
   schema version.
+- **健全性 is measured, not assumed** — `health.py` audits the colony from the log alone
+  (muted organisms / axis saturation / stress-excess / checkpoint-vs-replay divergence /
+  posting drought / mood monoculture) every `HEALTH_EVERY` beats → `:health/*` checkpoint
+  datoms + KaizenProposal lines (the Wave-4 loop carries health complaints to humans). No
+  per-organism wellbeing SCORE is ever asserted (edge-primary); muteness is structurally
+  recoverable (baseline stress ≤65 + idle drift) and the audit verifies recovery.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 13 suites (134 tests), hermetic
+./run_tests.sh                                  # all 14 suites (146 tests), hermetic
+# 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
+#   cd methods && python3 health.py --log <log.edn> [--proposals out/health-proposals.ndjson]
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
                                                 # prints per-organism mood as-of tx 1 vs head
 cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh

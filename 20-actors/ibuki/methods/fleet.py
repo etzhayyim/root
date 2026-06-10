@@ -58,6 +58,7 @@ _NODE_TO_SHARD = {"joseph": 0, "issachar": 1, "dan": 2}
 BEAT_MS = 45 * 60_000
 AS_OF_BASE = 2606100000
 DEFAULT_BATCH = 256
+HEALTH_EVERY = 10       # colony self-audit cadence (health.py → :health/* checkpoints)
 
 
 def resolve_registry_path() -> pathlib.Path:
@@ -207,7 +208,6 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
             idx.followers[code] = snap["followers"]
         scores = joucho.replay_events(baseline, idx.events.get(code, []) + events)
         mood = joucho.determine_mood(scores)
-        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
 
         due, _reason = heartbeat.due_to_post(state, mood, now_ms)
         if due:
@@ -222,22 +222,30 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
                     datoms.add(pid, ":post/status", ":dry-run")]
             queue_line(queue_path, did, code, title, mood, nar["text"], now_ms)
             scores = joucho.fold_event(scores, ":event/post-emitted", baseline)
-            out += joucho.event_datoms(code, [":event/post-emitted"], beat=beat, as_of=as_of)
+            events = events + [":event/post-emitted"]
             state.last_post_at_ms = now_ms
             state.posts += 1
 
+        # ONE event_datoms call per organism-beat — a second call would reuse
+        # jev-{code}-{beat}-0 and shadow the idle event in the as-of fold
+        # (homeostasis-loss bug, 2026-06-10 health audit)
+        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         state.beats += 1
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
         out += heartbeat.checkpoint_datoms(code, state, mood, beat=beat, as_of=as_of)
         idx.hb[code] = state
-        idx.events.setdefault(code, []).extend(events +
-                                               ([":event/post-emitted"] if due else []))
+        idx.events.setdefault(code, []).extend(events)
 
     # incremental drain: only lines this shard has not yet prepared (durable line cursor)
     from_line = idx.drain_line.get(shard_name, 0)
     drained, next_line = drain_incremental(queue_path, from_line, as_of=as_of, beat=beat)
     out += drained
     idx.drain_line[shard_name] = next_line
+
+    # 健全化: periodic colony self-audit over this shard's log (health.py)
+    if beat % HEALTH_EVERY == 0:
+        import health
+        out += health.health_datoms(health.audit(txs), beat=beat, as_of=as_of)
 
     # durable sweep cursor checkpoint — the crash-resume point of the round-robin
     new_cursor = (start + min(batch_size, n)) % n if n else 0
