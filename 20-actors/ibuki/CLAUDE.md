@@ -1,6 +1,6 @@
 # ibuki (息吹) — organism autonomy R2 gap-closure substrate
 
-**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1 · **ADR**: 2606101200
+**DID**: `did:web:etzhayyim.com:actor:ibuki` · **Tier**: substrate · **Status**: R0+R1+R2 · **ADR**: 2606101200
 
 **Read the root `/CLAUDE.md` Charter + substrate rules first.** ibuki-specific invariants below
 OVERRIDE nothing in the Charter; they make it concrete for this package.
@@ -34,9 +34,16 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   `serverHeldKey:false`; `submit()` refuses without an injected member signer AND
   `operator_ack=True`; `drainer.py` has no network import and no credential read
   (ADR-2605231525).
-- **G8 outward-gated** — `:post/status` is `:dry-run` only; `:drain/status` is `:prepared`
-  only; `:published` is unwritable by ibuki. Perception at R0 is a bounded `:representative`
-  stimulus pattern (no live firehose).
+- **G8 outward — code-complete (R2), structurally member-principal** — `:post/status` is
+  `:dry-run` only; `:drain/status` is `:prepared` only; `:published` is unwritable by ibuki
+  (what went out is a member-attributed `:receipt/*`, receipts.py). Live posting =
+  `member_submit.py`: the MEMBER's own env credentials (`IBUKI_MEMBER_*`) at runtime, https
+  only, `--yes` required, and **cron contexts refused outright** (`IBUKI_CRON=1` →
+  `MemberSignatureRequired`). Live perception = `perception.py`: read-only public-AppView
+  allowlist (violation raises before I/O), credential-free, `IBUKI_PERCEPTION_LIVE=1` to
+  enable, fail-open to the representative pattern. Per founder direction 2026-06-10 the
+  Council gate is exercised as PR merge — `cells/fleet_beat/cell.py` `.solve()` RUNS the
+  beat (registered on joseph/issachar/dan in `50-infra/murakumo/fleet.toml`).
 - **非終末論 append-only** — `:db/add` only; no retraction op exists; re-observation is a new
   datom, never an overwrite.
 - **Closed vocabularies raise, never guess** — joucho event kinds, kaizen outcomes, queue
@@ -47,13 +54,18 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 9 suites (90 tests), hermetic
+./run_tests.sh                                  # all 11 suites (114 tests), hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh   # AUTONOMOUS loop → kotoba Datom log
                                                 # prints per-organism mood as-of tx 1 vs head
 cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh
                                                 # R1: FULL 18,342-organism fleet sweep on one
                                                 # verified chain (~35 s; jacob/joseph/issachar/
                                                 # dan sharding mirrors fleet_cell_main)
+# R2 member-principal live posting (run AS THE MEMBER, never from cron):
+#   IBUKI_MEMBER_HANDLE=… IBUKI_MEMBER_APP_PASSWORD=… [IBUKI_MEMBER_PDS=…] \
+#     python3 member_submit.py --queue ../data/fleet-posts.queue.ndjson \
+#       --receipts ../data/receipts.ndjson --yes
+#   then fold the receipts back: receipts.ingest(receipts_path, log_path)
 ```
 
 Generated artifacts (`data/ibuki*.datoms.kotoba.edn`, `data/*posts.queue.ndjson`) are
@@ -68,9 +80,12 @@ R1 sweep state is durable: `:fleet.shard/cursor` (round-robin) + `:fleet.shard/d
   `assert_murakumo` — G6.
 - Do not give `drainer.py` a network path, a credential read, or a default signer — G7. The
   member's runtime is INJECTED, never embedded.
-- Do not make `:published` writable, or wire `autorun.py` / `fleet.py` / perception to live
-  external I/O — G8 (Council gate). `cells/fleet_beat/cell.py` `.solve()` raises at R1; do
-  not wire it to a live cron trigger.
+- Do not make `:published` writable by ibuki (receipts say `:submitted-by-member`), remove
+  `member_submit.refuse_if_cron`, default `operator_ack`/`--yes` to true, or add a
+  credential source other than the member's own `IBUKI_MEMBER_*` env — the member-principal
+  boundary is Tier-1, not a flippable gate.
+- Do not widen `perception.ALLOWED_XRPC_HOSTS` beyond read-only public AppViews, give
+  perception a credential, or let a live-perception failure crash the beat (fail-open).
 - Do not introduce a retraction op or mutate an existing log line — append-only (非終末論).
 - Do not add a wall-clock call (`time.time`, `datetime.now`) to any method — determinism +
   crash-resume depend on logical time.

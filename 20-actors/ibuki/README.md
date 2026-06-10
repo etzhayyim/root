@@ -20,7 +20,7 @@ persistence, every outward edge member-signed and gated.
 | 7. Kaizen one-way | outcomes fold back: rule suppression after repeated rejection + mood events (merge calms, rejection stresses) |
 
 ```bash
-./run_tests.sh                                   # 9 suites, 90 tests, stdlib-only, hermetic
+./run_tests.sh                                   # 11 suites, 114 tests, stdlib-only, hermetic
 cd methods && python3 autorun.py --cycles 6 --fresh
 cd methods && python3 fleet.py --cycles 9 --shard -1 --batch 2048 --fresh   # R1 full fleet
 ```
@@ -30,5 +30,14 @@ loads the committed registry (`00-contracts/actor-registry/unispsc.json`), shard
 like the kotodama fleet cell (jacob/joseph/issachar/dan), and sweeps each shard in bounded
 batches behind a durable `:fleet.shard/cursor` — no LRU needed for correctness, mid-sweep
 crash-resume is byte-identical, and a full 18,342-organism sweep lands on one verified chain
-in ~35 s. Live perception, live posting, and live cron deployment stay behind their existing
-gates (G7/G8).
+in ~35 s.
+
+**R2 (same wave): code-complete outward paths (Council gate exercised as PR merge).**
+`perception.py` = read-only allowlisted public-XRPC live membrane (follower delta → capped
+joucho events, durable `:perception/*` snapshots, fail-open); `member_submit.py` = the
+MEMBER-principal posting runtime (member's own env credentials, https only, `--yes`
+required, **cron contexts structurally refused**); `receipts.py` folds member-attributed
+`:receipt/*` back onto the log (ibuki never asserts `:published`);
+`cells/fleet_beat/cell.py` `.solve()` runs the durable beat and is registered on
+joseph/issachar/dan in `50-infra/murakumo/fleet.toml`. E2E verified: beat → 64 envelopes →
+member-signed → 64 receipts on one verified chain.

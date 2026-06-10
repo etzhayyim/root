@@ -156,14 +156,22 @@ def test_real_fleet_slice_beats_on_the_log():
             assert res["shard"] in ("joseph", "issachar", "dan")
 
 
-def test_g8_cell_solve_raises():
+def test_cell_solve_runs_a_durable_beat():
+    """R2 (Council gate = PR merge): the Pregel cell RUNS the beat — offline-safe, local
+    log only; it can prepare envelopes but can never post (member_submit refuses cron)."""
     import importlib.util
     cell_path = (pathlib.Path(__file__).resolve().parents[1] / "cells" / "fleet_beat"
                  / "cell.py")
     spec = importlib.util.spec_from_file_location("ibuki_fleet_cell", cell_path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    expect_raises(lambda: mod.FleetBeatCell().solve({}), contains="G8")
+    with tempfile.TemporaryDirectory() as dr:
+        out = mod.FleetBeatCell().solve({
+            "cycles": 1, "shard": 0, "batch": 16, "fresh": True,
+            "log_path": str(pathlib.Path(dr) / "log.edn"),
+            "queue_path": str(pathlib.Path(dr) / "queue.ndjson")})
+        assert out["beats"] == 1 and out["chain_ok"] is True
+        assert out["shard"] == "joseph" and out["organisms_alive"] == 16
 
 
 if __name__ == "__main__":

@@ -49,15 +49,12 @@ AS_OF_BASE = 2606100000
 
 
 def beat_events(beat: int) -> list[str]:
-    """This beat's perceived events — R0 is a bounded :representative stimulus pattern
-    (deterministic, no live I/O; live firehose perception is G8-gated): every beat passes
-    time, every 3rd beat a follower arrives, every 5th the inbox surges."""
-    ev = [":event/idle"]
-    if beat % 3 == 0:
-        ev.append(":event/follower-gained")
-    if beat % 5 == 0:
-        ev.append(":event/inbox-pressure")
-    return ev
+    """This beat's perceived events — the bounded :representative stimulus pattern
+    (deterministic, no live I/O): every beat passes time, every 3rd beat a follower
+    arrives, every 5th the inbox surges. The live perception membrane (R2) lives in
+    perception.py and is wired into the fleet loop (fleet.py)."""
+    import perception
+    return perception.representative_events(beat)
 
 
 def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]:

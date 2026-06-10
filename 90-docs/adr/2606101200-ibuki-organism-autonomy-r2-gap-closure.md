@@ -97,9 +97,10 @@ substrate package that closes gaps 1–7. One module per gap, one integrating lo
 - **G7 no-server-key** (ADR-2605231525): ibuki holds no key, reads no env/credential, has no
   network path in the drainer; posting without an injected member signer raises.
 - **G8 outward-gated**: `:post/status` is `:dry-run` only; `:drain/status` is `:prepared`
-  only; `:published` is not writable by ibuki — only a member-signed submission receipt
-  (ingested separately, future R1) may assert it. R0 perception is a bounded
-  `:representative` stimulus pattern; live firehose perception stays Council-gated.
+  only; `:published` is not writable by ibuki — what actually went out is recorded as a
+  member-attributed `:receipt/*` (see §R2). Default perception is the bounded
+  `:representative` stimulus pattern; the live membrane (§R2) is read-only + allowlisted
+  and enabled by explicit operator env.
 - **N7 / 非終末論**: kotoba Datom log only; `:db/add` only — no retraction op exists.
 - Closed vocabularies raise, never guess (joucho events, kaizen outcomes, queue schema v).
 
@@ -131,6 +132,26 @@ the pod) with log-native state:
   operation stays Council Lv6+ + operator gated (G8), the same gate the kotodama fleet cell
   awaits.
 
+## R2 — code-complete outward paths (Council gate exercised as PR merge)
+
+Per founder direction 2026-06-10 (*「council ゲート = PR request の merge として、コード段階では
+最後まで実装を進めてください」*), the Council gate for CODE-level completion is exercised as PR
+review+merge (founder = sole Lv7+ member, 1/1 unanimity, consistent with the Charter §0.1
+ratification precedent). Every outward path is therefore implemented to the end. What
+distinguishes a *gate-flip* (merge-authorizable) from an *invariant* (structural, NOT
+merge-flippable) is made explicit:
+
+| path | implementation | what stays structural |
+|---|---|---|
+| live perception | `methods/perception.py` — READ-ONLY public XRPC membrane (`app.bsky.actor.getProfile` on the allowlisted public AppView; follower delta → capped closed-vocab joucho events; durable `:perception/*` snapshot datoms); wired into the fleet beat; enabled by `IBUKI_PERCEPTION_LIVE=1` | https GET + host allowlist (violation raises before I/O); reads NO credential; failure fails open to the representative pattern; offline beats emit no perception datoms (R1 head CIDs unchanged) |
+| live posting | `methods/member_submit.py` — the MEMBER-principal runtime: `createSession` with the member's OWN env credentials (`IBUKI_MEMBER_*`) → `createRecord` on the member's OWN PDS, via `drainer.submit`'s injected-signer + operator-ack gate; CLI requires `--yes` | no env → refusal; **cron context (`IBUKI_CRON=1`) → refusal even WITH credentials** (a platform job may never hold a member key, ADR-2605231525); https only; nothing committed/cached/platform-held |
+| receipt return edge | `methods/receipts.py` — member-submission receipts fold back onto the Datom log as `:receipt/*` (`:receipt/status :submitted-by-member`, `:receipt/submitted-by <member did>`) | ibuki still NEVER asserts `:published` — the receipt attributes the act to the member; organism posts stay `:dry-run` (two events, two attributions, one log) |
+| cron cell | `cells/fleet_beat/cell.py` `.solve()` RUNS the durable fleet beat (env-resolved shard, bounded batch, local log); registered on joseph/issachar/dan in `50-infra/murakumo/fleet.toml` (cron 3/33/43 \* \* \* \*) | the cell prepares envelopes but can never post (member_submit refuses cron); Murakumo-only narration; local-log-only persistence |
+
+End-to-end verified: 2 fleet beats (64 organisms, real registry) → 64 member-sign-ready
+envelopes → member-signed submission (injected transport) → 64 `:receipt/*` datoms ingested
+onto the SAME verified chain (`{'ok': True, 'length': 3}`).
+
 ### R0 scope honesty
 
 - 3 `:representative` seed organisms in `autorun.py` demonstrate the single-organism loop;
@@ -147,6 +168,8 @@ the pod) with log-native state:
   member-signed and operator-gated.
 - "What was organism X's mood at tx N" is now a pure log query — Wellbecoming as as-of
   history (ADR-2606011500's discipline) reaches the organism layer.
-- 90 tests across 9 standalone suites (`./run_tests.sh`), stdlib-only, hermetic.
-- Future: R2 = ameno member-signing runtime for the drainer + live perception membrane
-  (G8 Council gate) + Murakumo live narration on fleet nodes + cron-cell deploy (G8).
+- 114 tests across 11 standalone suites (`./run_tests.sh`), stdlib-only, hermetic.
+- Future: operator turn-up of the live flags on fleet nodes (IBUKI_PERCEPTION_LIVE /
+  IBUKI_MURAKUMO_LIVE) + a member running member_submit against a real PDS + ameno
+  passkey-session signer as an alternative member runtime; the kotoba-engine ingest of the
+  EDN tx log (the body shape is already kotoba-native).

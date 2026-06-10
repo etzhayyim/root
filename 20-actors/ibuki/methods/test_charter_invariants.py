@@ -103,10 +103,48 @@ def test_closed_vocabularies_raise_not_guess():
         expect_raises(lambda: kaizen_feedback.read_outcomes(p), contains="closed vocab")
 
 
+def test_g7_member_submission_is_member_principal_only():
+    """The R2 live-posting runtime can act ONLY as the member: no env credentials →
+    refusal; cron context → refusal even WITH credentials (a platform job may never
+    hold a member key)."""
+    import os
+    import member_submit as ms
+    for k in (ms.ENV_HANDLE, ms.ENV_APP_PASSWORD, ms.ENV_CRON):
+        os.environ.pop(k, None)
+    expect_raises(lambda: ms.create_member_session(), contains="no member credentials")
+    os.environ[ms.ENV_HANDLE] = "m.example"
+    os.environ[ms.ENV_APP_PASSWORD] = "pw"
+    os.environ[ms.ENV_CRON] = "1"
+    try:
+        expect_raises(lambda: ms.create_member_session(), contains="cron")
+    finally:
+        for k in (ms.ENV_HANDLE, ms.ENV_APP_PASSWORD, ms.ENV_CRON):
+            os.environ.pop(k, None)
+
+
+def test_perception_is_readonly_allowlisted():
+    """The live membrane only LOOKS: read-only public AppView, allowlisted; anything
+    else raises before I/O; the module reads no credential."""
+    import perception
+    assert perception.ALLOWED_XRPC_HOSTS == frozenset({"public.api.bsky.app"})
+    expect_raises(lambda: perception.assert_allowed("https://api.example.com/xrpc/x"),
+                  contains="allowlist")
+    src = _all_source()["perception.py"]
+    for needle in ("password", "accessJwt", "Authorization"):
+        assert needle not in src
+
+
+def test_receipts_never_assert_published():
+    src = _all_source()["receipts.py"]
+    assert '":published"' not in src
+    assert ":submitted-by-member" in src     # honest attribution, not a status upgrade
+
+
 def test_stdlib_only():
     import ast
     allowed_local = {"datoms", "drainer", "heartbeat", "joucho", "kaizen_feedback",
-                     "infer", "autorun", "_edn", "_t"}
+                     "infer", "autorun", "_edn", "_t", "perception", "member_submit",
+                     "receipts", "fleet"}
     for p in SOURCES:
         tree = ast.parse(p.read_text(encoding="utf-8"))
         for node in ast.walk(tree):

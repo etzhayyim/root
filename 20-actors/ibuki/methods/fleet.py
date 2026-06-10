@@ -40,6 +40,7 @@ import datoms
 import drainer
 import heartbeat
 import joucho
+import perception
 from infer import narrate
 
 REGISTRY_REL = pathlib.Path("00-contracts") / "actor-registry" / "unispsc.json"
@@ -120,6 +121,8 @@ class LogIndex:
         self._hb_beat: dict[str, int] = {}
         self.cursor: dict[str, int] = {}        # shard name → next sweep offset
         self.drain_line: dict[str, int] = {}    # shard name → queue lines already drained
+        self.followers: dict[str, int] = {}     # code → last live :perception/followers
+        self._perc_beat: dict[str, int] = {}
 
 
 def index_log(txs: list[dict]) -> LogIndex:
@@ -128,6 +131,7 @@ def index_log(txs: list[dict]) -> LogIndex:
     idx = LogIndex()
     ev_entity: dict[str, dict] = {}
     hb_entity: dict[str, dict] = {}
+    perc_entity: dict[str, dict] = {}
     ev_order: list[str] = []
     for tx in txs:
         for _op, e, a, v in tx.get(":tx/datoms", []):
@@ -138,6 +142,8 @@ def index_log(txs: list[dict]) -> LogIndex:
                 ev_entity[e][a] = v
             elif a.startswith(":heartbeat/"):
                 hb_entity.setdefault(e, {})[a] = v
+            elif a.startswith(":perception/"):
+                perc_entity.setdefault(e, {})[a] = v
             elif a == ":fleet.shard/cursor":
                 idx.cursor[e.removeprefix("fleet-")] = v
             elif a == ":fleet.shard/drain-line":
@@ -157,6 +163,13 @@ def index_log(txs: list[dict]) -> LogIndex:
                 beats=ent.get(":heartbeat/beats", 0),
                 posts=ent.get(":heartbeat/posts", 0))
             idx._hb_beat[of] = beat
+    for ent in perc_entity.values():
+        of, beat = ent.get(":perception/of"), ent.get(":perception/beat", -1)
+        if of is None or ":perception/followers" not in ent:
+            continue
+        if of not in idx.followers or beat > idx._perc_beat.get(of, -1):
+            idx.followers[of] = ent[":perception/followers"]
+            idx._perc_beat[of] = beat
     return idx
 
 
@@ -186,7 +199,12 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
                     datoms.add(e, ":organism/born-beat", beat)]
 
         baseline = joucho.personality_baseline(code)
-        events = beat_events(beat)
+        events, snap = perception.events_for_beat(beat, actor=did,
+                                                  prev_followers=idx.followers.get(code))
+        if snap is not None:    # live observation: persist the durable follower snapshot
+            out += perception.perception_datoms(code, snap["followers"],
+                                                beat=beat, as_of=as_of)
+            idx.followers[code] = snap["followers"]
         scores = joucho.replay_events(baseline, idx.events.get(code, []) + events)
         mood = joucho.determine_mood(scores)
         out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
@@ -234,14 +252,9 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
 
 
 def beat_events(beat: int) -> list[str]:
-    """Same bounded :representative stimulus pattern as autorun R0 (live perception is
-    G8-gated)."""
-    ev = [":event/idle"]
-    if beat % 3 == 0:
-        ev.append(":event/follower-gained")
-    if beat % 5 == 0:
-        ev.append(":event/inbox-pressure")
-    return ev
+    """The offline stimulus pattern (kept for back-compat; the membrane itself lives in
+    perception.py — live mode via IBUKI_PERCEPTION_LIVE=1)."""
+    return perception.representative_events(beat)
 
 
 def queue_line(queue_path: pathlib.Path, did: str, code: str, title: str, mood: str,

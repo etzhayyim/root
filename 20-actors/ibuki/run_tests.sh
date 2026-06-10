@@ -14,6 +14,8 @@ SUITES=(
   "methods/test_kaizen_feedback.py"
   "methods/test_autorun.py"
   "methods/test_fleet.py"
+  "methods/test_perception.py"
+  "methods/test_member_submit.py"
   "methods/test_charter_invariants.py"
 )
 
