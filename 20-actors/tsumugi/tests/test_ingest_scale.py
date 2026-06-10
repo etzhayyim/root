@@ -98,6 +98,16 @@ def main():
           bool(a_ties) and a_ties[0][":tie/from"] == "org.corp.us.gm"
           and all(n[":pwr/id"] != "org.ext.general-motors" for n in a_nodes))
 
+    # RING-2 (hermetic): anchors derive from the seed's own citation QIDs; child-side alias
+    qids = I.derive_seed_qids(SEED)
+    check("ring-2: seed-derived anchor QIDs found", len(qids) >= 100 and "Q95" in qids)
+    q2 = I.build_anchored_query(10, sorted(qids)[:5])
+    check("ring-2: query builds over derived anchors", "VALUES ?parent" in q2)
+    crow = [{"child": "Audi AG", "parent": "Volkswagen Group", "country": "Germany"}]
+    _, _, c_nodes, c_ties, _ = I.normalize_rows(crow, SEED)
+    check("alias: child-side variant reuses existing seed org (no duplicate Audi)",
+          all(n[":pwr/id"] != "org.ext.audi-ag" for n in c_nodes))
+
     # committed seed is NEVER mutated by a merge write
     before = pathlib.Path(SEED).read_bytes()
     with tempfile.TemporaryDirectory() as d:
