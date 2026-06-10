@@ -10120,6 +10120,22 @@ path = "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-phys
 adr = ["2606101130", "2606091800", "2605201400"]
 
 [[adrs]]
+id = "2606101430"
+title = "infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop"
+status = "accepted"
+status_note = "Executes ADR-2606091800 follow-up #3 per founder direction 「device in the loop を進めてok」 (Council gate exercised as PR merge, ibuki ADR-2606101200 precedent). Device tier = the byte-for-byte deployment artefacts droop_p_f.wasm (2.8 KB) + anti_islanding_rocof.wasm (4.3 KB) — open-ot IEC 61499 Rust BFBs at wasm32-unknown-unknown (the WAMR/Cortex-M7 artefact class) — executed under Wasmtime by the NEW device-loop-host (60-apps/etzhayyim-project-open-ot/risk1/, gate-a-rig sibling: LOAD/INIT/TICK stdin line protocol, gate-a memory map, layouts from the existing codegen-cell-types pack/unpack) and driven tick-by-tick by the SAME MicrogridPlant scenarios the Python twin passes (20-actors/kuni-umi/robotics/device_loop.py -> committed golden device_loop_trace.json; verification needs no cargo/wasmtime). TWO semantic findings test-pinned: DROOP_P_F is INCREMENTAL (p_setpoint = clamp(current_p + delta); feeding the last command back integrates — observed >180 kW divergence; correct usage feeds the FIXED dispatch base) and unit conventions differ (device per-unit vs twin absolute droop; exact equivalence R_twin = f_nom*R_dev/P_rated, derived not tuned). GOLDEN RESULT: 50.0 Hz restored on normal/load-shed with no trip; the REAL guard LATCHES on the islanding-scale step; per-step twin parity 0.0001 kW (= µkW integer quantisation); device verdicts match twin verdicts on all scenarios. Commissioning gains acceptance_tier python-twin -> device-wasm (consistent evidence only TIGHTENS; inconsistent demotes to punch-list); CommissioningCell commission_test reads the golden. Fixed in passing: validate-cell-abi.py ALLOWED_WIRE drift (test_real_repo_content_passes was red on main -> green, 26 tests). kuni-umi/robotics 36->48 tests (incl. 2 live e2e that execute the wasm when the host is built). Invariants unchanged: offline dry-run evidence only, server_held_key=false, host signs nothing; live field dispatch stays Council/operator-gated behind deps.sdk + certified IEC 61508/61511 PLC. Honest: Wasmtime-on-Mac is not WAMR-AOT-on-M7 (timing differs; logic/ABI identical); voltage held nominal in scenarios; BLACK_START_SEQ + 6 remaining BFBs not yet in the loop."
+path = "90-docs/adr/2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm.md"
+adr = ["2606101430", "2606091800", "2606101130", "2606101200", "2605201400", "2605231525"]
+
+[[adrs]]
+id = "2606101845"
+title = "session close — infra-robotics R1 device-in-the-loop wave"
+status = "accepted"
+status_note = "Process record of the 2026-06-10 R1 wave (authoritative design = ADR-2606101430, PR #1568): device-loop-host (open-ot risk1, gate-a-rig sibling, LOAD/INIT/TICK line protocol) + device_loop.py + committed golden — the real droop_p_f.wasm + anti_islanding_rocof.wasm close the microgrid loop under Wasmtime against the same MicrogridPlant scenarios the Python twin passes (50.0 Hz restored, real guard latches on islanding step, twin parity 0.0001 kW = µkW quantisation, verdict match); two real-cell semantics test-pinned (DROOP_P_F incremental — feed the FIXED dispatch base; R_twin = f_nom*R_dev/P_rated); commissioning acceptance_tier python-twin -> device-wasm (evidence only tightens); validate-cell-abi ALLOWED_WIRE drift fixed (red on main -> green). Tests 48 robotics / 395 sweep / 26 validator. Follow-ups (gated): BLACK_START_SEQ + remaining BFBs into the loop, WAMR-AOT timing leg on target hardware, per-actor R1 hardware triggers before live dispatch."
+path = "90-docs/adr/2606101845-session-close-infra-robotics-r1-device-in-the-loop.md"
+adr = ["2606101845", "2606101430", "2606091800"]
+
+[[adrs]]
 id = "2606042330"
 title = "entity-as-actor — society-scale social mirror graph"
 status = "accepted"
@@ -10489,7 +10505,7 @@ schema = "20-actors/ibuki/data/seed-organisms.kotoba.edn"
 path = "20-actors/kuni-umi/robotics"
 kind = "infra-robotics-3layer-operational-substrate"
 version = "0.1.0-r0"
-status = "R0-landed-36-tests-green-parity-proven-against-kami-genesis"
+status = "R0+R1-48-tests-green-parity-proven-against-kami-genesis-and-device-in-the-loop-vs-real-open-ot-wasm"
 description = "Shared 3-layer infra-robotics operational substrate (ADR-2606091800; stdlib-only, deterministic, :representative): plant.py (Plant protocol + FirstOrderPlant + MicrogridPlant swing-eqn+SoC — the kami-genesis stand-in) + control.py (PID anti-windup / Droop / DroopPI / simulate() closed-loop runner — the floating-point twin of the open-ot IEC 61499 Rust WASM field tier) + kinematics.py (PlanarArm FK + analytic 2-link IK + joint_trajectory) + safety.py (closed-world civilian allowlist N1 · no-server-key G15/G7 · witness quorum ≥2 G8 · SafetyEnvelope human-proximity joint-rate ceiling) + commissioning.py (runnable kuni-umi→open-ot handoff: droop-P-f acceptance + windowed ROCOF guard → dry-run loop-DID registration). Composed by the 4 basic-infra verticals (hikari 電気 / mizuho 水道 / kamado ガス / noroshi 通信) via per-actor methods/_substrate.py shims. kami-bridge/ (standalone Rust crate, path-deps into the 40-engine/kami-engine submodule, no submodule edits) regenerates golden/kami_fk_ik_trace.json from the REAL kami-genesis Featherstone solver; test_kami_parity.py proves FK/IK parity + giemon_arm6 6-DOF swap readiness without requiring Rust at test time. No live actuation: domain cell.py .solve() stays Council-gated; every record server_held_key=false + dry_run=true."
 adr = ["2606091800", "2606101130", "2605201400", "2605261100", "2605263100", "2606051500", "2606051600", "2605231525", "2605215000"]
 sibling_modules = [

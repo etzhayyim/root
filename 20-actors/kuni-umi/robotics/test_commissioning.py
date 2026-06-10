@@ -85,3 +85,44 @@ def test_datoms_are_keyless_and_dry_run():
     assert d[":commission/server-held-key"] is False
     assert d[":commission/dry-run"] is True
     assert d[":commission/site-state"] == "operational"
+
+
+# ─── R1 device-in-the-loop acceptance tier ───────────────────────────
+
+def _device_evidence(**over):
+    base = {
+        "freq_restored": True, "rocof_trip": False, "twin_verdict_match": True,
+        "dry_run": True, "server_held_key": False,
+    }
+    base.update(over)
+    return base
+
+
+def test_device_evidence_upgrades_acceptance_tier():
+    rec = commission_microgrid_site(
+        "did:web:etzhayyim.com:kuniumi:site:demo-r1",
+        loop_dids=LOOPS, member_sig="m:sig", witness_sigs=WITNESS,
+        device_evidence=_device_evidence(),
+    )
+    assert rec.acceptance_tier == "device-wasm"
+    assert rec.site_state == "operational"
+    assert to_datoms(rec)[":commission/acceptance-tier"] == "device-wasm"
+
+
+def test_inconsistent_device_evidence_demotes_to_punch_list():
+    rec = commission_microgrid_site(
+        "did:web:etzhayyim.com:kuniumi:site:demo-r1-bad",
+        loop_dids=LOOPS, member_sig="m:sig", witness_sigs=WITNESS,
+        device_evidence=_device_evidence(rocof_trip=True),
+    )
+    assert rec.acceptance_tier == "python-twin"
+    assert rec.site_state == "punch-list"  # evidence tightens, never loosens
+
+
+def test_no_device_evidence_stays_python_twin_tier():
+    rec = commission_microgrid_site(
+        "did:web:etzhayyim.com:kuniumi:site:demo-r0",
+        loop_dids=LOOPS, member_sig="m:sig", witness_sigs=WITNESS,
+    )
+    assert rec.acceptance_tier == "python-twin"
+    assert rec.site_state == "operational"
