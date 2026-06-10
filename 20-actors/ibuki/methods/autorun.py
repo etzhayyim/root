@@ -90,6 +90,8 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
             out += [datoms.add(e, ":organism/code", code),
                     datoms.add(e, ":organism/title", title),
                     datoms.add(e, ":organism/did", did),
+                    datoms.add(e, ":organism/niche",
+                               ecosystem.niche_of(code, org.get(":organism/niche"))),
                     datoms.add(e, ":organism/born-beat", beat)]
 
         baseline = joucho.personality_baseline(code)

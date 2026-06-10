@@ -44,9 +44,24 @@ BEAT_MS = 45 * 60_000    # autorun/fleet logical beat
 
 RULES = ("organism-muted", "axis-saturation", "stress-excess",
          "checkpoint-divergence", "posting-drought", "mood-monoculture",
-         "ecosystem-starved")
+         "ecosystem-starved", "keystone-niche-absent", "niche-imbalance")
 
 ECO_GRACE_BEATS = 6      # don't flag a broken web before the colony has had time to feed
+NICHE_EVENNESS_FLOOR = 0.5   # Pielou evenness below this on a 3-niche colony = imbalance
+ALL_NICHES = (":niche/producer", ":niche/router", ":niche/decomposer")
+
+
+def _evenness(pop: dict[str, int]) -> float:
+    """Pielou's evenness J = H / ln(S) over the niche populations — 1.0 = perfectly even
+    (resilient), →0 = one niche dominates (fragile). 0.0 for an empty/degenerate colony.
+    The ecosystem-maturity readout (an aggregate, never a per-organism score)."""
+    import math
+    total = sum(pop.values())
+    present = [c for c in pop.values() if c > 0]
+    if total == 0 or len(present) <= 1:
+        return 0.0
+    h = -sum((c / total) * math.log(c / total) for c in present)
+    return h / math.log(len(present))
 
 
 def _walk(txs: list[dict]) -> dict:
@@ -152,24 +167,46 @@ def audit(txs: list[dict]) -> dict:
                          "detail": f"all {len(per)} organisms share mood "
                                    f"{next(iter(head_moods))!r} — personality collapsed"})
 
-    # ecosystem completeness: primary production is happening but nothing reaches humanity —
-    # a broken food web (a missing niche / failed routing). Read straight off the log so
-    # health.py stays decoupled from ecosystem.py. Grace period avoids flagging a young colony.
+    # ecosystem completeness + RESILIENCE: read the food web off the log (health stays
+    # decoupled from ecosystem.py). Niches are logged at birth (:organism/niche), so the
+    # colony's trophic structure is as-of queryable.
     substrate_beats, commons_seen = set(), False
+    niche_pop: dict[str, int] = {}
     for tx in txs:
         for _op, _e, a, v in tx.get(":tx/datoms", []):
             if a == ":metabolite/kind" and v == ":substrate":
                 substrate_beats.add(tx[":tx/id"])
             elif a == ":metabolite/commons" and v is True:
                 commons_seen = True
+            elif a == ":organism/niche":
+                niche_pop[v] = niche_pop.get(v, 0) + 1
+    eco_maturity = _evenness(niche_pop)
     if len(substrate_beats) > ECO_GRACE_BEATS and not commons_seen:
         findings.append({"proposalId": "health-ecosystem-starved-colony",
                          "rule": "ecosystem-starved", "organism": "*",
                          "detail": "primary production occurs but no commons metabolite "
                                    "reaches humanity — the food web is broken"})
+    # keystone resilience: a complete web needs ≥1 of each niche. A missing niche is the
+    # PRECISE diagnosis behind a starved web (which trophic level collapsed).
+    if niche_pop:
+        absent = [nn for nn in ALL_NICHES if niche_pop.get(nn, 0) == 0]
+        if absent:
+            findings.append({"proposalId": "health-keystone-niche-absent-colony",
+                             "rule": "keystone-niche-absent", "organism": "*",
+                             "detail": f"trophic niche(s) absent: {absent} — the web cannot "
+                                       "close (no {producer→router→decomposer} cascade)"})
+        # niche imbalance: a monoculture of one trophic role is fragile (no redundancy).
+        # Pielou evenness over a colony of ≥3 organisms spanning the niche space.
+        elif sum(niche_pop.values()) >= 3 and eco_maturity < NICHE_EVENNESS_FLOOR:
+            findings.append({"proposalId": "health-niche-imbalance-colony",
+                             "rule": "niche-imbalance", "organism": "*",
+                             "detail": f"niche evenness {eco_maturity:.2f} < "
+                                       f"{NICHE_EVENNESS_FLOOR} — one trophic role dominates "
+                                       f"(fragile, low redundancy): {niche_pop}"})
 
     return {"organisms": organisms,
             "colony": {"count": len(per), "mood_diversity": head_moods,
+                       "niche_population": niche_pop, "eco_maturity": eco_maturity,
                        "findings": len(findings)},
             "findings": findings,
             "healthy": not findings}
@@ -184,6 +221,8 @@ def health_datoms(report: dict, *, beat: int, as_of: int) -> list[list]:
            datoms.add(e, ":health/as-of", as_of),
            datoms.add(e, ":health/organisms", report["colony"]["count"]),
            datoms.add(e, ":health/mood-kinds", len(report["colony"]["mood_diversity"])),
+           datoms.add(e, ":health/eco-maturity",
+                      round(report["colony"].get("eco_maturity", 0.0), 4)),
            datoms.add(e, ":health/findings", report["colony"]["findings"]),
            datoms.add(e, ":health/healthy", report["healthy"])]
     for i, f in enumerate(report["findings"]):

@@ -205,6 +205,7 @@ def fleet_beat(shard_slice: list[dict], idx: LogIndex, *, shard_name: str, beat:
             out += [datoms.add(e, ":organism/code", code),
                     datoms.add(e, ":organism/title", title),
                     datoms.add(e, ":organism/did", did),
+                    datoms.add(e, ":organism/niche", ecosystem.niche_of(code)),
                     datoms.add(e, ":organism/born-beat", beat)]
 
         baseline = joucho.personality_baseline(code)

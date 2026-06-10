@@ -109,6 +109,62 @@ def test_complete_food_web_is_not_starved():
         assert rep["healthy"] is True
 
 
+def _niche_log(*niches):
+    """A minimal log asserting one organism per given niche (birth :organism/niche)."""
+    body, prev, txs = [], "", []
+    for i, nn in enumerate(niches):
+        body = [datoms.add(f"org-c{i}", ":organism/niche", nn),
+                datoms.add(f"org-c{i}", ":organism/born-beat", 1)]
+        tx = datoms.make_tx(body, tx_id=i + 1, as_of=2606100000 + i, prev_cid=prev)
+        prev = tx[":tx/cid"]
+        txs.append(tx)
+    return txs
+
+
+def test_evenness_pielou():
+    assert health._evenness({}) == 0.0
+    assert health._evenness({":niche/producer": 5}) == 0.0          # one niche → 0
+    assert abs(health._evenness({"a": 3, "b": 3, "c": 3}) - 1.0) < 1e-9   # perfectly even
+    assert 0 < health._evenness({"a": 10, "b": 1, "c": 1}) < 0.7    # dominated → low
+
+
+def test_keystone_niche_absent_detected():
+    """A colony of producers + a router but NO decomposer → the web cannot close; the
+    precise diagnosis behind a starved web."""
+    rep = health.audit(_niche_log(":niche/producer", ":niche/producer", ":niche/router"))
+    rules = {f["rule"] for f in rep["findings"]}
+    assert "keystone-niche-absent" in rules
+    assert rep["healthy"] is False
+
+
+def test_niche_imbalance_detected():
+    """All three niches present but wildly skewed (one role dominates) = fragile."""
+    rep = health.audit(_niche_log(*([":niche/producer"] * 12
+                                    + [":niche/router", ":niche/decomposer"])))
+    assert "niche-imbalance" in {f["rule"] for f in rep["findings"]}
+    # but a missing niche takes precedence (keystone) over imbalance — mutually exclusive
+    assert "keystone-niche-absent" not in {f["rule"] for f in rep["findings"]}
+
+
+def test_balanced_colony_is_resilient():
+    rep = health.audit(_niche_log(":niche/producer", ":niche/router", ":niche/decomposer"))
+    rules = {f["rule"] for f in rep["findings"]}
+    assert "keystone-niche-absent" not in rules and "niche-imbalance" not in rules
+    assert abs(rep["colony"]["eco_maturity"] - 1.0) < 1e-9   # perfectly even
+
+
+def test_seed_colony_eco_maturity_logged():
+    """The wired seed (1 producer/1 router/1 decomposer) is perfectly even → maturity 1.0,
+    checkpointed on the log."""
+    with tempfile.TemporaryDirectory() as dr:
+        txs = _autorun(dr, 12)
+        rep = health.audit(txs)
+        assert abs(rep["colony"]["eco_maturity"] - 1.0) < 1e-9
+        assert "keystone-niche-absent" not in {f["rule"] for f in rep["findings"]}
+        mats = [d[3] for tx in txs for d in tx[":tx/datoms"] if d[2] == ":health/eco-maturity"]
+        assert mats and mats[-1] == 1.0       # rounded to 4dp at checkpoint → exactly 1.0
+
+
 def test_health_datoms_checkpoint_shape():
     with tempfile.TemporaryDirectory() as dr:
         rep = health.audit(_autorun(dr, 12))
