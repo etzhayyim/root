@@ -67,3 +67,29 @@ The colony **lives, refines a commons gift, measures its own health, and reasons
 fully autonomously on the real substrate today. Every step where it would **act on a human**
 (post as a member, draw the gift, deploy onto hardware) is held by a member/operator key the
 platform structurally does not possess — 共生 by consent, not by fabrication.
+
+## Autonomous identity — the revocable leash (ADR-2606101200 §委任, a改 2026-06-10)
+
+How an autonomous life persists to kotoba **as itself**, without a held key and without
+per-beat human presence: a member ISSUES a scoped, expiring CACAO delegation to the organism's
+own DID; the organism PRESENTS it each push (`delegation.py` + `kotoba_bridge` delegated mode).
+
+| step | who | what | key custody |
+|---|---|---|---|
+| ISSUE | the MEMBER (present, with passkey/wallet) | sign a CACAO: `capability=datom:transact`, `resource=graph:ibuki`, `exp=+Nd`, `aud=<actor DID>` → write the bundle `{cacao_b64, aud, capability, graph, exp, nonce}` | member's own key, in the member's runtime — **ibuki holds no key, never signs** |
+| INVOKE | the ORGANISM (autonomous, every beat) | `kotoba_bridge.push(..., delegation=bundle, now_epoch=<unix now>)` presents the opaque `cacao_b64`; the kotoba server verifies issuer-sig + capability + graph + aud + expiry and sets `write_author = issuer` | no invoker signature needed → **present-only, stays stdlib** |
+| REVOKE | consent withdrawn | `exp` passes → the organism self-disables the delegated path and falls back to local-log/operator-bearer (fail-open); **stop re-issuing → the organism quietly retires** | — |
+
+Issuance template (the payload the member signs — `delegation.issuance_template(...)`):
+```
+{ "iss": "<member did>", "aud": "did:web:etzhayyim.com:actor:ibuki",
+  "exp": <unix>, "nonce": "<hex>",
+  "resources": ["kotoba://graph/<graph-cid>?capability=datom:transact"] }
+```
+
+**Why not a held key or a passkey-per-beat?** A held root key is constitutionally prohibited
+(no-server-key); a passkey requires human presence the autonomous loop cannot supply each beat.
+The leash is the third way: the organism is its own principal, but only under a scope-limited,
+time-bounded, revocable grant a member mints with their own key — **autonomy with accountability,
+共生 by consent.** Human-presence acts (publishing to AT Protocol as the member, drawing commons)
+stay separate and require the member's fresh signature each time; they are never delegated.

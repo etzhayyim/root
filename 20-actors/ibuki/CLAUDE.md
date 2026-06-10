@@ -105,13 +105,22 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   `:digest/*` post — `:digest/status :dry-run` ONLY (G8; :published unrepresentable). A mirror
   REPORT of where the colony's life became a gift (黒カビ→クエン酸→人類), never advice; emitted
   every HEALTH_EVERY beats in BOTH autorun + fleet. Aggregate, never a per-organism verdict.
+- **Autonomous identity = a revocable leash (`delegation.py`, ADR §委任)** — an autonomous life
+  persists to kotoba AS ITSELF without a held key and without per-beat human presence: a MEMBER
+  issues a scoped, expiring CACAO delegation (`capability=datom:transact`, `resource=graph:ibuki`,
+  `exp`, `aud=<actor DID>`) signed with their OWN key; the organism PRESENTS the opaque `cacao_b64`
+  each `kotoba_bridge.push(delegation=…, now_epoch=…)` — present-only, ibuki never signs (stdlib).
+  kotoba verifies issuer-sig + capability + graph + aud + expiry → `write_author = issuer`. Expired
+  / mis-scoped / absent → fail-open to the operator-bearer loopback (the organism never crashes;
+  stop re-issuing → it quietly retires). Autonomy WITH accountability — 共生 by consent, never a
+  held root key (no-server-key) nor passkey-per-beat (no human to touch it each beat).
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 20 suites (226 tests), hermetic
+./run_tests.sh                                  # all 21 suites (242 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
