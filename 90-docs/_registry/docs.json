@@ -23262,6 +23262,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606101000-rasen-public-genetics-mirror.md",
+      "id": "adr-2606101000-rasen-public-genetics-mirror",
+      "title": "ADR-2606101000: rasen 螺旋 public-genetics KG mirror (gene-scale sibling of inochi 命)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "rasen-public-genetics-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "rasen 螺旋 actor (public-genetics / 公開遺伝 KG mirror)",
+        "genome-ontology"
+      ],
+      "related": [
+        "2606014500",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073800",
+        "2606011000",
+        "2606011500",
+        "2605312345",
+        "2605215000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge.md",
       "id": "adr-2606101130",
       "title": "ADR-2606101130: Session-Close — basic-infrastructure robotics 3-layer wave + kami-genesis physics bridge",
