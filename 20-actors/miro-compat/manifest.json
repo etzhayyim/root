@@ -11,15 +11,71 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
   "schema": "schema/miro.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/miroapp/api-clients (packages/miro-api/model — official generated REST API v2 SDK)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Board",
+      "Item",
+      "Tag",
+      "BoardMember",
+      "Organization",
+      "Connector"
+    ],
+    "enums": {
+      "Tag": {
+        "fillColor": [
+          "red",
+          "light_green",
+          "cyan",
+          "yellow",
+          "magenta",
+          "green",
+          "blue",
+          "gray",
+          "violet",
+          "dark_green",
+          "dark_blue"
+        ]
+      },
+      "BoardMember": {
+        "role": [
+          "viewer",
+          "commenter",
+          "editor",
+          "coowner",
+          "owner"
+        ]
+      },
+      "Organization": {
+        "plan": [
+          "company",
+          "consultant",
+          "consultant_slf",
+          "business",
+          "paid_team_org",
+          "integration_org",
+          "edu_team_org",
+          "free_team_org"
+        ]
+      },
+      "Connector": {
+        "shape": [
+          "straight",
+          "elbowed",
+          "curved"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
-    "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "Board",
+    "Item",
+    "Tag",
+    "BoardMember",
+    "Organization",
+    "Connector"
   ],
   "adr": [
     "260607",
@@ -35,160 +91,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
+          "path": "/v1/boards",
+          "op": "create Board"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
+          "path": "/v1/boards",
+          "op": "list Board"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
+          "path": "/v1/boards/{id}",
+          "op": "get Board"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
+          "path": "/v1/boards/{id}",
+          "op": "update Board"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
+          "path": "/v1/boards/{id}",
+          "op": "delete Board"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/items",
+          "op": "create Item"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/items",
+          "op": "list Item"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/items/{id}",
+          "op": "get Item"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/items/{id}",
+          "op": "update Item"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/items/{id}",
+          "op": "delete Item"
         },
         {
           "method": "POST",
-          "path": "/v1/folders",
-          "op": "create Folder"
+          "path": "/v1/tags",
+          "op": "create Tag"
         },
         {
           "method": "GET",
-          "path": "/v1/folders",
-          "op": "list Folder"
+          "path": "/v1/tags",
+          "op": "list Tag"
         },
         {
           "method": "GET",
-          "path": "/v1/folders/{id}",
-          "op": "get Folder"
+          "path": "/v1/tags/{id}",
+          "op": "get Tag"
         },
         {
           "method": "PATCH",
-          "path": "/v1/folders/{id}",
-          "op": "update Folder"
+          "path": "/v1/tags/{id}",
+          "op": "update Tag"
         },
         {
           "method": "DELETE",
-          "path": "/v1/folders/{id}",
-          "op": "delete Folder"
+          "path": "/v1/tags/{id}",
+          "op": "delete Tag"
         },
         {
           "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
+          "path": "/v1/boardmembers",
+          "op": "create BoardMember"
         },
         {
           "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
+          "path": "/v1/boardmembers",
+          "op": "list BoardMember"
         },
         {
           "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
+          "path": "/v1/boardmembers/{id}",
+          "op": "get BoardMember"
         },
         {
           "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
+          "path": "/v1/boardmembers/{id}",
+          "op": "update BoardMember"
         },
         {
           "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
+          "path": "/v1/boardmembers/{id}",
+          "op": "delete BoardMember"
         },
         {
           "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         },
         {
           "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
+          "path": "/v1/connectors",
+          "op": "create Connector"
         },
         {
           "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
+          "path": "/v1/connectors",
+          "op": "list Connector"
         },
         {
           "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
+          "path": "/v1/connectors/{id}",
+          "op": "get Connector"
         },
         {
           "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
+          "path": "/v1/connectors/{id}",
+          "op": "update Connector"
         },
         {
           "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/connectors/{id}",
+          "op": "delete Connector"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,18 +303,350 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_workspace",
-          "description": "Create a Workspace.",
+          "name": "create_board",
+          "description": "Create a Board.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewLink": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_boards",
+          "description": "List Boards.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_board",
+          "description": "Get a Board by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_board",
+          "description": "Update a Board.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "viewLink": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_board",
+          "description": "Delete a Board.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_item",
+          "description": "Create a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_items",
+          "description": "List Items.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_item",
+          "description": "Get a Item by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_item",
+          "description": "Update a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_item",
+          "description": "Delete a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tag",
+          "description": "Create a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "fillColor": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "fillColor"
+            ]
+          }
+        },
+        {
+          "name": "list_tags",
+          "description": "List Tags.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tag",
+          "description": "Get a Tag by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tag",
+          "description": "Update a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "fillColor": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tag",
+          "description": "Delete a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_board_member",
+          "description": "Create a BoardMember.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "role"
+            ]
+          }
+        },
+        {
+          "name": "list_board_members",
+          "description": "List BoardMembers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_board_member",
+          "description": "Get a BoardMember by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_board_member",
+          "description": "Update a BoardMember.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_board_member",
+          "description": "Delete a BoardMember.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_organization",
+          "description": "Create a Organization.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
                 "type": "string"
               },
               "plan": {
+                "type": "string"
+              },
+              "fullLicensesPurchased": {
+                "type": "integer"
+              },
+              "type": {
                 "type": "string"
               }
             },
@@ -269,16 +657,16 @@
           }
         },
         {
-          "name": "list_workspaces",
-          "description": "List Workspaces.",
+          "name": "list_organizations",
+          "description": "List Organizations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_workspace",
-          "description": "Get a Workspace by id.",
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +680,8 @@
           }
         },
         {
-          "name": "update_workspace",
-          "description": "Update a Workspace.",
+          "name": "update_organization",
+          "description": "Update a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -301,13 +689,16 @@
                 "type": "string"
               },
               "name": {
-                "type": "string"
-              },
-              "ownerId": {
                 "type": "string"
               },
               "plan": {
                 "type": "string"
+              },
+              "fullLicensesPurchased": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
               }
             },
             "required": [
@@ -316,8 +707,8 @@
           }
         },
         {
-          "name": "delete_workspace",
-          "description": "Delete a Workspace.",
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,40 +722,38 @@
           }
         },
         {
-          "name": "create_document",
-          "description": "Create a Document.",
+          "name": "create_connector",
+          "description": "Create a Connector.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "workspaceId": {
+              "shape": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
+              "isSupported": {
+                "type": "boolean"
               },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
+              "type": {
                 "type": "string"
               }
             },
             "required": [
-              "title"
+              "shape",
+              "isSupported"
             ]
           }
         },
         {
-          "name": "list_documents",
-          "description": "List Documents.",
+          "name": "list_connectors",
+          "description": "List Connectors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_document",
-          "description": "Get a Document by id.",
+          "name": "get_connector",
+          "description": "Get a Connector by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -378,24 +767,21 @@
           }
         },
         {
-          "name": "update_document",
-          "description": "Update a Document.",
+          "name": "update_connector",
+          "description": "Update a Connector.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "workspaceId": {
+              "shape": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
+              "isSupported": {
+                "type": "boolean"
               },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
+              "type": {
                 "type": "string"
               }
             },
@@ -405,341 +791,8 @@
           }
         },
         {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_folder",
-          "description": "Create a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_folders",
-          "description": "List Folders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_folder",
-          "description": "Get a Folder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_folder",
-          "description": "Update a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_folder",
-          "description": "Delete a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_user",
-          "description": "Create a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "email",
-              "displayName"
-            ]
-          }
-        },
-        {
-          "name": "list_users",
-          "description": "List Users.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_user",
-          "description": "Get a User by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_user",
-          "description": "Update a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_user",
-          "description": "Delete a User.",
+          "name": "delete_connector",
+          "description": "Delete a Connector.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -5,74 +5,76 @@ namespace epic_systems {
 
     entity Patient {
         id: string @unique
-        mrn: string
-        givenName: string
-        familyName: string
-        birthDate: datetime
-        sex: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Encounter {
-        id: string @unique
-        patientId: string
-        type: string
-        status: string
-        startedAt: datetime
+        resourceType: string
+        implicitRules: string
+        language: string
+        active: boolean
+        gender: string
+        birthDate: string
+        deceasedBoolean: boolean
+        deceasedDateTime: string
+        multipleBirthBoolean: boolean
+        multipleBirthInteger: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Observation {
         id: string @unique
-        patientId: string
-        code: string
-        value: string
-        unit: string
-        takenAt: datetime
+        resourceType: string
+        implicitRules: string
+        language: string
+        status: string
+        issued: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Medication {
+    entity Encounter {
         id: string @unique
-        patientId: string
-        code: string
-        dose: string
-        route: string
-        active: boolean
+        resourceType: string
+        implicitRules: string
+        language: string
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Practitioner {
+    entity Condition {
         id: string @unique
-        npi: string
-        givenName: string
-        familyName: string
-        specialty: string
+        resourceType: string
+        implicitRules: string
+        language: string
+        recordedDate: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Appointment {
+    entity MedicationRequest {
         id: string @unique
-        patientId: string
-        practitionerId: string
-        start: datetime
+        resourceType: string
+        implicitRules: string
+        language: string
+        status: string
+        intent: string
+        priority: string
+        doNotPerform: boolean
+        reportedBoolean: boolean
+        authoredOn: string
+        instantiatesUri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Procedure {
+        id: string @unique
+        resourceType: string
+        implicitRules: string
+        language: string
+        instantiatesUri: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

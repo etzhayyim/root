@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 850,
-    "L5": 150
+    "L4": 837,
+    "L5": 163
   },
   "actors": [
     {
@@ -1118,7 +1118,7 @@
       "wasmCid": "bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "athenahealth clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -1226,7 +1226,7 @@
       "wasmCid": "bafkreig3iall74xf3oebjwbroylas3h2ukdpikhysml7xuoxx57av7r6ie",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "autodesk clean-room actor",
       "category": "aec_govtech",
       "capabilities": [
@@ -1622,7 +1622,7 @@
       "wasmCid": "bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "benchling clean-room actor",
       "category": "synbio",
       "capabilities": [
@@ -1640,7 +1640,7 @@
       "wasmCid": "bafkreihqeaxox62bkvbszi47ufasbi42cbjq2ybv25gzz33hrmiz26yasy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bentley clean-room actor",
       "category": "aec_govtech",
       "capabilities": [
@@ -2882,7 +2882,7 @@
       "wasmCid": "bafkreicq7cewxbcui72jl5qwvkc27uty23yzpfkc7joihffrtxh47p45tm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cerner clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -4736,7 +4736,7 @@
       "wasmCid": "bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "drchrono clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -5402,7 +5402,7 @@
       "wasmCid": "bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "epic-systems clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -9956,7 +9956,7 @@
       "wasmCid": "bafkreihqfuuqikbf5h7ruvu7kwxtq3fh4kub6gsgjrnkdb2nw7hgqy2ggy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "materials_project clean-room actor",
       "category": "materials_bio_chemical",
       "capabilities": [
@@ -10352,7 +10352,7 @@
       "wasmCid": "bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "miro clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -12476,7 +12476,7 @@
       "wasmCid": "bafkreicrintup4eeza5yxcnofsfkkxpufyyuthm2qs6reghp4t2lhkarzq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paystack clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -16562,7 +16562,7 @@
       "wasmCid": "bafkreigpjw4pr66usr5anvteyifw7355mvi5x2immvumjyshyqt72kwfqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "universal_robots clean-room actor",
       "category": "manufacturing_plm_robotics",
       "capabilities": [
@@ -16832,7 +16832,7 @@
       "wasmCid": "bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vimeo clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -17462,7 +17462,7 @@
       "wasmCid": "bafkreie55iolfozdkdvxov3belu5wobtydprijjaem4cjngscxehnnx4la",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "x clean-room actor",
       "category": "comms_social",
       "capabilities": [

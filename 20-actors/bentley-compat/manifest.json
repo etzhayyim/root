@@ -11,15 +11,68 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqeaxox62bkvbszi47ufasbi42cbjq2ybv25gzz33hrmiz26yasy",
   "schema": "schema/bentley.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.bentley.com/apis/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "iModel",
+      "iTwin",
+      "Changeset",
+      "NamedVersion",
+      "Connection",
+      "Job"
+    ],
+    "enums": {
+      "iModel": {
+        "state": [
+          "initialized",
+          "notInitialized"
+        ]
+      },
+      "iTwin": {
+        "class": [
+          "Account",
+          "Endeavor",
+          "Thing"
+        ],
+        "subClass": [
+          "Account",
+          "Portfolio",
+          "Program",
+          "Project",
+          "Asset",
+          "WorkPackage"
+        ],
+        "status": [
+          "Active",
+          "Inactive",
+          "Trial"
+        ]
+      },
+      "NamedVersion": {
+        "state": [
+          "visible",
+          "hidden"
+        ]
+      },
+      "Job": {
+        "status": [
+          "Queued",
+          "Running",
+          "Succeeded",
+          "Failed"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "Permit",
-    "Drawing",
-    "Inspection",
-    "Asset",
-    "ServiceRequest"
+    "iModel",
+    "iTwin",
+    "Changeset",
+    "NamedVersion",
+    "Connection",
+    "Job"
   ],
   "adr": [
     "260607",
@@ -35,160 +88,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/imodels",
+          "op": "create iModel"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/imodels",
+          "op": "list iModel"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/imodels/{id}",
+          "op": "get iModel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/imodels/{id}",
+          "op": "update iModel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
+          "path": "/v1/imodels/{id}",
+          "op": "delete iModel"
         },
         {
           "method": "POST",
-          "path": "/v1/permits",
-          "op": "create Permit"
+          "path": "/v1/itwins",
+          "op": "create iTwin"
         },
         {
           "method": "GET",
-          "path": "/v1/permits",
-          "op": "list Permit"
+          "path": "/v1/itwins",
+          "op": "list iTwin"
         },
         {
           "method": "GET",
-          "path": "/v1/permits/{id}",
-          "op": "get Permit"
+          "path": "/v1/itwins/{id}",
+          "op": "get iTwin"
         },
         {
           "method": "PATCH",
-          "path": "/v1/permits/{id}",
-          "op": "update Permit"
+          "path": "/v1/itwins/{id}",
+          "op": "update iTwin"
         },
         {
           "method": "DELETE",
-          "path": "/v1/permits/{id}",
-          "op": "delete Permit"
+          "path": "/v1/itwins/{id}",
+          "op": "delete iTwin"
         },
         {
           "method": "POST",
-          "path": "/v1/drawings",
-          "op": "create Drawing"
+          "path": "/v1/changesets",
+          "op": "create Changeset"
         },
         {
           "method": "GET",
-          "path": "/v1/drawings",
-          "op": "list Drawing"
+          "path": "/v1/changesets",
+          "op": "list Changeset"
         },
         {
           "method": "GET",
-          "path": "/v1/drawings/{id}",
-          "op": "get Drawing"
+          "path": "/v1/changesets/{id}",
+          "op": "get Changeset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/drawings/{id}",
-          "op": "update Drawing"
+          "path": "/v1/changesets/{id}",
+          "op": "update Changeset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/drawings/{id}",
-          "op": "delete Drawing"
+          "path": "/v1/changesets/{id}",
+          "op": "delete Changeset"
         },
         {
           "method": "POST",
-          "path": "/v1/inspections",
-          "op": "create Inspection"
+          "path": "/v1/namedversions",
+          "op": "create NamedVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/inspections",
-          "op": "list Inspection"
+          "path": "/v1/namedversions",
+          "op": "list NamedVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/inspections/{id}",
-          "op": "get Inspection"
+          "path": "/v1/namedversions/{id}",
+          "op": "get NamedVersion"
         },
         {
           "method": "PATCH",
-          "path": "/v1/inspections/{id}",
-          "op": "update Inspection"
+          "path": "/v1/namedversions/{id}",
+          "op": "update NamedVersion"
         },
         {
           "method": "DELETE",
-          "path": "/v1/inspections/{id}",
-          "op": "delete Inspection"
+          "path": "/v1/namedversions/{id}",
+          "op": "delete NamedVersion"
         },
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/connections",
+          "op": "create Connection"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/connections",
+          "op": "list Connection"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/connections/{id}",
+          "op": "get Connection"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/connections/{id}",
+          "op": "update Connection"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/connections/{id}",
+          "op": "delete Connection"
         },
         {
           "method": "POST",
-          "path": "/v1/servicerequests",
-          "op": "create ServiceRequest"
+          "path": "/v1/jobs",
+          "op": "create Job"
         },
         {
           "method": "GET",
-          "path": "/v1/servicerequests",
-          "op": "list ServiceRequest"
+          "path": "/v1/jobs",
+          "op": "list Job"
         },
         {
           "method": "GET",
-          "path": "/v1/servicerequests/{id}",
-          "op": "get ServiceRequest"
+          "path": "/v1/jobs/{id}",
+          "op": "get Job"
         },
         {
           "method": "PATCH",
-          "path": "/v1/servicerequests/{id}",
-          "op": "update ServiceRequest"
+          "path": "/v1/jobs/{id}",
+          "op": "update Job"
         },
         {
           "method": "DELETE",
-          "path": "/v1/servicerequests/{id}",
-          "op": "delete ServiceRequest"
+          "path": "/v1/jobs/{id}",
+          "op": "delete Job"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,38 +300,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_i_model",
+          "description": "Create a iModel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "jurisdiction": {
+              "description": {
                 "type": "string"
               },
-              "status": {
+              "iTwinId": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "dataCenterLocation": {
+                "type": "string"
+              },
+              "initialized": {
+                "type": "boolean"
+              },
+              "displayName": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "jurisdiction"
+              "description"
             ]
           }
         },
         {
-          "name": "list_projects",
-          "description": "List Projects.",
+          "name": "list_i_models",
+          "description": "List iModels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_project",
-          "description": "Get a Project by id.",
+          "name": "get_i_model",
+          "description": "Get a iModel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +360,8 @@
           }
         },
         {
-          "name": "update_project",
-          "description": "Update a Project.",
+          "name": "update_i_model",
+          "description": "Update a iModel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,10 +371,25 @@
               "name": {
                 "type": "string"
               },
-              "jurisdiction": {
+              "description": {
                 "type": "string"
               },
-              "status": {
+              "iTwinId": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "dataCenterLocation": {
+                "type": "string"
+              },
+              "initialized": {
+                "type": "boolean"
+              },
+              "displayName": {
                 "type": "string"
               }
             },
@@ -316,8 +399,8 @@
           }
         },
         {
-          "name": "delete_project",
-          "description": "Delete a Project.",
+          "name": "delete_i_model",
+          "description": "Delete a iModel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,311 +414,47 @@
           }
         },
         {
-          "name": "create_permit",
-          "description": "Create a Permit.",
+          "name": "create_i_twin",
+          "description": "Create a iTwin.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "subClass": {
                 "type": "string"
               },
               "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "displayName": {
                 "type": "string"
               },
               "number": {
                 "type": "string"
               },
-              "status": {
+              "iTwinAccountId": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "number"
-            ]
-          }
-        },
-        {
-          "name": "list_permits",
-          "description": "List Permits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permit",
-          "description": "Get a Permit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permit",
-          "description": "Update a Permit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permit",
-          "description": "Delete a Permit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_drawing",
-          "description": "Create a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "revision"
-            ]
-          }
-        },
-        {
-          "name": "list_drawings",
-          "description": "List Drawings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_drawing",
-          "description": "Get a Drawing by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_drawing",
-          "description": "Update a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_drawing",
-          "description": "Delete a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_inspection",
-          "description": "Create a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "permitId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "result": {
-                "type": "string"
-              },
-              "inspectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "result"
-            ]
-          }
-        },
-        {
-          "name": "list_inspections",
-          "description": "List Inspections.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_inspection",
-          "description": "Get a Inspection by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_inspection",
-          "description": "Update a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "permitId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "result": {
-                "type": "string"
-              },
-              "inspectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_inspection",
-          "description": "Delete a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_asset",
-          "description": "Create a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              },
-              "condition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
+              "subClass",
               "type"
             ]
           }
         },
         {
-          "name": "list_assets",
-          "description": "List Assets.",
+          "name": "list_i_twins",
+          "description": "List iTwins.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
+          "name": "get_i_twin",
+          "description": "Get a iTwin by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,24 +468,30 @@
           }
         },
         {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_i_twin",
+          "description": "Update a iTwin.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "subClass": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "location": {
+              "status": {
                 "type": "string"
               },
-              "condition": {
+              "displayName": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "iTwinAccountId": {
                 "type": "string"
               }
             },
@@ -676,8 +501,8 @@
           }
         },
         {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
+          "name": "delete_i_twin",
+          "description": "Delete a iTwin.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,38 +516,59 @@
           }
         },
         {
-          "name": "create_service_request",
-          "description": "Create a ServiceRequest.",
+          "name": "create_changeset",
+          "description": "Create a Changeset.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "citizenId": {
+              "index": {
+                "type": "integer"
+              },
+              "displayName": {
                 "type": "string"
               },
-              "category": {
+              "description": {
                 "type": "string"
               },
-              "status": {
+              "parentId": {
+                "type": "string"
+              },
+              "pushDateTime": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              },
+              "briefcaseId": {
+                "type": "integer"
+              },
+              "changesetGroupId": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "state": {
                 "type": "string"
               }
             },
             "required": [
-              "category",
-              "status"
+              "index",
+              "displayName"
             ]
           }
         },
         {
-          "name": "list_service_requests",
-          "description": "List ServiceRequests.",
+          "name": "list_changesets",
+          "description": "List Changesets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service_request",
-          "description": "Get a ServiceRequest by id.",
+          "name": "get_changeset",
+          "description": "Get a Changeset by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -736,22 +582,367 @@
           }
         },
         {
-          "name": "update_service_request",
-          "description": "Update a ServiceRequest.",
+          "name": "update_changeset",
+          "description": "Update a Changeset.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "citizenId": {
+              "index": {
+                "type": "integer"
+              },
+              "displayName": {
                 "type": "string"
               },
-              "category": {
+              "description": {
+                "type": "string"
+              },
+              "parentId": {
+                "type": "string"
+              },
+              "pushDateTime": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              },
+              "briefcaseId": {
+                "type": "integer"
+              },
+              "changesetGroupId": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_changeset",
+          "description": "Delete a Changeset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_named_version",
+          "description": "Create a NamedVersion.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              },
+              "changesetId": {
+                "type": "string"
+              },
+              "changesetIndex": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "displayName",
+              "changesetIndex"
+            ]
+          }
+        },
+        {
+          "name": "list_named_versions",
+          "description": "List NamedVersions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_named_version",
+          "description": "Get a NamedVersion by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_named_version",
+          "description": "Update a NamedVersion.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "changesetId": {
+                "type": "string"
+              },
+              "changesetIndex": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_named_version",
+          "description": "Delete a NamedVersion.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_connection",
+          "description": "Create a Connection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "iModelId": {
+                "type": "string"
+              },
+              "iTwinId": {
+                "type": "string"
+              },
+              "connectorName": {
+                "type": "string"
+              },
+              "authenticationType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "displayName",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_connections",
+          "description": "List Connections.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_connection",
+          "description": "Get a Connection by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_connection",
+          "description": "Update a Connection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "iModelId": {
+                "type": "string"
+              },
+              "iTwinId": {
+                "type": "string"
+              },
+              "connectorName": {
+                "type": "string"
+              },
+              "authenticationType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_connection",
+          "description": "Delete a Connection.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_job",
+          "description": "Create a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "progress": {
+                "type": "integer"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "lastModifiedDateTime": {
+                "type": "string"
+              },
+              "iModelId": {
+                "type": "string"
+              },
+              "iTwinId": {
+                "type": "string"
+              },
+              "testId": {
+                "type": "string"
+              },
+              "changesetId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "progress"
+            ]
+          }
+        },
+        {
+          "name": "list_jobs",
+          "description": "List Jobs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_job",
+          "description": "Get a Job by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_job",
+          "description": "Update a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "progress": {
+                "type": "integer"
+              },
+              "createdDateTime": {
+                "type": "string"
+              },
+              "lastModifiedDateTime": {
+                "type": "string"
+              },
+              "iModelId": {
+                "type": "string"
+              },
+              "iTwinId": {
+                "type": "string"
+              },
+              "testId": {
+                "type": "string"
+              },
+              "changesetId": {
+                "type": "string"
               }
             },
             "required": [
@@ -760,8 +951,8 @@
           }
         },
         {
-          "name": "delete_service_request",
-          "description": "Delete a ServiceRequest.",
+          "name": "delete_job",
+          "description": "Delete a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {

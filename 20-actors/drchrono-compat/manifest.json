@@ -11,15 +11,65 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
   "schema": "schema/drchrono.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "DrChrono official OpenAPI v4 (via apis.guru mirror: drchrono.com)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Patient",
+      "Appointment",
+      "Doctor",
+      "Office",
+      "ClinicalNote",
+      "LabResult"
+    ],
+    "enums": {
+      "Appointment": {
+        "ins1Status": [
+          "",
+          "Incomplete Information",
+          "In Process Emdeon",
+          "Rejected Emdeon",
+          "Rejected Jopari",
+          "In Process Payor"
+        ]
+      },
+      "Doctor": {
+        "jobTitle": [
+          "",
+          "Provider/Staff (Private Practice)",
+          "Provider/Staff (Hospital)",
+          "Patients/Interview Candidate",
+          "Educator/Student",
+          "API/Developer"
+        ]
+      },
+      "LabResult": {
+        "abnormalStatus": [
+          "L",
+          "LL",
+          "H",
+          "HH",
+          "<",
+          ">"
+        ],
+        "status": [
+          "P",
+          "I",
+          "C",
+          "F",
+          "X"
+        ]
+      }
+    }
+  },
   "entities": [
     "Patient",
-    "Encounter",
-    "Observation",
-    "Medication",
-    "Practitioner",
-    "Appointment"
+    "Appointment",
+    "Doctor",
+    "Office",
+    "ClinicalNote",
+    "LabResult"
   ],
   "adr": [
     "260607",
@@ -60,106 +110,6 @@
         },
         {
           "method": "POST",
-          "path": "/v1/encounters",
-          "op": "create Encounter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/encounters",
-          "op": "list Encounter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/encounters/{id}",
-          "op": "get Encounter"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/encounters/{id}",
-          "op": "update Encounter"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/encounters/{id}",
-          "op": "delete Encounter"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/medications",
-          "op": "create Medication"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/medications",
-          "op": "list Medication"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/medications/{id}",
-          "op": "get Medication"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/medications/{id}",
-          "op": "update Medication"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/medications/{id}",
-          "op": "delete Medication"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/practitioners",
-          "op": "create Practitioner"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/practitioners",
-          "op": "list Practitioner"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/practitioners/{id}",
-          "op": "get Practitioner"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/practitioners/{id}",
-          "op": "update Practitioner"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/practitioners/{id}",
-          "op": "delete Practitioner"
-        },
-        {
-          "method": "POST",
           "path": "/v1/appointments",
           "op": "create Appointment"
         },
@@ -182,13 +132,113 @@
           "method": "DELETE",
           "path": "/v1/appointments/{id}",
           "op": "delete Appointment"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/doctors",
+          "op": "create Doctor"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/doctors",
+          "op": "list Doctor"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/doctors/{id}",
+          "op": "get Doctor"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/doctors/{id}",
+          "op": "update Doctor"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/doctors/{id}",
+          "op": "delete Doctor"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/offices",
+          "op": "create Office"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/offices",
+          "op": "list Office"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/offices/{id}",
+          "op": "get Office"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/offices/{id}",
+          "op": "update Office"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/offices/{id}",
+          "op": "delete Office"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/clinicalnotes",
+          "op": "create ClinicalNote"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/clinicalnotes",
+          "op": "list ClinicalNote"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/clinicalnotes/{id}",
+          "op": "get ClinicalNote"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/clinicalnotes/{id}",
+          "op": "update ClinicalNote"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/clinicalnotes/{id}",
+          "op": "delete ClinicalNote"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/labresults",
+          "op": "create LabResult"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/labresults",
+          "op": "list LabResult"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/labresults/{id}",
+          "op": "get LabResult"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/labresults/{id}",
+          "op": "update LabResult"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/labresults/{id}",
+          "op": "delete LabResult"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -252,25 +302,55 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "mrn": {
+              "chartId": {
                 "type": "string"
               },
-              "givenName": {
+              "dateOfBirth": {
                 "type": "string"
               },
-              "familyName": {
+              "email": {
                 "type": "string"
               },
-              "birthDate": {
+              "cellPhone": {
                 "type": "string"
               },
-              "sex": {
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "copay": {
+                "type": "string"
+              },
+              "defaultPharmacy": {
+                "type": "string"
+              },
+              "disableSmsMessages": {
+                "type": "boolean"
+              },
+              "doctor": {
+                "type": "integer"
+              },
+              "emergencyContactName": {
+                "type": "string"
+              },
+              "emergencyContactPhone": {
+                "type": "string"
+              },
+              "employer": {
+                "type": "string"
+              },
+              "dateOfFirstAppointment": {
+                "type": "string"
+              },
+              "dateOfLastAppointment": {
                 "type": "string"
               }
             },
             "required": [
-              "mrn",
-              "givenName"
+              "dateOfBirth",
+              "email"
             ]
           }
         },
@@ -306,19 +386,49 @@
               "id": {
                 "type": "string"
               },
-              "mrn": {
+              "chartId": {
                 "type": "string"
               },
-              "givenName": {
+              "dateOfBirth": {
                 "type": "string"
               },
-              "familyName": {
+              "email": {
                 "type": "string"
               },
-              "birthDate": {
+              "cellPhone": {
                 "type": "string"
               },
-              "sex": {
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "copay": {
+                "type": "string"
+              },
+              "defaultPharmacy": {
+                "type": "string"
+              },
+              "disableSmsMessages": {
+                "type": "boolean"
+              },
+              "doctor": {
+                "type": "integer"
+              },
+              "emergencyContactName": {
+                "type": "string"
+              },
+              "emergencyContactPhone": {
+                "type": "string"
+              },
+              "employer": {
+                "type": "string"
+              },
+              "dateOfFirstAppointment": {
+                "type": "string"
+              },
+              "dateOfLastAppointment": {
                 "type": "string"
               }
             },
@@ -343,399 +453,51 @@
           }
         },
         {
-          "name": "create_encounter",
-          "description": "Create a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_encounters",
-          "description": "List Encounters.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_encounter",
-          "description": "Get a Encounter by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_encounter",
-          "description": "Update a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_encounter",
-          "description": "Delete a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "takenAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_observation",
-          "description": "Update a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "takenAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_medication",
-          "description": "Create a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "code",
-              "dose"
-            ]
-          }
-        },
-        {
-          "name": "list_medications",
-          "description": "List Medications.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_medication",
-          "description": "Get a Medication by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_medication",
-          "description": "Update a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_medication",
-          "description": "Delete a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_practitioner",
-          "description": "Create a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "npi",
-              "givenName"
-            ]
-          }
-        },
-        {
-          "name": "list_practitioners",
-          "description": "List Practitioners.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_practitioner",
-          "description": "Get a Practitioner by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_practitioner",
-          "description": "Update a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_practitioner",
-          "description": "Delete a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_appointment",
           "description": "Create a Appointment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "doctor": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "examRoom": {
+                "type": "integer"
+              },
+              "color": {
                 "type": "string"
               },
-              "practitionerId": {
+              "billingStatus": {
                 "type": "string"
               },
-              "start": {
+              "ins1Status": {
                 "type": "string"
               },
-              "status": {
+              "allowOverlapping": {
+                "type": "boolean"
+              },
+              "apptIsBreak": {
+                "type": "boolean"
+              },
+              "deletedFlag": {
+                "type": "boolean"
+              },
+              "baseRecurringAppointment": {
+                "type": "string"
+              },
+              "billingProvider": {
+                "type": "string"
+              },
+              "firstBilledDate": {
                 "type": "string"
               }
             },
             "required": [
-              "start",
-              "status"
+              "doctor",
+              "duration"
             ]
           }
         },
@@ -771,16 +533,40 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "doctor": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "examRoom": {
+                "type": "integer"
+              },
+              "color": {
                 "type": "string"
               },
-              "practitionerId": {
+              "billingStatus": {
                 "type": "string"
               },
-              "start": {
+              "ins1Status": {
                 "type": "string"
               },
-              "status": {
+              "allowOverlapping": {
+                "type": "boolean"
+              },
+              "apptIsBreak": {
+                "type": "boolean"
+              },
+              "deletedFlag": {
+                "type": "boolean"
+              },
+              "baseRecurringAppointment": {
+                "type": "string"
+              },
+              "billingProvider": {
+                "type": "string"
+              },
+              "firstBilledDate": {
                 "type": "string"
               }
             },
@@ -792,6 +578,510 @@
         {
           "name": "delete_appointment",
           "description": "Delete a Appointment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_doctor",
+          "description": "Create a Doctor.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "cellPhone": {
+                "type": "string"
+              },
+              "officePhone": {
+                "type": "string"
+              },
+              "npiNumber": {
+                "type": "string"
+              },
+              "groupNpiNumber": {
+                "type": "string"
+              },
+              "specialty": {
+                "type": "string"
+              },
+              "jobTitle": {
+                "type": "string"
+              },
+              "practiceGroupName": {
+                "type": "string"
+              },
+              "isAccountSuspended": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "firstName",
+              "lastName"
+            ]
+          }
+        },
+        {
+          "name": "list_doctors",
+          "description": "List Doctors.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_doctor",
+          "description": "Get a Doctor by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_doctor",
+          "description": "Update a Doctor.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "cellPhone": {
+                "type": "string"
+              },
+              "officePhone": {
+                "type": "string"
+              },
+              "npiNumber": {
+                "type": "string"
+              },
+              "groupNpiNumber": {
+                "type": "string"
+              },
+              "specialty": {
+                "type": "string"
+              },
+              "jobTitle": {
+                "type": "string"
+              },
+              "practiceGroupName": {
+                "type": "string"
+              },
+              "isAccountSuspended": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_doctor",
+          "description": "Delete a Doctor.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_office",
+          "description": "Create a Office.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zipCode": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              },
+              "faxNumber": {
+                "type": "string"
+              },
+              "doctor": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              },
+              "onlineScheduling": {
+                "type": "boolean"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "endTime": {
+                "type": "string"
+              },
+              "taxIdNumberProfessional": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "address"
+            ]
+          }
+        },
+        {
+          "name": "list_offices",
+          "description": "List Offices.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_office",
+          "description": "Get a Office by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_office",
+          "description": "Update a Office.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zipCode": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              },
+              "faxNumber": {
+                "type": "string"
+              },
+              "doctor": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              },
+              "onlineScheduling": {
+                "type": "boolean"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "endTime": {
+                "type": "string"
+              },
+              "taxIdNumberProfessional": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_office",
+          "description": "Delete a Office.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_clinical_note",
+          "description": "Create a ClinicalNote.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patient": {
+                "type": "string"
+              },
+              "appointment": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "patient",
+              "appointment"
+            ]
+          }
+        },
+        {
+          "name": "list_clinical_notes",
+          "description": "List ClinicalNotes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_clinical_note",
+          "description": "Get a ClinicalNote by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_clinical_note",
+          "description": "Update a ClinicalNote.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "patient": {
+                "type": "string"
+              },
+              "appointment": {
+                "type": "string"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_clinical_note",
+          "description": "Delete a ClinicalNote.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_lab_result",
+          "description": "Create a LabResult.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "labTest": {
+                "type": "integer"
+              },
+              "labOrder": {
+                "type": "string"
+              },
+              "observationCode": {
+                "type": "string"
+              },
+              "observationDescription": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "normalRange": {
+                "type": "string"
+              },
+              "abnormalStatus": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "comments": {
+                "type": "string"
+              },
+              "groupCode": {
+                "type": "string"
+              },
+              "testPerformed": {
+                "type": "string"
+              },
+              "specimenReceived": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "labTest",
+              "labOrder"
+            ]
+          }
+        },
+        {
+          "name": "list_lab_results",
+          "description": "List LabResults.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_lab_result",
+          "description": "Get a LabResult by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_lab_result",
+          "description": "Update a LabResult.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "labTest": {
+                "type": "integer"
+              },
+              "labOrder": {
+                "type": "string"
+              },
+              "observationCode": {
+                "type": "string"
+              },
+              "observationDescription": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "normalRange": {
+                "type": "string"
+              },
+              "abnormalStatus": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "comments": {
+                "type": "string"
+              },
+              "groupCode": {
+                "type": "string"
+              },
+              "testPerformed": {
+                "type": "string"
+              },
+              "specimenReceived": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_lab_result",
+          "description": "Delete a LabResult.",
           "inputSchema": {
             "type": "object",
             "properties": {

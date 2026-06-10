@@ -11,15 +11,101 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
   "schema": "schema/epic-systems.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://fhir.epic.com/Specifications",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Patient",
+      "Observation",
+      "Encounter",
+      "Condition",
+      "MedicationRequest",
+      "Procedure"
+    ],
+    "enums": {
+      "Patient": {
+        "gender": [
+          "male",
+          "female",
+          "other",
+          "unknown"
+        ]
+      },
+      "Observation": {
+        "status": [
+          "registered",
+          "preliminary",
+          "final",
+          "amended",
+          "corrected",
+          "cancelled",
+          "entered-in-error",
+          "unknown"
+        ]
+      },
+      "Encounter": {
+        "status": [
+          "planned",
+          "arrived",
+          "triaged",
+          "in-progress",
+          "onleave",
+          "finished",
+          "cancelled",
+          "entered-in-error",
+          "unknown"
+        ]
+      },
+      "MedicationRequest": {
+        "status": [
+          "active",
+          "on-hold",
+          "cancelled",
+          "completed",
+          "entered-in-error",
+          "stopped",
+          "draft",
+          "unknown"
+        ],
+        "intent": [
+          "proposal",
+          "plan",
+          "order",
+          "original-order",
+          "reflex-order",
+          "filler-order",
+          "instance-order",
+          "option"
+        ],
+        "priority": [
+          "routine",
+          "urgent",
+          "asap",
+          "stat"
+        ]
+      },
+      "Procedure": {
+        "status": [
+          "preparation",
+          "in-progress",
+          "not-done",
+          "on-hold",
+          "stopped",
+          "completed",
+          "entered-in-error",
+          "unknown"
+        ]
+      }
+    }
+  },
   "entities": [
     "Patient",
-    "Encounter",
     "Observation",
-    "Medication",
-    "Practitioner",
-    "Appointment"
+    "Encounter",
+    "Condition",
+    "MedicationRequest",
+    "Procedure"
   ],
   "adr": [
     "260607",
@@ -60,31 +146,6 @@
         },
         {
           "method": "POST",
-          "path": "/v1/encounters",
-          "op": "create Encounter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/encounters",
-          "op": "list Encounter"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/encounters/{id}",
-          "op": "get Encounter"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/encounters/{id}",
-          "op": "update Encounter"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/encounters/{id}",
-          "op": "delete Encounter"
-        },
-        {
-          "method": "POST",
           "path": "/v1/observations",
           "op": "create Observation"
         },
@@ -110,85 +171,110 @@
         },
         {
           "method": "POST",
-          "path": "/v1/medications",
-          "op": "create Medication"
+          "path": "/v1/encounters",
+          "op": "create Encounter"
         },
         {
           "method": "GET",
-          "path": "/v1/medications",
-          "op": "list Medication"
+          "path": "/v1/encounters",
+          "op": "list Encounter"
         },
         {
           "method": "GET",
-          "path": "/v1/medications/{id}",
-          "op": "get Medication"
+          "path": "/v1/encounters/{id}",
+          "op": "get Encounter"
         },
         {
           "method": "PATCH",
-          "path": "/v1/medications/{id}",
-          "op": "update Medication"
+          "path": "/v1/encounters/{id}",
+          "op": "update Encounter"
         },
         {
           "method": "DELETE",
-          "path": "/v1/medications/{id}",
-          "op": "delete Medication"
+          "path": "/v1/encounters/{id}",
+          "op": "delete Encounter"
         },
         {
           "method": "POST",
-          "path": "/v1/practitioners",
-          "op": "create Practitioner"
+          "path": "/v1/conditions",
+          "op": "create Condition"
         },
         {
           "method": "GET",
-          "path": "/v1/practitioners",
-          "op": "list Practitioner"
+          "path": "/v1/conditions",
+          "op": "list Condition"
         },
         {
           "method": "GET",
-          "path": "/v1/practitioners/{id}",
-          "op": "get Practitioner"
+          "path": "/v1/conditions/{id}",
+          "op": "get Condition"
         },
         {
           "method": "PATCH",
-          "path": "/v1/practitioners/{id}",
-          "op": "update Practitioner"
+          "path": "/v1/conditions/{id}",
+          "op": "update Condition"
         },
         {
           "method": "DELETE",
-          "path": "/v1/practitioners/{id}",
-          "op": "delete Practitioner"
+          "path": "/v1/conditions/{id}",
+          "op": "delete Condition"
         },
         {
           "method": "POST",
-          "path": "/v1/appointments",
-          "op": "create Appointment"
+          "path": "/v1/medicationrequests",
+          "op": "create MedicationRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/appointments",
-          "op": "list Appointment"
+          "path": "/v1/medicationrequests",
+          "op": "list MedicationRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/appointments/{id}",
-          "op": "get Appointment"
+          "path": "/v1/medicationrequests/{id}",
+          "op": "get MedicationRequest"
         },
         {
           "method": "PATCH",
-          "path": "/v1/appointments/{id}",
-          "op": "update Appointment"
+          "path": "/v1/medicationrequests/{id}",
+          "op": "update MedicationRequest"
         },
         {
           "method": "DELETE",
-          "path": "/v1/appointments/{id}",
-          "op": "delete Appointment"
+          "path": "/v1/medicationrequests/{id}",
+          "op": "delete MedicationRequest"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/procedures",
+          "op": "create Procedure"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/procedures",
+          "op": "list Procedure"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/procedures/{id}",
+          "op": "get Procedure"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/procedures/{id}",
+          "op": "update Procedure"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/procedures/{id}",
+          "op": "delete Procedure"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -252,25 +338,40 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "mrn": {
+              "resourceType": {
                 "type": "string"
               },
-              "givenName": {
+              "implicitRules": {
                 "type": "string"
               },
-              "familyName": {
+              "language": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "gender": {
                 "type": "string"
               },
               "birthDate": {
                 "type": "string"
               },
-              "sex": {
+              "deceasedBoolean": {
+                "type": "boolean"
+              },
+              "deceasedDateTime": {
                 "type": "string"
+              },
+              "multipleBirthBoolean": {
+                "type": "boolean"
+              },
+              "multipleBirthInteger": {
+                "type": "integer"
               }
             },
             "required": [
-              "mrn",
-              "givenName"
+              "resourceType",
+              "implicitRules"
             ]
           }
         },
@@ -306,20 +407,35 @@
               "id": {
                 "type": "string"
               },
-              "mrn": {
+              "resourceType": {
                 "type": "string"
               },
-              "givenName": {
+              "implicitRules": {
                 "type": "string"
               },
-              "familyName": {
+              "language": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "gender": {
                 "type": "string"
               },
               "birthDate": {
                 "type": "string"
               },
-              "sex": {
+              "deceasedBoolean": {
+                "type": "boolean"
+              },
+              "deceasedDateTime": {
                 "type": "string"
+              },
+              "multipleBirthBoolean": {
+                "type": "boolean"
+              },
+              "multipleBirthInteger": {
+                "type": "integer"
               }
             },
             "required": [
@@ -343,120 +459,30 @@
           }
         },
         {
-          "name": "create_encounter",
-          "description": "Create a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_encounters",
-          "description": "List Encounters.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_encounter",
-          "description": "Get a Encounter by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_encounter",
-          "description": "Update a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_encounter",
-          "description": "Delete a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_observation",
           "description": "Create a Observation.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "resourceType": {
                 "type": "string"
               },
-              "code": {
+              "implicitRules": {
                 "type": "string"
               },
-              "value": {
+              "language": {
                 "type": "string"
               },
-              "unit": {
+              "status": {
                 "type": "string"
               },
-              "takenAt": {
+              "issued": {
                 "type": "string"
               }
             },
             "required": [
-              "code",
-              "value"
+              "resourceType",
+              "implicitRules"
             ]
           }
         },
@@ -492,19 +518,19 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "resourceType": {
                 "type": "string"
               },
-              "code": {
+              "implicitRules": {
                 "type": "string"
               },
-              "value": {
+              "language": {
                 "type": "string"
               },
-              "unit": {
+              "status": {
                 "type": "string"
               },
-              "takenAt": {
+              "issued": {
                 "type": "string"
               }
             },
@@ -529,204 +555,18 @@
           }
         },
         {
-          "name": "create_medication",
-          "description": "Create a Medication.",
+          "name": "create_encounter",
+          "description": "Create a Encounter.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "resourceType": {
                 "type": "string"
               },
-              "code": {
+              "implicitRules": {
                 "type": "string"
               },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "code",
-              "dose"
-            ]
-          }
-        },
-        {
-          "name": "list_medications",
-          "description": "List Medications.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_medication",
-          "description": "Get a Medication by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_medication",
-          "description": "Update a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_medication",
-          "description": "Delete a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_practitioner",
-          "description": "Create a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "npi",
-              "givenName"
-            ]
-          }
-        },
-        {
-          "name": "list_practitioners",
-          "description": "List Practitioners.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_practitioner",
-          "description": "Get a Practitioner by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_practitioner",
-          "description": "Update a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_practitioner",
-          "description": "Delete a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_appointment",
-          "description": "Create a Appointment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "practitionerId": {
-                "type": "string"
-              },
-              "start": {
+              "language": {
                 "type": "string"
               },
               "status": {
@@ -734,22 +574,22 @@
               }
             },
             "required": [
-              "start",
-              "status"
+              "resourceType",
+              "implicitRules"
             ]
           }
         },
         {
-          "name": "list_appointments",
-          "description": "List Appointments.",
+          "name": "list_encounters",
+          "description": "List Encounters.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_appointment",
-          "description": "Get a Appointment by id.",
+          "name": "get_encounter",
+          "description": "Get a Encounter by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -763,21 +603,21 @@
           }
         },
         {
-          "name": "update_appointment",
-          "description": "Update a Appointment.",
+          "name": "update_encounter",
+          "description": "Update a Encounter.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "resourceType": {
                 "type": "string"
               },
-              "practitionerId": {
+              "implicitRules": {
                 "type": "string"
               },
-              "start": {
+              "language": {
                 "type": "string"
               },
               "status": {
@@ -790,8 +630,320 @@
           }
         },
         {
-          "name": "delete_appointment",
-          "description": "Delete a Appointment.",
+          "name": "delete_encounter",
+          "description": "Delete a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_condition",
+          "description": "Create a Condition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "recordedDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resourceType",
+              "implicitRules"
+            ]
+          }
+        },
+        {
+          "name": "list_conditions",
+          "description": "List Conditions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_condition",
+          "description": "Get a Condition by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_condition",
+          "description": "Update a Condition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "recordedDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_condition",
+          "description": "Delete a Condition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_medication_request",
+          "description": "Create a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "doNotPerform": {
+                "type": "boolean"
+              },
+              "reportedBoolean": {
+                "type": "boolean"
+              },
+              "authoredOn": {
+                "type": "string"
+              },
+              "instantiatesUri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resourceType",
+              "implicitRules"
+            ]
+          }
+        },
+        {
+          "name": "list_medication_requests",
+          "description": "List MedicationRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_medication_request",
+          "description": "Get a MedicationRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_medication_request",
+          "description": "Update a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "doNotPerform": {
+                "type": "boolean"
+              },
+              "reportedBoolean": {
+                "type": "boolean"
+              },
+              "authoredOn": {
+                "type": "string"
+              },
+              "instantiatesUri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_medication_request",
+          "description": "Delete a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_procedure",
+          "description": "Create a Procedure.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "instantiatesUri": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resourceType",
+              "implicitRules"
+            ]
+          }
+        },
+        {
+          "name": "list_procedures",
+          "description": "List Procedures.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_procedure",
+          "description": "Get a Procedure by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_procedure",
+          "description": "Update a Procedure.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "implicitRules": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "instantiatesUri": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_procedure",
+          "description": "Delete a Procedure.",
           "inputSchema": {
             "type": "object",
             "properties": {
