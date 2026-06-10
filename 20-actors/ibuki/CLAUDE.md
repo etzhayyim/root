@@ -71,14 +71,19 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   (nothing fixed is wasted, circular/非終末論) and the truest 腐生 function. Commons output is
   therefore CONTINUOUS (relayed when a producer is hungry + detritus when sated), while
   mutualism FEEDING stays intermittent (satiation). `:metabolite/source` ∈ {`:relayed`,
-  `:detritus`}; detritus does not feed producers (no mood pressure).
+  `:detritus`}; detritus does not feed producers (no mood pressure). **Niches are logged at
+  birth** (`:organism/niche`), so the trophic structure is as-of queryable; `health.py` adds
+  **web-resilience** detectors — `keystone-niche-absent` (a trophic role missing → the web
+  cannot close: the precise diagnosis behind a starved web) and `niche-imbalance` (Pielou
+  evenness below the floor → one role dominates, fragile). `:health/eco-maturity` (evenness)
+  is checkpointed each audit — the colony's ecological maturity, an aggregate not a soul-score.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 15 suites (167 tests), hermetic
+./run_tests.sh                                  # all 15 suites (172 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):
