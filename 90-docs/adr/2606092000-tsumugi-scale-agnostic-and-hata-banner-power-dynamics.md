@@ -216,6 +216,32 @@ ratification **enacted as a PR**), and run to a steady operating loop in one ses
   vet (parents/standing/raw-QID) → promote via PR (= Council ratification) → the new
   citations enrich the next ring's anchors. Convergence is visible as rising dedup ratios.
 
+# Landed wave 3 — etzhayyim becomes a power-data PROVIDER + biological foraging (2606-06-10)
+
+The founder reframed the telos: *「wikidata に依存するのではなく、etzhayyim 自身が wikidata のように
+data を提供する主体になる」* + *「粘菌・カビ・植物のサイクルで」*. Two moves:
+
+- **PROVIDER** (`methods/publish.py`): the woven power-graph is published as **self-sovereign
+  linked data** under etzhayyim's OWN resolvable vocabulary (`https://etzhayyim.com/ns/power#`
+  predicates · `https://etzhayyim.com/id/power/` entity IRIs) — JSON-LD + RDF N-Triples
+  (triplestore/SPARQL-loadable) + a DCAT/VoID manifest (license = Apache-2.0 + Charter Rider;
+  publisher = `did:web:etzhayyim.com:actor:tsumugi`; **content-hash = the dataset's
+  self-sovereign identity**, not a host). 619 nodes → 5,100 triples. The inversion of
+  dependence: etzhayyim stops being only a Wikidata/GLEIF CONSUMER and becomes a SOURCE others
+  can federate against — and it publishes the layers **nobody upstream has** (産官学報
+  cross-sector concentration, scale/sector/collective-kind, vertical integration), explicitly
+  attributed as etzhayyim's authored contribution (`epw:derivedBy`). S2 survives the
+  projection (only `epw:Org`/`epw:PublicSeat`/`epw:Locality`); G5 provenance is in the manifest.
+  This is the 植物-producer niche of ibuki's food web (ADR-2606101800): the colony excretes a
+  commons humanity consumes, not only feeds itself.
+- **FORAGING** (`ingest_scale.py --forage`): the ingest cadence stops being a dumb clock and
+  becomes 粘菌/菌糸 growth — offline & deterministic, derived from the seed: an org already a
+  `:tie/from` is HARVESTED; an org leaf is a FRONTIER TIP (the live growth front); when the
+  QID-bearing frontier empties the Wikidata substrate is exhausted → **FRUIT: switch substrate**
+  (GLEIF / a new registry). First run: 96 harvested · 519 frontier tips · not starving → GROW.
+  The daily cloud routine can read `out/forage-plan.json` to grow toward food.
+- Tests: + `test_publish.py` (14) + 3 forage checks (ingest → 27). All green.
+
 # References
 
 - `90-docs/adr/2606011800-tsumugi-spirit-intel-power-graph.md` (tsumugi base)
