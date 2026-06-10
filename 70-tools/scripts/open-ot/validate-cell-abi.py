@@ -41,11 +41,20 @@ DEFAULT_LEXICON_DIR = REPO_ROOT / "00-contracts/lexicons/com/etzhayyim/apps/open
 # Keep in sync with `cells/*/manifest.json` schema documentation.
 ALLOWED_WIRE = {
     "valueMicroUnit",
+    "valueMilliUnit",  # milli-scaled physical value (soc-kalman)
     "valueMilliPct",
     "qualityEnum",
     "tripReasonEnum",
     "boolean",
     "counter",
+    # later-wave cell vocab that had drifted ahead of this validator
+    # (black-start-seq / ltc-tap-fsm / mppt-perturb-observe):
+    "stageEnum",
+    "blackStartCommandEnum",
+    "tapCommandEnum",
+    "perturbDirEnum",
+    "durationMs",
+    "integerSigned",
 }
 
 REQUIRED_MANIFEST_KEYS = {"iec61499_fbtype", "abi", "ecc", "tick_max_emitted"}

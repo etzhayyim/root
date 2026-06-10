@@ -106,13 +106,37 @@ def commission_test(state: CommissioningState, deps: CellDeps) -> CommissioningS
 
     Reuses open-ot reference BFB cells: ANTI_ISLANDING_ROCOF, DROOP_P_F, BLACK_START_SEQ.
     The deterministic acceptance test is robotics/commissioning.run_microgrid_acceptance
-    (the open-ot field-tier loop's :representative twin). Live device-in-the-loop
-    testing is gated behind deps.sdk + the certified safety PLC.
+    (the open-ot field-tier loop's :representative twin). R1: when the committed
+    device-in-the-loop golden trace (robotics/golden/device_loop_trace.json — the
+    REAL wasm cells under Wasmtime, see robotics/device_loop.py) is present and
+    consistent, the acceptance tier is recorded as "device-wasm"; absent or
+    inconsistent evidence stays "python-twin". Live device-in-the-loop against
+    field hardware remains gated behind deps.sdk + the certified safety PLC.
     """
     load_step_kw = float(state.get("acceptanceTest", {}).get("loadStepKw", 140.0))
     result = run_microgrid_acceptance(load_step_kw=load_step_kw)
+
+    tier = "python-twin"
+    golden = pathlib.Path(__file__).resolve().parents[2] / "robotics" / "golden" / "device_loop_trace.json"
+    if golden.exists():
+        import json
+        normal = next(
+            (r for r in json.loads(golden.read_text()).get("results", [])
+             if r.get("scenario") == "normal-load-step"),
+            None,
+        )
+        if (
+            normal
+            and normal.get("freq_restored")
+            and not normal.get("rocof_trip", True)
+            and normal.get("twin_verdict_match")
+            and normal.get("server_held_key") is False
+        ):
+            tier = "device-wasm"
+
     state["acceptanceTest"] = {
         "passed": result["passed"],
+        "acceptanceTier": tier,
         "finalFreqHz": result["final_freq_hz"],
         "rocofTripped": result["rocof_tripped"],
         "loadStepKw": load_step_kw,

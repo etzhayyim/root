@@ -23324,6 +23324,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm.md",
+      "id": "adr-2606101430",
+      "title": "ADR-2606101430: Infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-robotics-r1-device-in-the-loop",
+        "device-loop-host line protocol"
+      ],
+      "related": [
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge",
+        "adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606091800 (the 3-layer substrate this is R1 of)"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606101500-session-close-ibuki-organism-autonomy-r0-r3.md",
       "id": "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
       "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
