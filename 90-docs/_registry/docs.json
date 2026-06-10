@@ -23436,6 +23436,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+      "id": "adr-2606101920",
+      "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "meeting-recorder minutes generation",
+      "authoritative": true,
+      "related": [
+        "90-docs/260422-meeting-recorder-session-summary.md",
+        "ADR-2605181100 (kotoba E2E encrypted-record envelope)",
+        "ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
+        "ADR-2606011400 (Consensys product-front / infra-back)"
+      ],
+      "depends_on": [
+        "ADR-2605181100",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606102000-session-close-ibuki-digest-live-run-robustness.md",
       "id": "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
       "title": "ADR-2606102000: Session close — 息吹 (ibuki) digest (reason+report) + 実運用 live-run + robustness verification",
