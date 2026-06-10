@@ -9,8 +9,9 @@ from __future__ import annotations
 import pathlib
 
 from _t import run
-from grounding import (ground, ground_equities, hokorobi_institutions,
-                       kabuto_equity_constituents, load_ledger, systemic_overlay)
+from grounding import (LAYER_GROUNDING, ground, ground_equities, grounding_roadmap,
+                       hokorobi_institutions, kabuto_equity_constituents,
+                       kanjo_disclosed_companies, load_ledger, systemic_overlay)
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 
@@ -143,6 +144,67 @@ def test_no_kabuto_means_equities_ungrounded():
     rep = ground(_pyramid_fixture(), [], _hok_fixture())
     assert "equities" in rep["ungrounded_layers"]
     assert rep["summary"]["layers_with_entity_grounding"] == 0
+
+
+# ── kanjō disclosure depth (equities layer enrichment) ───────────────────────────
+def _kanjo_fixture():
+    return [
+        {":fin.filing/id": "fil.a", ":fin.filing/company": "org.corp.us.apple", ":fin.filing/fiscal-year": 2024},
+        {":fin.filing/id": "fil.t", ":fin.filing/company": "org.corp.tw.tsmc", ":fin.filing/fiscal-year": 2024},
+        {":fin.fact/id": "fact.x", ":fin.fact/company": "org.corp.us.apple"},   # a fact, not a filing
+    ]
+
+
+def test_kanjo_disclosed_companies_extracts_filing_companies():
+    disc = kanjo_disclosed_companies(_kanjo_fixture())
+    assert disc == {"org.corp.us.apple", "org.corp.tw.tsmc"}   # facts ignored, dedup
+
+
+def test_ground_equities_disclosure_depth():
+    cons = kabuto_equity_constituents(_kab_fixture())   # ids: apple, tsmc, jp.x
+    g = ground_equities(115.0, cons, disclosed_ids={"org.corp.us.apple", "org.corp.tw.tsmc"})
+    assert g["with_disclosed_financials"] == 2
+    assert set(g["disclosed_sample"]) == {"Apple", "TSMC"}
+
+
+def test_ground_equities_depth_defaults_zero():
+    g = ground_equities(115.0, kabuto_equity_constituents(_kab_fixture()))
+    assert g["with_disclosed_financials"] == 0
+
+
+# ── per-layer grounding roadmap ───────────────────────────────────────────────────
+def test_roadmap_covers_every_layer():
+    roadmap = grounding_roadmap(_pyramid_fixture())
+    assert {r["asset_class"] for r in roadmap} == {"equities", "gold", "derivatives"}
+
+
+def test_roadmap_equities_grounded_rest_ungroundable():
+    roadmap = {r["asset_class"]: r for r in grounding_roadmap(_pyramid_fixture())}
+    assert roadmap["equities"]["status"] == "grounded"
+    assert roadmap["equities"]["source_actor"] == "kabuto"
+    assert roadmap["gold"]["status"] == "ungroundable-at-r0"
+    assert roadmap["derivatives"]["status"] == "ungroundable-at-r0"
+    # every ungroundable layer states a non-empty reason (honesty contract)
+    assert all(r["reason"] for r in roadmap.values())
+
+
+def test_layer_grounding_registry_well_formed():
+    for ac, spec in LAYER_GROUNDING.items():
+        assert spec["status"] in ("grounded", "ungroundable-at-r0")
+        assert "reason" in spec and spec["reason"]
+        if spec["status"] == "grounded":
+            assert spec["source_actor"]
+
+
+def test_ground_report_has_roadmap_and_depth():
+    rep = ground(_pyramid_fixture(), _kab_fixture(), _hok_fixture(), _kanjo_fixture())
+    assert "roadmap" in rep and len(rep["roadmap"]) == 3
+    assert rep["equities"]["with_disclosed_financials"] >= 1   # apple overlaps
+
+
+def test_ground_without_kanjo_still_works():
+    rep = ground(_pyramid_fixture(), _kab_fixture(), _hok_fixture())   # kanjo omitted
+    assert rep["equities"]["with_disclosed_financials"] == 0
 
 
 # ── fail-open loader ──────────────────────────────────────────────────────────────

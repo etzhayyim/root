@@ -50,9 +50,12 @@ rating/signal/target (G2/G4 untouched). Stock (usd-tn) is **never** summed with 
 
 `methods/grounding.py` is an OPTIONAL **entity-grounding bridge** answering *who is inside each
 layer?* — it decomposes a pyramid layer into the named real entities sibling actors already mirror
-(equities ← kabuto listed-company ledger; a systemic-institutions overlay ← hokorobi) and reports
-the coverage gap honestly (value coverage as a stated lower bound, a `:representative` count
-denominator, and the explicitly-named ungrounded layers). Rules: it is **fail-open** (a missing
+(equities ← kabuto listed-company ledger, with disclosure DEPTH ← kanjō; a systemic-institutions
+overlay ← hokorobi) and reports the coverage gap honestly (value coverage as a stated lower bound, a
+`:representative` count denominator, and a per-layer **roadmap** that names — for every layer — the
+candidate source actor and, where `ungroundable-at-r0`, the explicit reason; e.g. the debt layer is
+a bond-market aggregate and must NOT be conflated with kanjō corporate-BS liabilities). Rules: it is
+**fail-open** (a missing
 sibling ledger → that layer is reported ungrounded, never a crash); the **core path
 (`weave`/`concentration`) must NOT import it** (no sibling-file coupling in the hermetic core);
 its figures are sizes/counts/fractions only — never a per-entity rating/signal/target (G2/G4).
@@ -110,7 +113,7 @@ made a charter violation representable. `methods/test_charter_invariants.py` gua
 - `.solve()` raises `RuntimeError` on every cell at R0 — live execution is G8-gated. Do not wire a
   cell to a live market-data fetch or a live firehose post.
 - Tests are standalone-runnable (`python3 test_*.py`); run everything with `./run_tests.sh`
-  (174 tests across 15 suites, hermetic). See MATURITY.md for the per-suite breakdown.
+  (182 tests across 15 suites, hermetic). See MATURITY.md for the per-suite breakdown.
 
 ## Honest R0
 
@@ -125,7 +128,7 @@ publication under 1 SBT = 1 vote).
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                          # all 15 suites (174 tests)
+./run_tests.sh                          # all 15 suites (182 tests)
 cd methods && python3 weave.py          # concentration + stock pyramid over the :representative seed
 cd methods && python3 grounding.py      # decompose pyramid layers into named entities (kabuto/hokorobi) + coverage
 cd methods && python3 analyze.py        # end-to-end dry-run → methods/out/intel-report.md

@@ -170,6 +170,19 @@ fraction — never a per-entity rating/signal/target (G2/G4). This makes the hon
 real-world entity coverage underpins the capital data?" a computed, test-pinned output rather than
 a prose claim.
 
+A second pass adds **disclosure DEPTH** and a **per-layer roadmap**: of the named equity
+constituents, the ones that also carry **kanjō** 勘定 primary-disclosure financials are counted
+(5 on the seeds — Apple/Sony/Nintendo/Toyota/Microsoft — an authoritative-depth signal, not a
+fundamental rating). `grounding_roadmap` then records, for EVERY pyramid layer, the candidate
+sibling actor and — where `ungroundable-at-r0` — the explicit reason. This is also where the
+**honest boundary** is drawn: the **debt** layer is a bond-market (debt-securities-outstanding)
+aggregate and is deliberately NOT grounded via kanjō corporate balance-sheet liabilities (assets −
+equity), because conflating the two would mis-size the layer — coverage honesty is part of the
+no-trade discipline. The remaining macro/aggregate layers (broad-money, cash, gold, crypto,
+real-estate, derivatives) are central-bank / index / BIS aggregates with no per-entity ledger in
+the repo (and G1 would bar holder-tracking for gold/cash/crypto regardless), so they remain honestly
+ungrounded with a stated reason rather than a fabricated decomposition.
+
 ## Consequences
 
 - **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,

@@ -13,7 +13,7 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **174 tests** across weave (47) / grounding (16) / ingest (14) /
+- **Tests**: `./run_tests.sh` green — **182 tests** across weave (47) / grounding (24) / ingest (14) /
   social (11) / export (6) / sources (8) / registry (7) / charter-invariants (18) / analyze (4) /
   lexicons (5) / consistency (7) / kotoba (9) / autorun (6) / cells-state-machines (13) /
   cells-membrane-flow (3).
@@ -33,8 +33,14 @@
   **1,719 / ~55,000 ≈ 3.1%** of the listed universe (a `:representative` denominator). A
   cross-cutting **systemic-institutions overlay** (hokorobi, 17 institutions, 14 authoritative) and
   the **7 ungrounded layers** (cash/broad-money/debt/real-estate/gold/crypto/derivatives) are named
-  explicitly. Fail-open (a missing sibling ledger → that layer is reported ungrounded, never a
-  crash); shionome's core (weave/concentration) does NOT import the bridge. Sizes only, no advice.
+  explicitly. **Disclosure DEPTH** (kanjō): of the named equity constituents, **5** carry
+  primary-disclosure financials (Apple/Sony/Nintendo/Toyota/Microsoft) — an authoritative-depth
+  signal, not a fundamental rating. A **per-layer grounding roadmap** (`grounding_roadmap`) records,
+  for every layer, the candidate sibling actor and — where it is `ungroundable-at-r0` — the explicit
+  reason (e.g. derivatives = BIS gross-notional aggregate, not entity-decomposable; debt = bond-market
+  size ≠ corporate balance-sheet liabilities, so kanjō must NOT be conflated with the debt layer).
+  Fail-open (a missing sibling ledger → that layer reported ungrounded, never a crash); shionome's
+  core (weave/concentration) does NOT import the bridge. Sizes/counts only, no advice.
 - **The no-trade invariant (トレードはしない, G2) is enforced in four homes**: the ontology
   closed-vocab (trade tokens are not enum members + no `:bucket/rating` attr), the lexicons
   (`noTradeNotice` const true on flows/findings/posts), `weave.TRADE_TOKENS` (refused on every

@@ -37,6 +37,32 @@ from weave import _kw
 # exchange-listed worldwide (WFE statistics order of magnitude).
 LISTED_UNIVERSE = 55000
 
+# ── per-layer grounding ROADMAP (the honest map of what can / cannot be entity-grounded) ──────
+# For every money-pyramid asset-class: which sibling actor's entity ledger (if any) can decompose
+# it, and — where it CANNOT yet — the explicit reason. This turns "ungrounded" from a bare list
+# into an actionable, honest roadmap. A macro AGGREGATE layer (M2, bond-market size, gold stock)
+# is a central-bank / index aggregate, not a per-entity sum from any ledger the repo holds; G1
+# would also bar holder-tracking for gold/cash/crypto. We do NOT fabricate a grounding the data
+# cannot honestly support (トレードはしない discipline extends to coverage honesty).
+LAYER_GROUNDING = {
+    "equities":     {"source_actor": "kabuto",  "status": "grounded",
+                     "reason": "listed-company ledger (org.corp.*) decomposes the layer by named issuer; kanjō adds disclosure depth"},
+    "debt":         {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "bond-market SIZE is a SIFMA/BIS aggregate; no per-issuer debt-outstanding ledger (kanjō discloses corporate BS, NOT tradable debt-securities outstanding — conflating them would mis-size the layer). Candidate issuers: ooyake (sovereign) + kabuto (corporate)"},
+    "broad-money":  {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "M2 is a central-bank / banking-system aggregate (BIS / World Bank); not entity-decomposable"},
+    "cash":         {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "physical currency outstanding is a central-bank aggregate; no holder ledger (G1 bars holder-tracking)"},
+    "real-estate":  {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "no real-estate-entity / parcel ledger in the repo; total value is a Savills aggregate"},
+    "gold":         {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "above-ground stock value is a World Gold Council aggregate; no holder ledger (G1 bars holder-tracking)"},
+    "crypto":       {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "total market-cap aggregate; no issuer ledger in the repo"},
+    "derivatives":  {"source_actor": None,        "status": "ungroundable-at-r0",
+                     "reason": "OTC gross-notional is a BIS aggregate; not entity-decomposable from any repo ledger"},
+}
+
 
 def load_ledger(path) -> list:
     """Load a sibling actor's EDN ledger (a top-level vector of records). FAIL-OPEN: a missing or
@@ -93,17 +119,34 @@ def hokorobi_institutions(records: list) -> list[dict]:
     return out
 
 
-def ground_equities(layer_usd_tn: float, constituents: list[dict], universe: int = LISTED_UNIVERSE) -> dict:
+def kanjo_disclosed_companies(records: list) -> set:
+    """The set of org.corp.* company ids that have ≥1 DISCLOSED filing in a kanjō ledger
+    (:fin.filing/company). Used to measure DISCLOSURE DEPTH of the equities layer — which named
+    constituents are not just listed but carry primary-disclosure financials (an authoritative
+    depth signal). A presence count, never a fundamental rating (G2)."""
+    out = set()
+    for r in records:
+        if isinstance(r, dict) and r.get(":fin.filing/company"):
+            out.add(r[":fin.filing/company"])
+    return out
+
+
+def ground_equities(layer_usd_tn: float, constituents: list[dict],
+                    universe: int = LISTED_UNIVERSE, disclosed_ids: set | None = None) -> dict:
     """Ground the EQUITIES stock layer in named listed companies, reporting HONESTLY:
       - grounded_entities       — how many named companies back the layer,
       - grounded_market_cap_usd_tn — Σ market-cap of the sized subset (→ value coverage of $layer),
       - value_coverage_of_layer — a LOWER BOUND (only companies that report a market-cap count),
-      - count_coverage_of_universe — fraction of a :representative listed-universe denominator.
-    A size is factual; nothing here is a rating/signal/target (G2)."""
+      - count_coverage_of_universe — fraction of a :representative listed-universe denominator,
+      - with_disclosed_financials — DEPTH: how many named constituents also carry kanjō primary
+        disclosure (an authoritative-depth signal, not a fundamental rating).
+    A size/count is factual; nothing here is a rating/signal/target (G2)."""
+    disclosed_ids = disclosed_ids or set()
     n = len(constituents)
     sized = [c for c in constituents if c["market_cap_busd"] is not None]
     mcap_tn = sum(c["market_cap_busd"] for c in sized) / 1000.0  # USD billions → USD trillions
     top = sorted(sized, key=lambda c: -c["market_cap_busd"])[:10]
+    disclosed = [c for c in constituents if c["id"] in disclosed_ids]
     return {
         "layer": "equities",
         "layer_usd_tn": round(float(layer_usd_tn), 4),
@@ -115,12 +158,33 @@ def ground_equities(layer_usd_tn: float, constituents: list[dict], universe: int
         "count_coverage_of_universe": round(n / universe, 5) if universe else 0.0,
         "universe_denominator": universe,
         "universe_sourcing": "representative",   # WFE order-of-magnitude, NOT a live count
+        "with_disclosed_financials": len(disclosed),   # kanjō DEPTH (authoritative disclosure)
+        "disclosed_sample": [c["name"] for c in disclosed][:10],
         "top_constituents": [
             {"name": c["name"], "ticker": c["ticker"], "market_cap_busd": c["market_cap_busd"]}
             for c in top
         ],
         "no_trade_notice": True,
     }
+
+
+def grounding_roadmap(pyramid: dict) -> list[dict]:
+    """Per-layer grounding STATUS for every money-pyramid layer — the honest map of what is
+    entity-grounded vs what cannot be (and why), from the LAYER_GROUNDING registry. Turns the
+    'ungrounded' set into an actionable roadmap rather than a bare list."""
+    rows = []
+    for l in pyramid.get("layers", []):
+        ac = l["asset_class"]
+        spec = LAYER_GROUNDING.get(ac, {"source_actor": None, "status": "unmapped",
+                                         "reason": "no grounding spec for this asset class"})
+        rows.append({
+            "asset_class": ac,
+            "layer_usd_tn": l.get("usd_tn"),
+            "source_actor": spec["source_actor"],
+            "status": spec["status"],
+            "reason": spec["reason"],
+        })
+    return rows
 
 
 def systemic_overlay(institutions: list[dict]) -> dict:
@@ -139,13 +203,17 @@ def systemic_overlay(institutions: list[dict]) -> dict:
     }
 
 
-def ground(pyramid: dict, kabuto_records: list, hokorobi_records: list) -> dict:
+def ground(pyramid: dict, kabuto_records: list, hokorobi_records: list,
+           kanjo_records: list | None = None) -> dict:
     """The full stock-layer grounding report: decompose pyramid layers into named real entities
-    WHERE a sibling ledger exists, and stay HONEST about the rest (ungrounded_layers). Every figure
-    is an aggregate / size / coverage fraction — never a per-entity rating/signal/target (G2/G4)."""
+    WHERE a sibling ledger exists, add disclosure DEPTH (kanjō) to the equities layer, and stay
+    HONEST about the rest via the per-layer roadmap. Every figure is an aggregate / size / coverage
+    fraction — never a per-entity rating/signal/target (G2/G4)."""
     layers = {l["asset_class"]: l for l in pyramid.get("layers", [])}
     eq_layer = float(layers.get("equities", {}).get("usd_tn", 0.0))
-    equities = ground_equities(eq_layer, kabuto_equity_constituents(kabuto_records))
+    disclosed = kanjo_disclosed_companies(kanjo_records or [])
+    equities = ground_equities(eq_layer, kabuto_equity_constituents(kabuto_records),
+                               disclosed_ids=disclosed)
     overlay = systemic_overlay(hokorobi_institutions(hokorobi_records))
     grounded_classes = {"equities"} if equities["grounded_entities"] else set()
     ungrounded = [l["asset_class"] for l in pyramid.get("layers", [])
@@ -153,6 +221,7 @@ def ground(pyramid: dict, kabuto_records: list, hokorobi_records: list) -> dict:
     return {
         "equities": equities,
         "systemic_institutions_overlay": overlay,
+        "roadmap": grounding_roadmap(pyramid),
         "ungrounded_layers": ungrounded,
         "summary": {
             "pyramid_layers": len(pyramid.get("layers", [])),
@@ -174,7 +243,8 @@ if __name__ == "__main__":
     pyr = stock_pyramid(g)
     kab = load_ledger(root / "20-actors" / "kabuto" / "data" / "seed-public-companies.kotoba.edn")
     hok = load_ledger(root / "20-actors" / "hokorobi" / "data" / "seed-finrisk-graph.kotoba.edn")
-    rep = ground(pyr, kab, hok)
+    knj = load_ledger(root / "20-actors" / "kanjo" / "data" / "seed-financial-facts.kotoba.edn")
+    rep = ground(pyr, kab, hok, knj)
 
     eq = rep["equities"]
     print("# 潮目 (shionome) — stock-layer ENTITY GROUNDING (どこまで実エンティティで裏付けたか)\n")
@@ -184,6 +254,8 @@ if __name__ == "__main__":
           + ("  (LOWER BOUND — only sized companies count)" if eq["value_coverage_is_lower_bound"] else ""))
     print(f"- count coverage: {eq['grounded_entities']} / ~{eq['universe_denominator']} listed "
           f"(:{eq['universe_sourcing']}) = {eq['count_coverage_of_universe']*100:.2f}%")
+    print(f"- disclosure depth (kanjō): {eq['with_disclosed_financials']} with primary-disclosure financials "
+          f"{eq['disclosed_sample']}")
     print("- top constituents:")
     for c in eq["top_constituents"]:
         mc = c["market_cap_busd"]
@@ -191,7 +263,12 @@ if __name__ == "__main__":
     ov = rep["systemic_institutions_overlay"]
     print(f"\n## systemic-institutions overlay — {ov['institutions']} institutions "
           f"({ov['authoritative']} authoritative): {ov['by_sector']}")
-    print(f"\n## ungrounded layers (NOT yet backed by named entities): {rep['ungrounded_layers']}")
+    print("\n## per-layer grounding roadmap (what can/cannot be entity-grounded, and why)")
+    for r in rep["roadmap"]:
+        mark = "✓" if r["status"] == "grounded" else "·"
+        src = r["source_actor"] or "—"
+        print(f"  {mark} {r['asset_class']:<13} ${r['layer_usd_tn']:>6.0f}tn  [{r['status']}] src={src}")
+        print(f"      {r['reason']}")
     s = rep["summary"]
     print(f"\n## summary: {s['layers_with_entity_grounding']}/{s['pyramid_layers']} pyramid layers grounded; "
           f"{s['total_named_entities']} named entities total — descriptive, NOT advice (トレードはしない)")
