@@ -14574,28 +14574,6 @@
       "lastVerified": "2026-06-08"
     },
     {
-      "id": "doc:adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
-      "type": "TechArticle",
-      "title": "ADR-2606091200: sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter",
-      "status": "proposed",
-      "topic": "sonae-pre-disaster-foresight-r0",
-      "authoritative": true,
-      "authoritativeFor": [
-        "sonae actor R0 charter",
-        "religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate single SoT",
-        "`com.etzhayyim.sonae.*` Lexicon namespace boundary",
-        "civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)",
-        "no-false-authority invariant (G8 — relay-only; MUST NOT originate official seismic/tsunami warnings)",
-        "no-unilateral-declaration invariant (G10 — emergency state owned by kazaori Council path)",
-        "phase-boundary invariant (N3 — sonae does NOT do response; kazaori does)",
-        "prohibition on commercial disaster-prediction software (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia)",
-        "prohibition on surveillance-based monitoring (open feeds + opt-in self-report only)",
-        "Sendai Framework + Sphere Standards reference (NOT membership)"
-      ],
-      "related": "doc:adr-2605263200-kazaori-disaster-response-tier-b-actor-r0",
-      "lastVerified": "2026-06-09"
-    },
-    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

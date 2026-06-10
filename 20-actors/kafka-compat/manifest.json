@@ -5,21 +5,46 @@
   "kind": "compat",
   "title": "kafka clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (kafka); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+  "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+  "ipfs": "ipfs://bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
   "schema": "schema/kafka.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/apache/kafka (trunk Java enums) + https://kafka.apache.org/protocol.html",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Topic",
+      "Partition",
+      "AclBinding",
+      "ConsumerGroup",
+      "FetchRequest"
+    ],
+    "enums": {
+      "AclBinding": {
+        "permissionType": [
+          "UNKNOWN",
+          "ANY",
+          "DENY",
+          "ALLOW"
+        ]
+      },
+      "FetchRequest": {
+        "isolationLevel": [
+          "READ_UNCOMMITTED",
+          "READ_COMMITTED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Connector",
-    "Sync",
-    "Model",
-    "Stream",
-    "Schema",
-    "Test"
+    "Topic",
+    "Partition",
+    "AclBinding",
+    "ConsumerGroup",
+    "FetchRequest"
   ],
   "adr": [
     "260607",
@@ -31,157 +56,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/topics",
+          "op": "create Topic"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/topics",
+          "op": "list Topic"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/topics/{id}",
+          "op": "get Topic"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/topics/{id}",
+          "op": "update Topic"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/topics/{id}",
+          "op": "delete Topic"
         },
         {
           "method": "POST",
-          "path": "/v1/syncs",
-          "op": "create Sync"
+          "path": "/v1/partitions",
+          "op": "create Partition"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs",
-          "op": "list Sync"
+          "path": "/v1/partitions",
+          "op": "list Partition"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs/{id}",
-          "op": "get Sync"
+          "path": "/v1/partitions/{id}",
+          "op": "get Partition"
         },
         {
           "method": "PATCH",
-          "path": "/v1/syncs/{id}",
-          "op": "update Sync"
+          "path": "/v1/partitions/{id}",
+          "op": "update Partition"
         },
         {
           "method": "DELETE",
-          "path": "/v1/syncs/{id}",
-          "op": "delete Sync"
+          "path": "/v1/partitions/{id}",
+          "op": "delete Partition"
         },
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/aclbindings",
+          "op": "create AclBinding"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/aclbindings",
+          "op": "list AclBinding"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/aclbindings/{id}",
+          "op": "get AclBinding"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/aclbindings/{id}",
+          "op": "update AclBinding"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
+          "path": "/v1/aclbindings/{id}",
+          "op": "delete AclBinding"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/consumergroups",
+          "op": "create ConsumerGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/consumergroups",
+          "op": "list ConsumerGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/consumergroups/{id}",
+          "op": "get ConsumerGroup"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/consumergroups/{id}",
+          "op": "update ConsumerGroup"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
+          "path": "/v1/consumergroups/{id}",
+          "op": "delete ConsumerGroup"
         },
         {
           "method": "POST",
-          "path": "/v1/schemas",
-          "op": "create Schema"
+          "path": "/v1/fetchrequests",
+          "op": "create FetchRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas",
-          "op": "list Schema"
+          "path": "/v1/fetchrequests",
+          "op": "list FetchRequest"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas/{id}",
-          "op": "get Schema"
+          "path": "/v1/fetchrequests/{id}",
+          "op": "get FetchRequest"
         },
         {
           "method": "PATCH",
-          "path": "/v1/schemas/{id}",
-          "op": "update Schema"
+          "path": "/v1/fetchrequests/{id}",
+          "op": "update FetchRequest"
         },
         {
           "method": "DELETE",
-          "path": "/v1/schemas/{id}",
-          "op": "delete Schema"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tests",
-          "op": "create Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests",
-          "op": "list Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests/{id}",
-          "op": "get Test"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tests/{id}",
-          "op": "update Test"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tests/{id}",
-          "op": "delete Test"
+          "path": "/v1/fetchrequests/{id}",
+          "op": "delete FetchRequest"
         }
       ],
       "features": {
@@ -244,473 +244,47 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_connector",
-          "description": "Create a Connector.",
+          "name": "create_topic",
+          "description": "Create a Topic.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "source": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "source"
-            ]
-          }
-        },
-        {
-          "name": "list_connectors",
-          "description": "List Connectors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_connector",
-          "description": "Update a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sync",
-          "description": "Create a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
+              "numPartitions": {
                 "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status",
-              "rows"
-            ]
-          }
-        },
-        {
-          "name": "list_syncs",
-          "description": "List Syncs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sync",
-          "description": "Get a Sync by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sync",
-          "description": "Update a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
+              "replicationFactor": {
                 "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sync",
-          "description": "Delete a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_model",
-          "description": "Create a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "materialization"
-            ]
-          }
-        },
-        {
-          "name": "list_models",
-          "description": "List Models.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_model",
-          "description": "Get a Model by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_model",
-          "description": "Update a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_model",
-          "description": "Delete a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "partitions"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_stream",
-          "description": "Update a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_schema",
-          "description": "Create a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "database"
-            ]
-          }
-        },
-        {
-          "name": "list_schemas",
-          "description": "List Schemas.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_schema",
-          "description": "Get a Schema by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_schema",
-          "description": "Update a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_schema",
-          "description": "Delete a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_test",
-          "description": "Create a Test.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "passed": {
+              "isInternal": {
                 "type": "boolean"
+              },
+              "minInsyncReplicas": {
+                "type": "integer"
               }
             },
             "required": [
-              "modelName",
-              "type"
+              "name",
+              "numPartitions"
             ]
           }
         },
         {
-          "name": "list_tests",
-          "description": "List Tests.",
+          "name": "list_topics",
+          "description": "List Topics.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_test",
-          "description": "Get a Test by id.",
+          "name": "get_topic",
+          "description": "Get a Topic by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +298,28 @@
           }
         },
         {
-          "name": "update_test",
-          "description": "Update a Test.",
+          "name": "update_topic",
+          "description": "Update a Topic.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
+              "name": {
                 "type": "string"
               },
-              "type": {
-                "type": "string"
+              "numPartitions": {
+                "type": "integer"
               },
-              "passed": {
+              "replicationFactor": {
+                "type": "integer"
+              },
+              "isInternal": {
                 "type": "boolean"
+              },
+              "minInsyncReplicas": {
+                "type": "integer"
               }
             },
             "required": [
@@ -748,8 +328,392 @@
           }
         },
         {
-          "name": "delete_test",
-          "description": "Delete a Test.",
+          "name": "delete_topic",
+          "description": "Delete a Topic.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_partition",
+          "description": "Create a Partition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "topicName": {
+                "type": "string"
+              },
+              "partitionIndex": {
+                "type": "integer"
+              },
+              "leader": {
+                "type": "integer"
+              },
+              "replicas": {
+                "type": "string"
+              },
+              "isr": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "topicName",
+              "partitionIndex"
+            ]
+          }
+        },
+        {
+          "name": "list_partitions",
+          "description": "List Partitions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_partition",
+          "description": "Get a Partition by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_partition",
+          "description": "Update a Partition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "topicName": {
+                "type": "string"
+              },
+              "partitionIndex": {
+                "type": "integer"
+              },
+              "leader": {
+                "type": "integer"
+              },
+              "replicas": {
+                "type": "string"
+              },
+              "isr": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_partition",
+          "description": "Delete a Partition.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_acl_binding",
+          "description": "Create a AclBinding.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string"
+              },
+              "resourceName": {
+                "type": "string"
+              },
+              "principal": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "operation": {
+                "type": "string"
+              },
+              "permissionType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resourceType",
+              "resourceName"
+            ]
+          }
+        },
+        {
+          "name": "list_acl_bindings",
+          "description": "List AclBindings.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_acl_binding",
+          "description": "Get a AclBinding by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_acl_binding",
+          "description": "Update a AclBinding.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "resourceName": {
+                "type": "string"
+              },
+              "principal": {
+                "type": "string"
+              },
+              "host": {
+                "type": "string"
+              },
+              "operation": {
+                "type": "string"
+              },
+              "permissionType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_acl_binding",
+          "description": "Delete a AclBinding.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_consumer_group",
+          "description": "Create a ConsumerGroup.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "string"
+              },
+              "protocolType": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "generationId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "protocolType",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_consumer_groups",
+          "description": "List ConsumerGroups.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_consumer_group",
+          "description": "Get a ConsumerGroup by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_consumer_group",
+          "description": "Update a ConsumerGroup.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "groupId": {
+                "type": "string"
+              },
+              "protocolType": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "generationId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_consumer_group",
+          "description": "Delete a ConsumerGroup.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_fetch_request",
+          "description": "Create a FetchRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "topicName": {
+                "type": "string"
+              },
+              "partitionIndex": {
+                "type": "integer"
+              },
+              "fetchOffset": {
+                "type": "integer"
+              },
+              "maxBytes": {
+                "type": "integer"
+              },
+              "isolationLevel": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "topicName",
+              "partitionIndex"
+            ]
+          }
+        },
+        {
+          "name": "list_fetch_requests",
+          "description": "List FetchRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_fetch_request",
+          "description": "Get a FetchRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_fetch_request",
+          "description": "Update a FetchRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "topicName": {
+                "type": "string"
+              },
+              "partitionIndex": {
+                "type": "integer"
+              },
+              "fetchOffset": {
+                "type": "integer"
+              },
+              "maxBytes": {
+                "type": "integer"
+              },
+              "isolationLevel": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_fetch_request",
+          "description": "Delete a FetchRequest.",
           "inputSchema": {
             "type": "object",
             "properties": {

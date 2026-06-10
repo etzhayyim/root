@@ -5,21 +5,76 @@
   "kind": "compat",
   "title": "ros2_nav clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (ros2_nav); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+  "wasmCid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+  "ipfs": "ipfs://bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
   "schema": "schema/ros2_nav.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/ros2/common_interfaces + ros2/rcl_interfaces (rolling branch .msg files)",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "GoalStatus",
+      "NavSatFix",
+      "BatteryState",
+      "Odometry"
+    ],
+    "enums": {
+      "GoalStatus": {
+        "status": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "NavSatFix": {
+        "status": [
+          -2,
+          -1,
+          0,
+          1,
+          2
+        ],
+        "positionCovarianceType": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "BatteryState": {
+        "powerSupplyStatus": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "powerSupplyHealth": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    }
+  },
   "entities": [
-    "Vehicle",
-    "Signal",
-    "ChargeSession",
-    "Connector",
-    "Trip",
-    "Command"
+    "GoalStatus",
+    "NavSatFix",
+    "BatteryState",
+    "Odometry"
   ],
   "adr": [
     "260607",
@@ -31,157 +86,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/goalstatuses",
+          "op": "create GoalStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/goalstatuses",
+          "op": "list GoalStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/goalstatuses/{id}",
+          "op": "get GoalStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/goalstatuses/{id}",
+          "op": "update GoalStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/goalstatuses/{id}",
+          "op": "delete GoalStatus"
         },
         {
           "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
+          "path": "/v1/navsatfixes",
+          "op": "create NavSatFix"
         },
         {
           "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
+          "path": "/v1/navsatfixes",
+          "op": "list NavSatFix"
         },
         {
           "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
+          "path": "/v1/navsatfixes/{id}",
+          "op": "get NavSatFix"
         },
         {
           "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
+          "path": "/v1/navsatfixes/{id}",
+          "op": "update NavSatFix"
         },
         {
           "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/navsatfixes/{id}",
+          "op": "delete NavSatFix"
         },
         {
           "method": "POST",
-          "path": "/v1/chargesessions",
-          "op": "create ChargeSession"
+          "path": "/v1/batterystates",
+          "op": "create BatteryState"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions",
-          "op": "list ChargeSession"
+          "path": "/v1/batterystates",
+          "op": "list BatteryState"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions/{id}",
-          "op": "get ChargeSession"
+          "path": "/v1/batterystates/{id}",
+          "op": "get BatteryState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chargesessions/{id}",
-          "op": "update ChargeSession"
+          "path": "/v1/batterystates/{id}",
+          "op": "update BatteryState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chargesessions/{id}",
-          "op": "delete ChargeSession"
+          "path": "/v1/batterystates/{id}",
+          "op": "delete BatteryState"
         },
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/odometries",
+          "op": "create Odometry"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/odometries",
+          "op": "list Odometry"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/odometries/{id}",
+          "op": "get Odometry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/odometries/{id}",
+          "op": "update Odometry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/odometries/{id}",
+          "op": "delete Odometry"
         }
       ],
       "features": {
@@ -244,224 +249,41 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_goal_status",
+          "description": "Create a GoalStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vin": {
+              "goalId": {
                 "type": "string"
               },
-              "model": {
+              "stamp": {
                 "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "odometerKm": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "vin",
-              "model"
-            ]
-          }
-        },
-        {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vin": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "odometerKm": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_signal",
-          "description": "Create a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_signals",
-          "description": "List Signals.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_signal",
-          "description": "Update a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_charge_session",
-          "description": "Create a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "energyKwh": {
-                "type": "number"
               },
               "status": {
-                "type": "string"
+                "type": "integer"
               }
             },
             "required": [
-              "energyKwh",
+              "stamp",
               "status"
             ]
           }
         },
         {
-          "name": "list_charge_sessions",
-          "description": "List ChargeSessions.",
+          "name": "list_goal_statuses",
+          "description": "List GoalStatuses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge_session",
-          "description": "Get a ChargeSession by id.",
+          "name": "get_goal_status",
+          "description": "Get a GoalStatus by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,83 +297,86 @@
           }
         },
         {
-          "name": "update_charge_session",
-          "description": "Update a ChargeSession.",
+          "name": "update_goal_status",
+          "description": "Update a GoalStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "goalId": {
                 "type": "string"
               },
-              "connectorId": {
+              "stamp": {
                 "type": "string"
               },
-              "energyKwh": {
+              "status": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_goal_status",
+          "description": "Delete a GoalStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_nav_sat_fix",
+          "description": "Create a NavSatFix.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "altitude": {
                 "type": "number"
               },
               "status": {
-                "type": "string"
+                "type": "integer"
+              },
+              "service": {
+                "type": "integer"
+              },
+              "positionCovarianceType": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "latitude",
+              "longitude"
             ]
           }
         },
         {
-          "name": "delete_charge_session",
-          "description": "Delete a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connector",
-          "description": "Create a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "standard",
-              "powerKw"
-            ]
-          }
-        },
-        {
-          "name": "list_connectors",
-          "description": "List Connectors.",
+          "name": "list_nav_sat_fixes",
+          "description": "List NavSatFixes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
+          "name": "get_nav_sat_fix",
+          "description": "Get a NavSatFix by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +390,31 @@
           }
         },
         {
-          "name": "update_connector",
-          "description": "Update a Connector.",
+          "name": "update_nav_sat_fix",
+          "description": "Update a NavSatFix.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "stationId": {
-                "type": "string"
+              "latitude": {
+                "type": "number"
               },
-              "standard": {
-                "type": "string"
+              "longitude": {
+                "type": "number"
               },
-              "powerKw": {
+              "altitude": {
                 "type": "number"
               },
               "status": {
-                "type": "string"
+                "type": "integer"
+              },
+              "service": {
+                "type": "integer"
+              },
+              "positionCovarianceType": {
+                "type": "integer"
               }
             },
             "required": [
@@ -592,8 +423,8 @@
           }
         },
         {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
+          "name": "delete_nav_sat_fix",
+          "description": "Delete a NavSatFix.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +438,56 @@
           }
         },
         {
-          "name": "create_trip",
-          "description": "Create a Trip.",
+          "name": "create_battery_state",
+          "description": "Create a BatteryState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
+              "voltage": {
                 "type": "number"
               },
-              "startedAt": {
-                "type": "string"
+              "temperature": {
+                "type": "number"
+              },
+              "current": {
+                "type": "number"
+              },
+              "charge": {
+                "type": "number"
+              },
+              "percentage": {
+                "type": "number"
+              },
+              "powerSupplyStatus": {
+                "type": "integer"
+              },
+              "powerSupplyHealth": {
+                "type": "integer"
+              },
+              "powerSupplyTechnology": {
+                "type": "integer"
+              },
+              "present": {
+                "type": "boolean"
               }
             },
             "required": [
-              "distanceKm",
-              "startedAt"
+              "voltage",
+              "temperature"
             ]
           }
         },
         {
-          "name": "list_trips",
-          "description": "List Trips.",
+          "name": "list_battery_states",
+          "description": "List BatteryStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
+          "name": "get_battery_state",
+          "description": "Get a BatteryState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,22 +501,40 @@
           }
         },
         {
-          "name": "update_trip",
-          "description": "Update a Trip.",
+          "name": "update_battery_state",
+          "description": "Update a BatteryState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
+              "voltage": {
                 "type": "number"
               },
-              "startedAt": {
-                "type": "string"
+              "temperature": {
+                "type": "number"
+              },
+              "current": {
+                "type": "number"
+              },
+              "charge": {
+                "type": "number"
+              },
+              "percentage": {
+                "type": "number"
+              },
+              "powerSupplyStatus": {
+                "type": "integer"
+              },
+              "powerSupplyHealth": {
+                "type": "integer"
+              },
+              "powerSupplyTechnology": {
+                "type": "integer"
+              },
+              "present": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -676,8 +543,8 @@
           }
         },
         {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
+          "name": "delete_battery_state",
+          "description": "Delete a BatteryState.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,38 +558,59 @@
           }
         },
         {
-          "name": "create_command",
-          "description": "Create a Command.",
+          "name": "create_odometry",
+          "description": "Create a Odometry.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
+              "childFrameId": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
+              "poseX": {
+                "type": "number"
               },
-              "status": {
-                "type": "string"
+              "poseY": {
+                "type": "number"
+              },
+              "poseZ": {
+                "type": "number"
+              },
+              "twistLinearX": {
+                "type": "number"
+              },
+              "twistLinearY": {
+                "type": "number"
+              },
+              "twistLinearZ": {
+                "type": "number"
+              },
+              "twistAngularX": {
+                "type": "number"
+              },
+              "twistAngularY": {
+                "type": "number"
+              },
+              "twistAngularZ": {
+                "type": "number"
               }
             },
             "required": [
-              "name",
-              "status"
+              "poseX",
+              "poseY"
             ]
           }
         },
         {
-          "name": "list_commands",
-          "description": "List Commands.",
+          "name": "list_odometries",
+          "description": "List Odometries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_command",
-          "description": "Get a Command by id.",
+          "name": "get_odometry",
+          "description": "Get a Odometry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -736,22 +624,43 @@
           }
         },
         {
-          "name": "update_command",
-          "description": "Update a Command.",
+          "name": "update_odometry",
+          "description": "Update a Odometry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "childFrameId": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
+              "poseX": {
+                "type": "number"
               },
-              "status": {
-                "type": "string"
+              "poseY": {
+                "type": "number"
+              },
+              "poseZ": {
+                "type": "number"
+              },
+              "twistLinearX": {
+                "type": "number"
+              },
+              "twistLinearY": {
+                "type": "number"
+              },
+              "twistLinearZ": {
+                "type": "number"
+              },
+              "twistAngularX": {
+                "type": "number"
+              },
+              "twistAngularY": {
+                "type": "number"
+              },
+              "twistAngularZ": {
+                "type": "number"
               }
             },
             "required": [
@@ -760,8 +669,8 @@
           }
         },
         {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_odometry",
+          "description": "Delete a Odometry.",
           "inputSchema": {
             "type": "object",
             "properties": {

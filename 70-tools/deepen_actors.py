@@ -1819,6 +1819,28 @@ PLATFORM_OVERRIDES = {
         "RemoteFrame": E(identifier="integer", format="string", dlc="integer", rtr="boolean"),
         "OverloadFrame": E(overloadFlag="string", timestamp="datetime"),
     },
+    # Faithful OPC UA model (IEC 62541, OPC Foundation UA-Nodeset Opc.Ua.Types.bsd +
+    # AttributeIds.csv). nodeClass (bitmask 0..128), attributeId (1..27), monitoringMode
+    # (0..2), timestampsToReturn (0..4) are documented closed integer enums.
+    "opc_ua": {
+        "Node": E(nodeId="string", nodeClass="integer", browseName="string", displayName="string", description="string", writeMask="integer", accessLevel="integer", valueRank="integer", historizing="boolean"),
+        "ReferenceDescription": E(referenceTypeId="string", isForward="boolean", nodeId="string", browseName="string", displayName="string", nodeClass="integer", typeDefinition="string"),
+        "ReadValueId": E(nodeId="string", attributeId="integer", indexRange="string", dataEncoding="string"),
+        "MonitoredItem": E(clientHandle="integer", monitoringMode="integer", samplingInterval="float", queueSize="integer", discardOldest="boolean"),
+        "CreateSubscriptionRequest": E(requestedPublishingInterval="float", requestedLifetimeCount="integer", requestedMaxKeepAliveCount="integer", maxNotificationsPerPublish="integer", publishingEnabled="boolean", priority="integer"),
+        "ReadRequest": E(maxAge="float", timestampsToReturn="integer"),
+    },
+    # Faithful Redis RESP model (redis.io official protocol-spec + TYPE command). firstByte
+    # is the definitively-closed RESP3 first-byte marker set (superset of RESP2). dataType is
+    # the TYPE-command return set (inclusive of newer vectorset to avoid false-reject). Command
+    # flags are an open/extensible set -> not enforced.
+    "redis": {
+        "RespMessage": E(firstByte="string", respType="string", payload="string", elementCount="integer", length="integer"),
+        "RedisCommand": E(commandName="string", arity="integer", flags="string", keyPosition="integer"),
+        "RedisKey": E(keyName="string", dataType="string", ttl="integer", encoding="string"),
+        "RedisDataType": E(dataType="string", encoding="string", isBinary="boolean"),
+        "RespProtocolVersion": E(majorVersion="integer", supportedSince="string"),
+    },
     # Faithful TCP/IP model (RFC 9293 TCP + RFC 792 ICMP + IANA). ICMP type + IP protocol
     # are large extensible IANA registries -> not enforced as closed enums.
     "tcp_ip": {
@@ -1955,6 +1977,69 @@ PLATFORM_OVERRIDES = {
     # Only the stable/confirmed-complete enums enforced (MAV_STATE, MAV_MISSION_TYPE);
     # version-growing enums (MAV_TYPE/GPS_FIX_TYPE/MAV_FRAME) left as gaps.
     "mavlink_drones": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # px4_autopilot shares the verified MAVLink common.xml model (PX4 docs officially
+    # state MAVLink is its protocol — normative-standard leverage, 3rd MAVLink-family member).
+    "px4_autopilot": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # Faithful OpenXR model (official Khronos xr.xml registry, spec 1.1). Extension-free
+    # core enums enforced: formFactor(2), sessionState(9), environmentBlendMode(3).
+    # viewConfigurationType / referenceSpaceType have vendor-extension values -> gapped
+    # (core-only enforcement would false-reject valid Varjo/MSFT values).
+    "openxr": {
+        "Instance": E(applicationName="string", applicationVersion="integer", engineName="string", engineVersion="integer", apiVersion="integer", enabledExtensionCount="integer"),
+        "System": E(systemId="integer", formFactor="integer", systemName="string", vendorId="integer", maxSwapchainImageWidth="integer", maxSwapchainImageHeight="integer", orientationTracking="boolean", positionTracking="boolean"),
+        "Session": E(systemId="integer", createFlags="integer", state="integer"),
+        "ViewConfiguration": E(viewConfigurationType="integer", recommendedImageRectWidth="integer", recommendedImageRectHeight="integer", recommendedSwapchainSampleCount="integer", environmentBlendMode="integer"),
+        "Swapchain": E(createFlags="integer", usageFlags="integer", format="integer", sampleCount="integer", width="integer", height="integer", faceCount="integer", arraySize="integer", mipCount="integer"),
+    },
+    # Faithful Apache Kafka model (official apache/kafka Java enums + protocol guide).
+    # permissionType + isolationLevel stable since 2017 -> enforced. operation
+    # (TWO_PHASE_COMMIT 2025) / groupState (KIP-848) / resourceType (USER added) are
+    # version-growing; ApiKeys + error codes are large growing tables -> all gapped.
+    "kafka": {
+        "Topic": E(name="string", numPartitions="integer", replicationFactor="integer", isInternal="boolean", minInsyncReplicas="integer"),
+        "Partition": E(topicName="string", partitionIndex="integer", leader="integer", replicas="string", isr="string"),
+        "AclBinding": E(resourceType="string", resourceName="string", principal="string", host="string", operation="string", permissionType="string"),
+        "ConsumerGroup": E(groupId="string", protocolType="string", state="string", generationId="integer"),
+        "FetchRequest": E(topicName="string", partitionIndex="integer", fetchOffset="integer", maxBytes="integer", isolationLevel="string"),
+    },
+    # Faithful ONNX model (official onnx/onnx onnx.proto3, commit ef516e7b). attributeType
+    # (15, stable since IR v8) + dataLocation (2) enforced. dataType is version-growing
+    # (FP8 v9 / INT4 v10 / FP4 v11 / INT2 v13, ~yearly) -> gapped per MAVLink precedent.
+    "onnx_runtime": {
+        "ModelProto": E(irVersion="integer", producerName="string", producerVersion="string", domain="string", modelVersion="integer", docString="string"),
+        "GraphProto": E(name="string", docString="string"),
+        "NodeProto": E(name="string", opType="string", domain="string", docString="string"),
+        "TensorProto": E(name="string", dataType="integer", dataLocation="integer", docString="string"),
+        "AttributeProto": E(name="string", type="integer", docString="string"),
+    },
+    # Faithful ROS 2 navigation model (official ros2 .msg files, rolling branch).
+    # GoalStatus.status / NavSatFix.status+positionCovarianceType / BatteryState
+    # status+health enforced. service is a combinable BITMASK (not an enum) and
+    # powerSupplyTechnology is version-growing (TERNARY/VRLA recent) -> both gapped.
+    "ros2_nav": {
+        "GoalStatus": E(goalId="string", stamp="datetime", status="integer"),
+        "NavSatFix": E(latitude="float", longitude="float", altitude="float", status="integer", service="integer", positionCovarianceType="integer"),
+        "BatteryState": E(voltage="float", temperature="float", current="float", charge="float", percentage="float", powerSupplyStatus="integer", powerSupplyHealth="integer", powerSupplyTechnology="integer", present="boolean"),
+        "Odometry": E(childFrameId="string", poseX="float", poseY="float", poseZ="float", twistLinearX="float", twistLinearY="float", twistLinearZ="float", twistAngularX="float", twistAngularY="float", twistAngularZ="float"),
+    },
+    # mavlink_swarm shares the verified MAVLink common.xml model (same official spec as
+    # mavlink_drones — normative-standard leverage, FHIR-family pattern). Same enum
+    # discipline: MAV_STATE + MAV_MISSION_TYPE enforced; version-growing sets gapped.
+    "mavlink_swarm": {
         "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
         "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
         "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),

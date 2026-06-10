@@ -111,152 +111,28 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/meters", methods=["POST"])
-def create_meter(request):
-    """Create a Meter."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'type', 'location'])
-    if err:
-        return err, 400
-    err = _require(data, ['serial', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("opcua_met")}
-    rec["serial"] = data.get('serial')
-    rec["type"] = data.get('type')
-    rec["location"] = data.get('location')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Meter", rec)
-    return rec, 201
-
-@app.route("/v1/meters", methods=["GET"])
-def list_meters(request):
-    """List Meters with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Meter")
-    rows = _apply_filters(rows, params, ['serial', 'type', 'location'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/meters/<eid>", methods=["GET"])
-def get_meter(request, eid):
-    """Retrieve a Meter by id (supports ?expand=)."""
-    rows = _query("Meter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/meters/<eid>", methods=["POST", "PATCH"])
-def update_meter(request, eid):
-    """Update a Meter."""
-    rows = _query("Meter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'type', 'location'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Meter", rec)
-    return rec, 200
-
-@app.route("/v1/meters/<eid>", methods=["DELETE"])
-def delete_meter(request, eid):
-    """Delete a Meter."""
-    rows = _query("Meter", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opc_ua.Meter", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/readings", methods=["POST"])
-def create_reading(request):
-    """Create a Reading."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['meterId', 'value', 'unit', 'readAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['value', 'unit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("opcua_rea")}
-    rec["meterId"] = data.get('meterId')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["readAt"] = data.get('readAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Reading", rec)
-    return rec, 201
-
-@app.route("/v1/readings", methods=["GET"])
-def list_readings(request):
-    """List Readings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Reading")
-    rows = _apply_filters(rows, params, ['meterId', 'value', 'unit', 'readAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/readings/<eid>", methods=["GET"])
-def get_reading(request, eid):
-    """Retrieve a Reading by id (supports ?expand=)."""
-    rows = _query("Reading", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'meterId': 'Meter'})
-    return rec, 200
-
-@app.route("/v1/readings/<eid>", methods=["POST", "PATCH"])
-def update_reading(request, eid):
-    """Update a Reading."""
-    rows = _query("Reading", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['meterId', 'value', 'unit', 'readAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Reading", rec)
-    return rec, 200
-
-@app.route("/v1/readings/<eid>", methods=["DELETE"])
-def delete_reading(request, eid):
-    """Delete a Reading."""
-    rows = _query("Reading", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opc_ua.Reading", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/nodes", methods=["POST"])
 def create_node(request):
     """Create a Node."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'voltageKv'])
+    err = _reject_unknown(data, ['nodeId', 'nodeClass', 'browseName', 'displayName', 'description', 'writeMask', 'accessLevel', 'valueRank', 'historizing'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['nodeClass', 'browseName'])
     if err:
         return err, 400
+    if data.get('nodeClass') and data['nodeClass'] not in [0, 1, 2, 4, 8, 16, 32, 64, 128]:
+        return {"error": {"message": "invalid nodeClass; allowed: " + ", ".join([0, 1, 2, 4, 8, 16, 32, 64, 128]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("opcua_nod")}
-    rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["voltageKv"] = _as_float(data.get('voltageKv'))
+    rec["nodeId"] = data.get('nodeId')
+    rec["nodeClass"] = _as_int(data.get('nodeClass'))
+    rec["browseName"] = data.get('browseName')
+    rec["displayName"] = data.get('displayName')
+    rec["description"] = data.get('description')
+    rec["writeMask"] = _as_int(data.get('writeMask'))
+    rec["accessLevel"] = _as_int(data.get('accessLevel'))
+    rec["valueRank"] = _as_int(data.get('valueRank'))
+    rec["historizing"] = _as_bool(data.get('historizing'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Node", rec)
@@ -267,7 +143,7 @@ def list_nodes(request):
     """List Nodes with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Node")
-    rows = _apply_filters(rows, params, ['name', 'region', 'voltageKv'])
+    rows = _apply_filters(rows, params, ['nodeId', 'nodeClass', 'browseName', 'displayName', 'description', 'writeMask', 'accessLevel', 'valueRank', 'historizing'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -279,6 +155,7 @@ def get_node(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
     return rec, 200
 
 @app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
@@ -288,9 +165,11 @@ def update_node(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'voltageKv'])
+    err = _reject_unknown(data, ['nodeId', 'nodeClass', 'browseName', 'displayName', 'description', 'writeMask', 'accessLevel', 'valueRank', 'historizing'])
     if err:
         return err, 400
+    if data.get('nodeClass') and data['nodeClass'] not in [0, 1, 2, 4, 8, 16, 32, 64, 128]:
+        return {"error": {"message": "invalid nodeClass; allowed: " + ", ".join([0, 1, 2, 4, 8, 16, 32, 64, 128]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -308,187 +187,271 @@ def delete_node(request, eid):
     db.retract({"entity": f"opc_ua.Node", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/loadforecasts", methods=["POST"])
-def create_load_forecast(request):
-    """Create a LoadForecast."""
+@app.route("/v1/referencedescriptions", methods=["POST"])
+def create_reference_description(request):
+    """Create a ReferenceDescription."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'period', 'megawatts'])
+    err = _reject_unknown(data, ['referenceTypeId', 'isForward', 'nodeId', 'browseName', 'displayName', 'nodeClass', 'typeDefinition'])
     if err:
         return err, 400
-    err = _require(data, ['period', 'megawatts'])
+    err = _require(data, ['isForward', 'browseName'])
     if err:
         return err, 400
-    rec = {"id": new_id("opcua_loa")}
+    if data.get('nodeClass') and data['nodeClass'] not in [0, 1, 2, 4, 8, 16, 32, 64, 128]:
+        return {"error": {"message": "invalid nodeClass; allowed: " + ", ".join([0, 1, 2, 4, 8, 16, 32, 64, 128]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opcua_ref")}
+    rec["referenceTypeId"] = data.get('referenceTypeId')
+    rec["isForward"] = _as_bool(data.get('isForward'))
     rec["nodeId"] = data.get('nodeId')
-    rec["period"] = data.get('period')
-    rec["megawatts"] = _as_float(data.get('megawatts'))
+    rec["browseName"] = data.get('browseName')
+    rec["displayName"] = data.get('displayName')
+    rec["nodeClass"] = _as_int(data.get('nodeClass'))
+    rec["typeDefinition"] = data.get('typeDefinition')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LoadForecast", rec)
+    _persist("ReferenceDescription", rec)
     return rec, 201
 
-@app.route("/v1/loadforecasts", methods=["GET"])
-def list_load_forecasts(request):
-    """List LoadForecasts with filtering + cursor pagination."""
+@app.route("/v1/referencedescriptions", methods=["GET"])
+def list_reference_descriptions(request):
+    """List ReferenceDescriptions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LoadForecast")
-    rows = _apply_filters(rows, params, ['nodeId', 'period', 'megawatts'])
+    rows = _query("ReferenceDescription")
+    rows = _apply_filters(rows, params, ['referenceTypeId', 'isForward', 'nodeId', 'browseName', 'displayName', 'nodeClass', 'typeDefinition'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["GET"])
-def get_load_forecast(request, eid):
-    """Retrieve a LoadForecast by id (supports ?expand=)."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/referencedescriptions/<eid>", methods=["GET"])
+def get_reference_description(request, eid):
+    """Retrieve a ReferenceDescription by id (supports ?expand=)."""
+    rows = _query("ReferenceDescription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
     return rec, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["POST", "PATCH"])
-def update_load_forecast(request, eid):
-    """Update a LoadForecast."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/referencedescriptions/<eid>", methods=["POST", "PATCH"])
+def update_reference_description(request, eid):
+    """Update a ReferenceDescription."""
+    rows = _query("ReferenceDescription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'period', 'megawatts'])
+    err = _reject_unknown(data, ['referenceTypeId', 'isForward', 'nodeId', 'browseName', 'displayName', 'nodeClass', 'typeDefinition'])
     if err:
         return err, 400
+    if data.get('nodeClass') and data['nodeClass'] not in [0, 1, 2, 4, 8, 16, 32, 64, 128]:
+        return {"error": {"message": "invalid nodeClass; allowed: " + ", ".join([0, 1, 2, 4, 8, 16, 32, 64, 128]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LoadForecast", rec)
+    _persist("ReferenceDescription", rec)
     return rec, 200
 
-@app.route("/v1/loadforecasts/<eid>", methods=["DELETE"])
-def delete_load_forecast(request, eid):
-    """Delete a LoadForecast."""
-    rows = _query("LoadForecast", eid)
+@app.route("/v1/referencedescriptions/<eid>", methods=["DELETE"])
+def delete_reference_description(request, eid):
+    """Delete a ReferenceDescription."""
+    rows = _query("ReferenceDescription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opc_ua.LoadForecast", "id": eid})
+    db.retract({"entity": f"opc_ua.ReferenceDescription", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/marketbids", methods=["POST"])
-def create_market_bid(request):
-    """Create a MarketBid."""
+@app.route("/v1/readvalueids", methods=["POST"])
+def create_read_value_id(request):
+    """Create a ReadValueId."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'price', 'megawatts', 'interval'])
+    err = _reject_unknown(data, ['nodeId', 'attributeId', 'indexRange', 'dataEncoding'])
     if err:
         return err, 400
-    err = _require(data, ['price', 'megawatts'])
+    err = _require(data, ['indexRange', 'dataEncoding'])
     if err:
         return err, 400
-    rec = {"id": new_id("opcua_mar")}
+    if data.get('attributeId') and data['attributeId'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]:
+        return {"error": {"message": "invalid attributeId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opcua_rea")}
     rec["nodeId"] = data.get('nodeId')
-    rec["price"] = _as_float(data.get('price'))
-    rec["megawatts"] = _as_float(data.get('megawatts'))
-    rec["interval"] = data.get('interval')
+    rec["attributeId"] = _as_int(data.get('attributeId'))
+    rec["indexRange"] = data.get('indexRange')
+    rec["dataEncoding"] = data.get('dataEncoding')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("MarketBid", rec)
+    _persist("ReadValueId", rec)
     return rec, 201
 
-@app.route("/v1/marketbids", methods=["GET"])
-def list_market_bids(request):
-    """List MarketBids with filtering + cursor pagination."""
+@app.route("/v1/readvalueids", methods=["GET"])
+def list_read_value_ids(request):
+    """List ReadValueIds with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("MarketBid")
-    rows = _apply_filters(rows, params, ['nodeId', 'price', 'megawatts', 'interval'])
+    rows = _query("ReadValueId")
+    rows = _apply_filters(rows, params, ['nodeId', 'attributeId', 'indexRange', 'dataEncoding'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/marketbids/<eid>", methods=["GET"])
-def get_market_bid(request, eid):
-    """Retrieve a MarketBid by id (supports ?expand=)."""
-    rows = _query("MarketBid", eid)
+@app.route("/v1/readvalueids/<eid>", methods=["GET"])
+def get_read_value_id(request, eid):
+    """Retrieve a ReadValueId by id (supports ?expand=)."""
+    rows = _query("ReadValueId", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
     return rec, 200
 
-@app.route("/v1/marketbids/<eid>", methods=["POST", "PATCH"])
-def update_market_bid(request, eid):
-    """Update a MarketBid."""
-    rows = _query("MarketBid", eid)
+@app.route("/v1/readvalueids/<eid>", methods=["POST", "PATCH"])
+def update_read_value_id(request, eid):
+    """Update a ReadValueId."""
+    rows = _query("ReadValueId", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'price', 'megawatts', 'interval'])
+    err = _reject_unknown(data, ['nodeId', 'attributeId', 'indexRange', 'dataEncoding'])
     if err:
         return err, 400
+    if data.get('attributeId') and data['attributeId'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]:
+        return {"error": {"message": "invalid attributeId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("MarketBid", rec)
+    _persist("ReadValueId", rec)
     return rec, 200
 
-@app.route("/v1/marketbids/<eid>", methods=["DELETE"])
-def delete_market_bid(request, eid):
-    """Delete a MarketBid."""
-    rows = _query("MarketBid", eid)
+@app.route("/v1/readvalueids/<eid>", methods=["DELETE"])
+def delete_read_value_id(request, eid):
+    """Delete a ReadValueId."""
+    rows = _query("ReadValueId", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opc_ua.MarketBid", "id": eid})
+    db.retract({"entity": f"opc_ua.ReadValueId", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tags", methods=["POST"])
-def create_tag(request):
-    """Create a Tag."""
+@app.route("/v1/monitoreditems", methods=["POST"])
+def create_monitored_item(request):
+    """Create a MonitoredItem."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'address', 'value', 'quality'])
+    err = _reject_unknown(data, ['clientHandle', 'monitoringMode', 'samplingInterval', 'queueSize', 'discardOldest'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'value'])
+    err = _require(data, ['clientHandle', 'monitoringMode'])
     if err:
         return err, 400
-    rec = {"id": new_id("opcua_tag")}
-    rec["nodeId"] = data.get('nodeId')
-    rec["address"] = data.get('address')
-    rec["value"] = _as_float(data.get('value'))
-    rec["quality"] = data.get('quality')
+    if data.get('monitoringMode') and data['monitoringMode'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid monitoringMode; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opcua_mon")}
+    rec["clientHandle"] = _as_int(data.get('clientHandle'))
+    rec["monitoringMode"] = _as_int(data.get('monitoringMode'))
+    rec["samplingInterval"] = _as_float(data.get('samplingInterval'))
+    rec["queueSize"] = _as_int(data.get('queueSize'))
+    rec["discardOldest"] = _as_bool(data.get('discardOldest'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tag", rec)
+    _persist("MonitoredItem", rec)
     return rec, 201
 
-@app.route("/v1/tags", methods=["GET"])
-def list_tags(request):
-    """List Tags with filtering + cursor pagination."""
+@app.route("/v1/monitoreditems", methods=["GET"])
+def list_monitored_items(request):
+    """List MonitoredItems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tag")
-    rows = _apply_filters(rows, params, ['nodeId', 'address', 'value', 'quality'])
+    rows = _query("MonitoredItem")
+    rows = _apply_filters(rows, params, ['clientHandle', 'monitoringMode', 'samplingInterval', 'queueSize', 'discardOldest'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tags/<eid>", methods=["GET"])
-def get_tag(request, eid):
-    """Retrieve a Tag by id (supports ?expand=)."""
-    rows = _query("Tag", eid)
+@app.route("/v1/monitoreditems/<eid>", methods=["GET"])
+def get_monitored_item(request, eid):
+    """Retrieve a MonitoredItem by id (supports ?expand=)."""
+    rows = _query("MonitoredItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
     return rec, 200
 
-@app.route("/v1/tags/<eid>", methods=["POST", "PATCH"])
-def update_tag(request, eid):
-    """Update a Tag."""
-    rows = _query("Tag", eid)
+@app.route("/v1/monitoreditems/<eid>", methods=["POST", "PATCH"])
+def update_monitored_item(request, eid):
+    """Update a MonitoredItem."""
+    rows = _query("MonitoredItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nodeId', 'address', 'value', 'quality'])
+    err = _reject_unknown(data, ['clientHandle', 'monitoringMode', 'samplingInterval', 'queueSize', 'discardOldest'])
+    if err:
+        return err, 400
+    if data.get('monitoringMode') and data['monitoringMode'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid monitoringMode; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("MonitoredItem", rec)
+    return rec, 200
+
+@app.route("/v1/monitoreditems/<eid>", methods=["DELETE"])
+def delete_monitored_item(request, eid):
+    """Delete a MonitoredItem."""
+    rows = _query("MonitoredItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"opc_ua.MonitoredItem", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/createsubscriptionrequests", methods=["POST"])
+def create_create_subscription_request(request):
+    """Create a CreateSubscriptionRequest."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['requestedPublishingInterval', 'requestedLifetimeCount', 'requestedMaxKeepAliveCount', 'maxNotificationsPerPublish', 'publishingEnabled', 'priority'])
+    if err:
+        return err, 400
+    err = _require(data, ['requestedPublishingInterval', 'requestedLifetimeCount'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("opcua_cre")}
+    rec["requestedPublishingInterval"] = _as_float(data.get('requestedPublishingInterval'))
+    rec["requestedLifetimeCount"] = _as_int(data.get('requestedLifetimeCount'))
+    rec["requestedMaxKeepAliveCount"] = _as_int(data.get('requestedMaxKeepAliveCount'))
+    rec["maxNotificationsPerPublish"] = _as_int(data.get('maxNotificationsPerPublish'))
+    rec["publishingEnabled"] = _as_bool(data.get('publishingEnabled'))
+    rec["priority"] = _as_int(data.get('priority'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("CreateSubscriptionRequest", rec)
+    return rec, 201
+
+@app.route("/v1/createsubscriptionrequests", methods=["GET"])
+def list_create_subscription_requests(request):
+    """List CreateSubscriptionRequests with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("CreateSubscriptionRequest")
+    rows = _apply_filters(rows, params, ['requestedPublishingInterval', 'requestedLifetimeCount', 'requestedMaxKeepAliveCount', 'maxNotificationsPerPublish', 'publishingEnabled', 'priority'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/createsubscriptionrequests/<eid>", methods=["GET"])
+def get_create_subscription_request(request, eid):
+    """Retrieve a CreateSubscriptionRequest by id (supports ?expand=)."""
+    rows = _query("CreateSubscriptionRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/createsubscriptionrequests/<eid>", methods=["POST", "PATCH"])
+def update_create_subscription_request(request, eid):
+    """Update a CreateSubscriptionRequest."""
+    rows = _query("CreateSubscriptionRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['requestedPublishingInterval', 'requestedLifetimeCount', 'requestedMaxKeepAliveCount', 'maxNotificationsPerPublish', 'publishingEnabled', 'priority'])
     if err:
         return err, 400
     rec = rows[0]
@@ -496,22 +459,90 @@ def update_tag(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tag", rec)
+    _persist("CreateSubscriptionRequest", rec)
     return rec, 200
 
-@app.route("/v1/tags/<eid>", methods=["DELETE"])
-def delete_tag(request, eid):
-    """Delete a Tag."""
-    rows = _query("Tag", eid)
+@app.route("/v1/createsubscriptionrequests/<eid>", methods=["DELETE"])
+def delete_create_subscription_request(request, eid):
+    """Delete a CreateSubscriptionRequest."""
+    rows = _query("CreateSubscriptionRequest", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"opc_ua.Tag", "id": eid})
+    db.retract({"entity": f"opc_ua.CreateSubscriptionRequest", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/readrequests", methods=["POST"])
+def create_read_request(request):
+    """Create a ReadRequest."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['maxAge', 'timestampsToReturn'])
+    if err:
+        return err, 400
+    err = _require(data, ['maxAge', 'timestampsToReturn'])
+    if err:
+        return err, 400
+    if data.get('timestampsToReturn') and data['timestampsToReturn'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid timestampsToReturn; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("opcua_rea")}
+    rec["maxAge"] = _as_float(data.get('maxAge'))
+    rec["timestampsToReturn"] = _as_int(data.get('timestampsToReturn'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ReadRequest", rec)
+    return rec, 201
+
+@app.route("/v1/readrequests", methods=["GET"])
+def list_read_requests(request):
+    """List ReadRequests with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ReadRequest")
+    rows = _apply_filters(rows, params, ['maxAge', 'timestampsToReturn'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/readrequests/<eid>", methods=["GET"])
+def get_read_request(request, eid):
+    """Retrieve a ReadRequest by id (supports ?expand=)."""
+    rows = _query("ReadRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/readrequests/<eid>", methods=["POST", "PATCH"])
+def update_read_request(request, eid):
+    """Update a ReadRequest."""
+    rows = _query("ReadRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['maxAge', 'timestampsToReturn'])
+    if err:
+        return err, 400
+    if data.get('timestampsToReturn') and data['timestampsToReturn'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid timestampsToReturn; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ReadRequest", rec)
+    return rec, 200
+
+@app.route("/v1/readrequests/<eid>", methods=["DELETE"])
+def delete_read_request(request, eid):
+    """Delete a ReadRequest."""
+    rows = _query("ReadRequest", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"opc_ua.ReadRequest", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "opc_ua-compat", "tier": "L4",
-            "entities": ['Meter', 'Reading', 'Node', 'LoadForecast', 'MarketBid', 'Tag']}, 200
+            "entities": ['Node', 'ReferenceDescription', 'ReadValueId', 'MonitoredItem', 'CreateSubscriptionRequest', 'ReadRequest']}, 200
 
 
 if __name__ == "__main__":

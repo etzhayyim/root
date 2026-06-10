@@ -111,53 +111,259 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/topics", methods=["POST"])
+def create_topic(request):
+    """Create a Topic."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['name', 'numPartitions', 'replicationFactor', 'isInternal', 'minInsyncReplicas'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['name', 'numPartitions'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("kafka_top")}
+    rec["name"] = data.get('name')
+    rec["numPartitions"] = _as_int(data.get('numPartitions'))
+    rec["replicationFactor"] = _as_int(data.get('replicationFactor'))
+    rec["isInternal"] = _as_bool(data.get('isInternal'))
+    rec["minInsyncReplicas"] = _as_int(data.get('minInsyncReplicas'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Topic", rec)
+    return rec, 201
+
+@app.route("/v1/topics", methods=["GET"])
+def list_topics(request):
+    """List Topics with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Topic")
+    rows = _apply_filters(rows, params, ['name', 'numPartitions', 'replicationFactor', 'isInternal', 'minInsyncReplicas'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/topics/<eid>", methods=["GET"])
+def get_topic(request, eid):
+    """Retrieve a Topic by id (supports ?expand=)."""
+    rows = _query("Topic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/topics/<eid>", methods=["POST", "PATCH"])
+def update_topic(request, eid):
+    """Update a Topic."""
+    rows = _query("Topic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'numPartitions', 'replicationFactor', 'isInternal', 'minInsyncReplicas'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Topic", rec)
+    return rec, 200
+
+@app.route("/v1/topics/<eid>", methods=["DELETE"])
+def delete_topic(request, eid):
+    """Delete a Topic."""
+    rows = _query("Topic", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kafka.Topic", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/partitions", methods=["POST"])
+def create_partition(request):
+    """Create a Partition."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['topicName', 'partitionIndex', 'leader', 'replicas', 'isr'])
+    if err:
+        return err, 400
+    err = _require(data, ['topicName', 'partitionIndex'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("kafka_par")}
+    rec["topicName"] = data.get('topicName')
+    rec["partitionIndex"] = _as_int(data.get('partitionIndex'))
+    rec["leader"] = _as_int(data.get('leader'))
+    rec["replicas"] = data.get('replicas')
+    rec["isr"] = data.get('isr')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Partition", rec)
+    return rec, 201
+
+@app.route("/v1/partitions", methods=["GET"])
+def list_partitions(request):
+    """List Partitions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Partition")
+    rows = _apply_filters(rows, params, ['topicName', 'partitionIndex', 'leader', 'replicas', 'isr'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/partitions/<eid>", methods=["GET"])
+def get_partition(request, eid):
+    """Retrieve a Partition by id (supports ?expand=)."""
+    rows = _query("Partition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/partitions/<eid>", methods=["POST", "PATCH"])
+def update_partition(request, eid):
+    """Update a Partition."""
+    rows = _query("Partition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['topicName', 'partitionIndex', 'leader', 'replicas', 'isr'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Partition", rec)
+    return rec, 200
+
+@app.route("/v1/partitions/<eid>", methods=["DELETE"])
+def delete_partition(request, eid):
+    """Delete a Partition."""
+    rows = _query("Partition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kafka.Partition", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/aclbindings", methods=["POST"])
+def create_acl_binding(request):
+    """Create a AclBinding."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['resourceType', 'resourceName', 'principal', 'host', 'operation', 'permissionType'])
+    if err:
+        return err, 400
+    err = _require(data, ['resourceType', 'resourceName'])
+    if err:
+        return err, 400
+    if data.get('permissionType') and data['permissionType'] not in ['UNKNOWN', 'ANY', 'DENY', 'ALLOW']:
+        return {"error": {"message": "invalid permissionType; allowed: " + ", ".join(['UNKNOWN', 'ANY', 'DENY', 'ALLOW']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kafka_acl")}
+    rec["resourceType"] = data.get('resourceType')
+    rec["resourceName"] = data.get('resourceName')
+    rec["principal"] = data.get('principal')
+    rec["host"] = data.get('host')
+    rec["operation"] = data.get('operation')
+    rec["permissionType"] = data.get('permissionType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AclBinding", rec)
+    return rec, 201
+
+@app.route("/v1/aclbindings", methods=["GET"])
+def list_acl_bindings(request):
+    """List AclBindings with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AclBinding")
+    rows = _apply_filters(rows, params, ['resourceType', 'resourceName', 'principal', 'host', 'operation', 'permissionType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aclbindings/<eid>", methods=["GET"])
+def get_acl_binding(request, eid):
+    """Retrieve a AclBinding by id (supports ?expand=)."""
+    rows = _query("AclBinding", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/aclbindings/<eid>", methods=["POST", "PATCH"])
+def update_acl_binding(request, eid):
+    """Update a AclBinding."""
+    rows = _query("AclBinding", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['resourceType', 'resourceName', 'principal', 'host', 'operation', 'permissionType'])
+    if err:
+        return err, 400
+    if data.get('permissionType') and data['permissionType'] not in ['UNKNOWN', 'ANY', 'DENY', 'ALLOW']:
+        return {"error": {"message": "invalid permissionType; allowed: " + ", ".join(['UNKNOWN', 'ANY', 'DENY', 'ALLOW']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AclBinding", rec)
+    return rec, 200
+
+@app.route("/v1/aclbindings/<eid>", methods=["DELETE"])
+def delete_acl_binding(request, eid):
+    """Delete a AclBinding."""
+    rows = _query("AclBinding", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kafka.AclBinding", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/consumergroups", methods=["POST"])
+def create_consumer_group(request):
+    """Create a ConsumerGroup."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['groupId', 'protocolType', 'state', 'generationId'])
+    if err:
+        return err, 400
+    err = _require(data, ['protocolType', 'state'])
     if err:
         return err, 400
     rec = {"id": new_id("kafka_con")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
+    rec["groupId"] = data.get('groupId')
+    rec["protocolType"] = data.get('protocolType')
+    rec["state"] = data.get('state')
+    rec["generationId"] = _as_int(data.get('generationId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
+    _persist("ConsumerGroup", rec)
     return rec, 201
 
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
+@app.route("/v1/consumergroups", methods=["GET"])
+def list_consumer_groups(request):
+    """List ConsumerGroups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['name', 'source', 'destination', 'status'])
+    rows = _query("ConsumerGroup")
+    rows = _apply_filters(rows, params, ['groupId', 'protocolType', 'state', 'generationId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
+@app.route("/v1/consumergroups/<eid>", methods=["GET"])
+def get_consumer_group(request, eid):
+    """Retrieve a ConsumerGroup by id (supports ?expand=)."""
+    rows = _query("ConsumerGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/consumergroups/<eid>", methods=["POST", "PATCH"])
+def update_consumer_group(request, eid):
+    """Update a ConsumerGroup."""
+    rows = _query("ConsumerGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['groupId', 'protocolType', 'state', 'generationId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,349 +371,93 @@ def update_connector(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connector", rec)
+    _persist("ConsumerGroup", rec)
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/consumergroups/<eid>", methods=["DELETE"])
+def delete_consumer_group(request, eid):
+    """Delete a ConsumerGroup."""
+    rows = _query("ConsumerGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Connector", "id": eid})
+    db.retract({"entity": f"kafka.ConsumerGroup", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/syncs", methods=["POST"])
-def create_sync(request):
-    """Create a Sync."""
+@app.route("/v1/fetchrequests", methods=["POST"])
+def create_fetch_request(request):
+    """Create a FetchRequest."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
+    err = _reject_unknown(data, ['topicName', 'partitionIndex', 'fetchOffset', 'maxBytes', 'isolationLevel'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'rows'])
+    err = _require(data, ['topicName', 'partitionIndex'])
     if err:
         return err, 400
-    rec = {"id": new_id("kafka_syn")}
-    rec["connectorId"] = data.get('connectorId')
-    rec["status"] = data.get('status')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["startedAt"] = data.get('startedAt')
+    if data.get('isolationLevel') and data['isolationLevel'] not in ['READ_UNCOMMITTED', 'READ_COMMITTED']:
+        return {"error": {"message": "invalid isolationLevel; allowed: " + ", ".join(['READ_UNCOMMITTED', 'READ_COMMITTED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kafka_fet")}
+    rec["topicName"] = data.get('topicName')
+    rec["partitionIndex"] = _as_int(data.get('partitionIndex'))
+    rec["fetchOffset"] = _as_int(data.get('fetchOffset'))
+    rec["maxBytes"] = _as_int(data.get('maxBytes'))
+    rec["isolationLevel"] = data.get('isolationLevel')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Sync", rec)
+    _persist("FetchRequest", rec)
     return rec, 201
 
-@app.route("/v1/syncs", methods=["GET"])
-def list_syncs(request):
-    """List Syncs with filtering + cursor pagination."""
+@app.route("/v1/fetchrequests", methods=["GET"])
+def list_fetch_requests(request):
+    """List FetchRequests with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Sync")
-    rows = _apply_filters(rows, params, ['connectorId', 'status', 'rows', 'startedAt'])
+    rows = _query("FetchRequest")
+    rows = _apply_filters(rows, params, ['topicName', 'partitionIndex', 'fetchOffset', 'maxBytes', 'isolationLevel'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/syncs/<eid>", methods=["GET"])
-def get_sync(request, eid):
-    """Retrieve a Sync by id (supports ?expand=)."""
-    rows = _query("Sync", eid)
+@app.route("/v1/fetchrequests/<eid>", methods=["GET"])
+def get_fetch_request(request, eid):
+    """Retrieve a FetchRequest by id (supports ?expand=)."""
+    rows = _query("FetchRequest", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'connectorId': 'Connector'})
     return rec, 200
 
-@app.route("/v1/syncs/<eid>", methods=["POST", "PATCH"])
-def update_sync(request, eid):
-    """Update a Sync."""
-    rows = _query("Sync", eid)
+@app.route("/v1/fetchrequests/<eid>", methods=["POST", "PATCH"])
+def update_fetch_request(request, eid):
+    """Update a FetchRequest."""
+    rows = _query("FetchRequest", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
+    err = _reject_unknown(data, ['topicName', 'partitionIndex', 'fetchOffset', 'maxBytes', 'isolationLevel'])
     if err:
         return err, 400
+    if data.get('isolationLevel') and data['isolationLevel'] not in ['READ_UNCOMMITTED', 'READ_COMMITTED']:
+        return {"error": {"message": "invalid isolationLevel; allowed: " + ", ".join(['READ_UNCOMMITTED', 'READ_COMMITTED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Sync", rec)
+    _persist("FetchRequest", rec)
     return rec, 200
 
-@app.route("/v1/syncs/<eid>", methods=["DELETE"])
-def delete_sync(request, eid):
-    """Delete a Sync."""
-    rows = _query("Sync", eid)
+@app.route("/v1/fetchrequests/<eid>", methods=["DELETE"])
+def delete_fetch_request(request, eid):
+    """Delete a FetchRequest."""
+    rows = _query("FetchRequest", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Sync", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'materialization'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kafka_mod")}
-    rec["name"] = data.get('name')
-    rec["materialization"] = data.get('materialization')
-    rec["sql"] = data.get('sql')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
-    return rec, 201
-
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'materialization', 'sql'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Model", rec)
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Model", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'partitions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kafka_str")}
-    rec["name"] = data.get('name')
-    rec["partitions"] = _as_int(data.get('partitions'))
-    rec["retentionMs"] = _as_int(data.get('retentionMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['name', 'partitions', 'retentionMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/schemas", methods=["POST"])
-def create_schema(request):
-    """Create a Schema."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'database'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kafka_sch")}
-    rec["name"] = data.get('name')
-    rec["database"] = data.get('database')
-    rec["tableCount"] = _as_int(data.get('tableCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Schema", rec)
-    return rec, 201
-
-@app.route("/v1/schemas", methods=["GET"])
-def list_schemas(request):
-    """List Schemas with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Schema")
-    rows = _apply_filters(rows, params, ['name', 'database', 'tableCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/schemas/<eid>", methods=["GET"])
-def get_schema(request, eid):
-    """Retrieve a Schema by id (supports ?expand=)."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["POST", "PATCH"])
-def update_schema(request, eid):
-    """Update a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Schema", rec)
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["DELETE"])
-def delete_schema(request, eid):
-    """Delete a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Schema", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tests", methods=["POST"])
-def create_test(request):
-    """Create a Test."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
-    if err:
-        return err, 400
-    err = _require(data, ['modelName', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kafka_tes")}
-    rec["modelName"] = data.get('modelName')
-    rec["type"] = data.get('type')
-    rec["passed"] = _as_bool(data.get('passed'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Test", rec)
-    return rec, 201
-
-@app.route("/v1/tests", methods=["GET"])
-def list_tests(request):
-    """List Tests with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Test")
-    rows = _apply_filters(rows, params, ['modelName', 'type', 'passed'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tests/<eid>", methods=["GET"])
-def get_test(request, eid):
-    """Retrieve a Test by id (supports ?expand=)."""
-    rows = _query("Test", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tests/<eid>", methods=["POST", "PATCH"])
-def update_test(request, eid):
-    """Update a Test."""
-    rows = _query("Test", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Test", rec)
-    return rec, 200
-
-@app.route("/v1/tests/<eid>", methods=["DELETE"])
-def delete_test(request, eid):
-    """Delete a Test."""
-    rows = _query("Test", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kafka.Test", "id": eid})
+    db.retract({"entity": f"kafka.FetchRequest", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "kafka-compat", "tier": "L4",
-            "entities": ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']}, 200
+            "entities": ['Topic', 'Partition', 'AclBinding', 'ConsumerGroup', 'FetchRequest']}, 200
 
 
 if __name__ == "__main__":

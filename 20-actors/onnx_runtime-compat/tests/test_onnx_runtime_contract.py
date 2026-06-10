@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "onnx_runtime.kotoba")
-ENTITIES = ['Device', 'Kernel', 'MemoryAlloc', 'InferenceJob', 'Engine', 'Utilization']
-PLURALS = {'Device': 'devices', 'Kernel': 'kernels', 'MemoryAlloc': 'memoryallocs', 'InferenceJob': 'inferencejobs', 'Engine': 'engines', 'Utilization': 'utilizations'}
+ENTITIES = ['ModelProto', 'GraphProto', 'NodeProto', 'TensorProto', 'AttributeProto']
+PLURALS = {'ModelProto': 'modelprotos', 'GraphProto': 'graphprotos', 'NodeProto': 'nodeprotos', 'TensorProto': 'tensorprotos', 'AttributeProto': 'attributeprotos'}
 
 
 class OnnxRuntimeContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class OnnxRuntimeContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['dataLocation', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

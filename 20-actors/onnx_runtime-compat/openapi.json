@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (onnx_runtime); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:onnx_runtime-compat",
-    "x-wasm-cid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+    "x-wasm-cid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+      "url": "ipfs://bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/devices": {
+    "/v1/modelprotos": {
       "get": {
-        "summary": "List Devices",
+        "summary": "List ModelProtos",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Device"
+                        "$ref": "#/components/schemas/ModelProto"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Device",
+        "summary": "Create a ModelProto",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/ModelProtoCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/ModelProto"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/devices/{id}": {
+    "/v1/modelprotos/{id}": {
       "get": {
-        "summary": "Get a Device",
+        "summary": "Get a ModelProto",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/ModelProto"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Device",
+        "summary": "Update a ModelProto",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/ModelProtoCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/ModelProto"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Device",
+        "summary": "Delete a ModelProto",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/kernels": {
+    "/v1/graphprotos": {
       "get": {
-        "summary": "List Kernels",
+        "summary": "List GraphProtos",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Kernel"
+                        "$ref": "#/components/schemas/GraphProto"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Kernel",
+        "summary": "Create a GraphProto",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/KernelCreate"
+                "$ref": "#/components/schemas/GraphProtoCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Kernel"
+                  "$ref": "#/components/schemas/GraphProto"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/kernels/{id}": {
+    "/v1/graphprotos/{id}": {
       "get": {
-        "summary": "Get a Kernel",
+        "summary": "Get a GraphProto",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Kernel"
+                  "$ref": "#/components/schemas/GraphProto"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Kernel",
+        "summary": "Update a GraphProto",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/KernelCreate"
+                "$ref": "#/components/schemas/GraphProtoCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Kernel"
+                  "$ref": "#/components/schemas/GraphProto"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Kernel",
+        "summary": "Delete a GraphProto",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/memoryallocs": {
+    "/v1/nodeprotos": {
       "get": {
-        "summary": "List MemoryAllocs",
+        "summary": "List NodeProtos",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/MemoryAlloc"
+                        "$ref": "#/components/schemas/NodeProto"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a MemoryAlloc",
+        "summary": "Create a NodeProto",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoryAllocCreate"
+                "$ref": "#/components/schemas/NodeProtoCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemoryAlloc"
+                  "$ref": "#/components/schemas/NodeProto"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/memoryallocs/{id}": {
+    "/v1/nodeprotos/{id}": {
       "get": {
-        "summary": "Get a MemoryAlloc",
+        "summary": "Get a NodeProto",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemoryAlloc"
+                  "$ref": "#/components/schemas/NodeProto"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a MemoryAlloc",
+        "summary": "Update a NodeProto",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoryAllocCreate"
+                "$ref": "#/components/schemas/NodeProtoCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemoryAlloc"
+                  "$ref": "#/components/schemas/NodeProto"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a MemoryAlloc",
+        "summary": "Delete a NodeProto",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/inferencejobs": {
+    "/v1/tensorprotos": {
       "get": {
-        "summary": "List InferenceJobs",
+        "summary": "List TensorProtos",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/InferenceJob"
+                        "$ref": "#/components/schemas/TensorProto"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a InferenceJob",
+        "summary": "Create a TensorProto",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InferenceJobCreate"
+                "$ref": "#/components/schemas/TensorProtoCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InferenceJob"
+                  "$ref": "#/components/schemas/TensorProto"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/inferencejobs/{id}": {
+    "/v1/tensorprotos/{id}": {
       "get": {
-        "summary": "Get a InferenceJob",
+        "summary": "Get a TensorProto",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InferenceJob"
+                  "$ref": "#/components/schemas/TensorProto"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a InferenceJob",
+        "summary": "Update a TensorProto",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InferenceJobCreate"
+                "$ref": "#/components/schemas/TensorProtoCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InferenceJob"
+                  "$ref": "#/components/schemas/TensorProto"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a InferenceJob",
+        "summary": "Delete a TensorProto",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/engines": {
+    "/v1/attributeprotos": {
       "get": {
-        "summary": "List Engines",
+        "summary": "List AttributeProtos",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Engine"
+                        "$ref": "#/components/schemas/AttributeProto"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Engine",
+        "summary": "Create a AttributeProto",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EngineCreate"
+                "$ref": "#/components/schemas/AttributeProtoCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Engine"
+                  "$ref": "#/components/schemas/AttributeProto"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/engines/{id}": {
+    "/v1/attributeprotos/{id}": {
       "get": {
-        "summary": "Get a Engine",
+        "summary": "Get a AttributeProto",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Engine"
+                  "$ref": "#/components/schemas/AttributeProto"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Engine",
+        "summary": "Update a AttributeProto",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EngineCreate"
+                "$ref": "#/components/schemas/AttributeProtoCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Engine"
+                  "$ref": "#/components/schemas/AttributeProto"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Engine",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/utilizations": {
-      "get": {
-        "summary": "List Utilizations",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Utilization"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Utilization",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UtilizationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Utilization"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/utilizations/{id}": {
-      "get": {
-        "summary": "Get a Utilization",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Utilization"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Utilization",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UtilizationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Utilization"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Utilization",
+        "summary": "Delete a AttributeProto",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +955,29 @@
   },
   "components": {
     "schemas": {
-      "Device": {
+      "ModelProto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "vendor": {
-            "type": "string"
-          },
-          "memoryGb": {
+          "irVersion": {
             "type": "integer"
           },
-          "index": {
+          "producerName": {
+            "type": "string"
+          },
+          "producerVersion": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "modelVersion": {
             "type": "integer"
+          },
+          "docString": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1168,43 +989,86 @@
           }
         }
       },
-      "DeviceCreate": {
+      "ModelProtoCreate": {
+        "type": "object",
+        "properties": {
+          "irVersion": {
+            "type": "integer"
+          },
+          "producerName": {
+            "type": "string"
+          },
+          "producerVersion": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "modelVersion": {
+            "type": "integer"
+          },
+          "docString": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "irVersion",
+          "producerName"
+        ]
+      },
+      "GraphProto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "docString": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GraphProtoCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "vendor": {
+          "docString": {
             "type": "string"
-          },
-          "memoryGb": {
-            "type": "integer"
-          },
-          "index": {
-            "type": "integer"
           }
         },
         "required": [
           "name",
-          "vendor"
+          "docString"
         ]
       },
-      "Kernel": {
+      "NodeProto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "gridDim": {
+          "opType": {
             "type": "string"
           },
-          "blockDim": {
+          "domain": {
+            "type": "string"
+          },
+          "docString": {
             "type": "string"
           },
           "createdAt": {
@@ -1217,120 +1081,28 @@
           }
         }
       },
-      "KernelCreate": {
+      "NodeProtoCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "gridDim": {
+          "opType": {
             "type": "string"
           },
-          "blockDim": {
+          "domain": {
+            "type": "string"
+          },
+          "docString": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "gridDim"
+          "opType"
         ]
       },
-      "MemoryAlloc": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "ptr": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MemoryAllocCreate": {
-        "type": "object",
-        "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "ptr": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sizeBytes",
-          "ptr"
-        ]
-      },
-      "InferenceJob": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelRef": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "latencyMs": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "InferenceJobCreate": {
-        "type": "object",
-        "properties": {
-          "modelRef": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "latencyMs": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "status",
-          "latencyMs"
-        ]
-      },
-      "Engine": {
+      "TensorProto": {
         "type": "object",
         "properties": {
           "id": {
@@ -1339,11 +1111,18 @@
           "name": {
             "type": "string"
           },
-          "precision": {
-            "type": "string"
-          },
-          "maxBatch": {
+          "dataType": {
             "type": "integer"
+          },
+          "dataLocation": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "docString": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1355,42 +1134,62 @@
           }
         }
       },
-      "EngineCreate": {
+      "TensorProtoCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "precision": {
-            "type": "string"
-          },
-          "maxBatch": {
+          "dataType": {
             "type": "integer"
+          },
+          "dataLocation": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "docString": {
+            "type": "string"
           }
         },
         "required": [
           "name",
-          "precision"
+          "dataType"
         ]
       },
-      "Utilization": {
+      "AttributeProto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "name": {
             "type": "string"
           },
-          "gpuPct": {
-            "type": "number"
+          "type": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
           },
-          "memPct": {
-            "type": "number"
-          },
-          "sampledAt": {
-            "type": "string",
-            "format": "date-time"
+          "docString": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1402,25 +1201,39 @@
           }
         }
       },
-      "UtilizationCreate": {
+      "AttributeProtoCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
+          "name": {
             "type": "string"
           },
-          "gpuPct": {
-            "type": "number"
+          "type": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
           },
-          "memPct": {
-            "type": "number"
-          },
-          "sampledAt": {
+          "docString": {
             "type": "string"
           }
         },
         "required": [
-          "gpuPct",
-          "memPct"
+          "name",
+          "type"
         ]
       }
     }

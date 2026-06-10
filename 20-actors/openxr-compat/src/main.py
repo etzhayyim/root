@@ -111,55 +111,55 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/anchors", methods=["POST"])
-def create_anchor(request):
-    """Create a Anchor."""
+@app.route("/v1/instances", methods=["POST"])
+def create_instance(request):
+    """Create a Instance."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'x', 'y', 'z', 'persistent'])
+    err = _reject_unknown(data, ['applicationName', 'applicationVersion', 'engineName', 'engineVersion', 'apiVersion', 'enabledExtensionCount'])
     if err:
         return err, 400
-    err = _require(data, ['x', 'y'])
+    err = _require(data, ['applicationName', 'applicationVersion'])
     if err:
         return err, 400
-    rec = {"id": new_id("openxr_anc")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["x"] = _as_float(data.get('x'))
-    rec["y"] = _as_float(data.get('y'))
-    rec["z"] = _as_float(data.get('z'))
-    rec["persistent"] = _as_bool(data.get('persistent'))
+    rec = {"id": new_id("openxr_ins")}
+    rec["applicationName"] = data.get('applicationName')
+    rec["applicationVersion"] = _as_int(data.get('applicationVersion'))
+    rec["engineName"] = data.get('engineName')
+    rec["engineVersion"] = _as_int(data.get('engineVersion'))
+    rec["apiVersion"] = _as_int(data.get('apiVersion'))
+    rec["enabledExtensionCount"] = _as_int(data.get('enabledExtensionCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Anchor", rec)
+    _persist("Instance", rec)
     return rec, 201
 
-@app.route("/v1/anchors", methods=["GET"])
-def list_anchors(request):
-    """List Anchors with filtering + cursor pagination."""
+@app.route("/v1/instances", methods=["GET"])
+def list_instances(request):
+    """List Instances with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Anchor")
-    rows = _apply_filters(rows, params, ['sceneId', 'x', 'y', 'z', 'persistent'])
+    rows = _query("Instance")
+    rows = _apply_filters(rows, params, ['applicationName', 'applicationVersion', 'engineName', 'engineVersion', 'apiVersion', 'enabledExtensionCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/anchors/<eid>", methods=["GET"])
-def get_anchor(request, eid):
-    """Retrieve a Anchor by id (supports ?expand=)."""
-    rows = _query("Anchor", eid)
+@app.route("/v1/instances/<eid>", methods=["GET"])
+def get_instance(request, eid):
+    """Retrieve a Instance by id (supports ?expand=)."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
     return rec, 200
 
-@app.route("/v1/anchors/<eid>", methods=["POST", "PATCH"])
-def update_anchor(request, eid):
-    """Update a Anchor."""
-    rows = _query("Anchor", eid)
+@app.route("/v1/instances/<eid>", methods=["POST", "PATCH"])
+def update_instance(request, eid):
+    """Update a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'x', 'y', 'z', 'persistent'])
+    err = _reject_unknown(data, ['applicationName', 'applicationVersion', 'engineName', 'engineVersion', 'apiVersion', 'enabledExtensionCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -167,164 +167,109 @@ def update_anchor(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Anchor", rec)
+    _persist("Instance", rec)
     return rec, 200
 
-@app.route("/v1/anchors/<eid>", methods=["DELETE"])
-def delete_anchor(request, eid):
-    """Delete a Anchor."""
-    rows = _query("Anchor", eid)
+@app.route("/v1/instances/<eid>", methods=["DELETE"])
+def delete_instance(request, eid):
+    """Delete a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openxr.Anchor", "id": eid})
+    db.retract({"entity": f"openxr.Instance", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/scenes", methods=["POST"])
-def create_scene(request):
-    """Create a Scene."""
+@app.route("/v1/systems", methods=["POST"])
+def create_system(request):
+    """Create a System."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'deviceId', 'meshRef'])
+    err = _reject_unknown(data, ['systemId', 'formFactor', 'systemName', 'vendorId', 'maxSwapchainImageWidth', 'maxSwapchainImageHeight', 'orientationTracking', 'positionTracking'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['formFactor', 'systemName'])
     if err:
         return err, 400
-    rec = {"id": new_id("openxr_sce")}
-    rec["name"] = data.get('name')
-    rec["deviceId"] = data.get('deviceId')
-    rec["meshRef"] = data.get('meshRef')
+    if data.get('formFactor') and data['formFactor'] not in [1, 2]:
+        return {"error": {"message": "invalid formFactor; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("openxr_sys")}
+    rec["systemId"] = _as_int(data.get('systemId'))
+    rec["formFactor"] = _as_int(data.get('formFactor'))
+    rec["systemName"] = data.get('systemName')
+    rec["vendorId"] = _as_int(data.get('vendorId'))
+    rec["maxSwapchainImageWidth"] = _as_int(data.get('maxSwapchainImageWidth'))
+    rec["maxSwapchainImageHeight"] = _as_int(data.get('maxSwapchainImageHeight'))
+    rec["orientationTracking"] = _as_bool(data.get('orientationTracking'))
+    rec["positionTracking"] = _as_bool(data.get('positionTracking'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Scene", rec)
+    _persist("System", rec)
     return rec, 201
 
-@app.route("/v1/scenes", methods=["GET"])
-def list_scenes(request):
-    """List Scenes with filtering + cursor pagination."""
+@app.route("/v1/systems", methods=["GET"])
+def list_systems(request):
+    """List Systems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Scene")
-    rows = _apply_filters(rows, params, ['name', 'deviceId', 'meshRef'])
+    rows = _query("System")
+    rows = _apply_filters(rows, params, ['systemId', 'formFactor', 'systemName', 'vendorId', 'maxSwapchainImageWidth', 'maxSwapchainImageHeight', 'orientationTracking', 'positionTracking'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/scenes/<eid>", methods=["GET"])
-def get_scene(request, eid):
-    """Retrieve a Scene by id (supports ?expand=)."""
-    rows = _query("Scene", eid)
+@app.route("/v1/systems/<eid>", methods=["GET"])
+def get_system(request, eid):
+    """Retrieve a System by id (supports ?expand=)."""
+    rows = _query("System", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
+    rec = _expand(rec, request.query or {}, {'systemId': 'System'})
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["POST", "PATCH"])
-def update_scene(request, eid):
-    """Update a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/systems/<eid>", methods=["POST", "PATCH"])
+def update_system(request, eid):
+    """Update a System."""
+    rows = _query("System", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'deviceId', 'meshRef'])
+    err = _reject_unknown(data, ['systemId', 'formFactor', 'systemName', 'vendorId', 'maxSwapchainImageWidth', 'maxSwapchainImageHeight', 'orientationTracking', 'positionTracking'])
     if err:
         return err, 400
+    if data.get('formFactor') and data['formFactor'] not in [1, 2]:
+        return {"error": {"message": "invalid formFactor; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Scene", rec)
+    _persist("System", rec)
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["DELETE"])
-def delete_scene(request, eid):
-    """Delete a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/systems/<eid>", methods=["DELETE"])
+def delete_system(request, eid):
+    """Delete a System."""
+    rows = _query("System", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openxr.Scene", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/meshes", methods=["POST"])
-def create_mesh(request):
-    """Create a Mesh."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'vertexCount', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['vertexCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("openxr_mes")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["vertexCount"] = _as_int(data.get('vertexCount'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Mesh", rec)
-    return rec, 201
-
-@app.route("/v1/meshes", methods=["GET"])
-def list_meshes(request):
-    """List Meshes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Mesh")
-    rows = _apply_filters(rows, params, ['sceneId', 'vertexCount', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/meshes/<eid>", methods=["GET"])
-def get_mesh(request, eid):
-    """Retrieve a Mesh by id (supports ?expand=)."""
-    rows = _query("Mesh", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
-    return rec, 200
-
-@app.route("/v1/meshes/<eid>", methods=["POST", "PATCH"])
-def update_mesh(request, eid):
-    """Update a Mesh."""
-    rows = _query("Mesh", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'vertexCount', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Mesh", rec)
-    return rec, 200
-
-@app.route("/v1/meshes/<eid>", methods=["DELETE"])
-def delete_mesh(request, eid):
-    """Delete a Mesh."""
-    rows = _query("Mesh", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openxr.Mesh", "id": eid})
+    db.retract({"entity": f"openxr.System", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/sessions", methods=["POST"])
 def create_session(request):
     """Create a Session."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'appId', 'startedAt'])
+    err = _reject_unknown(data, ['systemId', 'createFlags', 'state'])
     if err:
         return err, 400
-    err = _require(data, ['startedAt'])
+    err = _require(data, ['createFlags', 'state'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("openxr_ses")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["appId"] = data.get('appId')
-    rec["startedAt"] = data.get('startedAt')
+    rec["systemId"] = _as_int(data.get('systemId'))
+    rec["createFlags"] = _as_int(data.get('createFlags'))
+    rec["state"] = _as_int(data.get('state'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Session", rec)
@@ -335,7 +280,7 @@ def list_sessions(request):
     """List Sessions with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Session")
-    rows = _apply_filters(rows, params, ['deviceId', 'appId', 'startedAt'])
+    rows = _apply_filters(rows, params, ['systemId', 'createFlags', 'state'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -347,7 +292,7 @@ def get_session(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
+    rec = _expand(rec, request.query or {}, {'systemId': 'System'})
     return rec, 200
 
 @app.route("/v1/sessions/<eid>", methods=["POST", "PATCH"])
@@ -357,9 +302,11 @@ def update_session(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'appId', 'startedAt'])
+    err = _reject_unknown(data, ['systemId', 'createFlags', 'state'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -377,118 +324,129 @@ def delete_session(request, eid):
     db.retract({"entity": f"openxr.Session", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
+@app.route("/v1/viewconfigurations", methods=["POST"])
+def create_view_configuration(request):
+    """Create a ViewConfiguration."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'type', 'contentRef'])
+    err = _reject_unknown(data, ['viewConfigurationType', 'recommendedImageRectWidth', 'recommendedImageRectHeight', 'recommendedSwapchainSampleCount', 'environmentBlendMode'])
     if err:
         return err, 400
-    err = _require(data, ['type'])
+    err = _require(data, ['viewConfigurationType', 'recommendedImageRectWidth'])
     if err:
         return err, 400
-    rec = {"id": new_id("openxr_ass")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["type"] = data.get('type')
-    rec["contentRef"] = data.get('contentRef')
+    if data.get('environmentBlendMode') and data['environmentBlendMode'] not in [1, 2, 3]:
+        return {"error": {"message": "invalid environmentBlendMode; allowed: " + ", ".join([1, 2, 3]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("openxr_vie")}
+    rec["viewConfigurationType"] = _as_int(data.get('viewConfigurationType'))
+    rec["recommendedImageRectWidth"] = _as_int(data.get('recommendedImageRectWidth'))
+    rec["recommendedImageRectHeight"] = _as_int(data.get('recommendedImageRectHeight'))
+    rec["recommendedSwapchainSampleCount"] = _as_int(data.get('recommendedSwapchainSampleCount'))
+    rec["environmentBlendMode"] = _as_int(data.get('environmentBlendMode'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
+    _persist("ViewConfiguration", rec)
     return rec, 201
 
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
+@app.route("/v1/viewconfigurations", methods=["GET"])
+def list_view_configurations(request):
+    """List ViewConfigurations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['sceneId', 'type', 'contentRef'])
+    rows = _query("ViewConfiguration")
+    rows = _apply_filters(rows, params, ['viewConfigurationType', 'recommendedImageRectWidth', 'recommendedImageRectHeight', 'recommendedSwapchainSampleCount', 'environmentBlendMode'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
+@app.route("/v1/viewconfigurations/<eid>", methods=["GET"])
+def get_view_configuration(request, eid):
+    """Retrieve a ViewConfiguration by id (supports ?expand=)."""
+    rows = _query("ViewConfiguration", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
     return rec, 200
 
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
+@app.route("/v1/viewconfigurations/<eid>", methods=["POST", "PATCH"])
+def update_view_configuration(request, eid):
+    """Update a ViewConfiguration."""
+    rows = _query("ViewConfiguration", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'type', 'contentRef'])
+    err = _reject_unknown(data, ['viewConfigurationType', 'recommendedImageRectWidth', 'recommendedImageRectHeight', 'recommendedSwapchainSampleCount', 'environmentBlendMode'])
     if err:
         return err, 400
+    if data.get('environmentBlendMode') and data['environmentBlendMode'] not in [1, 2, 3]:
+        return {"error": {"message": "invalid environmentBlendMode; allowed: " + ", ".join([1, 2, 3]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Asset", rec)
+    _persist("ViewConfiguration", rec)
     return rec, 200
 
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
+@app.route("/v1/viewconfigurations/<eid>", methods=["DELETE"])
+def delete_view_configuration(request, eid):
+    """Delete a ViewConfiguration."""
+    rows = _query("ViewConfiguration", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openxr.Asset", "id": eid})
+    db.retract({"entity": f"openxr.ViewConfiguration", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/devices", methods=["POST"])
-def create_device(request):
-    """Create a Device."""
+@app.route("/v1/swapchains", methods=["POST"])
+def create_swapchain(request):
+    """Create a Swapchain."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'platform', 'trackingMode'])
+    err = _reject_unknown(data, ['createFlags', 'usageFlags', 'format', 'sampleCount', 'width', 'height', 'faceCount', 'arraySize', 'mipCount'])
     if err:
         return err, 400
-    err = _require(data, ['model', 'platform'])
+    err = _require(data, ['createFlags', 'usageFlags'])
     if err:
         return err, 400
-    rec = {"id": new_id("openxr_dev")}
-    rec["model"] = data.get('model')
-    rec["platform"] = data.get('platform')
-    rec["trackingMode"] = data.get('trackingMode')
+    rec = {"id": new_id("openxr_swa")}
+    rec["createFlags"] = _as_int(data.get('createFlags'))
+    rec["usageFlags"] = _as_int(data.get('usageFlags'))
+    rec["format"] = _as_int(data.get('format'))
+    rec["sampleCount"] = _as_int(data.get('sampleCount'))
+    rec["width"] = _as_int(data.get('width'))
+    rec["height"] = _as_int(data.get('height'))
+    rec["faceCount"] = _as_int(data.get('faceCount'))
+    rec["arraySize"] = _as_int(data.get('arraySize'))
+    rec["mipCount"] = _as_int(data.get('mipCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Device", rec)
+    _persist("Swapchain", rec)
     return rec, 201
 
-@app.route("/v1/devices", methods=["GET"])
-def list_devices(request):
-    """List Devices with filtering + cursor pagination."""
+@app.route("/v1/swapchains", methods=["GET"])
+def list_swapchains(request):
+    """List Swapchains with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Device")
-    rows = _apply_filters(rows, params, ['model', 'platform', 'trackingMode'])
+    rows = _query("Swapchain")
+    rows = _apply_filters(rows, params, ['createFlags', 'usageFlags', 'format', 'sampleCount', 'width', 'height', 'faceCount', 'arraySize', 'mipCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/devices/<eid>", methods=["GET"])
-def get_device(request, eid):
-    """Retrieve a Device by id (supports ?expand=)."""
-    rows = _query("Device", eid)
+@app.route("/v1/swapchains/<eid>", methods=["GET"])
+def get_swapchain(request, eid):
+    """Retrieve a Swapchain by id (supports ?expand=)."""
+    rows = _query("Swapchain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
-def update_device(request, eid):
-    """Update a Device."""
-    rows = _query("Device", eid)
+@app.route("/v1/swapchains/<eid>", methods=["POST", "PATCH"])
+def update_swapchain(request, eid):
+    """Update a Swapchain."""
+    rows = _query("Swapchain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'platform', 'trackingMode'])
+    err = _reject_unknown(data, ['createFlags', 'usageFlags', 'format', 'sampleCount', 'width', 'height', 'faceCount', 'arraySize', 'mipCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -496,22 +454,22 @@ def update_device(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Device", rec)
+    _persist("Swapchain", rec)
     return rec, 200
 
-@app.route("/v1/devices/<eid>", methods=["DELETE"])
-def delete_device(request, eid):
-    """Delete a Device."""
-    rows = _query("Device", eid)
+@app.route("/v1/swapchains/<eid>", methods=["DELETE"])
+def delete_swapchain(request, eid):
+    """Delete a Swapchain."""
+    rows = _query("Swapchain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"openxr.Device", "id": eid})
+    db.retract({"entity": f"openxr.Swapchain", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "openxr-compat", "tier": "L4",
-            "entities": ['Anchor', 'Scene', 'Mesh', 'Session', 'Asset', 'Device']}, 200
+            "entities": ['Instance', 'System', 'Session', 'ViewConfiguration', 'Swapchain']}, 200
 
 
 if __name__ == "__main__":

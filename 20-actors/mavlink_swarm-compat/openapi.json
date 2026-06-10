@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/drones": {
+    "/v1/heartbeats": {
       "get": {
-        "summary": "List Drones",
+        "summary": "List Heartbeats",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Drone"
+                        "$ref": "#/components/schemas/Heartbeat"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Drone",
+        "summary": "Create a Heartbeat",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DroneCreate"
+                "$ref": "#/components/schemas/HeartbeatCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Drone"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/drones/{id}": {
+    "/v1/heartbeats/{id}": {
       "get": {
-        "summary": "Get a Drone",
+        "summary": "Get a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Drone"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Drone",
+        "summary": "Update a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DroneCreate"
+                "$ref": "#/components/schemas/HeartbeatCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Drone"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Drone",
+        "summary": "Delete a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/missions": {
+    "/v1/sysstatuses": {
       "get": {
-        "summary": "List Missions",
+        "summary": "List SysStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Mission"
+                        "$ref": "#/components/schemas/SysStatus"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Mission",
+        "summary": "Create a SysStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MissionCreate"
+                "$ref": "#/components/schemas/SysStatusCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Mission"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/missions/{id}": {
+    "/v1/sysstatuses/{id}": {
       "get": {
-        "summary": "Get a Mission",
+        "summary": "Get a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Mission"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Mission",
+        "summary": "Update a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MissionCreate"
+                "$ref": "#/components/schemas/SysStatusCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Mission"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Mission",
+        "summary": "Delete a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/waypoints": {
+    "/v1/gpsrawints": {
       "get": {
-        "summary": "List Waypoints",
+        "summary": "List GpsRawInts",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Waypoint"
+                        "$ref": "#/components/schemas/GpsRawInt"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Waypoint",
+        "summary": "Create a GpsRawInt",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WaypointCreate"
+                "$ref": "#/components/schemas/GpsRawIntCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Waypoint"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/waypoints/{id}": {
+    "/v1/gpsrawints/{id}": {
       "get": {
-        "summary": "Get a Waypoint",
+        "summary": "Get a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Waypoint"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Waypoint",
+        "summary": "Update a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WaypointCreate"
+                "$ref": "#/components/schemas/GpsRawIntCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Waypoint"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Waypoint",
+        "summary": "Delete a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/telemetries": {
+    "/v1/attitudes": {
       "get": {
-        "summary": "List Telemetries",
+        "summary": "List Attitudes",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Telemetry"
+                        "$ref": "#/components/schemas/Attitude"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Telemetry",
+        "summary": "Create a Attitude",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/AttitudeCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/telemetries/{id}": {
+    "/v1/attitudes/{id}": {
       "get": {
-        "summary": "Get a Telemetry",
+        "summary": "Get a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Telemetry",
+        "summary": "Update a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/AttitudeCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Telemetry",
+        "summary": "Delete a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/payloads": {
+    "/v1/globalpositionints": {
       "get": {
-        "summary": "List Payloads",
+        "summary": "List GlobalPositionInts",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Payload"
+                        "$ref": "#/components/schemas/GlobalPositionInt"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Payload",
+        "summary": "Create a GlobalPositionInt",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayloadCreate"
+                "$ref": "#/components/schemas/GlobalPositionIntCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payload"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/payloads/{id}": {
+    "/v1/globalpositionints/{id}": {
       "get": {
-        "summary": "Get a Payload",
+        "summary": "Get a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payload"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Payload",
+        "summary": "Update a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayloadCreate"
+                "$ref": "#/components/schemas/GlobalPositionIntCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Payload"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Payload",
+        "summary": "Delete a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/swarms": {
+    "/v1/missionitems": {
       "get": {
-        "summary": "List Swarms",
+        "summary": "List MissionItems",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Swarm"
+                        "$ref": "#/components/schemas/MissionItem"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Swarm",
+        "summary": "Create a MissionItem",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SwarmCreate"
+                "$ref": "#/components/schemas/MissionItemCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Swarm"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/swarms/{id}": {
+    "/v1/missionitems/{id}": {
       "get": {
-        "summary": "Get a Swarm",
+        "summary": "Get a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Swarm"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Swarm",
+        "summary": "Update a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SwarmCreate"
+                "$ref": "#/components/schemas/MissionItemCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Swarm"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Swarm",
+        "summary": "Delete a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,40 @@
   },
   "components": {
     "schemas": {
-      "Drone": {
+      "Heartbeat": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serial": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "model": {
-            "type": "string"
+          "autopilot": {
+            "type": "integer"
           },
-          "batteryPct": {
-            "type": "number"
+          "baseMode": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "customMode": {
+            "type": "integer"
+          },
+          "systemStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "mavlinkVersion": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1168,91 +1185,363 @@
           }
         }
       },
-      "DroneCreate": {
+      "HeartbeatCreate": {
         "type": "object",
         "properties": {
-          "serial": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "batteryPct": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "serial",
-          "model"
-        ]
-      },
-      "Mission": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "droneId": {
-            "type": "string"
-          },
           "type": {
-            "type": "string"
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "autopilot": {
+            "type": "integer"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
+          "baseMode": {
+            "type": "integer"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MissionCreate": {
-        "type": "object",
-        "properties": {
-          "droneId": {
-            "type": "string"
+          "customMode": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "systemStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
           },
-          "status": {
-            "type": "string"
+          "mavlinkVersion": {
+            "type": "integer"
           }
         },
         "required": [
           "type",
-          "status"
+          "autopilot"
         ]
       },
-      "Waypoint": {
+      "SysStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "missionId": {
+          "load": {
+            "type": "integer"
+          },
+          "voltageBattery": {
+            "type": "integer"
+          },
+          "currentBattery": {
+            "type": "integer"
+          },
+          "batteryRemaining": {
+            "type": "integer"
+          },
+          "dropRateComm": {
+            "type": "integer"
+          },
+          "errorsComm": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SysStatusCreate": {
+        "type": "object",
+        "properties": {
+          "load": {
+            "type": "integer"
+          },
+          "voltageBattery": {
+            "type": "integer"
+          },
+          "currentBattery": {
+            "type": "integer"
+          },
+          "batteryRemaining": {
+            "type": "integer"
+          },
+          "dropRateComm": {
+            "type": "integer"
+          },
+          "errorsComm": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "load",
+          "voltageBattery"
+        ]
+      },
+      "GpsRawInt": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
+          "timeUsec": {
+            "type": "integer"
+          },
+          "fixType": {
+            "type": "integer"
+          },
           "lat": {
-            "type": "number"
+            "type": "integer"
           },
           "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "vel": {
+            "type": "integer"
+          },
+          "satellitesVisible": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GpsRawIntCreate": {
+        "type": "object",
+        "properties": {
+          "timeUsec": {
+            "type": "integer"
+          },
+          "fixType": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "integer"
+          },
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "vel": {
+            "type": "integer"
+          },
+          "satellitesVisible": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timeUsec",
+          "fixType"
+        ]
+      },
+      "Attitude": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timeBootMs": {
+            "type": "integer"
+          },
+          "roll": {
             "type": "number"
           },
-          "altitudeM": {
+          "pitch": {
             "type": "number"
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "rollspeed": {
+            "type": "number"
+          },
+          "pitchspeed": {
+            "type": "number"
+          },
+          "yawspeed": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AttitudeCreate": {
+        "type": "object",
+        "properties": {
+          "timeBootMs": {
+            "type": "integer"
+          },
+          "roll": {
+            "type": "number"
+          },
+          "pitch": {
+            "type": "number"
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "rollspeed": {
+            "type": "number"
+          },
+          "pitchspeed": {
+            "type": "number"
+          },
+          "yawspeed": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "timeBootMs",
+          "roll"
+        ]
+      },
+      "GlobalPositionInt": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timeBootMs": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "integer"
+          },
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "relativeAlt": {
+            "type": "integer"
+          },
+          "vx": {
+            "type": "integer"
+          },
+          "vy": {
+            "type": "integer"
+          },
+          "vz": {
+            "type": "integer"
+          },
+          "hdg": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GlobalPositionIntCreate": {
+        "type": "object",
+        "properties": {
+          "timeBootMs": {
+            "type": "integer"
+          },
+          "lat": {
+            "type": "integer"
+          },
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "relativeAlt": {
+            "type": "integer"
+          },
+          "vx": {
+            "type": "integer"
+          },
+          "vy": {
+            "type": "integer"
+          },
+          "vz": {
+            "type": "integer"
+          },
+          "hdg": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timeBootMs",
+          "lat"
+        ]
+      },
+      "MissionItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "targetSystem": {
+            "type": "integer"
+          },
+          "targetComponent": {
+            "type": "integer"
           },
           "seq": {
             "type": "integer"
           },
+          "frame": {
+            "type": "integer"
+          },
+          "command": {
+            "type": "integer"
+          },
+          "current": {
+            "type": "integer"
+          },
+          "autocontinue": {
+            "type": "integer"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "missionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              255
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1263,170 +1552,52 @@
           }
         }
       },
-      "WaypointCreate": {
+      "MissionItemCreate": {
         "type": "object",
         "properties": {
-          "missionId": {
-            "type": "string"
+          "targetSystem": {
+            "type": "integer"
           },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "altitudeM": {
-            "type": "number"
+          "targetComponent": {
+            "type": "integer"
           },
           "seq": {
             "type": "integer"
-          }
-        },
-        "required": [
-          "lat",
-          "lon"
-        ]
-      },
-      "Telemetry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
           },
-          "droneId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "altitudeM": {
-            "type": "number"
-          },
-          "recordedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TelemetryCreate": {
-        "type": "object",
-        "properties": {
-          "droneId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "altitudeM": {
-            "type": "number"
-          },
-          "recordedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "lat",
-          "lon"
-        ]
-      },
-      "Payload": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "droneId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "weightKg": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PayloadCreate": {
-        "type": "object",
-        "properties": {
-          "droneId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "weightKg": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "type",
-          "weightKg"
-        ]
-      },
-      "Swarm": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "droneCount": {
+          "frame": {
             "type": "integer"
           },
-          "leaderId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SwarmCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "droneCount": {
+          "command": {
             "type": "integer"
           },
-          "leaderId": {
-            "type": "string"
+          "current": {
+            "type": "integer"
+          },
+          "autocontinue": {
+            "type": "integer"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "missionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              255
+            ]
           }
         },
         "required": [
-          "name",
-          "droneCount"
+          "targetSystem",
+          "targetComponent"
         ]
       }
     }

@@ -8297,17 +8297,16 @@
       "handle": "kafka-compat",
       "platform": "kafka",
       "bytes": 2119,
-      "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Topic",
+        "Partition",
+        "AclBinding",
+        "ConsumerGroup",
+        "FetchRequest"
       ]
     },
     {
@@ -9456,12 +9455,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -11175,17 +11174,16 @@
       "handle": "onnx_runtime-compat",
       "platform": "onnx_runtime",
       "bytes": 2126,
-      "wasmCid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+      "wasmCid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Device",
-        "Kernel",
-        "MemoryAlloc",
-        "InferenceJob",
-        "Engine",
-        "Utilization"
+        "ModelProto",
+        "GraphProto",
+        "NodeProto",
+        "TensorProto",
+        "AttributeProto"
       ]
     },
     {
@@ -11197,12 +11195,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Meter",
-        "Reading",
         "Node",
-        "LoadForecast",
-        "MarketBid",
-        "Tag"
+        "ReferenceDescription",
+        "ReadValueId",
+        "MonitoredItem",
+        "CreateSubscriptionRequest",
+        "ReadRequest"
       ]
     },
     {
@@ -11361,17 +11359,16 @@
       "handle": "openxr-compat",
       "platform": "openxr",
       "bytes": 2120,
-      "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Anchor",
-        "Scene",
-        "Mesh",
+        "Instance",
+        "System",
         "Session",
-        "Asset",
-        "Device"
+        "ViewConfiguration",
+        "Swapchain"
       ]
     },
     {
@@ -12263,12 +12260,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -12613,17 +12610,16 @@
       "handle": "redis-compat",
       "platform": "redis",
       "bytes": 2119,
-      "wasmCid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "wasmCid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "RespMessage",
+        "RedisCommand",
+        "RedisKey",
+        "RedisDataType",
+        "RespProtocolVersion"
       ]
     },
     {
@@ -13038,17 +13034,15 @@
       "handle": "ros2_nav-compat",
       "platform": "ros2_nav",
       "bytes": 2122,
-      "wasmCid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+      "wasmCid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "GoalStatus",
+        "NavSatFix",
+        "BatteryState",
+        "Odometry"
       ]
     },
     {
