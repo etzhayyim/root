@@ -11175,17 +11175,16 @@
       "handle": "onnx_runtime-compat",
       "platform": "onnx_runtime",
       "bytes": 2126,
-      "wasmCid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+      "wasmCid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Device",
-        "Kernel",
-        "MemoryAlloc",
-        "InferenceJob",
-        "Engine",
-        "Utilization"
+        "ModelProto",
+        "GraphProto",
+        "NodeProto",
+        "TensorProto",
+        "AttributeProto"
       ]
     },
     {
@@ -13037,17 +13036,15 @@
       "handle": "ros2_nav-compat",
       "platform": "ros2_nav",
       "bytes": 2122,
-      "wasmCid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+      "wasmCid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "GoalStatus",
+        "NavSatFix",
+        "BatteryState",
+        "Odometry"
       ]
     },
     {

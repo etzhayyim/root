@@ -3,71 +3,53 @@
 
 namespace onnx_runtime {
 
-    entity Device {
+    entity ModelProto {
+        id: string @unique
+        irVersion: integer
+        producerName: string
+        producerVersion: string
+        domain: string
+        modelVersion: integer
+        docString: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity GraphProto {
         id: string @unique
         name: string
-        vendor: string
-        memoryGb: integer
-        index: integer
+        docString: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Kernel {
-        id: string @unique
-        deviceId: string
-        name: string
-        gridDim: string
-        blockDim: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity MemoryAlloc {
-        id: string @unique
-        deviceId: string
-        sizeBytes: integer
-        ptr: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity InferenceJob {
-        id: string @unique
-        modelRef: string
-        deviceId: string
-        status: string
-        latencyMs: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Engine {
+    entity NodeProto {
         id: string @unique
         name: string
-        precision: string
-        maxBatch: integer
+        opType: string
+        domain: string
+        docString: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Utilization {
+    entity TensorProto {
         id: string @unique
-        deviceId: string
-        gpuPct: float
-        memPct: float
-        sampledAt: datetime
+        name: string
+        dataType: integer
+        dataLocation: integer
+        docString: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AttributeProto {
+        id: string @unique
+        name: string
+        type: integer
+        docString: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

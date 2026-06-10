@@ -111,53 +111,119 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/devices", methods=["POST"])
-def create_device(request):
-    """Create a Device."""
+@app.route("/v1/modelprotos", methods=["POST"])
+def create_model_proto(request):
+    """Create a ModelProto."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'vendor', 'memoryGb', 'index'])
+    err = _reject_unknown(data, ['irVersion', 'producerName', 'producerVersion', 'domain', 'modelVersion', 'docString'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'vendor'])
+    err = _require(data, ['irVersion', 'producerName'])
     if err:
         return err, 400
-    rec = {"id": new_id("onnxrunt_dev")}
+    rec = {"id": new_id("onnxrunt_mod")}
+    rec["irVersion"] = _as_int(data.get('irVersion'))
+    rec["producerName"] = data.get('producerName')
+    rec["producerVersion"] = data.get('producerVersion')
+    rec["domain"] = data.get('domain')
+    rec["modelVersion"] = _as_int(data.get('modelVersion'))
+    rec["docString"] = data.get('docString')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ModelProto", rec)
+    return rec, 201
+
+@app.route("/v1/modelprotos", methods=["GET"])
+def list_model_protos(request):
+    """List ModelProtos with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ModelProto")
+    rows = _apply_filters(rows, params, ['irVersion', 'producerName', 'producerVersion', 'domain', 'modelVersion', 'docString'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/modelprotos/<eid>", methods=["GET"])
+def get_model_proto(request, eid):
+    """Retrieve a ModelProto by id (supports ?expand=)."""
+    rows = _query("ModelProto", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/modelprotos/<eid>", methods=["POST", "PATCH"])
+def update_model_proto(request, eid):
+    """Update a ModelProto."""
+    rows = _query("ModelProto", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['irVersion', 'producerName', 'producerVersion', 'domain', 'modelVersion', 'docString'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ModelProto", rec)
+    return rec, 200
+
+@app.route("/v1/modelprotos/<eid>", methods=["DELETE"])
+def delete_model_proto(request, eid):
+    """Delete a ModelProto."""
+    rows = _query("ModelProto", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"onnx_runtime.ModelProto", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/graphprotos", methods=["POST"])
+def create_graph_proto(request):
+    """Create a GraphProto."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'docString'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'docString'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("onnxrunt_gra")}
     rec["name"] = data.get('name')
-    rec["vendor"] = data.get('vendor')
-    rec["memoryGb"] = _as_int(data.get('memoryGb'))
-    rec["index"] = _as_int(data.get('index'))
+    rec["docString"] = data.get('docString')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Device", rec)
+    _persist("GraphProto", rec)
     return rec, 201
 
-@app.route("/v1/devices", methods=["GET"])
-def list_devices(request):
-    """List Devices with filtering + cursor pagination."""
+@app.route("/v1/graphprotos", methods=["GET"])
+def list_graph_protos(request):
+    """List GraphProtos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Device")
-    rows = _apply_filters(rows, params, ['name', 'vendor', 'memoryGb', 'index'])
+    rows = _query("GraphProto")
+    rows = _apply_filters(rows, params, ['name', 'docString'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/devices/<eid>", methods=["GET"])
-def get_device(request, eid):
-    """Retrieve a Device by id (supports ?expand=)."""
-    rows = _query("Device", eid)
+@app.route("/v1/graphprotos/<eid>", methods=["GET"])
+def get_graph_proto(request, eid):
+    """Retrieve a GraphProto by id (supports ?expand=)."""
+    rows = _query("GraphProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
-def update_device(request, eid):
-    """Update a Device."""
-    rows = _query("Device", eid)
+@app.route("/v1/graphprotos/<eid>", methods=["POST", "PATCH"])
+def update_graph_proto(request, eid):
+    """Update a GraphProto."""
+    rows = _query("GraphProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'vendor', 'memoryGb', 'index'])
+    err = _reject_unknown(data, ['name', 'docString'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,66 +231,65 @@ def update_device(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Device", rec)
+    _persist("GraphProto", rec)
     return rec, 200
 
-@app.route("/v1/devices/<eid>", methods=["DELETE"])
-def delete_device(request, eid):
-    """Delete a Device."""
-    rows = _query("Device", eid)
+@app.route("/v1/graphprotos/<eid>", methods=["DELETE"])
+def delete_graph_proto(request, eid):
+    """Delete a GraphProto."""
+    rows = _query("GraphProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.Device", "id": eid})
+    db.retract({"entity": f"onnx_runtime.GraphProto", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/kernels", methods=["POST"])
-def create_kernel(request):
-    """Create a Kernel."""
+@app.route("/v1/nodeprotos", methods=["POST"])
+def create_node_proto(request):
+    """Create a NodeProto."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'gridDim', 'blockDim'])
+    err = _reject_unknown(data, ['name', 'opType', 'domain', 'docString'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'gridDim'])
+    err = _require(data, ['name', 'opType'])
     if err:
         return err, 400
-    rec = {"id": new_id("onnxrunt_ker")}
-    rec["deviceId"] = data.get('deviceId')
+    rec = {"id": new_id("onnxrunt_nod")}
     rec["name"] = data.get('name')
-    rec["gridDim"] = data.get('gridDim')
-    rec["blockDim"] = data.get('blockDim')
+    rec["opType"] = data.get('opType')
+    rec["domain"] = data.get('domain')
+    rec["docString"] = data.get('docString')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Kernel", rec)
+    _persist("NodeProto", rec)
     return rec, 201
 
-@app.route("/v1/kernels", methods=["GET"])
-def list_kernels(request):
-    """List Kernels with filtering + cursor pagination."""
+@app.route("/v1/nodeprotos", methods=["GET"])
+def list_node_protos(request):
+    """List NodeProtos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Kernel")
-    rows = _apply_filters(rows, params, ['deviceId', 'name', 'gridDim', 'blockDim'])
+    rows = _query("NodeProto")
+    rows = _apply_filters(rows, params, ['name', 'opType', 'domain', 'docString'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/kernels/<eid>", methods=["GET"])
-def get_kernel(request, eid):
-    """Retrieve a Kernel by id (supports ?expand=)."""
-    rows = _query("Kernel", eid)
+@app.route("/v1/nodeprotos/<eid>", methods=["GET"])
+def get_node_proto(request, eid):
+    """Retrieve a NodeProto by id (supports ?expand=)."""
+    rows = _query("NodeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/kernels/<eid>", methods=["POST", "PATCH"])
-def update_kernel(request, eid):
-    """Update a Kernel."""
-    rows = _query("Kernel", eid)
+@app.route("/v1/nodeprotos/<eid>", methods=["POST", "PATCH"])
+def update_node_proto(request, eid):
+    """Update a NodeProto."""
+    rows = _query("NodeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'gridDim', 'blockDim'])
+    err = _reject_unknown(data, ['name', 'opType', 'domain', 'docString'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,287 +297,161 @@ def update_kernel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Kernel", rec)
+    _persist("NodeProto", rec)
     return rec, 200
 
-@app.route("/v1/kernels/<eid>", methods=["DELETE"])
-def delete_kernel(request, eid):
-    """Delete a Kernel."""
-    rows = _query("Kernel", eid)
+@app.route("/v1/nodeprotos/<eid>", methods=["DELETE"])
+def delete_node_proto(request, eid):
+    """Delete a NodeProto."""
+    rows = _query("NodeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.Kernel", "id": eid})
+    db.retract({"entity": f"onnx_runtime.NodeProto", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/memoryallocs", methods=["POST"])
-def create_memory_alloc(request):
-    """Create a MemoryAlloc."""
+@app.route("/v1/tensorprotos", methods=["POST"])
+def create_tensor_proto(request):
+    """Create a TensorProto."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'sizeBytes', 'ptr'])
+    err = _reject_unknown(data, ['name', 'dataType', 'dataLocation', 'docString'])
     if err:
         return err, 400
-    err = _require(data, ['sizeBytes', 'ptr'])
+    err = _require(data, ['name', 'dataType'])
     if err:
         return err, 400
-    rec = {"id": new_id("onnxrunt_mem")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["ptr"] = data.get('ptr')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("MemoryAlloc", rec)
-    return rec, 201
-
-@app.route("/v1/memoryallocs", methods=["GET"])
-def list_memory_allocs(request):
-    """List MemoryAllocs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("MemoryAlloc")
-    rows = _apply_filters(rows, params, ['deviceId', 'sizeBytes', 'ptr'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/memoryallocs/<eid>", methods=["GET"])
-def get_memory_alloc(request, eid):
-    """Retrieve a MemoryAlloc by id (supports ?expand=)."""
-    rows = _query("MemoryAlloc", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/memoryallocs/<eid>", methods=["POST", "PATCH"])
-def update_memory_alloc(request, eid):
-    """Update a MemoryAlloc."""
-    rows = _query("MemoryAlloc", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'sizeBytes', 'ptr'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("MemoryAlloc", rec)
-    return rec, 200
-
-@app.route("/v1/memoryallocs/<eid>", methods=["DELETE"])
-def delete_memory_alloc(request, eid):
-    """Delete a MemoryAlloc."""
-    rows = _query("MemoryAlloc", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.MemoryAlloc", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/inferencejobs", methods=["POST"])
-def create_inference_job(request):
-    """Create a InferenceJob."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelRef', 'deviceId', 'status', 'latencyMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'latencyMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("onnxrunt_inf")}
-    rec["modelRef"] = data.get('modelRef')
-    rec["deviceId"] = data.get('deviceId')
-    rec["status"] = data.get('status')
-    rec["latencyMs"] = _as_float(data.get('latencyMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("InferenceJob", rec)
-    return rec, 201
-
-@app.route("/v1/inferencejobs", methods=["GET"])
-def list_inference_jobs(request):
-    """List InferenceJobs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("InferenceJob")
-    rows = _apply_filters(rows, params, ['modelRef', 'deviceId', 'status', 'latencyMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/inferencejobs/<eid>", methods=["GET"])
-def get_inference_job(request, eid):
-    """Retrieve a InferenceJob by id (supports ?expand=)."""
-    rows = _query("InferenceJob", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/inferencejobs/<eid>", methods=["POST", "PATCH"])
-def update_inference_job(request, eid):
-    """Update a InferenceJob."""
-    rows = _query("InferenceJob", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelRef', 'deviceId', 'status', 'latencyMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("InferenceJob", rec)
-    return rec, 200
-
-@app.route("/v1/inferencejobs/<eid>", methods=["DELETE"])
-def delete_inference_job(request, eid):
-    """Delete a InferenceJob."""
-    rows = _query("InferenceJob", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.InferenceJob", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/engines", methods=["POST"])
-def create_engine(request):
-    """Create a Engine."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'precision', 'maxBatch'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'precision'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("onnxrunt_eng")}
+    if data.get('dataLocation') and data['dataLocation'] not in [0, 1]:
+        return {"error": {"message": "invalid dataLocation; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("onnxrunt_ten")}
     rec["name"] = data.get('name')
-    rec["precision"] = data.get('precision')
-    rec["maxBatch"] = _as_int(data.get('maxBatch'))
+    rec["dataType"] = _as_int(data.get('dataType'))
+    rec["dataLocation"] = _as_int(data.get('dataLocation'))
+    rec["docString"] = data.get('docString')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Engine", rec)
+    _persist("TensorProto", rec)
     return rec, 201
 
-@app.route("/v1/engines", methods=["GET"])
-def list_engines(request):
-    """List Engines with filtering + cursor pagination."""
+@app.route("/v1/tensorprotos", methods=["GET"])
+def list_tensor_protos(request):
+    """List TensorProtos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Engine")
-    rows = _apply_filters(rows, params, ['name', 'precision', 'maxBatch'])
+    rows = _query("TensorProto")
+    rows = _apply_filters(rows, params, ['name', 'dataType', 'dataLocation', 'docString'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/engines/<eid>", methods=["GET"])
-def get_engine(request, eid):
-    """Retrieve a Engine by id (supports ?expand=)."""
-    rows = _query("Engine", eid)
+@app.route("/v1/tensorprotos/<eid>", methods=["GET"])
+def get_tensor_proto(request, eid):
+    """Retrieve a TensorProto by id (supports ?expand=)."""
+    rows = _query("TensorProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/engines/<eid>", methods=["POST", "PATCH"])
-def update_engine(request, eid):
-    """Update a Engine."""
-    rows = _query("Engine", eid)
+@app.route("/v1/tensorprotos/<eid>", methods=["POST", "PATCH"])
+def update_tensor_proto(request, eid):
+    """Update a TensorProto."""
+    rows = _query("TensorProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'precision', 'maxBatch'])
+    err = _reject_unknown(data, ['name', 'dataType', 'dataLocation', 'docString'])
     if err:
         return err, 400
+    if data.get('dataLocation') and data['dataLocation'] not in [0, 1]:
+        return {"error": {"message": "invalid dataLocation; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Engine", rec)
+    _persist("TensorProto", rec)
     return rec, 200
 
-@app.route("/v1/engines/<eid>", methods=["DELETE"])
-def delete_engine(request, eid):
-    """Delete a Engine."""
-    rows = _query("Engine", eid)
+@app.route("/v1/tensorprotos/<eid>", methods=["DELETE"])
+def delete_tensor_proto(request, eid):
+    """Delete a TensorProto."""
+    rows = _query("TensorProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.Engine", "id": eid})
+    db.retract({"entity": f"onnx_runtime.TensorProto", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/utilizations", methods=["POST"])
-def create_utilization(request):
-    """Create a Utilization."""
+@app.route("/v1/attributeprotos", methods=["POST"])
+def create_attribute_proto(request):
+    """Create a AttributeProto."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'gpuPct', 'memPct', 'sampledAt'])
+    err = _reject_unknown(data, ['name', 'type', 'docString'])
     if err:
         return err, 400
-    err = _require(data, ['gpuPct', 'memPct'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("onnxrunt_uti")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["gpuPct"] = _as_float(data.get('gpuPct'))
-    rec["memPct"] = _as_float(data.get('memPct'))
-    rec["sampledAt"] = data.get('sampledAt')
+    if data.get('type') and data['type'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("onnxrunt_att")}
+    rec["name"] = data.get('name')
+    rec["type"] = _as_int(data.get('type'))
+    rec["docString"] = data.get('docString')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Utilization", rec)
+    _persist("AttributeProto", rec)
     return rec, 201
 
-@app.route("/v1/utilizations", methods=["GET"])
-def list_utilizations(request):
-    """List Utilizations with filtering + cursor pagination."""
+@app.route("/v1/attributeprotos", methods=["GET"])
+def list_attribute_protos(request):
+    """List AttributeProtos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Utilization")
-    rows = _apply_filters(rows, params, ['deviceId', 'gpuPct', 'memPct', 'sampledAt'])
+    rows = _query("AttributeProto")
+    rows = _apply_filters(rows, params, ['name', 'type', 'docString'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/utilizations/<eid>", methods=["GET"])
-def get_utilization(request, eid):
-    """Retrieve a Utilization by id (supports ?expand=)."""
-    rows = _query("Utilization", eid)
+@app.route("/v1/attributeprotos/<eid>", methods=["GET"])
+def get_attribute_proto(request, eid):
+    """Retrieve a AttributeProto by id (supports ?expand=)."""
+    rows = _query("AttributeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/utilizations/<eid>", methods=["POST", "PATCH"])
-def update_utilization(request, eid):
-    """Update a Utilization."""
-    rows = _query("Utilization", eid)
+@app.route("/v1/attributeprotos/<eid>", methods=["POST", "PATCH"])
+def update_attribute_proto(request, eid):
+    """Update a AttributeProto."""
+    rows = _query("AttributeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'gpuPct', 'memPct', 'sampledAt'])
+    err = _reject_unknown(data, ['name', 'type', 'docString'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Utilization", rec)
+    _persist("AttributeProto", rec)
     return rec, 200
 
-@app.route("/v1/utilizations/<eid>", methods=["DELETE"])
-def delete_utilization(request, eid):
-    """Delete a Utilization."""
-    rows = _query("Utilization", eid)
+@app.route("/v1/attributeprotos/<eid>", methods=["DELETE"])
+def delete_attribute_proto(request, eid):
+    """Delete a AttributeProto."""
+    rows = _query("AttributeProto", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"onnx_runtime.Utilization", "id": eid})
+    db.retract({"entity": f"onnx_runtime.AttributeProto", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "onnx_runtime-compat", "tier": "L4",
-            "entities": ['Device', 'Kernel', 'MemoryAlloc', 'InferenceJob', 'Engine', 'Utilization']}, 200
+            "entities": ['ModelProto', 'GraphProto', 'NodeProto', 'TensorProto', 'AttributeProto']}, 200
 
 
 if __name__ == "__main__":

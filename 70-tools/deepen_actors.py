@@ -1851,6 +1851,26 @@ PLATFORM_OVERRIDES = {
         "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
         "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
     },
+    # Faithful ONNX model (official onnx/onnx onnx.proto3, commit ef516e7b). attributeType
+    # (15, stable since IR v8) + dataLocation (2) enforced. dataType is version-growing
+    # (FP8 v9 / INT4 v10 / FP4 v11 / INT2 v13, ~yearly) -> gapped per MAVLink precedent.
+    "onnx_runtime": {
+        "ModelProto": E(irVersion="integer", producerName="string", producerVersion="string", domain="string", modelVersion="integer", docString="string"),
+        "GraphProto": E(name="string", docString="string"),
+        "NodeProto": E(name="string", opType="string", domain="string", docString="string"),
+        "TensorProto": E(name="string", dataType="integer", dataLocation="integer", docString="string"),
+        "AttributeProto": E(name="string", type="integer", docString="string"),
+    },
+    # Faithful ROS 2 navigation model (official ros2 .msg files, rolling branch).
+    # GoalStatus.status / NavSatFix.status+positionCovarianceType / BatteryState
+    # status+health enforced. service is a combinable BITMASK (not an enum) and
+    # powerSupplyTechnology is version-growing (TERNARY/VRLA recent) -> both gapped.
+    "ros2_nav": {
+        "GoalStatus": E(goalId="string", stamp="datetime", status="integer"),
+        "NavSatFix": E(latitude="float", longitude="float", altitude="float", status="integer", service="integer", positionCovarianceType="integer"),
+        "BatteryState": E(voltage="float", temperature="float", current="float", charge="float", percentage="float", powerSupplyStatus="integer", powerSupplyHealth="integer", powerSupplyTechnology="integer", present="boolean"),
+        "Odometry": E(childFrameId="string", poseX="float", poseY="float", poseZ="float", twistLinearX="float", twistLinearY="float", twistLinearZ="float", twistAngularX="float", twistAngularY="float", twistAngularZ="float"),
+    },
     # mavlink_swarm shares the verified MAVLink common.xml model (same official spec as
     # mavlink_drones — normative-standard leverage, FHIR-family pattern). Same enum
     # discipline: MAV_STATE + MAV_MISSION_TYPE enforced; version-growing sets gapped.

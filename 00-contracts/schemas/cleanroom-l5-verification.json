@@ -6,7 +6,7 @@
  ],
  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
- "count": 145,
+ "count": 147,
  "actors": [
   {
    "handle": "square-compat",
@@ -19933,6 +19933,228 @@
    ],
    "notApplicable": [],
    "note": "FULLY VERIFIED (6/6 schemas) via the mavlink_drones-verified official mavlink XML (normative-standard leverage). Enforced enums: Heartbeat.systemStatus (MAV_STATE 9, int) + MissionItem.missionType (MAV_MISSION_TYPE 4, int) = 2 enums. Version-growing enums left as gaps — honesty over coverage."
+  },
+  {
+   "handle": "onnx_runtime-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3 (commit ef516e7b)",
+   "remodeled": "Remodeled from generic category model to a faithful ONNX model verified against the official onnx/onnx protobuf schema (onnx.proto3, main @ ef516e7b). attributeType (15 values, stable since IR v8/2021) + dataLocation (2) enforced; dataType is version-growing (~yearly: FP8 IR v9, INT4 v10, FP4 v11, INT2 v13) -> gapped per the MAVLink version-growing precedent; Version enum definitionally grows -> not modeled.",
+   "resources": [
+    {
+     "entity": "ModelProto",
+     "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3",
+     "verifiedFields": [
+      "irVersion",
+      "producerName",
+      "producerVersion",
+      "domain",
+      "modelVersion",
+      "docString"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "GraphProto",
+     "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3",
+     "verifiedFields": [
+      "name",
+      "docString"
+     ],
+     "fieldStatus": "confirmed",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "NodeProto",
+     "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3",
+     "verifiedFields": [
+      "name",
+      "opType",
+      "domain",
+      "docString"
+     ],
+     "fieldStatus": "confirmed; opType is the open operator namespace -> not an enum",
+     "discoveredEnums": {},
+     "gaps": []
+    },
+    {
+     "entity": "TensorProto",
+     "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3",
+     "verifiedFields": [
+      "name",
+      "dataType",
+      "dataLocation",
+      "docString"
+     ],
+     "fieldStatus": "confirmed; dataType version-growing -> gapped",
+     "discoveredEnums": {
+      "dataLocation": [
+       0,
+       1
+      ]
+     },
+     "gaps": [
+      "dataType-version-growing"
+     ]
+    },
+    {
+     "entity": "AttributeProto",
+     "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3",
+     "verifiedFields": [
+      "name",
+      "type",
+      "docString"
+     ],
+     "fieldStatus": "confirmed (full 15-value AttributeType enum block, stable since IR v8)",
+     "discoveredEnums": {
+      "type": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14
+      ]
+     },
+     "gaps": []
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (5/5) vs official onnx/onnx onnx.proto3 @ ef516e7b. Enforced enums: TensorProto.dataLocation(2), AttributeProto.type(15) = 2 enum fields. dataType gapped (version-growing ~yearly); Version enum definitionally grows."
+  },
+  {
+   "handle": "ros2_nav-compat",
+   "verifiedAt": "2026-06-10",
+   "tier": "L5",
+   "source": "https://github.com/ros2/common_interfaces + ros2/rcl_interfaces (rolling branch .msg files)",
+   "remodeled": "Remodeled from generic category model to a faithful ROS 2 navigation model verified against the official ros2 .msg constant blocks (rolling). GoalStatus.status, NavSatFix.status+positionCovarianceType, BatteryState.powerSupplyStatus+powerSupplyHealth enforced. NavSatStatus.service is a combinable BITMASK (SERVICE_* powers of 2) -> never an enum; powerSupplyTechnology version-growing (TERNARY=7/VRLA=8 recent) -> gapped.",
+   "resources": [
+    {
+     "entity": "GoalStatus",
+     "source": "https://raw.githubusercontent.com/ros2/rcl_interfaces/rolling/action_msgs/msg/GoalStatus.msg",
+     "verifiedFields": [
+      "goalId",
+      "stamp",
+      "status"
+     ],
+     "fieldStatus": "confirmed (full 7-constant block)",
+     "discoveredEnums": {
+      "status": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     "gaps": []
+    },
+    {
+     "entity": "NavSatFix",
+     "source": "https://raw.githubusercontent.com/ros2/common_interfaces/rolling/sensor_msgs/msg/NavSatFix.msg + NavSatStatus.msg",
+     "verifiedFields": [
+      "latitude",
+      "longitude",
+      "altitude",
+      "status",
+      "service",
+      "positionCovarianceType"
+     ],
+     "fieldStatus": "confirmed; service is a bitmask -> not enforced",
+     "discoveredEnums": {
+      "status": [
+       -2,
+       -1,
+       0,
+       1,
+       2
+      ],
+      "positionCovarianceType": [
+       0,
+       1,
+       2,
+       3
+      ]
+     },
+     "gaps": [
+      "service-bitmask"
+     ]
+    },
+    {
+     "entity": "BatteryState",
+     "source": "https://raw.githubusercontent.com/ros2/common_interfaces/rolling/sensor_msgs/msg/BatteryState.msg",
+     "verifiedFields": [
+      "voltage",
+      "temperature",
+      "current",
+      "charge",
+      "percentage",
+      "powerSupplyStatus",
+      "powerSupplyHealth",
+      "powerSupplyTechnology",
+      "present"
+     ],
+     "fieldStatus": "confirmed; powerSupplyTechnology version-growing -> gapped",
+     "discoveredEnums": {
+      "powerSupplyStatus": [
+       0,
+       1,
+       2,
+       3,
+       4
+      ],
+      "powerSupplyHealth": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     "gaps": [
+      "powerSupplyTechnology-version-growing"
+     ]
+    },
+    {
+     "entity": "Odometry",
+     "source": "https://raw.githubusercontent.com/ros2/common_interfaces/rolling/nav_msgs/msg/Odometry.msg",
+     "verifiedFields": [
+      "childFrameId",
+      "poseX",
+      "poseY",
+      "poseZ",
+      "twistLinearX",
+      "twistLinearY",
+      "twistLinearZ",
+      "twistAngularX",
+      "twistAngularY",
+      "twistAngularZ"
+     ],
+     "fieldStatus": "confirmed (composite pose/twist flattened to scalars)",
+     "discoveredEnums": {},
+     "gaps": []
+    }
+   ],
+   "notApplicable": [],
+   "note": "FULLY VERIFIED (4/4) vs official ros2 rolling .msg files. Enforced enums: GoalStatus.status(7), NavSatFix.status(5)+positionCovarianceType(4), BatteryState.powerSupplyStatus(5)+powerSupplyHealth(9) = 5 enum fields. service bitmask + powerSupplyTechnology version-growing gapped."
   }
  ]
 }
