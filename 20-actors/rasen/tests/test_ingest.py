@@ -16,9 +16,40 @@ import cid  # noqa: E402
 import ingest  # noqa: E402
 
 FIX = ACTOR_DIR / "tests" / "fixtures" / "myvariant_rs334.json"
+GO_FIX = ACTOR_DIR / "tests" / "fixtures" / "mygene_brca1_go.json"
 SOURCES = ingest.read_edn((ACTOR_DIR / "data" / "ingest-sources.edn").read_text(encoding="utf-8"))
 POP_MAP = SOURCES[":ingest/population-map"]
 CLINSIG_MAP = SOURCES[":ingest/clinsig-map"]
+
+
+def test_go_pathways_deduped_weighted_bounded():
+    """GO ingest: dedupe by GO id (best evidence wins), cap per gene, emit :participates-in."""
+    hit = json.loads(GO_FIX.read_text(encoding="utf-8"))
+    pw_nodes, edges = ingest.build_gene_pathways(hit, "gene.brca1", "BP", max_per_gene=6)
+    # 8 BP rows, but GO:0006281 and GO:0000724 each appear twice → 6 distinct terms
+    assert len(pw_nodes) == 6, f"expected 6 deduped pathways, got {len(pw_nodes)}"
+    assert len(edges) == 6
+    # every node is a public GO pathway, every edge is gene→pathway :participates-in
+    for pid, n in pw_nodes.items():
+        assert n[":genome/kind"] == ":pathway" and n[":pathway/source"] == ":GO"
+        assert n[":pathway/acc"].startswith("GO:")
+    for e in edges:
+        assert e[":en/from"] == "gene.brca1" and e[":en/kind"] == ":participates-in"
+        assert e[":en/to"] in pw_nodes
+        assert 0.0 < float(e[":en/grasping-load"]) <= 1.0
+    # DNA repair (GO:0006281) kept its BEST evidence (IDA experimental 0.9, not IEA 0.4)
+    dna_repair = [e for e in edges if e[":en/to"] == "pw.go-0006281"][0]
+    assert abs(float(dna_repair[":en/grasping-load"]) - 0.9) < 1e-9, "best-evidence weight not kept"
+
+
+def test_go_pathways_capped():
+    """max_per_gene caps the bounded slice (G5 honesty)."""
+    hit = json.loads(GO_FIX.read_text(encoding="utf-8"))
+    pw_nodes, edges = ingest.build_gene_pathways(hit, "gene.brca1", "BP", max_per_gene=3)
+    assert len(pw_nodes) == 3 and len(edges) == 3
+    # the cap keeps the HIGHEST-evidence terms (all returned weights ≥ any dropped term's)
+    kept = sorted(float(e[":en/grasping-load"]) for e in edges)
+    assert kept[0] >= 0.7, f"cap should keep high-evidence terms first, got {kept}"
 
 
 def test_cid_matches_ipfs_vector():

@@ -34,6 +34,6 @@ coverage = "methods/coverage_report.py"
 ingest = "methods/ingest.py"
 
 [tests]
-count = 15
+count = 17
 runner = "python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py"
 network = false   # all tests are network-free (live fetch covered by running ingest.py)

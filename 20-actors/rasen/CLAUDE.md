@@ -67,11 +67,11 @@ It answers the question "is there an actor that hosts public genetic data and an
 │   ├── coverage_report.py                 # honest coverage + gap map (G5)
 │   ├── ingest.py                          # OUTWARD (G7): public APIs → EDN/Datom → kotoba IPFS CID
 │   └── cid.py                             # kotoba IPFS CIDv1 (raw/sha2-256) — ipfs-parity, no daemon
-├── tests/                                 # 15 tests, pure stdlib (network-free)
+├── tests/                                 # 17 tests, pure stdlib (network-free)
 │   ├── test_analyze.py
 │   ├── test_coverage.py
 │   ├── test_ingest.py
-│   └── fixtures/myvariant_rs334.json
+│   └── fixtures/{myvariant_rs334, mygene_brca1_go}.json
 ├── wasm/
 │   └── README.md                          # kotoba pywasm actor (componentize-py) design
 └── out/                                   # GENERATED — do not hand-edit
@@ -94,14 +94,22 @@ python3 methods/ingest.py           # live fetch (MyGene.info + MyVariant.info) 
 python3 methods/ingest.py --offline --no-pin   # re-content-address an existing ingested graph
 python3 methods/cid.py out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
 
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py  # 15 green
+python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py  # 17 green
 ```
 
 The ingest is **PUBLIC + aggregate only** (G1): gene reference models (Ensembl + coarse
-cytoband), public variant ids, DISCLOSED ClinVar significance, and gnomAD **super-population
-AGGREGATE** allele frequencies — never sample/cohort/individual data. The artifact is
-content-addressed to a kotoba IPFS CIDv1 (raw/sha2-256) that is **byte-identical to
-`ipfs add --cid-version=1 --raw-leaves`** and verifiable without a daemon (`methods/cid.py`).
+cytoband), **public GO pathway membership** (Gene Ontology / EBI-GOA via MyGene `go.BP`),
+public variant ids, DISCLOSED ClinVar significance, and gnomAD **super-population AGGREGATE**
+allele frequencies — never sample/cohort/individual data. The artifact is content-addressed
+to a kotoba IPFS CIDv1 (raw/sha2-256) that is **byte-identical to `ipfs add --cid-version=1
+--raw-leaves`** and verifiable without a daemon (`methods/cid.py`).
+
+GO pathways are **bounded + honest** (G5): per gene the ingest dedupes GO terms, keeps the
+best evidence weight (`GO_EVIDENCE_WEIGHT`: experimental > author-stated > phylogenetic >
+computational — the GO annotation is the DISCLOSED fact, N3), and caps at
+`:ingest/go :max-per-gene` (default 6). These become `:participates-in` (gene→pathway) edges
+that enrich the **pleiotropy / cascade** readout. First GO-enabled run: 20 genes + 12 variants
+→ **192 nodes / 220 縁** (117 GO `:participates-in` edges, 104 GO pathway nodes), 0 errors.
 
 ## Ontology (genome-ontology, `00-contracts/schemas/`)
 
