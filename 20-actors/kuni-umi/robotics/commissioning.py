@@ -36,6 +36,7 @@ class CommissionRecord:
     site_did: str
     open_ot_loop_dids: tuple[str, ...]
     acceptance_passed: bool
+    acceptance_tier: str        # "python-twin" (R0) | "device-wasm" (R1 evidence)
     final_freq_hz: float
     rocof_tripped: bool
     witness_ok: bool
@@ -88,22 +89,43 @@ def commission_microgrid_site(
     witness_sigs: list[str],
     load_step_kw: float = 140.0,
     server_sig: str = "",
+    device_evidence: dict | None = None,
 ) -> CommissionRecord:
     """Commission an islanded-microgrid site and hand its loops to open-ot.
 
     Fail-fast gates: member signature (G15/G7) before anything. The witness quorum
     (G8) is recorded (Council-escalation flag) rather than raised. The site only
     becomes "operational" if the acceptance test passes AND the quorum holds.
+
+    `device_evidence` (R1): a result dict from the device-in-the-loop golden
+    trace (device_loop.py — the REAL open-ot DROOP_P_F + ANTI_ISLANDING_ROCOF
+    wasm executed under Wasmtime). When supplied and consistent (frequency
+    restored, no trip, twin verdict match), the record's acceptance tier is
+    "device-wasm" instead of "python-twin". Inconsistent evidence demotes the
+    site to punch-list — device evidence can only tighten, never loosen.
     """
     require_member_signature(member_sig, server_sig)  # G15/G7
     quorum = witness_quorum_ok(witness_sigs)           # G8 (record, escalate)
     acceptance = run_microgrid_acceptance(load_step_kw)
 
-    operational = acceptance["passed"] and quorum["ok"]
+    tier = "python-twin"
+    device_ok = True
+    if device_evidence is not None:
+        device_ok = (
+            bool(device_evidence.get("freq_restored"))
+            and not device_evidence.get("rocof_trip", True)
+            and bool(device_evidence.get("twin_verdict_match"))
+            and bool(device_evidence.get("dry_run"))
+            and device_evidence.get("server_held_key") is False
+        )
+        tier = "device-wasm" if device_ok else "python-twin"
+
+    operational = acceptance["passed"] and quorum["ok"] and device_ok
     return CommissionRecord(
         site_did=site_did,
         open_ot_loop_dids=tuple(loop_dids),
         acceptance_passed=acceptance["passed"],
+        acceptance_tier=tier,
         final_freq_hz=acceptance["final_freq_hz"],
         rocof_tripped=acceptance["rocof_tripped"],
         witness_ok=quorum["ok"],
@@ -111,7 +133,7 @@ def commission_microgrid_site(
         member_sig=member_sig,
         server_held_key=False,  # G15 structural invariant
         site_state="operational" if operational else "punch-list",
-        dry_run=True,           # R0 offline only
+        dry_run=True,           # R0/R1 offline only
     )
 
 
@@ -121,6 +143,7 @@ def to_datoms(record: CommissionRecord) -> dict:
         ":commission/site": record.site_did,
         ":commission/open-ot-loops": list(record.open_ot_loop_dids),
         ":commission/acceptance-passed": record.acceptance_passed,
+        ":commission/acceptance-tier": record.acceptance_tier,
         ":commission/final-freq-hz": record.final_freq_hz,
         ":commission/rocof-tripped": record.rocof_tripped,
         ":commission/witness-ok": record.witness_ok,

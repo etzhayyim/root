@@ -14745,6 +14745,20 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified",
+      "type": "TechArticle",
+      "title": "ADR-2606091141: bunken CDX collection pipeline, scholarly actors → L5, and kotoba persistence/query verified live",
+      "status": "approved",
+      "topic": "knowledge-ingestion-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps/etzhayyim-project-bunken",
+        "20-actors/{arxiv_api,crossref,doi_system,ietf_rfcs,ncbi,orcid,pubmed,w3c_specs}-compat",
+        "kotoba persistence/query verification (40-engine/kotoba submodule)"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "type": "TechArticle",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
@@ -14762,6 +14776,26 @@
         "doc:2605215000",
         "doc:50-infra/vultr/geth-private/",
         "doc:50-infra/etzhayyim-chain-contracts/"
+      ],
+      "lastVerified": "2026-06-09"
+    },
+    {
+      "id": "doc:adr-2606091500-kotobase-net-canonical-ipfs-pin",
+      "type": "TechArticle",
+      "title": "ADR-2606091500: kotobase.net is the canonical IPFS pin service (repo-wide); supersedes the kotobase.etzhayyim.com naming",
+      "status": "active",
+      "topic": "ipfs-pin-canonicalization",
+      "authoritative": true,
+      "authoritativeFor": [
+        "canonical remote IPFS pin endpoint (kotobase.net)",
+        "deps.toml [platform.kotobase_pin] config block",
+        "kotoba-store IpfsPinClient remote-pin default (KOTOBA_IPFS_PIN_ENDPOINT)",
+        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)"
+      ],
+      "related": [
+        "doc:adr-2606041130-kotoba-b2-blockstore-cold-pin",
+        "doc:adr-2605262400-public-data-organism-ipfs-ingestion",
+        "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
       ],
       "lastVerified": "2026-06-09"
     },
@@ -14881,6 +14915,24 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101430",
+      "type": "TechArticle",
+      "title": "ADR-2606101430: Infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop",
+      "status": "accepted",
+      "topic": "infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "infra-robotics-r1-device-in-the-loop",
+        "device-loop-host line protocol"
+      ],
+      "related": [
+        "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "doc:adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge",
+        "doc:adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
       "type": "TechArticle",
       "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
@@ -14919,6 +14971,24 @@
       "related": [
         "doc:adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
         "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
+      "id": "doc:adr-2606101845",
+      "type": "TechArticle",
+      "title": "ADR-2606101845: Session-Close — infra-robotics R1 device-in-the-loop wave (real open-ot WASM in the commissioning loop)",
+      "status": "accepted",
+      "topic": "session-close-infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the R1 device-in-the-loop wave (2026-06-10)",
+        "deps.toml registration of ADR-2606101430"
+      ],
+      "related": [
+        "doc:adr-2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm",
+        "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "doc:adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge"
       ],
       "lastVerified": "2026-06-10"
     },

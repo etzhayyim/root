@@ -65,12 +65,14 @@ def _cmd_publish_ipfs(args: argparse.Namespace) -> int:
 
     print(f"[publish-ipfs] subdataset={args.subdataset} remote={remote_root}", file=sys.stderr)
     print(f"[publish-ipfs] kubo_api={p.kubo_api}", file=sys.stderr)
+    print(f"[publish-ipfs] kotobase_pin={p.kotobase_pin_url} (canonical remote, ADR-2606091500)", file=sys.stderr)
 
     result = pinner.publish(
         kubo_api=p.kubo_api,
         subdataset_name=args.subdataset,
         remote_root=remote_root,
         git_commit=args.git_commit,
+        kotobase_pin_url=p.kotobase_pin_url,
     )
 
     print(json.dumps(
@@ -79,6 +81,9 @@ def _cmd_publish_ipfs(args: argparse.Namespace) -> int:
             "map_size_bytes": result.map_size,
             "object_count": result.object_count,
             "audit_path": str(result.audit_path),
+            "remote_pin_url": result.remote_pin_url,
+            "remote_pinned": result.remote_pinned,
+            "remote_pin_failures": result.remote_pin_failures,
         },
         indent=2,
         sort_keys=True,
@@ -437,6 +442,7 @@ def _cmd_add(args: argparse.Namespace) -> int:
         subdataset_name=sub_name,
         remote_root=remote_root,
         git_commit=sha,
+        kotobase_pin_url=p.kotobase_pin_url,
     )
 
     # 8. manifest + PDS emit

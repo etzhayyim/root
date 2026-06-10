@@ -3,6 +3,7 @@ resolver = "2"
 members = [
     "gate-a-rig",
     "gate-b-rig",
+    "device-loop-host",
 ]
 
 [workspace.package]

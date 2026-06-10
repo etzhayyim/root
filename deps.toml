@@ -541,6 +541,31 @@ deploy_status = "live"
 # ROLE: CIDv1 cold/interop backstop ONLY — durability authority is kotoba-dht
 # (ADR-2606011330). IPFS no longer owns the retention guarantee.
 role = "CIDv1 cold/interop backstop (demoted from durability authority per ADR-2606011330)"
+# This is the LOCAL self-pin tier (the kotoba node is its own IPFS node). The
+# canonical durable REMOTE pin is kotobase.net — see [platform.kotobase_pin]
+# (ADR-2606091500). Two-tier: local self-pin (hot, ≤~1 GB) + kotobase.net pin.
+remote_pin_service = "kotobase.net"
+remote_pin_adr = "2606091500"
+
+[platform.kotobase_pin]
+# ADR-2606091500 — canonical remote IPFS pin service, repo-wide. The kotoba node
+# self-pins its local block tier ([platform.ipfs] above, ~1 GB free); kotobase.net
+# holds the durable, content-addressed canonical pins (>1 GB extended) that
+# survive pod GC. Kubo-compatible HTTP API. Supersedes the kotobase.etzhayyim.com
+# name (kotoba.etzhayyim.com is pruned / read-only).
+endpoint = "https://kotobase.net"
+api_surface = "Kubo-compatible: POST /api/v0/pin/add?arg=<cid>&recursive=true (+ pin/rm, pin/ls)"
+role = "canonical durable remote IPFS pin (content-addressed; block.put target; >1GB extended pin)"
+tier_model = "kotoba node local self-pin (hot) + kotobase.net (durable canonical remote pin)"
+best_effort = true  # fire-and-forget fanout; a pin failure warns, never fails a put/publish
+adr = "2606091500"
+# Env wiring (on by default → kotobase.net; opt out for dev/test):
+#   kotoba-store / kotoba-server: KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net;
+#                                 set off|none|disabled to skip), KOTOBA_IPFS_PIN_JWT (optional Bearer)
+#   e7m-dataset publish-ipfs:     ETZ_KOTOBASE_PIN (default https://kotobase.net)
+env_kotoba = ["KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net; off|none|disabled to skip)", "KOTOBA_IPFS_PIN_JWT (optional)"]
+env_e7m_dataset = ["ETZ_KOTOBASE_PIN (default https://kotobase.net)"]
+supersedes_name = "kotobase.etzhayyim.com"
 
 [platform.dataset_substrate]
 # ADR-2605241500 — DataLad + git-annex (directory remote) + sidecar IPFS
@@ -552,6 +577,10 @@ superdataset_path = "90-docs/baien/datasets"
 manifest_path = "90-docs/baien/datasets.jsonl"
 lexicon = "com.etzhayyim.substrate.datasetPin"
 operator_cli = "70-tools/e7m-dataset"
+# publish-ipfs fans out every object CID + map CID to the canonical remote pin
+# kotobase.net after the local `ipfs add` (ADR-2606091500); best-effort.
+remote_pin_endpoint = "https://kotobase.net"  # ETZ_KOTOBASE_PIN; see [platform.kotobase_pin]
+remote_pin_adr = "2606091500"
 replication_min = 2                 # ADR §D6 invariant; warn-only until 2nd node lands
 replication_status = "warn-only-single-node"  # bootstrap window
 charter_rider_gate = "kotodama.organism.sensors.charter_rider.scan"
@@ -10091,6 +10120,22 @@ path = "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-phys
 adr = ["2606101130", "2606091800", "2605201400"]
 
 [[adrs]]
+id = "2606101430"
+title = "infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop"
+status = "accepted"
+status_note = "Executes ADR-2606091800 follow-up #3 per founder direction 「device in the loop を進めてok」 (Council gate exercised as PR merge, ibuki ADR-2606101200 precedent). Device tier = the byte-for-byte deployment artefacts droop_p_f.wasm (2.8 KB) + anti_islanding_rocof.wasm (4.3 KB) — open-ot IEC 61499 Rust BFBs at wasm32-unknown-unknown (the WAMR/Cortex-M7 artefact class) — executed under Wasmtime by the NEW device-loop-host (60-apps/etzhayyim-project-open-ot/risk1/, gate-a-rig sibling: LOAD/INIT/TICK stdin line protocol, gate-a memory map, layouts from the existing codegen-cell-types pack/unpack) and driven tick-by-tick by the SAME MicrogridPlant scenarios the Python twin passes (20-actors/kuni-umi/robotics/device_loop.py -> committed golden device_loop_trace.json; verification needs no cargo/wasmtime). TWO semantic findings test-pinned: DROOP_P_F is INCREMENTAL (p_setpoint = clamp(current_p + delta); feeding the last command back integrates — observed >180 kW divergence; correct usage feeds the FIXED dispatch base) and unit conventions differ (device per-unit vs twin absolute droop; exact equivalence R_twin = f_nom*R_dev/P_rated, derived not tuned). GOLDEN RESULT: 50.0 Hz restored on normal/load-shed with no trip; the REAL guard LATCHES on the islanding-scale step; per-step twin parity 0.0001 kW (= µkW integer quantisation); device verdicts match twin verdicts on all scenarios. Commissioning gains acceptance_tier python-twin -> device-wasm (consistent evidence only TIGHTENS; inconsistent demotes to punch-list); CommissioningCell commission_test reads the golden. Fixed in passing: validate-cell-abi.py ALLOWED_WIRE drift (test_real_repo_content_passes was red on main -> green, 26 tests). kuni-umi/robotics 36->48 tests (incl. 2 live e2e that execute the wasm when the host is built). Invariants unchanged: offline dry-run evidence only, server_held_key=false, host signs nothing; live field dispatch stays Council/operator-gated behind deps.sdk + certified IEC 61508/61511 PLC. Honest: Wasmtime-on-Mac is not WAMR-AOT-on-M7 (timing differs; logic/ABI identical); voltage held nominal in scenarios; BLACK_START_SEQ + 6 remaining BFBs not yet in the loop."
+path = "90-docs/adr/2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm.md"
+adr = ["2606101430", "2606091800", "2606101130", "2606101200", "2605201400", "2605231525"]
+
+[[adrs]]
+id = "2606101845"
+title = "session close — infra-robotics R1 device-in-the-loop wave"
+status = "accepted"
+status_note = "Process record of the 2026-06-10 R1 wave (authoritative design = ADR-2606101430, PR #1568): device-loop-host (open-ot risk1, gate-a-rig sibling, LOAD/INIT/TICK line protocol) + device_loop.py + committed golden — the real droop_p_f.wasm + anti_islanding_rocof.wasm close the microgrid loop under Wasmtime against the same MicrogridPlant scenarios the Python twin passes (50.0 Hz restored, real guard latches on islanding step, twin parity 0.0001 kW = µkW quantisation, verdict match); two real-cell semantics test-pinned (DROOP_P_F incremental — feed the FIXED dispatch base; R_twin = f_nom*R_dev/P_rated); commissioning acceptance_tier python-twin -> device-wasm (evidence only tightens); validate-cell-abi ALLOWED_WIRE drift fixed (red on main -> green). Tests 48 robotics / 395 sweep / 26 validator. Follow-ups (gated): BLACK_START_SEQ + remaining BFBs into the loop, WAMR-AOT timing leg on target hardware, per-actor R1 hardware triggers before live dispatch."
+path = "90-docs/adr/2606101845-session-close-infra-robotics-r1-device-in-the-loop.md"
+adr = ["2606101845", "2606101430", "2606091800"]
+
+[[adrs]]
 id = "2606042330"
 title = "entity-as-actor — society-scale social mirror graph"
 status = "accepted"
@@ -10460,7 +10505,7 @@ schema = "20-actors/ibuki/data/seed-organisms.kotoba.edn"
 path = "20-actors/kuni-umi/robotics"
 kind = "infra-robotics-3layer-operational-substrate"
 version = "0.1.0-r0"
-status = "R0-landed-36-tests-green-parity-proven-against-kami-genesis"
+status = "R0+R1-48-tests-green-parity-proven-against-kami-genesis-and-device-in-the-loop-vs-real-open-ot-wasm"
 description = "Shared 3-layer infra-robotics operational substrate (ADR-2606091800; stdlib-only, deterministic, :representative): plant.py (Plant protocol + FirstOrderPlant + MicrogridPlant swing-eqn+SoC — the kami-genesis stand-in) + control.py (PID anti-windup / Droop / DroopPI / simulate() closed-loop runner — the floating-point twin of the open-ot IEC 61499 Rust WASM field tier) + kinematics.py (PlanarArm FK + analytic 2-link IK + joint_trajectory) + safety.py (closed-world civilian allowlist N1 · no-server-key G15/G7 · witness quorum ≥2 G8 · SafetyEnvelope human-proximity joint-rate ceiling) + commissioning.py (runnable kuni-umi→open-ot handoff: droop-P-f acceptance + windowed ROCOF guard → dry-run loop-DID registration). Composed by the 4 basic-infra verticals (hikari 電気 / mizuho 水道 / kamado ガス / noroshi 通信) via per-actor methods/_substrate.py shims. kami-bridge/ (standalone Rust crate, path-deps into the 40-engine/kami-engine submodule, no submodule edits) regenerates golden/kami_fk_ik_trace.json from the REAL kami-genesis Featherstone solver; test_kami_parity.py proves FK/IK parity + giemon_arm6 6-DOF swap readiness without requiring Rust at test time. No live actuation: domain cell.py .solve() stays Council-gated; every record server_held_key=false + dry_run=true."
 adr = ["2606091800", "2606101130", "2605201400", "2605261100", "2605263100", "2606051500", "2606051600", "2605231525", "2605215000"]
 sibling_modules = [
@@ -10472,6 +10517,14 @@ sibling_modules = [
 description = "Achieved 1000 Clean Room Actors. Transformed all endpoints into Cognitive APIs with internal LangGraph LLM inference and strict external backward compatibility. Deployed the Root Router as a unified ingress and IPFS Gateway. Launched the Chaos Monitor Dashboard on Kotoba IPFS, registered to the ATProto profile embed."
 adrs = ["260607-clean-room-actors-600-generation.md", "260607-cognitive-actors-and-root-router.md"]
 
+[etzhayyim.milestones.260609_world_papers_ingest_and_kotoba_persistence_verified]
+description = "Closed the world-papers ingestion gap and confirmed the kotoba persistence/query substrate end-to-end on real hardware (PR #1491 merged, mergeCommit bf28f7e3). (1) bunken 文献書誌 — implemented the CDX collection pipeline (collectFromCdx → fetchCdxBatch → enrichBatch → registerDids → linkSameAs) in 60-apps/etzhayyim-project-bunken/rw-free/src/collection.ts; 9-scheme id extraction (NDL/CiNii/LoC/WorldCat/VIAF/DOI/ARK), DJB2 dedup, era auto-classification, immutable cross-scheme SAME_AS; all network + Murakumo I/O injected via CollectionDeps (Murakumo-only preserved, no external LLM wired); 23/23 vitest, tsc clean. (2) 8 scholarly clean-room actors (arxiv_api/crossref/doi_system/ietf_rfcs/ncbi/orcid/pubmed/w3c_specs) remodeled from the generic Work/Author/Citation/Standard/Record/Subject template to faithful real-API schemas reconciled field-for-field against official docs (WebFetch provenance), L4→L5 (49→57 L5 in cleanroom-l5-verification.json); verify_cleanroom_system.py PASS 0/0. (3) kotoba persistence/query verified: kotoba-datomic 142 tests + kotoba-ipfs 27 tests (own Kubo-compatible IPFS node) + crash_recovery/survives_reopen/tiered-durable/shelf-survives-restart + ipfs_e2e; LIVE binary (built with the SovereignCrypto re-genesis fix) — serve → ingest → SELECT/ASK/DESCRIBE/CONSTRUCT → commit (durable seal to ProllyTrees + Kubo) → kill → restart → server B reloaded server-A's exact commit head for graph kotobase-kg-v1 from the disk-persistent IPNS head + Kubo blocks (durability confirmed)."
+adrs = ["2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified.md"]
+known_limitations = [
+  "installed/brew kotoba (d6815..., behind upstream d3086...) bricks on startup with Keychain identity + Kubo (stale SovereignCrypto wrapped-key pointer); upstream re-genesis fix resolves it — brew tap needs refresh",
+  "durable cross-restart requires a persisted operator identity (kotoba init) + the Kubo cold tier; KOTOBA_IPFS=off keeps blocks in memory = not durable across restart",
+  "the kotoba sparql CLI subcommand resolves the default graph differently than kotoba demo's internal sparql_req (returns empty against the wrong graph) — client-side quirk, file upstream",
+]
 
 # ─── rasen (螺旋) public-genetics KG mirror — gene-scale sibling of inochi 命 (ADR-2606101000) ──
 

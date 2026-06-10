@@ -27,8 +27,9 @@ class Paths:
     ipfs_data: Path  # root/ipfs-data
     annex_store: Path  # root/annex-store
     staging: Path  # root/datasets-staging
-    kubo_api: str  # http://127.0.0.1:5001
+    kubo_api: str  # http://127.0.0.1:5001  (local self-pin / add tier)
     node_did: str | None
+    kotobase_pin_url: str  # https://kotobase.net (canonical remote pin, ADR-2606091500)
 
     def subdataset_annex_dir(self, subdataset_name: str) -> Path:
         return self.annex_store / subdataset_name
@@ -80,6 +81,10 @@ def resolve() -> Paths:
         )
         raise SystemExit(2)
 
+    # Canonical remote IPFS pin = kotobase.net (ADR-2606091500). Overridable via
+    # ETZ_KOTOBASE_PIN; the local kubo_api stays the add/self-pin tier.
+    kotobase_pin_url = os.environ.get("ETZ_KOTOBASE_PIN") or "https://kotobase.net"
+
     root = Path(root_str).expanduser().resolve()
     return Paths(
         root=root,
@@ -88,4 +93,5 @@ def resolve() -> Paths:
         staging=root / "datasets-staging",
         kubo_api=kubo_api,
         node_did=node_did,
+        kotobase_pin_url=kotobase_pin_url,
     )
