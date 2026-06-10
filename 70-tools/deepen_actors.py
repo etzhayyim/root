@@ -1116,6 +1116,67 @@ PLATFORM_OVERRIDES = {
         "Connection": E(displayName="string", description="string", iModelId="string", iTwinId="string", connectorName="string", authenticationType="string"),
         "Job": E(status="string", progress="integer", createdDateTime="datetime", lastModifiedDateTime="datetime", iModelId="string", iTwinId="string", testId="string", changesetId="string"),
     },
+    # Faithful Miro (REST API v2) model (remodeled from the generic
+    # office_productivity archetype whose Workspace/Document/Folder doc entities
+    # did not match Miro's whiteboard API), doc-verified L5 vs
+    # github.com/miroapp/api-clients (generated miro-api model TS).
+    "miro": {
+        "Board": E(name="string", description="string", type="string", viewLink="string"),
+        "Item": E(type="string"),
+        "Tag": E(title="string", fillColor="string", type="string"),
+        "BoardMember": E(name="string", role="string", type="string"),
+        "Organization": E(name="string", plan="string", fullLicensesPurchased="integer", type="string"),
+        "Connector": E(shape="string", isSupported="boolean", type="string"),
+    },
+
+    # Faithful X (Twitter API v2) model (remodeled from the generic comms_social
+    # chat archetype whose Channel/Message/Room entities did not match X's
+    # microblog API), doc-verified L5 vs the official api.twitter.com/2/openapi.json.
+    "x": {
+        "Tweet": E(text="string", lang="string", source="string", paidPartnership="boolean", possiblySensitive="boolean", replySettings="string", conversationId="string", authorId="string"),
+        "User": E(name="string", description="string", location="string", url="string", protected="boolean", verified="boolean", verifiedType="string", subscriptionType="string", profileImageUrl="string", profileBannerUrl="string", receivesYourDm="boolean"),
+        "Space": E(title="string", state="string", lang="string", isTicketed="boolean", participantCount="integer", subscriberCount="integer", scheduledStart="datetime", startedAt="datetime", endedAt="datetime"),
+        "List": E(name="string", description="string", private="boolean", followerCount="integer", memberCount="integer"),
+        "Media": E(type="string"),
+        "Poll": E(durationMinutes="integer", endDatetime="datetime", votingStatus="string"),
+    },
+
+    # Faithful Paystack model (remodeled from the generic Stripe-shaped payments
+    # archetype whose Customer/PaymentIntent/Charge/Payout entities did not match
+    # Paystack's API), doc-verified L5 vs github.com/PaystackOSS/openapi.
+    "paystack": {
+        "Transaction": E(email="string", amount="integer", reference="string", callbackUrl="string", plan="string", invoiceLimit="integer", splitCode="string", subaccount="string", transactionCharge="string", bearer="string", label="string"),
+        "Customer": E(email="string", firstName="string", lastName="string", phone="string", metadata="string"),
+        "Plan": E(name="string", amount="integer", interval="string", description="string", sendInvoices="boolean", sendSms="boolean", currency="string", invoiceLimit="integer"),
+        "Subscription": E(customer="string", plan="string", authorization="string", startDate="datetime"),
+        "Product": E(name="string", description="string", price="integer", currency="string", unlimited="boolean", quantity="integer", splitCode="string", metadata="string"),
+        "Page": E(name="string", description="string", amount="integer", currency="string", slug="string", type="string", plan="string", fixedAmount="boolean", splitCode="string", redirectUrl="string", successMessage="string", notificationEmail="string", collectPhone="boolean"),
+    },
+
+    # Faithful Vimeo model (remodeled from the generic media_video_cms archetype
+    # whose Asset/Rendition/Channel/Playlist entities did not match Vimeo's video
+    # API), doc-verified L5 vs Vimeo's official OpenAPI (via apis.guru).
+    "vimeo": {
+        "Video": E(name="string", description="string", duration="float", width="integer", height="integer", language="string", license="string", status="string", link="string", releaseTime="datetime", resourceKey="string", uri="string"),
+        "Channel": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Album": E(name="string", description="string", duration="float", layout="string", sort="string", theme="string", brandColor="string", allowDownloads="boolean", allowShare="boolean", allowContinuousPlay="boolean", reviewMode="boolean", hideNav="boolean", link="string", url="string", resourceKey="string", uri="string"),
+        "User": E(name="string", bio="string", email="string", location="string", account="string", link="string", resourceKey="string", uri="string"),
+        "Group": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Category": E(name="string", topLevel="boolean", lastVideoFeaturedTime="datetime", link="string", resourceKey="string", uri="string"),
+    },
+
+    # Faithful DrChrono (EHR) model (remodeled from the generic FHIR-shaped health
+    # archetype — Encounter/Observation/Practitioner — to DrChrono's proprietary
+    # REST entities), doc-verified L5 vs DrChrono's official OpenAPI (via apis.guru).
+    # API-shape only (field names/types); no real PHI is stored.
+    "drchrono": {
+        "Patient": E(chartId="string", dateOfBirth="string", email="string", cellPhone="string", address="string", city="string", copay="string", defaultPharmacy="string", disableSmsMessages="boolean", doctor="integer", emergencyContactName="string", emergencyContactPhone="string", employer="string", dateOfFirstAppointment="string", dateOfLastAppointment="string"),
+        "Appointment": E(doctor="integer", duration="integer", examRoom="integer", color="string", billingStatus="string", ins1Status="string", allowOverlapping="boolean", apptIsBreak="boolean", deletedFlag="boolean", baseRecurringAppointment="string", billingProvider="string", firstBilledDate="string"),
+        "Doctor": E(firstName="string", lastName="string", email="string", cellPhone="string", officePhone="string", npiNumber="string", groupNpiNumber="string", specialty="string", jobTitle="string", practiceGroupName="string", isAccountSuspended="boolean"),
+        "Office": E(name="string", address="string", city="string", state="string", zipCode="string", phoneNumber="string", faxNumber="string", doctor="string", archived="boolean", onlineScheduling="boolean", startTime="string", endTime="string", taxIdNumberProfessional="string"),
+        "ClinicalNote": E(patient="string", appointment="string", archived="boolean"),
+        "LabResult": E(labTest="integer", labOrder="string", observationCode="string", observationDescription="string", value="string", unit="string", normalRange="string", abnormalStatus="string", status="string", comments="string", groupCode="string", testPerformed="string", specimenReceived="string"),
+    },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
         "Base": E(name="string", permissionLevel="string"),

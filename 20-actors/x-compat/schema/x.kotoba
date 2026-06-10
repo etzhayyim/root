@@ -3,69 +3,77 @@
 
 namespace x {
 
-    entity Channel {
+    entity Tweet {
         id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        channelId: string
+        text: string
+        lang: string
+        source: string
+        paidPartnership: boolean
+        possiblySensitive: boolean
+        replySettings: string
+        conversationId: string
         authorId: string
-        body: string
-        sentAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
-        handle: string
-        displayName: string
+        name: string
+        description: string
+        location: string
+        url: string
+        protected: boolean
         verified: boolean
+        verifiedType: string
+        subscriptionType: string
+        profileImageUrl: string
+        profileBannerUrl: string
+        receivesYourDm: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Room {
+    entity Space {
+        id: string @unique
+        title: string
+        state: string
+        lang: string
+        isTicketed: boolean
+        participantCount: integer
+        subscriberCount: integer
+        scheduledStart: datetime
+        startedAt: datetime
+        endedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity List {
         id: string @unique
         name: string
-        maxParticipants: integer
-        recording: boolean
+        description: string
+        private: boolean
+        followerCount: integer
+        memberCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Stream {
+    entity Media {
         id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Poll {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        durationMinutes: integer
+        endDatetime: datetime
+        votingStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
