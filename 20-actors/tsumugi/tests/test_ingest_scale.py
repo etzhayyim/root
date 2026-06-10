@@ -87,6 +87,17 @@ def main():
     _, _, lv_nodes, lv_ties, _ = I.normalize_rows(rows, SEED)
     check("live rows normalize to org nodes + custody ties", bool(lv_nodes) and bool(lv_ties))
 
+    # ANCHORED mode (hermetic): query builder pins to seed-org QIDs; aliases reconcile parents
+    q = I.build_anchored_query(50)
+    check("anchored query uses VALUES over anchor QIDs",
+          "VALUES ?parent" in q and all(f"wd:{qid}" in q for qid in I.ANCHOR_QIDS))
+    check("anchored query keeps S2 human-exclusion filter", "wd:Q5" in q)
+    arow = [{"child": "Cruise LLC", "parent": "General Motors", "country": "United States"}]
+    _, _, a_nodes, a_ties, _ = I.normalize_rows(arow, SEED)
+    check("alias: GM children attach to existing seed org (no parallel parent)",
+          bool(a_ties) and a_ties[0][":tie/from"] == "org.corp.us.gm"
+          and all(n[":pwr/id"] != "org.ext.general-motors" for n in a_nodes))
+
     # committed seed is NEVER mutated by a merge write
     before = pathlib.Path(SEED).read_bytes()
     with tempfile.TemporaryDirectory() as d:

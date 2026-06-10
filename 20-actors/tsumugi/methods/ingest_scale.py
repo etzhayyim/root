@@ -150,11 +150,20 @@ def normalize_rows(rows: list[dict], seed: str):
         if re.fullmatch(r"Q\d+", child) or re.fullmatch(r"Q\d+", parent):
             dropped.append((child, "no real label (raw QID) — quality drop")); continue
         cnode = make_org_node(child, r.get("country"))
-        pnode = make_org_node(parent, r.get("country"))
-        for n in (pnode, cnode):
+        # parent reconciliation: an aliased anchor attaches children to the EXISTING seed
+        # org (no parallel parent node); an unknown parent is minted as usual.
+        alias = PARENT_ALIASES.get(parent.lower())
+        if alias and alias in seen_nodes:
+            parent_id = alias
+            candidates = (cnode,)
+        else:
+            pnode = make_org_node(parent, r.get("country"))
+            parent_id = pnode[":pwr/id"]
+            candidates = (pnode, cnode)
+        for n in candidates:
             if n[":pwr/id"] not in seen_nodes and _admit(n, dropped):
                 new_nodes.append(n); seen_nodes.add(n[":pwr/id"])
-        tie = make_custody_tie(pnode[":pwr/id"], cnode[":pwr/id"], child, parent, r.get("childRef"))
+        tie = make_custody_tie(parent_id, cnode[":pwr/id"], child, parent, r.get("childRef"))
         if tie[":tie/id"] not in seen_ties and _admit_tie(tie, dropped):
             new_ties.append(tie); seen_ties.add(tie[":tie/id"])
     return nodes, ties, new_nodes, new_ties, dropped
@@ -187,6 +196,62 @@ LIMIT %d
 # person OUT cheaply — without the P31/P279* org-class transitive closure, which is too heavy
 # and times out on WDQS. Person-exclusion preserved; query is performant (<1s vs timeout).
 
+# ── ANCHORED mode (the honest follow-up of PR #1534) ─────────────────────────
+# The unanchored LIMIT returns arbitrary low-relevance orgs (the Prague school tree).
+# Anchoring fetches P749 CHILDREN OF ORGS ALREADY IN THE SEED — connected, significant
+# data by construction. ANCHOR_QIDS maps seed org families → their Wikidata QIDs; the
+# operator verifies labels at vet time (a wrong QID yields visibly-wrong children, and
+# the promotion PR review catches it — anchors never bypass the human-review step).
+ANCHOR_QIDS = {
+    "Q53268":    "Toyota Motor",                 # org.corp.jp.7203 / org.ext.toyota-motor
+    "Q20800404": "Alphabet Inc.",                # org.ext.alphabet-inc
+    "Q380":      "Meta Platforms",               # org.ext.meta-platforms
+    "Q156578":   "Volkswagen Group",             # org.corp.de.vw / org.ext.volkswagen-ag
+    "Q188958":   "SoftBank Group",               # org.ext.softbank-group
+    "Q81965":    "General Motors",               # org.corp.us.gm
+    "Q132964":   "Hitachi",                      # org.corp.jp.hitachi-works
+    "Q713418":   "TSMC",                         # org.corp.tw.tsmc-hsinchu
+    "Q41187":    "Sony Group",                   # org.corp.jp.6758 (base power-graph)
+    "Q725085":   "Mitsubishi Heavy Industries",  # org.corp.jp.7011
+}
+
+WIKIDATA_ANCHORED_SPARQL = """
+SELECT ?child ?childLabel ?parent ?parentLabel ?countryLabel WHERE {
+  VALUES ?parent { %s }
+  ?child wdt:P749 ?parent .
+  ?child rdfs:label ?en . FILTER(LANG(?en) = "en")
+  FILTER NOT EXISTS { ?child wdt:P31 wd:Q5 }
+  OPTIONAL { ?child wdt:P17 ?country . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT %d
+"""
+
+
+def build_anchored_query(limit: int, anchors: dict | None = None) -> str:
+    values = " ".join(f"wd:{q}" for q in sorted(anchors or ANCHOR_QIDS))
+    return WIKIDATA_ANCHORED_SPARQL % (values, int(limit))
+
+
+# Wikidata's labels differ from the seed's ("Toyota" vs "Toyota Motor", "Meta" vs
+# "Meta Platforms") — without reconciliation an anchored fetch would mint PARALLEL parent
+# nodes instead of attaching children to the org already in the graph. Label → existing
+# seed :pwr/id (scale seed). Children are never aliased — only the anchor parents.
+PARENT_ALIASES = {
+    "toyota": "org.ext.toyota-motor",
+    "toyota motor": "org.ext.toyota-motor",
+    "meta": "org.ext.meta-platforms",
+    "meta platforms": "org.ext.meta-platforms",
+    "volkswagen group": "org.ext.volkswagen-ag",
+    "volkswagen ag": "org.ext.volkswagen-ag",
+    "alphabet inc.": "org.ext.alphabet-inc",
+    "general motors": "org.corp.us.gm",
+    "tsmc": "org.corp.tw.tsmc-hsinchu",
+    "softbank group": "org.ext.softbank-group",
+    "hitachi": "org.corp.jp.hitachi-works",
+    "mitsubishi heavy industries": "org.corp.jp.7011",
+}
+
 
 def parse_wikidata_orgs(obj: dict) -> list[dict]:
     """WDQS JSON → [{child, parent, country, childRef}]. S2: query already org-constrained."""
@@ -201,8 +266,8 @@ def parse_wikidata_orgs(obj: dict) -> list[dict]:
     return rows
 
 
-def fetch_wikidata_orgs(limit: int = 200, timeout: int = 60) -> list[dict]:
-    q = WIKIDATA_ORG_SPARQL % int(limit)
+def fetch_wikidata_orgs(limit: int = 200, timeout: int = 60, anchored: bool = False) -> list[dict]:
+    q = build_anchored_query(limit) if anchored else (WIKIDATA_ORG_SPARQL % int(limit))
     url = WDQS_ENDPOINT + "?" + urllib.parse.urlencode({"query": q, "format": "json"})
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT,
                                                "Accept": "application/sparql-results+json"})
@@ -244,8 +309,9 @@ def main():
                 "TSUMUGI_OPERATOR_DID=<operator attestation> (Council-ratified). "
                 "Offline fixture ingest runs without --live.")
         print(f"⚠ G7 live gate satisfied (operator={os.environ['TSUMUGI_OPERATOR_DID']}) — "
-              f"fetching Wikidata P749 orgs (limit {limit})…")
-        rows = fetch_wikidata_orgs(limit)
+              f"fetching Wikidata P749 orgs (limit {limit}, "
+              f"{'ANCHORED to ' + str(len(ANCHOR_QIDS)) + ' seed orgs' if '--anchored' in sys.argv else 'unanchored'})…")
+        rows = fetch_wikidata_orgs(limit, anchored="--anchored" in sys.argv)
         print(f"✓ WDQS returned {len(rows)} org parent-child rows")
         nodes, ties, new_nodes, new_ties, dropped = normalize_rows(rows, seed)
         add_file, combined = write_merge(outdir, seed, new_nodes, new_ties, "-live")
