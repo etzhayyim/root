@@ -22,6 +22,10 @@ console.log('timeline via SW:', JSON.stringify(out, null, 1));
 const swSrc = await page.evaluate(async () => (await (await fetch('/kotoba-sw.js')).text()).includes('mergeLiveFeed'));
 console.log('SW script has mergeLiveFeed:', swSrc);
 await browser.close();
+// Pass when the newest post served THROUGH the SW is fresh (≤48h old) — i.e.
+// the SW is not shadowing the live server with a stale seed snapshot.
 const newest = out.dates[0] || '';
-if (out.status === 200 && newest >= '2026-06-0 9') process.exit(0);
-process.exit(out.status === 200 && newest > '2026-06-01' ? 0 : 1);
+const ageMs = Date.now() - new Date(newest || 0).getTime();
+const ok = out.status === 200 && !!newest && ageMs < 48 * 3600 * 1000;
+console.log(ok ? `OK — newest post ${newest} is fresh` : `FAIL — stale or empty feed (newest: ${newest || 'none'})`);
+process.exit(ok ? 0 : 1);
