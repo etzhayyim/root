@@ -104,6 +104,50 @@ def test_narration_offline_via_template():
         assert vias and set(vias) <= {":template", ":murakumo"}   # Murakumo-only or offline
 
 
+def test_event_entities_never_shadowed():
+    """Regression (2026-06-10 health audit): the post-emitted event used to reuse
+    jev-{code}-{beat}-0 and SHADOW that beat's idle event in the as-of fold — losing
+    homeostasis drift on every posting beat (stress crept up until an organism went
+    permanently mute). Every event entity must carry exactly ONE kind assertion."""
+    import collections
+    with tempfile.TemporaryDirectory() as dr:
+        _, log, _ = _run(dr, 10, True)
+        kinds = collections.Counter()
+        for tx in datoms.read_log(log):
+            for _op, e, a, _v in tx[":tx/datoms"]:
+                if a == ":joucho.event/kind":
+                    kinds[e] += 1
+        assert kinds and max(kinds.values()) == 1
+
+
+def test_checkpointed_joucho_equals_as_of_replay():
+    """The :joucho/* checkpoint written by the beat and the pure as-of replay of the
+    event log must agree — two views of one history, never two histories."""
+    with tempfile.TemporaryDirectory() as dr:
+        res, log, _ = _run(dr, 7, True)
+        txs = datoms.read_log(log)
+        for code in ("10101500", "14111500", "50221000"):
+            base = joucho.personality_baseline(code)
+            replayed = joucho.replay_events(base, datoms.events_for(txs, code))
+            ck = datoms.fold_entity(txs, f"joucho-{code}-{res['beats']}")
+            for axis, v in replayed.as_dict().items():
+                assert ck[f":joucho/{axis}"] == v, (code, axis, ck, replayed)
+
+
+def test_homeostasis_holds_over_a_long_life():
+    """健全な成長: with drift intact, stress stays inside the designed equilibrium band
+    (baseline .. baseline+4 under the representative pattern) — no organism drifts into
+    permanent stressed muteness from ordinary life."""
+    with tempfile.TemporaryDirectory() as dr:
+        _, log, _ = _run(dr, 60, True)
+        txs = datoms.read_log(log)
+        for code in ("10101500", "14111500", "50221000"):
+            base = joucho.personality_baseline(code)
+            head = joucho.replay_events(base, datoms.events_for(txs, code))
+            assert head.stress <= base.stress + 4, (code, base.stress, head.stress)
+            assert joucho.determine_mood(head) != "stressed"
+
+
 if __name__ == "__main__":
     run("autorun", [(n, f) for n, f in sorted(globals().items())
                     if n.startswith("test_") and callable(f)])

@@ -156,6 +156,20 @@ def test_real_fleet_slice_beats_on_the_log():
             assert res["shard"] in ("joseph", "issachar", "dan")
 
 
+def test_fleet_event_entities_never_shadowed():
+    """Same regression as autorun (2026-06-10 health audit): one event_datoms call per
+    organism-beat — no jev-* entity may carry two kind assertions."""
+    import collections
+    with tempfile.TemporaryDirectory() as dr:
+        _fleet_run(dr, 6, batch=6, fresh=True, reg=_synthetic_registry(dr, n=6))
+        kinds = collections.Counter()
+        for tx in datoms.read_log(pathlib.Path(dr) / "log.edn"):
+            for _op, e, a, _v in tx[":tx/datoms"]:
+                if a == ":joucho.event/kind":
+                    kinds[e] += 1
+        assert kinds and max(kinds.values()) == 1
+
+
 def test_cell_solve_runs_a_durable_beat():
     """R2 (Council gate = PR merge): the Pregel cell RUNS the beat — offline-safe, local
     log only; it can prepare envelopes but can never post (member_submit refuses cron)."""

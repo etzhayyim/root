@@ -90,7 +90,6 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
         events = beat_events(beat) + kz_events
         scores = joucho.replay_events(baseline, history + events)
         mood = joucho.determine_mood(scores)
-        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
 
         # decide: durable cooldown check from the replayed heartbeat state (Gap 1/2)
         state = heartbeat.replay(txs, code)
@@ -109,10 +108,14 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
                     datoms.add(pid, ":post/status", ":dry-run")]
             _queue_line(did, code, title, mood, n["text"], now_ms)
             scores = joucho.fold_event(scores, ":event/post-emitted", baseline)
-            out += joucho.event_datoms(code, [":event/post-emitted"], beat=beat, as_of=as_of)
+            events = events + [":event/post-emitted"]
             state.last_post_at_ms = now_ms
             state.posts += 1
 
+        # ONE event_datoms call per organism-beat: a second call would reuse the
+        # jev-{code}-{beat}-0 entity and SHADOW the idle event in the as-of fold
+        # (the homeostasis-loss bug found in the 2026-06-10 100-beat health audit)
+        out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         state.beats += 1
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
         out += heartbeat.checkpoint_datoms(code, state, mood, beat=beat, as_of=as_of)
