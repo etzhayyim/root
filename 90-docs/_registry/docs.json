@@ -23405,6 +23405,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606102000-session-close-ibuki-digest-live-run-robustness.md",
+      "id": "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+      "title": "ADR-2606102000: Session close — 息吹 (ibuki) digest (reason+report) + 実運用 live-run + robustness verification",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
