@@ -66,7 +66,10 @@ def slug(label: str) -> str:
 def locality_of(country: str | None) -> str:
     if not country:
         return "ext.unknown"
-    return COUNTRY_CODE.get(country.strip().lower(), "ext." + slug(country))
+    c = country.strip().lower()
+    if len(c) == 2 and c.isalpha():          # ISO-2 (GLEIF legalAddress.country)
+        return "uk" if c == "gb" else c      # seed uses "uk", GLEIF says "GB"
+    return COUNTRY_CODE.get(c, "ext." + slug(country))
 
 
 def make_org_node(label: str, country: str | None) -> dict:
@@ -84,19 +87,23 @@ def make_org_node(label: str, country: str | None) -> dict:
 
 
 def make_custody_tie(parent_id: str, child_id: str, child_label: str,
-                     parent_label: str, child_ref: str | None) -> dict:
+                     parent_label: str, child_ref: str | None,
+                     cite: tuple[str, str] | None = None) -> dict:
     """parent :custodies child. S4: ≥2 public citations; S5: factual kind only.
-    Second citation is the real Wikidata item URL only when child_ref is a genuine QID
+    `cite` overrides the citations per-source (GLEIF rows carry GLEIF citations). Default
+    (Wikidata): second citation is the real item URL only when child_ref is a genuine QID
     (live path); otherwise a descriptive item citation — never a fabricated URL."""
-    second = (f"https://www.wikidata.org/wiki/{child_ref}"
-              if child_ref and re.fullmatch(r"Q\d+", child_ref)
-              else f"Wikidata item: {child_label} (P749 parent → {parent_label})")
+    if cite is None:
+        second = (f"https://www.wikidata.org/wiki/{child_ref}"
+                  if child_ref and re.fullmatch(r"Q\d+", child_ref)
+                  else f"Wikidata item: {child_label} (P749 parent → {parent_label})")
+        cite = ("Wikidata WDQS P749 (parent-organization statement)", second)
     return {
         ":tie/id": f"tie.ext.{parent_id.split('.')[-1]}.{child_id.split('.')[-1]}",
         ":tie/kind": ":custodies",
         ":tie/from": parent_id, ":tie/to": child_id,
         ":tie/grasping-load": 0.6,
-        ":tie/sources": ["Wikidata WDQS P749 (parent-organization statement)", second],
+        ":tie/sources": [cite[0], cite[1]],
         ":tie/sourcing": ":representative",
     }
 
@@ -170,7 +177,8 @@ def normalize_rows(rows: list[dict], seed: str):
         for n in candidates:
             if n[":pwr/id"] not in seen_nodes and _admit(n, dropped):
                 new_nodes.append(n); seen_nodes.add(n[":pwr/id"])
-        tie = make_custody_tie(parent_id, child_id, child, parent, r.get("childRef"))
+        tie = make_custody_tie(parent_id, child_id, child, parent, r.get("childRef"),
+                               cite=r.get("cite"))
         if tie[":tie/id"] not in seen_ties and _admit_tie(tie, dropped):
             new_ties.append(tie); seen_ties.add(tie[":tie/id"])
     return nodes, ties, new_nodes, new_ties, dropped
@@ -300,6 +308,79 @@ def fetch_wikidata_orgs(limit: int = 200, timeout: int = 60, anchored: bool = Fa
         return parse_wikidata_orgs(json.loads(resp.read().decode("utf-8")))
 
 
+# ── LIVE GLEIF Level-2 ingest (G7-gated) — second source, diversifies off WDQS ──────────
+# GLEIF (Global LEI Foundation, api.gleif.org) publishes Level-2 Relationship Records:
+# which entity reports which as its direct parent — REGULATOR-GRADE org custody, a different
+# public endpoint than WDQS (no single point of failure). Honest coverage note: L2 reporting
+# is strong where mandated (EU/US financial-regulated entities; VW reports 100+ children) and
+# weak for JP consolidation-exempt filers (Toyota/Hitachi/Sony file reporting exceptions → 0).
+# GLEIF complements Wikidata; it does not replace it.
+GLEIF_API = "https://api.gleif.org/api/v1"
+# Anchors are CURATED VERIFIED LEIs (live-verified 2026-06-10; legalName + children>0 checked).
+# Name-search resolution is NOT used for anchoring — GLEIF's legalName filter is fuzzy and
+# even exact names collide (two records named VOLKSWAGEN AKTIENGESELLSCHAFT). Each fetch
+# re-verifies the record's legalName against `expect` and REFUSES the anchor on mismatch
+# (guards lapsed/duplicate LEIs). `parent` must alias to an org already in the seed (S6
+# connectivity, PARENT_ALIASES).
+GLEIF_ANCHOR_LEIS = {
+    "529900NNUPAGGOMPXZ31": {"expect": "VOLKSWAGEN AKTIENGESELLSCHAFT", "parent": "Volkswagen AG"},
+    "54930070NSV60J38I987": {"expect": "GENERAL MOTORS COMPANY",        "parent": "General Motors"},
+    "5493006MHB84DD0ZWV18": {"expect": "ALPHABET INC.",                 "parent": "Alphabet Inc."},
+    "BQ4BKCS1HXDV9HN80Z93": {"expect": "META PLATFORMS, INC.",          "parent": "Meta Platforms"},
+}
+
+
+def _gleif_get(url: str, timeout: int = 30) -> dict:
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.api+json",
+                                               "User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:   # nosec: public read-only endpoint
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def parse_gleif_children(obj: dict, parent_label: str) -> list[dict]:
+    """GLEIF direct-children page → rows. Each row carries its own GLEIF citation pair (S4):
+    the L2 RR statement + the child's public GLEIF record URL (real LEI, never fabricated)."""
+    rows = []
+    for r in obj.get("data", []):
+        ent = r.get("attributes", {}).get("entity", {})
+        name = (ent.get("legalName") or {}).get("name")
+        country = (ent.get("legalAddress") or {}).get("country")
+        lei = r.get("id")
+        if not name or not lei:
+            continue
+        rows.append({"child": name, "parent": parent_label, "country": country,
+                     "cite": ("GLEIF Level-2 Relationship Record (direct parent)",
+                              f"https://search.gleif.org/#/record/{lei}")})
+    return rows
+
+
+def fetch_gleif_rows(limit: int = 200, timeout: int = 30) -> list[dict]:
+    """Fetch direct children of every verified anchor LEI (paginated), with the
+    anchor-identity guard: a record whose legalName != expect is REFUSED (drop + warn)."""
+    rows = []
+    per_page = 50
+    for lei, spec in sorted(GLEIF_ANCHOR_LEIS.items()):
+        rec = _gleif_get(f"{GLEIF_API}/lei-records/{lei}", timeout)
+        actual = rec["data"]["attributes"]["entity"]["legalName"]["name"].strip()
+        if actual.lower() != spec["expect"].lower():
+            print(f"  ✗ anchor {lei} REFUSED: legalName {actual!r} != expected {spec['expect']!r}")
+            continue
+        page = 1
+        taken = 0
+        while taken < limit:
+            obj = _gleif_get(f"{GLEIF_API}/lei-records/{lei}/direct-children"
+                             f"?page%5Bsize%5D={per_page}&page%5Bnumber%5D={page}", timeout)
+            batch = parse_gleif_children(obj, spec["parent"])
+            rows.extend(batch[:limit - taken])
+            taken += len(batch)
+            total_pages = obj.get("meta", {}).get("pagination", {}).get("lastPage", 1)
+            if page >= total_pages or not batch:
+                break
+            page += 1
+        print(f"  ✓ {spec['parent']}: {taken} direct children (GLEIF L2)")
+    return rows
+
+
 def write_merge(outdir: pathlib.Path, seed: str, new_nodes, new_ties, tag: str):
     add_file = outdir / f"scale-ingested{tag}.kotoba.edn"
     lines = [f";; tsumugi 紡ぎ — GENERATED scale ingest{tag} (ADR-2606092000). DO NOT hand-edit.",
@@ -333,6 +414,17 @@ def main():
                 "G7 — live scale ingest refused. Requires TSUMUGI_OPERATOR_GATE=1 + "
                 "TSUMUGI_OPERATOR_DID=<operator attestation> (Council-ratified). "
                 "Offline fixture ingest runs without --live.")
+        if "--gleif" in sys.argv:
+            print(f"⚠ G7 live gate satisfied (operator={os.environ['TSUMUGI_OPERATOR_DID']}) — "
+                  f"fetching GLEIF L2 direct-children for {len(GLEIF_ANCHOR_LEIS)} verified anchor LEIs…")
+            rows = fetch_gleif_rows(limit)
+            print(f"✓ GLEIF returned {len(rows)} child rows")
+            nodes, ties, new_nodes, new_ties, dropped = normalize_rows(rows, seed)
+            add_file, combined = write_merge(outdir, seed, new_nodes, new_ties, "-gleif")
+            print(f"✓ gleif ingest: +{len(new_nodes)} nodes / +{len(new_ties)} 縁 "
+                  f"(seed {len(nodes)}/{len(ties)}); dropped {len(dropped)}")
+            print(f"✓ wrote {add_file}\n✓ wrote {combined}  (out/ only — seed NOT auto-mutated)")
+            return
         anchors = None
         mode = "unanchored"
         if "--ring2" in sys.argv:
