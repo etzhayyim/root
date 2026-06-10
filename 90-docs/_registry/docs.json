@@ -1429,6 +1429,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/260610-meeting-recorder-minutes-closing.md",
+      "id": "260610-meeting-recorder-minutes-closing",
+      "title": "meeting-recorder 議事録 generation — 2026-06-10 closing summary",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "meeting-recorder minutes generation closing",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+        "90-docs/260422-meeting-recorder-session-summary.md"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.md",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -23439,15 +23458,19 @@
       "path": "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
       "id": "adr-2606101920",
       "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "meeting-recorder minutes generation",
       "authoritative": true,
       "related": [
         "90-docs/260422-meeting-recorder-session-summary.md",
+        "90-docs/260610-meeting-recorder-minutes-closing.md",
         "ADR-2605181100 (kotoba E2E encrypted-record envelope)",
         "ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
-        "ADR-2606011400 (Consensys product-front / infra-back)"
+        "ADR-2606011400 (Consensys product-front / infra-back)",
+        "https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
+        "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
       ],
       "depends_on": [
         "ADR-2605181100",
