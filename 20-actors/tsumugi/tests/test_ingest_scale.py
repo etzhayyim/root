@@ -33,11 +33,12 @@ def check(name, cond):
 def _wdqs_obj():
     def cell(v):
         return {"value": v}
+    # non-seed orgs so normalization yields NEW nodes/ties (Google/Audi are now promoted in-seed)
     return {"results": {"bindings": [
-        {"child": cell("http://www.wikidata.org/entity/Q95"), "childLabel": cell("Google LLC"),
-         "parent": cell("http://www.wikidata.org/entity/Q20800404"), "parentLabel": cell("Alphabet Inc."),
+        {"child": cell("http://www.wikidata.org/entity/Q888"), "childLabel": cell("Pixar"),
+         "parent": cell("http://www.wikidata.org/entity/Q7414"), "parentLabel": cell("The Walt Disney Company"),
          "countryLabel": cell("United States")},
-        {"childLabel": cell("Audi"), "parentLabel": cell("Volkswagen AG"), "countryLabel": cell("Germany")},
+        {"childLabel": cell("YouTube"), "parentLabel": cell("Google LLC"), "countryLabel": cell("United States")},
     ]}}
 
 
@@ -80,8 +81,8 @@ def main():
 
     # live WDQS JSON parses to rows (hermetic)
     rows = I.parse_wikidata_orgs(_wdqs_obj())
-    check("live WDQS parse yields rows", len(rows) == 2 and rows[0]["child"] == "Google LLC")
-    check("live WDQS parse extracts real QID ref", rows[0]["childRef"] == "Q95")
+    check("live WDQS parse yields rows", len(rows) == 2 and rows[0]["child"] == "Pixar")
+    check("live WDQS parse extracts QID ref from URI", rows[0]["childRef"] == "Q888")
     # those rows normalize cleanly through the membrane
     _, _, lv_nodes, lv_ties, _ = I.normalize_rows(rows, SEED)
     check("live rows normalize to org nodes + custody ties", bool(lv_nodes) and bool(lv_ties))
