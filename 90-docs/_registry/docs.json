@@ -23299,6 +23299,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606101500-session-close-ibuki-organism-autonomy-r0-r3.md",
+      "id": "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+      "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-ibuki-organism-autonomy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

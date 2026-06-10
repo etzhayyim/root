@@ -14814,6 +14814,20 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+      "type": "TechArticle",
+      "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
+      "status": "accepted",
+      "topic": "session-close-ibuki-organism-autonomy",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "doc:adr-2605231525-server-side-signing-capability-boundary",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-10"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
