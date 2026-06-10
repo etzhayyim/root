@@ -243,7 +243,10 @@ if __name__ == "__main__":
     pyr = stock_pyramid(g)
     kab = load_ledger(root / "20-actors" / "kabuto" / "data" / "seed-public-companies.kotoba.edn")
     hok = load_ledger(root / "20-actors" / "hokorobi" / "data" / "seed-finrisk-graph.kotoba.edn")
-    knj = load_ledger(root / "20-actors" / "kanjo" / "data" / "seed-financial-facts.kotoba.edn")
+    # disclosure depth: prefer the LIVE-merged kanjō graph (offline-bridged EDGAR/EDINET,
+    # :authoritative wins) when ingest has run; fail-open to the :representative seed.
+    knj = (load_ledger(root / "20-actors" / "kanjo" / "data" / "facts.merged.kotoba.edn")
+           or load_ledger(root / "20-actors" / "kanjo" / "data" / "seed-financial-facts.kotoba.edn"))
     rep = ground(pyr, kab, hok, knj)
 
     eq = rep["equities"]
