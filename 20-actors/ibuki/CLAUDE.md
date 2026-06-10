@@ -62,13 +62,17 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   (mutualism), folded into its SAME-beat checkpoint (checkpoint == replay). **Satiation**
   (`ecosystem.SATIATION`): a recently-fed producer is skipped so its mood EQUILIBRATES rather
   than saturating. Niche differentiation structurally prevents the mood-monoculture pathology.
+  Wired into BOTH `autorun` (3 seed niches) and `fleet` (18,342-fleet, niches hash-derived,
+  satiation via the durable `LogIndex.last_fed`); verified at full scale (7,987 commons
+  metabolites / 454,552 nutrient to humanity over a 12-beat sweep). `health.py` adds the
+  **ecosystem-starved** detector (primary production but no commons output = broken web).
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 15 suites (162 tests), hermetic
+./run_tests.sh                                  # all 15 suites (166 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):

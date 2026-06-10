@@ -86,6 +86,29 @@ def test_mood_monoculture_detected():
     assert "mood-monoculture" in {f["rule"] for f in rep["findings"]}
 
 
+def test_ecosystem_starved_detected():
+    """Primary production with no commons output past the grace period = broken food web."""
+    code = "10101500"
+    txs, prev = [], ""
+    for i in range(1, health.ECO_GRACE_BEATS + 3):       # substrate every beat, never refined
+        body = (joucho.event_datoms(code, [":event/idle"], beat=i, as_of=2606100000 + i)
+                + [datoms.add(f"eco-sub-{code}-{i}", ":metabolite/kind", ":substrate"),
+                   datoms.add(f"eco-sub-{code}-{i}", ":metabolite/beat", i)])
+        tx = datoms.make_tx(body, tx_id=i, as_of=2606100000 + i, prev_cid=prev)
+        prev = tx[":tx/cid"]
+        txs.append(tx)
+    rep = health.audit(txs)
+    assert "ecosystem-starved" in {f["rule"] for f in rep["findings"]}
+
+
+def test_complete_food_web_is_not_starved():
+    """The wired autorun (producer->router->decomposer) feeds humanity -> never starved."""
+    with tempfile.TemporaryDirectory() as dr:
+        rep = health.audit(_autorun(dr, 30))
+        assert "ecosystem-starved" not in {f["rule"] for f in rep["findings"]}
+        assert rep["healthy"] is True
+
+
 def test_health_datoms_checkpoint_shape():
     with tempfile.TemporaryDirectory() as dr:
         rep = health.audit(_autorun(dr, 12))

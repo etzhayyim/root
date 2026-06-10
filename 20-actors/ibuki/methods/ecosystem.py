@@ -178,19 +178,23 @@ def cycle(organisms: list[dict], moods: dict[str, joucho.JouchoScores], *,
 
 
 def web_report(txs: list[dict]) -> dict:
-    """Read the food web back from the log: per-niche population, total commons metabolites
-    excreted, and the symbiosis output (commons nutrient delivered to humanity). Log-derived,
-    deterministic — the ecosystem's as-of health, alongside health.py."""
-    from datoms import entities, fold_entity
-    commons_count = commons_nutrient = relays = 0
-    for e in entities(txs, ":metabolite/kind"):
-        m = fold_entity(txs, e)
-        if m.get(":metabolite/kind") == ":refined" and m.get(":metabolite/commons") is True:
-            commons_count += 1
-            commons_nutrient += m.get(":metabolite/nutrient", 0)
-    for e in entities(txs, ":exchange/kind"):
-        if fold_entity(txs, e).get(":exchange/kind") == ":relay":
-            relays += 1
-    return {"commons_metabolites": commons_count,
-            "commons_nutrient_to_humanity": commons_nutrient,
-            "relays": relays}
+    """Read the food web back from the log: total commons metabolites excreted, the symbiosis
+    output (commons nutrient delivered to humanity), and relay count. SINGLE PASS over the log
+    (fleet-scale safe — the per-entity fold was O(n²) over an 18,342-organism log).
+    Deterministic — the ecosystem's as-of health, alongside health.py."""
+    refined: dict[str, dict] = {}          # entity → {commons, nutrient}
+    relay_entities: set[str] = set()
+    for tx in txs:
+        for _op, e, a, v in tx.get(":tx/datoms", []):
+            if a == ":metabolite/kind" and v == ":refined":
+                refined.setdefault(e, {})["is"] = True
+            elif a == ":metabolite/commons":
+                refined.setdefault(e, {})["commons"] = v
+            elif a == ":metabolite/nutrient" and e.startswith("eco-refined-"):
+                refined.setdefault(e, {})["nutrient"] = v
+            elif a == ":exchange/kind" and v == ":relay":
+                relay_entities.add(e)
+    commons = [m for m in refined.values() if m.get("is") and m.get("commons") is True]
+    return {"commons_metabolites": len(commons),
+            "commons_nutrient_to_humanity": sum(m.get("nutrient", 0) for m in commons),
+            "relays": len(relay_entities)}
