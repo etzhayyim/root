@@ -127,7 +127,8 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
     # acid offered to humanity). Returns the producers the web fed. ──
     eco = ecosystem.cycle([{"code": o[":organism/code"], "niche": o.get(":organism/niche")}
                            for o in organisms], beat_moods, beat=beat, as_of=as_of,
-                          satiated=ecosystem.satiated_producers(txs, beat))
+                          satiated=ecosystem.satiated_producers(txs, beat),
+                          trails=ecosystem.trail_strengths(txs, beat))
     out += eco["datoms"]
     fed_count: dict[str, int] = {}
     for prod in eco["fed"]:
