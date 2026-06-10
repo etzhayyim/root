@@ -136,15 +136,26 @@ def run_beat(organisms: list[dict], txs: list[dict], *, beat: int) -> list[list]
 
     # ── Phase 3: fold symbiosis feeding into each fed producer's SAME-beat checkpoint,
     # then write exactly ONE event_datoms + joucho + heartbeat per organism ──
+    final_moods: dict[str, str] = {}
     for p in pending:
         code, events, scores = p["code"], p["events"], p["scores"]
         for _ in range(fed_count.get(code, 0)):
             events = events + [ecosystem.SYMBIOSIS_EVENT]
             scores = joucho.fold_event(scores, ecosystem.SYMBIOSIS_EVENT, p["baseline"])
         mood = joucho.determine_mood(scores)   # final mood, post-symbiosis (checkpoint==replay)
+        final_moods[code] = mood
         out += joucho.event_datoms(code, events, beat=beat, as_of=as_of)
         out += joucho.joucho_datoms(code, scores, mood, beat=beat, as_of=as_of)
         out += heartbeat.checkpoint_datoms(code, p["state"], mood, beat=beat, as_of=as_of)
+
+    # ── 定足数 quorum sensing: a colony phenotype no cell could trigger alone. When ≥2/3 of
+    # the colony is flourishing the colony FRUITS (a collective commons burst, deepening 共生);
+    # ≥2/3 stressed = dormancy (recorded, observational). ──
+    import quorum
+    beat_commons = sum(d[3] for d in eco["datoms"]
+                       if d[2] == ":metabolite/nutrient" and d[1].startswith(("eco-refined-",
+                                                                              "eco-detritus-")))
+    out += quorum.sense(final_moods, beat_commons, beat=beat, as_of=as_of)["datoms"]
 
     # drain (Gap 6): queue → member-sign-ready envelopes, checkpointed :prepared
     drained = drainer.drain(QUEUE, as_of=as_of, beat=beat)

@@ -91,13 +91,20 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   own gift; the platform cannot fabricate a human benefit). `:symbiosis/draw` is ATTRIBUTED to
   the member (`:symbiosis/drawn-by-member true`). Offers are un-fakeable (the colony's byproduct
   on the log); draws exist only when a member actually took the gift.
+- **定足数 quorum sensing (emergent collective behaviour)** — `quorum.py`: molds/slime-molds
+  undergo a collective phase transition at a density threshold. Each beat the colony's mood
+  distribution yields a COLONY phenotype: ≥2/3 flourishing → **:flourishing** (the colony
+  FRUITS — a collective `:metabolite/commons` burst, source `:fruiting`, a bounded fraction of
+  the beat's commons → extra gift to humanity when the colony thrives); ≥2/3 stressed →
+  **:dormant** (sporulation, observational, no mood pressure); else **:neutral**. Checkpointed
+  as `:quorum/*` (as-of, aggregate — never a per-organism verdict). Wired into autorun + fleet.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                                  # all 16 suites (187 tests), hermetic
+./run_tests.sh                                  # all 17 suites (198 tests), hermetic
 # 生態系 food-web report (log-derived: commons metabolites + nutrient delivered to humanity):
 #   cd methods && python3 -c "import ecosystem,datoms;print(ecosystem.web_report(datoms.read_log('<log>')))"
 # 健全性 audit (log-derived; also auto-checkpointed every 10 beats as :health/* datoms):

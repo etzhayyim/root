@@ -183,7 +183,7 @@ def test_stdlib_only():
     allowed_local = {"datoms", "drainer", "heartbeat", "joucho", "kaizen_feedback",
                      "infer", "autorun", "_edn", "_t", "perception", "member_submit",
                      "receipts", "fleet", "kotoba_bridge", "kaizen_outcomes",
-                     "ecosystem", "health", "symbiosis"}
+                     "ecosystem", "health", "symbiosis", "quorum"}
     for p in SOURCES:
         tree = ast.parse(p.read_text(encoding="utf-8"))
         for node in ast.walk(tree):
