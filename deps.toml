@@ -9600,6 +9600,14 @@ path = "90-docs/adr/2606012100-donation-funded-operation-and-compute-node-partic
 adr = ["2605192115", "2605215000", "2605192130", "2605301020", "2605241900", "2605231525", "2605192100", "2605262130", "2605262900"]
 
 [[adrs]]
+id = "2606111700"
+title = "Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA"
+status = "accepted"
+status_note = "Answers 「etzhayyim でも sponsor, donation を募集して」. Adds the PUBLIC-FACING solicitation layer the repo lacked (no .github/FUNDING.yml, no DONATE.md, no README support section) on TOP of the already-live declaration (/donate + /.well-known/donation.json, ADR-2606012100). Charter-clean by construction: GitHub Sponsor button uses custom-only URLs pointing at the on-chain donate page — every fiat platform key (github/patreon/open_collective/ko_fi/liberapay/tidelift) left blank because fiat processors are constitutionally prohibited (ADR-2605172100, deps.toml payment_prohibited); solicitation is BENEFIT-FREE (no quid-pro-quo tiers, no per-donor leaderboard — anti-class G4; soliciting for etzhayyim's own activity is 案内 not advertising, ADR-2605192115 §1.2); NO on-chain address fabricated (the live donation.json stays the single SoT — surfaces honestly say 'pending Council + Base L2 testnet', Seats 2-5 RFP closes 2026-06-19); 10% tithe unchanged (90/10 TitheRouter auto-split). Surfaces landed: .github/FUNDING.yml (custom-only) + root DONATE.md (how-to-give) + README 'Support etzhayyim' section + apex Worker DONATION_POLICY.solicitation block (open:true / grantsBenefit:false / tiers:none / leaderboard:none + sponsorButton + addressStatus) + a benefit-free 'Sponsor on GitHub' card on /donate (cookie-free / no-JS, brace-balanced). Contrast motive: 666ghj/MiroFish is funded by corporate incubation + user-borne paid Zep Cloud/LLM API — the model etzhayyim inverts. ZERO invariant amendments (purely additive public-proof + 募集 copy). Depends on ADR-2606012100 + 2605192115 + 2605192130 + 2605172100."
+path = "90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md"
+adr = ["2606012100", "2605192115", "2605192130", "2605172100", "2605192100", "2605215000", "2605301020", "2605262900"]
+
+[[adrs]]
 id = "2606012300"
 title = "kotoba hybrid web search — BM25 + PageRank + RRF fusion over the Datom log"
 status = "accepted"
