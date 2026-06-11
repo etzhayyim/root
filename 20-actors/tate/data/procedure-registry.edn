@@ -99,6 +99,25 @@
   :proc/refer-when ["解雇無効を本格的に争う (労働審判・訴訟) → 弁護士/法テラス" "未払賃金が高額"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:jp-chintai-kaiyaku" :proc/label "賃貸借の解約申入れ/更新拒絶 (住居・日本)"
+  :proc/jurisdiction :jp :proc/track :housing
+  :proc/trigger-keywords ["解約申入" "更新拒絶" "明渡し"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "賃貸人からの解約申入れの要件"
+    :dl/rule "6か月前の申入れ + 正当事由が必要 — 通知だけで退去義務は生じない"
+    :dl/anchor "借地借家法27条・28条" :dl/verify-service-date true}
+   {:dl/label "法定更新"
+    :dl/rule "期間満了後も使用を継続し賃貸人が遅滞なく異議を述べなければ法定更新"
+    :dl/anchor "借地借家法26条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :check-seitou-jiyuu :opt/kind :self-decide :opt/label "正当事由・立退料提示の有無を確認 (28条は立退料を考慮要素とする)"}
+   {:opt/id :keep-paying :opt/kind :self-decide :opt/label "賃料は払い続ける (受領拒否なら供託) — 債務不履行を作らない"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "自力救済 (鍵交換・荷物搬出・追い出し) は違法 — 強制退去は裁判所の明渡判決+執行のみ; 受けたら警察・弁護士へ"}]
+  :proc/refer-when ["明渡訴訟を起こされた場合" "立退料交渉が高額"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
   :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
@@ -140,6 +159,25 @@
   [{:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭して主張 (多くの州で弁護士なし前提の手続)"}
    {:opt/id :answer :opt/kind :self-submit :opt/label "州が求める場合: 書面 Answer を提出"}]
   :proc/refer-when ["反訴 (counterclaim) を検討する"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:us-eviction" :proc/label "Eviction notice (notice to quit, 住居・米国)"
+  :proc/jurisdiction :us :proc/track :housing
+  :proc/trigger-keywords ["notice to quit" "pay rent or quit"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "通知期間 (州法)"
+    :dl/rule "通知種別 (pay-or-quit / cure-or-quit / no-fault) と日数は州法による — 期限内の支払/是正で多くは解消 (例 CA 3-day pay-or-quit)"
+    :dl/anchor "州 landlord-tenant law (例 Cal. CCP §1161)" :dl/verify-service-date true}
+   {:dl/label "強制退去の発生時点"
+    :dl/rule "強制退去は unlawful detainer 訴訟 + 裁判所命令 + sheriff によってのみ — self-help eviction (鍵交換・電気停止) はほぼ全州で違法"
+    :dl/anchor "州法 (例 Cal. Civ. Code §789.3)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :cure :opt/kind :self-decide :opt/label "期限内に支払/是正して通知を解消 (領収記録を残す)"}
+   {:opt/id :answer-ud :opt/kind :self-submit :opt/label "unlawful detainer が提起されたら answer を期限内に提出 (期限は極端に短い — 例 CA 10日)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "鍵交換・ユーティリティ停止等の self-help eviction は違法 — 受けたら police / legal aid へ"}]
+  :proc/refer-when ["unlawful detainer 係属 → 即 legal aid / tenant rights org"]
   :proc/verify-current-law true}
 
  ;; ── :eu ──────────────────────────────────────────────────────────────────────
@@ -201,6 +239,25 @@
   :proc/refer-when ["差別・内部告発が絡む場合" "Citizens Advice / 労働組合"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:uk-s21-s8" :proc/label "Section 21 / Section 8 notice (住居・英国)"
+  :proc/jurisdiction :uk :proc/track :housing
+  :proc/trigger-keywords ["section 21" "section 8 notice"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "通知の有効性確認"
+    :dl/rule "s.21 (no-fault) は最低2か月の通知 + 形式要件 (deposit protection / EPC / gas safety 不備で無効になり得る); s.8 は ground に依存"
+    :dl/anchor "Housing Act 1988 ss.8/21 + Deregulation Act 2015" :dl/verify-service-date true}
+   {:dl/label "退去義務の発生時点"
+    :dl/rule "退去義務は court の possession order + bailiff によってのみ生じる — 通知のみで退去する必要はない; 違法な追い出しは犯罪"
+    :dl/anchor "Protection from Eviction Act 1977" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :check-validity :opt/kind :self-decide :opt/label "通知の形式要件を点検 (不備なら無効主張の余地)"}
+   {:opt/id :get-advice :opt/kind :self-decide :opt/label "Shelter / Citizens Advice の住宅相談 (無料)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "鍵交換・追い出し等の self-help eviction は犯罪 (Protection from Eviction Act 1977) — 受けたら police / council へ"}]
+  :proc/refer-when ["possession claim が裁判所に係属した場合"]
+  :proc/verify-current-law true}
+
  ;; ── :de ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:de-mahnbescheid" :proc/label "Mahnbescheid (支払督促・ドイツ)"
   :proc/jurisdiction :de
@@ -218,7 +275,7 @@
 
  {:proc/id "proc:de-kuendigung" :proc/label "Kündigung (解雇通知・労働・ドイツ)"
   :proc/jurisdiction :de :proc/track :labor
-  :proc/trigger-keywords ["Kündigung"]
+  :proc/trigger-keywords ["Kündigung Ihres Arbeitsverhältnisses" "Arbeitsverhältnis"]
   :proc/genuine-channels [:mail :formal-service]
   :proc/deadline-rules
   [{:dl/label "Kündigungsschutzklage (解雇無効確認)"
@@ -232,6 +289,25 @@
     :opt/label "Kündigungsschutzklage を Arbeitsgericht へ (1. Instanz は弁護士強制なし — 自分の雇用を守る防御)"}
    {:opt/id :betriebsrat :opt/kind :self-decide :opt/label "Betriebsrat への異議申立て (BetrVG §102)"}]
   :proc/refer-when ["3週間期限は絶対 — 迷ったら即 Rechtsantragstelle/弁護士へ"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:de-mietkuendigung" :proc/label "Kündigung des Mietverhältnisses (住居・ドイツ)"
+  :proc/jurisdiction :de :proc/track :housing
+  :proc/trigger-keywords ["Mietverhältnis"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Widerspruch (Sozialklausel)"
+    :dl/rule "賃貸借終了の2か月前までに書面で Widerspruch (Härtefall — 高齢・疾病・代替住居困難など)"
+    :dl/anchor "BGB §574・§574b" :dl/verify-service-date true}
+   {:dl/label "Kündigung の要件"
+    :dl/rule "賃貸人の Kündigung は berechtigtes Interesse (例 Eigenbedarf) + 書面 + 理由記載が必要 — 不備は無効主張の余地"
+    :dl/anchor "BGB §573・§568" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "書面で Widerspruch を賃貸人へ (期限内)"}
+   {:opt/id :check-grounds :opt/kind :self-decide :opt/label "Eigenbedarf 等の理由の真実性を点検 (Mieterverein 相談)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "鍵交換等は verbotene Eigenmacht (BGB §858) で違法 — Räumung は判決+執行官のみ"}]
+  :proc/refer-when ["Räumungsklage が提起された場合" "Mieterverein / Rechtsanwalt"]
   :proc/verify-current-law true}
 
  ;; ── :kr ──────────────────────────────────────────────────────────────────────

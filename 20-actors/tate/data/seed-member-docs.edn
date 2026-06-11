@@ -212,6 +212,31 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 9 (:housing track jp/de/uk/us) ──────────────────────────────────────
+ {:notice/id "ntc:jp-kaiyaku-m" :notice/label "賃貸借 解約申入れ (郵送・住居)"
+  :notice/jurisdiction :jp
+  :notice/channel :mail :notice/claim-jpy 0
+  :notice/sourcing :synthetic
+  :notice/text "賃貸借契約の解約申入れ。正当事由により6か月後の明渡しを求める。"}
+
+ {:notice/id "ntc:de-miet" :notice/label "DE Mietkündigung (Brief・住居)"
+  :notice/jurisdiction :de
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Kündigung des Mietverhältnisses wegen Eigenbedarfs zum nächstmöglichen Termin."}
+
+ {:notice/id "ntc:uk-s21" :notice/label "UK section 21 notice (letter・住居)"
+  :notice/jurisdiction :uk
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "GBP"
+  :notice/sourcing :synthetic
+  :notice/text "Notice requiring possession under section 21 of the Housing Act 1988."}
+
+ {:notice/id "ntc:us-eviction-ca" :notice/label "US 3-day notice to pay rent or quit (CA・住居)"
+  :notice/jurisdiction :us :notice/us-state :us-ca
+  :notice/channel :mail :notice/claim-amount 1800 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "Three-day notice to pay rent or quit. You are required to pay the stated rent or deliver possession."}
+
  ;; ── wave 8 (:at :pt + labor track :jp :de :uk) ──────────────────────────────
  {:doc/id "doc:at-agb" :doc/label "AT AGB (synthetic)"
   :doc/jurisdiction :at

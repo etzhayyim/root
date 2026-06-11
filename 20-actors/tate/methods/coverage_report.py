@@ -32,7 +32,7 @@ STRUCTURAL_GAPS = [
     "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)",
 ]
 US_STATES_TOTAL = 50
-SPECIALTY_TRACKS_PLANNED = [":family", ":insolvency", ":housing"]
+SPECIALTY_TRACKS_PLANNED = [":family", ":insolvency"]
 
 
 def coverage():
@@ -53,7 +53,8 @@ def coverage():
     tracks = defaultdict(int)
     for p in procs:
         tracks[p.get(":proc/track", ":civil")] += 1
-    track_gap = (f"専門トラック: :labor {tracks.get(':labor', 0)}件収載 — "
+    track_gap = (f"専門トラック: :labor {tracks.get(':labor', 0)}件 / "
+                 f":housing {tracks.get(':housing', 0)}件 収載 — "
                  + " / ".join(t for t in SPECIALTY_TRACKS_PLANNED) + " 未収載")
     named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
                   + [us_state_gap, track_gap] + list(STRUCTURAL_GAPS))

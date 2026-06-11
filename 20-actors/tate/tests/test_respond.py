@@ -386,6 +386,48 @@ def test_wave8_labor_track():
     assert status == ":suspected-fake"
 
 
+def test_wave9_housing_track():
+    """Wave 9: the :housing track (jp/de/uk/us). Universal member-protective
+    invariant: EVERY :housing procedure carries the no-self-help option — eviction
+    happens only by court order; 鍵交換/追い出しは違法."""
+    ps, procs = _by_id()
+    jp = ps["ntc:jp-kaiyaku-m"]
+    assert jp["status"] == ":genuine" and jp["proc"] == "proc:jp-chintai-kaiyaku"
+    assert any("借地借家法27条" in d["anchor"] for d in jp["deadlines"])
+    assert any("退去義務は生じない" in d["rule"] for d in jp["deadlines"])
+    de = ps["ntc:de-miet"]
+    assert de["status"] == ":genuine" and de["proc"] == "proc:de-mietkuendigung"
+    assert any("§574" in d["anchor"] for d in de["deadlines"])
+    uk = ps["ntc:uk-s21"]
+    assert uk["status"] == ":genuine" and uk["proc"] == "proc:uk-s21-s8"
+    assert any("Protection from Eviction Act 1977" in d["anchor"] for d in uk["deadlines"])
+    us = ps["ntc:us-eviction-ca"]
+    assert us["status"] == ":genuine" and us["proc"] == "proc:us-eviction"
+    assert any("§1161" in d["anchor"] for d in us["deadlines"])
+    assert any(d["label"].startswith("州規則 (California") for d in us["deadlines"])
+    # parametric: every :housing proc has the no-self-help protection option
+    for p in procs:
+        if p.get(":proc/track") == ":housing":
+            ids = [o[":opt/id"] for o in p[":proc/options"]]
+            assert ":no-self-help-protection" in ids, p[":proc/id"]
+
+
+def test_de_kuendigung_disambiguation():
+    """Wave 9: the :de Kündigung collision is resolved by specific triggers —
+    Arbeitsverhältnis → labor proc, Mietverhältnis → housing proc, and a bare
+    'Kündigung' with no context degrades honestly to :unknown (never guesses
+    which 3-week/2-month regime applies)."""
+    _, procs = _by_id()
+    base = {":notice/id": "ntc:x", ":notice/jurisdiction": ":de",
+            ":notice/channel": ":mail", ":notice/sourcing": ":synthetic"}
+    p1, s1 = classify({**base, ":notice/text": "Kündigung Ihres Arbeitsverhältnisses"}, procs)
+    assert s1 == ":genuine" and p1[":proc/id"] == "proc:de-kuendigung"
+    p2, s2 = classify({**base, ":notice/text": "Kündigung des Mietverhältnisses"}, procs)
+    assert s2 == ":genuine" and p2[":proc/id"] == "proc:de-mietkuendigung"
+    p3, s3 = classify({**base, ":notice/text": "Kündigung"}, procs)
+    assert p3 is None and s3 == ":unknown"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

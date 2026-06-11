@@ -126,14 +126,15 @@ def test_registry_lint():
         for dl in p[":proc/deadline-rules"]:
             assert dl[":dl/anchor"], (p[":proc/id"], dl)
         assert p[":proc/genuine-channels"], p[":proc/id"]
-        assert p.get(":proc/track", ":civil") in (":civil", ":labor"), p[":proc/id"]
+        assert p.get(":proc/track", ":civil") in (":civil", ":labor", ":housing"), p[":proc/id"]
 
 
 def test_specialty_track_counted():
-    """Wave 8: the labor track is measured (≥3 procs) and the remaining specialty
-    tracks (:family/:insolvency/:housing) stay NAMED gaps."""
+    """Waves 8-9: labor (≥3) and housing (≥4) tracks are measured; the remaining
+    specialty tracks (:family/:insolvency) stay NAMED gaps."""
     cov = coverage()
     assert cov["procedure_tracks"].get(":labor", 0) >= 3
+    assert cov["procedure_tracks"].get(":housing", 0) >= 4
     assert cov["procedure_tracks"].get(":civil", 0) >= 20
     assert any("専門トラック" in g and ":family" in g for g in cov["named_gaps"])
 
