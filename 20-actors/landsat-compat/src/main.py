@@ -111,386 +111,140 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/objects", methods=["POST"])
-def create_object(request):
-    """Create a Object."""
+@app.route("/v1/landsatitempropertieses", methods=["POST"])
+def create_landsat_item_properties(request):
+    """Create a LandsatItemProperties."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['designator', 'type', 'source'])
+    err = _reject_unknown(data, ['sceneId', 'collectionCategory', 'collectionNumber', 'wrsType', 'wrsPath', 'wrsRow', 'cloudCoverLand', 'correction', 'productGenerated'])
     if err:
         return err, 400
-    err = _require(data, ['designator', 'type'])
+    err = _require(data, ['collectionCategory', 'collectionNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("landsat_obj")}
-    rec["designator"] = data.get('designator')
-    rec["type"] = data.get('type')
-    rec["source"] = data.get('source')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Object", rec)
-    return rec, 201
-
-@app.route("/v1/objects", methods=["GET"])
-def list_objects(request):
-    """List Objects with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Object")
-    rows = _apply_filters(rows, params, ['designator', 'type', 'source'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/objects/<eid>", methods=["GET"])
-def get_object(request, eid):
-    """Retrieve a Object by id (supports ?expand=)."""
-    rows = _query("Object", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/objects/<eid>", methods=["POST", "PATCH"])
-def update_object(request, eid):
-    """Update a Object."""
-    rows = _query("Object", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['designator', 'type', 'source'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Object", rec)
-    return rec, 200
-
-@app.route("/v1/objects/<eid>", methods=["DELETE"])
-def delete_object(request, eid):
-    """Delete a Object."""
-    rows = _query("Object", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Object", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/positions", methods=["POST"])
-def create_position(request):
-    """Create a Position."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
-    if err:
-        return err, 400
-    err = _require(data, ['lat', 'lon'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("landsat_pos")}
-    rec["objectId"] = data.get('objectId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
-    rec["asOf"] = data.get('asOf')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Position", rec)
-    return rec, 201
-
-@app.route("/v1/positions", methods=["GET"])
-def list_positions(request):
-    """List Positions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Position")
-    rows = _apply_filters(rows, params, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/positions/<eid>", methods=["GET"])
-def get_position(request, eid):
-    """Retrieve a Position by id (supports ?expand=)."""
-    rows = _query("Position", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'objectId': 'Object'})
-    return rec, 200
-
-@app.route("/v1/positions/<eid>", methods=["POST", "PATCH"])
-def update_position(request, eid):
-    """Update a Position."""
-    rows = _query("Position", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Position", rec)
-    return rec, 200
-
-@app.route("/v1/positions/<eid>", methods=["DELETE"])
-def delete_position(request, eid):
-    """Delete a Position."""
-    rows = _query("Position", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Position", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/observations", methods=["POST"])
-def create_observation(request):
-    """Create a Observation."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'parameter', 'value', 'observedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['parameter', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("landsat_obs")}
-    rec["objectId"] = data.get('objectId')
-    rec["parameter"] = data.get('parameter')
-    rec["value"] = _as_float(data.get('value'))
-    rec["observedAt"] = data.get('observedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Observation", rec)
-    return rec, 201
-
-@app.route("/v1/observations", methods=["GET"])
-def list_observations(request):
-    """List Observations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['objectId', 'parameter', 'value', 'observedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/observations/<eid>", methods=["GET"])
-def get_observation(request, eid):
-    """Retrieve a Observation by id (supports ?expand=)."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'objectId': 'Object'})
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
-def update_observation(request, eid):
-    """Update a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'parameter', 'value', 'observedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Observation", rec)
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["DELETE"])
-def delete_observation(request, eid):
-    """Delete a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Observation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/scenes", methods=["POST"])
-def create_scene(request):
-    """Create a Scene."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['satellite', 'cloudCover'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("landsat_sce")}
-    rec["satellite"] = data.get('satellite')
+    if data.get('collectionCategory') and data['collectionCategory'] not in ['A1', 'A2', 'T1', 'T2', 'RT']:
+        return {"error": {"message": "invalid collectionCategory; allowed: " + ", ".join(['A1', 'A2', 'T1', 'T2', 'RT']), "type": "invalid_request_error"}}, 400
+    if data.get('collectionNumber') and data['collectionNumber'] not in ['01', '02']:
+        return {"error": {"message": "invalid collectionNumber; allowed: " + ", ".join(['01', '02']), "type": "invalid_request_error"}}, 400
+    if data.get('wrsType') and data['wrsType'] not in ['1', '2']:
+        return {"error": {"message": "invalid wrsType; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('correction') and data['correction'] not in ['L1TP', 'L1GT', 'L1GS', 'L2SR', 'L2SP']:
+        return {"error": {"message": "invalid correction; allowed: " + ", ".join(['L1TP', 'L1GT', 'L1GS', 'L2SR', 'L2SP']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("landsat_lan")}
     rec["sceneId"] = data.get('sceneId')
-    rec["cloudCover"] = _as_float(data.get('cloudCover'))
-    rec["capturedAt"] = data.get('capturedAt')
+    rec["collectionCategory"] = data.get('collectionCategory')
+    rec["collectionNumber"] = data.get('collectionNumber')
+    rec["wrsType"] = data.get('wrsType')
+    rec["wrsPath"] = data.get('wrsPath')
+    rec["wrsRow"] = data.get('wrsRow')
+    rec["cloudCoverLand"] = _as_float(data.get('cloudCoverLand'))
+    rec["correction"] = data.get('correction')
+    rec["productGenerated"] = data.get('productGenerated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Scene", rec)
+    _persist("LandsatItemProperties", rec)
     return rec, 201
 
-@app.route("/v1/scenes", methods=["GET"])
-def list_scenes(request):
-    """List Scenes with filtering + cursor pagination."""
+@app.route("/v1/landsatitempropertieses", methods=["GET"])
+def list_landsat_item_propertieses(request):
+    """List LandsatItemPropertieses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Scene")
-    rows = _apply_filters(rows, params, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
+    rows = _query("LandsatItemProperties")
+    rows = _apply_filters(rows, params, ['sceneId', 'collectionCategory', 'collectionNumber', 'wrsType', 'wrsPath', 'wrsRow', 'cloudCoverLand', 'correction', 'productGenerated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/scenes/<eid>", methods=["GET"])
-def get_scene(request, eid):
-    """Retrieve a Scene by id (supports ?expand=)."""
-    rows = _query("Scene", eid)
+@app.route("/v1/landsatitempropertieses/<eid>", methods=["GET"])
+def get_landsat_item_properties(request, eid):
+    """Retrieve a LandsatItemProperties by id (supports ?expand=)."""
+    rows = _query("LandsatItemProperties", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["POST", "PATCH"])
-def update_scene(request, eid):
-    """Update a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/landsatitempropertieses/<eid>", methods=["POST", "PATCH"])
+def update_landsat_item_properties(request, eid):
+    """Update a LandsatItemProperties."""
+    rows = _query("LandsatItemProperties", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
+    err = _reject_unknown(data, ['sceneId', 'collectionCategory', 'collectionNumber', 'wrsType', 'wrsPath', 'wrsRow', 'cloudCoverLand', 'correction', 'productGenerated'])
     if err:
         return err, 400
+    if data.get('collectionCategory') and data['collectionCategory'] not in ['A1', 'A2', 'T1', 'T2', 'RT']:
+        return {"error": {"message": "invalid collectionCategory; allowed: " + ", ".join(['A1', 'A2', 'T1', 'T2', 'RT']), "type": "invalid_request_error"}}, 400
+    if data.get('collectionNumber') and data['collectionNumber'] not in ['01', '02']:
+        return {"error": {"message": "invalid collectionNumber; allowed: " + ", ".join(['01', '02']), "type": "invalid_request_error"}}, 400
+    if data.get('wrsType') and data['wrsType'] not in ['1', '2']:
+        return {"error": {"message": "invalid wrsType; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('correction') and data['correction'] not in ['L1TP', 'L1GT', 'L1GS', 'L2SR', 'L2SP']:
+        return {"error": {"message": "invalid correction; allowed: " + ", ".join(['L1TP', 'L1GT', 'L1GS', 'L2SR', 'L2SP']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Scene", rec)
+    _persist("LandsatItemProperties", rec)
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["DELETE"])
-def delete_scene(request, eid):
-    """Delete a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/landsatitempropertieses/<eid>", methods=["DELETE"])
+def delete_landsat_item_properties(request, eid):
+    """Delete a LandsatItemProperties."""
+    rows = _query("LandsatItemProperties", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Scene", "id": eid})
+    db.retract({"entity": f"landsat.LandsatItemProperties", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/floats", methods=["POST"])
-def create_float(request):
-    """Create a Float."""
+@app.route("/v1/stacassets", methods=["POST"])
+def create_stac_asset(request):
+    """Create a StacAsset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['wmoId', 'lat', 'lon', 'parkDepthM'])
+    err = _reject_unknown(data, ['href', 'title', 'description', 'type'])
     if err:
         return err, 400
-    err = _require(data, ['lat', 'lon'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("landsat_flo")}
-    rec["wmoId"] = data.get('wmoId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["parkDepthM"] = _as_float(data.get('parkDepthM'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Float", rec)
-    return rec, 201
-
-@app.route("/v1/floats", methods=["GET"])
-def list_floats(request):
-    """List Floats with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Float")
-    rows = _apply_filters(rows, params, ['wmoId', 'lat', 'lon', 'parkDepthM'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/floats/<eid>", methods=["GET"])
-def get_float(request, eid):
-    """Retrieve a Float by id (supports ?expand=)."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/floats/<eid>", methods=["POST", "PATCH"])
-def update_float(request, eid):
-    """Update a Float."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['wmoId', 'lat', 'lon', 'parkDepthM'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Float", rec)
-    return rec, 200
-
-@app.route("/v1/floats/<eid>", methods=["DELETE"])
-def delete_float(request, eid):
-    """Delete a Float."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Float", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/stations", methods=["POST"])
-def create_station(request):
-    """Create a Station."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'name', 'network'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'network'])
+    err = _require(data, ['href', 'title'])
     if err:
         return err, 400
     rec = {"id": new_id("landsat_sta")}
-    rec["stationId"] = data.get('stationId')
-    rec["name"] = data.get('name')
-    rec["network"] = data.get('network')
+    rec["href"] = data.get('href')
+    rec["title"] = data.get('title')
+    rec["description"] = data.get('description')
+    rec["type"] = data.get('type')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Station", rec)
+    _persist("StacAsset", rec)
     return rec, 201
 
-@app.route("/v1/stations", methods=["GET"])
-def list_stations(request):
-    """List Stations with filtering + cursor pagination."""
+@app.route("/v1/stacassets", methods=["GET"])
+def list_stac_assets(request):
+    """List StacAssets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Station")
-    rows = _apply_filters(rows, params, ['stationId', 'name', 'network'])
+    rows = _query("StacAsset")
+    rows = _apply_filters(rows, params, ['href', 'title', 'description', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/stations/<eid>", methods=["GET"])
-def get_station(request, eid):
-    """Retrieve a Station by id (supports ?expand=)."""
-    rows = _query("Station", eid)
+@app.route("/v1/stacassets/<eid>", methods=["GET"])
+def get_stac_asset(request, eid):
+    """Retrieve a StacAsset by id (supports ?expand=)."""
+    rows = _query("StacAsset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'stationId': 'Station'})
     return rec, 200
 
-@app.route("/v1/stations/<eid>", methods=["POST", "PATCH"])
-def update_station(request, eid):
-    """Update a Station."""
-    rows = _query("Station", eid)
+@app.route("/v1/stacassets/<eid>", methods=["POST", "PATCH"])
+def update_stac_asset(request, eid):
+    """Update a StacAsset."""
+    rows = _query("StacAsset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'name', 'network'])
+    err = _reject_unknown(data, ['href', 'title', 'description', 'type'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +252,156 @@ def update_station(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Station", rec)
+    _persist("StacAsset", rec)
     return rec, 200
 
-@app.route("/v1/stations/<eid>", methods=["DELETE"])
-def delete_station(request, eid):
-    """Delete a Station."""
-    rows = _query("Station", eid)
+@app.route("/v1/stacassets/<eid>", methods=["DELETE"])
+def delete_stac_asset(request, eid):
+    """Delete a StacAsset."""
+    rows = _query("StacAsset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"landsat.Station", "id": eid})
+    db.retract({"entity": f"landsat.StacAsset", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/instrumentpropertieses", methods=["POST"])
+def create_instrument_properties(request):
+    """Create a InstrumentProperties."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['platform', 'constellation', 'mission', 'gsd'])
+    if err:
+        return err, 400
+    err = _require(data, ['platform', 'constellation'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("landsat_ins")}
+    rec["platform"] = data.get('platform')
+    rec["constellation"] = data.get('constellation')
+    rec["mission"] = data.get('mission')
+    rec["gsd"] = _as_float(data.get('gsd'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("InstrumentProperties", rec)
+    return rec, 201
+
+@app.route("/v1/instrumentpropertieses", methods=["GET"])
+def list_instrument_propertieses(request):
+    """List InstrumentPropertieses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("InstrumentProperties")
+    rows = _apply_filters(rows, params, ['platform', 'constellation', 'mission', 'gsd'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/instrumentpropertieses/<eid>", methods=["GET"])
+def get_instrument_properties(request, eid):
+    """Retrieve a InstrumentProperties by id (supports ?expand=)."""
+    rows = _query("InstrumentProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/instrumentpropertieses/<eid>", methods=["POST", "PATCH"])
+def update_instrument_properties(request, eid):
+    """Update a InstrumentProperties."""
+    rows = _query("InstrumentProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['platform', 'constellation', 'mission', 'gsd'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("InstrumentProperties", rec)
+    return rec, 200
+
+@app.route("/v1/instrumentpropertieses/<eid>", methods=["DELETE"])
+def delete_instrument_properties(request, eid):
+    """Delete a InstrumentProperties."""
+    rows = _query("InstrumentProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"landsat.InstrumentProperties", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/eobandpropertieses", methods=["POST"])
+def create_eo_band_properties(request):
+    """Create a EoBandProperties."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['cloudCover', 'snowCover', 'commonName', 'centerWavelength', 'fullWidthHalfMax', 'solarIllumination'])
+    if err:
+        return err, 400
+    err = _require(data, ['cloudCover', 'snowCover'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("landsat_eob")}
+    rec["cloudCover"] = _as_float(data.get('cloudCover'))
+    rec["snowCover"] = _as_float(data.get('snowCover'))
+    rec["commonName"] = data.get('commonName')
+    rec["centerWavelength"] = _as_float(data.get('centerWavelength'))
+    rec["fullWidthHalfMax"] = _as_float(data.get('fullWidthHalfMax'))
+    rec["solarIllumination"] = _as_float(data.get('solarIllumination'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("EoBandProperties", rec)
+    return rec, 201
+
+@app.route("/v1/eobandpropertieses", methods=["GET"])
+def list_eo_band_propertieses(request):
+    """List EoBandPropertieses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("EoBandProperties")
+    rows = _apply_filters(rows, params, ['cloudCover', 'snowCover', 'commonName', 'centerWavelength', 'fullWidthHalfMax', 'solarIllumination'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/eobandpropertieses/<eid>", methods=["GET"])
+def get_eo_band_properties(request, eid):
+    """Retrieve a EoBandProperties by id (supports ?expand=)."""
+    rows = _query("EoBandProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/eobandpropertieses/<eid>", methods=["POST", "PATCH"])
+def update_eo_band_properties(request, eid):
+    """Update a EoBandProperties."""
+    rows = _query("EoBandProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['cloudCover', 'snowCover', 'commonName', 'centerWavelength', 'fullWidthHalfMax', 'solarIllumination'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("EoBandProperties", rec)
+    return rec, 200
+
+@app.route("/v1/eobandpropertieses/<eid>", methods=["DELETE"])
+def delete_eo_band_properties(request, eid):
+    """Delete a EoBandProperties."""
+    rows = _query("EoBandProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"landsat.EoBandProperties", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "landsat-compat", "tier": "L4",
-            "entities": ['Object', 'Position', 'Observation', 'Scene', 'Float', 'Station']}, 200
+            "entities": ['LandsatItemProperties', 'StacAsset', 'InstrumentProperties', 'EoBandProperties']}, 200
 
 
 if __name__ == "__main__":

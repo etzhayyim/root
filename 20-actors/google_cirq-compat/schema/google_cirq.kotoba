@@ -3,68 +3,55 @@
 
 namespace google_cirq {
 
-    entity Register {
+    entity QuantumJob {
         id: string @unique
         name: string
-        widthBits: integer
-        role: string
+        createTime: datetime
+        updateTime: datetime
+        labelFingerprint: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Instruction {
+    entity ExecutionStatus {
         id: string @unique
-        mnemonic: string
-        opcode: string
-        operands: string
+        state: string
+        processorName: string
+        calibrationName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Qubit {
-        id: string @unique
-        index: integer
-        t1Us: float
-        t2Us: float
-        readoutError: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Circuit {
+    entity QuantumProcessor {
         id: string @unique
         name: string
-        qubitCount: integer
-        depth: integer
+        health: string
+        expectedDownTime: datetime
+        expectedRecoveryTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Gate {
+    entity QuantumProgram {
         id: string @unique
-        circuitId: string
         name: string
-        targets: string
+        createTime: datetime
+        updateTime: datetime
+        labelFingerprint: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Job {
+    entity QuantumTimeSlot {
         id: string @unique
-        circuitId: string
-        shots: integer
-        status: string
+        processorName: string
+        startTime: datetime
+        endTime: datetime
+        timeSlotType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

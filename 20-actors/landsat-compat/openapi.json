@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible space / ocean / earth physics actor (landsat); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:landsat-compat",
-    "x-wasm-cid": "bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+    "x-wasm-cid": "bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+      "url": "ipfs://bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/objects": {
+    "/v1/landsatitempropertieses": {
       "get": {
-        "summary": "List Objects",
+        "summary": "List LandsatItemPropertieses",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Object"
+                        "$ref": "#/components/schemas/LandsatItemProperties"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Object",
+        "summary": "Create a LandsatItemProperties",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObjectCreate"
+                "$ref": "#/components/schemas/LandsatItemPropertiesCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/LandsatItemProperties"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/objects/{id}": {
+    "/v1/landsatitempropertieses/{id}": {
       "get": {
-        "summary": "Get a Object",
+        "summary": "Get a LandsatItemProperties",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/LandsatItemProperties"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Object",
+        "summary": "Update a LandsatItemProperties",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObjectCreate"
+                "$ref": "#/components/schemas/LandsatItemPropertiesCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/LandsatItemProperties"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Object",
+        "summary": "Delete a LandsatItemProperties",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/positions": {
+    "/v1/stacassets": {
       "get": {
-        "summary": "List Positions",
+        "summary": "List StacAssets",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Position"
+                        "$ref": "#/components/schemas/StacAsset"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Position",
+        "summary": "Create a StacAsset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PositionCreate"
+                "$ref": "#/components/schemas/StacAssetCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/StacAsset"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/positions/{id}": {
+    "/v1/stacassets/{id}": {
       "get": {
-        "summary": "Get a Position",
+        "summary": "Get a StacAsset",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/StacAsset"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Position",
+        "summary": "Update a StacAsset",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PositionCreate"
+                "$ref": "#/components/schemas/StacAssetCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/StacAsset"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Position",
+        "summary": "Delete a StacAsset",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/observations": {
+    "/v1/instrumentpropertieses": {
       "get": {
-        "summary": "List Observations",
+        "summary": "List InstrumentPropertieses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Observation"
+                        "$ref": "#/components/schemas/InstrumentProperties"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Observation",
+        "summary": "Create a InstrumentProperties",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/InstrumentPropertiesCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/InstrumentProperties"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/observations/{id}": {
+    "/v1/instrumentpropertieses/{id}": {
       "get": {
-        "summary": "Get a Observation",
+        "summary": "Get a InstrumentProperties",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/InstrumentProperties"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Observation",
+        "summary": "Update a InstrumentProperties",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/InstrumentPropertiesCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/InstrumentProperties"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Observation",
+        "summary": "Delete a InstrumentProperties",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/scenes": {
+    "/v1/eobandpropertieses": {
       "get": {
-        "summary": "List Scenes",
+        "summary": "List EoBandPropertieses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Scene"
+                        "$ref": "#/components/schemas/EoBandProperties"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Scene",
+        "summary": "Create a EoBandProperties",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
+                "$ref": "#/components/schemas/EoBandPropertiesCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/EoBandProperties"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/scenes/{id}": {
+    "/v1/eobandpropertieses/{id}": {
       "get": {
-        "summary": "Get a Scene",
+        "summary": "Get a EoBandProperties",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/EoBandProperties"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Scene",
+        "summary": "Update a EoBandProperties",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
+                "$ref": "#/components/schemas/EoBandPropertiesCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/EoBandProperties"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Scene",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/floats": {
-      "get": {
-        "summary": "List Floats",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Float"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Float",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FloatCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/floats/{id}": {
-      "get": {
-        "summary": "Get a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FloatCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/stations": {
-      "get": {
-        "summary": "List Stations",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Station"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Station",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/stations/{id}": {
-      "get": {
-        "summary": "Get a Station",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Station",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Station",
+        "summary": "Delete a EoBandProperties",
         "parameters": [
           {
             "name": "id",
@@ -1140,171 +770,59 @@
   },
   "components": {
     "schemas": {
-      "Object": {
+      "LandsatItemProperties": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "designator": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ObjectCreate": {
-        "type": "object",
-        "properties": {
-          "designator": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "designator",
-          "type"
-        ]
-      },
-      "Position": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "objectId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "altitudeM": {
-            "type": "number"
-          },
-          "asOf": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PositionCreate": {
-        "type": "object",
-        "properties": {
-          "objectId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "altitudeM": {
-            "type": "number"
-          },
-          "asOf": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "lat",
-          "lon"
-        ]
-      },
-      "Observation": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "objectId": {
-            "type": "string"
-          },
-          "parameter": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "observedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ObservationCreate": {
-        "type": "object",
-        "properties": {
-          "objectId": {
-            "type": "string"
-          },
-          "parameter": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "observedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "parameter",
-          "value"
-        ]
-      },
-      "Scene": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "satellite": {
             "type": "string"
           },
           "sceneId": {
             "type": "string"
           },
-          "cloudCover": {
+          "collectionCategory": {
+            "type": "string",
+            "enum": [
+              "A1",
+              "A2",
+              "T1",
+              "T2",
+              "RT"
+            ]
+          },
+          "collectionNumber": {
+            "type": "string",
+            "enum": [
+              "01",
+              "02"
+            ]
+          },
+          "wrsType": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "wrsPath": {
+            "type": "string"
+          },
+          "wrsRow": {
+            "type": "string"
+          },
+          "cloudCoverLand": {
             "type": "number"
           },
-          "capturedAt": {
+          "correction": {
+            "type": "string",
+            "enum": [
+              "L1TP",
+              "L1GT",
+              "L1GS",
+              "L2SR",
+              "L2SP"
+            ]
+          },
+          "productGenerated": {
             "type": "string",
             "format": "date-time"
           },
@@ -1318,43 +836,184 @@
           }
         }
       },
-      "SceneCreate": {
+      "LandsatItemPropertiesCreate": {
         "type": "object",
         "properties": {
-          "satellite": {
-            "type": "string"
-          },
           "sceneId": {
             "type": "string"
           },
+          "collectionCategory": {
+            "type": "string",
+            "enum": [
+              "A1",
+              "A2",
+              "T1",
+              "T2",
+              "RT"
+            ]
+          },
+          "collectionNumber": {
+            "type": "string",
+            "enum": [
+              "01",
+              "02"
+            ]
+          },
+          "wrsType": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "wrsPath": {
+            "type": "string"
+          },
+          "wrsRow": {
+            "type": "string"
+          },
+          "cloudCoverLand": {
+            "type": "number"
+          },
+          "correction": {
+            "type": "string",
+            "enum": [
+              "L1TP",
+              "L1GT",
+              "L1GS",
+              "L2SR",
+              "L2SP"
+            ]
+          },
+          "productGenerated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "collectionCategory",
+          "collectionNumber"
+        ]
+      },
+      "StacAsset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StacAssetCreate": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title"
+        ]
+      },
+      "InstrumentProperties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "constellation": {
+            "type": "string"
+          },
+          "mission": {
+            "type": "string"
+          },
+          "gsd": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "InstrumentPropertiesCreate": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string"
+          },
+          "constellation": {
+            "type": "string"
+          },
+          "mission": {
+            "type": "string"
+          },
+          "gsd": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "platform",
+          "constellation"
+        ]
+      },
+      "EoBandProperties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
           "cloudCover": {
             "type": "number"
           },
-          "capturedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "satellite",
-          "cloudCover"
-        ]
-      },
-      "Float": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "wmoId": {
-            "type": "string"
-          },
-          "lat": {
+          "snowCover": {
             "type": "number"
           },
-          "lon": {
+          "commonName": {
+            "type": "string"
+          },
+          "centerWavelength": {
             "type": "number"
           },
-          "parkDepthM": {
+          "fullWidthHalfMax": {
+            "type": "number"
+          },
+          "solarIllumination": {
             "type": "number"
           },
           "createdAt": {
@@ -1367,68 +1026,31 @@
           }
         }
       },
-      "FloatCreate": {
+      "EoBandPropertiesCreate": {
         "type": "object",
         "properties": {
-          "wmoId": {
+          "cloudCover": {
+            "type": "number"
+          },
+          "snowCover": {
+            "type": "number"
+          },
+          "commonName": {
             "type": "string"
           },
-          "lat": {
+          "centerWavelength": {
             "type": "number"
           },
-          "lon": {
+          "fullWidthHalfMax": {
             "type": "number"
           },
-          "parkDepthM": {
+          "solarIllumination": {
             "type": "number"
           }
         },
         "required": [
-          "lat",
-          "lon"
-        ]
-      },
-      "Station": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "stationId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StationCreate": {
-        "type": "object",
-        "properties": {
-          "stationId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "network": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "network"
+          "cloudCover",
+          "snowCover"
         ]
       }
     }

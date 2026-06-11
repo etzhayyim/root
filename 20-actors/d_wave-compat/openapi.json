@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible hardware ISA / quantum actor (d_wave); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:d_wave-compat",
-    "x-wasm-cid": "bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+    "x-wasm-cid": "bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+      "url": "ipfs://bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/registers": {
+    "/v1/problemmetadatas": {
       "get": {
-        "summary": "List Registers",
+        "summary": "List ProblemMetadatas",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Register"
+                        "$ref": "#/components/schemas/ProblemMetadata"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Register",
+        "summary": "Create a ProblemMetadata",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ProblemMetadataCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ProblemMetadata"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/registers/{id}": {
+    "/v1/problemmetadatas/{id}": {
       "get": {
-        "summary": "Get a Register",
+        "summary": "Get a ProblemMetadata",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ProblemMetadata"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Register",
+        "summary": "Update a ProblemMetadata",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ProblemMetadataCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ProblemMetadata"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Register",
+        "summary": "Delete a ProblemMetadata",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/instructions": {
+    "/v1/solverconfigurations": {
       "get": {
-        "summary": "List Instructions",
+        "summary": "List SolverConfigurations",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Instruction"
+                        "$ref": "#/components/schemas/SolverConfiguration"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Instruction",
+        "summary": "Create a SolverConfiguration",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/SolverConfigurationCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/SolverConfiguration"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/instructions/{id}": {
+    "/v1/solverconfigurations/{id}": {
       "get": {
-        "summary": "Get a Instruction",
+        "summary": "Get a SolverConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/SolverConfiguration"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Instruction",
+        "summary": "Update a SolverConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/SolverConfigurationCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/SolverConfiguration"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Instruction",
+        "summary": "Delete a SolverConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/qubits": {
+    "/v1/structuredproblemdatas": {
       "get": {
-        "summary": "List Qubits",
+        "summary": "List StructuredProblemDatas",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Qubit"
+                        "$ref": "#/components/schemas/StructuredProblemData"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Qubit",
+        "summary": "Create a StructuredProblemData",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/StructuredProblemDataCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/StructuredProblemData"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/qubits/{id}": {
+    "/v1/structuredproblemdatas/{id}": {
       "get": {
-        "summary": "Get a Qubit",
+        "summary": "Get a StructuredProblemData",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/StructuredProblemData"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Qubit",
+        "summary": "Update a StructuredProblemData",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/StructuredProblemDataCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/StructuredProblemData"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Qubit",
+        "summary": "Delete a StructuredProblemData",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/circuits": {
+    "/v1/structuredproblemanswers": {
       "get": {
-        "summary": "List Circuits",
+        "summary": "List StructuredProblemAnswers",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Circuit"
+                        "$ref": "#/components/schemas/StructuredProblemAnswer"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Circuit",
+        "summary": "Create a StructuredProblemAnswer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
+                "$ref": "#/components/schemas/StructuredProblemAnswerCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/StructuredProblemAnswer"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/circuits/{id}": {
+    "/v1/structuredproblemanswers/{id}": {
       "get": {
-        "summary": "Get a Circuit",
+        "summary": "Get a StructuredProblemAnswer",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/StructuredProblemAnswer"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Circuit",
+        "summary": "Update a StructuredProblemAnswer",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
+                "$ref": "#/components/schemas/StructuredProblemAnswerCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/StructuredProblemAnswer"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Circuit",
+        "summary": "Delete a StructuredProblemAnswer",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/gates": {
+    "/v1/regions": {
       "get": {
-        "summary": "List Gates",
+        "summary": "List Regions",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Gate"
+                        "$ref": "#/components/schemas/Region"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Gate",
+        "summary": "Create a Region",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GateCreate"
+                "$ref": "#/components/schemas/RegionCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/Region"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/gates/{id}": {
+    "/v1/regions/{id}": {
       "get": {
-        "summary": "Get a Gate",
+        "summary": "Get a Region",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/Region"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Gate",
+        "summary": "Update a Region",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GateCreate"
+                "$ref": "#/components/schemas/RegionCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/Region"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/jobs": {
-      "get": {
-        "summary": "List Jobs",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Job"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Job",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/jobs/{id}": {
-      "get": {
-        "summary": "Get a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Job",
+        "summary": "Delete a Region",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +955,38 @@
   },
   "components": {
     "schemas": {
-      "Register": {
+      "ProblemMetadata": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "type": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
-          },
-          "role": {
+          "label": {
             "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "submittedBy": {
+            "type": "string"
+          },
+          "submittedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "solvedOn": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1165,217 +998,55 @@
           }
         }
       },
-      "RegisterCreate": {
+      "ProblemMetadataCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "type": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
+          "label": {
+            "type": "string"
           },
-          "role": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "submittedBy": {
+            "type": "string"
+          },
+          "submittedOn": {
+            "type": "string"
+          },
+          "solvedOn": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "widthBits"
+          "type",
+          "label"
         ]
       },
-      "Instruction": {
+      "SolverConfiguration": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
-          },
-          "mnemonic": {
-            "type": "string"
-          },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "InstructionCreate": {
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string"
-          },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "mnemonic",
-          "opcode"
-        ]
-      },
-      "Qubit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "index": {
-            "type": "integer"
-          },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "QubitCreate": {
-        "type": "object",
-        "properties": {
-          "index": {
-            "type": "integer"
-          },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "index",
-          "t1Us"
-        ]
-      },
-      "Circuit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CircuitCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "qubitCount"
-        ]
-      },
-      "Gate": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GateCreate": {
-        "type": "object",
-        "properties": {
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "targets"
-        ]
-      },
-      "Job": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "shots": {
-            "type": "integer"
           },
           "status": {
             "type": "string"
           },
+          "description": {
+            "type": "string"
+          },
+          "avgLoad": {
+            "type": "number"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1386,22 +1057,181 @@
           }
         }
       },
-      "JobCreate": {
+      "SolverConfigurationCreate": {
         "type": "object",
         "properties": {
-          "circuitId": {
+          "status": {
             "type": "string"
           },
-          "shots": {
+          "description": {
+            "type": "string"
+          },
+          "avgLoad": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "status",
+          "description"
+        ]
+      },
+      "StructuredProblemData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "lin": {
+            "type": "string"
+          },
+          "quad": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StructuredProblemDataCreate": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string"
+          },
+          "lin": {
+            "type": "string"
+          },
+          "quad": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "format",
+          "lin"
+        ]
+      },
+      "StructuredProblemAnswer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "activeVariables": {
+            "type": "string"
+          },
+          "energies": {
+            "type": "string"
+          },
+          "solutions": {
+            "type": "string"
+          },
+          "numOccurrences": {
+            "type": "string"
+          },
+          "numVariables": {
             "type": "integer"
           },
-          "status": {
+          "timing": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StructuredProblemAnswerCreate": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string"
+          },
+          "activeVariables": {
+            "type": "string"
+          },
+          "energies": {
+            "type": "string"
+          },
+          "solutions": {
+            "type": "string"
+          },
+          "numOccurrences": {
+            "type": "string"
+          },
+          "numVariables": {
+            "type": "integer"
+          },
+          "timing": {
             "type": "string"
           }
         },
         "required": [
-          "shots",
-          "status"
+          "format",
+          "activeVariables"
+        ]
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RegionCreate": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name"
         ]
       }
     }

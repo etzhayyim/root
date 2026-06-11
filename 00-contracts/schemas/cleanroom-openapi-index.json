@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29510,
+  "totalEndpoints": 29490,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 175,
-  "totalVerifiedEnumFields": 750,
+  "l5VerifiedActors": 178,
+  "totalVerifiedEnumFields": 758,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -4308,10 +4308,10 @@
     {
       "handle": "d_wave-compat",
       "did": "did:web:etzhayyim.com:actor:d_wave-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -4320,8 +4320,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/d_wave-compat/openapi.json"
     },
     {
@@ -7310,10 +7310,10 @@
     {
       "handle": "google_cirq-compat",
       "did": "did:web:etzhayyim.com:actor:google_cirq-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -7322,8 +7322,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/google_cirq-compat/openapi.json"
     },
     {
@@ -9685,10 +9685,10 @@
     {
       "handle": "landsat-compat",
       "did": "did:web:etzhayyim.com:actor:landsat-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -9697,8 +9697,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/landsat-compat/openapi.json"
     },
     {

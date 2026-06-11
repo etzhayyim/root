@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 180,
+  "count": 183,
   "actors": [
     {
       "handle": "aave-compat",
@@ -5871,6 +5871,99 @@
       "note": "FULLY VERIFIED (6/6) vs FIRST CVSS v3.1 spec + NIST NVD API schema. Enforced enums: CvssV3Metric.baseSeverity(5), CvssV3Vector.attackVector(4)/attackComplexity(2)/privilegesRequired(3)/userInteraction(2)/scope(2)/confidentialityImpact(3)/integrityImpact(3)/availabilityImpact(3), CveMetrics.type(2) = 10 enums."
     },
     {
+      "handle": "d_wave-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py + https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/constants.py (official dwavesystems/dwave-cloud-client)",
+      "remodeled": "Remodeled to the faithful D-Wave SAPI surface verified against the official dwave-cloud-client pydantic models and constants. ProblemStatus(5) enforced: the upstream docstring spells out the complete state machine (PENDING -> IN_PROGRESS -> {COMPLETED|FAILED|CANCELLED}, all terminal states named). ProblemType gapped: demonstrably version-grown (ising/qubo -> bqm/cqm/dqm/nl). Encoding formats gapped (BQ marked deprecated-for-submission upstream). gemini-CLI-drafted; claims machine-matched.",
+      "resources": [
+        {
+          "entity": "ProblemMetadata",
+          "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py",
+          "verifiedFields": [
+            "type",
+            "label",
+            "status",
+            "submittedBy",
+            "submittedOn",
+            "solvedOn"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "PENDING",
+              "IN_PROGRESS",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ]
+          },
+          "gaps": [
+            "type-version-growing (ising/qubo->bqm/cqm/dqm/nl)"
+          ]
+        },
+        {
+          "entity": "SolverConfiguration",
+          "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py",
+          "verifiedFields": [
+            "status",
+            "description",
+            "avgLoad"
+          ],
+          "fieldStatus": "confirmed (SolverCompleteConfiguration; status untyped str upstream)",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-untyped-str-upstream"
+          ]
+        },
+        {
+          "entity": "StructuredProblemData",
+          "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py",
+          "verifiedFields": [
+            "format",
+            "lin",
+            "quad",
+            "offset"
+          ],
+          "fieldStatus": "confirmed; format gapped (BQ deprecated-for-submission)",
+          "discoveredEnums": {},
+          "gaps": [
+            "format-deprecated-bearing"
+          ]
+        },
+        {
+          "entity": "StructuredProblemAnswer",
+          "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py",
+          "verifiedFields": [
+            "format",
+            "activeVariables",
+            "energies",
+            "solutions",
+            "numOccurrences",
+            "numVariables",
+            "timing"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Region",
+          "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py",
+          "verifiedFields": [
+            "code",
+            "name",
+            "endpoint"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official dwave-cloud-client. Enforced enums: ProblemMetadata.status(5, complete documented state machine) = 1 enum field."
+    },
+    {
       "handle": "databricks-compat",
       "verifiedAt": "2026-06-08",
       "tier": "L5",
@@ -9628,6 +9721,111 @@
       "note": "FULLY VERIFIED (6/6): Project/Issue/MergeRequest/Pipeline/Job/Commit vs official GitLab docs. Enforced enums: Project.visibility, Issue.state, Issue.issueType, MergeRequest.state, Pipeline.status, Job.status (6)."
     },
     {
+      "handle": "google_cirq-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+      "remodeled": "Remodeled to the faithful Google Quantum Engine surface verified against the official quantum_v1alpha1 proto types vendored in quantumlib/Cirq — the versioned wire format of the Quantum Engine API. ExecutionStatus.State(7) + QuantumProcessor.Health(5) + QuantumTimeSlot.TimeSlotType(5) enforced at the v1alpha1 anchor. ExecutionStatus.Failure.Code (14 members) gapped as an error-code table per the kafka/DJI precedent. gemini-CLI-drafted (dir-listing-first); every enum machine-matched against the cached proto source.",
+      "resources": [
+        {
+          "entity": "QuantumJob",
+          "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+          "verifiedFields": [
+            "name",
+            "createTime",
+            "updateTime",
+            "labelFingerprint",
+            "description"
+          ],
+          "fieldStatus": "confirmed (proto documented attributes; scheduling/output configs not modeled)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ExecutionStatus",
+          "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+          "verifiedFields": [
+            "state",
+            "processorName",
+            "calibrationName"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "STATE_UNSPECIFIED",
+              "READY",
+              "RUNNING",
+              "CANCELLING",
+              "CANCELLED",
+              "SUCCESS",
+              "FAILURE"
+            ]
+          },
+          "gaps": [
+            "failure.errorCode-error-table (14 members, kafka/DJI precedent)"
+          ]
+        },
+        {
+          "entity": "QuantumProcessor",
+          "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+          "verifiedFields": [
+            "name",
+            "health",
+            "expectedDownTime",
+            "expectedRecoveryTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "health": [
+              "HEALTH_UNSPECIFIED",
+              "OK",
+              "DOWN",
+              "UNAVAILABLE",
+              "INACTIVE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "QuantumProgram",
+          "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+          "verifiedFields": [
+            "name",
+            "createTime",
+            "updateTime",
+            "labelFingerprint",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "QuantumTimeSlot",
+          "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+          "verifiedFields": [
+            "processorName",
+            "startTime",
+            "endTime",
+            "timeSlotType"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "timeSlotType": [
+              "TIME_SLOT_TYPE_UNSPECIFIED",
+              "MAINTENANCE",
+              "OPEN_SWIM",
+              "RESERVATION",
+              "UNALLOCATED"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs the official v1alpha1 proto types. Enforced enums: state(7) + health(5) + timeSlotType(5) = 3 enum fields. Completes the quantum-cloud family (ibm_qiskit / aws_braket / d_wave / google_cirq all L5)."
+    },
+    {
       "handle": "grafana-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -12349,6 +12547,103 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Kubernetes OpenAPI. Enforced enums: Pod.phase(5)/restartPolicy(3), Service.type(4), Namespace.phase(2), PersistentVolume.phase(4) = 5 enums."
+    },
+    {
+      "handle": "landsat-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/stac-extensions/landsat/main/json-schema/schema.json + https://raw.githubusercontent.com/stac-extensions/eo/main/json-schema/schema.json (official STAC extension schemas)",
+      "remodeled": "Remodeled to the faithful Landsat STAC surface verified against the official stac-extensions/landsat JSON Schema (+ stac-extensions/eo). The schema's OWN enum arrays enforced at the schema version per the dbt/freee discipline: collectionCategory(A1/A2/T1/T2/RT), collectionNumber(01/02), wrsType(1/2), correction(L1TP/L1GT/L1GS/L2SR/L2SP). NOTE: the gemini draft gapped three of these as 'version-growing' — overridden the OTHER way this time: the official schema declares them as closed enum arrays, and spec-declared enums are enforceable at the schema version (the same standard applied to dbt/freee). eo:common_name kept gapped (its enum array demonstrably grew recently: green05/rededge071/075/078). platform gapped (L1->L9 growth).",
+      "resources": [
+        {
+          "entity": "LandsatItemProperties",
+          "source": "https://raw.githubusercontent.com/stac-extensions/landsat/main/json-schema/schema.json",
+          "verifiedFields": [
+            "sceneId",
+            "collectionCategory",
+            "collectionNumber",
+            "wrsType",
+            "wrsPath",
+            "wrsRow",
+            "cloudCoverLand",
+            "correction",
+            "productGenerated"
+          ],
+          "fieldStatus": "confirmed (landsat: prefixed fields, machine-swept from the schema)",
+          "discoveredEnums": {
+            "collectionCategory": [
+              "A1",
+              "A2",
+              "T1",
+              "T2",
+              "RT"
+            ],
+            "collectionNumber": [
+              "01",
+              "02"
+            ],
+            "wrsType": [
+              "1",
+              "2"
+            ],
+            "correction": [
+              "L1TP",
+              "L1GT",
+              "L1GS",
+              "L2SR",
+              "L2SP"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StacAsset",
+          "source": "https://raw.githubusercontent.com/radiantearth/stac-spec/master/item-spec/json-schema/item.json",
+          "verifiedFields": [
+            "href",
+            "title",
+            "description",
+            "type"
+          ],
+          "fieldStatus": "confirmed (STAC core asset object)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "InstrumentProperties",
+          "source": "https://raw.githubusercontent.com/radiantearth/stac-spec/master/item-spec/json-schema/instrument.json",
+          "verifiedFields": [
+            "platform",
+            "constellation",
+            "mission",
+            "gsd"
+          ],
+          "fieldStatus": "confirmed; platform version-growing (LANDSAT_1..9) -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "platform-version-growing"
+          ]
+        },
+        {
+          "entity": "EoBandProperties",
+          "source": "https://raw.githubusercontent.com/stac-extensions/eo/main/json-schema/schema.json",
+          "verifiedFields": [
+            "cloudCover",
+            "snowCover",
+            "commonName",
+            "centerWavelength",
+            "fullWidthHalfMax",
+            "solarIllumination"
+          ],
+          "fieldStatus": "confirmed; commonName enum grew recently -> gapped despite enum array",
+          "discoveredEnums": {},
+          "gaps": [
+            "commonName-recently-grown (green05/rededge07x additions)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official STAC extension schemas. Enforced enums: collectionCategory(5)+collectionNumber(2)+wrsType(2)+correction(5) = 4 enum fields. First case of overriding a gemini draft toward MORE enforcement: spec-declared enum arrays beat growth speculation (dbt/freee standard), while a spec-declared enum that demonstrably grew (eo:common_name) stays gapped."
     },
     {
       "handle": "langchain-compat",

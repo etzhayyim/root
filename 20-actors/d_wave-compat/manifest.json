@@ -5,21 +5,41 @@
   "kind": "compat",
   "title": "d_wave clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (d_wave); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+  "wasmCid": "bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+  "ipfs": "ipfs://bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
   "schema": "schema/d_wave.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/models.py + https://raw.githubusercontent.com/dwavesystems/dwave-cloud-client/master/dwave/cloud/api/constants.py (official dwavesystems/dwave-cloud-client)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ProblemMetadata",
+      "SolverConfiguration",
+      "StructuredProblemData",
+      "StructuredProblemAnswer",
+      "Region"
+    ],
+    "enums": {
+      "ProblemMetadata": {
+        "status": [
+          "PENDING",
+          "IN_PROGRESS",
+          "COMPLETED",
+          "FAILED",
+          "CANCELLED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Register",
-    "Instruction",
-    "Qubit",
-    "Circuit",
-    "Gate",
-    "Job"
+    "ProblemMetadata",
+    "SolverConfiguration",
+    "StructuredProblemData",
+    "StructuredProblemAnswer",
+    "Region"
   ],
   "adr": [
     "260607",
@@ -31,157 +51,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/registers",
-          "op": "create Register"
+          "path": "/v1/problemmetadatas",
+          "op": "create ProblemMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/registers",
-          "op": "list Register"
+          "path": "/v1/problemmetadatas",
+          "op": "list ProblemMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/registers/{id}",
-          "op": "get Register"
+          "path": "/v1/problemmetadatas/{id}",
+          "op": "get ProblemMetadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/registers/{id}",
-          "op": "update Register"
+          "path": "/v1/problemmetadatas/{id}",
+          "op": "update ProblemMetadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/registers/{id}",
-          "op": "delete Register"
+          "path": "/v1/problemmetadatas/{id}",
+          "op": "delete ProblemMetadata"
         },
         {
           "method": "POST",
-          "path": "/v1/instructions",
-          "op": "create Instruction"
+          "path": "/v1/solverconfigurations",
+          "op": "create SolverConfiguration"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions",
-          "op": "list Instruction"
+          "path": "/v1/solverconfigurations",
+          "op": "list SolverConfiguration"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions/{id}",
-          "op": "get Instruction"
+          "path": "/v1/solverconfigurations/{id}",
+          "op": "get SolverConfiguration"
         },
         {
           "method": "PATCH",
-          "path": "/v1/instructions/{id}",
-          "op": "update Instruction"
+          "path": "/v1/solverconfigurations/{id}",
+          "op": "update SolverConfiguration"
         },
         {
           "method": "DELETE",
-          "path": "/v1/instructions/{id}",
-          "op": "delete Instruction"
+          "path": "/v1/solverconfigurations/{id}",
+          "op": "delete SolverConfiguration"
         },
         {
           "method": "POST",
-          "path": "/v1/qubits",
-          "op": "create Qubit"
+          "path": "/v1/structuredproblemdatas",
+          "op": "create StructuredProblemData"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits",
-          "op": "list Qubit"
+          "path": "/v1/structuredproblemdatas",
+          "op": "list StructuredProblemData"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits/{id}",
-          "op": "get Qubit"
+          "path": "/v1/structuredproblemdatas/{id}",
+          "op": "get StructuredProblemData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/qubits/{id}",
-          "op": "update Qubit"
+          "path": "/v1/structuredproblemdatas/{id}",
+          "op": "update StructuredProblemData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/qubits/{id}",
-          "op": "delete Qubit"
+          "path": "/v1/structuredproblemdatas/{id}",
+          "op": "delete StructuredProblemData"
         },
         {
           "method": "POST",
-          "path": "/v1/circuits",
-          "op": "create Circuit"
+          "path": "/v1/structuredproblemanswers",
+          "op": "create StructuredProblemAnswer"
         },
         {
           "method": "GET",
-          "path": "/v1/circuits",
-          "op": "list Circuit"
+          "path": "/v1/structuredproblemanswers",
+          "op": "list StructuredProblemAnswer"
         },
         {
           "method": "GET",
-          "path": "/v1/circuits/{id}",
-          "op": "get Circuit"
+          "path": "/v1/structuredproblemanswers/{id}",
+          "op": "get StructuredProblemAnswer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/circuits/{id}",
-          "op": "update Circuit"
+          "path": "/v1/structuredproblemanswers/{id}",
+          "op": "update StructuredProblemAnswer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/circuits/{id}",
-          "op": "delete Circuit"
+          "path": "/v1/structuredproblemanswers/{id}",
+          "op": "delete StructuredProblemAnswer"
         },
         {
           "method": "POST",
-          "path": "/v1/gates",
-          "op": "create Gate"
+          "path": "/v1/regions",
+          "op": "create Region"
         },
         {
           "method": "GET",
-          "path": "/v1/gates",
-          "op": "list Gate"
+          "path": "/v1/regions",
+          "op": "list Region"
         },
         {
           "method": "GET",
-          "path": "/v1/gates/{id}",
-          "op": "get Gate"
+          "path": "/v1/regions/{id}",
+          "op": "get Region"
         },
         {
           "method": "PATCH",
-          "path": "/v1/gates/{id}",
-          "op": "update Gate"
+          "path": "/v1/regions/{id}",
+          "op": "update Region"
         },
         {
           "method": "DELETE",
-          "path": "/v1/gates/{id}",
-          "op": "delete Gate"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/jobs",
-          "op": "create Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs",
-          "op": "list Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs/{id}",
-          "op": "get Job"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/jobs/{id}",
-          "op": "update Job"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/jobs/{id}",
-          "op": "delete Job"
+          "path": "/v1/regions/{id}",
+          "op": "delete Region"
         }
       ],
       "features": {
@@ -244,467 +239,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_register",
-          "description": "Create a Register.",
+          "name": "create_problem_metadata",
+          "description": "Create a ProblemMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "type": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
+              "label": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "widthBits"
-            ]
-          }
-        },
-        {
-          "name": "list_registers",
-          "description": "List Registers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_register",
-          "description": "Get a Register by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_register",
-          "description": "Update a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_register",
-          "description": "Delete a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_instruction",
-          "description": "Create a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "mnemonic",
-              "opcode"
-            ]
-          }
-        },
-        {
-          "name": "list_instructions",
-          "description": "List Instructions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_instruction",
-          "description": "Get a Instruction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_instruction",
-          "description": "Update a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_instruction",
-          "description": "Delete a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_qubit",
-          "description": "Create a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "index",
-              "t1Us"
-            ]
-          }
-        },
-        {
-          "name": "list_qubits",
-          "description": "List Qubits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_qubit",
-          "description": "Get a Qubit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_qubit",
-          "description": "Update a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_qubit",
-          "description": "Delete a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_circuit",
-          "description": "Create a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "qubitCount"
-            ]
-          }
-        },
-        {
-          "name": "list_circuits",
-          "description": "List Circuits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_circuit",
-          "description": "Get a Circuit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_circuit",
-          "description": "Update a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_circuit",
-          "description": "Delete a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_gate",
-          "description": "Create a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "targets"
-            ]
-          }
-        },
-        {
-          "name": "list_gates",
-          "description": "List Gates.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_gate",
-          "description": "Get a Gate by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_gate",
-          "description": "Update a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_gate",
-          "description": "Delete a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_job",
-          "description": "Create a Job.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "shots": {
-                "type": "integer"
               },
               "status": {
                 "type": "string"
+              },
+              "submittedBy": {
+                "type": "string"
+              },
+              "submittedOn": {
+                "type": "string"
+              },
+              "solvedOn": {
+                "type": "string"
               }
             },
             "required": [
-              "shots",
-              "status"
+              "type",
+              "label"
             ]
           }
         },
         {
-          "name": "list_jobs",
-          "description": "List Jobs.",
+          "name": "list_problem_metadatas",
+          "description": "List ProblemMetadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_job",
-          "description": "Get a Job by id.",
+          "name": "get_problem_metadata",
+          "description": "Get a ProblemMetadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -718,22 +296,31 @@
           }
         },
         {
-          "name": "update_job",
-          "description": "Update a Job.",
+          "name": "update_problem_metadata",
+          "description": "Update a ProblemMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "circuitId": {
+              "type": {
                 "type": "string"
               },
-              "shots": {
-                "type": "integer"
+              "label": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "submittedBy": {
+                "type": "string"
+              },
+              "submittedOn": {
+                "type": "string"
+              },
+              "solvedOn": {
+                "type": "string"
               }
             },
             "required": [
@@ -742,8 +329,374 @@
           }
         },
         {
-          "name": "delete_job",
-          "description": "Delete a Job.",
+          "name": "delete_problem_metadata",
+          "description": "Delete a ProblemMetadata.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_solver_configuration",
+          "description": "Create a SolverConfiguration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "avgLoad": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "status",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_solver_configurations",
+          "description": "List SolverConfigurations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_solver_configuration",
+          "description": "Get a SolverConfiguration by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_solver_configuration",
+          "description": "Update a SolverConfiguration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "avgLoad": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_solver_configuration",
+          "description": "Delete a SolverConfiguration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_structured_problem_data",
+          "description": "Create a StructuredProblemData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": "string"
+              },
+              "lin": {
+                "type": "string"
+              },
+              "quad": {
+                "type": "string"
+              },
+              "offset": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "format",
+              "lin"
+            ]
+          }
+        },
+        {
+          "name": "list_structured_problem_datas",
+          "description": "List StructuredProblemDatas.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_structured_problem_data",
+          "description": "Get a StructuredProblemData by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_structured_problem_data",
+          "description": "Update a StructuredProblemData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "format": {
+                "type": "string"
+              },
+              "lin": {
+                "type": "string"
+              },
+              "quad": {
+                "type": "string"
+              },
+              "offset": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_structured_problem_data",
+          "description": "Delete a StructuredProblemData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_structured_problem_answer",
+          "description": "Create a StructuredProblemAnswer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": "string"
+              },
+              "activeVariables": {
+                "type": "string"
+              },
+              "energies": {
+                "type": "string"
+              },
+              "solutions": {
+                "type": "string"
+              },
+              "numOccurrences": {
+                "type": "string"
+              },
+              "numVariables": {
+                "type": "integer"
+              },
+              "timing": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "format",
+              "activeVariables"
+            ]
+          }
+        },
+        {
+          "name": "list_structured_problem_answers",
+          "description": "List StructuredProblemAnswers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_structured_problem_answer",
+          "description": "Get a StructuredProblemAnswer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_structured_problem_answer",
+          "description": "Update a StructuredProblemAnswer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "format": {
+                "type": "string"
+              },
+              "activeVariables": {
+                "type": "string"
+              },
+              "energies": {
+                "type": "string"
+              },
+              "solutions": {
+                "type": "string"
+              },
+              "numOccurrences": {
+                "type": "string"
+              },
+              "numVariables": {
+                "type": "integer"
+              },
+              "timing": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_structured_problem_answer",
+          "description": "Delete a StructuredProblemAnswer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_region",
+          "description": "Create a Region.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "endpoint": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_regions",
+          "description": "List Regions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_region",
+          "description": "Get a Region by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_region",
+          "description": "Update a Region.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "endpoint": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_region",
+          "description": "Delete a Region.",
           "inputSchema": {
             "type": "object",
             "properties": {

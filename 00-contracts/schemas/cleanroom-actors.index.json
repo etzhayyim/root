@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 820,
-    "L5": 180
+    "L4": 817,
+    "L5": 183
   },
   "actors": [
     {
@@ -4085,10 +4085,10 @@
     {
       "handle": "d_wave-compat",
       "did": "did:web:etzhayyim.com:actor:d_wave-compat",
-      "wasmCid": "bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+      "wasmCid": "bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "d_wave clean-room actor",
       "category": "isa_quantum",
       "capabilities": [
@@ -6929,10 +6929,10 @@
     {
       "handle": "google_cirq-compat",
       "did": "did:web:etzhayyim.com:actor:google_cirq-compat",
-      "wasmCid": "bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+      "wasmCid": "bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "google_cirq clean-room actor",
       "category": "isa_quantum",
       "capabilities": [
@@ -9179,10 +9179,10 @@
     {
       "handle": "landsat-compat",
       "did": "did:web:etzhayyim.com:actor:landsat-compat",
-      "wasmCid": "bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+      "wasmCid": "bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "landsat clean-room actor",
       "category": "space_ocean_earth",
       "capabilities": [

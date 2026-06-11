@@ -2498,6 +2498,41 @@ PLATFORM_OVERRIDES = {
         "DeviceServiceProperties": E(deviceLocation="string", updatedAt="datetime", getTaskPollIntervalMillis="integer", shotsRangeMin="integer", shotsRangeMax="integer"),
         "TaskMetadata": E(shots="integer", deviceId="string", createdAt="datetime", endedAt="datetime", status="string"),
     },
+    # Faithful Google Quantum Engine model (official quantumlib/Cirq
+    # quantum_v1alpha1 proto types — the versioned wire format of the Google
+    # Quantum Engine API). State(7)/Health(5)/TimeSlotType(5) enforced at the
+    # v1alpha1 anchor; Failure.Code (14, an error-code table) gapped per the
+    # kafka/DJI error-table precedent.
+    "google_cirq": {
+        "QuantumJob": E(name="string", createTime="datetime", updateTime="datetime", labelFingerprint="string", description="string"),
+        "ExecutionStatus": E(state="string", processorName="string", calibrationName="string"),
+        "QuantumProcessor": E(name="string", health="string", expectedDownTime="datetime", expectedRecoveryTime="datetime"),
+        "QuantumProgram": E(name="string", createTime="datetime", updateTime="datetime", labelFingerprint="string", description="string"),
+        "QuantumTimeSlot": E(processorName="string", startTime="datetime", endTime="datetime", timeSlotType="string"),
+    },
+    # Faithful D-Wave SAPI model (official dwavesystems/dwave-cloud-client
+    # pydantic models + constants). ProblemStatus enforced: the upstream
+    # docstring spells out the COMPLETE state machine incl. terminal states.
+    # ProblemType (ising->qubo->bqm/cqm/dqm/nl growth) + encoding formats
+    # (BQ deprecated-for-submission) -> gapped.
+    "d_wave": {
+        "ProblemMetadata": E(type="string", label="string", status="string", submittedBy="string", submittedOn="datetime", solvedOn="datetime"),
+        "SolverConfiguration": E(status="string", description="string", avgLoad="float"),
+        "StructuredProblemData": E(format="string", lin="string", quad="string", offset="float"),
+        "StructuredProblemAnswer": E(format="string", activeVariables="string", energies="string", solutions="string", numOccurrences="string", numVariables="integer", timing="string"),
+        "Region": E(code="string", name="string", endpoint="string"),
+    },
+    # Faithful Landsat STAC model (official stac-extensions/landsat JSON Schema +
+    # stac-extensions/eo). The schema's OWN enum arrays enforced at the schema
+    # version (dbt/freee discipline): collectionCategory(5)/collectionNumber(2)/
+    # wrsType(2)/correction(5). eo commonName grew recently (green05/rededge07x)
+    # -> gapped despite having an enum array.
+    "landsat": {
+        "LandsatItemProperties": E(sceneId="string", collectionCategory="string", collectionNumber="string", wrsType="string", wrsPath="string", wrsRow="string", cloudCoverLand="float", correction="string", productGenerated="datetime"),
+        "StacAsset": E(href="string", title="string", description="string", type="string"),
+        "InstrumentProperties": E(platform="string", constellation="string", mission="string", gsd="float"),
+        "EoBandProperties": E(cloudCover="float", snowCover="float", commonName="string", centerWavelength="float", fullWidthHalfMax="float", solarIllumination="float"),
+    },
     # Faithful Android platform model (official developer.android.com reference,
     # android.os.BatteryManager + android.os.Build). BATTERY_STATUS_* (1-5,
     # unchanged since API 1/2008) + BATTERY_HEALTH_* (1-7, stable since API 11)

@@ -111,52 +111,324 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/registers", methods=["POST"])
-def create_register(request):
-    """Create a Register."""
+@app.route("/v1/problemmetadatas", methods=["POST"])
+def create_problem_metadata(request):
+    """Create a ProblemMetadata."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['type', 'label', 'status', 'submittedBy', 'submittedOn', 'solvedOn'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'widthBits'])
+    err = _require(data, ['type', 'label'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dwave_pro")}
+    rec["type"] = data.get('type')
+    rec["label"] = data.get('label')
+    rec["status"] = data.get('status')
+    rec["submittedBy"] = data.get('submittedBy')
+    rec["submittedOn"] = data.get('submittedOn')
+    rec["solvedOn"] = data.get('solvedOn')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ProblemMetadata", rec)
+    return rec, 201
+
+@app.route("/v1/problemmetadatas", methods=["GET"])
+def list_problem_metadatas(request):
+    """List ProblemMetadatas with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ProblemMetadata")
+    rows = _apply_filters(rows, params, ['type', 'label', 'status', 'submittedBy', 'submittedOn', 'solvedOn'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/problemmetadatas/<eid>", methods=["GET"])
+def get_problem_metadata(request, eid):
+    """Retrieve a ProblemMetadata by id (supports ?expand=)."""
+    rows = _query("ProblemMetadata", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/problemmetadatas/<eid>", methods=["POST", "PATCH"])
+def update_problem_metadata(request, eid):
+    """Update a ProblemMetadata."""
+    rows = _query("ProblemMetadata", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type', 'label', 'status', 'submittedBy', 'submittedOn', 'solvedOn'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED', 'CANCELLED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED', 'CANCELLED']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ProblemMetadata", rec)
+    return rec, 200
+
+@app.route("/v1/problemmetadatas/<eid>", methods=["DELETE"])
+def delete_problem_metadata(request, eid):
+    """Delete a ProblemMetadata."""
+    rows = _query("ProblemMetadata", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"d_wave.ProblemMetadata", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/solverconfigurations", methods=["POST"])
+def create_solver_configuration(request):
+    """Create a SolverConfiguration."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'description', 'avgLoad'])
+    if err:
+        return err, 400
+    err = _require(data, ['status', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dwave_sol")}
+    rec["status"] = data.get('status')
+    rec["description"] = data.get('description')
+    rec["avgLoad"] = _as_float(data.get('avgLoad'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SolverConfiguration", rec)
+    return rec, 201
+
+@app.route("/v1/solverconfigurations", methods=["GET"])
+def list_solver_configurations(request):
+    """List SolverConfigurations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SolverConfiguration")
+    rows = _apply_filters(rows, params, ['status', 'description', 'avgLoad'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/solverconfigurations/<eid>", methods=["GET"])
+def get_solver_configuration(request, eid):
+    """Retrieve a SolverConfiguration by id (supports ?expand=)."""
+    rows = _query("SolverConfiguration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/solverconfigurations/<eid>", methods=["POST", "PATCH"])
+def update_solver_configuration(request, eid):
+    """Update a SolverConfiguration."""
+    rows = _query("SolverConfiguration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'description', 'avgLoad'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SolverConfiguration", rec)
+    return rec, 200
+
+@app.route("/v1/solverconfigurations/<eid>", methods=["DELETE"])
+def delete_solver_configuration(request, eid):
+    """Delete a SolverConfiguration."""
+    rows = _query("SolverConfiguration", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"d_wave.SolverConfiguration", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/structuredproblemdatas", methods=["POST"])
+def create_structured_problem_data(request):
+    """Create a StructuredProblemData."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['format', 'lin', 'quad', 'offset'])
+    if err:
+        return err, 400
+    err = _require(data, ['format', 'lin'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dwave_str")}
+    rec["format"] = data.get('format')
+    rec["lin"] = data.get('lin')
+    rec["quad"] = data.get('quad')
+    rec["offset"] = _as_float(data.get('offset'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("StructuredProblemData", rec)
+    return rec, 201
+
+@app.route("/v1/structuredproblemdatas", methods=["GET"])
+def list_structured_problem_datas(request):
+    """List StructuredProblemDatas with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("StructuredProblemData")
+    rows = _apply_filters(rows, params, ['format', 'lin', 'quad', 'offset'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/structuredproblemdatas/<eid>", methods=["GET"])
+def get_structured_problem_data(request, eid):
+    """Retrieve a StructuredProblemData by id (supports ?expand=)."""
+    rows = _query("StructuredProblemData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/structuredproblemdatas/<eid>", methods=["POST", "PATCH"])
+def update_structured_problem_data(request, eid):
+    """Update a StructuredProblemData."""
+    rows = _query("StructuredProblemData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['format', 'lin', 'quad', 'offset'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("StructuredProblemData", rec)
+    return rec, 200
+
+@app.route("/v1/structuredproblemdatas/<eid>", methods=["DELETE"])
+def delete_structured_problem_data(request, eid):
+    """Delete a StructuredProblemData."""
+    rows = _query("StructuredProblemData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"d_wave.StructuredProblemData", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/structuredproblemanswers", methods=["POST"])
+def create_structured_problem_answer(request):
+    """Create a StructuredProblemAnswer."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['format', 'activeVariables', 'energies', 'solutions', 'numOccurrences', 'numVariables', 'timing'])
+    if err:
+        return err, 400
+    err = _require(data, ['format', 'activeVariables'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("dwave_str")}
+    rec["format"] = data.get('format')
+    rec["activeVariables"] = data.get('activeVariables')
+    rec["energies"] = data.get('energies')
+    rec["solutions"] = data.get('solutions')
+    rec["numOccurrences"] = data.get('numOccurrences')
+    rec["numVariables"] = _as_int(data.get('numVariables'))
+    rec["timing"] = data.get('timing')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("StructuredProblemAnswer", rec)
+    return rec, 201
+
+@app.route("/v1/structuredproblemanswers", methods=["GET"])
+def list_structured_problem_answers(request):
+    """List StructuredProblemAnswers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("StructuredProblemAnswer")
+    rows = _apply_filters(rows, params, ['format', 'activeVariables', 'energies', 'solutions', 'numOccurrences', 'numVariables', 'timing'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/structuredproblemanswers/<eid>", methods=["GET"])
+def get_structured_problem_answer(request, eid):
+    """Retrieve a StructuredProblemAnswer by id (supports ?expand=)."""
+    rows = _query("StructuredProblemAnswer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/structuredproblemanswers/<eid>", methods=["POST", "PATCH"])
+def update_structured_problem_answer(request, eid):
+    """Update a StructuredProblemAnswer."""
+    rows = _query("StructuredProblemAnswer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['format', 'activeVariables', 'energies', 'solutions', 'numOccurrences', 'numVariables', 'timing'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("StructuredProblemAnswer", rec)
+    return rec, 200
+
+@app.route("/v1/structuredproblemanswers/<eid>", methods=["DELETE"])
+def delete_structured_problem_answer(request, eid):
+    """Delete a StructuredProblemAnswer."""
+    rows = _query("StructuredProblemAnswer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"d_wave.StructuredProblemAnswer", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/regions", methods=["POST"])
+def create_region(request):
+    """Create a Region."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['code', 'name', 'endpoint'])
+    if err:
+        return err, 400
+    err = _require(data, ['code', 'name'])
     if err:
         return err, 400
     rec = {"id": new_id("dwave_reg")}
+    rec["code"] = data.get('code')
     rec["name"] = data.get('name')
-    rec["widthBits"] = _as_int(data.get('widthBits'))
-    rec["role"] = data.get('role')
+    rec["endpoint"] = data.get('endpoint')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Register", rec)
+    _persist("Region", rec)
     return rec, 201
 
-@app.route("/v1/registers", methods=["GET"])
-def list_registers(request):
-    """List Registers with filtering + cursor pagination."""
+@app.route("/v1/regions", methods=["GET"])
+def list_regions(request):
+    """List Regions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Register")
-    rows = _apply_filters(rows, params, ['name', 'widthBits', 'role'])
+    rows = _query("Region")
+    rows = _apply_filters(rows, params, ['code', 'name', 'endpoint'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/registers/<eid>", methods=["GET"])
-def get_register(request, eid):
-    """Retrieve a Register by id (supports ?expand=)."""
-    rows = _query("Register", eid)
+@app.route("/v1/regions/<eid>", methods=["GET"])
+def get_region(request, eid):
+    """Retrieve a Region by id (supports ?expand=)."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["POST", "PATCH"])
-def update_register(request, eid):
-    """Update a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/regions/<eid>", methods=["POST", "PATCH"])
+def update_region(request, eid):
+    """Update a Region."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['code', 'name', 'endpoint'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,350 +436,22 @@ def update_register(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Register", rec)
+    _persist("Region", rec)
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["DELETE"])
-def delete_register(request, eid):
-    """Delete a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/regions/<eid>", methods=["DELETE"])
+def delete_region(request, eid):
+    """Delete a Region."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Register", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/instructions", methods=["POST"])
-def create_instruction(request):
-    """Create a Instruction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    err = _require(data, ['mnemonic', 'opcode'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dwave_ins")}
-    rec["mnemonic"] = data.get('mnemonic')
-    rec["opcode"] = data.get('opcode')
-    rec["operands"] = data.get('operands')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Instruction", rec)
-    return rec, 201
-
-@app.route("/v1/instructions", methods=["GET"])
-def list_instructions(request):
-    """List Instructions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Instruction")
-    rows = _apply_filters(rows, params, ['mnemonic', 'opcode', 'operands'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/instructions/<eid>", methods=["GET"])
-def get_instruction(request, eid):
-    """Retrieve a Instruction by id (supports ?expand=)."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["POST", "PATCH"])
-def update_instruction(request, eid):
-    """Update a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Instruction", rec)
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["DELETE"])
-def delete_instruction(request, eid):
-    """Delete a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Instruction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/qubits", methods=["POST"])
-def create_qubit(request):
-    """Create a Qubit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    err = _require(data, ['index', 't1Us'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dwave_qub")}
-    rec["index"] = _as_int(data.get('index'))
-    rec["t1Us"] = _as_float(data.get('t1Us'))
-    rec["t2Us"] = _as_float(data.get('t2Us'))
-    rec["readoutError"] = _as_float(data.get('readoutError'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Qubit", rec)
-    return rec, 201
-
-@app.route("/v1/qubits", methods=["GET"])
-def list_qubits(request):
-    """List Qubits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Qubit")
-    rows = _apply_filters(rows, params, ['index', 't1Us', 't2Us', 'readoutError'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/qubits/<eid>", methods=["GET"])
-def get_qubit(request, eid):
-    """Retrieve a Qubit by id (supports ?expand=)."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["POST", "PATCH"])
-def update_qubit(request, eid):
-    """Update a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Qubit", rec)
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["DELETE"])
-def delete_qubit(request, eid):
-    """Delete a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Qubit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/circuits", methods=["POST"])
-def create_circuit(request):
-    """Create a Circuit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'qubitCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dwave_cir")}
-    rec["name"] = data.get('name')
-    rec["qubitCount"] = _as_int(data.get('qubitCount'))
-    rec["depth"] = _as_int(data.get('depth'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Circuit", rec)
-    return rec, 201
-
-@app.route("/v1/circuits", methods=["GET"])
-def list_circuits(request):
-    """List Circuits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Circuit")
-    rows = _apply_filters(rows, params, ['name', 'qubitCount', 'depth'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/circuits/<eid>", methods=["GET"])
-def get_circuit(request, eid):
-    """Retrieve a Circuit by id (supports ?expand=)."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["POST", "PATCH"])
-def update_circuit(request, eid):
-    """Update a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Circuit", rec)
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["DELETE"])
-def delete_circuit(request, eid):
-    """Delete a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Circuit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gates", methods=["POST"])
-def create_gate(request):
-    """Create a Gate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'targets'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dwave_gat")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["name"] = data.get('name')
-    rec["targets"] = data.get('targets')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Gate", rec)
-    return rec, 201
-
-@app.route("/v1/gates", methods=["GET"])
-def list_gates(request):
-    """List Gates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Gate")
-    rows = _apply_filters(rows, params, ['circuitId', 'name', 'targets'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/gates/<eid>", methods=["GET"])
-def get_gate(request, eid):
-    """Retrieve a Gate by id (supports ?expand=)."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["POST", "PATCH"])
-def update_gate(request, eid):
-    """Update a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Gate", rec)
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["DELETE"])
-def delete_gate(request, eid):
-    """Delete a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Gate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/jobs", methods=["POST"])
-def create_job(request):
-    """Create a Job."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['shots', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dwave_job")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["shots"] = _as_int(data.get('shots'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Job", rec)
-    return rec, 201
-
-@app.route("/v1/jobs", methods=["GET"])
-def list_jobs(request):
-    """List Jobs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Job")
-    rows = _apply_filters(rows, params, ['circuitId', 'shots', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/jobs/<eid>", methods=["GET"])
-def get_job(request, eid):
-    """Retrieve a Job by id (supports ?expand=)."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
-def update_job(request, eid):
-    """Update a Job."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Job", rec)
-    return rec, 200
-
-@app.route("/v1/jobs/<eid>", methods=["DELETE"])
-def delete_job(request, eid):
-    """Delete a Job."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"d_wave.Job", "id": eid})
+    db.retract({"entity": f"d_wave.Region", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "d_wave-compat", "tier": "L4",
-            "entities": ['Register', 'Instruction', 'Qubit', 'Circuit', 'Gate', 'Job']}, 200
+            "entities": ['ProblemMetadata', 'SolverConfiguration', 'StructuredProblemData', 'StructuredProblemAnswer', 'Region']}, 200
 
 
 if __name__ == "__main__":

@@ -3,68 +3,57 @@
 
 namespace d_wave {
 
-    entity Register {
+    entity ProblemMetadata {
         id: string @unique
-        name: string
-        widthBits: integer
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Instruction {
-        id: string @unique
-        mnemonic: string
-        opcode: string
-        operands: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Qubit {
-        id: string @unique
-        index: integer
-        t1Us: float
-        t2Us: float
-        readoutError: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Circuit {
-        id: string @unique
-        name: string
-        qubitCount: integer
-        depth: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Gate {
-        id: string @unique
-        circuitId: string
-        name: string
-        targets: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Job {
-        id: string @unique
-        circuitId: string
-        shots: integer
+        type: string
+        label: string
         status: string
+        submittedBy: string
+        submittedOn: datetime
+        solvedOn: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity SolverConfiguration {
+        id: string @unique
+        status: string
+        description: string
+        avgLoad: float
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity StructuredProblemData {
+        id: string @unique
+        format: string
+        lin: string
+        quad: string
+        offset: float
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity StructuredProblemAnswer {
+        id: string @unique
+        format: string
+        activeVariables: string
+        energies: string
+        solutions: string
+        numOccurrences: string
+        numVariables: integer
+        timing: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Region {
+        id: string @unique
+        code: string
+        name: string
+        endpoint: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

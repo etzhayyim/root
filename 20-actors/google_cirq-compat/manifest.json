@@ -5,21 +5,61 @@
   "kind": "compat",
   "title": "google_cirq clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (google_cirq); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+  "wasmCid": "bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+  "ipfs": "ipfs://bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
   "schema": "schema/google_cirq.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/quantumlib/Cirq/main/cirq-google/cirq_google/cloud/quantum_v1alpha1/types/quantum.py",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "QuantumJob",
+      "ExecutionStatus",
+      "QuantumProcessor",
+      "QuantumProgram",
+      "QuantumTimeSlot"
+    ],
+    "enums": {
+      "ExecutionStatus": {
+        "state": [
+          "STATE_UNSPECIFIED",
+          "READY",
+          "RUNNING",
+          "CANCELLING",
+          "CANCELLED",
+          "SUCCESS",
+          "FAILURE"
+        ]
+      },
+      "QuantumProcessor": {
+        "health": [
+          "HEALTH_UNSPECIFIED",
+          "OK",
+          "DOWN",
+          "UNAVAILABLE",
+          "INACTIVE"
+        ]
+      },
+      "QuantumTimeSlot": {
+        "timeSlotType": [
+          "TIME_SLOT_TYPE_UNSPECIFIED",
+          "MAINTENANCE",
+          "OPEN_SWIM",
+          "RESERVATION",
+          "UNALLOCATED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Register",
-    "Instruction",
-    "Qubit",
-    "Circuit",
-    "Gate",
-    "Job"
+    "QuantumJob",
+    "ExecutionStatus",
+    "QuantumProcessor",
+    "QuantumProgram",
+    "QuantumTimeSlot"
   ],
   "adr": [
     "260607",
@@ -31,157 +71,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/registers",
-          "op": "create Register"
+          "path": "/v1/quantumjobs",
+          "op": "create QuantumJob"
         },
         {
           "method": "GET",
-          "path": "/v1/registers",
-          "op": "list Register"
+          "path": "/v1/quantumjobs",
+          "op": "list QuantumJob"
         },
         {
           "method": "GET",
-          "path": "/v1/registers/{id}",
-          "op": "get Register"
+          "path": "/v1/quantumjobs/{id}",
+          "op": "get QuantumJob"
         },
         {
           "method": "PATCH",
-          "path": "/v1/registers/{id}",
-          "op": "update Register"
+          "path": "/v1/quantumjobs/{id}",
+          "op": "update QuantumJob"
         },
         {
           "method": "DELETE",
-          "path": "/v1/registers/{id}",
-          "op": "delete Register"
+          "path": "/v1/quantumjobs/{id}",
+          "op": "delete QuantumJob"
         },
         {
           "method": "POST",
-          "path": "/v1/instructions",
-          "op": "create Instruction"
+          "path": "/v1/executionstatuses",
+          "op": "create ExecutionStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions",
-          "op": "list Instruction"
+          "path": "/v1/executionstatuses",
+          "op": "list ExecutionStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions/{id}",
-          "op": "get Instruction"
+          "path": "/v1/executionstatuses/{id}",
+          "op": "get ExecutionStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/instructions/{id}",
-          "op": "update Instruction"
+          "path": "/v1/executionstatuses/{id}",
+          "op": "update ExecutionStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/instructions/{id}",
-          "op": "delete Instruction"
+          "path": "/v1/executionstatuses/{id}",
+          "op": "delete ExecutionStatus"
         },
         {
           "method": "POST",
-          "path": "/v1/qubits",
-          "op": "create Qubit"
+          "path": "/v1/quantumprocessors",
+          "op": "create QuantumProcessor"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits",
-          "op": "list Qubit"
+          "path": "/v1/quantumprocessors",
+          "op": "list QuantumProcessor"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits/{id}",
-          "op": "get Qubit"
+          "path": "/v1/quantumprocessors/{id}",
+          "op": "get QuantumProcessor"
         },
         {
           "method": "PATCH",
-          "path": "/v1/qubits/{id}",
-          "op": "update Qubit"
+          "path": "/v1/quantumprocessors/{id}",
+          "op": "update QuantumProcessor"
         },
         {
           "method": "DELETE",
-          "path": "/v1/qubits/{id}",
-          "op": "delete Qubit"
+          "path": "/v1/quantumprocessors/{id}",
+          "op": "delete QuantumProcessor"
         },
         {
           "method": "POST",
-          "path": "/v1/circuits",
-          "op": "create Circuit"
+          "path": "/v1/quantumprograms",
+          "op": "create QuantumProgram"
         },
         {
           "method": "GET",
-          "path": "/v1/circuits",
-          "op": "list Circuit"
+          "path": "/v1/quantumprograms",
+          "op": "list QuantumProgram"
         },
         {
           "method": "GET",
-          "path": "/v1/circuits/{id}",
-          "op": "get Circuit"
+          "path": "/v1/quantumprograms/{id}",
+          "op": "get QuantumProgram"
         },
         {
           "method": "PATCH",
-          "path": "/v1/circuits/{id}",
-          "op": "update Circuit"
+          "path": "/v1/quantumprograms/{id}",
+          "op": "update QuantumProgram"
         },
         {
           "method": "DELETE",
-          "path": "/v1/circuits/{id}",
-          "op": "delete Circuit"
+          "path": "/v1/quantumprograms/{id}",
+          "op": "delete QuantumProgram"
         },
         {
           "method": "POST",
-          "path": "/v1/gates",
-          "op": "create Gate"
+          "path": "/v1/quantumtimeslots",
+          "op": "create QuantumTimeSlot"
         },
         {
           "method": "GET",
-          "path": "/v1/gates",
-          "op": "list Gate"
+          "path": "/v1/quantumtimeslots",
+          "op": "list QuantumTimeSlot"
         },
         {
           "method": "GET",
-          "path": "/v1/gates/{id}",
-          "op": "get Gate"
+          "path": "/v1/quantumtimeslots/{id}",
+          "op": "get QuantumTimeSlot"
         },
         {
           "method": "PATCH",
-          "path": "/v1/gates/{id}",
-          "op": "update Gate"
+          "path": "/v1/quantumtimeslots/{id}",
+          "op": "update QuantumTimeSlot"
         },
         {
           "method": "DELETE",
-          "path": "/v1/gates/{id}",
-          "op": "delete Gate"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/jobs",
-          "op": "create Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs",
-          "op": "list Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs/{id}",
-          "op": "get Job"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/jobs/{id}",
-          "op": "update Job"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/jobs/{id}",
-          "op": "delete Job"
+          "path": "/v1/quantumtimeslots/{id}",
+          "op": "delete QuantumTimeSlot"
         }
       ],
       "features": {
@@ -244,41 +259,47 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_register",
-          "description": "Create a Register.",
+          "name": "create_quantum_job",
+          "description": "Create a QuantumJob.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
+              "createTime": {
+                "type": "string"
               },
-              "role": {
+              "updateTime": {
+                "type": "string"
+              },
+              "labelFingerprint": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "widthBits"
+              "createTime"
             ]
           }
         },
         {
-          "name": "list_registers",
-          "description": "List Registers.",
+          "name": "list_quantum_jobs",
+          "description": "List QuantumJobs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_register",
-          "description": "Get a Register by id.",
+          "name": "get_quantum_job",
+          "description": "Get a QuantumJob by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +313,8 @@
           }
         },
         {
-          "name": "update_register",
-          "description": "Update a Register.",
+          "name": "update_quantum_job",
+          "description": "Update a QuantumJob.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,10 +324,16 @@
               "name": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
+              "createTime": {
+                "type": "string"
               },
-              "role": {
+              "updateTime": {
+                "type": "string"
+              },
+              "labelFingerprint": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
@@ -316,8 +343,8 @@
           }
         },
         {
-          "name": "delete_register",
-          "description": "Delete a Register.",
+          "name": "delete_quantum_job",
+          "description": "Delete a QuantumJob.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,38 +358,38 @@
           }
         },
         {
-          "name": "create_instruction",
-          "description": "Create a Instruction.",
+          "name": "create_execution_status",
+          "description": "Create a ExecutionStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "mnemonic": {
+              "state": {
                 "type": "string"
               },
-              "opcode": {
+              "processorName": {
                 "type": "string"
               },
-              "operands": {
+              "calibrationName": {
                 "type": "string"
               }
             },
             "required": [
-              "mnemonic",
-              "opcode"
+              "state",
+              "processorName"
             ]
           }
         },
         {
-          "name": "list_instructions",
-          "description": "List Instructions.",
+          "name": "list_execution_statuses",
+          "description": "List ExecutionStatuses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_instruction",
-          "description": "Get a Instruction by id.",
+          "name": "get_execution_status",
+          "description": "Get a ExecutionStatus by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -376,21 +403,21 @@
           }
         },
         {
-          "name": "update_instruction",
-          "description": "Update a Instruction.",
+          "name": "update_execution_status",
+          "description": "Update a ExecutionStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "mnemonic": {
+              "state": {
                 "type": "string"
               },
-              "opcode": {
+              "processorName": {
                 "type": "string"
               },
-              "operands": {
+              "calibrationName": {
                 "type": "string"
               }
             },
@@ -400,56 +427,8 @@
           }
         },
         {
-          "name": "delete_instruction",
-          "description": "Delete a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_qubit",
-          "description": "Create a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "index",
-              "t1Us"
-            ]
-          }
-        },
-        {
-          "name": "list_qubits",
-          "description": "List Qubits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_qubit",
-          "description": "Get a Qubit by id.",
+          "name": "delete_execution_status",
+          "description": "Delete a ExecutionStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -463,164 +442,41 @@
           }
         },
         {
-          "name": "update_qubit",
-          "description": "Update a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_qubit",
-          "description": "Delete a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_circuit",
-          "description": "Create a Circuit.",
+          "name": "create_quantum_processor",
+          "description": "Create a QuantumProcessor.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "qubitCount"
-            ]
-          }
-        },
-        {
-          "name": "list_circuits",
-          "description": "List Circuits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_circuit",
-          "description": "Get a Circuit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_circuit",
-          "description": "Update a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "health": {
                 "type": "string"
               },
-              "name": {
+              "expectedDownTime": {
                 "type": "string"
               },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_circuit",
-          "description": "Delete a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_gate",
-          "description": "Create a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
+              "expectedRecoveryTime": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "targets"
+              "health"
             ]
           }
         },
         {
-          "name": "list_gates",
-          "description": "List Gates.",
+          "name": "list_quantum_processors",
+          "description": "List QuantumProcessors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_gate",
-          "description": "Get a Gate by id.",
+          "name": "get_quantum_processor",
+          "description": "Get a QuantumProcessor by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -634,21 +490,24 @@
           }
         },
         {
-          "name": "update_gate",
-          "description": "Update a Gate.",
+          "name": "update_quantum_processor",
+          "description": "Update a QuantumProcessor.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "circuitId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "targets": {
+              "health": {
+                "type": "string"
+              },
+              "expectedDownTime": {
+                "type": "string"
+              },
+              "expectedRecoveryTime": {
                 "type": "string"
               }
             },
@@ -658,8 +517,8 @@
           }
         },
         {
-          "name": "delete_gate",
-          "description": "Delete a Gate.",
+          "name": "delete_quantum_processor",
+          "description": "Delete a QuantumProcessor.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,38 +532,44 @@
           }
         },
         {
-          "name": "create_job",
-          "description": "Create a Job.",
+          "name": "create_quantum_program",
+          "description": "Create a QuantumProgram.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "circuitId": {
+              "name": {
                 "type": "string"
               },
-              "shots": {
-                "type": "integer"
+              "createTime": {
+                "type": "string"
               },
-              "status": {
+              "updateTime": {
+                "type": "string"
+              },
+              "labelFingerprint": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
             "required": [
-              "shots",
-              "status"
+              "name",
+              "createTime"
             ]
           }
         },
         {
-          "name": "list_jobs",
-          "description": "List Jobs.",
+          "name": "list_quantum_programs",
+          "description": "List QuantumPrograms.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_job",
-          "description": "Get a Job by id.",
+          "name": "get_quantum_program",
+          "description": "Get a QuantumProgram by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -718,21 +583,27 @@
           }
         },
         {
-          "name": "update_job",
-          "description": "Update a Job.",
+          "name": "update_quantum_program",
+          "description": "Update a QuantumProgram.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "circuitId": {
+              "name": {
                 "type": "string"
               },
-              "shots": {
-                "type": "integer"
+              "createTime": {
+                "type": "string"
               },
-              "status": {
+              "updateTime": {
+                "type": "string"
+              },
+              "labelFingerprint": {
+                "type": "string"
+              },
+              "description": {
                 "type": "string"
               }
             },
@@ -742,8 +613,98 @@
           }
         },
         {
-          "name": "delete_job",
-          "description": "Delete a Job.",
+          "name": "delete_quantum_program",
+          "description": "Delete a QuantumProgram.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_quantum_time_slot",
+          "description": "Create a QuantumTimeSlot.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "processorName": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "endTime": {
+                "type": "string"
+              },
+              "timeSlotType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "processorName",
+              "startTime"
+            ]
+          }
+        },
+        {
+          "name": "list_quantum_time_slots",
+          "description": "List QuantumTimeSlots.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_quantum_time_slot",
+          "description": "Get a QuantumTimeSlot by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_quantum_time_slot",
+          "description": "Update a QuantumTimeSlot.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "processorName": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "endTime": {
+                "type": "string"
+              },
+              "timeSlotType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_quantum_time_slot",
+          "description": "Delete a QuantumTimeSlot.",
           "inputSchema": {
             "type": "object",
             "properties": {

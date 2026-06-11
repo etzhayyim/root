@@ -526,3 +526,17 @@ Both braket and android gemini drafts died on quota exhaustion (empty
 output, zero fabrication — the gate holds under tool failure); the harness
 verified directly from official sources per the §16.3 blender precedent.
 google_cirq carries to the next iteration (still L4, not a defer).
+
+### §16.5 /loop iteration 4 — wave 5: quantum-cloud family complete + landsat (183, 18.3%)
+
+google_cirq + d_wave + landsat → ledger **183** (817 L4 / 183 L5 = 18.3%),
+enforced 178 actors / **758 enum fields** (+8), verify PASS 0/0, 3/3 green.
+argo_ocean_floats carries (gemini failed twice on its PDF-heavy sources;
+the NVS vocab groundwork — RR2 QC flags {0,1,2,3,4,5,8,9}, R01, R19 — is
+cached for the next iteration).
+
+| Actor | Anchor | Enforced / gapped |
+|---|---|---|
+| google_cirq | v1alpha1 proto (versioned wire format vendored in Cirq) | State(7)+Health(5)+TimeSlotType(5); Failure.Code(14) gapped as an error-code table (kafka/DJI precedent). **Completes the quantum-cloud family**: ibm_qiskit / aws_braket / d_wave / google_cirq all L5 |
+| d_wave | upstream docstring spells out the COMPLETE state machine | ProblemStatus(5); ProblemType gapped (demonstrably grew ising/qubo→bqm/cqm/dqm/nl); BQ encoding deprecated-for-submission gapped |
+| landsat | official STAC extension schemas' OWN enum arrays | collectionCategory(5)+collectionNumber(2)+wrsType(2)+correction(5). **First override toward MORE enforcement**: the gemini draft gapped three as version-growing, but spec-declared enum arrays are enforceable at the schema version (dbt/freee standard) — while eo:common_name, whose enum array demonstrably grew (green05/rededge07x), stays gapped. Direction-symmetric discipline: the spec's own declaration wins over speculation in both directions |

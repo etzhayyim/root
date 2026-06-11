@@ -111,52 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/registers", methods=["POST"])
-def create_register(request):
-    """Create a Register."""
+@app.route("/v1/quantumjobs", methods=["POST"])
+def create_quantum_job(request):
+    """Create a QuantumJob."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'widthBits'])
+    err = _require(data, ['name', 'createTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("googleci_reg")}
+    rec = {"id": new_id("googleci_qua")}
     rec["name"] = data.get('name')
-    rec["widthBits"] = _as_int(data.get('widthBits'))
-    rec["role"] = data.get('role')
+    rec["createTime"] = data.get('createTime')
+    rec["updateTime"] = data.get('updateTime')
+    rec["labelFingerprint"] = data.get('labelFingerprint')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Register", rec)
+    _persist("QuantumJob", rec)
     return rec, 201
 
-@app.route("/v1/registers", methods=["GET"])
-def list_registers(request):
-    """List Registers with filtering + cursor pagination."""
+@app.route("/v1/quantumjobs", methods=["GET"])
+def list_quantum_jobs(request):
+    """List QuantumJobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Register")
-    rows = _apply_filters(rows, params, ['name', 'widthBits', 'role'])
+    rows = _query("QuantumJob")
+    rows = _apply_filters(rows, params, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/registers/<eid>", methods=["GET"])
-def get_register(request, eid):
-    """Retrieve a Register by id (supports ?expand=)."""
-    rows = _query("Register", eid)
+@app.route("/v1/quantumjobs/<eid>", methods=["GET"])
+def get_quantum_job(request, eid):
+    """Retrieve a QuantumJob by id (supports ?expand=)."""
+    rows = _query("QuantumJob", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["POST", "PATCH"])
-def update_register(request, eid):
-    """Update a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/quantumjobs/<eid>", methods=["POST", "PATCH"])
+def update_quantum_job(request, eid):
+    """Update a QuantumJob."""
+    rows = _query("QuantumJob", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,261 +166,205 @@ def update_register(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Register", rec)
+    _persist("QuantumJob", rec)
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["DELETE"])
-def delete_register(request, eid):
-    """Delete a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/quantumjobs/<eid>", methods=["DELETE"])
+def delete_quantum_job(request, eid):
+    """Delete a QuantumJob."""
+    rows = _query("QuantumJob", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Register", "id": eid})
+    db.retract({"entity": f"google_cirq.QuantumJob", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/instructions", methods=["POST"])
-def create_instruction(request):
-    """Create a Instruction."""
+@app.route("/v1/executionstatuses", methods=["POST"])
+def create_execution_status(request):
+    """Create a ExecutionStatus."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
+    err = _reject_unknown(data, ['state', 'processorName', 'calibrationName'])
     if err:
         return err, 400
-    err = _require(data, ['mnemonic', 'opcode'])
+    err = _require(data, ['state', 'processorName'])
     if err:
         return err, 400
-    rec = {"id": new_id("googleci_ins")}
-    rec["mnemonic"] = data.get('mnemonic')
-    rec["opcode"] = data.get('opcode')
-    rec["operands"] = data.get('operands')
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'READY', 'RUNNING', 'CANCELLING', 'CANCELLED', 'SUCCESS', 'FAILURE']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'READY', 'RUNNING', 'CANCELLING', 'CANCELLED', 'SUCCESS', 'FAILURE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("googleci_exe")}
+    rec["state"] = data.get('state')
+    rec["processorName"] = data.get('processorName')
+    rec["calibrationName"] = data.get('calibrationName')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Instruction", rec)
+    _persist("ExecutionStatus", rec)
     return rec, 201
 
-@app.route("/v1/instructions", methods=["GET"])
-def list_instructions(request):
-    """List Instructions with filtering + cursor pagination."""
+@app.route("/v1/executionstatuses", methods=["GET"])
+def list_execution_statuses(request):
+    """List ExecutionStatuses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Instruction")
-    rows = _apply_filters(rows, params, ['mnemonic', 'opcode', 'operands'])
+    rows = _query("ExecutionStatus")
+    rows = _apply_filters(rows, params, ['state', 'processorName', 'calibrationName'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/instructions/<eid>", methods=["GET"])
-def get_instruction(request, eid):
-    """Retrieve a Instruction by id (supports ?expand=)."""
-    rows = _query("Instruction", eid)
+@app.route("/v1/executionstatuses/<eid>", methods=["GET"])
+def get_execution_status(request, eid):
+    """Retrieve a ExecutionStatus by id (supports ?expand=)."""
+    rows = _query("ExecutionStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/instructions/<eid>", methods=["POST", "PATCH"])
-def update_instruction(request, eid):
-    """Update a Instruction."""
-    rows = _query("Instruction", eid)
+@app.route("/v1/executionstatuses/<eid>", methods=["POST", "PATCH"])
+def update_execution_status(request, eid):
+    """Update a ExecutionStatus."""
+    rows = _query("ExecutionStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
+    err = _reject_unknown(data, ['state', 'processorName', 'calibrationName'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'READY', 'RUNNING', 'CANCELLING', 'CANCELLED', 'SUCCESS', 'FAILURE']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'READY', 'RUNNING', 'CANCELLING', 'CANCELLED', 'SUCCESS', 'FAILURE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Instruction", rec)
+    _persist("ExecutionStatus", rec)
     return rec, 200
 
-@app.route("/v1/instructions/<eid>", methods=["DELETE"])
-def delete_instruction(request, eid):
-    """Delete a Instruction."""
-    rows = _query("Instruction", eid)
+@app.route("/v1/executionstatuses/<eid>", methods=["DELETE"])
+def delete_execution_status(request, eid):
+    """Delete a ExecutionStatus."""
+    rows = _query("ExecutionStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Instruction", "id": eid})
+    db.retract({"entity": f"google_cirq.ExecutionStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/qubits", methods=["POST"])
-def create_qubit(request):
-    """Create a Qubit."""
+@app.route("/v1/quantumprocessors", methods=["POST"])
+def create_quantum_processor(request):
+    """Create a QuantumProcessor."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
+    err = _reject_unknown(data, ['name', 'health', 'expectedDownTime', 'expectedRecoveryTime'])
     if err:
         return err, 400
-    err = _require(data, ['index', 't1Us'])
+    err = _require(data, ['name', 'health'])
     if err:
         return err, 400
-    rec = {"id": new_id("googleci_qub")}
-    rec["index"] = _as_int(data.get('index'))
-    rec["t1Us"] = _as_float(data.get('t1Us'))
-    rec["t2Us"] = _as_float(data.get('t2Us'))
-    rec["readoutError"] = _as_float(data.get('readoutError'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Qubit", rec)
-    return rec, 201
-
-@app.route("/v1/qubits", methods=["GET"])
-def list_qubits(request):
-    """List Qubits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Qubit")
-    rows = _apply_filters(rows, params, ['index', 't1Us', 't2Us', 'readoutError'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/qubits/<eid>", methods=["GET"])
-def get_qubit(request, eid):
-    """Retrieve a Qubit by id (supports ?expand=)."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["POST", "PATCH"])
-def update_qubit(request, eid):
-    """Update a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Qubit", rec)
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["DELETE"])
-def delete_qubit(request, eid):
-    """Delete a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Qubit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/circuits", methods=["POST"])
-def create_circuit(request):
-    """Create a Circuit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'qubitCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googleci_cir")}
+    if data.get('health') and data['health'] not in ['HEALTH_UNSPECIFIED', 'OK', 'DOWN', 'UNAVAILABLE', 'INACTIVE']:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join(['HEALTH_UNSPECIFIED', 'OK', 'DOWN', 'UNAVAILABLE', 'INACTIVE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("googleci_qua")}
     rec["name"] = data.get('name')
-    rec["qubitCount"] = _as_int(data.get('qubitCount'))
-    rec["depth"] = _as_int(data.get('depth'))
+    rec["health"] = data.get('health')
+    rec["expectedDownTime"] = data.get('expectedDownTime')
+    rec["expectedRecoveryTime"] = data.get('expectedRecoveryTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Circuit", rec)
+    _persist("QuantumProcessor", rec)
     return rec, 201
 
-@app.route("/v1/circuits", methods=["GET"])
-def list_circuits(request):
-    """List Circuits with filtering + cursor pagination."""
+@app.route("/v1/quantumprocessors", methods=["GET"])
+def list_quantum_processors(request):
+    """List QuantumProcessors with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Circuit")
-    rows = _apply_filters(rows, params, ['name', 'qubitCount', 'depth'])
+    rows = _query("QuantumProcessor")
+    rows = _apply_filters(rows, params, ['name', 'health', 'expectedDownTime', 'expectedRecoveryTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/circuits/<eid>", methods=["GET"])
-def get_circuit(request, eid):
-    """Retrieve a Circuit by id (supports ?expand=)."""
-    rows = _query("Circuit", eid)
+@app.route("/v1/quantumprocessors/<eid>", methods=["GET"])
+def get_quantum_processor(request, eid):
+    """Retrieve a QuantumProcessor by id (supports ?expand=)."""
+    rows = _query("QuantumProcessor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/circuits/<eid>", methods=["POST", "PATCH"])
-def update_circuit(request, eid):
-    """Update a Circuit."""
-    rows = _query("Circuit", eid)
+@app.route("/v1/quantumprocessors/<eid>", methods=["POST", "PATCH"])
+def update_quantum_processor(request, eid):
+    """Update a QuantumProcessor."""
+    rows = _query("QuantumProcessor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
+    err = _reject_unknown(data, ['name', 'health', 'expectedDownTime', 'expectedRecoveryTime'])
     if err:
         return err, 400
+    if data.get('health') and data['health'] not in ['HEALTH_UNSPECIFIED', 'OK', 'DOWN', 'UNAVAILABLE', 'INACTIVE']:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join(['HEALTH_UNSPECIFIED', 'OK', 'DOWN', 'UNAVAILABLE', 'INACTIVE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Circuit", rec)
+    _persist("QuantumProcessor", rec)
     return rec, 200
 
-@app.route("/v1/circuits/<eid>", methods=["DELETE"])
-def delete_circuit(request, eid):
-    """Delete a Circuit."""
-    rows = _query("Circuit", eid)
+@app.route("/v1/quantumprocessors/<eid>", methods=["DELETE"])
+def delete_quantum_processor(request, eid):
+    """Delete a QuantumProcessor."""
+    rows = _query("QuantumProcessor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Circuit", "id": eid})
+    db.retract({"entity": f"google_cirq.QuantumProcessor", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/gates", methods=["POST"])
-def create_gate(request):
-    """Create a Gate."""
+@app.route("/v1/quantumprograms", methods=["POST"])
+def create_quantum_program(request):
+    """Create a QuantumProgram."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
+    err = _reject_unknown(data, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'targets'])
+    err = _require(data, ['name', 'createTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("googleci_gat")}
-    rec["circuitId"] = data.get('circuitId')
+    rec = {"id": new_id("googleci_qua")}
     rec["name"] = data.get('name')
-    rec["targets"] = data.get('targets')
+    rec["createTime"] = data.get('createTime')
+    rec["updateTime"] = data.get('updateTime')
+    rec["labelFingerprint"] = data.get('labelFingerprint')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Gate", rec)
+    _persist("QuantumProgram", rec)
     return rec, 201
 
-@app.route("/v1/gates", methods=["GET"])
-def list_gates(request):
-    """List Gates with filtering + cursor pagination."""
+@app.route("/v1/quantumprograms", methods=["GET"])
+def list_quantum_programs(request):
+    """List QuantumPrograms with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Gate")
-    rows = _apply_filters(rows, params, ['circuitId', 'name', 'targets'])
+    rows = _query("QuantumProgram")
+    rows = _apply_filters(rows, params, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/gates/<eid>", methods=["GET"])
-def get_gate(request, eid):
-    """Retrieve a Gate by id (supports ?expand=)."""
-    rows = _query("Gate", eid)
+@app.route("/v1/quantumprograms/<eid>", methods=["GET"])
+def get_quantum_program(request, eid):
+    """Retrieve a QuantumProgram by id (supports ?expand=)."""
+    rows = _query("QuantumProgram", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
     return rec, 200
 
-@app.route("/v1/gates/<eid>", methods=["POST", "PATCH"])
-def update_gate(request, eid):
-    """Update a Gate."""
-    rows = _query("Gate", eid)
+@app.route("/v1/quantumprograms/<eid>", methods=["POST", "PATCH"])
+def update_quantum_program(request, eid):
+    """Update a QuantumProgram."""
+    rows = _query("QuantumProgram", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
+    err = _reject_unknown(data, ['name', 'createTime', 'updateTime', 'labelFingerprint', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -426,88 +372,92 @@ def update_gate(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Gate", rec)
+    _persist("QuantumProgram", rec)
     return rec, 200
 
-@app.route("/v1/gates/<eid>", methods=["DELETE"])
-def delete_gate(request, eid):
-    """Delete a Gate."""
-    rows = _query("Gate", eid)
+@app.route("/v1/quantumprograms/<eid>", methods=["DELETE"])
+def delete_quantum_program(request, eid):
+    """Delete a QuantumProgram."""
+    rows = _query("QuantumProgram", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Gate", "id": eid})
+    db.retract({"entity": f"google_cirq.QuantumProgram", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/jobs", methods=["POST"])
-def create_job(request):
-    """Create a Job."""
+@app.route("/v1/quantumtimeslots", methods=["POST"])
+def create_quantum_time_slot(request):
+    """Create a QuantumTimeSlot."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
+    err = _reject_unknown(data, ['processorName', 'startTime', 'endTime', 'timeSlotType'])
     if err:
         return err, 400
-    err = _require(data, ['shots', 'status'])
+    err = _require(data, ['processorName', 'startTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("googleci_job")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["shots"] = _as_int(data.get('shots'))
-    rec["status"] = data.get('status')
+    if data.get('timeSlotType') and data['timeSlotType'] not in ['TIME_SLOT_TYPE_UNSPECIFIED', 'MAINTENANCE', 'OPEN_SWIM', 'RESERVATION', 'UNALLOCATED']:
+        return {"error": {"message": "invalid timeSlotType; allowed: " + ", ".join(['TIME_SLOT_TYPE_UNSPECIFIED', 'MAINTENANCE', 'OPEN_SWIM', 'RESERVATION', 'UNALLOCATED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("googleci_qua")}
+    rec["processorName"] = data.get('processorName')
+    rec["startTime"] = data.get('startTime')
+    rec["endTime"] = data.get('endTime')
+    rec["timeSlotType"] = data.get('timeSlotType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Job", rec)
+    _persist("QuantumTimeSlot", rec)
     return rec, 201
 
-@app.route("/v1/jobs", methods=["GET"])
-def list_jobs(request):
-    """List Jobs with filtering + cursor pagination."""
+@app.route("/v1/quantumtimeslots", methods=["GET"])
+def list_quantum_time_slots(request):
+    """List QuantumTimeSlots with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Job")
-    rows = _apply_filters(rows, params, ['circuitId', 'shots', 'status'])
+    rows = _query("QuantumTimeSlot")
+    rows = _apply_filters(rows, params, ['processorName', 'startTime', 'endTime', 'timeSlotType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/jobs/<eid>", methods=["GET"])
-def get_job(request, eid):
-    """Retrieve a Job by id (supports ?expand=)."""
-    rows = _query("Job", eid)
+@app.route("/v1/quantumtimeslots/<eid>", methods=["GET"])
+def get_quantum_time_slot(request, eid):
+    """Retrieve a QuantumTimeSlot by id (supports ?expand=)."""
+    rows = _query("QuantumTimeSlot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
     return rec, 200
 
-@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
-def update_job(request, eid):
-    """Update a Job."""
-    rows = _query("Job", eid)
+@app.route("/v1/quantumtimeslots/<eid>", methods=["POST", "PATCH"])
+def update_quantum_time_slot(request, eid):
+    """Update a QuantumTimeSlot."""
+    rows = _query("QuantumTimeSlot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
+    err = _reject_unknown(data, ['processorName', 'startTime', 'endTime', 'timeSlotType'])
     if err:
         return err, 400
+    if data.get('timeSlotType') and data['timeSlotType'] not in ['TIME_SLOT_TYPE_UNSPECIFIED', 'MAINTENANCE', 'OPEN_SWIM', 'RESERVATION', 'UNALLOCATED']:
+        return {"error": {"message": "invalid timeSlotType; allowed: " + ", ".join(['TIME_SLOT_TYPE_UNSPECIFIED', 'MAINTENANCE', 'OPEN_SWIM', 'RESERVATION', 'UNALLOCATED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Job", rec)
+    _persist("QuantumTimeSlot", rec)
     return rec, 200
 
-@app.route("/v1/jobs/<eid>", methods=["DELETE"])
-def delete_job(request, eid):
-    """Delete a Job."""
-    rows = _query("Job", eid)
+@app.route("/v1/quantumtimeslots/<eid>", methods=["DELETE"])
+def delete_quantum_time_slot(request, eid):
+    """Delete a QuantumTimeSlot."""
+    rows = _query("QuantumTimeSlot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_cirq.Job", "id": eid})
+    db.retract({"entity": f"google_cirq.QuantumTimeSlot", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "google_cirq-compat", "tier": "L4",
-            "entities": ['Register', 'Instruction', 'Qubit', 'Circuit', 'Gate', 'Job']}, 200
+            "entities": ['QuantumJob', 'ExecutionStatus', 'QuantumProcessor', 'QuantumProgram', 'QuantumTimeSlot']}, 200
 
 
 if __name__ == "__main__":

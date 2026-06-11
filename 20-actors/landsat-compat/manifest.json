@@ -5,21 +5,54 @@
   "kind": "compat",
   "title": "landsat clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (landsat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+  "wasmCid": "bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+  "ipfs": "ipfs://bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
   "schema": "schema/landsat.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/stac-extensions/landsat/main/json-schema/schema.json + https://raw.githubusercontent.com/stac-extensions/eo/main/json-schema/schema.json (official STAC extension schemas)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "LandsatItemProperties",
+      "StacAsset",
+      "InstrumentProperties",
+      "EoBandProperties"
+    ],
+    "enums": {
+      "LandsatItemProperties": {
+        "collectionCategory": [
+          "A1",
+          "A2",
+          "T1",
+          "T2",
+          "RT"
+        ],
+        "collectionNumber": [
+          "01",
+          "02"
+        ],
+        "wrsType": [
+          "1",
+          "2"
+        ],
+        "correction": [
+          "L1TP",
+          "L1GT",
+          "L1GS",
+          "L2SR",
+          "L2SP"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Object",
-    "Position",
-    "Observation",
-    "Scene",
-    "Float",
-    "Station"
+    "LandsatItemProperties",
+    "StacAsset",
+    "InstrumentProperties",
+    "EoBandProperties"
   ],
   "adr": [
     "260607",
@@ -31,157 +64,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/objects",
-          "op": "create Object"
+          "path": "/v1/landsatitempropertieses",
+          "op": "create LandsatItemProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/objects",
-          "op": "list Object"
+          "path": "/v1/landsatitempropertieses",
+          "op": "list LandsatItemProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/objects/{id}",
-          "op": "get Object"
+          "path": "/v1/landsatitempropertieses/{id}",
+          "op": "get LandsatItemProperties"
         },
         {
           "method": "PATCH",
-          "path": "/v1/objects/{id}",
-          "op": "update Object"
+          "path": "/v1/landsatitempropertieses/{id}",
+          "op": "update LandsatItemProperties"
         },
         {
           "method": "DELETE",
-          "path": "/v1/objects/{id}",
-          "op": "delete Object"
+          "path": "/v1/landsatitempropertieses/{id}",
+          "op": "delete LandsatItemProperties"
         },
         {
           "method": "POST",
-          "path": "/v1/positions",
-          "op": "create Position"
+          "path": "/v1/stacassets",
+          "op": "create StacAsset"
         },
         {
           "method": "GET",
-          "path": "/v1/positions",
-          "op": "list Position"
+          "path": "/v1/stacassets",
+          "op": "list StacAsset"
         },
         {
           "method": "GET",
-          "path": "/v1/positions/{id}",
-          "op": "get Position"
+          "path": "/v1/stacassets/{id}",
+          "op": "get StacAsset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/positions/{id}",
-          "op": "update Position"
+          "path": "/v1/stacassets/{id}",
+          "op": "update StacAsset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/positions/{id}",
-          "op": "delete Position"
+          "path": "/v1/stacassets/{id}",
+          "op": "delete StacAsset"
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/instrumentpropertieses",
+          "op": "create InstrumentProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/instrumentpropertieses",
+          "op": "list InstrumentProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/instrumentpropertieses/{id}",
+          "op": "get InstrumentProperties"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/instrumentpropertieses/{id}",
+          "op": "update InstrumentProperties"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
+          "path": "/v1/instrumentpropertieses/{id}",
+          "op": "delete InstrumentProperties"
         },
         {
           "method": "POST",
-          "path": "/v1/scenes",
-          "op": "create Scene"
+          "path": "/v1/eobandpropertieses",
+          "op": "create EoBandProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes",
-          "op": "list Scene"
+          "path": "/v1/eobandpropertieses",
+          "op": "list EoBandProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes/{id}",
-          "op": "get Scene"
+          "path": "/v1/eobandpropertieses/{id}",
+          "op": "get EoBandProperties"
         },
         {
           "method": "PATCH",
-          "path": "/v1/scenes/{id}",
-          "op": "update Scene"
+          "path": "/v1/eobandpropertieses/{id}",
+          "op": "update EoBandProperties"
         },
         {
           "method": "DELETE",
-          "path": "/v1/scenes/{id}",
-          "op": "delete Scene"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/floats",
-          "op": "create Float"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/floats",
-          "op": "list Float"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/floats/{id}",
-          "op": "get Float"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/floats/{id}",
-          "op": "update Float"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/floats/{id}",
-          "op": "delete Float"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/stations",
-          "op": "create Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations",
-          "op": "list Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations/{id}",
-          "op": "get Station"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/stations/{id}",
-          "op": "update Station"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/stations/{id}",
-          "op": "delete Station"
+          "path": "/v1/eobandpropertieses/{id}",
+          "op": "delete EoBandProperties"
         }
       ],
       "features": {
@@ -244,41 +227,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_object",
-          "description": "Create a Object.",
+          "name": "create_landsat_item_properties",
+          "description": "Create a LandsatItemProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "designator": {
+              "sceneId": {
                 "type": "string"
               },
-              "type": {
+              "collectionCategory": {
                 "type": "string"
               },
-              "source": {
+              "collectionNumber": {
+                "type": "string"
+              },
+              "wrsType": {
+                "type": "string"
+              },
+              "wrsPath": {
+                "type": "string"
+              },
+              "wrsRow": {
+                "type": "string"
+              },
+              "cloudCoverLand": {
+                "type": "number"
+              },
+              "correction": {
+                "type": "string"
+              },
+              "productGenerated": {
                 "type": "string"
               }
             },
             "required": [
-              "designator",
-              "type"
+              "collectionCategory",
+              "collectionNumber"
             ]
           }
         },
         {
-          "name": "list_objects",
-          "description": "List Objects.",
+          "name": "list_landsat_item_propertieses",
+          "description": "List LandsatItemPropertieses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_object",
-          "description": "Get a Object by id.",
+          "name": "get_landsat_item_properties",
+          "description": "Get a LandsatItemProperties by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,266 +293,284 @@
           }
         },
         {
-          "name": "update_object",
-          "description": "Update a Object.",
+          "name": "update_landsat_item_properties",
+          "description": "Update a LandsatItemProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "designator": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_object",
-          "description": "Delete a Object.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_position",
-          "description": "Create a Position.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "objectId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_positions",
-          "description": "List Positions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_position",
-          "description": "Get a Position by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_position",
-          "description": "Update a Position.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "objectId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_position",
-          "description": "Delete a Position.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "objectId": {
-                "type": "string"
-              },
-              "parameter": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "observedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "parameter",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_observation",
-          "description": "Update a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "objectId": {
-                "type": "string"
-              },
-              "parameter": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "observedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_scene",
-          "description": "Create a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "satellite": {
                 "type": "string"
               },
               "sceneId": {
                 "type": "string"
               },
+              "collectionCategory": {
+                "type": "string"
+              },
+              "collectionNumber": {
+                "type": "string"
+              },
+              "wrsType": {
+                "type": "string"
+              },
+              "wrsPath": {
+                "type": "string"
+              },
+              "wrsRow": {
+                "type": "string"
+              },
+              "cloudCoverLand": {
+                "type": "number"
+              },
+              "correction": {
+                "type": "string"
+              },
+              "productGenerated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_landsat_item_properties",
+          "description": "Delete a LandsatItemProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_stac_asset",
+          "description": "Create a StacAsset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "href",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_stac_assets",
+          "description": "List StacAssets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_stac_asset",
+          "description": "Get a StacAsset by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_stac_asset",
+          "description": "Update a StacAsset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_stac_asset",
+          "description": "Delete a StacAsset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_instrument_properties",
+          "description": "Create a InstrumentProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string"
+              },
+              "constellation": {
+                "type": "string"
+              },
+              "mission": {
+                "type": "string"
+              },
+              "gsd": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "platform",
+              "constellation"
+            ]
+          }
+        },
+        {
+          "name": "list_instrument_propertieses",
+          "description": "List InstrumentPropertieses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_instrument_properties",
+          "description": "Get a InstrumentProperties by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_instrument_properties",
+          "description": "Update a InstrumentProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "platform": {
+                "type": "string"
+              },
+              "constellation": {
+                "type": "string"
+              },
+              "mission": {
+                "type": "string"
+              },
+              "gsd": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_instrument_properties",
+          "description": "Delete a InstrumentProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_eo_band_properties",
+          "description": "Create a EoBandProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "cloudCover": {
                 "type": "number"
               },
-              "capturedAt": {
+              "snowCover": {
+                "type": "number"
+              },
+              "commonName": {
                 "type": "string"
+              },
+              "centerWavelength": {
+                "type": "number"
+              },
+              "fullWidthHalfMax": {
+                "type": "number"
+              },
+              "solarIllumination": {
+                "type": "number"
               }
             },
             "required": [
-              "satellite",
-              "cloudCover"
+              "cloudCover",
+              "snowCover"
             ]
           }
         },
         {
-          "name": "list_scenes",
-          "description": "List Scenes.",
+          "name": "list_eo_band_propertieses",
+          "description": "List EoBandPropertieses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_scene",
-          "description": "Get a Scene by id.",
+          "name": "get_eo_band_properties",
+          "description": "Get a EoBandProperties by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,114 +584,30 @@
           }
         },
         {
-          "name": "update_scene",
-          "description": "Update a Scene.",
+          "name": "update_eo_band_properties",
+          "description": "Update a EoBandProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "satellite": {
-                "type": "string"
-              },
-              "sceneId": {
                 "type": "string"
               },
               "cloudCover": {
                 "type": "number"
               },
-              "capturedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_scene",
-          "description": "Delete a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_float",
-          "description": "Create a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "wmoId": {
-                "type": "string"
-              },
-              "lat": {
+              "snowCover": {
                 "type": "number"
               },
-              "lon": {
-                "type": "number"
-              },
-              "parkDepthM": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_floats",
-          "description": "List Floats.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_float",
-          "description": "Get a Float by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_float",
-          "description": "Update a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "commonName": {
                 "type": "string"
               },
-              "wmoId": {
-                "type": "string"
-              },
-              "lat": {
+              "centerWavelength": {
                 "type": "number"
               },
-              "lon": {
+              "fullWidthHalfMax": {
                 "type": "number"
               },
-              "parkDepthM": {
+              "solarIllumination": {
                 "type": "number"
               }
             },
@@ -682,92 +617,8 @@
           }
         },
         {
-          "name": "delete_float",
-          "description": "Delete a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_station",
-          "description": "Create a Station.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "network"
-            ]
-          }
-        },
-        {
-          "name": "list_stations",
-          "description": "List Stations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_station",
-          "description": "Get a Station by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_station",
-          "description": "Update a Station.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "stationId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_station",
-          "description": "Delete a Station.",
+          "name": "delete_eo_band_properties",
+          "description": "Delete a EoBandProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {

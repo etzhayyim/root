@@ -3825,17 +3825,16 @@
       "handle": "d_wave-compat",
       "platform": "d_wave",
       "bytes": 2120,
-      "wasmCid": "bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+      "wasmCid": "bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "ProblemMetadata",
+        "SolverConfiguration",
+        "StructuredProblemData",
+        "StructuredProblemAnswer",
+        "Region"
       ]
     },
     {
@@ -6494,17 +6493,16 @@
       "handle": "google_cirq-compat",
       "platform": "google_cirq",
       "bytes": 2125,
-      "wasmCid": "bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+      "wasmCid": "bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "QuantumJob",
+        "ExecutionStatus",
+        "QuantumProcessor",
+        "QuantumProgram",
+        "QuantumTimeSlot"
       ]
     },
     {
@@ -8610,17 +8608,15 @@
       "handle": "landsat-compat",
       "platform": "landsat",
       "bytes": 2121,
-      "wasmCid": "bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+      "wasmCid": "bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Object",
-        "Position",
-        "Observation",
-        "Scene",
-        "Float",
-        "Station"
+        "LandsatItemProperties",
+        "StacAsset",
+        "InstrumentProperties",
+        "EoBandProperties"
       ]
     },
     {

@@ -3,72 +3,51 @@
 
 namespace landsat {
 
-    entity Object {
+    entity LandsatItemProperties {
         id: string @unique
-        designator: string
-        type: string
-        source: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Position {
-        id: string @unique
-        objectId: string
-        lat: float
-        lon: float
-        altitudeM: float
-        asOf: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Observation {
-        id: string @unique
-        objectId: string
-        parameter: string
-        value: float
-        observedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Scene {
-        id: string @unique
-        satellite: string
         sceneId: string
+        collectionCategory: string
+        collectionNumber: string
+        wrsType: string
+        wrsPath: string
+        wrsRow: string
+        cloudCoverLand: float
+        correction: string
+        productGenerated: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity StacAsset {
+        id: string @unique
+        href: string
+        title: string
+        description: string
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity InstrumentProperties {
+        id: string @unique
+        platform: string
+        constellation: string
+        mission: string
+        gsd: float
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity EoBandProperties {
+        id: string @unique
         cloudCover: float
-        capturedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Float {
-        id: string @unique
-        wmoId: string
-        lat: float
-        lon: float
-        parkDepthM: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Station {
-        id: string @unique
-        stationId: string
-        name: string
-        network: string
+        snowCover: float
+        commonName: string
+        centerWavelength: float
+        fullWidthHalfMax: float
+        solarIllumination: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

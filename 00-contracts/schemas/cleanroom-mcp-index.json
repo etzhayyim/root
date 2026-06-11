@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29510,
-  "l5VerifiedActors": 175,
-  "totalVerifiedEnumFields": 750,
+  "totalTools": 29490,
+  "l5VerifiedActors": 178,
+  "totalVerifiedEnumFields": 758,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -2500,12 +2500,12 @@
     {
       "handle": "d_wave-compat",
       "did": "did:web:etzhayyim.com:actor:d_wave-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreifpbqrzye4djga4aoron4kovvsod7hpsryehleoxfldrqnvybyt6u",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "manifest": "20-actors/d_wave-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4238,12 +4238,12 @@
     {
       "handle": "google_cirq-compat",
       "did": "did:web:etzhayyim.com:actor:google_cirq-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/google_cirq-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -5613,12 +5613,12 @@
     {
       "handle": "landsat-compat",
       "did": "did:web:etzhayyim.com:actor:landsat-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreibutd2j7ohvtshz32g4z3wj4n7al2eeebeaoqvjihqodlb642b5dm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 20,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "manifest": "20-actors/landsat-compat/manifest.json#/capabilities/mcp"
     },
     {

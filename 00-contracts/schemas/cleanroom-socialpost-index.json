@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 175,
-  "totalVerifiedEnumFields": 750,
+  "l5VerifiedActors": 178,
+  "totalVerifiedEnumFields": 758,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2277,8 +2277,8 @@
       "source": "d_wave.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "dailyco-compat",
@@ -3857,8 +3857,8 @@
       "source": "google_cirq.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "google_tpu_api-compat",
@@ -5107,8 +5107,8 @@
       "source": "landsat.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "langchain-compat",

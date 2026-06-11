@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible hardware ISA / quantum actor (google_cirq); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:google_cirq-compat",
-    "x-wasm-cid": "bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+    "x-wasm-cid": "bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
+      "url": "ipfs://bafkreietdzenfeqapbk4fisunq4cap5sckyoda2htdbucvpbwnh2z7rzke",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/registers": {
+    "/v1/quantumjobs": {
       "get": {
-        "summary": "List Registers",
+        "summary": "List QuantumJobs",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Register"
+                        "$ref": "#/components/schemas/QuantumJob"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Register",
+        "summary": "Create a QuantumJob",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/QuantumJobCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/QuantumJob"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/registers/{id}": {
+    "/v1/quantumjobs/{id}": {
       "get": {
-        "summary": "Get a Register",
+        "summary": "Get a QuantumJob",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/QuantumJob"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Register",
+        "summary": "Update a QuantumJob",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/QuantumJobCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/QuantumJob"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Register",
+        "summary": "Delete a QuantumJob",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/instructions": {
+    "/v1/executionstatuses": {
       "get": {
-        "summary": "List Instructions",
+        "summary": "List ExecutionStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Instruction"
+                        "$ref": "#/components/schemas/ExecutionStatus"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Instruction",
+        "summary": "Create a ExecutionStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/ExecutionStatusCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExecutionStatus"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/instructions/{id}": {
+    "/v1/executionstatuses/{id}": {
       "get": {
-        "summary": "Get a Instruction",
+        "summary": "Get a ExecutionStatus",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExecutionStatus"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Instruction",
+        "summary": "Update a ExecutionStatus",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/ExecutionStatusCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExecutionStatus"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Instruction",
+        "summary": "Delete a ExecutionStatus",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/qubits": {
+    "/v1/quantumprocessors": {
       "get": {
-        "summary": "List Qubits",
+        "summary": "List QuantumProcessors",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Qubit"
+                        "$ref": "#/components/schemas/QuantumProcessor"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Qubit",
+        "summary": "Create a QuantumProcessor",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/QuantumProcessorCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/QuantumProcessor"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/qubits/{id}": {
+    "/v1/quantumprocessors/{id}": {
       "get": {
-        "summary": "Get a Qubit",
+        "summary": "Get a QuantumProcessor",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/QuantumProcessor"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Qubit",
+        "summary": "Update a QuantumProcessor",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/QuantumProcessorCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/QuantumProcessor"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Qubit",
+        "summary": "Delete a QuantumProcessor",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/circuits": {
+    "/v1/quantumprograms": {
       "get": {
-        "summary": "List Circuits",
+        "summary": "List QuantumPrograms",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Circuit"
+                        "$ref": "#/components/schemas/QuantumProgram"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Circuit",
+        "summary": "Create a QuantumProgram",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
+                "$ref": "#/components/schemas/QuantumProgramCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/QuantumProgram"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/circuits/{id}": {
+    "/v1/quantumprograms/{id}": {
       "get": {
-        "summary": "Get a Circuit",
+        "summary": "Get a QuantumProgram",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/QuantumProgram"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Circuit",
+        "summary": "Update a QuantumProgram",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
+                "$ref": "#/components/schemas/QuantumProgramCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Circuit"
+                  "$ref": "#/components/schemas/QuantumProgram"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Circuit",
+        "summary": "Delete a QuantumProgram",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/gates": {
+    "/v1/quantumtimeslots": {
       "get": {
-        "summary": "List Gates",
+        "summary": "List QuantumTimeSlots",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Gate"
+                        "$ref": "#/components/schemas/QuantumTimeSlot"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Gate",
+        "summary": "Create a QuantumTimeSlot",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GateCreate"
+                "$ref": "#/components/schemas/QuantumTimeSlotCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/QuantumTimeSlot"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/gates/{id}": {
+    "/v1/quantumtimeslots/{id}": {
       "get": {
-        "summary": "Get a Gate",
+        "summary": "Get a QuantumTimeSlot",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/QuantumTimeSlot"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Gate",
+        "summary": "Update a QuantumTimeSlot",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GateCreate"
+                "$ref": "#/components/schemas/QuantumTimeSlotCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gate"
+                  "$ref": "#/components/schemas/QuantumTimeSlot"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/jobs": {
-      "get": {
-        "summary": "List Jobs",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Job"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Job",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/jobs/{id}": {
-      "get": {
-        "summary": "Get a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Job",
+        "summary": "Delete a QuantumTimeSlot",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,7 @@
   },
   "components": {
     "schemas": {
-      "Register": {
+      "QuantumJob": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,10 +964,18 @@
           "name": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
           },
-          "role": {
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "labelFingerprint": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,37 +988,52 @@
           }
         }
       },
-      "RegisterCreate": {
+      "QuantumJobCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
+          "createTime": {
+            "type": "string"
           },
-          "role": {
+          "updateTime": {
+            "type": "string"
+          },
+          "labelFingerprint": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "widthBits"
+          "createTime"
         ]
       },
-      "Instruction": {
+      "ExecutionStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "mnemonic": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "READY",
+              "RUNNING",
+              "CANCELLING",
+              "CANCELLED",
+              "SUCCESS",
+              "FAILURE"
+            ]
+          },
+          "processorName": {
             "type": "string"
           },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
+          "calibrationName": {
             "type": "string"
           },
           "createdAt": {
@@ -1208,41 +1046,59 @@
           }
         }
       },
-      "InstructionCreate": {
+      "ExecutionStatusCreate": {
         "type": "object",
         "properties": {
-          "mnemonic": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "READY",
+              "RUNNING",
+              "CANCELLING",
+              "CANCELLED",
+              "SUCCESS",
+              "FAILURE"
+            ]
+          },
+          "processorName": {
             "type": "string"
           },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
+          "calibrationName": {
             "type": "string"
           }
         },
         "required": [
-          "mnemonic",
-          "opcode"
+          "state",
+          "processorName"
         ]
       },
-      "Qubit": {
+      "QuantumProcessor": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "index": {
-            "type": "integer"
+          "name": {
+            "type": "string"
           },
-          "t1Us": {
-            "type": "number"
+          "health": {
+            "type": "string",
+            "enum": [
+              "HEALTH_UNSPECIFIED",
+              "OK",
+              "DOWN",
+              "UNAVAILABLE",
+              "INACTIVE"
+            ]
           },
-          "t2Us": {
-            "type": "number"
+          "expectedDownTime": {
+            "type": "string",
+            "format": "date-time"
           },
-          "readoutError": {
-            "type": "number"
+          "expectedRecoveryTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1254,126 +1110,55 @@
           }
         }
       },
-      "QubitCreate": {
-        "type": "object",
-        "properties": {
-          "index": {
-            "type": "integer"
-          },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "index",
-          "t1Us"
-        ]
-      },
-      "Circuit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CircuitCreate": {
+      "QuantumProcessorCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "qubitCount"
-        ]
-      },
-      "Gate": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          },
-          "createdAt": {
+          "health": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "HEALTH_UNSPECIFIED",
+              "OK",
+              "DOWN",
+              "UNAVAILABLE",
+              "INACTIVE"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GateCreate": {
-        "type": "object",
-        "properties": {
-          "circuitId": {
+          "expectedDownTime": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
+          "expectedRecoveryTime": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "targets"
+          "health"
         ]
       },
-      "Job": {
+      "QuantumProgram": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "circuitId": {
+          "name": {
             "type": "string"
           },
-          "shots": {
-            "type": "integer"
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
           },
-          "status": {
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "labelFingerprint": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1386,22 +1171,93 @@
           }
         }
       },
-      "JobCreate": {
+      "QuantumProgramCreate": {
         "type": "object",
         "properties": {
-          "circuitId": {
+          "name": {
             "type": "string"
           },
-          "shots": {
-            "type": "integer"
+          "createTime": {
+            "type": "string"
           },
-          "status": {
+          "updateTime": {
+            "type": "string"
+          },
+          "labelFingerprint": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         },
         "required": [
-          "shots",
-          "status"
+          "name",
+          "createTime"
+        ]
+      },
+      "QuantumTimeSlot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "processorName": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeSlotType": {
+            "type": "string",
+            "enum": [
+              "TIME_SLOT_TYPE_UNSPECIFIED",
+              "MAINTENANCE",
+              "OPEN_SWIM",
+              "RESERVATION",
+              "UNALLOCATED"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "QuantumTimeSlotCreate": {
+        "type": "object",
+        "properties": {
+          "processorName": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "timeSlotType": {
+            "type": "string",
+            "enum": [
+              "TIME_SLOT_TYPE_UNSPECIFIED",
+              "MAINTENANCE",
+              "OPEN_SWIM",
+              "RESERVATION",
+              "UNALLOCATED"
+            ]
+          }
+        },
+        "required": [
+          "processorName",
+          "startTime"
         ]
       }
     }
