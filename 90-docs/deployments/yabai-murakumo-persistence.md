@@ -16,10 +16,17 @@ The worker executes `20-actors/yabai/methods/ingest.py`, `analyze.py`, and
 `/var/lib/etzhayyim/yabai/cti-correlator-runs.ndjson` and falls back to
 `20-actors/yabai/out/` if the system path is not writable.
 
-Live Kotoba writes require `YABAI_GRAPH_CID` and either `KOTOBA_TOKEN` or
-`KOTOBA_CACAO_B64`. Without those values the cell is a dry run but still keeps
-the local durable marker. Set `YABAI_REQUIRE_LIVE=1` to fail the cron invocation
-when live persistence credentials are missing.
+The queue/checkpointer itself requires a reachable Kotoba Datomic node:
+
+- `KOTOBA_URL`, defaulting to `http://127.0.0.1:8077`
+- `KOTOBA_TOKEN` or `KOTOBA_SESSION_POP` for writes
+- optional `YABAI_QUEUE_GRAPH`, defaulting to `etzhayyim/yabai/cti-persistence-queue`
+
+Actor graph writes still require `YABAI_GRAPH_CID` and a Kotoba write credential.
+Without those actor graph values the pipeline records the job/checkpoint in
+Kotoba Datomic and keeps the local marker, but the actor graph step remains a
+dry run. Set `YABAI_REQUIRE_LIVE=1` to fail the job when actor graph persistence
+credentials are missing.
 
 Boundary: Tor data is public exit-node infrastructure only. BitTorrent rows are
 accepted only as case-bound, evidence-backed `:btobs/*` observations; the actor

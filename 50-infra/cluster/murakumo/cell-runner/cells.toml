@@ -212,8 +212,8 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 # ── yabai CTI persistence (ADR-2605301400 §T3) ───────────────────────────────
 #
 # Public Tor-exit indicators + case-bound BitTorrent observations only. The
-# cell preserves the actor graph locally on every run and transacts to Kotoba
-# when YABAI_GRAPH_CID plus KOTOBA_TOKEN or KOTOBA_CACAO_B64 are present.
+# Kotoba Datomic is the queue/checkpointer. Actor graph writes require
+# YABAI_GRAPH_CID plus KOTOBA_TOKEN or KOTOBA_SESSION_POP.
 
 [[cell]]
 name = "YabaiTorTorrentCtiPersistenceCell"
