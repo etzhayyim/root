@@ -10,12 +10,20 @@
  * Signature scheme: Ed25519 over CBOR-encoded canonical body. did:web key
  * resolution per W3C DID core spec; did:plc key resolution per atproto
  * `did:plc` spec. did:key resolution is supported for testing.
+ *
+ * Post-quantum (suite pqh-v1, ADR-2606111300): the body MAY additionally
+ * carry the actor's hybrid KEM public keys, and the binding MAY carry a
+ * second ML-DSA-65 signature over the same canonical bytes. When the PQ
+ * signature is present, verifiers given the PQ verification key MUST check
+ * BOTH signatures — a forger then has to break Ed25519 AND ML-DSA-65.
  */
 
 import {encode as cborEncode} from "@ipld/dag-cbor";
 import {ed25519} from "@noble/curves/ed25519";
 import {sha256} from "@noble/hashes/sha256";
 import {bytesToHex} from "@noble/hashes/utils";
+
+import {mlDsaSign, mlDsaVerify, PQ_SUITE} from "./pq.js";
 
 export interface SignalIdentityBody {
   did: string;
@@ -24,12 +32,27 @@ export interface SignalIdentityBody {
   signedPreKey?: Uint8Array;
   signedPreKeyId?: number;
   signedPreKeySignature?: Uint8Array;
+  /**
+   * pqh-v1: the actor's hybrid KEM bundle so initiators can run
+   * X25519+ML-KEM-768 encapsulation against this DID. Covered by the
+   * binding signature(s), so a PDS cannot substitute them.
+   */
+  pqSuite?: typeof PQ_SUITE;
+  pqX25519PublicKey?: Uint8Array;
+  pqMlkemPublicKey?: Uint8Array;
   createdAt: string;
 }
 
 export interface SignedSignalIdentity extends SignalIdentityBody {
   /** Ed25519 signature over canonical CBOR(SignalIdentityBody). */
   signature: Uint8Array;
+  /**
+   * pqh-v1: ML-DSA-65 signature over the SAME canonical bytes. Optional for
+   * one R-cycle (crypto-agility read-compat); verifiers MUST enforce it via
+   * verifySignalIdentityHybrid once the DID document publishes an ML-DSA
+   * verification key.
+   */
+  pqSignature?: Uint8Array;
 }
 
 /**
@@ -73,13 +96,66 @@ export interface VerifyOpts {
 export function verifySignalIdentity(opts: VerifyOpts): boolean {
   const {signed, didVerificationKey} = opts;
   if (!signed.did) return false;
-  const {signature, ...body} = signed;
+  const {signature, pqSignature: _pq, ...body} = signed;
   const msg = canonicalSigningBytes(body);
   try {
     return ed25519.verify(signature, msg, didVerificationKey);
   } catch {
     return false;
   }
+}
+
+/**
+ * Dual-sign a SignalIdentityBody (suite pqh-v1): Ed25519 with the DID
+ * signing key plus ML-DSA-65 with the DID's post-quantum signing key, both
+ * over the same canonical CBOR bytes.
+ */
+export function signSignalIdentityHybrid(
+  body: SignalIdentityBody,
+  signingKey: Uint8Array,
+  pqSigningKey: Uint8Array
+): SignedSignalIdentity {
+  const msg = canonicalSigningBytes(body);
+  return {
+    ...body,
+    signature: ed25519.sign(msg, signingKey),
+    pqSignature: mlDsaSign(pqSigningKey, msg),
+  };
+}
+
+export interface VerifyHybridOpts extends VerifyOpts {
+  /**
+   * ML-DSA-65 public verification key resolved from the DID document.
+   * When provided, a valid pqSignature is REQUIRED (downgrade-stripping a
+   * present PQ key fails verification).
+   */
+  didPqVerificationKey?: Uint8Array;
+}
+
+/**
+ * Verify a (possibly dual-signed) binding. Semantics:
+ *   - The Ed25519 signature must always verify.
+ *   - If the verifier knows a PQ verification key for this DID, the
+ *     ML-DSA-65 signature must be present AND verify (AND-composition:
+ *     forgery requires breaking both schemes).
+ *   - With no PQ key known, a pqSignature is ignored (legacy verifier path,
+ *     one R-cycle read-compat per crypto-agility-policy).
+ */
+export function verifySignalIdentityHybrid(opts: VerifyHybridOpts): boolean {
+  const {signed, didVerificationKey, didPqVerificationKey} = opts;
+  if (!signed.did) return false;
+  const {signature, pqSignature, ...body} = signed;
+  const msg = canonicalSigningBytes(body);
+  try {
+    if (!ed25519.verify(signature, msg, didVerificationKey)) return false;
+  } catch {
+    return false;
+  }
+  if (didPqVerificationKey) {
+    if (!pqSignature) return false;
+    return mlDsaVerify(didPqVerificationKey, msg, pqSignature);
+  }
+  return true;
 }
 
 /**
