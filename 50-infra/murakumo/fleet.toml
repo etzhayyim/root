@@ -443,7 +443,7 @@ adr = ["2605301400", "2605262130", "2605231525"]
 module = "kotodama.primitives.yabai_murakumo"
 entry = "serve"
 actor_did = "did:web:etzhayyim.com:actor:yabai"
-checkpoint_graph = "etzhayyim/yabai/cti-persistence-queue"
+checkpoint_graph = "bafyreibecj2jpykhim5loq4q3qcfottu6v2xqziktv5kdqxvq5rslqtvei"
 notes = "Kotoba Datomic job queue + checkpointed yabai CTI worker. POST /enqueue triggers immediate persistence; boot enqueues one refresh job. Tor is public-exit only, BitTorrent is case-bound evidence only."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
