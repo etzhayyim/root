@@ -17234,6 +17234,15 @@
       "lastVerified": "2026-05-25T00:00:00Z"
     },
     {
+      "id": "doc:yirah-attest-snapshot",
+      "type": "TechArticle",
+      "title": "yir'ah invariant-bundle attestation snapshot (ADR-2606112200 D4)",
+      "status": "active",
+      "topic": "yirah-attest",
+      "authoritative": false,
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:yoro-ocel-activity-log",
       "type": "Article",
       "title": "yoro.etzhayyim.com — OCEL v2 Activity Log Design",
