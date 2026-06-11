@@ -443,8 +443,8 @@ adr = ["2605301400", "2605262130", "2605231525"]
 module = "kotodama.primitives.yabai_murakumo"
 entry = "serve"
 actor_did = "did:web:etzhayyim.com:actor:yabai"
-state_path = "/var/lib/etzhayyim/yabai/cti-correlator-queue.sqlite3"
-notes = "Durable SQLite job queue + checkpointed yabai CTI worker. POST /enqueue triggers immediate persistence; boot enqueues one refresh job. Tor is public-exit only, BitTorrent is case-bound evidence only."
+checkpoint_graph = "etzhayyim/yabai/cti-persistence-queue"
+notes = "Kotoba Datomic job queue + checkpointed yabai CTI worker. POST /enqueue triggers immediate persistence; boot enqueues one refresh job. Tor is public-exit only, BitTorrent is case-bound evidence only."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 
