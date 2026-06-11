@@ -789,6 +789,34 @@ def test_wave23_cn_nl_labor():
     assert "7:686a" in nl["deadlines"][0]["anchor"]
 
 
+def test_wave24_es_it_housing_ch_labor():
+    """Wave 24: 南欧の高速立退き — :es desahucio oposición 10 días hábiles
+    (critical) + enervación · :it convalida di sfratto (欠席=確定, critical) +
+    termine di grazia 90日 · :ch Einsprache **vor Ende der Kündigungsfrist**
+    (OR 336b, critical) — housing no-self-help は parametric で自動適用."""
+    ps, _ = _by_id()
+    es = ps["ntc:es-desahucio"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-desahucio"
+    assert es["deadlines"][0]["critical"] is True
+    assert any("enervación" in d["rule"] for d in es["deadlines"])
+    it = ps["ntc:it-sfratto"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-sfratto"
+    assert it["deadlines"][0]["critical"] is True
+    assert any("termine di grazia" in d["rule"] for d in it["deadlines"])
+    ch = ps["ntc:ch-kuendigung"]
+    assert ch["status"] == ":genuine" and ch["proc"] == "proc:ch-arbeitskuendigung"
+    assert any("336b" in d["anchor"] for d in ch["deadlines"])
+
+
+def test_critical_banner_in_report():
+    """Wave 24 maturity: critical deadlines carry the ⚠ banner in the rendered plan."""
+    from respond_plan import report as plan_report
+    _, notices = load_docs()
+    ps = plans(notices, load_procs())
+    text = plan_report(ps)
+    assert "⚠ 期限ルール" in text
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

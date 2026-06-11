@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 24 (:es/:it housing + :ch labor) ────────────────────────────────────
+ {:notice/id "ntc:es-desahucio" :notice/label "ES demanda de desahucio (送達・住居)"
+  :notice/jurisdiction :es
+  :notice/channel :formal-service :notice/claim-amount 3600 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Demanda de desahucio por falta de pago. Puede formular oposición en el plazo legal."}
+
+ {:notice/id "ntc:it-sfratto" :notice/label "IT citazione per convalida di sfratto (notifica・住居)"
+  :notice/jurisdiction :it
+  :notice/channel :formal-service :notice/claim-amount 2800 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Citazione per la convalida di sfratto per morosità all'udienza indicata."}
+
+ {:notice/id "ntc:ch-kuendigung" :notice/label "CH Kündigung des Arbeitsverhältnisses (労働)"
+  :notice/jurisdiction :ch
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CHF"
+  :notice/sourcing :synthetic
+  :notice/text "Kündigung des Arbeitsverhältnisses unter Einhaltung der vertraglichen Frist."}
+
  ;; ── wave 23 (:cn/:nl labor + kaiyaku handoff) ────────────────────────────────
  {:notice/id "ntc:cn-jiechu" :notice/label "CN 解除劳动合同通知书 (労働)"
   :notice/jurisdiction :cn

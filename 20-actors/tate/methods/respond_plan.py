@@ -228,7 +228,8 @@ def report(ps: list) -> str:
         L.append(f"## {p['notice_label']} [{p['jurisdiction']}] — {p['status']}"
                  f"{' (' + p['proc'] + ')' if p['proc'] else ''}")
         for d in p["deadlines"]:
-            L.append(f"- 期限ルール [{d['label']}]: {d['rule']} ({d['anchor']}) — 送達日は自分で確認")
+            mark = "⚠ " if d.get("critical") else ""
+            L.append(f"- {mark}期限ルール [{d['label']}]: {d['rule']} ({d['anchor']}) — 送達日は自分で確認")
         for o in p["options"]:
             L.append(f"- 選択肢: {o['label']}")
         for i, s in enumerate(p["steps"], 1):

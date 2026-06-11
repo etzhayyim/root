@@ -753,6 +753,26 @@
                     "kokoro 心 (精神的サポート)" ]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:it-sfratto" :proc/label "Convalida di sfratto (立退き・住居・イタリア)"
+  :proc/jurisdiction :it :proc/track :housing
+  :proc/trigger-keywords ["sfratto"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Udienza di convalida"
+    :dl/rule "citazione 記載の udienza に出頭して opposizione — 欠席または無異議は convalida (執行名義の確定)"
+    :dl/anchor "c.p.c. artt. 657-669" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Termine di grazia (支払猶予)"
+    :dl/rule "morosità 型は udienza で termine di grazia (最大90日) を求め全額支払で解消できる場合がある"
+    :dl/anchor "L. 392/1978 art. 55" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :opposizione :opt/kind :self-decide :opt/protective true
+    :opt/label "udienza に出頭して opposizione (欠席が最悪手)"}
+   {:opt/id :termine-grazia :opt/kind :self-decide :opt/label "termine di grazia を申し立てて滞納を解消"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換等は違法 (esercizio arbitrario) — 執行は ufficiale giudiziario のみ"}]
+  :proc/refer-when ["patrocinio a spese dello Stato / sindacato inquilini (SUNIA 等)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:it-decreto-ingiuntivo" :proc/label "Decreto ingiuntivo (支払命令・イタリア)"
   :proc/jurisdiction :it
   :proc/trigger-keywords ["decreto ingiuntivo"]
@@ -783,6 +803,26 @@
     :opt/label "finiquito へのサインは『no conforme』を添えるか保留 (請求権放棄になり得る)"}]
   :proc/refer-when ["sindicato / abogado laboralista (graduado social も可)"
                     "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:es-desahucio" :proc/label "Demanda de desahucio (立退き・住居・スペイン)"
+  :proc/jurisdiction :es :proc/track :housing
+  :proc/trigger-keywords ["desahucio"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Oposición"
+    :dl/rule "demanda de desahucio への oposición は10日 (días hábiles) 以内 — 無応答は審理なく lanzamiento (退去執行) の日程へ進む高速手続"
+    :dl/anchor "LEC arts. 440.3・441" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Enervación (滞納の解消)"
+    :dl/rule "賃料滞納型は期限内の全額支払 (enervación) で1回に限り手続を解消できる場合がある"
+    :dl/anchor "LEC art. 22.4" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :oposicion :opt/kind :self-submit :opt/protective true
+    :opt/label "oposición を10日以内に (justicia gratuita の指定弁護士は申請で停止効も)"}
+   {:opt/id :enervacion :opt/kind :self-decide :opt/label "滞納型なら enervación (全額支払) の可否を確認"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換・追い出しは違法 — lanzamiento は裁判所手続のみ; 社会的弱者は servicios sociales の保護手続"}]
+  :proc/refer-when ["即 justicia gratuita (desahucio は指定で手続停止の運用あり)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:es-monitorio" :proc/label "Proceso monitorio (支払督促・スペイン)"
@@ -1126,6 +1166,22 @@
   :proc/verify-current-law true}
 
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ch-arbeitskuendigung" :proc/label "Kündigung des Arbeitsverhältnisses (解雇・労働・スイス)"
+  :proc/jurisdiction :ch :proc/track :labor
+  :proc/trigger-keywords ["Kündigung des Arbeitsverhältnisses" "Arbeitsverhältnis"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Einsprache (missbräuchliche Kündigung)"
+    :dl/rule "missbräuchlich と争うなら Einsprache を **Kündigungsfrist の満了前まで** に書面で — その後雇用終了から180日以内に提訴 (徒過で失権)"
+    :dl/anchor "OR Art. 336b" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :einsprache :opt/kind :self-submit :opt/protective true
+    :opt/label "書面 Einsprache を雇用主へ (Kündigungsfrist 内 — まず期限を止める)"}
+   {:opt/id :arbeitsgericht :opt/kind :self-decide
+    :opt/label "≤CHF 30,000 は簡易・無償手続 (ZPO 113/114) — 本人可"}]
+  :proc/refer-when ["RAV (失業保険) へ即登録 — 遅延は給付減額" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:ch-zahlungsbefehl" :proc/label "Zahlungsbefehl / Betreibung (スイス)"
   :proc/jurisdiction :ch
   :proc/trigger-keywords ["Zahlungsbefehl" "Betreibung"]
