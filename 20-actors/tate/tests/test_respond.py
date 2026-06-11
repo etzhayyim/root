@@ -817,6 +817,21 @@ def test_critical_banner_in_report():
     assert "⚠ 期限ルール" in text
 
 
+def test_wave25_sg_pt_labor():
+    """Wave 25: :sg TADM 1か月 (mediation 前置 → ECT — 弁護士代理禁止の本人手続,
+    critical; work pass 警告) · :pt impugnação 60 dias + suspensão 5 días úteis
+    (CT 386/387, critical)."""
+    ps, _ = _by_id()
+    sg = ps["ntc:sg-dismissal"]
+    assert sg["status"] == ":genuine" and sg["proc"] == "proc:sg-dismissal"
+    assert sg["deadlines"][0]["critical"] is True
+    assert "1か月" in sg["deadlines"][0]["rule"]
+    pt = ps["ntc:pt-despedimento"]
+    assert pt["status"] == ":genuine" and pt["proc"] == "proc:pt-despedimento"
+    assert pt["deadlines"][0]["critical"] is True
+    assert "60日" in pt["deadlines"][0]["rule"] and "5日" in pt["deadlines"][0]["rule"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -938,6 +938,21 @@
   :proc/verify-current-law true}
 
  ;; ── :sg ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:sg-dismissal" :proc/label "Termination of services (解雇・労働・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :labor
+  :proc/trigger-keywords ["your services are terminated" "wrongful dismissal"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "TADM mediation (前置)"
+    :dl/rule "wrongful dismissal claim は dismissal から1か月以内に TADM へ (mediation 前置 — 不調なら ECT へ); salary 未払は6か月以内"
+    :dl/anchor "Employment Claims Act 2016 / Employment Act s.14" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tadm :opt/kind :self-submit :opt/protective true
+    :opt/label "TADM へオンライン申立て (低額手数料・本人手続 — ECT も弁護士代理禁止)"}
+   {:opt/id :mom-check :opt/kind :self-decide :opt/label "未払 salary/CPF は MOM/CPF Board へも"}]
+  :proc/refer-when ["work pass 保持者は在留への影響を即確認" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:sg-sct" :proc/label "Small Claims Tribunals claim (シンガポール)"
   :proc/jurisdiction :sg
   :proc/trigger-keywords ["small claims tribunal"]
@@ -1031,6 +1046,21 @@
   :proc/verify-current-law true}
 
  ;; ── :pt ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:pt-despedimento" :proc/label "Comunicação de despedimento (解雇・労働・ポルトガル)"
+  :proc/jurisdiction :pt :proc/track :labor
+  :proc/trigger-keywords ["despedimento"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Impugnação judicial"
+    :dl/rule "ação de impugnação は despedimento から60日以内; 効力停止 (suspensão de despedimento) を求めるなら5日 (úteis) 以内 — 極端に短い"
+    :dl/anchor "Código do Trabalho arts. 386・387" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :impugnacao :opt/kind :self-submit :opt/protective true
+    :opt/label "formulário de impugnação を tribunal へ (60日 — apoio judiciário 併用可)"}
+   {:opt/id :act-queixa :opt/kind :self-decide :opt/label "ACT (労働監督庁) への queixa も並行可"}]
+  :proc/refer-when ["sindicato / advogado (suspensão 5日は即動く)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:pt-injuncao" :proc/label "Injunção (支払督促・ポルトガル)"
   :proc/jurisdiction :pt
   :proc/trigger-keywords ["injunção" "procedimento de injunção"]

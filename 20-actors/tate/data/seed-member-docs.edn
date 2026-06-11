@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 25 (:sg/:pt labor) ──────────────────────────────────────────────────
+ {:notice/id "ntc:sg-dismissal" :notice/label "SG notice of termination (労働)"
+  :notice/jurisdiction :sg
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "SGD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice: your services are terminated with effect from the stated date."}
+
+ {:notice/id "ntc:pt-despedimento" :notice/label "PT comunicação de despedimento (労働)"
+  :notice/jurisdiction :pt
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Comunicação de despedimento por extinção do posto de trabalho."}
+
  ;; ── wave 24 (:es/:it housing + :ch labor) ────────────────────────────────────
  {:notice/id "ntc:es-desahucio" :notice/label "ES demanda de desahucio (送達・住居)"
   :notice/jurisdiction :es

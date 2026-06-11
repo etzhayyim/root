@@ -97,8 +97,8 @@ def test_civil_only_jurisdictions_named():
     (the matrix's empty rows become a worklist, not silence)."""
     cov = coverage()
     co = cov["civil_only_jurisdictions"]
-    assert ":sg" in co and ":pt" in co  # known civil-only rows (it/es/br/tw/nl/cn 解消済み)
-    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es", ":nl", ":cn"):
+    assert ":mx" in co and ":be" in co  # known civil-only rows (sg/pt も wave 25 で解消)
+    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es", ":nl", ":cn", ":sg", ":pt"):
         assert j not in co
     assert any("専門トラック未開削" in g for g in cov["named_gaps"])
 
@@ -113,6 +113,23 @@ def test_critical_deadline_census():
     assert {"proc:de-kuendigung", "proc:ch-zahlungsbefehl", "proc:au-unfair-dismissal",
             "proc:it-licenziamento", "proc:es-despido"} <= ids
     assert "Critical deadlines" in report(cov)
+
+
+def test_claude_md_counts_in_sync():
+    """Wave 25 maturity: CLAUDE.md の数値 (procs/shapes/juris/tests) は registry と
+    テストファイルの実数に機械照合される — manifest (wave 16)・fake-guard 語彙
+    (wave 17) に続く手動同期クラス封殺の3件目."""
+    import re
+    md = (ACTOR_DIR / "CLAUDE.md").read_text(encoding="utf-8")
+    m = re.search(r"procedure registry \((\d+) procs", md)
+    assert m and int(m.group(1)) == len(load_procs()), "CLAUDE.md proc count drift"
+    m = re.search(r"clause registry \((\d+) shapes, (\d+) juris", md)
+    assert m and int(m.group(1)) == len(load_patterns()), "CLAUDE.md pattern count drift"
+    assert int(m.group(2)) == len(load_jurisdictions()), "CLAUDE.md juris count drift"
+    n_tests = sum(f.read_text(encoding="utf-8").count("\ndef test_")
+                  for f in (ACTOR_DIR / "tests").glob("test_*.py"))
+    m = re.search(r"# (\d+) tests, pure stdlib", md)
+    assert m and int(m.group(1)) == n_tests, f"CLAUDE.md test count drift (actual {n_tests})"
 
 
 def test_report_names_the_gap():
