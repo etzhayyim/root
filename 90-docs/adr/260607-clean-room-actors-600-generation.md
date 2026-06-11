@@ -852,3 +852,13 @@ declares a messageMedium enum but CampaignDetails' same-named field is
 untyped, so no enum is borrowed across entities. Probes this wave: klarna
 (Next.js shell), honeycomb (no fetchable spec found), salesforce skipped
 (owned by the ADR-2606081200 workstream).
+
+### §16.28 /loop iteration 27 — wave 28: braze (224, 22.4%)
+
+braze → ledger **224** (776 L4 / 224 L5 = 22.4%), enforced 214 / **890 enum
+fields**, verify PASS 0/0, contract suite green. Harness-direct. The
+operator's static Jekyll docs declare the campaign-details response with
+inline type annotations and declare Message.channel complete via
+'must be either email, ios_push, webhook, content_card, in-app_message,
+or sms' — prose-completeness ('must be either ... or') joins one_of /
+xs:enumeration / Literal as a declaration form.

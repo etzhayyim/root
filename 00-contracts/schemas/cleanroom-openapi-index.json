@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29005,
+  "totalEndpoints": 28990,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 213,
-  "totalVerifiedEnumFields": 889,
+  "l5VerifiedActors": 214,
+  "totalVerifiedEnumFields": 890,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -2446,10 +2446,10 @@
     {
       "handle": "braze-compat",
       "did": "did:web:etzhayyim.com:actor:braze-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -2458,8 +2458,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/braze-compat/openapi.json"
     },
     {

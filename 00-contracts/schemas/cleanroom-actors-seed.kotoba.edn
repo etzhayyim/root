@@ -1689,11 +1689,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible marketing technology actor (braze); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "braze.kotoba"
-   :actor/wasm-cid "bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu"
+   :actor/wasm-cid "bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:braze-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:braze-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:braze-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:braze-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:braze-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:braze-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:braze-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:braze-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "brex-compat"
    :actor/did "did:web:etzhayyim.com:actor:brex-compat"
    :actor/kind :compat

@@ -2136,17 +2136,14 @@
       "handle": "braze-compat",
       "platform": "braze",
       "bytes": 2119,
-      "wasmCid": "bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
+      "wasmCid": "bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
         "Message",
-        "Funnel"
+        "Segment"
       ]
     },
     {

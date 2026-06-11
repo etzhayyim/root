@@ -115,17 +115,24 @@ def _expand(rec, params, refs):
 def create_campaign(request):
     """Create a Campaign."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['name', 'description', 'createdAt', 'updatedAt', 'archived', 'draft', 'enabled', 'hasPostLaunchDraft', 'scheduleType', 'firstSent', 'lastSent'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'channel'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
     rec = {"id": new_id("braze_cam")}
     rec["name"] = data.get('name')
-    rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
-    rec["budget"] = _as_float(data.get('budget'))
+    rec["description"] = data.get('description')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["archived"] = _as_bool(data.get('archived'))
+    rec["draft"] = _as_bool(data.get('draft'))
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["hasPostLaunchDraft"] = _as_bool(data.get('hasPostLaunchDraft'))
+    rec["scheduleType"] = data.get('scheduleType')
+    rec["firstSent"] = data.get('firstSent')
+    rec["lastSent"] = data.get('lastSent')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Campaign", rec)
@@ -136,7 +143,7 @@ def list_campaigns(request):
     """List Campaigns with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'channel', 'status', 'budget'])
+    rows = _apply_filters(rows, params, ['name', 'description', 'createdAt', 'updatedAt', 'archived', 'draft', 'enabled', 'hasPostLaunchDraft', 'scheduleType', 'firstSent', 'lastSent'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +164,7 @@ def update_campaign(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['name', 'description', 'createdAt', 'updatedAt', 'archived', 'draft', 'enabled', 'hasPostLaunchDraft', 'scheduleType', 'firstSent', 'lastSent'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,218 +184,22 @@ def delete_campaign(request, eid):
     db.retract({"entity": f"braze.Campaign", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/audiences", methods=["POST"])
-def create_audience(request):
-    """Create a Audience."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'size'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("braze_aud")}
-    rec["name"] = data.get('name')
-    rec["size"] = _as_int(data.get('size'))
-    rec["definition"] = data.get('definition')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Audience", rec)
-    return rec, 201
-
-@app.route("/v1/audiences", methods=["GET"])
-def list_audiences(request):
-    """List Audiences with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Audience")
-    rows = _apply_filters(rows, params, ['name', 'size', 'definition'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/audiences/<eid>", methods=["GET"])
-def get_audience(request, eid):
-    """Retrieve a Audience by id (supports ?expand=)."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/audiences/<eid>", methods=["POST", "PATCH"])
-def update_audience(request, eid):
-    """Update a Audience."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Audience", rec)
-    return rec, 200
-
-@app.route("/v1/audiences/<eid>", methods=["DELETE"])
-def delete_audience(request, eid):
-    """Delete a Audience."""
-    rows = _query("Audience", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"braze.Audience", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'properties'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("braze_eve")}
-    rec["profileId"] = data.get('profileId')
-    rec["name"] = data.get('name')
-    rec["properties"] = data.get('properties')
-    rec["occurredAt"] = data.get('occurredAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['profileId', 'name', 'properties', 'occurredAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'profileId': 'Profile'})
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"braze.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/profiles", methods=["POST"])
-def create_profile(request):
-    """Create a Profile."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'traits'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("braze_pro")}
-    rec["email"] = data.get('email')
-    rec["externalId"] = data.get('externalId')
-    rec["traits"] = data.get('traits')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Profile", rec)
-    return rec, 201
-
-@app.route("/v1/profiles", methods=["GET"])
-def list_profiles(request):
-    """List Profiles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Profile")
-    rows = _apply_filters(rows, params, ['email', 'externalId', 'traits'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/profiles/<eid>", methods=["GET"])
-def get_profile(request, eid):
-    """Retrieve a Profile by id (supports ?expand=)."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
-def update_profile(request, eid):
-    """Update a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Profile", rec)
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["DELETE"])
-def delete_profile(request, eid):
-    """Delete a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"braze.Profile", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/messages", methods=["POST"])
 def create_message(request):
     """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
+    err = _reject_unknown(data, ['name', 'channel', 'hasTranslatableContent'])
     if err:
         return err, 400
-    err = _require(data, ['channel', 'status'])
+    err = _require(data, ['name', 'channel'])
     if err:
         return err, 400
+    if data.get('channel') and data['channel'] not in ['email', 'ios_push', 'webhook', 'content_card', 'in-app_message', 'sms']:
+        return {"error": {"message": "invalid channel; allowed: " + ", ".join(['email', 'ios_push', 'webhook', 'content_card', 'in-app_message', 'sms']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("braze_mes")}
-    rec["campaignId"] = data.get('campaignId')
-    rec["profileId"] = data.get('profileId')
+    rec["name"] = data.get('name')
     rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
+    rec["hasTranslatableContent"] = _as_bool(data.get('hasTranslatableContent'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Message", rec)
@@ -399,7 +210,7 @@ def list_messages(request):
     """List Messages with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Message")
-    rows = _apply_filters(rows, params, ['campaignId', 'profileId', 'channel', 'status'])
+    rows = _apply_filters(rows, params, ['name', 'channel', 'hasTranslatableContent'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -411,7 +222,6 @@ def get_message(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'campaignId': 'Campaign', 'profileId': 'Profile'})
     return rec, 200
 
 @app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
@@ -421,9 +231,11 @@ def update_message(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
+    err = _reject_unknown(data, ['name', 'channel', 'hasTranslatableContent'])
     if err:
         return err, 400
+    if data.get('channel') and data['channel'] not in ['email', 'ios_push', 'webhook', 'content_card', 'in-app_message', 'sms']:
+        return {"error": {"message": "invalid channel; allowed: " + ", ".join(['email', 'ios_push', 'webhook', 'content_card', 'in-app_message', 'sms']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -441,52 +253,54 @@ def delete_message(request, eid):
     db.retract({"entity": f"braze.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/funnels", methods=["POST"])
-def create_funnel(request):
-    """Create a Funnel."""
+@app.route("/v1/segments", methods=["POST"])
+def create_segment(request):
+    """Create a Segment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'description', 'textDescription', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'steps'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("braze_fun")}
+    rec = {"id": new_id("braze_seg")}
     rec["name"] = data.get('name')
-    rec["steps"] = data.get('steps')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
+    rec["description"] = data.get('description')
+    rec["textDescription"] = data.get('textDescription')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Funnel", rec)
+    _persist("Segment", rec)
     return rec, 201
 
-@app.route("/v1/funnels", methods=["GET"])
-def list_funnels(request):
-    """List Funnels with filtering + cursor pagination."""
+@app.route("/v1/segments", methods=["GET"])
+def list_segments(request):
+    """List Segments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Funnel")
-    rows = _apply_filters(rows, params, ['name', 'steps', 'conversionRate'])
+    rows = _query("Segment")
+    rows = _apply_filters(rows, params, ['name', 'description', 'textDescription', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/funnels/<eid>", methods=["GET"])
-def get_funnel(request, eid):
-    """Retrieve a Funnel by id (supports ?expand=)."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/segments/<eid>", methods=["GET"])
+def get_segment(request, eid):
+    """Retrieve a Segment by id (supports ?expand=)."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/funnels/<eid>", methods=["POST", "PATCH"])
-def update_funnel(request, eid):
-    """Update a Funnel."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/segments/<eid>", methods=["POST", "PATCH"])
+def update_segment(request, eid):
+    """Update a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'description', 'textDescription', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -494,22 +308,22 @@ def update_funnel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Funnel", rec)
+    _persist("Segment", rec)
     return rec, 200
 
-@app.route("/v1/funnels/<eid>", methods=["DELETE"])
-def delete_funnel(request, eid):
-    """Delete a Funnel."""
-    rows = _query("Funnel", eid)
+@app.route("/v1/segments/<eid>", methods=["DELETE"])
+def delete_segment(request, eid):
+    """Delete a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"braze.Funnel", "id": eid})
+    db.retract({"entity": f"braze.Segment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "braze-compat", "tier": "L4",
-            "entities": ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']}, 200
+            "entities": ['Campaign', 'Message', 'Segment']}, 200
 
 
 if __name__ == "__main__":

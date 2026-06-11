@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 777,
-    "L5": 223
+    "L4": 776,
+    "L5": 224
   },
   "actors": [
     {
@@ -2321,10 +2321,10 @@
     {
       "handle": "braze-compat",
       "did": "did:web:etzhayyim.com:actor:braze-compat",
-      "wasmCid": "bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
+      "wasmCid": "bafkreibno2ba7shxqp3n75hlud3hurwyli24ohtao3arjx3ybygwuk5sbi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "braze clean-room actor",
       "category": "martech",
       "capabilities": [

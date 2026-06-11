@@ -2851,6 +2851,17 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Braze model (the operator's official static docs — Jekyll, fully
+# fetchable; the campaign-details response declares every field with type
+# annotations, and Message.channel is declared complete: 'must be either
+# email, ios_push, webhook, content_card, in-app_message, or sms').
+# scheduleType has no declared set -> no enum.
+PLATFORM_OVERRIDES["braze"] = {
+    "Campaign": E(name="string", description="string", createdAt="datetime", updatedAt="datetime", archived="boolean", draft="boolean", enabled="boolean", hasPostLaunchDraft="boolean", scheduleType="string", firstSent="datetime", lastSent="datetime"),
+    "Message": E(name="string", channel="string", hasTranslatableContent="boolean"),
+    "Segment": E(name="string", description="string", textDescription="string", createdAt="datetime", updatedAt="datetime"),
+}
+
 # Faithful Iterable model (the operator's own live Swagger 2.0 at
 # api.iterable.com/api-docs — 196 definitions, machine-extracted).
 # campaignState(9, the complete campaign lifecycle) + type(2) +

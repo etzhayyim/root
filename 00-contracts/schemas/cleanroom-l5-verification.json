@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 223,
+  "count": 224,
   "actors": [
     {
       "handle": "aave-compat",
@@ -5152,6 +5152,74 @@
         }
       ],
       "note": "FULLY VERIFIED (6/6) vs official Box docs/OpenAPI. Enforced enums: File.itemStatus, Folder.itemStatus, Folder.syncState, User.status, User.role, Collaboration.role, Collaboration.status, SharedLink.access (8)."
+    },
+    {
+      "handle": "braze-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://www.braze.com/docs/api/endpoints/export/campaigns/get_campaign_details/ + segments/get_segment_details/ (the operator's official static docs)",
+      "remodeled": "Remodeled to the faithful Braze export surface verified against the operator's OFFICIAL static documentation (Jekyll — fully harness-fetchable; the campaign-details response declares every field with inline type annotations). Message.channel enforced (6): the docs declare it complete — 'must be either email, ios_push, webhook, content_card, in-app_message, or sms'. scheduleType carries no declared set -> no enum. Harness-direct.",
+      "resources": [
+        {
+          "entity": "Campaign",
+          "source": "https://www.braze.com/docs/api/endpoints/export/campaigns/get_campaign_details/ + segments/get_segment_details/ (the operator's official static docs)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "createdAt",
+            "updatedAt",
+            "archived",
+            "draft",
+            "enabled",
+            "hasPostLaunchDraft",
+            "scheduleType",
+            "firstSent",
+            "lastSent"
+          ],
+          "fieldStatus": "confirmed (campaign-details response declaration, typed inline)",
+          "discoveredEnums": {},
+          "gaps": [
+            "scheduleType-no-declared-set"
+          ]
+        },
+        {
+          "entity": "Message",
+          "source": "https://www.braze.com/docs/api/endpoints/export/campaigns/get_campaign_details/ + segments/get_segment_details/ (the operator's official static docs)",
+          "verifiedFields": [
+            "name",
+            "channel",
+            "hasTranslatableContent"
+          ],
+          "fieldStatus": "confirmed ('must be either ... or' complete declaration)",
+          "discoveredEnums": {
+            "channel": [
+              "email",
+              "ios_push",
+              "webhook",
+              "content_card",
+              "in-app_message",
+              "sms"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Segment",
+          "source": "https://www.braze.com/docs/api/endpoints/export/campaigns/get_campaign_details/ + segments/get_segment_details/ (the operator's official static docs)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "textDescription",
+            "createdAt",
+            "updatedAt"
+          ],
+          "fieldStatus": "confirmed (segment-details response declaration)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the operator's official static docs. Enforced enums: channel(6, declared complete via 'must be either') = 1 enum field."
     },
     {
       "handle": "brightcove-compat",
