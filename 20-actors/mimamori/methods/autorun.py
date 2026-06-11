@@ -26,9 +26,11 @@ from coverage_report import coverage_of_engine  # noqa: E402
 from kotoba import (LOG_DEFAULT, append_tx, bond_datoms, coverage_datoms,  # noqa: E402
                     head_cid, make_tx, read_log, verify_chain)
 from match import match_cycle  # noqa: E402
+from shakai import MoyaiLedger, mint_from_keeping, social_capital_datoms  # noqa: E402
 
 
-def run_cycle(seed: dict, log_path: pathlib.Path = LOG_DEFAULT) -> dict:
+def run_cycle(seed: dict, log_path: pathlib.Path = LOG_DEFAULT,
+              ledger: MoyaiLedger | None = None) -> dict:
     """One heartbeat. Returns an aggregate-only summary (G5)."""
     prior = read_log(log_path)
     cycle = len(prior) + 1
@@ -37,7 +39,14 @@ def run_cycle(seed: dict, log_path: pathlib.Path = LOG_DEFAULT) -> dict:
     summary = match_cycle(engine, seed["roster"])
     cov = coverage_of_engine(engine, seed["roster"])
 
-    datoms = bond_datoms(engine) + coverage_datoms(cov, cycle)
+    # keeper-side social-capital mint (ADR-2606082100 Part A, moyai reuse):
+    # keeping = wellbecoming intervention; minted to the keeper, capped, decaying
+    if ledger is None:
+        ledger = MoyaiLedger()
+    shakai = mint_from_keeping(engine, ledger, cycle)
+
+    datoms = (bond_datoms(engine) + coverage_datoms(cov, cycle)
+              + social_capital_datoms(ledger, cycle))
     tx = make_tx(datoms, tx_id=cycle, as_of=cycle, prev_cid=head_cid(log_path))
     cid = append_tx(tx, log_path)
 
@@ -51,6 +60,7 @@ def run_cycle(seed: dict, log_path: pathlib.Path = LOG_DEFAULT) -> dict:
         "datoms": len(datoms),
         "chain_length": chain["length"],
         **summary,                # unkept_before / offers_emitted / skipped_*
+        "shakai": shakai,         # acts / minted_units / capped_acts / keepers_minted
         "coverage": cov,          # post-match: the offered now count as pending
     }
 

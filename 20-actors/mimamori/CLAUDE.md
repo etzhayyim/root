@@ -62,12 +62,14 @@ relay · 解ける=G3 · 見えている=G4).
 │   ├── coverage_report.py            # aggregate-only coverage (no DID in output)
 │   ├── match.py                      # §D4 offer-matching cell (reach the unkept directly)
 │   ├── kotoba.py                     # content-addressed commit-DAG writer (shionome pattern)
-│   ├── autorun.py                    # deterministic heartbeat: replay→match→coverage→persist
+│   ├── autorun.py                    # deterministic heartbeat: replay→match→mint→coverage→persist
+│   ├── shakai.py                     # keeper-side social-capital mint (moyai verbatim reuse)
 │   └── _edn.py                       # minimal EDN reader (ake/noroshi/watatsuna parity port)
 ├── tests/
 │   ├── test_bond.py                  # 10 gate tests
 │   ├── test_coverage.py              # 3 aggregate-only tests
-│   └── test_kotoba_autorun.py        # 8 R1 tests (DAG/tamper/determinism/match)
+│   ├── test_kotoba_autorun.py        # 8 R1 tests (DAG/tamper/determinism/match)
+│   └── test_shakai.py                # 7 social-capital tests (keeper-only/cap/decay/firewalls)
 └── out/                              # GENERATED — do not hand-edit
 ```
 
@@ -78,5 +80,5 @@ cd 20-actors/mimamori
 python3 methods/bond.py               # → out/mimamori-datoms.kotoba.edn
 python3 methods/coverage_report.py    # → out/coverage-report.md
 python3 methods/autorun.py --cycles 3 # heartbeat → data/mimamori.datoms.kotoba.edn
-python3 tests/test_bond.py && python3 tests/test_coverage.py && python3 tests/test_kotoba_autorun.py  # 21 green
+for t in tests/test_*.py; do python3 $t; done   # 28 green
 ```
