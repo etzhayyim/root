@@ -5,21 +5,45 @@
   "kind": "compat",
   "title": "google-workspace clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (google-workspace); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
+  "wasmCid": "bafkreieo3rb2x6w5h3fefrhgdv5t5m34y5gos5vo5u24wqocxj6w75c6qq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
+  "ipfs": "ipfs://bafkreieo3rb2x6w5h3fefrhgdv5t5m34y5gos5vo5u24wqocxj6w75c6qq",
   "schema": "schema/google-workspace.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "User",
+      "Group",
+      "Member",
+      "OrgUnit",
+      "ChromeOsDevice"
+    ],
+    "enums": {
+      "ChromeOsDevice": {
+        "chromeOsType": [
+          "chromeOsTypeUnspecified",
+          "chromeOsFlex",
+          "chromeOs"
+        ],
+        "osVersionCompliance": [
+          "complianceUnspecified",
+          "compliant",
+          "pending",
+          "notCompliant"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
-    "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "User",
+    "Group",
+    "Member",
+    "OrgUnit",
+    "ChromeOsDevice"
   ],
   "adr": [
     "260607",
@@ -31,133 +55,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/folders",
-          "op": "create Folder"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/folders",
-          "op": "list Folder"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/folders/{id}",
-          "op": "get Folder"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/folders/{id}",
-          "op": "update Folder"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/folders/{id}",
-          "op": "delete Folder"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
-        },
         {
           "method": "POST",
           "path": "/v1/users",
@@ -182,6 +81,106 @@
           "method": "DELETE",
           "path": "/v1/users/{id}",
           "op": "delete User"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/groups",
+          "op": "create Group"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/groups",
+          "op": "list Group"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/members",
+          "op": "create Member"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/members",
+          "op": "list Member"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/members/{id}",
+          "op": "get Member"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/members/{id}",
+          "op": "update Member"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/members/{id}",
+          "op": "delete Member"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/orgunits",
+          "op": "create OrgUnit"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/orgunits",
+          "op": "list OrgUnit"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/orgunits/{id}",
+          "op": "get OrgUnit"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/orgunits/{id}",
+          "op": "update OrgUnit"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/orgunits/{id}",
+          "op": "delete OrgUnit"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/chromeosdevices",
+          "op": "create ChromeOsDevice"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/chromeosdevices",
+          "op": "list ChromeOsDevice"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/chromeosdevices/{id}",
+          "op": "get ChromeOsDevice"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/chromeosdevices/{id}",
+          "op": "update ChromeOsDevice"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/chromeosdevices/{id}",
+          "op": "delete ChromeOsDevice"
         }
       ],
       "features": {
@@ -244,449 +243,45 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
-        {
-          "name": "create_workspace",
-          "description": "Create a Workspace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "plan": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "plan"
-            ]
-          }
-        },
-        {
-          "name": "list_workspaces",
-          "description": "List Workspaces.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_workspace",
-          "description": "Get a Workspace by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_workspace",
-          "description": "Update a Workspace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "plan": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_workspace",
-          "description": "Delete a Workspace.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_document",
-          "description": "Create a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_documents",
-          "description": "List Documents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_document",
-          "description": "Get a Document by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_document",
-          "description": "Update a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_folder",
-          "description": "Create a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_folders",
-          "description": "List Folders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_folder",
-          "description": "Get a Folder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_folder",
-          "description": "Update a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_folder",
-          "description": "Delete a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_user",
           "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "email": {
+              "primaryEmail": {
                 "type": "string"
               },
-              "displayName": {
+              "suspended": {
+                "type": "boolean"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              },
+              "isDelegatedAdmin": {
+                "type": "boolean"
+              },
+              "orgUnitPath": {
                 "type": "string"
               },
-              "status": {
+              "creationTime": {
                 "type": "string"
+              },
+              "lastLoginTime": {
+                "type": "string"
+              },
+              "agreedToTerms": {
+                "type": "boolean"
+              },
+              "archived": {
+                "type": "boolean"
               }
             },
             "required": [
-              "email",
-              "displayName"
+              "primaryEmail",
+              "suspended"
             ]
           }
         },
@@ -722,10 +317,214 @@
               "id": {
                 "type": "string"
               },
+              "primaryEmail": {
+                "type": "string"
+              },
+              "suspended": {
+                "type": "boolean"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              },
+              "isDelegatedAdmin": {
+                "type": "boolean"
+              },
+              "orgUnitPath": {
+                "type": "string"
+              },
+              "creationTime": {
+                "type": "string"
+              },
+              "lastLoginTime": {
+                "type": "string"
+              },
+              "agreedToTerms": {
+                "type": "boolean"
+              },
+              "archived": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_group",
+          "description": "Create a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "email": {
                 "type": "string"
               },
-              "displayName": {
+              "name": {
+                "type": "string"
+              },
+              "directMembersCount": {
+                "type": "string"
+              },
+              "adminCreated": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "email",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_groups",
+          "description": "List Groups.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_group",
+          "description": "Get a Group by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_group",
+          "description": "Update a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "directMembersCount": {
+                "type": "string"
+              },
+              "adminCreated": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_group",
+          "description": "Delete a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_member",
+          "description": "Create a Member.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "email",
+              "role"
+            ]
+          }
+        },
+        {
+          "name": "list_members",
+          "description": "List Members.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_member",
+          "description": "Get a Member by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_member",
+          "description": "Update a Member.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "type": {
                 "type": "string"
               },
               "status": {
@@ -738,8 +537,206 @@
           }
         },
         {
-          "name": "delete_user",
-          "description": "Delete a User.",
+          "name": "delete_member",
+          "description": "Delete a Member.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_org_unit",
+          "description": "Create a OrgUnit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "orgUnitPath": {
+                "type": "string"
+              },
+              "parentOrgUnitPath": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "blockInheritance": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "orgUnitPath"
+            ]
+          }
+        },
+        {
+          "name": "list_org_units",
+          "description": "List OrgUnits.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_org_unit",
+          "description": "Get a OrgUnit by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_org_unit",
+          "description": "Update a OrgUnit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "orgUnitPath": {
+                "type": "string"
+              },
+              "parentOrgUnitPath": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "blockInheritance": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_org_unit",
+          "description": "Delete a OrgUnit.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_chrome_os_device",
+          "description": "Create a ChromeOsDevice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "serialNumber": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "chromeOsType": {
+                "type": "string"
+              },
+              "osVersionCompliance": {
+                "type": "string"
+              },
+              "deviceLicenseType": {
+                "type": "string"
+              },
+              "lastSync": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "serialNumber",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_chrome_os_devices",
+          "description": "List ChromeOsDevices.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_chrome_os_device",
+          "description": "Get a ChromeOsDevice by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_chrome_os_device",
+          "description": "Update a ChromeOsDevice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "serialNumber": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "chromeOsType": {
+                "type": "string"
+              },
+              "osVersionCompliance": {
+                "type": "string"
+              },
+              "deviceLicenseType": {
+                "type": "string"
+              },
+              "lastSync": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_chrome_os_device",
+          "description": "Delete a ChromeOsDevice.",
           "inputSchema": {
             "type": "object",
             "properties": {

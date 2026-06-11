@@ -3,69 +3,35 @@
 
 namespace iers_earth_rotation {
 
-    entity Code {
+    entity EopRecord {
         id: string @unique
-        code: string
-        description: string
-        scheme: string
-        parentCode: string
+        mjd: float
+        pmX: float
+        pmXError: float
+        pmY: float
+        pmYError: float
+        ut1MinusUtc: float
+        ut1Error: float
+        lod: float
+        lodError: float
+        dX: float
+        dY: float
+        polarMotionFlag: string
+        ut1Flag: string
+        nutationFlag: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Unit {
+    entity BulletinBValues {
         id: string @unique
-        symbol: string
-        name: string
-        quantity: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Reference {
-        id: string @unique
-        name: string
-        value: float
-        uncertainty: float
-        unit: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Mapping {
-        id: string @unique
-        fromCode: string
-        toScheme: string
-        toCode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Location {
-        id: string @unique
-        unLocode: string
-        name: string
-        country: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Epoch {
-        id: string @unique
-        name: string
-        utcOffset: string
-        asOf: datetime
+        pmX: float
+        pmY: float
+        ut1MinusUtc: float
+        dX: float
+        dY: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

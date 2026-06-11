@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible physical benchmarks / classifications actor (iers_earth_rotation); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:iers_earth_rotation-compat",
-    "x-wasm-cid": "bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+    "x-wasm-cid": "bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+      "url": "ipfs://bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/codes": {
+    "/v1/eoprecords": {
       "get": {
-        "summary": "List Codes",
+        "summary": "List EopRecords",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Code"
+                        "$ref": "#/components/schemas/EopRecord"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Code",
+        "summary": "Create a EopRecord",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CodeCreate"
+                "$ref": "#/components/schemas/EopRecordCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Code"
+                  "$ref": "#/components/schemas/EopRecord"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/codes/{id}": {
+    "/v1/eoprecords/{id}": {
       "get": {
-        "summary": "Get a Code",
+        "summary": "Get a EopRecord",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Code"
+                  "$ref": "#/components/schemas/EopRecord"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Code",
+        "summary": "Update a EopRecord",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CodeCreate"
+                "$ref": "#/components/schemas/EopRecordCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Code"
+                  "$ref": "#/components/schemas/EopRecord"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Code",
+        "summary": "Delete a EopRecord",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/units": {
+    "/v1/bulletinbvalueses": {
       "get": {
-        "summary": "List Units",
+        "summary": "List BulletinBValueses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Unit"
+                        "$ref": "#/components/schemas/BulletinBValues"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Unit",
+        "summary": "Create a BulletinBValues",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnitCreate"
+                "$ref": "#/components/schemas/BulletinBValuesCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Unit"
+                  "$ref": "#/components/schemas/BulletinBValues"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/units/{id}": {
+    "/v1/bulletinbvalueses/{id}": {
       "get": {
-        "summary": "Get a Unit",
+        "summary": "Get a BulletinBValues",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Unit"
+                  "$ref": "#/components/schemas/BulletinBValues"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Unit",
+        "summary": "Update a BulletinBValues",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnitCreate"
+                "$ref": "#/components/schemas/BulletinBValuesCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Unit"
+                  "$ref": "#/components/schemas/BulletinBValues"
                 }
               }
             }
@@ -366,747 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Unit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/references": {
-      "get": {
-        "summary": "List References",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Reference"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Reference",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReferenceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Reference"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/references/{id}": {
-      "get": {
-        "summary": "Get a Reference",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Reference"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Reference",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReferenceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Reference"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Reference",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/mappings": {
-      "get": {
-        "summary": "List Mappings",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Mapping"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Mapping",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MappingCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mapping"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/mappings/{id}": {
-      "get": {
-        "summary": "Get a Mapping",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mapping"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Mapping",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MappingCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mapping"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Mapping",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/locations": {
-      "get": {
-        "summary": "List Locations",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Location"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Location",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LocationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Location"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/locations/{id}": {
-      "get": {
-        "summary": "Get a Location",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Location"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Location",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LocationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Location"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Location",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/epoches": {
-      "get": {
-        "summary": "List Epoches",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Epoch"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Epoch",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EpochCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Epoch"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/epoches/{id}": {
-      "get": {
-        "summary": "Get a Epoch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Epoch"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Epoch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EpochCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Epoch"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Epoch",
+        "summary": "Delete a BulletinBValues",
         "parameters": [
           {
             "name": "id",
@@ -1140,115 +400,65 @@
   },
   "components": {
     "schemas": {
-      "Code": {
+      "EopRecord": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "code": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "scheme": {
-            "type": "string"
-          },
-          "parentCode": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CodeCreate": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "scheme": {
-            "type": "string"
-          },
-          "parentCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "description"
-        ]
-      },
-      "Unit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "symbol": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "UnitCreate": {
-        "type": "object",
-        "properties": {
-          "symbol": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "symbol",
-          "name"
-        ]
-      },
-      "Reference": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "mjd": {
             "type": "number"
           },
-          "uncertainty": {
+          "pmX": {
             "type": "number"
           },
-          "unit": {
-            "type": "string"
+          "pmXError": {
+            "type": "number"
+          },
+          "pmY": {
+            "type": "number"
+          },
+          "pmYError": {
+            "type": "number"
+          },
+          "ut1MinusUtc": {
+            "type": "number"
+          },
+          "ut1Error": {
+            "type": "number"
+          },
+          "lod": {
+            "type": "number"
+          },
+          "lodError": {
+            "type": "number"
+          },
+          "dX": {
+            "type": "number"
+          },
+          "dY": {
+            "type": "number"
+          },
+          "polarMotionFlag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
+          },
+          "ut1Flag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
+          },
+          "nutationFlag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1260,84 +470,89 @@
           }
         }
       },
-      "ReferenceCreate": {
+      "EopRecordCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "mjd": {
             "type": "number"
           },
-          "uncertainty": {
+          "pmX": {
             "type": "number"
           },
-          "unit": {
-            "type": "string"
+          "pmXError": {
+            "type": "number"
+          },
+          "pmY": {
+            "type": "number"
+          },
+          "pmYError": {
+            "type": "number"
+          },
+          "ut1MinusUtc": {
+            "type": "number"
+          },
+          "ut1Error": {
+            "type": "number"
+          },
+          "lod": {
+            "type": "number"
+          },
+          "lodError": {
+            "type": "number"
+          },
+          "dX": {
+            "type": "number"
+          },
+          "dY": {
+            "type": "number"
+          },
+          "polarMotionFlag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
+          },
+          "ut1Flag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
+          },
+          "nutationFlag": {
+            "type": "string",
+            "enum": [
+              "I",
+              "P"
+            ]
           }
         },
         "required": [
-          "name",
-          "value"
+          "mjd",
+          "pmX"
         ]
       },
-      "Mapping": {
+      "BulletinBValues": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fromCode": {
-            "type": "string"
+          "pmX": {
+            "type": "number"
           },
-          "toScheme": {
-            "type": "string"
+          "pmY": {
+            "type": "number"
           },
-          "toCode": {
-            "type": "string"
+          "ut1MinusUtc": {
+            "type": "number"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
+          "dX": {
+            "type": "number"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MappingCreate": {
-        "type": "object",
-        "properties": {
-          "fromCode": {
-            "type": "string"
-          },
-          "toScheme": {
-            "type": "string"
-          },
-          "toCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "fromCode",
-          "toScheme"
-        ]
-      },
-      "Location": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "unLocode": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
+          "dY": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1349,66 +564,28 @@
           }
         }
       },
-      "LocationCreate": {
+      "BulletinBValuesCreate": {
         "type": "object",
         "properties": {
-          "unLocode": {
-            "type": "string"
+          "pmX": {
+            "type": "number"
           },
-          "name": {
-            "type": "string"
+          "pmY": {
+            "type": "number"
           },
-          "country": {
-            "type": "string"
+          "ut1MinusUtc": {
+            "type": "number"
+          },
+          "dX": {
+            "type": "number"
+          },
+          "dY": {
+            "type": "number"
           }
         },
         "required": [
-          "unLocode",
-          "name"
-        ]
-      },
-      "Epoch": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "utcOffset": {
-            "type": "string"
-          },
-          "asOf": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EpochCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "utcOffset": {
-            "type": "string"
-          },
-          "asOf": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "utcOffset"
+          "pmX",
+          "pmY"
         ]
       }
     }

@@ -5,21 +5,43 @@
   "kind": "compat",
   "title": "macos_darwin clean-room actor",
   "description": "Clean-room, API-compatible OS / kernel interface actor (macos_darwin); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
+  "wasmCid": "bafkreigexoafpjhnhijfwnq5m6dw3frpoqq5wslga5amjvayqcev3ukola",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
+  "ipfs": "ipfs://bafkreigexoafpjhnhijfwnq5m6dw3frpoqq5wslga5amjvayqcev3ukola",
   "schema": "schema/macos_darwin.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.apple.com/tutorials/data/documentation/foundation/processinfo.json + thermalstate-swift.enum.json + comparisonresult.json + operatingsystemversion.json (official Apple docs JSON API)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ProcessInfo",
+      "OperatingSystemVersion",
+      "ComparisonResult"
+    ],
+    "enums": {
+      "ProcessInfo": {
+        "thermalState": [
+          "nominal",
+          "fair",
+          "serious",
+          "critical"
+        ]
+      },
+      "ComparisonResult": {
+        "result": [
+          "orderedAscending",
+          "orderedSame",
+          "orderedDescending"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Process",
-    "Thread",
-    "FileDescriptor",
-    "Syscall",
-    "MemoryRegion",
-    "Signal"
+    "ProcessInfo",
+    "OperatingSystemVersion",
+    "ComparisonResult"
   ],
   "adr": [
     "260607",
@@ -31,157 +53,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/processes",
-          "op": "create Process"
+          "path": "/v1/processinfos",
+          "op": "create ProcessInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/processes",
-          "op": "list Process"
+          "path": "/v1/processinfos",
+          "op": "list ProcessInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/processes/{id}",
-          "op": "get Process"
+          "path": "/v1/processinfos/{id}",
+          "op": "get ProcessInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/processes/{id}",
-          "op": "update Process"
+          "path": "/v1/processinfos/{id}",
+          "op": "update ProcessInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/processes/{id}",
-          "op": "delete Process"
+          "path": "/v1/processinfos/{id}",
+          "op": "delete ProcessInfo"
         },
         {
           "method": "POST",
-          "path": "/v1/threads",
-          "op": "create Thread"
+          "path": "/v1/operatingsystemversions",
+          "op": "create OperatingSystemVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/threads",
-          "op": "list Thread"
+          "path": "/v1/operatingsystemversions",
+          "op": "list OperatingSystemVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/threads/{id}",
-          "op": "get Thread"
+          "path": "/v1/operatingsystemversions/{id}",
+          "op": "get OperatingSystemVersion"
         },
         {
           "method": "PATCH",
-          "path": "/v1/threads/{id}",
-          "op": "update Thread"
+          "path": "/v1/operatingsystemversions/{id}",
+          "op": "update OperatingSystemVersion"
         },
         {
           "method": "DELETE",
-          "path": "/v1/threads/{id}",
-          "op": "delete Thread"
+          "path": "/v1/operatingsystemversions/{id}",
+          "op": "delete OperatingSystemVersion"
         },
         {
           "method": "POST",
-          "path": "/v1/filedescriptors",
-          "op": "create FileDescriptor"
+          "path": "/v1/comparisonresults",
+          "op": "create ComparisonResult"
         },
         {
           "method": "GET",
-          "path": "/v1/filedescriptors",
-          "op": "list FileDescriptor"
+          "path": "/v1/comparisonresults",
+          "op": "list ComparisonResult"
         },
         {
           "method": "GET",
-          "path": "/v1/filedescriptors/{id}",
-          "op": "get FileDescriptor"
+          "path": "/v1/comparisonresults/{id}",
+          "op": "get ComparisonResult"
         },
         {
           "method": "PATCH",
-          "path": "/v1/filedescriptors/{id}",
-          "op": "update FileDescriptor"
+          "path": "/v1/comparisonresults/{id}",
+          "op": "update ComparisonResult"
         },
         {
           "method": "DELETE",
-          "path": "/v1/filedescriptors/{id}",
-          "op": "delete FileDescriptor"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/syscalls",
-          "op": "create Syscall"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/syscalls",
-          "op": "list Syscall"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/syscalls/{id}",
-          "op": "get Syscall"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/syscalls/{id}",
-          "op": "update Syscall"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/syscalls/{id}",
-          "op": "delete Syscall"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/memoryregions",
-          "op": "create MemoryRegion"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/memoryregions",
-          "op": "list MemoryRegion"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/memoryregions/{id}",
-          "op": "get MemoryRegion"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/memoryregions/{id}",
-          "op": "update MemoryRegion"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/memoryregions/{id}",
-          "op": "delete MemoryRegion"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/comparisonresults/{id}",
+          "op": "delete ComparisonResult"
         }
       ],
       "features": {
@@ -244,44 +191,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_process",
-          "description": "Create a Process.",
+          "name": "create_process_info",
+          "description": "Create a ProcessInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pid": {
-                "type": "integer"
-              },
-              "command": {
+              "processName": {
                 "type": "string"
               },
-              "state": {
+              "processIdentifier": {
+                "type": "integer"
+              },
+              "operatingSystemVersionString": {
                 "type": "string"
               },
-              "uid": {
+              "physicalMemory": {
                 "type": "integer"
+              },
+              "processorCount": {
+                "type": "integer"
+              },
+              "activeProcessorCount": {
+                "type": "integer"
+              },
+              "thermalState": {
+                "type": "string"
+              },
+              "isLowPowerModeEnabled": {
+                "type": "boolean"
+              },
+              "systemUptime": {
+                "type": "number"
               }
             },
             "required": [
-              "pid",
-              "command"
+              "processName",
+              "processIdentifier"
             ]
           }
         },
         {
-          "name": "list_processes",
-          "description": "List Processes.",
+          "name": "list_process_infos",
+          "description": "List ProcessInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_process",
-          "description": "Get a Process by id.",
+          "name": "get_process_info",
+          "description": "Get a ProcessInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +257,40 @@
           }
         },
         {
-          "name": "update_process",
-          "description": "Update a Process.",
+          "name": "update_process_info",
+          "description": "Update a ProcessInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "pid": {
-                "type": "integer"
-              },
-              "command": {
+              "processName": {
                 "type": "string"
               },
-              "state": {
+              "processIdentifier": {
+                "type": "integer"
+              },
+              "operatingSystemVersionString": {
                 "type": "string"
               },
-              "uid": {
+              "physicalMemory": {
                 "type": "integer"
+              },
+              "processorCount": {
+                "type": "integer"
+              },
+              "activeProcessorCount": {
+                "type": "integer"
+              },
+              "thermalState": {
+                "type": "string"
+              },
+              "isLowPowerModeEnabled": {
+                "type": "boolean"
+              },
+              "systemUptime": {
+                "type": "number"
               }
             },
             "required": [
@@ -322,8 +299,8 @@
           }
         },
         {
-          "name": "delete_process",
-          "description": "Delete a Process.",
+          "name": "delete_process_info",
+          "description": "Delete a ProcessInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +314,38 @@
           }
         },
         {
-          "name": "create_thread",
-          "description": "Create a Thread.",
+          "name": "create_operating_system_version",
+          "description": "Create a OperatingSystemVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pid": {
+              "majorVersion": {
                 "type": "integer"
               },
-              "tid": {
+              "minorVersion": {
                 "type": "integer"
               },
-              "state": {
-                "type": "string"
-              },
-              "priority": {
+              "patchVersion": {
                 "type": "integer"
               }
             },
             "required": [
-              "pid",
-              "tid"
+              "majorVersion",
+              "minorVersion"
             ]
           }
         },
         {
-          "name": "list_threads",
-          "description": "List Threads.",
+          "name": "list_operating_system_versions",
+          "description": "List OperatingSystemVersions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_thread",
-          "description": "Get a Thread by id.",
+          "name": "get_operating_system_version",
+          "description": "Get a OperatingSystemVersion by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +359,21 @@
           }
         },
         {
-          "name": "update_thread",
-          "description": "Update a Thread.",
+          "name": "update_operating_system_version",
+          "description": "Update a OperatingSystemVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "pid": {
+              "majorVersion": {
                 "type": "integer"
               },
-              "tid": {
+              "minorVersion": {
                 "type": "integer"
               },
-              "state": {
-                "type": "string"
-              },
-              "priority": {
+              "patchVersion": {
                 "type": "integer"
               }
             },
@@ -412,8 +383,8 @@
           }
         },
         {
-          "name": "delete_thread",
-          "description": "Delete a Thread.",
+          "name": "delete_operating_system_version",
+          "description": "Delete a OperatingSystemVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,41 +398,31 @@
           }
         },
         {
-          "name": "create_file_descriptor",
-          "description": "Create a FileDescriptor.",
+          "name": "create_comparison_result",
+          "description": "Create a ComparisonResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pid": {
-                "type": "integer"
-              },
-              "fd": {
-                "type": "integer"
-              },
-              "path": {
-                "type": "string"
-              },
-              "mode": {
+              "result": {
                 "type": "string"
               }
             },
             "required": [
-              "pid",
-              "fd"
+              "result"
             ]
           }
         },
         {
-          "name": "list_file_descriptors",
-          "description": "List FileDescriptors.",
+          "name": "list_comparison_results",
+          "description": "List ComparisonResults.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_file_descriptor",
-          "description": "Get a FileDescriptor by id.",
+          "name": "get_comparison_result",
+          "description": "Get a ComparisonResult by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +436,15 @@
           }
         },
         {
-          "name": "update_file_descriptor",
-          "description": "Update a FileDescriptor.",
+          "name": "update_comparison_result",
+          "description": "Update a ComparisonResult.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "pid": {
-                "type": "integer"
-              },
-              "fd": {
-                "type": "integer"
-              },
-              "path": {
-                "type": "string"
-              },
-              "mode": {
+              "result": {
                 "type": "string"
               }
             },
@@ -502,266 +454,8 @@
           }
         },
         {
-          "name": "delete_file_descriptor",
-          "description": "Delete a FileDescriptor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_syscall",
-          "description": "Create a Syscall.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "argCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "number"
-            ]
-          }
-        },
-        {
-          "name": "list_syscalls",
-          "description": "List Syscalls.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_syscall",
-          "description": "Get a Syscall by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_syscall",
-          "description": "Update a Syscall.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "argCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_syscall",
-          "description": "Delete a Syscall.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_memory_region",
-          "description": "Create a MemoryRegion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "integer"
-              },
-              "startAddr": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "perms": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "pid",
-              "startAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_memory_regions",
-          "description": "List MemoryRegions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_memory_region",
-          "description": "Get a MemoryRegion by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_memory_region",
-          "description": "Update a MemoryRegion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pid": {
-                "type": "integer"
-              },
-              "startAddr": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "perms": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_memory_region",
-          "description": "Delete a MemoryRegion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_signal",
-          "description": "Create a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "integer"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "action": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "pid",
-              "number"
-            ]
-          }
-        },
-        {
-          "name": "list_signals",
-          "description": "List Signals.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_signal",
-          "description": "Update a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "pid": {
-                "type": "integer"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "action": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
+          "name": "delete_comparison_result",
+          "description": "Delete a ComparisonResult.",
           "inputSchema": {
             "type": "object",
             "properties": {

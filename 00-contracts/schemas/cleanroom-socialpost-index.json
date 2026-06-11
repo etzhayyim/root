@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 190,
-  "totalVerifiedEnumFields": 810,
+  "l5VerifiedActors": 195,
+  "totalVerifiedEnumFields": 820,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -1577,8 +1577,8 @@
       "source": "censusgov.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "censys-compat",
@@ -3847,8 +3847,8 @@
       "source": "google_workspace.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "google_cirq-compat",
@@ -4167,8 +4167,8 @@
       "source": "hologram.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "honeycomb-compat",
@@ -4427,8 +4427,8 @@
       "source": "iers_earth_rotation.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "ietf_rfcs-compat",
@@ -5367,8 +5367,8 @@
       "source": "macos_darwin.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "maersk_api-compat",

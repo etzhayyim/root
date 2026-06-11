@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 805,
-    "L5": 195
+    "L4": 800,
+    "L5": 200
   },
   "actors": [
     {
@@ -2825,10 +2825,10 @@
     {
       "handle": "censusgov-compat",
       "did": "did:web:etzhayyim.com:actor:censusgov-compat",
-      "wasmCid": "bafkreie6v6hjj2l4bi2z5z5loix6nla2tgbgz32igyuqg6y44lcxf6yfiy",
+      "wasmCid": "bafkreie3bo2l3zxivbkio2btl7bzeoypopixjczflramk7ovknrc7zmgfq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "censusgov clean-room actor",
       "category": "us_federal",
       "capabilities": [
@@ -6911,10 +6911,10 @@
     {
       "handle": "google-workspace-compat",
       "did": "did:web:etzhayyim.com:actor:google-workspace-compat",
-      "wasmCid": "bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
+      "wasmCid": "bafkreieo3rb2x6w5h3fefrhgdv5t5m34y5gos5vo5u24wqocxj6w75c6qq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "google-workspace clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -7487,10 +7487,10 @@
     {
       "handle": "hologram-compat",
       "did": "did:web:etzhayyim.com:actor:hologram-compat",
-      "wasmCid": "bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+      "wasmCid": "bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "hologram clean-room actor",
       "category": "iot_edge",
       "capabilities": [
@@ -7955,10 +7955,10 @@
     {
       "handle": "iers_earth_rotation-compat",
       "did": "did:web:etzhayyim.com:actor:iers_earth_rotation-compat",
-      "wasmCid": "bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+      "wasmCid": "bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "iers_earth_rotation clean-room actor",
       "category": "physical_benchmarks_classifications",
       "capabilities": [
@@ -9647,10 +9647,10 @@
     {
       "handle": "macos_darwin-compat",
       "did": "did:web:etzhayyim.com:actor:macos_darwin-compat",
-      "wasmCid": "bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
+      "wasmCid": "bafkreigexoafpjhnhijfwnq5m6dw3frpoqq5wslga5amjvayqcev3ukola",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "macos_darwin clean-room actor",
       "category": "os_kernel",
       "capabilities": [

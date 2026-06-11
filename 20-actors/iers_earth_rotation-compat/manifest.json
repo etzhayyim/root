@@ -5,21 +5,40 @@
   "kind": "compat",
   "title": "iers_earth_rotation clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (iers_earth_rotation); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+  "wasmCid": "bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+  "ipfs": "ipfs://bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
   "schema": "schema/iers_earth_rotation.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://maia.usno.navy.mil/ser7/readme.finals2000A (official finals2000A format specification)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "EopRecord",
+      "BulletinBValues"
+    ],
+    "enums": {
+      "EopRecord": {
+        "polarMotionFlag": [
+          "I",
+          "P"
+        ],
+        "ut1Flag": [
+          "I",
+          "P"
+        ],
+        "nutationFlag": [
+          "I",
+          "P"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Code",
-    "Unit",
-    "Reference",
-    "Mapping",
-    "Location",
-    "Epoch"
+    "EopRecord",
+    "BulletinBValues"
   ],
   "adr": [
     "260607",
@@ -31,157 +50,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/codes",
-          "op": "create Code"
+          "path": "/v1/eoprecords",
+          "op": "create EopRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/codes",
-          "op": "list Code"
+          "path": "/v1/eoprecords",
+          "op": "list EopRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/codes/{id}",
-          "op": "get Code"
+          "path": "/v1/eoprecords/{id}",
+          "op": "get EopRecord"
         },
         {
           "method": "PATCH",
-          "path": "/v1/codes/{id}",
-          "op": "update Code"
+          "path": "/v1/eoprecords/{id}",
+          "op": "update EopRecord"
         },
         {
           "method": "DELETE",
-          "path": "/v1/codes/{id}",
-          "op": "delete Code"
+          "path": "/v1/eoprecords/{id}",
+          "op": "delete EopRecord"
         },
         {
           "method": "POST",
-          "path": "/v1/units",
-          "op": "create Unit"
+          "path": "/v1/bulletinbvalueses",
+          "op": "create BulletinBValues"
         },
         {
           "method": "GET",
-          "path": "/v1/units",
-          "op": "list Unit"
+          "path": "/v1/bulletinbvalueses",
+          "op": "list BulletinBValues"
         },
         {
           "method": "GET",
-          "path": "/v1/units/{id}",
-          "op": "get Unit"
+          "path": "/v1/bulletinbvalueses/{id}",
+          "op": "get BulletinBValues"
         },
         {
           "method": "PATCH",
-          "path": "/v1/units/{id}",
-          "op": "update Unit"
+          "path": "/v1/bulletinbvalueses/{id}",
+          "op": "update BulletinBValues"
         },
         {
           "method": "DELETE",
-          "path": "/v1/units/{id}",
-          "op": "delete Unit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/references",
-          "op": "create Reference"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/references",
-          "op": "list Reference"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/references/{id}",
-          "op": "get Reference"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/references/{id}",
-          "op": "update Reference"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/references/{id}",
-          "op": "delete Reference"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/mappings",
-          "op": "create Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings",
-          "op": "list Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings/{id}",
-          "op": "get Mapping"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/mappings/{id}",
-          "op": "update Mapping"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/mappings/{id}",
-          "op": "delete Mapping"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/locations",
-          "op": "create Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations",
-          "op": "list Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations/{id}",
-          "op": "get Location"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/locations/{id}",
-          "op": "update Location"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/locations/{id}",
-          "op": "delete Location"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/epoches",
-          "op": "create Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches",
-          "op": "list Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches/{id}",
-          "op": "get Epoch"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/epoches/{id}",
-          "op": "update Epoch"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/epoches/{id}",
-          "op": "delete Epoch"
+          "path": "/v1/bulletinbvalueses/{id}",
+          "op": "delete BulletinBValues"
         }
       ],
       "features": {
@@ -244,305 +163,74 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
-          "name": "create_code",
-          "description": "Create a Code.",
+          "name": "create_eop_record",
+          "description": "Create a EopRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "code": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "description"
-            ]
-          }
-        },
-        {
-          "name": "list_codes",
-          "description": "List Codes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_code",
-          "description": "Get a Code by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_code",
-          "description": "Update a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_code",
-          "description": "Delete a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_unit",
-          "description": "Create a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "symbol",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_units",
-          "description": "List Units.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_unit",
-          "description": "Get a Unit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_unit",
-          "description": "Update a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_unit",
-          "description": "Delete a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_reference",
-          "description": "Create a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "value": {
+              "mjd": {
                 "type": "number"
               },
-              "uncertainty": {
+              "pmX": {
                 "type": "number"
               },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_references",
-          "description": "List References.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_reference",
-          "description": "Get a Reference by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_reference",
-          "description": "Update a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
+              "pmXError": {
                 "type": "number"
               },
-              "uncertainty": {
+              "pmY": {
                 "type": "number"
               },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_reference",
-          "description": "Delete a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mapping",
-          "description": "Create a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fromCode": {
+              "pmYError": {
+                "type": "number"
+              },
+              "ut1MinusUtc": {
+                "type": "number"
+              },
+              "ut1Error": {
+                "type": "number"
+              },
+              "lod": {
+                "type": "number"
+              },
+              "lodError": {
+                "type": "number"
+              },
+              "dX": {
+                "type": "number"
+              },
+              "dY": {
+                "type": "number"
+              },
+              "polarMotionFlag": {
                 "type": "string"
               },
-              "toScheme": {
+              "ut1Flag": {
                 "type": "string"
               },
-              "toCode": {
+              "nutationFlag": {
                 "type": "string"
               }
             },
             "required": [
-              "fromCode",
-              "toScheme"
+              "mjd",
+              "pmX"
             ]
           }
         },
         {
-          "name": "list_mappings",
-          "description": "List Mappings.",
+          "name": "list_eop_records",
+          "description": "List EopRecords.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_mapping",
-          "description": "Get a Mapping by id.",
+          "name": "get_eop_record",
+          "description": "Get a EopRecord by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,21 +244,54 @@
           }
         },
         {
-          "name": "update_mapping",
-          "description": "Update a Mapping.",
+          "name": "update_eop_record",
+          "description": "Update a EopRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "fromCode": {
+              "mjd": {
+                "type": "number"
+              },
+              "pmX": {
+                "type": "number"
+              },
+              "pmXError": {
+                "type": "number"
+              },
+              "pmY": {
+                "type": "number"
+              },
+              "pmYError": {
+                "type": "number"
+              },
+              "ut1MinusUtc": {
+                "type": "number"
+              },
+              "ut1Error": {
+                "type": "number"
+              },
+              "lod": {
+                "type": "number"
+              },
+              "lodError": {
+                "type": "number"
+              },
+              "dX": {
+                "type": "number"
+              },
+              "dY": {
+                "type": "number"
+              },
+              "polarMotionFlag": {
                 "type": "string"
               },
-              "toScheme": {
+              "ut1Flag": {
                 "type": "string"
               },
-              "toCode": {
+              "nutationFlag": {
                 "type": "string"
               }
             },
@@ -580,8 +301,8 @@
           }
         },
         {
-          "name": "delete_mapping",
-          "description": "Delete a Mapping.",
+          "name": "delete_eop_record",
+          "description": "Delete a EopRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +316,44 @@
           }
         },
         {
-          "name": "create_location",
-          "description": "Create a Location.",
+          "name": "create_bulletin_b_values",
+          "description": "Create a BulletinBValues.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "unLocode": {
-                "type": "string"
+              "pmX": {
+                "type": "number"
               },
-              "name": {
-                "type": "string"
+              "pmY": {
+                "type": "number"
               },
-              "country": {
-                "type": "string"
+              "ut1MinusUtc": {
+                "type": "number"
+              },
+              "dX": {
+                "type": "number"
+              },
+              "dY": {
+                "type": "number"
               }
             },
             "required": [
-              "unLocode",
-              "name"
+              "pmX",
+              "pmY"
             ]
           }
         },
         {
-          "name": "list_locations",
-          "description": "List Locations.",
+          "name": "list_bulletin_b_valueses",
+          "description": "List BulletinBValueses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_location",
-          "description": "Get a Location by id.",
+          "name": "get_bulletin_b_values",
+          "description": "Get a BulletinBValues by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,22 +367,28 @@
           }
         },
         {
-          "name": "update_location",
-          "description": "Update a Location.",
+          "name": "update_bulletin_b_values",
+          "description": "Update a BulletinBValues.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "unLocode": {
-                "type": "string"
+              "pmX": {
+                "type": "number"
               },
-              "name": {
-                "type": "string"
+              "pmY": {
+                "type": "number"
               },
-              "country": {
-                "type": "string"
+              "ut1MinusUtc": {
+                "type": "number"
+              },
+              "dX": {
+                "type": "number"
+              },
+              "dY": {
+                "type": "number"
               }
             },
             "required": [
@@ -664,92 +397,8 @@
           }
         },
         {
-          "name": "delete_location",
-          "description": "Delete a Location.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_epoch",
-          "description": "Create a Epoch.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "utcOffset"
-            ]
-          }
-        },
-        {
-          "name": "list_epoches",
-          "description": "List Epoches.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_epoch",
-          "description": "Get a Epoch by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_epoch",
-          "description": "Update a Epoch.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_epoch",
-          "description": "Delete a Epoch.",
+          "name": "delete_bulletin_b_values",
+          "description": "Delete a BulletinBValues.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -5,68 +5,63 @@ namespace hologram {
 
     entity Device {
         id: string @unique
-        serial: string
-        model: string
-        status: string
-        firmware: string
+        orgid: integer
+        name: string
+        type: string
+        whencreated: datetime
+        phonenumber: string
+        tunnelable: boolean
+        imei: string
+        hidden: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Telemetry {
+    entity CellularLink {
         id: string @unique
-        deviceId: string
-        metric: string
-        value: float
-        recordedAt: datetime
+        deviceid: integer
+        devicename: string
+        orgid: integer
+        sim: string
+        msisdn: string
+        state: string
+        whenclaimed: datetime
+        whenexpires: datetime
+        euiccType: string
+        euiccState: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Gateway {
+    entity DataPlan {
         id: string @unique
         name: string
-        location: string
-        deviceCount: integer
+        partnerid: integer
+        description: string
+        data: integer
+        recurring: boolean
+        enabled: boolean
+        billingperiod: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Command {
+    entity SmsRecord {
         id: string @unique
-        deviceId: string
+        linkid: integer
+        recordId: integer
+        timestamp: datetime
+        direction: string
+        otherNumber: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tag {
+        id: string @unique
         name: string
-        payload: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Firmware {
-        id: string @unique
-        model: string
-        version: string
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Alert {
-        id: string @unique
-        deviceId: string
-        rule: string
-        severity: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29410,
+  "totalEndpoints": 29350,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 190,
-  "totalVerifiedEnumFields": 810,
+  "l5VerifiedActors": 195,
+  "totalVerifiedEnumFields": 820,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -2978,10 +2978,10 @@
     {
       "handle": "censusgov-compat",
       "did": "did:web:etzhayyim.com:actor:censusgov-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreie6v6hjj2l4bi2z5z5loix6nla2tgbgz32igyuqg6y44lcxf6yfiy",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreie3bo2l3zxivbkio2btl7bzeoypopixjczflramk7ovknrc7zmgfq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -2990,8 +2990,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/censusgov-compat/openapi.json"
     },
     {
@@ -7291,10 +7291,10 @@
     {
       "handle": "google-workspace-compat",
       "did": "did:web:etzhayyim.com:actor:google-workspace-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreieo3rb2x6w5h3fefrhgdv5t5m34y5gos5vo5u24wqocxj6w75c6qq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -7303,8 +7303,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/google-workspace-compat/openapi.json"
     },
     {
@@ -7899,10 +7899,10 @@
     {
       "handle": "hologram-compat",
       "did": "did:web:etzhayyim.com:actor:hologram-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -7911,8 +7911,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/hologram-compat/openapi.json"
     },
     {
@@ -8393,10 +8393,10 @@
     {
       "handle": "iers_earth_rotation-compat",
       "did": "did:web:etzhayyim.com:actor:iers_earth_rotation-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -8405,8 +8405,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/iers_earth_rotation-compat/openapi.json"
     },
     {
@@ -10179,10 +10179,10 @@
     {
       "handle": "macos_darwin-compat",
       "did": "did:web:etzhayyim.com:actor:macos_darwin-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreigexoafpjhnhijfwnq5m6dw3frpoqq5wslga5amjvayqcev3ukola",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -10191,8 +10191,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/macos_darwin-compat/openapi.json"
     },
     {

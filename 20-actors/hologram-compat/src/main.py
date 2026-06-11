@@ -115,17 +115,21 @@ def _expand(rec, params, refs):
 def create_device(request):
     """Create a Device."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
+    err = _reject_unknown(data, ['orgid', 'name', 'type', 'whencreated', 'phonenumber', 'tunnelable', 'imei', 'hidden'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'model'])
+    err = _require(data, ['orgid', 'name'])
     if err:
         return err, 400
     rec = {"id": new_id("hologram_dev")}
-    rec["serial"] = data.get('serial')
-    rec["model"] = data.get('model')
-    rec["status"] = data.get('status')
-    rec["firmware"] = data.get('firmware')
+    rec["orgid"] = _as_int(data.get('orgid'))
+    rec["name"] = data.get('name')
+    rec["type"] = data.get('type')
+    rec["whencreated"] = data.get('whencreated')
+    rec["phonenumber"] = data.get('phonenumber')
+    rec["tunnelable"] = _as_bool(data.get('tunnelable'))
+    rec["imei"] = data.get('imei')
+    rec["hidden"] = _as_bool(data.get('hidden'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Device", rec)
@@ -136,7 +140,7 @@ def list_devices(request):
     """List Devices with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Device")
-    rows = _apply_filters(rows, params, ['serial', 'model', 'status', 'firmware'])
+    rows = _apply_filters(rows, params, ['orgid', 'name', 'type', 'whencreated', 'phonenumber', 'tunnelable', 'imei', 'hidden'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +161,7 @@ def update_device(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
+    err = _reject_unknown(data, ['orgid', 'name', 'type', 'whencreated', 'phonenumber', 'tunnelable', 'imei', 'hidden'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,119 +181,136 @@ def delete_device(request, eid):
     db.retract({"entity": f"hologram.Device", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/telemetries", methods=["POST"])
-def create_telemetry(request):
-    """Create a Telemetry."""
+@app.route("/v1/cellularlinks", methods=["POST"])
+def create_cellular_link(request):
+    """Create a CellularLink."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
+    err = _reject_unknown(data, ['deviceid', 'devicename', 'orgid', 'sim', 'msisdn', 'state', 'whenclaimed', 'whenexpires', 'euiccType', 'euiccState'])
     if err:
         return err, 400
-    err = _require(data, ['metric', 'value'])
+    err = _require(data, ['deviceid', 'devicename'])
     if err:
         return err, 400
-    rec = {"id": new_id("hologram_tel")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["metric"] = data.get('metric')
-    rec["value"] = _as_float(data.get('value'))
-    rec["recordedAt"] = data.get('recordedAt')
+    if data.get('euiccType') and data['euiccType'] not in ['UICC', 'BOOTSTRAP', 'OPERATIONAL']:
+        return {"error": {"message": "invalid euiccType; allowed: " + ", ".join(['UICC', 'BOOTSTRAP', 'OPERATIONAL']), "type": "invalid_request_error"}}, 400
+    if data.get('euiccState') and data['euiccState'] not in ['DOWNLOADED', 'ENABLED', 'DISABLED']:
+        return {"error": {"message": "invalid euiccState; allowed: " + ", ".join(['DOWNLOADED', 'ENABLED', 'DISABLED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("hologram_cel")}
+    rec["deviceid"] = _as_int(data.get('deviceid'))
+    rec["devicename"] = data.get('devicename')
+    rec["orgid"] = _as_int(data.get('orgid'))
+    rec["sim"] = data.get('sim')
+    rec["msisdn"] = data.get('msisdn')
+    rec["state"] = data.get('state')
+    rec["whenclaimed"] = data.get('whenclaimed')
+    rec["whenexpires"] = data.get('whenexpires')
+    rec["euiccType"] = data.get('euiccType')
+    rec["euiccState"] = data.get('euiccState')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Telemetry", rec)
+    _persist("CellularLink", rec)
     return rec, 201
 
-@app.route("/v1/telemetries", methods=["GET"])
-def list_telemetries(request):
-    """List Telemetries with filtering + cursor pagination."""
+@app.route("/v1/cellularlinks", methods=["GET"])
+def list_cellular_links(request):
+    """List CellularLinks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Telemetry")
-    rows = _apply_filters(rows, params, ['deviceId', 'metric', 'value', 'recordedAt'])
+    rows = _query("CellularLink")
+    rows = _apply_filters(rows, params, ['deviceid', 'devicename', 'orgid', 'sim', 'msisdn', 'state', 'whenclaimed', 'whenexpires', 'euiccType', 'euiccState'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["GET"])
-def get_telemetry(request, eid):
-    """Retrieve a Telemetry by id (supports ?expand=)."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/cellularlinks/<eid>", methods=["GET"])
+def get_cellular_link(request, eid):
+    """Retrieve a CellularLink by id (supports ?expand=)."""
+    rows = _query("CellularLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["POST", "PATCH"])
-def update_telemetry(request, eid):
-    """Update a Telemetry."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/cellularlinks/<eid>", methods=["POST", "PATCH"])
+def update_cellular_link(request, eid):
+    """Update a CellularLink."""
+    rows = _query("CellularLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
+    err = _reject_unknown(data, ['deviceid', 'devicename', 'orgid', 'sim', 'msisdn', 'state', 'whenclaimed', 'whenexpires', 'euiccType', 'euiccState'])
     if err:
         return err, 400
+    if data.get('euiccType') and data['euiccType'] not in ['UICC', 'BOOTSTRAP', 'OPERATIONAL']:
+        return {"error": {"message": "invalid euiccType; allowed: " + ", ".join(['UICC', 'BOOTSTRAP', 'OPERATIONAL']), "type": "invalid_request_error"}}, 400
+    if data.get('euiccState') and data['euiccState'] not in ['DOWNLOADED', 'ENABLED', 'DISABLED']:
+        return {"error": {"message": "invalid euiccState; allowed: " + ", ".join(['DOWNLOADED', 'ENABLED', 'DISABLED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Telemetry", rec)
+    _persist("CellularLink", rec)
     return rec, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["DELETE"])
-def delete_telemetry(request, eid):
-    """Delete a Telemetry."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/cellularlinks/<eid>", methods=["DELETE"])
+def delete_cellular_link(request, eid):
+    """Delete a CellularLink."""
+    rows = _query("CellularLink", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hologram.Telemetry", "id": eid})
+    db.retract({"entity": f"hologram.CellularLink", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/gateways", methods=["POST"])
-def create_gateway(request):
-    """Create a Gateway."""
+@app.route("/v1/dataplans", methods=["POST"])
+def create_data_plan(request):
+    """Create a DataPlan."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
+    err = _reject_unknown(data, ['name', 'partnerid', 'description', 'data', 'recurring', 'enabled', 'billingperiod'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'location'])
+    err = _require(data, ['name', 'partnerid'])
     if err:
         return err, 400
-    rec = {"id": new_id("hologram_gat")}
+    rec = {"id": new_id("hologram_dat")}
     rec["name"] = data.get('name')
-    rec["location"] = data.get('location')
-    rec["deviceCount"] = _as_int(data.get('deviceCount'))
+    rec["partnerid"] = _as_int(data.get('partnerid'))
+    rec["description"] = data.get('description')
+    rec["data"] = _as_int(data.get('data'))
+    rec["recurring"] = _as_bool(data.get('recurring'))
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["billingperiod"] = _as_int(data.get('billingperiod'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Gateway", rec)
+    _persist("DataPlan", rec)
     return rec, 201
 
-@app.route("/v1/gateways", methods=["GET"])
-def list_gateways(request):
-    """List Gateways with filtering + cursor pagination."""
+@app.route("/v1/dataplans", methods=["GET"])
+def list_data_plans(request):
+    """List DataPlans with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Gateway")
-    rows = _apply_filters(rows, params, ['name', 'location', 'deviceCount'])
+    rows = _query("DataPlan")
+    rows = _apply_filters(rows, params, ['name', 'partnerid', 'description', 'data', 'recurring', 'enabled', 'billingperiod'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/gateways/<eid>", methods=["GET"])
-def get_gateway(request, eid):
-    """Retrieve a Gateway by id (supports ?expand=)."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/dataplans/<eid>", methods=["GET"])
+def get_data_plan(request, eid):
+    """Retrieve a DataPlan by id (supports ?expand=)."""
+    rows = _query("DataPlan", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/gateways/<eid>", methods=["POST", "PATCH"])
-def update_gateway(request, eid):
-    """Update a Gateway."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/dataplans/<eid>", methods=["POST", "PATCH"])
+def update_data_plan(request, eid):
+    """Update a DataPlan."""
+    rows = _query("DataPlan", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
+    err = _reject_unknown(data, ['name', 'partnerid', 'description', 'data', 'recurring', 'enabled', 'billingperiod'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,66 +318,129 @@ def update_gateway(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Gateway", rec)
+    _persist("DataPlan", rec)
     return rec, 200
 
-@app.route("/v1/gateways/<eid>", methods=["DELETE"])
-def delete_gateway(request, eid):
-    """Delete a Gateway."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/dataplans/<eid>", methods=["DELETE"])
+def delete_data_plan(request, eid):
+    """Delete a DataPlan."""
+    rows = _query("DataPlan", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hologram.Gateway", "id": eid})
+    db.retract({"entity": f"hologram.DataPlan", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
+@app.route("/v1/smsrecords", methods=["POST"])
+def create_sms_record(request):
+    """Create a SmsRecord."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
+    err = _reject_unknown(data, ['linkid', 'recordId', 'timestamp', 'direction', 'otherNumber'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'payload'])
+    err = _require(data, ['linkid', 'timestamp'])
     if err:
         return err, 400
-    rec = {"id": new_id("hologram_com")}
-    rec["deviceId"] = data.get('deviceId')
+    rec = {"id": new_id("hologram_sms")}
+    rec["linkid"] = _as_int(data.get('linkid'))
+    rec["recordId"] = _as_int(data.get('recordId'))
+    rec["timestamp"] = data.get('timestamp')
+    rec["direction"] = data.get('direction')
+    rec["otherNumber"] = data.get('otherNumber')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SmsRecord", rec)
+    return rec, 201
+
+@app.route("/v1/smsrecords", methods=["GET"])
+def list_sms_records(request):
+    """List SmsRecords with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SmsRecord")
+    rows = _apply_filters(rows, params, ['linkid', 'recordId', 'timestamp', 'direction', 'otherNumber'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/smsrecords/<eid>", methods=["GET"])
+def get_sms_record(request, eid):
+    """Retrieve a SmsRecord by id (supports ?expand=)."""
+    rows = _query("SmsRecord", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/smsrecords/<eid>", methods=["POST", "PATCH"])
+def update_sms_record(request, eid):
+    """Update a SmsRecord."""
+    rows = _query("SmsRecord", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['linkid', 'recordId', 'timestamp', 'direction', 'otherNumber'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SmsRecord", rec)
+    return rec, 200
+
+@app.route("/v1/smsrecords/<eid>", methods=["DELETE"])
+def delete_sms_record(request, eid):
+    """Delete a SmsRecord."""
+    rows = _query("SmsRecord", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"hologram.SmsRecord", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tags", methods=["POST"])
+def create_tag(request):
+    """Create a Tag."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name'])
+    if err:
+        return err, 400
+    err = _require(data, ['name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("hologram_tag")}
     rec["name"] = data.get('name')
-    rec["payload"] = data.get('payload')
-    rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
+    _persist("Tag", rec)
     return rec, 201
 
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
+@app.route("/v1/tags", methods=["GET"])
+def list_tags(request):
+    """List Tags with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['deviceId', 'name', 'payload', 'status'])
+    rows = _query("Tag")
+    rows = _apply_filters(rows, params, ['name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
+@app.route("/v1/tags/<eid>", methods=["GET"])
+def get_tag(request, eid):
+    """Retrieve a Tag by id (supports ?expand=)."""
+    rows = _query("Tag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/tags/<eid>", methods=["POST", "PATCH"])
+def update_tag(request, eid):
+    """Update a Tag."""
+    rows = _query("Tag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
+    err = _reject_unknown(data, ['name'])
     if err:
         return err, 400
     rec = rows[0]
@@ -364,153 +448,22 @@ def update_command(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Command", rec)
+    _persist("Tag", rec)
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/tags/<eid>", methods=["DELETE"])
+def delete_tag(request, eid):
+    """Delete a Tag."""
+    rows = _query("Tag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hologram.Command", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/firmwares", methods=["POST"])
-def create_firmware(request):
-    """Create a Firmware."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['model', 'version'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("hologram_fir")}
-    rec["model"] = data.get('model')
-    rec["version"] = data.get('version')
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Firmware", rec)
-    return rec, 201
-
-@app.route("/v1/firmwares", methods=["GET"])
-def list_firmwares(request):
-    """List Firmwares with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Firmware")
-    rows = _apply_filters(rows, params, ['model', 'version', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/firmwares/<eid>", methods=["GET"])
-def get_firmware(request, eid):
-    """Retrieve a Firmware by id (supports ?expand=)."""
-    rows = _query("Firmware", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/firmwares/<eid>", methods=["POST", "PATCH"])
-def update_firmware(request, eid):
-    """Update a Firmware."""
-    rows = _query("Firmware", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Firmware", rec)
-    return rec, 200
-
-@app.route("/v1/firmwares/<eid>", methods=["DELETE"])
-def delete_firmware(request, eid):
-    """Delete a Firmware."""
-    rows = _query("Firmware", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hologram.Firmware", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
-    if err:
-        return err, 400
-    err = _require(data, ['rule', 'severity'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("hologram_ale")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["rule"] = data.get('rule')
-    rec["severity"] = data.get('severity')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
-    return rec, 201
-
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['deviceId', 'rule', 'severity'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Alert", rec)
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"hologram.Alert", "id": eid})
+    db.retract({"entity": f"hologram.Tag", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "hologram-compat", "tier": "L4",
-            "entities": ['Device', 'Telemetry', 'Gateway', 'Command', 'Firmware', 'Alert']}, 200
+            "entities": ['Device', 'CellularLink', 'DataPlan', 'SmsRecord', 'Tag']}, 200
 
 
 if __name__ == "__main__":

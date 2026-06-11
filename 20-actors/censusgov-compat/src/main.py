@@ -111,151 +111,28 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'period', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['form', 'period'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("censusgo_fil")}
-    rec["filerId"] = data.get('filerId')
-    rec["form"] = data.get('form')
-    rec["period"] = data.get('period')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
-    return rec, 201
-
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['filerId', 'form', 'period', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'period', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Filing", rec)
-    return rec, 200
-
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"censusgov.Filing", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/entities", methods=["POST"])
-def create_entity(request):
-    """Create a Entity."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ein', 'jurisdiction'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'ein'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("censusgo_ent")}
-    rec["name"] = data.get('name')
-    rec["ein"] = data.get('ein')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Entity", rec)
-    return rec, 201
-
-@app.route("/v1/entities", methods=["GET"])
-def list_entities(request):
-    """List Entities with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Entity")
-    rows = _apply_filters(rows, params, ['name', 'ein', 'jurisdiction'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/entities/<eid>", methods=["GET"])
-def get_entity(request, eid):
-    """Retrieve a Entity by id (supports ?expand=)."""
-    rows = _query("Entity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/entities/<eid>", methods=["POST", "PATCH"])
-def update_entity(request, eid):
-    """Update a Entity."""
-    rows = _query("Entity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ein', 'jurisdiction'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Entity", rec)
-    return rec, 200
-
-@app.route("/v1/entities/<eid>", methods=["DELETE"])
-def delete_entity(request, eid):
-    """Delete a Entity."""
-    rows = _query("Entity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"censusgov.Entity", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/datasets", methods=["POST"])
 def create_dataset(request):
     """Create a Dataset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
+    err = _reject_unknown(data, ['title', 'description', 'identifier', 'accessLevel', 'modified', 'cVintage', 'cIsAggregate', 'cIsCube', 'cIsAvailable'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'agency'])
+    err = _require(data, ['title', 'description'])
     if err:
         return err, 400
+    if data.get('accessLevel') and data['accessLevel'] not in ['public', 'restricted public', 'non-public']:
+        return {"error": {"message": "invalid accessLevel; allowed: " + ", ".join(['public', 'restricted public', 'non-public']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("censusgo_dat")}
-    rec["name"] = data.get('name')
-    rec["agency"] = data.get('agency')
-    rec["updatedAt"] = data.get('updatedAt')
+    rec["title"] = data.get('title')
+    rec["description"] = data.get('description')
+    rec["identifier"] = data.get('identifier')
+    rec["accessLevel"] = data.get('accessLevel')
+    rec["modified"] = data.get('modified')
+    rec["cVintage"] = _as_int(data.get('cVintage'))
+    rec["cIsAggregate"] = _as_bool(data.get('cIsAggregate'))
+    rec["cIsCube"] = _as_bool(data.get('cIsCube'))
+    rec["cIsAvailable"] = _as_bool(data.get('cIsAvailable'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Dataset", rec)
@@ -266,7 +143,7 @@ def list_datasets(request):
     """List Datasets with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'agency', 'updatedAt'])
+    rows = _apply_filters(rows, params, ['title', 'description', 'identifier', 'accessLevel', 'modified', 'cVintage', 'cIsAggregate', 'cIsCube', 'cIsAvailable'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -287,9 +164,11 @@ def update_dataset(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
+    err = _reject_unknown(data, ['title', 'description', 'identifier', 'accessLevel', 'modified', 'cVintage', 'cIsAggregate', 'cIsCube', 'cIsAvailable'])
     if err:
         return err, 400
+    if data.get('accessLevel') and data['accessLevel'] not in ['public', 'restricted public', 'non-public']:
+        return {"error": {"message": "invalid accessLevel; allowed: " + ", ".join(['public', 'restricted public', 'non-public']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -307,52 +186,54 @@ def delete_dataset(request, eid):
     db.retract({"entity": f"censusgov.Dataset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/applications", methods=["POST"])
-def create_application(request):
-    """Create a Application."""
+@app.route("/v1/variables", methods=["POST"])
+def create_variable(request):
+    """Create a Variable."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['applicantId', 'program', 'status'])
+    err = _reject_unknown(data, ['label', 'concept', 'predicateType', 'group', 'limit'])
     if err:
         return err, 400
-    err = _require(data, ['program', 'status'])
+    err = _require(data, ['label', 'concept'])
     if err:
         return err, 400
-    rec = {"id": new_id("censusgo_app")}
-    rec["applicantId"] = data.get('applicantId')
-    rec["program"] = data.get('program')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("censusgo_var")}
+    rec["label"] = data.get('label')
+    rec["concept"] = data.get('concept')
+    rec["predicateType"] = data.get('predicateType')
+    rec["group"] = data.get('group')
+    rec["limit"] = _as_int(data.get('limit'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Application", rec)
+    _persist("Variable", rec)
     return rec, 201
 
-@app.route("/v1/applications", methods=["GET"])
-def list_applications(request):
-    """List Applications with filtering + cursor pagination."""
+@app.route("/v1/variables", methods=["GET"])
+def list_variables(request):
+    """List Variables with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Application")
-    rows = _apply_filters(rows, params, ['applicantId', 'program', 'status'])
+    rows = _query("Variable")
+    rows = _apply_filters(rows, params, ['label', 'concept', 'predicateType', 'group', 'limit'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/applications/<eid>", methods=["GET"])
-def get_application(request, eid):
-    """Retrieve a Application by id (supports ?expand=)."""
-    rows = _query("Application", eid)
+@app.route("/v1/variables/<eid>", methods=["GET"])
+def get_variable(request, eid):
+    """Retrieve a Variable by id (supports ?expand=)."""
+    rows = _query("Variable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
-def update_application(request, eid):
-    """Update a Application."""
-    rows = _query("Application", eid)
+@app.route("/v1/variables/<eid>", methods=["POST", "PATCH"])
+def update_variable(request, eid):
+    """Update a Variable."""
+    rows = _query("Variable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['applicantId', 'program', 'status'])
+    err = _reject_unknown(data, ['label', 'concept', 'predicateType', 'group', 'limit'])
     if err:
         return err, 400
     rec = rows[0]
@@ -360,64 +241,64 @@ def update_application(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Application", rec)
+    _persist("Variable", rec)
     return rec, 200
 
-@app.route("/v1/applications/<eid>", methods=["DELETE"])
-def delete_application(request, eid):
-    """Delete a Application."""
-    rows = _query("Application", eid)
+@app.route("/v1/variables/<eid>", methods=["DELETE"])
+def delete_variable(request, eid):
+    """Delete a Variable."""
+    rows = _query("Variable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"censusgov.Application", "id": eid})
+    db.retract({"entity": f"censusgov.Variable", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/publicrecords", methods=["POST"])
-def create_public_record(request):
-    """Create a PublicRecord."""
+@app.route("/v1/geographies", methods=["POST"])
+def create_geography(request):
+    """Create a Geography."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['recordType', 'jurisdiction', 'recordedAt'])
+    err = _reject_unknown(data, ['name', 'geoLevelDisplay', 'referenceDate'])
     if err:
         return err, 400
-    err = _require(data, ['recordType', 'jurisdiction'])
+    err = _require(data, ['name', 'geoLevelDisplay'])
     if err:
         return err, 400
-    rec = {"id": new_id("censusgo_pub")}
-    rec["recordType"] = data.get('recordType')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["recordedAt"] = data.get('recordedAt')
+    rec = {"id": new_id("censusgo_geo")}
+    rec["name"] = data.get('name')
+    rec["geoLevelDisplay"] = data.get('geoLevelDisplay')
+    rec["referenceDate"] = data.get('referenceDate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("PublicRecord", rec)
+    _persist("Geography", rec)
     return rec, 201
 
-@app.route("/v1/publicrecords", methods=["GET"])
-def list_public_records(request):
-    """List PublicRecords with filtering + cursor pagination."""
+@app.route("/v1/geographies", methods=["GET"])
+def list_geographies(request):
+    """List Geographies with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("PublicRecord")
-    rows = _apply_filters(rows, params, ['recordType', 'jurisdiction', 'recordedAt'])
+    rows = _query("Geography")
+    rows = _apply_filters(rows, params, ['name', 'geoLevelDisplay', 'referenceDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/publicrecords/<eid>", methods=["GET"])
-def get_public_record(request, eid):
-    """Retrieve a PublicRecord by id (supports ?expand=)."""
-    rows = _query("PublicRecord", eid)
+@app.route("/v1/geographies/<eid>", methods=["GET"])
+def get_geography(request, eid):
+    """Retrieve a Geography by id (supports ?expand=)."""
+    rows = _query("Geography", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/publicrecords/<eid>", methods=["POST", "PATCH"])
-def update_public_record(request, eid):
-    """Update a PublicRecord."""
-    rows = _query("PublicRecord", eid)
+@app.route("/v1/geographies/<eid>", methods=["POST", "PATCH"])
+def update_geography(request, eid):
+    """Update a Geography."""
+    rows = _query("Geography", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['recordType', 'jurisdiction', 'recordedAt'])
+    err = _reject_unknown(data, ['name', 'geoLevelDisplay', 'referenceDate'])
     if err:
         return err, 400
     rec = rows[0]
@@ -425,87 +306,22 @@ def update_public_record(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("PublicRecord", rec)
+    _persist("Geography", rec)
     return rec, 200
 
-@app.route("/v1/publicrecords/<eid>", methods=["DELETE"])
-def delete_public_record(request, eid):
-    """Delete a PublicRecord."""
-    rows = _query("PublicRecord", eid)
+@app.route("/v1/geographies/<eid>", methods=["DELETE"])
+def delete_geography(request, eid):
+    """Delete a Geography."""
+    rows = _query("Geography", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"censusgov.PublicRecord", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/notices", methods=["POST"])
-def create_notice(request):
-    """Create a Notice."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'issuedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("censusgo_not")}
-    rec["subjectId"] = data.get('subjectId')
-    rec["type"] = data.get('type')
-    rec["issuedAt"] = data.get('issuedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Notice", rec)
-    return rec, 201
-
-@app.route("/v1/notices", methods=["GET"])
-def list_notices(request):
-    """List Notices with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Notice")
-    rows = _apply_filters(rows, params, ['subjectId', 'type', 'issuedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/notices/<eid>", methods=["GET"])
-def get_notice(request, eid):
-    """Retrieve a Notice by id (supports ?expand=)."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/notices/<eid>", methods=["POST", "PATCH"])
-def update_notice(request, eid):
-    """Update a Notice."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Notice", rec)
-    return rec, 200
-
-@app.route("/v1/notices/<eid>", methods=["DELETE"])
-def delete_notice(request, eid):
-    """Delete a Notice."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"censusgov.Notice", "id": eid})
+    db.retract({"entity": f"censusgov.Geography", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "censusgov-compat", "tier": "L4",
-            "entities": ['Filing', 'Entity', 'Dataset', 'Application', 'PublicRecord', 'Notice']}, 200
+            "entities": ['Dataset', 'Variable', 'Geography']}, 200
 
 
 if __name__ == "__main__":

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "censusgov.kotoba")
-ENTITIES = ['Filing', 'Entity', 'Dataset', 'Application', 'PublicRecord', 'Notice']
-PLURALS = {'Filing': 'filings', 'Entity': 'entities', 'Dataset': 'datasets', 'Application': 'applications', 'PublicRecord': 'publicrecords', 'Notice': 'notices'}
+ENTITIES = ['Dataset', 'Variable', 'Geography']
+PLURALS = {'Dataset': 'datasets', 'Variable': 'variables', 'Geography': 'geographies'}
 
 
 class CensusgovContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class CensusgovContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['accessLevel']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

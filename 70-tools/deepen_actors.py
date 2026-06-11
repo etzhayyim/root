@@ -2687,6 +2687,62 @@ PLATFORM_OVERRIDES["losant"] = {
     "ExperienceUser": E(experienceUserId="string", applicationId="string", creationDate="datetime", lastUpdated="datetime", passwordLastUpdated="datetime", lastLogin="datetime", email="string", firstName="string", lastName="string"),
 }
 
+# Faithful macOS/Darwin model (official Apple developer-docs JSON API).
+# ComparisonResult (3, frozen since NeXTSTEP) + ProcessInfo.ThermalState
+# (4: nominal/fair/serious/critical) enforced.
+PLATFORM_OVERRIDES["macos_darwin"] = {
+    "ProcessInfo": E(processName="string", processIdentifier="integer", operatingSystemVersionString="string", physicalMemory="integer", processorCount="integer", activeProcessorCount="integer", thermalState="string", isLowPowerModeEnabled="boolean", systemUptime="float"),
+    "OperatingSystemVersion": E(majorVersion="integer", minorVersion="integer", patchVersion="integer"),
+    "ComparisonResult": E(result="string"),
+}
+
+# Faithful Google Workspace Admin SDK model (official directory_v1 Discovery
+# document, rev 20260602 — machine-extracted). osVersionCompliance(4,
+# complete lifecycle) + chromeOsType(3, two OS variants + unspecified)
+# enforced; deviceLicenseType(10, license tiers visibly accreted
+# perpetual/fixedTerm variants) gapped; Member.role/type are plain strings
+# (no enum) in the discovery doc -> no enum to enforce.
+PLATFORM_OVERRIDES["google-workspace"] = {
+    "User": E(primaryEmail="string", suspended="boolean", isAdmin="boolean", isDelegatedAdmin="boolean", orgUnitPath="string", creationTime="datetime", lastLoginTime="datetime", agreedToTerms="boolean", archived="boolean"),
+    "Group": E(email="string", name="string", directMembersCount="string", adminCreated="boolean", description="string"),
+    "Member": E(email="string", role="string", type="string", status="string"),
+    "OrgUnit": E(name="string", orgUnitPath="string", parentOrgUnitPath="string", description="string", blockInheritance="boolean"),
+    "ChromeOsDevice": E(serialNumber="string", status="string", chromeOsType="string", osVersionCompliance="string", deviceLicenseType="string", lastSync="datetime"),
+}
+
+# Faithful US Census Bureau API model (official api.census.gov machine-
+# readable metadata: data.json catalog + per-dataset variables.json /
+# geography.json). Dataset.accessLevel enforced from the Project Open Data
+# v1.1 schema's own enum (public / restricted public / non-public).
+# predicateType gapped (observed values, no declared closed set).
+PLATFORM_OVERRIDES["censusgov"] = {
+    "Dataset": E(title="string", description="string", identifier="string", accessLevel="string", modified="datetime", cVintage="integer", cIsAggregate="boolean", cIsCube="boolean", cIsAvailable="boolean"),
+    "Variable": E(label="string", concept="string", predicateType="string", group="string", limit="integer"),
+    "Geography": E(name="string", geoLevelDisplay="string", referenceDate="datetime"),
+}
+
+# Faithful IERS Earth-orientation model (the official finals2000A plain-text
+# format specification, maia.usno.navy.mil/ser7/readme.finals2000A). The
+# three IERS-or-Prediction flags {I,P} enforced — format-spec-anchored: the
+# fixed-column format cannot change without breaking every parser worldwide.
+PLATFORM_OVERRIDES["iers_earth_rotation"] = {
+    "EopRecord": E(mjd="float", pmX="float", pmXError="float", pmY="float", pmYError="float", ut1MinusUtc="float", ut1Error="float", lod="float", lodError="float", dX="float", dY="float", polarMotionFlag="string", ut1Flag="string", nutationFlag="string"),
+    "BulletinBValues": E(pmX="float", pmY="float", ut1MinusUtc="float", dX="float", dY="float"),
+}
+
+# Faithful Hologram IoT-SIM model (the operator's own official apiary.apib
+# docs repo). euiccType(3) + euiccState(3) enforced (spec-declared complete);
+# CellularLink.state REFUSED despite the field doc's LIVE/PAUSED/DEAD — the
+# same spec uses transitional LIVE-PENDING / PAUSED-PENDING-USER values, so
+# enforcing the subset would false-reject (Redis-TYPE lesson as a refusal).
+PLATFORM_OVERRIDES["hologram"] = {
+    "Device": E(orgid="integer", name="string", type="string", whencreated="datetime", phonenumber="string", tunnelable="boolean", imei="string", hidden="boolean"),
+    "CellularLink": E(deviceid="integer", devicename="string", orgid="integer", sim="string", msisdn="string", state="string", whenclaimed="datetime", whenexpires="datetime", euiccType="string", euiccState="string"),
+    "DataPlan": E(name="string", partnerid="integer", description="string", data="integer", recurring="boolean", enabled="boolean", billingperiod="integer"),
+    "SmsRecord": E(linkid="integer", recordId="integer", timestamp="datetime", direction="string", otherNumber="string"),
+    "Tag": E(name="string"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

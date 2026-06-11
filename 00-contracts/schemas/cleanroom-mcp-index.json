@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29410,
-  "l5VerifiedActors": 190,
-  "totalVerifiedEnumFields": 810,
+  "totalTools": 29350,
+  "l5VerifiedActors": 195,
+  "totalVerifiedEnumFields": 820,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -1730,12 +1730,12 @@
     {
       "handle": "censusgov-compat",
       "did": "did:web:etzhayyim.com:actor:censusgov-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreie6v6hjj2l4bi2z5z5loix6nla2tgbgz32igyuqg6y44lcxf6yfiy",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreie3bo2l3zxivbkio2btl7bzeoypopixjczflramk7ovknrc7zmgfq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "manifest": "20-actors/censusgov-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4227,12 +4227,12 @@
     {
       "handle": "google-workspace-compat",
       "did": "did:web:etzhayyim.com:actor:google-workspace-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreieo3rb2x6w5h3fefrhgdv5t5m34y5gos5vo5u24wqocxj6w75c6qq",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/google-workspace-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4579,12 +4579,12 @@
     {
       "handle": "hologram-compat",
       "did": "did:web:etzhayyim.com:actor:hologram-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/hologram-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4865,12 +4865,12 @@
     {
       "handle": "iers_earth_rotation-compat",
       "did": "did:web:etzhayyim.com:actor:iers_earth_rotation-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiag3e57zzuhtumc4xawfwtk23prlqs4rf3yso3js7y2a4fwdtxo4i",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 10,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/iers_earth_rotation-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -5899,12 +5899,12 @@
     {
       "handle": "macos_darwin-compat",
       "did": "did:web:etzhayyim.com:actor:macos_darwin-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreigexoafpjhnhijfwnq5m6dw3frpoqq5wslga5amjvayqcev3ukola",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/macos_darwin-compat/manifest.json#/capabilities/mcp"
     },
     {

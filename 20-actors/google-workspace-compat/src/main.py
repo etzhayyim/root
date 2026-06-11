@@ -111,349 +111,26 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'plan'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googlewo_wor")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
-    return rec, 201
-
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Workspace", rec)
-    return rec, 200
-
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_workspace.Workspace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    err = _require(data, ['title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googlewo_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
-    return rec, 201
-
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Document", rec)
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_workspace.Document", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googlewo_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
-    return rec, 201
-
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Folder", rec)
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_workspace.Folder", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    err = _require(data, ['body'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googlewo_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_workspace.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("googlewo_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"google_workspace.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['primaryEmail', 'suspended', 'isAdmin', 'isDelegatedAdmin', 'orgUnitPath', 'creationTime', 'lastLoginTime', 'agreedToTerms', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'displayName'])
+    err = _require(data, ['primaryEmail', 'suspended'])
     if err:
         return err, 400
     rec = {"id": new_id("googlewo_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
-    rec["status"] = data.get('status')
+    rec["primaryEmail"] = data.get('primaryEmail')
+    rec["suspended"] = _as_bool(data.get('suspended'))
+    rec["isAdmin"] = _as_bool(data.get('isAdmin'))
+    rec["isDelegatedAdmin"] = _as_bool(data.get('isDelegatedAdmin'))
+    rec["orgUnitPath"] = data.get('orgUnitPath')
+    rec["creationTime"] = data.get('creationTime')
+    rec["lastLoginTime"] = data.get('lastLoginTime')
+    rec["agreedToTerms"] = _as_bool(data.get('agreedToTerms'))
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -464,7 +141,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _apply_filters(rows, params, ['primaryEmail', 'suspended', 'isAdmin', 'isDelegatedAdmin', 'orgUnitPath', 'creationTime', 'lastLoginTime', 'agreedToTerms', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -485,7 +162,7 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['primaryEmail', 'suspended', 'isAdmin', 'isDelegatedAdmin', 'orgUnitPath', 'creationTime', 'lastLoginTime', 'agreedToTerms', 'archived'])
     if err:
         return err, 400
     rec = rows[0]
@@ -505,10 +182,286 @@ def delete_user(request, eid):
     db.retract({"entity": f"google_workspace.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'name', 'directMembersCount', 'adminCreated', 'description'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("googlewo_gro")}
+    rec["email"] = data.get('email')
+    rec["name"] = data.get('name')
+    rec["directMembersCount"] = data.get('directMembersCount')
+    rec["adminCreated"] = _as_bool(data.get('adminCreated'))
+    rec["description"] = data.get('description')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Group", rec)
+    return rec, 201
+
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['email', 'name', 'directMembersCount', 'adminCreated', 'description'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'name', 'directMembersCount', 'adminCreated', 'description'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Group", rec)
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"google_workspace.Group", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/members", methods=["POST"])
+def create_member(request):
+    """Create a Member."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'role', 'type', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'role'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("googlewo_mem")}
+    rec["email"] = data.get('email')
+    rec["role"] = data.get('role')
+    rec["type"] = data.get('type')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Member", rec)
+    return rec, 201
+
+@app.route("/v1/members", methods=["GET"])
+def list_members(request):
+    """List Members with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Member")
+    rows = _apply_filters(rows, params, ['email', 'role', 'type', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/members/<eid>", methods=["GET"])
+def get_member(request, eid):
+    """Retrieve a Member by id (supports ?expand=)."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/members/<eid>", methods=["POST", "PATCH"])
+def update_member(request, eid):
+    """Update a Member."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'role', 'type', 'status'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Member", rec)
+    return rec, 200
+
+@app.route("/v1/members/<eid>", methods=["DELETE"])
+def delete_member(request, eid):
+    """Delete a Member."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"google_workspace.Member", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/orgunits", methods=["POST"])
+def create_org_unit(request):
+    """Create a OrgUnit."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'orgUnitPath', 'parentOrgUnitPath', 'description', 'blockInheritance'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'orgUnitPath'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("googlewo_org")}
+    rec["name"] = data.get('name')
+    rec["orgUnitPath"] = data.get('orgUnitPath')
+    rec["parentOrgUnitPath"] = data.get('parentOrgUnitPath')
+    rec["description"] = data.get('description')
+    rec["blockInheritance"] = _as_bool(data.get('blockInheritance'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("OrgUnit", rec)
+    return rec, 201
+
+@app.route("/v1/orgunits", methods=["GET"])
+def list_org_units(request):
+    """List OrgUnits with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("OrgUnit")
+    rows = _apply_filters(rows, params, ['name', 'orgUnitPath', 'parentOrgUnitPath', 'description', 'blockInheritance'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/orgunits/<eid>", methods=["GET"])
+def get_org_unit(request, eid):
+    """Retrieve a OrgUnit by id (supports ?expand=)."""
+    rows = _query("OrgUnit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/orgunits/<eid>", methods=["POST", "PATCH"])
+def update_org_unit(request, eid):
+    """Update a OrgUnit."""
+    rows = _query("OrgUnit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'orgUnitPath', 'parentOrgUnitPath', 'description', 'blockInheritance'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("OrgUnit", rec)
+    return rec, 200
+
+@app.route("/v1/orgunits/<eid>", methods=["DELETE"])
+def delete_org_unit(request, eid):
+    """Delete a OrgUnit."""
+    rows = _query("OrgUnit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"google_workspace.OrgUnit", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/chromeosdevices", methods=["POST"])
+def create_chrome_os_device(request):
+    """Create a ChromeOsDevice."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['serialNumber', 'status', 'chromeOsType', 'osVersionCompliance', 'deviceLicenseType', 'lastSync'])
+    if err:
+        return err, 400
+    err = _require(data, ['serialNumber', 'status'])
+    if err:
+        return err, 400
+    if data.get('chromeOsType') and data['chromeOsType'] not in ['chromeOsTypeUnspecified', 'chromeOsFlex', 'chromeOs']:
+        return {"error": {"message": "invalid chromeOsType; allowed: " + ", ".join(['chromeOsTypeUnspecified', 'chromeOsFlex', 'chromeOs']), "type": "invalid_request_error"}}, 400
+    if data.get('osVersionCompliance') and data['osVersionCompliance'] not in ['complianceUnspecified', 'compliant', 'pending', 'notCompliant']:
+        return {"error": {"message": "invalid osVersionCompliance; allowed: " + ", ".join(['complianceUnspecified', 'compliant', 'pending', 'notCompliant']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("googlewo_chr")}
+    rec["serialNumber"] = data.get('serialNumber')
+    rec["status"] = data.get('status')
+    rec["chromeOsType"] = data.get('chromeOsType')
+    rec["osVersionCompliance"] = data.get('osVersionCompliance')
+    rec["deviceLicenseType"] = data.get('deviceLicenseType')
+    rec["lastSync"] = data.get('lastSync')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ChromeOsDevice", rec)
+    return rec, 201
+
+@app.route("/v1/chromeosdevices", methods=["GET"])
+def list_chrome_os_devices(request):
+    """List ChromeOsDevices with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ChromeOsDevice")
+    rows = _apply_filters(rows, params, ['serialNumber', 'status', 'chromeOsType', 'osVersionCompliance', 'deviceLicenseType', 'lastSync'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/chromeosdevices/<eid>", methods=["GET"])
+def get_chrome_os_device(request, eid):
+    """Retrieve a ChromeOsDevice by id (supports ?expand=)."""
+    rows = _query("ChromeOsDevice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/chromeosdevices/<eid>", methods=["POST", "PATCH"])
+def update_chrome_os_device(request, eid):
+    """Update a ChromeOsDevice."""
+    rows = _query("ChromeOsDevice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['serialNumber', 'status', 'chromeOsType', 'osVersionCompliance', 'deviceLicenseType', 'lastSync'])
+    if err:
+        return err, 400
+    if data.get('chromeOsType') and data['chromeOsType'] not in ['chromeOsTypeUnspecified', 'chromeOsFlex', 'chromeOs']:
+        return {"error": {"message": "invalid chromeOsType; allowed: " + ", ".join(['chromeOsTypeUnspecified', 'chromeOsFlex', 'chromeOs']), "type": "invalid_request_error"}}, 400
+    if data.get('osVersionCompliance') and data['osVersionCompliance'] not in ['complianceUnspecified', 'compliant', 'pending', 'notCompliant']:
+        return {"error": {"message": "invalid osVersionCompliance; allowed: " + ", ".join(['complianceUnspecified', 'compliant', 'pending', 'notCompliant']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ChromeOsDevice", rec)
+    return rec, 200
+
+@app.route("/v1/chromeosdevices/<eid>", methods=["DELETE"])
+def delete_chrome_os_device(request, eid):
+    """Delete a ChromeOsDevice."""
+    rows = _query("ChromeOsDevice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"google_workspace.ChromeOsDevice", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "google-workspace-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['User', 'Group', 'Member', 'OrgUnit', 'ChromeOsDevice']}, 200
 
 
 if __name__ == "__main__":

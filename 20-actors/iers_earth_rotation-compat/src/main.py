@@ -111,118 +111,142 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/codes", methods=["POST"])
-def create_code(request):
-    """Create a Code."""
+@app.route("/v1/eoprecords", methods=["POST"])
+def create_eop_record(request):
+    """Create a EopRecord."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'description', 'scheme', 'parentCode'])
+    err = _reject_unknown(data, ['mjd', 'pmX', 'pmXError', 'pmY', 'pmYError', 'ut1MinusUtc', 'ut1Error', 'lod', 'lodError', 'dX', 'dY', 'polarMotionFlag', 'ut1Flag', 'nutationFlag'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'description'])
+    err = _require(data, ['mjd', 'pmX'])
     if err:
         return err, 400
-    rec = {"id": new_id("ierseart_cod")}
-    rec["code"] = data.get('code')
-    rec["description"] = data.get('description')
-    rec["scheme"] = data.get('scheme')
-    rec["parentCode"] = data.get('parentCode')
+    if data.get('polarMotionFlag') and data['polarMotionFlag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid polarMotionFlag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
+    if data.get('ut1Flag') and data['ut1Flag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid ut1Flag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
+    if data.get('nutationFlag') and data['nutationFlag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid nutationFlag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ierseart_eop")}
+    rec["mjd"] = _as_float(data.get('mjd'))
+    rec["pmX"] = _as_float(data.get('pmX'))
+    rec["pmXError"] = _as_float(data.get('pmXError'))
+    rec["pmY"] = _as_float(data.get('pmY'))
+    rec["pmYError"] = _as_float(data.get('pmYError'))
+    rec["ut1MinusUtc"] = _as_float(data.get('ut1MinusUtc'))
+    rec["ut1Error"] = _as_float(data.get('ut1Error'))
+    rec["lod"] = _as_float(data.get('lod'))
+    rec["lodError"] = _as_float(data.get('lodError'))
+    rec["dX"] = _as_float(data.get('dX'))
+    rec["dY"] = _as_float(data.get('dY'))
+    rec["polarMotionFlag"] = data.get('polarMotionFlag')
+    rec["ut1Flag"] = data.get('ut1Flag')
+    rec["nutationFlag"] = data.get('nutationFlag')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Code", rec)
+    _persist("EopRecord", rec)
     return rec, 201
 
-@app.route("/v1/codes", methods=["GET"])
-def list_codes(request):
-    """List Codes with filtering + cursor pagination."""
+@app.route("/v1/eoprecords", methods=["GET"])
+def list_eop_records(request):
+    """List EopRecords with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Code")
-    rows = _apply_filters(rows, params, ['code', 'description', 'scheme', 'parentCode'])
+    rows = _query("EopRecord")
+    rows = _apply_filters(rows, params, ['mjd', 'pmX', 'pmXError', 'pmY', 'pmYError', 'ut1MinusUtc', 'ut1Error', 'lod', 'lodError', 'dX', 'dY', 'polarMotionFlag', 'ut1Flag', 'nutationFlag'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/codes/<eid>", methods=["GET"])
-def get_code(request, eid):
-    """Retrieve a Code by id (supports ?expand=)."""
-    rows = _query("Code", eid)
+@app.route("/v1/eoprecords/<eid>", methods=["GET"])
+def get_eop_record(request, eid):
+    """Retrieve a EopRecord by id (supports ?expand=)."""
+    rows = _query("EopRecord", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/codes/<eid>", methods=["POST", "PATCH"])
-def update_code(request, eid):
-    """Update a Code."""
-    rows = _query("Code", eid)
+@app.route("/v1/eoprecords/<eid>", methods=["POST", "PATCH"])
+def update_eop_record(request, eid):
+    """Update a EopRecord."""
+    rows = _query("EopRecord", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'description', 'scheme', 'parentCode'])
+    err = _reject_unknown(data, ['mjd', 'pmX', 'pmXError', 'pmY', 'pmYError', 'ut1MinusUtc', 'ut1Error', 'lod', 'lodError', 'dX', 'dY', 'polarMotionFlag', 'ut1Flag', 'nutationFlag'])
     if err:
         return err, 400
+    if data.get('polarMotionFlag') and data['polarMotionFlag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid polarMotionFlag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
+    if data.get('ut1Flag') and data['ut1Flag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid ut1Flag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
+    if data.get('nutationFlag') and data['nutationFlag'] not in ['I', 'P']:
+        return {"error": {"message": "invalid nutationFlag; allowed: " + ", ".join(['I', 'P']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Code", rec)
+    _persist("EopRecord", rec)
     return rec, 200
 
-@app.route("/v1/codes/<eid>", methods=["DELETE"])
-def delete_code(request, eid):
-    """Delete a Code."""
-    rows = _query("Code", eid)
+@app.route("/v1/eoprecords/<eid>", methods=["DELETE"])
+def delete_eop_record(request, eid):
+    """Delete a EopRecord."""
+    rows = _query("EopRecord", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Code", "id": eid})
+    db.retract({"entity": f"iers_earth_rotation.EopRecord", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/units", methods=["POST"])
-def create_unit(request):
-    """Create a Unit."""
+@app.route("/v1/bulletinbvalueses", methods=["POST"])
+def create_bulletin_b_values(request):
+    """Create a BulletinBValues."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'name', 'quantity'])
+    err = _reject_unknown(data, ['pmX', 'pmY', 'ut1MinusUtc', 'dX', 'dY'])
     if err:
         return err, 400
-    err = _require(data, ['symbol', 'name'])
+    err = _require(data, ['pmX', 'pmY'])
     if err:
         return err, 400
-    rec = {"id": new_id("ierseart_uni")}
-    rec["symbol"] = data.get('symbol')
-    rec["name"] = data.get('name')
-    rec["quantity"] = data.get('quantity')
+    rec = {"id": new_id("ierseart_bul")}
+    rec["pmX"] = _as_float(data.get('pmX'))
+    rec["pmY"] = _as_float(data.get('pmY'))
+    rec["ut1MinusUtc"] = _as_float(data.get('ut1MinusUtc'))
+    rec["dX"] = _as_float(data.get('dX'))
+    rec["dY"] = _as_float(data.get('dY'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Unit", rec)
+    _persist("BulletinBValues", rec)
     return rec, 201
 
-@app.route("/v1/units", methods=["GET"])
-def list_units(request):
-    """List Units with filtering + cursor pagination."""
+@app.route("/v1/bulletinbvalueses", methods=["GET"])
+def list_bulletin_b_valueses(request):
+    """List BulletinBValueses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Unit")
-    rows = _apply_filters(rows, params, ['symbol', 'name', 'quantity'])
+    rows = _query("BulletinBValues")
+    rows = _apply_filters(rows, params, ['pmX', 'pmY', 'ut1MinusUtc', 'dX', 'dY'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/units/<eid>", methods=["GET"])
-def get_unit(request, eid):
-    """Retrieve a Unit by id (supports ?expand=)."""
-    rows = _query("Unit", eid)
+@app.route("/v1/bulletinbvalueses/<eid>", methods=["GET"])
+def get_bulletin_b_values(request, eid):
+    """Retrieve a BulletinBValues by id (supports ?expand=)."""
+    rows = _query("BulletinBValues", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/units/<eid>", methods=["POST", "PATCH"])
-def update_unit(request, eid):
-    """Update a Unit."""
-    rows = _query("Unit", eid)
+@app.route("/v1/bulletinbvalueses/<eid>", methods=["POST", "PATCH"])
+def update_bulletin_b_values(request, eid):
+    """Update a BulletinBValues."""
+    rows = _query("BulletinBValues", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'name', 'quantity'])
+    err = _reject_unknown(data, ['pmX', 'pmY', 'ut1MinusUtc', 'dX', 'dY'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,283 +254,22 @@ def update_unit(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Unit", rec)
+    _persist("BulletinBValues", rec)
     return rec, 200
 
-@app.route("/v1/units/<eid>", methods=["DELETE"])
-def delete_unit(request, eid):
-    """Delete a Unit."""
-    rows = _query("Unit", eid)
+@app.route("/v1/bulletinbvalueses/<eid>", methods=["DELETE"])
+def delete_bulletin_b_values(request, eid):
+    """Delete a BulletinBValues."""
+    rows = _query("BulletinBValues", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Unit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/references", methods=["POST"])
-def create_reference(request):
-    """Create a Reference."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'value', 'uncertainty', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ierseart_ref")}
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["uncertainty"] = _as_float(data.get('uncertainty'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Reference", rec)
-    return rec, 201
-
-@app.route("/v1/references", methods=["GET"])
-def list_references(request):
-    """List References with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Reference")
-    rows = _apply_filters(rows, params, ['name', 'value', 'uncertainty', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/references/<eid>", methods=["GET"])
-def get_reference(request, eid):
-    """Retrieve a Reference by id (supports ?expand=)."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/references/<eid>", methods=["POST", "PATCH"])
-def update_reference(request, eid):
-    """Update a Reference."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'value', 'uncertainty', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Reference", rec)
-    return rec, 200
-
-@app.route("/v1/references/<eid>", methods=["DELETE"])
-def delete_reference(request, eid):
-    """Delete a Reference."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Reference", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/mappings", methods=["POST"])
-def create_mapping(request):
-    """Create a Mapping."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromCode', 'toScheme', 'toCode'])
-    if err:
-        return err, 400
-    err = _require(data, ['fromCode', 'toScheme'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ierseart_map")}
-    rec["fromCode"] = data.get('fromCode')
-    rec["toScheme"] = data.get('toScheme')
-    rec["toCode"] = data.get('toCode')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Mapping", rec)
-    return rec, 201
-
-@app.route("/v1/mappings", methods=["GET"])
-def list_mappings(request):
-    """List Mappings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Mapping")
-    rows = _apply_filters(rows, params, ['fromCode', 'toScheme', 'toCode'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/mappings/<eid>", methods=["GET"])
-def get_mapping(request, eid):
-    """Retrieve a Mapping by id (supports ?expand=)."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/mappings/<eid>", methods=["POST", "PATCH"])
-def update_mapping(request, eid):
-    """Update a Mapping."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromCode', 'toScheme', 'toCode'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Mapping", rec)
-    return rec, 200
-
-@app.route("/v1/mappings/<eid>", methods=["DELETE"])
-def delete_mapping(request, eid):
-    """Delete a Mapping."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Mapping", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/locations", methods=["POST"])
-def create_location(request):
-    """Create a Location."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['unLocode', 'name', 'country'])
-    if err:
-        return err, 400
-    err = _require(data, ['unLocode', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ierseart_loc")}
-    rec["unLocode"] = data.get('unLocode')
-    rec["name"] = data.get('name')
-    rec["country"] = data.get('country')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Location", rec)
-    return rec, 201
-
-@app.route("/v1/locations", methods=["GET"])
-def list_locations(request):
-    """List Locations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Location")
-    rows = _apply_filters(rows, params, ['unLocode', 'name', 'country'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/locations/<eid>", methods=["GET"])
-def get_location(request, eid):
-    """Retrieve a Location by id (supports ?expand=)."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/locations/<eid>", methods=["POST", "PATCH"])
-def update_location(request, eid):
-    """Update a Location."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['unLocode', 'name', 'country'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Location", rec)
-    return rec, 200
-
-@app.route("/v1/locations/<eid>", methods=["DELETE"])
-def delete_location(request, eid):
-    """Delete a Location."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Location", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/epoches", methods=["POST"])
-def create_epoch(request):
-    """Create a Epoch."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'utcOffset', 'asOf'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'utcOffset'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ierseart_epo")}
-    rec["name"] = data.get('name')
-    rec["utcOffset"] = data.get('utcOffset')
-    rec["asOf"] = data.get('asOf')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Epoch", rec)
-    return rec, 201
-
-@app.route("/v1/epoches", methods=["GET"])
-def list_epoches(request):
-    """List Epoches with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Epoch")
-    rows = _apply_filters(rows, params, ['name', 'utcOffset', 'asOf'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/epoches/<eid>", methods=["GET"])
-def get_epoch(request, eid):
-    """Retrieve a Epoch by id (supports ?expand=)."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/epoches/<eid>", methods=["POST", "PATCH"])
-def update_epoch(request, eid):
-    """Update a Epoch."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'utcOffset', 'asOf'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Epoch", rec)
-    return rec, 200
-
-@app.route("/v1/epoches/<eid>", methods=["DELETE"])
-def delete_epoch(request, eid):
-    """Delete a Epoch."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"iers_earth_rotation.Epoch", "id": eid})
+    db.retract({"entity": f"iers_earth_rotation.BulletinBValues", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "iers_earth_rotation-compat", "tier": "L4",
-            "entities": ['Code', 'Unit', 'Reference', 'Mapping', 'Location', 'Epoch']}, 200
+            "entities": ['EopRecord', 'BulletinBValues']}, 200
 
 
 if __name__ == "__main__":

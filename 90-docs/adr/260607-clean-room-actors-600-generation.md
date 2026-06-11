@@ -609,3 +609,27 @@ method 6 / access 4). Ledger **195** (19.5%), enforced 190 / **810 enum
 fields**, PASS 0/0, contract suite green. The draft discovered the schema
 files via a recursive git-tree listing — the no-guessed-paths pattern at its
 best.
+
+### §16.10 /loop iteration 9 — wave 10: THE CORPUS CROSSES 20% (200/1000)
+
+macos_darwin + google-workspace + censusgov + iers_earth_rotation +
+hologram → ledger **200** (800 L4 / 200 L5 = **20.0%** — one fifth of the
+corpus doc-reconciled), enforced 195 actors / **820 enum fields** (+10),
+verify PASS 0/0, 5/5 contract suites green.
+
+| Actor | Anchor | Enforced / refused |
+|---|---|---|
+| macos_darwin | Apple docs JSON API | thermalState(4) + comparisonResult(3, **frozen since NeXTSTEP — a ~40-year anchor**) |
+| google-workspace | directory_v1 Discovery (rev-dated) | chromeOsType(3) + osVersionCompliance(4); deviceLicenseType(10) gapped (accreted tiers); Member.role/type are plain strings upstream — nothing fabricated |
+| censusgov | api.census.gov machine-readable metadata + the POD v1.1 federal standard | accessLevel(3, standard-declared). **New discipline note: live-OBSERVED value sets are not declarations** — predicateType observed {int,string,fips-for,fips-in,ucgid} live but never declared → gapped |
+| iers_earth_rotation | finals2000A fixed-column format spec (a format change would break every parser worldwide) | I/P flags ×3 (polar motion / UT1 / nutation) |
+| hologram (#200) | the operator's own apiary.apib | euiccType(3) + euiccState(3); **state REFUSED**: the field doc says LIVE/PAUSED/DEAD but the same spec uses transitional LIVE-PENDING / PAUSED-PENDING-USER — enforcing the subset would false-reject (the Redis-TYPE inclusive lesson, applied as a refusal) |
+
+Session arc (one day, 10 /loop iterations): **163 → 200 (+37 actors,
+16.3% → 20.0%)**, enforced enum fields **691 → 820 (+129)**, defers 12 → 14
+(all evidence-backed), verify PASS 0/0 held across every commit. The
+gemini-CLI two-stage harness (untrusted draft → independent re-fetch +
+machine-check) caught draft errors in BOTH directions throughout: fabricated
+fields/enums refuted, over-cautious gaps reversed on spec declarations, and
+exact-string corrections (On-Going, WEEKENDS="Weekend", STOPED, WARNNING)
+preserved vendor reality over plausibility.

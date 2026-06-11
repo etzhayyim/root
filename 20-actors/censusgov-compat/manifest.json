@@ -5,21 +5,35 @@
   "kind": "compat",
   "title": "censusgov clean-room actor",
   "description": "Clean-room, API-compatible US federal / sovereign API actor (censusgov); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreie6v6hjj2l4bi2z5z5loix6nla2tgbgz32igyuqg6y44lcxf6yfiy",
+  "wasmCid": "bafkreie3bo2l3zxivbkio2btl7bzeoypopixjczflramk7ovknrc7zmgfq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreie6v6hjj2l4bi2z5z5loix6nla2tgbgz32igyuqg6y44lcxf6yfiy",
+  "ipfs": "ipfs://bafkreie3bo2l3zxivbkio2btl7bzeoypopixjczflramk7ovknrc7zmgfq",
   "schema": "schema/censusgov.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.census.gov/data.json + per-dataset variables.json/geography.json + https://project-open-data.cio.gov/v1.1/schema/dataset.json",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Dataset",
+      "Variable",
+      "Geography"
+    ],
+    "enums": {
+      "Dataset": {
+        "accessLevel": [
+          "public",
+          "restricted public",
+          "non-public"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Filing",
-    "Entity",
     "Dataset",
-    "Application",
-    "PublicRecord",
-    "Notice"
+    "Variable",
+    "Geography"
   ],
   "adr": [
     "260607",
@@ -31,58 +45,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/filings",
-          "op": "create Filing"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/filings",
-          "op": "list Filing"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/filings/{id}",
-          "op": "get Filing"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/filings/{id}",
-          "op": "update Filing"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/filings/{id}",
-          "op": "delete Filing"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/entities",
-          "op": "create Entity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/entities",
-          "op": "list Entity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/entities/{id}",
-          "op": "get Entity"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/entities/{id}",
-          "op": "update Entity"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/entities/{id}",
-          "op": "delete Entity"
-        },
         {
           "method": "POST",
           "path": "/v1/datasets",
@@ -110,78 +74,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/applications",
-          "op": "create Application"
+          "path": "/v1/variables",
+          "op": "create Variable"
         },
         {
           "method": "GET",
-          "path": "/v1/applications",
-          "op": "list Application"
+          "path": "/v1/variables",
+          "op": "list Variable"
         },
         {
           "method": "GET",
-          "path": "/v1/applications/{id}",
-          "op": "get Application"
+          "path": "/v1/variables/{id}",
+          "op": "get Variable"
         },
         {
           "method": "PATCH",
-          "path": "/v1/applications/{id}",
-          "op": "update Application"
+          "path": "/v1/variables/{id}",
+          "op": "update Variable"
         },
         {
           "method": "DELETE",
-          "path": "/v1/applications/{id}",
-          "op": "delete Application"
+          "path": "/v1/variables/{id}",
+          "op": "delete Variable"
         },
         {
           "method": "POST",
-          "path": "/v1/publicrecords",
-          "op": "create PublicRecord"
+          "path": "/v1/geographies",
+          "op": "create Geography"
         },
         {
           "method": "GET",
-          "path": "/v1/publicrecords",
-          "op": "list PublicRecord"
+          "path": "/v1/geographies",
+          "op": "list Geography"
         },
         {
           "method": "GET",
-          "path": "/v1/publicrecords/{id}",
-          "op": "get PublicRecord"
+          "path": "/v1/geographies/{id}",
+          "op": "get Geography"
         },
         {
           "method": "PATCH",
-          "path": "/v1/publicrecords/{id}",
-          "op": "update PublicRecord"
+          "path": "/v1/geographies/{id}",
+          "op": "update Geography"
         },
         {
           "method": "DELETE",
-          "path": "/v1/publicrecords/{id}",
-          "op": "delete PublicRecord"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/notices",
-          "op": "create Notice"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/notices",
-          "op": "list Notice"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/notices/{id}",
-          "op": "get Notice"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/notices/{id}",
-          "op": "update Notice"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/notices/{id}",
-          "op": "delete Notice"
+          "path": "/v1/geographies/{id}",
+          "op": "delete Geography"
         }
       ],
       "features": {
@@ -244,201 +183,45 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
-        {
-          "name": "create_filing",
-          "description": "Create a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "filerId": {
-                "type": "string"
-              },
-              "form": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "form",
-              "period"
-            ]
-          }
-        },
-        {
-          "name": "list_filings",
-          "description": "List Filings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_filing",
-          "description": "Get a Filing by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_filing",
-          "description": "Update a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "filerId": {
-                "type": "string"
-              },
-              "form": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_filing",
-          "description": "Delete a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_entity",
-          "description": "Create a Entity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "ein": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "ein"
-            ]
-          }
-        },
-        {
-          "name": "list_entities",
-          "description": "List Entities.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_entity",
-          "description": "Get a Entity by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_entity",
-          "description": "Update a Entity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "ein": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_entity",
-          "description": "Delete a Entity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_dataset",
           "description": "Create a Dataset.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "agency": {
+              "description": {
                 "type": "string"
               },
-              "updatedAt": {
+              "identifier": {
                 "type": "string"
+              },
+              "accessLevel": {
+                "type": "string"
+              },
+              "modified": {
+                "type": "string"
+              },
+              "cVintage": {
+                "type": "integer"
+              },
+              "cIsAggregate": {
+                "type": "boolean"
+              },
+              "cIsCube": {
+                "type": "boolean"
+              },
+              "cIsAvailable": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "agency"
+              "title",
+              "description"
             ]
           }
         },
@@ -474,14 +257,32 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "agency": {
+              "description": {
                 "type": "string"
               },
-              "updatedAt": {
+              "identifier": {
                 "type": "string"
+              },
+              "accessLevel": {
+                "type": "string"
+              },
+              "modified": {
+                "type": "string"
+              },
+              "cVintage": {
+                "type": "integer"
+              },
+              "cIsAggregate": {
+                "type": "boolean"
+              },
+              "cIsCube": {
+                "type": "boolean"
+              },
+              "cIsAvailable": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -505,38 +306,44 @@
           }
         },
         {
-          "name": "create_application",
-          "description": "Create a Application.",
+          "name": "create_variable",
+          "description": "Create a Variable.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "applicantId": {
+              "label": {
                 "type": "string"
               },
-              "program": {
+              "concept": {
                 "type": "string"
               },
-              "status": {
+              "predicateType": {
                 "type": "string"
+              },
+              "group": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
               }
             },
             "required": [
-              "program",
-              "status"
+              "label",
+              "concept"
             ]
           }
         },
         {
-          "name": "list_applications",
-          "description": "List Applications.",
+          "name": "list_variables",
+          "description": "List Variables.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_application",
-          "description": "Get a Application by id.",
+          "name": "get_variable",
+          "description": "Get a Variable by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -550,21 +357,42 @@
           }
         },
         {
-          "name": "update_application",
-          "description": "Update a Application.",
+          "name": "update_variable",
+          "description": "Update a Variable.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "applicantId": {
+              "label": {
                 "type": "string"
               },
-              "program": {
+              "concept": {
                 "type": "string"
               },
-              "status": {
+              "predicateType": {
+                "type": "string"
+              },
+              "group": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_variable",
+          "description": "Delete a Variable.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -574,53 +402,38 @@
           }
         },
         {
-          "name": "delete_application",
-          "description": "Delete a Application.",
+          "name": "create_geography",
+          "description": "Create a Geography.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "name": {
+                "type": "string"
+              },
+              "geoLevelDisplay": {
+                "type": "string"
+              },
+              "referenceDate": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "name",
+              "geoLevelDisplay"
             ]
           }
         },
         {
-          "name": "create_public_record",
-          "description": "Create a PublicRecord.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "recordType": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              },
-              "recordedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "recordType",
-              "jurisdiction"
-            ]
-          }
-        },
-        {
-          "name": "list_public_records",
-          "description": "List PublicRecords.",
+          "name": "list_geographies",
+          "description": "List Geographies.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_public_record",
-          "description": "Get a PublicRecord by id.",
+          "name": "get_geography",
+          "description": "Get a Geography by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -634,21 +447,21 @@
           }
         },
         {
-          "name": "update_public_record",
-          "description": "Update a PublicRecord.",
+          "name": "update_geography",
+          "description": "Update a Geography.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "recordType": {
+              "name": {
                 "type": "string"
               },
-              "jurisdiction": {
+              "geoLevelDisplay": {
                 "type": "string"
               },
-              "recordedAt": {
+              "referenceDate": {
                 "type": "string"
               }
             },
@@ -658,92 +471,8 @@
           }
         },
         {
-          "name": "delete_public_record",
-          "description": "Delete a PublicRecord.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_notice",
-          "description": "Create a Notice.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "subjectId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "issuedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_notices",
-          "description": "List Notices.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_notice",
-          "description": "Get a Notice by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_notice",
-          "description": "Update a Notice.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "subjectId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_notice",
-          "description": "Delete a Notice.",
+          "name": "delete_geography",
+          "description": "Delete a Geography.",
           "inputSchema": {
             "type": "object",
             "properties": {

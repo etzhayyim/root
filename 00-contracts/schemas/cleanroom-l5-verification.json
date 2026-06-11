@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 195,
+  "count": 200,
   "actors": [
     {
       "handle": "aave-compat",
@@ -4650,6 +4650,69 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Canva Connect API OpenAPI. Enforced enums: Asset.type(2), ExportJob.status(3), ExportJob.format(9) = 3 enums."
+    },
+    {
+      "handle": "censusgov-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://api.census.gov/data.json + per-dataset variables.json/geography.json + https://project-open-data.cio.gov/v1.1/schema/dataset.json",
+      "remodeled": "Remodeled to the faithful Census Bureau API surface verified against api.census.gov's OFFICIAL machine-readable metadata (data.json catalog of 1,789 datasets + per-dataset variables.json/geography.json, fetched live). Dataset.accessLevel enforced from the Project Open Data v1.1 schema's OWN enum declaration {public, restricted public, non-public} — the US federal metadata standard. Variable.predicateType gapped (values observed in live metadata — int/string/fips-for/fips-in/ucgid — but no declared closed set; observation is not declaration).",
+      "resources": [
+        {
+          "entity": "Dataset",
+          "source": "https://api.census.gov/data.json + https://project-open-data.cio.gov/v1.1/schema/dataset.json",
+          "verifiedFields": [
+            "title",
+            "description",
+            "identifier",
+            "accessLevel",
+            "modified",
+            "cVintage",
+            "cIsAggregate",
+            "cIsCube",
+            "cIsAvailable"
+          ],
+          "fieldStatus": "confirmed (DCAT/POD catalog fields + census c_ extensions, 1789 datasets)",
+          "discoveredEnums": {
+            "accessLevel": [
+              "public",
+              "restricted public",
+              "non-public"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Variable",
+          "source": "https://api.census.gov/data/2020/dec/pl/variables.json",
+          "verifiedFields": [
+            "label",
+            "concept",
+            "predicateType",
+            "group",
+            "limit"
+          ],
+          "fieldStatus": "confirmed; predicateType observed-not-declared -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "predicateType-observed-not-declared (int/string/fips-for/fips-in/ucgid seen live)"
+          ]
+        },
+        {
+          "entity": "Geography",
+          "source": "https://api.census.gov/data/2020/dec/pl/geography.json",
+          "verifiedFields": [
+            "name",
+            "geoLevelDisplay",
+            "referenceDate"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs official Census machine-readable metadata + the POD v1.1 standard. Enforced enums: accessLevel(3, federal-standard-declared) = 1 enum field. NEW discipline note: live-observed value sets are NOT declarations — only the standard's own enum enforced."
     },
     {
       "handle": "cerner-compat",
@@ -10912,6 +10975,108 @@
       "note": "FULLY VERIFIED (6/6): Project/Issue/MergeRequest/Pipeline/Job/Commit vs official GitLab docs. Enforced enums: Project.visibility, Issue.state, Issue.issueType, MergeRequest.state, Pipeline.status, Job.status (6)."
     },
     {
+      "handle": "google-workspace-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+      "remodeled": "Remodeled to the faithful Admin SDK directory_v1 surface verified against Google's OFFICIAL Discovery document (machine-extracted). osVersionCompliance(4, complete compliance lifecycle) + chromeOsType(3: chromeOs/chromeOsFlex/unspecified) enforced; deviceLicenseType(10) gapped — the license-tier set visibly accreted perpetual/fixedTerm variants (in-place-evolution rule). NOTE: Member.role/type and ChromeOsDevice.status are plain strings in the discovery doc (no declared enum) — nothing fabricated for them.",
+      "resources": [
+        {
+          "entity": "User",
+          "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+          "verifiedFields": [
+            "primaryEmail",
+            "suspended",
+            "isAdmin",
+            "isDelegatedAdmin",
+            "orgUnitPath",
+            "creationTime",
+            "lastLoginTime",
+            "agreedToTerms",
+            "archived"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Group",
+          "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+          "verifiedFields": [
+            "email",
+            "name",
+            "directMembersCount",
+            "adminCreated",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Member",
+          "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+          "verifiedFields": [
+            "email",
+            "role",
+            "type",
+            "status"
+          ],
+          "fieldStatus": "confirmed; role/type plain strings upstream (no enum declared)",
+          "discoveredEnums": {},
+          "gaps": [
+            "role-no-declared-enum-upstream",
+            "type-no-declared-enum-upstream"
+          ]
+        },
+        {
+          "entity": "OrgUnit",
+          "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+          "verifiedFields": [
+            "name",
+            "orgUnitPath",
+            "parentOrgUnitPath",
+            "description",
+            "blockInheritance"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ChromeOsDevice",
+          "source": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest (official Discovery document, rev 20260602)",
+          "verifiedFields": [
+            "serialNumber",
+            "status",
+            "chromeOsType",
+            "osVersionCompliance",
+            "deviceLicenseType",
+            "lastSync"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "chromeOsType": [
+              "chromeOsTypeUnspecified",
+              "chromeOsFlex",
+              "chromeOs"
+            ],
+            "osVersionCompliance": [
+              "complianceUnspecified",
+              "compliant",
+              "pending",
+              "notCompliant"
+            ]
+          },
+          "gaps": [
+            "deviceLicenseType-accreted-license-tiers (10, perpetual/fixedTerm variants)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs the official directory_v1 Discovery document. Enforced enums: chromeOsType(3) + osVersionCompliance(4) = 2 enum fields."
+    },
+    {
       "handle": "google_cirq-compat",
       "verifiedAt": "2026-06-11",
       "tier": "L5",
@@ -12244,6 +12409,110 @@
       "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets. Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values). Upgraded from category-model to faithful FHIR override."
     },
     {
+      "handle": "hologram-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+      "remodeled": "Remodeled to the faithful Hologram IoT-SIM surface verified against the operator's OWN official API docs repo (apiary.apib). euiccType {UICC, BOOTSTRAP, OPERATIONAL} + euiccState {DOWNLOADED, ENABLED, DISABLED} enforced — both declared as complete sets in the spec's own field definitions. DRAFT REFUTATION (false-reject class): the draft proposed enforcing CellularLink.state {LIVE, PAUSED, DEAD} from the field doc, but the SAME spec uses transitional states (LIVE-PENDING, PAUSED-PENDING-USER) in its state-change endpoints — enforcing the field-doc subset would false-reject valid transitional values -> gapped (the Redis-TYPE inclusive-enforcement lesson, applied as a refusal).",
+      "resources": [
+        {
+          "entity": "Device",
+          "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+          "verifiedFields": [
+            "orgid",
+            "name",
+            "type",
+            "whencreated",
+            "phonenumber",
+            "tunnelable",
+            "imei",
+            "hidden"
+          ],
+          "fieldStatus": "confirmed (apiary field definitions)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-open-registry (device types grow)"
+          ]
+        },
+        {
+          "entity": "CellularLink",
+          "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+          "verifiedFields": [
+            "deviceid",
+            "devicename",
+            "orgid",
+            "sim",
+            "msisdn",
+            "state",
+            "whenclaimed",
+            "whenexpires",
+            "euiccType",
+            "euiccState"
+          ],
+          "fieldStatus": "confirmed; state gapped (transitional LIVE-PENDING/PAUSED-PENDING-USER in the same spec)",
+          "discoveredEnums": {
+            "euiccType": [
+              "UICC",
+              "BOOTSTRAP",
+              "OPERATIONAL"
+            ],
+            "euiccState": [
+              "DOWNLOADED",
+              "ENABLED",
+              "DISABLED"
+            ]
+          },
+          "gaps": [
+            "state-transitional-values-in-same-spec (would false-reject LIVE-PENDING etc.)"
+          ]
+        },
+        {
+          "entity": "DataPlan",
+          "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+          "verifiedFields": [
+            "name",
+            "partnerid",
+            "description",
+            "data",
+            "recurring",
+            "enabled",
+            "billingperiod"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "SmsRecord",
+          "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+          "verifiedFields": [
+            "linkid",
+            "recordId",
+            "timestamp",
+            "direction",
+            "otherNumber"
+          ],
+          "fieldStatus": "confirmed; direction not declared as closed -> no enum",
+          "discoveredEnums": {},
+          "gaps": [
+            "direction-not-declared-closed"
+          ]
+        },
+        {
+          "entity": "Tag",
+          "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+          "verifiedFields": [
+            "name"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Hologram's own apiary spec. Enforced enums: euiccType(3) + euiccState(3) = 2 enum fields; state refused to avoid false-rejecting the spec's own transitional values. THE 200TH L5 ACTOR — corpus crosses 20%."
+    },
+    {
       "handle": "hubspot-compat",
       "verifiedAt": "2026-06-08",
       "tier": "L5",
@@ -12486,6 +12755,67 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (3/3) vs official Qiskit sources. Enforced enums: Job.status(7, JobStatus enum incl. VALIDATING), RuntimeJob.status(6, runtime Literal WITHOUT VALIDATING — the two sets differ upstream and are kept faithfully distinct) = 2 enum fields."
+    },
+    {
+      "handle": "iers_earth_rotation-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://maia.usno.navy.mil/ser7/readme.finals2000A (official finals2000A format specification)",
+      "remodeled": "Remodeled to the faithful IERS Earth-orientation (finals2000A) record surface verified against the OFFICIAL plain-text format specification (maia.usno.navy.mil readme — fixed-column format). The three IERS-or-Prediction flags enforced {I, P} each (polar motion / UT1 / nutation) — format-spec-anchored: the fixed-column layout cannot change without breaking every consumer worldwide, and the flag domain is spelled out in the spec ('IERS (I) or Prediction (P) flag'). All numeric columns (MJD, PM-x/y + errors, UT1-UTC + error, LOD + error, dX/dY + errors, Bulletin B values) verified against the column table.",
+      "resources": [
+        {
+          "entity": "EopRecord",
+          "source": "https://maia.usno.navy.mil/ser7/readme.finals2000A (official finals2000A format specification)",
+          "verifiedFields": [
+            "mjd",
+            "pmX",
+            "pmXError",
+            "pmY",
+            "pmYError",
+            "ut1MinusUtc",
+            "ut1Error",
+            "lod",
+            "lodError",
+            "dX",
+            "dY",
+            "polarMotionFlag",
+            "ut1Flag",
+            "nutationFlag"
+          ],
+          "fieldStatus": "confirmed (fixed-column format spec, Bulletin A values)",
+          "discoveredEnums": {
+            "polarMotionFlag": [
+              "I",
+              "P"
+            ],
+            "ut1Flag": [
+              "I",
+              "P"
+            ],
+            "nutationFlag": [
+              "I",
+              "P"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BulletinBValues",
+          "source": "https://maia.usno.navy.mil/ser7/readme.finals2000A (official finals2000A format specification)",
+          "verifiedFields": [
+            "pmX",
+            "pmY",
+            "ut1MinusUtc",
+            "dX",
+            "dY"
+          ],
+          "fieldStatus": "confirmed (Bulletin B columns 135-185)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs the official finals2000A format spec. Enforced enums: polarMotionFlag(2) + ut1Flag(2) + nutationFlag(2) = 3 enum fields, format-spec-anchored."
     },
     {
       "handle": "ietf_rfcs-compat",
@@ -14878,6 +15208,70 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs Losant's own published client schemas. Enforced enums: deviceClass(7)+ownerType(2)+verificationType(5)+castBuffersAs(5)+createdByType(3)+lastUpdatedByType(3)+method(6)+access(4) = 8 enum fields."
+    },
+    {
+      "handle": "macos_darwin-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://developer.apple.com/tutorials/data/documentation/foundation/processinfo.json + thermalstate-swift.enum.json + comparisonresult.json + operatingsystemversion.json (official Apple docs JSON API)",
+      "remodeled": "Remodeled to a faithful macOS/Darwin Foundation subset verified against Apple's OFFICIAL developer-docs JSON API. ComparisonResult enforced (orderedAscending/orderedSame/orderedDescending — frozen since NeXTSTEP, a ~40-year anchor) + ProcessInfo.ThermalState (nominal/fair/serious/critical). Property surfaces machine-verified from topicSections. gemini-CLI-drafted; harness fetches matched on every set.",
+      "resources": [
+        {
+          "entity": "ProcessInfo",
+          "source": "https://developer.apple.com/tutorials/data/documentation/foundation/processinfo.json",
+          "verifiedFields": [
+            "processName",
+            "processIdentifier",
+            "operatingSystemVersionString",
+            "physicalMemory",
+            "processorCount",
+            "activeProcessorCount",
+            "thermalState",
+            "isLowPowerModeEnabled",
+            "systemUptime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "thermalState": [
+              "nominal",
+              "fair",
+              "serious",
+              "critical"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "OperatingSystemVersion",
+          "source": "https://developer.apple.com/tutorials/data/documentation/foundation/operatingsystemversion.json",
+          "verifiedFields": [
+            "majorVersion",
+            "minorVersion",
+            "patchVersion"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "ComparisonResult",
+          "source": "https://developer.apple.com/tutorials/data/documentation/foundation/comparisonresult.json",
+          "verifiedFields": [
+            "result"
+          ],
+          "fieldStatus": "confirmed (the enum cases themselves)",
+          "discoveredEnums": {
+            "result": [
+              "orderedAscending",
+              "orderedSame",
+              "orderedDescending"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs Apple's official docs JSON API. Enforced enums: thermalState(4) + comparisonResult(3, NeXTSTEP-frozen ~40-year anchor) = 2 enum fields."
     },
     {
       "handle": "magento-compat",

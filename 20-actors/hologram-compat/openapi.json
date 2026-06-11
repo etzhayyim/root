@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible IoT / edge actor (hologram); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:hologram-compat",
-    "x-wasm-cid": "bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+    "x-wasm-cid": "bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+      "url": "ipfs://bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/telemetries": {
+    "/v1/cellularlinks": {
       "get": {
-        "summary": "List Telemetries",
+        "summary": "List CellularLinks",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Telemetry"
+                        "$ref": "#/components/schemas/CellularLink"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Telemetry",
+        "summary": "Create a CellularLink",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/CellularLinkCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/CellularLink"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/telemetries/{id}": {
+    "/v1/cellularlinks/{id}": {
       "get": {
-        "summary": "Get a Telemetry",
+        "summary": "Get a CellularLink",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/CellularLink"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Telemetry",
+        "summary": "Update a CellularLink",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/CellularLinkCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/CellularLink"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Telemetry",
+        "summary": "Delete a CellularLink",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/gateways": {
+    "/v1/dataplans": {
       "get": {
-        "summary": "List Gateways",
+        "summary": "List DataPlans",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Gateway"
+                        "$ref": "#/components/schemas/DataPlan"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Gateway",
+        "summary": "Create a DataPlan",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/DataPlanCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/DataPlan"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/gateways/{id}": {
+    "/v1/dataplans/{id}": {
       "get": {
-        "summary": "Get a Gateway",
+        "summary": "Get a DataPlan",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/DataPlan"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Gateway",
+        "summary": "Update a DataPlan",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/DataPlanCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/DataPlan"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Gateway",
+        "summary": "Delete a DataPlan",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/commands": {
+    "/v1/smsrecords": {
       "get": {
-        "summary": "List Commands",
+        "summary": "List SmsRecords",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Command"
+                        "$ref": "#/components/schemas/SmsRecord"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Command",
+        "summary": "Create a SmsRecord",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/SmsRecordCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/SmsRecord"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/commands/{id}": {
+    "/v1/smsrecords/{id}": {
       "get": {
-        "summary": "Get a Command",
+        "summary": "Get a SmsRecord",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/SmsRecord"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Command",
+        "summary": "Update a SmsRecord",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/SmsRecordCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/SmsRecord"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a SmsRecord",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/firmwares": {
+    "/v1/tags": {
       "get": {
-        "summary": "List Firmwares",
+        "summary": "List Tags",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Firmware"
+                        "$ref": "#/components/schemas/Tag"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Firmware",
+        "summary": "Create a Tag",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/TagCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/firmwares/{id}": {
+    "/v1/tags/{id}": {
       "get": {
-        "summary": "Get a Firmware",
+        "summary": "Get a Tag",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Firmware",
+        "summary": "Update a Tag",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/TagCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Firmware",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/alerts": {
-      "get": {
-        "summary": "List Alerts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Alert"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Alert",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/alerts/{id}": {
-      "get": {
-        "summary": "Get a Alert",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Alert",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a Tag",
         "parameters": [
           {
             "name": "id",
@@ -1146,17 +961,30 @@
           "id": {
             "type": "string"
           },
-          "serial": {
+          "orgid": {
+            "type": "integer"
+          },
+          "name": {
             "type": "string"
           },
-          "model": {
+          "type": {
             "type": "string"
           },
-          "status": {
+          "whencreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "phonenumber": {
             "type": "string"
           },
-          "firmware": {
+          "tunnelable": {
+            "type": "boolean"
+          },
+          "imei": {
             "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1171,42 +999,83 @@
       "DeviceCreate": {
         "type": "object",
         "properties": {
-          "serial": {
+          "orgid": {
+            "type": "integer"
+          },
+          "name": {
             "type": "string"
           },
-          "model": {
+          "type": {
             "type": "string"
           },
-          "status": {
+          "whencreated": {
             "type": "string"
           },
-          "firmware": {
+          "phonenumber": {
             "type": "string"
+          },
+          "tunnelable": {
+            "type": "boolean"
+          },
+          "imei": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
           }
         },
         "required": [
-          "serial",
-          "model"
+          "orgid",
+          "name"
         ]
       },
-      "Telemetry": {
+      "CellularLink": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "deviceid": {
+            "type": "integer"
+          },
+          "devicename": {
             "type": "string"
           },
-          "metric": {
+          "orgid": {
+            "type": "integer"
+          },
+          "sim": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
+          "msisdn": {
+            "type": "string"
           },
-          "recordedAt": {
+          "state": {
+            "type": "string"
+          },
+          "whenclaimed": {
             "type": "string",
             "format": "date-time"
+          },
+          "whenexpires": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "euiccType": {
+            "type": "string",
+            "enum": [
+              "UICC",
+              "BOOTSTRAP",
+              "OPERATIONAL"
+            ]
+          },
+          "euiccState": {
+            "type": "string",
+            "enum": [
+              "DOWNLOADED",
+              "ENABLED",
+              "DISABLED"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1218,28 +1087,56 @@
           }
         }
       },
-      "TelemetryCreate": {
+      "CellularLinkCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
+          "deviceid": {
+            "type": "integer"
+          },
+          "devicename": {
             "type": "string"
           },
-          "metric": {
+          "orgid": {
+            "type": "integer"
+          },
+          "sim": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "recordedAt": {
+          "msisdn": {
             "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "whenclaimed": {
+            "type": "string"
+          },
+          "whenexpires": {
+            "type": "string"
+          },
+          "euiccType": {
+            "type": "string",
+            "enum": [
+              "UICC",
+              "BOOTSTRAP",
+              "OPERATIONAL"
+            ]
+          },
+          "euiccState": {
+            "type": "string",
+            "enum": [
+              "DOWNLOADED",
+              "ENABLED",
+              "DISABLED"
+            ]
           }
         },
         "required": [
-          "metric",
-          "value"
+          "deviceid",
+          "devicename"
         ]
       },
-      "Gateway": {
+      "DataPlan": {
         "type": "object",
         "properties": {
           "id": {
@@ -1248,10 +1145,22 @@
           "name": {
             "type": "string"
           },
-          "location": {
+          "partnerid": {
+            "type": "integer"
+          },
+          "description": {
             "type": "string"
           },
-          "deviceCount": {
+          "data": {
+            "type": "integer"
+          },
+          "recurring": {
+            "type": "boolean"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "billingperiod": {
             "type": "integer"
           },
           "createdAt": {
@@ -1264,42 +1173,101 @@
           }
         }
       },
-      "GatewayCreate": {
+      "DataPlanCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "location": {
+          "partnerid": {
+            "type": "integer"
+          },
+          "description": {
             "type": "string"
           },
-          "deviceCount": {
+          "data": {
+            "type": "integer"
+          },
+          "recurring": {
+            "type": "boolean"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "billingperiod": {
             "type": "integer"
           }
         },
         "required": [
           "name",
-          "location"
+          "partnerid"
         ]
       },
-      "Command": {
+      "SmsRecord": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "linkid": {
+            "type": "integer"
+          },
+          "recordId": {
+            "type": "integer"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "otherNumber": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SmsRecordCreate": {
+        "type": "object",
+        "properties": {
+          "linkid": {
+            "type": "integer"
+          },
+          "recordId": {
+            "type": "integer"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "otherNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "linkid",
+          "timestamp"
+        ]
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "payload": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1310,111 +1278,15 @@
           }
         }
       },
-      "CommandCreate": {
+      "TagCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
-          },
-          "payload": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
           }
         },
         "required": [
-          "name",
-          "payload"
-        ]
-      },
-      "Firmware": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FirmwareCreate": {
-        "type": "object",
-        "properties": {
-          "model": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "model",
-          "version"
-        ]
-      },
-      "Alert": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "rule": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AlertCreate": {
-        "type": "object",
-        "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "rule": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "rule",
-          "severity"
+          "name"
         ]
       }
     }

@@ -111,119 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/processes", methods=["POST"])
-def create_process(request):
-    """Create a Process."""
+@app.route("/v1/processinfos", methods=["POST"])
+def create_process_info(request):
+    """Create a ProcessInfo."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
+    err = _reject_unknown(data, ['processName', 'processIdentifier', 'operatingSystemVersionString', 'physicalMemory', 'processorCount', 'activeProcessorCount', 'thermalState', 'isLowPowerModeEnabled', 'systemUptime'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'command'])
+    err = _require(data, ['processName', 'processIdentifier'])
     if err:
         return err, 400
+    if data.get('thermalState') and data['thermalState'] not in ['nominal', 'fair', 'serious', 'critical']:
+        return {"error": {"message": "invalid thermalState; allowed: " + ", ".join(['nominal', 'fair', 'serious', 'critical']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("macosdar_pro")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["command"] = data.get('command')
-    rec["state"] = data.get('state')
-    rec["uid"] = _as_int(data.get('uid'))
+    rec["processName"] = data.get('processName')
+    rec["processIdentifier"] = _as_int(data.get('processIdentifier'))
+    rec["operatingSystemVersionString"] = data.get('operatingSystemVersionString')
+    rec["physicalMemory"] = _as_int(data.get('physicalMemory'))
+    rec["processorCount"] = _as_int(data.get('processorCount'))
+    rec["activeProcessorCount"] = _as_int(data.get('activeProcessorCount'))
+    rec["thermalState"] = data.get('thermalState')
+    rec["isLowPowerModeEnabled"] = _as_bool(data.get('isLowPowerModeEnabled'))
+    rec["systemUptime"] = _as_float(data.get('systemUptime'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Process", rec)
+    _persist("ProcessInfo", rec)
     return rec, 201
 
-@app.route("/v1/processes", methods=["GET"])
-def list_processes(request):
-    """List Processes with filtering + cursor pagination."""
+@app.route("/v1/processinfos", methods=["GET"])
+def list_process_infos(request):
+    """List ProcessInfos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Process")
-    rows = _apply_filters(rows, params, ['pid', 'command', 'state', 'uid'])
+    rows = _query("ProcessInfo")
+    rows = _apply_filters(rows, params, ['processName', 'processIdentifier', 'operatingSystemVersionString', 'physicalMemory', 'processorCount', 'activeProcessorCount', 'thermalState', 'isLowPowerModeEnabled', 'systemUptime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/processes/<eid>", methods=["GET"])
-def get_process(request, eid):
-    """Retrieve a Process by id (supports ?expand=)."""
-    rows = _query("Process", eid)
+@app.route("/v1/processinfos/<eid>", methods=["GET"])
+def get_process_info(request, eid):
+    """Retrieve a ProcessInfo by id (supports ?expand=)."""
+    rows = _query("ProcessInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/processes/<eid>", methods=["POST", "PATCH"])
-def update_process(request, eid):
-    """Update a Process."""
-    rows = _query("Process", eid)
+@app.route("/v1/processinfos/<eid>", methods=["POST", "PATCH"])
+def update_process_info(request, eid):
+    """Update a ProcessInfo."""
+    rows = _query("ProcessInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
+    err = _reject_unknown(data, ['processName', 'processIdentifier', 'operatingSystemVersionString', 'physicalMemory', 'processorCount', 'activeProcessorCount', 'thermalState', 'isLowPowerModeEnabled', 'systemUptime'])
     if err:
         return err, 400
+    if data.get('thermalState') and data['thermalState'] not in ['nominal', 'fair', 'serious', 'critical']:
+        return {"error": {"message": "invalid thermalState; allowed: " + ", ".join(['nominal', 'fair', 'serious', 'critical']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Process", rec)
+    _persist("ProcessInfo", rec)
     return rec, 200
 
-@app.route("/v1/processes/<eid>", methods=["DELETE"])
-def delete_process(request, eid):
-    """Delete a Process."""
-    rows = _query("Process", eid)
+@app.route("/v1/processinfos/<eid>", methods=["DELETE"])
+def delete_process_info(request, eid):
+    """Delete a ProcessInfo."""
+    rows = _query("ProcessInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.Process", "id": eid})
+    db.retract({"entity": f"macos_darwin.ProcessInfo", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/threads", methods=["POST"])
-def create_thread(request):
-    """Create a Thread."""
+@app.route("/v1/operatingsystemversions", methods=["POST"])
+def create_operating_system_version(request):
+    """Create a OperatingSystemVersion."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
+    err = _reject_unknown(data, ['majorVersion', 'minorVersion', 'patchVersion'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'tid'])
+    err = _require(data, ['majorVersion', 'minorVersion'])
     if err:
         return err, 400
-    rec = {"id": new_id("macosdar_thr")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["tid"] = _as_int(data.get('tid'))
-    rec["state"] = data.get('state')
-    rec["priority"] = _as_int(data.get('priority'))
+    rec = {"id": new_id("macosdar_ope")}
+    rec["majorVersion"] = _as_int(data.get('majorVersion'))
+    rec["minorVersion"] = _as_int(data.get('minorVersion'))
+    rec["patchVersion"] = _as_int(data.get('patchVersion'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Thread", rec)
+    _persist("OperatingSystemVersion", rec)
     return rec, 201
 
-@app.route("/v1/threads", methods=["GET"])
-def list_threads(request):
-    """List Threads with filtering + cursor pagination."""
+@app.route("/v1/operatingsystemversions", methods=["GET"])
+def list_operating_system_versions(request):
+    """List OperatingSystemVersions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Thread")
-    rows = _apply_filters(rows, params, ['pid', 'tid', 'state', 'priority'])
+    rows = _query("OperatingSystemVersion")
+    rows = _apply_filters(rows, params, ['majorVersion', 'minorVersion', 'patchVersion'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/threads/<eid>", methods=["GET"])
-def get_thread(request, eid):
-    """Retrieve a Thread by id (supports ?expand=)."""
-    rows = _query("Thread", eid)
+@app.route("/v1/operatingsystemversions/<eid>", methods=["GET"])
+def get_operating_system_version(request, eid):
+    """Retrieve a OperatingSystemVersion by id (supports ?expand=)."""
+    rows = _query("OperatingSystemVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["POST", "PATCH"])
-def update_thread(request, eid):
-    """Update a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/operatingsystemversions/<eid>", methods=["POST", "PATCH"])
+def update_operating_system_version(request, eid):
+    """Update a OperatingSystemVersion."""
+    rows = _query("OperatingSystemVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
+    err = _reject_unknown(data, ['majorVersion', 'minorVersion', 'patchVersion'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,284 +239,89 @@ def update_thread(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Thread", rec)
+    _persist("OperatingSystemVersion", rec)
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["DELETE"])
-def delete_thread(request, eid):
-    """Delete a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/operatingsystemversions/<eid>", methods=["DELETE"])
+def delete_operating_system_version(request, eid):
+    """Delete a OperatingSystemVersion."""
+    rows = _query("OperatingSystemVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.Thread", "id": eid})
+    db.retract({"entity": f"macos_darwin.OperatingSystemVersion", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/filedescriptors", methods=["POST"])
-def create_file_descriptor(request):
-    """Create a FileDescriptor."""
+@app.route("/v1/comparisonresults", methods=["POST"])
+def create_comparison_result(request):
+    """Create a ComparisonResult."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
+    err = _reject_unknown(data, ['result'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'fd'])
+    err = _require(data, ['result'])
     if err:
         return err, 400
-    rec = {"id": new_id("macosdar_fil")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["fd"] = _as_int(data.get('fd'))
-    rec["path"] = data.get('path')
-    rec["mode"] = data.get('mode')
+    if data.get('result') and data['result'] not in ['orderedAscending', 'orderedSame', 'orderedDescending']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['orderedAscending', 'orderedSame', 'orderedDescending']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("macosdar_com")}
+    rec["result"] = data.get('result')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("FileDescriptor", rec)
+    _persist("ComparisonResult", rec)
     return rec, 201
 
-@app.route("/v1/filedescriptors", methods=["GET"])
-def list_file_descriptors(request):
-    """List FileDescriptors with filtering + cursor pagination."""
+@app.route("/v1/comparisonresults", methods=["GET"])
+def list_comparison_results(request):
+    """List ComparisonResults with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("FileDescriptor")
-    rows = _apply_filters(rows, params, ['pid', 'fd', 'path', 'mode'])
+    rows = _query("ComparisonResult")
+    rows = _apply_filters(rows, params, ['result'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filedescriptors/<eid>", methods=["GET"])
-def get_file_descriptor(request, eid):
-    """Retrieve a FileDescriptor by id (supports ?expand=)."""
-    rows = _query("FileDescriptor", eid)
+@app.route("/v1/comparisonresults/<eid>", methods=["GET"])
+def get_comparison_result(request, eid):
+    """Retrieve a ComparisonResult by id (supports ?expand=)."""
+    rows = _query("ComparisonResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/filedescriptors/<eid>", methods=["POST", "PATCH"])
-def update_file_descriptor(request, eid):
-    """Update a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
+@app.route("/v1/comparisonresults/<eid>", methods=["POST", "PATCH"])
+def update_comparison_result(request, eid):
+    """Update a ComparisonResult."""
+    rows = _query("ComparisonResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
+    err = _reject_unknown(data, ['result'])
     if err:
         return err, 400
+    if data.get('result') and data['result'] not in ['orderedAscending', 'orderedSame', 'orderedDescending']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['orderedAscending', 'orderedSame', 'orderedDescending']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("FileDescriptor", rec)
+    _persist("ComparisonResult", rec)
     return rec, 200
 
-@app.route("/v1/filedescriptors/<eid>", methods=["DELETE"])
-def delete_file_descriptor(request, eid):
-    """Delete a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
+@app.route("/v1/comparisonresults/<eid>", methods=["DELETE"])
+def delete_comparison_result(request, eid):
+    """Delete a ComparisonResult."""
+    rows = _query("ComparisonResult", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.FileDescriptor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/syscalls", methods=["POST"])
-def create_syscall(request):
-    """Create a Syscall."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'number'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("macosdar_sys")}
-    rec["name"] = data.get('name')
-    rec["number"] = _as_int(data.get('number'))
-    rec["argCount"] = _as_int(data.get('argCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Syscall", rec)
-    return rec, 201
-
-@app.route("/v1/syscalls", methods=["GET"])
-def list_syscalls(request):
-    """List Syscalls with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Syscall")
-    rows = _apply_filters(rows, params, ['name', 'number', 'argCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["GET"])
-def get_syscall(request, eid):
-    """Retrieve a Syscall by id (supports ?expand=)."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["POST", "PATCH"])
-def update_syscall(request, eid):
-    """Update a Syscall."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Syscall", rec)
-    return rec, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["DELETE"])
-def delete_syscall(request, eid):
-    """Delete a Syscall."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.Syscall", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/memoryregions", methods=["POST"])
-def create_memory_region(request):
-    """Create a MemoryRegion."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'startAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("macosdar_mem")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["startAddr"] = data.get('startAddr')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["perms"] = data.get('perms')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("MemoryRegion", rec)
-    return rec, 201
-
-@app.route("/v1/memoryregions", methods=["GET"])
-def list_memory_regions(request):
-    """List MemoryRegions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("MemoryRegion")
-    rows = _apply_filters(rows, params, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["GET"])
-def get_memory_region(request, eid):
-    """Retrieve a MemoryRegion by id (supports ?expand=)."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["POST", "PATCH"])
-def update_memory_region(request, eid):
-    """Update a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("MemoryRegion", rec)
-    return rec, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["DELETE"])
-def delete_memory_region(request, eid):
-    """Delete a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.MemoryRegion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'number'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("macosdar_sig")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["number"] = _as_int(data.get('number'))
-    rec["action"] = data.get('action')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
-    return rec, 201
-
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['pid', 'number', 'action'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Signal", rec)
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"macos_darwin.Signal", "id": eid})
+    db.retract({"entity": f"macos_darwin.ComparisonResult", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "macos_darwin-compat", "tier": "L4",
-            "entities": ['Process', 'Thread', 'FileDescriptor', 'Syscall', 'MemoryRegion', 'Signal']}, 200
+            "entities": ['ProcessInfo', 'OperatingSystemVersion', 'ComparisonResult']}, 200
 
 
 if __name__ == "__main__":

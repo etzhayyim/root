@@ -5,21 +5,44 @@
   "kind": "compat",
   "title": "hologram clean-room actor",
   "description": "Clean-room, API-compatible IoT / edge actor (hologram); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+  "wasmCid": "bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
+  "ipfs": "ipfs://bafkreihay2vxlv4lyjz2v2ae4qvubgekwkm3mmq6akwqexprq5sdkacjry",
   "schema": "schema/hologram.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/hologram-io/rest-api-docs/master/apiary.apib (Hologram's own official API docs repo)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Device",
+      "CellularLink",
+      "DataPlan",
+      "SmsRecord",
+      "Tag"
+    ],
+    "enums": {
+      "CellularLink": {
+        "euiccType": [
+          "UICC",
+          "BOOTSTRAP",
+          "OPERATIONAL"
+        ],
+        "euiccState": [
+          "DOWNLOADED",
+          "ENABLED",
+          "DISABLED"
+        ]
+      }
+    }
+  },
   "entities": [
     "Device",
-    "Telemetry",
-    "Gateway",
-    "Command",
-    "Firmware",
-    "Alert"
+    "CellularLink",
+    "DataPlan",
+    "SmsRecord",
+    "Tag"
   ],
   "adr": [
     "260607",
@@ -31,7 +54,7 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
@@ -60,128 +83,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/telemetries",
-          "op": "create Telemetry"
+          "path": "/v1/cellularlinks",
+          "op": "create CellularLink"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries",
-          "op": "list Telemetry"
+          "path": "/v1/cellularlinks",
+          "op": "list CellularLink"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries/{id}",
-          "op": "get Telemetry"
+          "path": "/v1/cellularlinks/{id}",
+          "op": "get CellularLink"
         },
         {
           "method": "PATCH",
-          "path": "/v1/telemetries/{id}",
-          "op": "update Telemetry"
+          "path": "/v1/cellularlinks/{id}",
+          "op": "update CellularLink"
         },
         {
           "method": "DELETE",
-          "path": "/v1/telemetries/{id}",
-          "op": "delete Telemetry"
+          "path": "/v1/cellularlinks/{id}",
+          "op": "delete CellularLink"
         },
         {
           "method": "POST",
-          "path": "/v1/gateways",
-          "op": "create Gateway"
+          "path": "/v1/dataplans",
+          "op": "create DataPlan"
         },
         {
           "method": "GET",
-          "path": "/v1/gateways",
-          "op": "list Gateway"
+          "path": "/v1/dataplans",
+          "op": "list DataPlan"
         },
         {
           "method": "GET",
-          "path": "/v1/gateways/{id}",
-          "op": "get Gateway"
+          "path": "/v1/dataplans/{id}",
+          "op": "get DataPlan"
         },
         {
           "method": "PATCH",
-          "path": "/v1/gateways/{id}",
-          "op": "update Gateway"
+          "path": "/v1/dataplans/{id}",
+          "op": "update DataPlan"
         },
         {
           "method": "DELETE",
-          "path": "/v1/gateways/{id}",
-          "op": "delete Gateway"
+          "path": "/v1/dataplans/{id}",
+          "op": "delete DataPlan"
         },
         {
           "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
+          "path": "/v1/smsrecords",
+          "op": "create SmsRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
+          "path": "/v1/smsrecords",
+          "op": "list SmsRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
+          "path": "/v1/smsrecords/{id}",
+          "op": "get SmsRecord"
         },
         {
           "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
+          "path": "/v1/smsrecords/{id}",
+          "op": "update SmsRecord"
         },
         {
           "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/smsrecords/{id}",
+          "op": "delete SmsRecord"
         },
         {
           "method": "POST",
-          "path": "/v1/firmwares",
-          "op": "create Firmware"
+          "path": "/v1/tags",
+          "op": "create Tag"
         },
         {
           "method": "GET",
-          "path": "/v1/firmwares",
-          "op": "list Firmware"
+          "path": "/v1/tags",
+          "op": "list Tag"
         },
         {
           "method": "GET",
-          "path": "/v1/firmwares/{id}",
-          "op": "get Firmware"
+          "path": "/v1/tags/{id}",
+          "op": "get Tag"
         },
         {
           "method": "PATCH",
-          "path": "/v1/firmwares/{id}",
-          "op": "update Firmware"
+          "path": "/v1/tags/{id}",
+          "op": "update Tag"
         },
         {
           "method": "DELETE",
-          "path": "/v1/firmwares/{id}",
-          "op": "delete Firmware"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
+          "path": "/v1/tags/{id}",
+          "op": "delete Tag"
         }
       ],
       "features": {
@@ -244,7 +242,7 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
           "name": "create_device",
@@ -252,22 +250,34 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serial": {
+              "orgid": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "model": {
+              "type": {
                 "type": "string"
               },
-              "status": {
+              "whencreated": {
                 "type": "string"
               },
-              "firmware": {
+              "phonenumber": {
                 "type": "string"
+              },
+              "tunnelable": {
+                "type": "boolean"
+              },
+              "imei": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
               }
             },
             "required": [
-              "serial",
-              "model"
+              "orgid",
+              "name"
             ]
           }
         },
@@ -303,17 +313,29 @@
               "id": {
                 "type": "string"
               },
-              "serial": {
+              "orgid": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "model": {
+              "type": {
                 "type": "string"
               },
-              "status": {
+              "whencreated": {
                 "type": "string"
               },
-              "firmware": {
+              "phonenumber": {
                 "type": "string"
+              },
+              "tunnelable": {
+                "type": "boolean"
+              },
+              "imei": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -337,41 +359,59 @@
           }
         },
         {
-          "name": "create_telemetry",
-          "description": "Create a Telemetry.",
+          "name": "create_cellular_link",
+          "description": "Create a CellularLink.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "deviceId": {
+              "deviceid": {
+                "type": "integer"
+              },
+              "devicename": {
                 "type": "string"
               },
-              "metric": {
+              "orgid": {
+                "type": "integer"
+              },
+              "sim": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "msisdn": {
+                "type": "string"
               },
-              "recordedAt": {
+              "state": {
+                "type": "string"
+              },
+              "whenclaimed": {
+                "type": "string"
+              },
+              "whenexpires": {
+                "type": "string"
+              },
+              "euiccType": {
+                "type": "string"
+              },
+              "euiccState": {
                 "type": "string"
               }
             },
             "required": [
-              "metric",
-              "value"
+              "deviceid",
+              "devicename"
             ]
           }
         },
         {
-          "name": "list_telemetries",
-          "description": "List Telemetries.",
+          "name": "list_cellular_links",
+          "description": "List CellularLinks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_telemetry",
-          "description": "Get a Telemetry by id.",
+          "name": "get_cellular_link",
+          "description": "Get a CellularLink by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +425,42 @@
           }
         },
         {
-          "name": "update_telemetry",
-          "description": "Update a Telemetry.",
+          "name": "update_cellular_link",
+          "description": "Update a CellularLink.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "deviceId": {
+              "deviceid": {
+                "type": "integer"
+              },
+              "devicename": {
                 "type": "string"
               },
-              "metric": {
+              "orgid": {
+                "type": "integer"
+              },
+              "sim": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "msisdn": {
+                "type": "string"
               },
-              "recordedAt": {
+              "state": {
+                "type": "string"
+              },
+              "whenclaimed": {
+                "type": "string"
+              },
+              "whenexpires": {
+                "type": "string"
+              },
+              "euiccType": {
+                "type": "string"
+              },
+              "euiccState": {
                 "type": "string"
               }
             },
@@ -412,8 +470,8 @@
           }
         },
         {
-          "name": "delete_telemetry",
-          "description": "Delete a Telemetry.",
+          "name": "delete_cellular_link",
+          "description": "Delete a CellularLink.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,38 +485,50 @@
           }
         },
         {
-          "name": "create_gateway",
-          "description": "Create a Gateway.",
+          "name": "create_data_plan",
+          "description": "Create a DataPlan.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "location": {
+              "partnerid": {
+                "type": "integer"
+              },
+              "description": {
                 "type": "string"
               },
-              "deviceCount": {
+              "data": {
+                "type": "integer"
+              },
+              "recurring": {
+                "type": "boolean"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "billingperiod": {
                 "type": "integer"
               }
             },
             "required": [
               "name",
-              "location"
+              "partnerid"
             ]
           }
         },
         {
-          "name": "list_gateways",
-          "description": "List Gateways.",
+          "name": "list_data_plans",
+          "description": "List DataPlans.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_gateway",
-          "description": "Get a Gateway by id.",
+          "name": "get_data_plan",
+          "description": "Get a DataPlan by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +542,8 @@
           }
         },
         {
-          "name": "update_gateway",
-          "description": "Update a Gateway.",
+          "name": "update_data_plan",
+          "description": "Update a DataPlan.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,10 +553,22 @@
               "name": {
                 "type": "string"
               },
-              "location": {
+              "partnerid": {
+                "type": "integer"
+              },
+              "description": {
                 "type": "string"
               },
-              "deviceCount": {
+              "data": {
+                "type": "integer"
+              },
+              "recurring": {
+                "type": "boolean"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "billingperiod": {
                 "type": "integer"
               }
             },
@@ -496,8 +578,8 @@
           }
         },
         {
-          "name": "delete_gateway",
-          "description": "Delete a Gateway.",
+          "name": "delete_data_plan",
+          "description": "Delete a DataPlan.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,46 +593,150 @@
           }
         },
         {
-          "name": "create_command",
-          "description": "Create a Command.",
+          "name": "create_sms_record",
+          "description": "Create a SmsRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "deviceId": {
+              "linkid": {
+                "type": "integer"
+              },
+              "recordId": {
+                "type": "integer"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "otherNumber": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "linkid",
+              "timestamp"
+            ]
+          }
+        },
+        {
+          "name": "list_sms_records",
+          "description": "List SmsRecords.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_sms_record",
+          "description": "Get a SmsRecord by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_sms_record",
+          "description": "Update a SmsRecord.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "linkid": {
+                "type": "integer"
+              },
+              "recordId": {
+                "type": "integer"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "otherNumber": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sms_record",
+          "description": "Delete a SmsRecord.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tag",
+          "description": "Create a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_tags",
+          "description": "List Tags.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tag",
+          "description": "Get a Tag by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tag",
+          "description": "Update a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
-              },
-              "payload": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "payload"
-            ]
-          }
-        },
-        {
-          "name": "list_commands",
-          "description": "List Commands.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_command",
-          "description": "Get a Command by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               }
             },
             "required": [
@@ -559,203 +745,8 @@
           }
         },
         {
-          "name": "update_command",
-          "description": "Update a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "payload": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_command",
-          "description": "Delete a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_firmware",
-          "description": "Create a Firmware.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "model": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "model",
-              "version"
-            ]
-          }
-        },
-        {
-          "name": "list_firmwares",
-          "description": "List Firmwares.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_firmware",
-          "description": "Get a Firmware by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_firmware",
-          "description": "Update a Firmware.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_firmware",
-          "description": "Delete a Firmware.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_alert",
-          "description": "Create a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "rule": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "rule",
-              "severity"
-            ]
-          }
-        },
-        {
-          "name": "list_alerts",
-          "description": "List Alerts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_alert",
-          "description": "Update a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "rule": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
+          "name": "delete_tag",
+          "description": "Delete a Tag.",
           "inputSchema": {
             "type": "object",
             "properties": {
