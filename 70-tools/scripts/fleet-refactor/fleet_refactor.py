@@ -130,6 +130,34 @@ class Registry:
           [?e :registry.entry/active true]
           [?e :registry.entry/url ?url]]
         db))
+```
+
+If the source uses LangChain / LangGraph (StateGraph, create_react_agent, LCEL),
+port onto langchain-clj / langgraph-clj:
+
+```python
+graph = StateGraph(State)
+graph.add_node("draft", draft_fn)
+graph.add_edge("draft", "send")
+graph.set_entry_point("draft")
+app = graph.compile(checkpointer=saver)
+result = app.invoke({"messages": [HumanMessage("hi")]})
+```
+
+```clojure
+(ns example.flow
+  (:require [langgraph.graph :as g]
+            [langgraph.checkpoint :as cp]
+            [langchain.message :as msg]))
+
+(def app
+  (-> (g/state-graph {:channels {:messages {:reducer (fnil into []) :default []}}})
+      (g/add-node :draft draft-fn)
+      (g/add-edge :draft :send)
+      (g/set-entry-point :draft)
+      (g/compile-graph {:checkpointer (cp/mem-checkpointer)})))
+
+(def result (g/invoke app {:messages [(msg/user "hi")]}))
 ```"""
 
 USER_TEMPLATE = """Convert this {lang} file to Clojure per the rules.
