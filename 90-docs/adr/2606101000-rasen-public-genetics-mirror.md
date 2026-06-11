@@ -194,3 +194,41 @@ public data**, not just the hand seed.
   ipfs node (Pinata / `ipfs name publish` / DataLad → `80-data/genome`); (2) componentize-py
   WASM build + DID-doc CID advertisement (ADR-2606014500/2606014600); (3) widen allowlist or
   add non-GO pathway sources (Reactome/KEGG) — G7 (Council + operator DID).
+
+# Addendum (2026-06-11): R2 — publish + WASM-ready + Reactome (operator-authorized 1·2·3)
+
+The operator (Jun Kawasaki) authorized the three open/next items; each is exercised here, the
+PR merge being the G7 gate record (the ibuki "Council gate exercised as PR merge" precedent).
+All three stay strictly inside G1 — PUBLIC reference only, no individual data.
+
+**(1) Publish to public IPFS** — `methods/publish.py` (G7, operator/mesh-side): pins the
+ingested artifacts (asserts the daemon CID equals the pure-stdlib `cid.py` CID), publishes the
+graph CID under the node's IPNS `self` key (a stable `/ipns/<id>` that resolves to the latest
+graph), and snapshots graph + datoms + provenance + `PUBLISH.md`/`publish-manifest.json` into
+the git-tracked data layer **`80-data/genome/`** (bounded EDN, no git-lfs, G8). First run:
+IPNS `/ipns/k51qzi5uqu5dgql6m0zggpi47n0jfvcr1q2scowxgekf0lu8ifssm3nzdqblgc`; trustless verify
+(`ipfs cat <cid>` → re-address with `cid.py`) reproduces the published CID. Public-gateway
+propagation is best-effort (DHT announce); the local pin + IPNS is authoritative. Pinata /
+hosted pinning is an operator API-key add-on (out of scope).
+
+**(2) WASM component — build-ready** — `wasm/wit/world.wit` (the `rasen-actor` world exporting
+`analyze`/`datoms`/`coverage`), `wasm/app.py` (the export bodies — runnable now in dev mode,
+embedding the bounded PUBLIC seed for the no-FS WASM runtime), and `wasm/build.sh` (embed seed
+→ componentize-py → CIDv1 → DID-doc `EtzhayyimWasmComponent` service descriptor). The export
+logic is CI-covered (`tests/test_wasm.py`, 4 tests). The componentize-py build itself is the
+operator/build-env step (toolchain absent in this session — NOT faked; no `.wasm`/CID is
+claimed). G1 holds in WASM: the component embeds only the bounded PUBLIC seed.
+
+**(3) Reactome pathway source** — second authoritative pathway source alongside GO. The gene
+loop fetches `uniprot.Swiss-Prot` from MyGene, then Reactome `mapping/UniProt/<acc>/pathways`;
+`build_reactome_pathways` dedupes by `stId`, prefers top-level (lowest `maxDepth`), caps
+`:ingest/reactome :max-per-gene` (5), and emits `:participates-in` edges at a fixed
+representative weight (DISCLOSED Reactome curation, N3, never re-judged). Live run (GO +
+Reactome): 20 genes + 12 variants → **268 nodes / 305 縁** (117 GO + 85 Reactome edges; 104 GO
++ 76 Reactome pathway nodes), 0 errors; graph CID
+`bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm` (ipfs pin matched). Provenance
+gains `fetched.reactome_edges`.
+
+**Tests**: 23 green (network-free) — +2 Reactome dedup/top-first/cap tests (with a bundled
+`reactome_brca1.json` fixture) +4 WASM export tests. **Boundary unchanged**: PUBLIC reference
+only; KEGG-live or widening the gene allowlist further stays G7-gated. **Status**: 🟢 R2.

@@ -54,11 +54,29 @@
       "method": "methods/ingest.py",
       "input": "data/ingest-sources.edn",
       "output": ["out/ingested-genome-graph.kotoba.edn", "out/ingested-genome-datoms.kotoba.edn", "out/ingested.cid", "out/ingest-provenance.json"],
-      "pipeline": "read bounded public allowlist → fetch MyGene.info (gene→Ensembl+cytoband) + MyVariant.info (rsID→ClinVar significance + gnomAD super-population AGGREGATE freq) → normalise to genome-ontology EDN → datom_emit → content-address (CIDv1 raw) + best-effort ipfs pin → provenance manifest",
+      "pipeline": "read bounded public allowlist → fetch MyGene.info (gene→Ensembl+cytoband+GO.BP+UniProt) + MyVariant.info (rsID→ClinVar significance + gnomAD super-population AGGREGATE freq) + Reactome (UniProt→curated pathways) → normalise to genome-ontology EDN (GO + Reactome :participates-in, deduped/best-evidence/capped, G5) → datom_emit → content-address (CIDv1 raw) + best-effort ipfs pin → provenance manifest",
       "doc": "OUTWARD-GATED (G7) public-reference ingest; PUBLIC/aggregate only, no individual genotypes (G1); kotoba IPFS content-addressed (verifiable without ipfs daemon)",
       "gated": "G7 — Council + operator DID for scope expansion beyond the committed bounded slice"
+    },
+    {
+      "id": "cell:rasen.publish",
+      "method": "methods/publish.py",
+      "input": ["out/ingested-genome-graph.kotoba.edn", "out/ingested-genome-datoms.kotoba.edn"],
+      "output": ["80-data/genome/genome-graph.kotoba.edn", "80-data/genome/genome-datoms.kotoba.edn", "80-data/genome/PUBLISH.md", "80-data/genome/publish-manifest.json"],
+      "pipeline": "pin artifacts (assert daemon CID == cid.py CID) → IPNS self-key publish (stable /ipns/<id> → latest graph) → snapshot graph+datoms+provenance+manifest into 80-data/genome (git-tracked, no git-lfs G8)",
+      "doc": "OUTWARD-GATED (G7) publish to public IPFS; PUBLIC reference only, safe by construction (G1); Pinata/public-pin services are an operator API-key add-on",
+      "gated": "G7 — operator/mesh-side"
     }
   ],
+  "wasm": {
+    "status": "build-ready",
+    "world": "etzhayyim:rasen/rasen-actor@0.1.0",
+    "wit": "wasm/wit/world.wit",
+    "entry": "wasm/app.py",
+    "exports": ["analyze", "datoms", "coverage"],
+    "build": "wasm/build.sh (componentize-py → CID → DID-doc EtzhayyimWasmComponent service; ADR-2606014500/2606014600)",
+    "note": "export bodies runnable in dev + CI-covered (tests/test_wasm.py); the componentize-py build is the operator step; G1 holds in WASM (embeds bounded PUBLIC seed only)"
+  },
   "gates": {
     "G1": "CARE / RESEARCH map, NEVER an individual-genotype registry or discrimination tool — no individual genotypes / sample / family sequence; the unit is gene/variant/population-aggregate; allele frequencies are super-population aggregate only; chromosomal location is coarse (cytoband); the routing is care, research and equity, never insurance / employment / eugenic / forensic targeting",
     "G2": "edge-primary (N1) — evidence/burden lives only on :en/grasping-load × disclosed :en/clinsig; gene care-priority is the integral computed on read; no :genome/score-of-gene",

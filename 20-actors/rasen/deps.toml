@@ -23,17 +23,28 @@ runtime = "kotoba pywasm actor (componentize-py); ingest runs operator/mesh-side
 
 [ingest]
 gated = "G7 — Council + operator DID for scope expansion beyond the bounded public slice"
-sources = ["MyGene.info (Ensembl/NCBI gene reference)", "MyVariant.info (ClinVar + gnomAD aggregate)"]
+sources = ["MyGene.info (Ensembl/NCBI gene reference + GO + UniProt)", "MyVariant.info (ClinVar + gnomAD aggregate)", "Reactome (curated pathways via UniProt mapping)"]
 individual_level = false   # PUBLIC + super-population AGGREGATE only (G1, by construction)
 manifest = "data/ingest-sources.edn"
+
+[publish]
+gated = "G7 — operator/mesh-side; PUBLIC reference only (safe by construction, G1)"
+targets = ["ipfs pin (CID parity with cid.py)", "IPNS self-key publish", "80-data/genome snapshot (git-tracked, no git-lfs G8)"]
+
+[wasm]
+status = "build-ready (componentize-py toolchain is the operator step)"
+world = "etzhayyim:rasen/rasen-actor@0.1.0"
+exports = ["analyze", "datoms", "coverage"]
+entry = "wasm/app.py"   # export bodies; runnable in dev, embeds seed for WASM
 
 [cells]
 analyze = "methods/analyze.py"
 datom_emit = "methods/datom_emit.py"
 coverage = "methods/coverage_report.py"
 ingest = "methods/ingest.py"
+publish = "methods/publish.py"
 
 [tests]
-count = 17
-runner = "python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py"
+count = 23
+runner = "python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py && python3 tests/test_wasm.py"
 network = false   # all tests are network-free (live fetch covered by running ingest.py)

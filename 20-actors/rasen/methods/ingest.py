@@ -110,6 +110,41 @@ def build_gene_pathways(hit: dict, gene_id: str, category: str = "BP", max_per_g
     return pw_nodes, edges
 
 
+def build_reactome_pathways(entries, gene_id: str, weight: float = 0.7, max_per_gene: int = 5):
+    """From Reactome UniProt-mapping `pathways` (a list of pathway dicts), return
+    (pathway_nodes, :participates-in edges).
+
+    PUBLIC curated Reactome pathways only. Bounded: dedupe by stId, prefer TOP-LEVEL pathways
+    (lowest maxDepth) then stId, cap `max_per_gene`. Curated membership carries no GO-style
+    evidence code, so a fixed representative weight (DISCLOSED Reactome curation, N3, never
+    re-judged) is used.
+    """
+    if isinstance(entries, dict):
+        entries = [entries]
+    best = {}  # stId → (maxDepth, name)
+    for p in entries or []:
+        if not isinstance(p, dict):
+            continue
+        st = p.get("stId")
+        if not st or not str(st).startswith("R-"):
+            continue
+        depth = p.get("maxDepth", 99)
+        name = p.get("displayName") or (p.get("name") or [st])[0]
+        if st not in best or depth < best[st][0]:
+            best[st] = (depth, name)
+
+    ranked = sorted(best.items(), key=lambda kv: (kv[1][0], kv[0]))[:max_per_gene]
+    pw_nodes, edges = {}, []
+    for st, (depth, name) in ranked:
+        pw_id = "pw.react-" + st.lower()  # R-HSA-110312 → pw.react-r-hsa-110312
+        pw_nodes[pw_id] = {":genome/id": pw_id, ":genome/kind": ":pathway",
+                           ":genome/label": name, ":pathway/source": ":reactome",
+                           ":pathway/acc": st, ":genome/sourcing": ":authoritative"}
+        edges.append({":en/from": gene_id, ":en/to": pw_id, ":en/kind": ":participates-in",
+                      ":en/grasping-load": float(weight), ":en/sourcing": ":authoritative"})
+    return pw_nodes, edges
+
+
 def normalise_variant(rsid: str, hit: dict, clinsig_map: dict, pop_map: dict):
     """Return (variant_node, gene_id_or_None, phenotype_nodes, edges) from a MyVariant hit."""
     vid = f"var.{rsid}"
@@ -258,15 +293,23 @@ def ingest(sources: dict, outdir: pathlib.Path, prov: dict):
     go_category = (go_cfg.get(":category") or "BP")
     go_max = int(go_cfg.get(":max-per-gene") or 6)
 
+    react_cfg = sources.get(":ingest/reactome") or {}
+    react_on = bool(react_cfg.get(":enabled"))
+    react_url = next((s[":source/url"] for s in sources[":ingest/sources"]
+                      if s[":source/id"] == ":reactome"), None)
+    react_species = str(react_cfg.get(":species") or "9606")
+    react_max = int(react_cfg.get(":max-per-gene") or 5)
+    react_weight = float(react_cfg.get(":weight") or 0.7)
+
     nodes, edges = {}, []
     nodes.update(population_nodes(pop_map))
 
-    # genes (+ GO pathway membership)
+    # genes (+ GO pathway membership + optional Reactome curated pathways)
     for sym in sources[":ingest/genes"]:
         try:
             data, q = _get_json(gene_url, {"q": f"symbol:{sym}", "species": "human",
                                            "fields": "symbol,name,ensembl.gene,map_location,taxid,"
-                                                     f"go.{go_category}", "size": 1})
+                                                     f"go.{go_category},uniprot.Swiss-Prot", "size": 1})
             hits = data.get("hits") or []
             if hits:
                 n = gene_node_from_mygene(hits[0], sym)
@@ -277,6 +320,25 @@ def ingest(sources: dict, outdir: pathlib.Path, prov: dict):
                     nodes.setdefault(pid, pn)
                 edges.extend(pw_edges)
                 prov["fetched"]["go_edges"] += len(pw_edges)
+
+                # Reactome curated pathways via UniProt accession (operator-authorized, G7)
+                if react_on and react_url:
+                    up = (hits[0].get("uniprot") or {}).get("Swiss-Prot")
+                    if isinstance(up, list):
+                        up = up[0] if up else None
+                    if up:
+                        try:
+                            entries, _ = _get_json(f"{react_url}/{up}/pathways",
+                                                   {"species": react_species})
+                            rp_nodes, rp_edges = build_reactome_pathways(
+                                entries, n[":genome/id"], react_weight, react_max)
+                            for pid, pn in rp_nodes.items():
+                                nodes.setdefault(pid, pn)
+                            edges.extend(rp_edges)
+                            prov["fetched"]["reactome_edges"] += len(rp_edges)
+                        except (urllib.error.URLError, urllib.error.HTTPError,
+                                ValueError, TimeoutError) as e:
+                            prov["errors"].append(f"reactome {sym}/{up}: {type(e).__name__}: {e}")
             else:
                 prov["errors"].append(f"gene {sym}: no hit")
         except (urllib.error.URLError, urllib.error.HTTPError, ValueError, TimeoutError) as e:
@@ -334,7 +396,8 @@ def main(argv):
             "sources": [{"id": s[":source/id"].lstrip(":"), "url": s[":source/url"],
                          "scope": s[":source/scope"], "individual_level": s.get(":source/individual?", False)}
                         for s in sources[":ingest/sources"]],
-            "fetched": {"genes": 0, "variants": 0, "go_edges": 0}, "errors": [], "counts": {}}
+            "fetched": {"genes": 0, "variants": 0, "go_edges": 0, "reactome_edges": 0},
+            "errors": [], "counts": {}}
 
     if offline:
         if not graph_path.exists():

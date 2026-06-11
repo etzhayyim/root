@@ -65,15 +65,16 @@ It answers the question "is there an actor that hosts public genetic data and an
 │   ├── analyze.py                         # edge-primary clinical/functional evidence analyzer
 │   ├── datom_emit.py                      # kotoba Datom-log (EAVT) emitter — canonical state
 │   ├── coverage_report.py                 # honest coverage + gap map (G5)
-│   ├── ingest.py                          # OUTWARD (G7): public APIs → EDN/Datom → kotoba IPFS CID
+│   ├── ingest.py                          # OUTWARD (G7): public APIs (MyGene/MyVariant/GO/Reactome) → EDN/Datom → IPFS CID
+│   ├── publish.py                         # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
 │   └── cid.py                             # kotoba IPFS CIDv1 (raw/sha2-256) — ipfs-parity, no daemon
-├── tests/                                 # 17 tests, pure stdlib (network-free)
-│   ├── test_analyze.py
-│   ├── test_coverage.py
-│   ├── test_ingest.py
-│   └── fixtures/{myvariant_rs334, mygene_brca1_go}.json
-├── wasm/
-│   └── README.md                          # kotoba pywasm actor (componentize-py) design
+├── tests/                                 # 23 tests, pure stdlib (network-free)
+│   ├── test_analyze.py · test_coverage.py · test_ingest.py · test_wasm.py
+│   └── fixtures/{myvariant_rs334, mygene_brca1_go, reactome_brca1}.json
+├── wasm/                                  # kotoba pywasm component (componentize-py)
+│   ├── README.md · wit/world.wit          # WIT world (analyze/datoms/coverage exports)
+│   ├── app.py                             # export bodies (runnable in dev; embeds seed for WASM)
+│   └── build.sh                           # embed seed → componentize → CID → DID service descriptor
 └── out/                                   # GENERATED — do not hand-edit
     ├── care-report.md · genome-datoms.kotoba.edn · coverage-report.md     # from the seed
     ├── ingested-genome-graph.kotoba.edn · ingested-genome-datoms.kotoba.edn # from live ingest
@@ -94,7 +95,7 @@ python3 methods/ingest.py           # live fetch (MyGene.info + MyVariant.info) 
 python3 methods/ingest.py --offline --no-pin   # re-content-address an existing ingested graph
 python3 methods/cid.py out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
 
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py  # 17 green
+python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py && python3 tests/test_wasm.py  # 23 green
 ```
 
 The ingest is **PUBLIC + aggregate only** (G1): gene reference models (Ensembl + coarse
@@ -104,12 +105,38 @@ allele frequencies — never sample/cohort/individual data. The artifact is cont
 to a kotoba IPFS CIDv1 (raw/sha2-256) that is **byte-identical to `ipfs add --cid-version=1
 --raw-leaves`** and verifiable without a daemon (`methods/cid.py`).
 
-GO pathways are **bounded + honest** (G5): per gene the ingest dedupes GO terms, keeps the
-best evidence weight (`GO_EVIDENCE_WEIGHT`: experimental > author-stated > phylogenetic >
-computational — the GO annotation is the DISCLOSED fact, N3), and caps at
-`:ingest/go :max-per-gene` (default 6). These become `:participates-in` (gene→pathway) edges
-that enrich the **pleiotropy / cascade** readout. First GO-enabled run: 20 genes + 12 variants
-→ **192 nodes / 220 縁** (117 GO `:participates-in` edges, 104 GO pathway nodes), 0 errors.
+Pathways come from **two PUBLIC sources**, both bounded + honest (G5), both feeding
+`:participates-in` (gene→pathway) edges that enrich the **pleiotropy / cascade** readout:
+- **GO** (Gene Ontology / EBI-GOA via MyGene `go.BP`): per gene dedupe terms, keep best
+  evidence weight (`GO_EVIDENCE_WEIGHT`: experimental > author-stated > phylogenetic >
+  computational — the GO annotation is the DISCLOSED fact, N3), cap `:ingest/go :max-per-gene`.
+- **Reactome** (curated pathways via UniProt→Reactome mapping; `:ingest/reactome`): per gene
+  dedupe by `stId`, prefer top-level (lowest `maxDepth`), cap `:max-per-gene`; curated
+  membership carries a fixed representative weight (DISCLOSED Reactome curation, N3).
+  Operator-authorized scope expansion (G7) — `:enabled true` + the PR merge is the gate record.
+
+Latest live run (GO + Reactome): 20 genes + 12 variants → **268 nodes / 305 縁** (117 GO +
+85 Reactome `:participates-in` edges), 0 errors.
+
+## Publish (G7, operator/mesh-side)
+
+`methods/publish.py` takes the ingested artifacts and (1) pins them + asserts the daemon CID
+equals `cid.py`'s, (2) publishes the graph CID under the node's IPNS `self` key (a stable
+`/ipns/<id>` that resolves to the latest graph), and (3) snapshots graph + datoms + provenance
++ a `PUBLISH.md`/`publish-manifest.json` into the git-tracked data layer **`80-data/genome/`**
+(bounded EDN, no git-lfs, G8). PUBLIC reference only — publishing is safe by construction (G1).
+Pinata / other public pinning services are an operator API-key add-on (out of scope); IPNS + a
+trustless gateway already make the content publicly fetchable + re-verifiable.
+
+## WASM component (build-ready; ADR-2606014500/2606014600)
+
+`wasm/` holds the kotoba pywasm component: `wit/world.wit` (the `rasen-actor` world exporting
+`analyze`/`datoms`/`coverage`), `app.py` (the export bodies — runnable now in dev mode:
+`python3 wasm/app.py analyze`, and embedding the seed for the no-FS WASM runtime), and
+`build.sh` (embed seed → `componentize-py` → CID → DID-doc `EtzhayyimWasmComponent` service
+descriptor). The build itself is the operator step (componentize-py toolchain); the export
+logic is CI-covered by `tests/test_wasm.py`. G1 holds in WASM — the component embeds only the
+bounded PUBLIC seed, so it cannot leak what it does not contain.
 
 ## Ontology (genome-ontology, `00-contracts/schemas/`)
 
