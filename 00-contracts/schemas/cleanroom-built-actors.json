@@ -703,17 +703,16 @@
       "handle": "apigee-compat",
       "platform": "apigee",
       "bytes": 2120,
-      "wasmCid": "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+      "wasmCid": "bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
+        "Organization",
+        "Environment",
         "ApiProxy",
-        "Database",
-        "Function"
+        "Deployment",
+        "DataCollector"
       ]
     },
     {

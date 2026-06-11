@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 786,
-    "L5": 214
+    "L4": 785,
+    "L5": 215
   },
   "actors": [
     {
@@ -755,10 +755,10 @@
     {
       "handle": "apigee-compat",
       "did": "did:web:etzhayyim.com:actor:apigee-compat",
-      "wasmCid": "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+      "wasmCid": "bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "apigee clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [

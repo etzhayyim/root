@@ -3,31 +3,31 @@
 
 namespace apigee {
 
-    entity Service {
+    entity Organization {
         id: string @unique
         name: string
-        runtime: string
-        region: string
-        status: string
+        customerName: string
+        runtimeType: string
+        state: string
+        subscriptionType: string
+        analyticsRegion: string
+        lastModifiedAt: integer
+        expiresAt: integer
+        networkEgressRestricted: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
-        id: string @unique
-        serviceId: string
-        version: string
-        status: string
-        deployedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Secret {
+    entity Environment {
         id: string @unique
         name: string
-        scope: string
-        rotatedAt: datetime
+        displayName: string
+        state: string
+        apiProxyType: string
+        deploymentType: string
+        createdAt: integer
+        lastModifiedAt: integer
+        hasAttachedFlowHooks: boolean
         createdAt: datetime
         updatedAt: datetime
     }
@@ -35,40 +35,36 @@ namespace apigee {
     entity ApiProxy {
         id: string @unique
         name: string
-        basePath: string
-        target: string
-        active: boolean
+        readOnly: boolean
+        apiProxyType: string
+        latestRevisionId: string
+        space: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Database {
+    entity Deployment {
         id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
+        apiProxy: string
+        environment: string
+        revision: string
+        state: string
+        proxyDeploymentType: string
+        deployStartTime: integer
+        serviceAccount: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Function {
+    entity DataCollector {
         id: string @unique
-        serviceId: string
         name: string
-        memoryMb: integer
-        timeoutMs: integer
+        description: string
+        type: string
+        createdAt: integer
+        lastModifiedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

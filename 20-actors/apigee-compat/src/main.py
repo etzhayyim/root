@@ -111,219 +111,189 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['name', 'customerName', 'runtimeType', 'state', 'subscriptionType', 'analyticsRegion', 'lastModifiedAt', 'expiresAt', 'networkEgressRestricted'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'runtime'])
+    err = _require(data, ['name', 'customerName'])
     if err:
         return err, 400
-    rec = {"id": new_id("apigee_ser")}
+    if data.get('runtimeType') and data['runtimeType'] not in ['RUNTIME_TYPE_UNSPECIFIED', 'CLOUD', 'HYBRID']:
+        return {"error": {"message": "invalid runtimeType; allowed: " + ", ".join(['RUNTIME_TYPE_UNSPECIFIED', 'CLOUD', 'HYBRID']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('subscriptionType') and data['subscriptionType'] not in ['SUBSCRIPTION_TYPE_UNSPECIFIED', 'PAID', 'TRIAL']:
+        return {"error": {"message": "invalid subscriptionType; allowed: " + ", ".join(['SUBSCRIPTION_TYPE_UNSPECIFIED', 'PAID', 'TRIAL']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apigee_org")}
     rec["name"] = data.get('name')
-    rec["runtime"] = data.get('runtime')
-    rec["region"] = data.get('region')
-    rec["status"] = data.get('status')
+    rec["customerName"] = data.get('customerName')
+    rec["runtimeType"] = data.get('runtimeType')
+    rec["state"] = data.get('state')
+    rec["subscriptionType"] = data.get('subscriptionType')
+    rec["analyticsRegion"] = data.get('analyticsRegion')
+    rec["lastModifiedAt"] = _as_int(data.get('lastModifiedAt'))
+    rec["expiresAt"] = _as_int(data.get('expiresAt'))
+    rec["networkEgressRestricted"] = _as_bool(data.get('networkEgressRestricted'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
+    _persist("Organization", rec)
     return rec, 201
 
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'runtime', 'region', 'status'])
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['name', 'customerName', 'runtimeType', 'state', 'subscriptionType', 'analyticsRegion', 'lastModifiedAt', 'expiresAt', 'networkEgressRestricted'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['name', 'customerName', 'runtimeType', 'state', 'subscriptionType', 'analyticsRegion', 'lastModifiedAt', 'expiresAt', 'networkEgressRestricted'])
     if err:
         return err, 400
+    if data.get('runtimeType') and data['runtimeType'] not in ['RUNTIME_TYPE_UNSPECIFIED', 'CLOUD', 'HYBRID']:
+        return {"error": {"message": "invalid runtimeType; allowed: " + ", ".join(['RUNTIME_TYPE_UNSPECIFIED', 'CLOUD', 'HYBRID']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('subscriptionType') and data['subscriptionType'] not in ['SUBSCRIPTION_TYPE_UNSPECIFIED', 'PAID', 'TRIAL']:
+        return {"error": {"message": "invalid subscriptionType; allowed: " + ", ".join(['SUBSCRIPTION_TYPE_UNSPECIFIED', 'PAID', 'TRIAL']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Service", rec)
+    _persist("Organization", rec)
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apigee.Service", "id": eid})
+    db.retract({"entity": f"apigee.Organization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
+@app.route("/v1/environments", methods=["POST"])
+def create_environment(request):
+    """Create a Environment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
+    err = _reject_unknown(data, ['name', 'displayName', 'state', 'apiProxyType', 'deploymentType', 'createdAt', 'lastModifiedAt', 'hasAttachedFlowHooks'])
     if err:
         return err, 400
-    err = _require(data, ['version', 'status'])
+    err = _require(data, ['name', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("apigee_dep")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["version"] = data.get('version')
-    rec["status"] = data.get('status')
-    rec["deployedAt"] = data.get('deployedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
-    return rec, 201
-
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['serviceId', 'version', 'status', 'deployedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Deployment", rec)
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apigee.Deployment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/secrets", methods=["POST"])
-def create_secret(request):
-    """Create a Secret."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'scope'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("apigee_sec")}
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('apiProxyType') and data['apiProxyType'] not in ['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']:
+        return {"error": {"message": "invalid apiProxyType; allowed: " + ", ".join(['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']), "type": "invalid_request_error"}}, 400
+    if data.get('deploymentType') and data['deploymentType'] not in ['DEPLOYMENT_TYPE_UNSPECIFIED', 'PROXY', 'ARCHIVE']:
+        return {"error": {"message": "invalid deploymentType; allowed: " + ", ".join(['DEPLOYMENT_TYPE_UNSPECIFIED', 'PROXY', 'ARCHIVE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apigee_env")}
     rec["name"] = data.get('name')
-    rec["scope"] = data.get('scope')
-    rec["rotatedAt"] = data.get('rotatedAt')
+    rec["displayName"] = data.get('displayName')
+    rec["state"] = data.get('state')
+    rec["apiProxyType"] = data.get('apiProxyType')
+    rec["deploymentType"] = data.get('deploymentType')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["lastModifiedAt"] = _as_int(data.get('lastModifiedAt'))
+    rec["hasAttachedFlowHooks"] = _as_bool(data.get('hasAttachedFlowHooks'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Secret", rec)
+    _persist("Environment", rec)
     return rec, 201
 
-@app.route("/v1/secrets", methods=["GET"])
-def list_secrets(request):
-    """List Secrets with filtering + cursor pagination."""
+@app.route("/v1/environments", methods=["GET"])
+def list_environments(request):
+    """List Environments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Secret")
-    rows = _apply_filters(rows, params, ['name', 'scope', 'rotatedAt'])
+    rows = _query("Environment")
+    rows = _apply_filters(rows, params, ['name', 'displayName', 'state', 'apiProxyType', 'deploymentType', 'createdAt', 'lastModifiedAt', 'hasAttachedFlowHooks'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/secrets/<eid>", methods=["GET"])
-def get_secret(request, eid):
-    """Retrieve a Secret by id (supports ?expand=)."""
-    rows = _query("Secret", eid)
+@app.route("/v1/environments/<eid>", methods=["GET"])
+def get_environment(request, eid):
+    """Retrieve a Environment by id (supports ?expand=)."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["POST", "PATCH"])
-def update_secret(request, eid):
-    """Update a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/environments/<eid>", methods=["POST", "PATCH"])
+def update_environment(request, eid):
+    """Update a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
+    err = _reject_unknown(data, ['name', 'displayName', 'state', 'apiProxyType', 'deploymentType', 'createdAt', 'lastModifiedAt', 'hasAttachedFlowHooks'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STATE_UNSPECIFIED', 'CREATING', 'ACTIVE', 'DELETING', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('apiProxyType') and data['apiProxyType'] not in ['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']:
+        return {"error": {"message": "invalid apiProxyType; allowed: " + ", ".join(['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']), "type": "invalid_request_error"}}, 400
+    if data.get('deploymentType') and data['deploymentType'] not in ['DEPLOYMENT_TYPE_UNSPECIFIED', 'PROXY', 'ARCHIVE']:
+        return {"error": {"message": "invalid deploymentType; allowed: " + ", ".join(['DEPLOYMENT_TYPE_UNSPECIFIED', 'PROXY', 'ARCHIVE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Secret", rec)
+    _persist("Environment", rec)
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["DELETE"])
-def delete_secret(request, eid):
-    """Delete a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/environments/<eid>", methods=["DELETE"])
+def delete_environment(request, eid):
+    """Delete a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apigee.Secret", "id": eid})
+    db.retract({"entity": f"apigee.Environment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/apiproxies", methods=["POST"])
 def create_api_proxy(request):
     """Create a ApiProxy."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
+    err = _reject_unknown(data, ['name', 'readOnly', 'apiProxyType', 'latestRevisionId', 'space'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'basePath'])
+    err = _require(data, ['name', 'readOnly'])
     if err:
         return err, 400
+    if data.get('apiProxyType') and data['apiProxyType'] not in ['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']:
+        return {"error": {"message": "invalid apiProxyType; allowed: " + ", ".join(['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("apigee_api")}
     rec["name"] = data.get('name')
-    rec["basePath"] = data.get('basePath')
-    rec["target"] = data.get('target')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["readOnly"] = _as_bool(data.get('readOnly'))
+    rec["apiProxyType"] = data.get('apiProxyType')
+    rec["latestRevisionId"] = data.get('latestRevisionId')
+    rec["space"] = data.get('space')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("ApiProxy", rec)
@@ -334,7 +304,7 @@ def list_api_proxies(request):
     """List ApiProxies with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("ApiProxy")
-    rows = _apply_filters(rows, params, ['name', 'basePath', 'target', 'active'])
+    rows = _apply_filters(rows, params, ['name', 'readOnly', 'apiProxyType', 'latestRevisionId', 'space'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -355,9 +325,11 @@ def update_api_proxy(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
+    err = _reject_unknown(data, ['name', 'readOnly', 'apiProxyType', 'latestRevisionId', 'space'])
     if err:
         return err, 400
+    if data.get('apiProxyType') and data['apiProxyType'] not in ['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']:
+        return {"error": {"message": "invalid apiProxyType; allowed: " + ", ".join(['API_PROXY_TYPE_UNSPECIFIED', 'PROGRAMMABLE', 'CONFIGURABLE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -375,143 +347,158 @@ def delete_api_proxy(request, eid):
     db.retract({"entity": f"apigee.ApiProxy", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/databases", methods=["POST"])
-def create_database(request):
-    """Create a Database."""
+@app.route("/v1/deployments", methods=["POST"])
+def create_deployment(request):
+    """Create a Deployment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
+    err = _reject_unknown(data, ['apiProxy', 'environment', 'revision', 'state', 'proxyDeploymentType', 'deployStartTime', 'serviceAccount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'engine'])
+    err = _require(data, ['apiProxy', 'environment'])
     if err:
         return err, 400
-    rec = {"id": new_id("apigee_dat")}
-    rec["name"] = data.get('name')
-    rec["engine"] = data.get('engine')
-    rec["region"] = data.get('region')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
+    if data.get('state') and data['state'] not in ['RUNTIME_STATE_UNSPECIFIED', 'READY', 'PROGRESSING', 'ERROR']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['RUNTIME_STATE_UNSPECIFIED', 'READY', 'PROGRESSING', 'ERROR']), "type": "invalid_request_error"}}, 400
+    if data.get('proxyDeploymentType') and data['proxyDeploymentType'] not in ['PROXY_DEPLOYMENT_TYPE_UNSPECIFIED', 'STANDARD', 'EXTENSIBLE']:
+        return {"error": {"message": "invalid proxyDeploymentType; allowed: " + ", ".join(['PROXY_DEPLOYMENT_TYPE_UNSPECIFIED', 'STANDARD', 'EXTENSIBLE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apigee_dep")}
+    rec["apiProxy"] = data.get('apiProxy')
+    rec["environment"] = data.get('environment')
+    rec["revision"] = data.get('revision')
+    rec["state"] = data.get('state')
+    rec["proxyDeploymentType"] = data.get('proxyDeploymentType')
+    rec["deployStartTime"] = _as_int(data.get('deployStartTime'))
+    rec["serviceAccount"] = data.get('serviceAccount')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Database", rec)
+    _persist("Deployment", rec)
     return rec, 201
 
-@app.route("/v1/databases", methods=["GET"])
-def list_databases(request):
-    """List Databases with filtering + cursor pagination."""
+@app.route("/v1/deployments", methods=["GET"])
+def list_deployments(request):
+    """List Deployments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Database")
-    rows = _apply_filters(rows, params, ['name', 'engine', 'region', 'sizeGb'])
+    rows = _query("Deployment")
+    rows = _apply_filters(rows, params, ['apiProxy', 'environment', 'revision', 'state', 'proxyDeploymentType', 'deployStartTime', 'serviceAccount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/databases/<eid>", methods=["GET"])
-def get_database(request, eid):
-    """Retrieve a Database by id (supports ?expand=)."""
-    rows = _query("Database", eid)
+@app.route("/v1/deployments/<eid>", methods=["GET"])
+def get_deployment(request, eid):
+    """Retrieve a Deployment by id (supports ?expand=)."""
+    rows = _query("Deployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/databases/<eid>", methods=["POST", "PATCH"])
-def update_database(request, eid):
-    """Update a Database."""
-    rows = _query("Database", eid)
+@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
+def update_deployment(request, eid):
+    """Update a Deployment."""
+    rows = _query("Deployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
+    err = _reject_unknown(data, ['apiProxy', 'environment', 'revision', 'state', 'proxyDeploymentType', 'deployStartTime', 'serviceAccount'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['RUNTIME_STATE_UNSPECIFIED', 'READY', 'PROGRESSING', 'ERROR']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['RUNTIME_STATE_UNSPECIFIED', 'READY', 'PROGRESSING', 'ERROR']), "type": "invalid_request_error"}}, 400
+    if data.get('proxyDeploymentType') and data['proxyDeploymentType'] not in ['PROXY_DEPLOYMENT_TYPE_UNSPECIFIED', 'STANDARD', 'EXTENSIBLE']:
+        return {"error": {"message": "invalid proxyDeploymentType; allowed: " + ", ".join(['PROXY_DEPLOYMENT_TYPE_UNSPECIFIED', 'STANDARD', 'EXTENSIBLE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Database", rec)
+    _persist("Deployment", rec)
     return rec, 200
 
-@app.route("/v1/databases/<eid>", methods=["DELETE"])
-def delete_database(request, eid):
-    """Delete a Database."""
-    rows = _query("Database", eid)
+@app.route("/v1/deployments/<eid>", methods=["DELETE"])
+def delete_deployment(request, eid):
+    """Delete a Deployment."""
+    rows = _query("Deployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apigee.Database", "id": eid})
+    db.retract({"entity": f"apigee.Deployment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/functions", methods=["POST"])
-def create_function(request):
-    """Create a Function."""
+@app.route("/v1/datacollectors", methods=["POST"])
+def create_data_collector(request):
+    """Create a DataCollector."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
+    err = _reject_unknown(data, ['name', 'description', 'type', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'memoryMb'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("apigee_fun")}
-    rec["serviceId"] = data.get('serviceId')
+    if data.get('type') and data['type'] not in ['TYPE_UNSPECIFIED', 'INTEGER', 'FLOAT', 'STRING', 'BOOLEAN', 'DATETIME']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['TYPE_UNSPECIFIED', 'INTEGER', 'FLOAT', 'STRING', 'BOOLEAN', 'DATETIME']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apigee_dat")}
     rec["name"] = data.get('name')
-    rec["memoryMb"] = _as_int(data.get('memoryMb'))
-    rec["timeoutMs"] = _as_int(data.get('timeoutMs'))
+    rec["description"] = data.get('description')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["lastModifiedAt"] = _as_int(data.get('lastModifiedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Function", rec)
+    _persist("DataCollector", rec)
     return rec, 201
 
-@app.route("/v1/functions", methods=["GET"])
-def list_functions(request):
-    """List Functions with filtering + cursor pagination."""
+@app.route("/v1/datacollectors", methods=["GET"])
+def list_data_collectors(request):
+    """List DataCollectors with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Function")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
+    rows = _query("DataCollector")
+    rows = _apply_filters(rows, params, ['name', 'description', 'type', 'createdAt', 'lastModifiedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/functions/<eid>", methods=["GET"])
-def get_function(request, eid):
-    """Retrieve a Function by id (supports ?expand=)."""
-    rows = _query("Function", eid)
+@app.route("/v1/datacollectors/<eid>", methods=["GET"])
+def get_data_collector(request, eid):
+    """Retrieve a DataCollector by id (supports ?expand=)."""
+    rows = _query("DataCollector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/functions/<eid>", methods=["POST", "PATCH"])
-def update_function(request, eid):
-    """Update a Function."""
-    rows = _query("Function", eid)
+@app.route("/v1/datacollectors/<eid>", methods=["POST", "PATCH"])
+def update_data_collector(request, eid):
+    """Update a DataCollector."""
+    rows = _query("DataCollector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
+    err = _reject_unknown(data, ['name', 'description', 'type', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['TYPE_UNSPECIFIED', 'INTEGER', 'FLOAT', 'STRING', 'BOOLEAN', 'DATETIME']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['TYPE_UNSPECIFIED', 'INTEGER', 'FLOAT', 'STRING', 'BOOLEAN', 'DATETIME']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Function", rec)
+    _persist("DataCollector", rec)
     return rec, 200
 
-@app.route("/v1/functions/<eid>", methods=["DELETE"])
-def delete_function(request, eid):
-    """Delete a Function."""
-    rows = _query("Function", eid)
+@app.route("/v1/datacollectors/<eid>", methods=["DELETE"])
+def delete_data_collector(request, eid):
+    """Delete a DataCollector."""
+    rows = _query("DataCollector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apigee.Function", "id": eid})
+    db.retract({"entity": f"apigee.DataCollector", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "apigee-compat", "tier": "L4",
-            "entities": ['Service', 'Deployment', 'Secret', 'ApiProxy', 'Database', 'Function']}, 200
+            "entities": ['Organization', 'Environment', 'ApiProxy', 'Deployment', 'DataCollector']}, 200
 
 
 if __name__ == "__main__":

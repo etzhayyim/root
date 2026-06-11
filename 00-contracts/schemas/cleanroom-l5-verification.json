@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 214,
+  "count": 215,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1594,6 +1594,162 @@
           "reason": "The Anthropic API is stateless; there is no standalone Conversation resource (callers pass the message array per request)."
         }
       ]
+    },
+    {
+      "handle": "apigee-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+      "remodeled": "Remodeled to the faithful Apigee v1 surface verified against Google's OFFICIAL Discovery document (machine-extracted; 342 schemas, 71 small declared enums). Complete sets enforced: Organization/Environment state (5, the CRUD lifecycle), runtimeType (3: CLOUD/HYBRID), subscriptionType (3: PAID/TRIAL), apiProxyType (3: PROGRAMMABLE/CONFIGURABLE), deploymentType (3: PROXY/ARCHIVE), Deployment state (4: READY/PROGRESSING/ERROR) + proxyDeploymentType (3), DataCollector type (6, the scalar-type system). Product-coupled growable sets (TraceConfig.exporter, riskAssessmentType) gapped. Harness-direct.",
+      "resources": [
+        {
+          "entity": "Organization",
+          "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+          "verifiedFields": [
+            "name",
+            "customerName",
+            "runtimeType",
+            "state",
+            "subscriptionType",
+            "analyticsRegion",
+            "lastModifiedAt",
+            "expiresAt",
+            "networkEgressRestricted"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "runtimeType": [
+              "RUNTIME_TYPE_UNSPECIFIED",
+              "CLOUD",
+              "HYBRID"
+            ],
+            "state": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ],
+            "subscriptionType": [
+              "SUBSCRIPTION_TYPE_UNSPECIFIED",
+              "PAID",
+              "TRIAL"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Environment",
+          "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+          "verifiedFields": [
+            "name",
+            "displayName",
+            "state",
+            "apiProxyType",
+            "deploymentType",
+            "createdAt",
+            "lastModifiedAt",
+            "hasAttachedFlowHooks"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ],
+            "apiProxyType": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ],
+            "deploymentType": [
+              "DEPLOYMENT_TYPE_UNSPECIFIED",
+              "PROXY",
+              "ARCHIVE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ApiProxy",
+          "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+          "verifiedFields": [
+            "name",
+            "readOnly",
+            "apiProxyType",
+            "latestRevisionId",
+            "space"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "apiProxyType": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Deployment",
+          "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+          "verifiedFields": [
+            "apiProxy",
+            "environment",
+            "revision",
+            "state",
+            "proxyDeploymentType",
+            "deployStartTime",
+            "serviceAccount"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "RUNTIME_STATE_UNSPECIFIED",
+              "READY",
+              "PROGRESSING",
+              "ERROR"
+            ],
+            "proxyDeploymentType": [
+              "PROXY_DEPLOYMENT_TYPE_UNSPECIFIED",
+              "STANDARD",
+              "EXTENSIBLE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "DataCollector",
+          "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "type",
+            "createdAt",
+            "lastModifiedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "TYPE_UNSPECIFIED",
+              "INTEGER",
+              "FLOAT",
+              "STRING",
+              "BOOLEAN",
+              "DATETIME"
+            ]
+          },
+          "gaps": [
+            "TraceConfig.exporter-product-coupled-growing",
+            "riskAssessmentType-product-coupled"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs the official Discovery document. Enforced enums: 10 enum fields (runtimeType/state x2/subscriptionType/apiProxyType x2/deploymentType/deployment state/proxyDeploymentType/collector type) — the largest Discovery-seam haul."
     },
     {
       "handle": "apollo_auto-compat",

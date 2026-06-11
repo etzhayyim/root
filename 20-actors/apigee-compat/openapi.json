@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:apigee-compat",
-    "x-wasm-cid": "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+    "x-wasm-cid": "bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+      "url": "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/organizations": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Organizations",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Organization"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Organization",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/organizations/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Organization",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Organization",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Organization",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/environments": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Environments",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Environment"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Environment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/environments/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Environment",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Environment",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -366,192 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/secrets": {
-      "get": {
-        "summary": "List Secrets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Secret"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Secret",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Secret"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/secrets/{id}": {
-      "get": {
-        "summary": "Get a Secret",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Secret"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Secret",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Secret"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Secret",
+        "summary": "Delete a Environment",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/databases": {
+    "/v1/deployments": {
       "get": {
-        "summary": "List Databases",
+        "summary": "List Deployments",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Database"
+                        "$ref": "#/components/schemas/Deployment"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Database",
+        "summary": "Create a Deployment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/DeploymentCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Deployment"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/databases/{id}": {
+    "/v1/deployments/{id}": {
       "get": {
-        "summary": "Get a Database",
+        "summary": "Get a Deployment",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Deployment"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Database",
+        "summary": "Update a Deployment",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/DeploymentCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Deployment"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Database",
+        "summary": "Delete a Deployment",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/functions": {
+    "/v1/datacollectors": {
       "get": {
-        "summary": "List Functions",
+        "summary": "List DataCollectors",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Function"
+                        "$ref": "#/components/schemas/DataCollector"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Function",
+        "summary": "Create a DataCollector",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/DataCollectorCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/DataCollector"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/functions/{id}": {
+    "/v1/datacollectors/{id}": {
       "get": {
-        "summary": "Get a Function",
+        "summary": "Get a DataCollector",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/DataCollector"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Function",
+        "summary": "Update a DataCollector",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/DataCollectorCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/DataCollector"
                 }
               }
             }
@@ -1106,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a DataCollector",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,7 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Organization": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,14 +964,46 @@
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "customerName": {
             "type": "string"
           },
-          "region": {
+          "runtimeType": {
+            "type": "string",
+            "enum": [
+              "RUNTIME_TYPE_UNSPECIFIED",
+              "CLOUD",
+              "HYBRID"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ]
+          },
+          "subscriptionType": {
+            "type": "string",
+            "enum": [
+              "SUBSCRIPTION_TYPE_UNSPECIFIED",
+              "PAID",
+              "TRIAL"
+            ]
+          },
+          "analyticsRegion": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "lastModifiedAt": {
+            "type": "integer"
+          },
+          "expiresAt": {
+            "type": "integer"
+          },
+          "networkEgressRestricted": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,78 +1015,60 @@
           }
         }
       },
-      "ServiceCreate": {
+      "OrganizationCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "customerName": {
             "type": "string"
           },
-          "region": {
+          "runtimeType": {
+            "type": "string",
+            "enum": [
+              "RUNTIME_TYPE_UNSPECIFIED",
+              "CLOUD",
+              "HYBRID"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ]
+          },
+          "subscriptionType": {
+            "type": "string",
+            "enum": [
+              "SUBSCRIPTION_TYPE_UNSPECIFIED",
+              "PAID",
+              "TRIAL"
+            ]
+          },
+          "analyticsRegion": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "lastModifiedAt": {
+            "type": "integer"
+          },
+          "expiresAt": {
+            "type": "integer"
+          },
+          "networkEgressRestricted": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "runtime"
+          "customerName"
         ]
       },
-      "Deployment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "deployedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DeploymentCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "deployedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "version",
-          "status"
-        ]
-      },
-      "Secret": {
+      "Environment": {
         "type": "object",
         "properties": {
           "id": {
@@ -1248,16 +1077,44 @@
           "name": {
             "type": "string"
           },
-          "scope": {
+          "displayName": {
             "type": "string"
           },
-          "rotatedAt": {
+          "state": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ]
+          },
+          "apiProxyType": {
+            "type": "string",
+            "enum": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ]
+          },
+          "deploymentType": {
+            "type": "string",
+            "enum": [
+              "DEPLOYMENT_TYPE_UNSPECIFIED",
+              "PROXY",
+              "ARCHIVE"
+            ]
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "lastModifiedAt": {
+            "type": "integer"
+          },
+          "hasAttachedFlowHooks": {
+            "type": "boolean"
           },
           "updatedAt": {
             "type": "string",
@@ -1265,22 +1122,54 @@
           }
         }
       },
-      "SecretCreate": {
+      "EnvironmentCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "scope": {
+          "displayName": {
             "type": "string"
           },
-          "rotatedAt": {
-            "type": "string"
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "ACTIVE",
+              "DELETING",
+              "UPDATING"
+            ]
+          },
+          "apiProxyType": {
+            "type": "string",
+            "enum": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ]
+          },
+          "deploymentType": {
+            "type": "string",
+            "enum": [
+              "DEPLOYMENT_TYPE_UNSPECIFIED",
+              "PROXY",
+              "ARCHIVE"
+            ]
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "lastModifiedAt": {
+            "type": "integer"
+          },
+          "hasAttachedFlowHooks": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "scope"
+          "displayName"
         ]
       },
       "ApiProxy": {
@@ -1292,14 +1181,22 @@
           "name": {
             "type": "string"
           },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
+          "readOnly": {
             "type": "boolean"
+          },
+          "apiProxyType": {
+            "type": "string",
+            "enum": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ]
+          },
+          "latestRevisionId": {
+            "type": "string"
+          },
+          "space": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1317,38 +1214,66 @@
           "name": {
             "type": "string"
           },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
+          "readOnly": {
             "type": "boolean"
+          },
+          "apiProxyType": {
+            "type": "string",
+            "enum": [
+              "API_PROXY_TYPE_UNSPECIFIED",
+              "PROGRAMMABLE",
+              "CONFIGURABLE"
+            ]
+          },
+          "latestRevisionId": {
+            "type": "string"
+          },
+          "space": {
+            "type": "string"
           }
         },
         "required": [
           "name",
-          "basePath"
+          "readOnly"
         ]
       },
-      "Database": {
+      "Deployment": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "apiProxy": {
             "type": "string"
           },
-          "engine": {
+          "environment": {
             "type": "string"
           },
-          "region": {
+          "revision": {
             "type": "string"
           },
-          "sizeGb": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "RUNTIME_STATE_UNSPECIFIED",
+              "READY",
+              "PROGRESSING",
+              "ERROR"
+            ]
+          },
+          "proxyDeploymentType": {
+            "type": "string",
+            "enum": [
+              "PROXY_DEPLOYMENT_TYPE_UNSPECIFIED",
+              "STANDARD",
+              "EXTENSIBLE"
+            ]
+          },
+          "deployStartTime": {
             "type": "integer"
+          },
+          "serviceAccount": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1360,48 +1285,76 @@
           }
         }
       },
-      "DatabaseCreate": {
+      "DeploymentCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "apiProxy": {
             "type": "string"
           },
-          "engine": {
+          "environment": {
             "type": "string"
           },
-          "region": {
+          "revision": {
             "type": "string"
           },
-          "sizeGb": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "RUNTIME_STATE_UNSPECIFIED",
+              "READY",
+              "PROGRESSING",
+              "ERROR"
+            ]
+          },
+          "proxyDeploymentType": {
+            "type": "string",
+            "enum": [
+              "PROXY_DEPLOYMENT_TYPE_UNSPECIFIED",
+              "STANDARD",
+              "EXTENSIBLE"
+            ]
+          },
+          "deployStartTime": {
             "type": "integer"
+          },
+          "serviceAccount": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
-          "engine"
+          "apiProxy",
+          "environment"
         ]
       },
-      "Function": {
+      "DataCollector": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "memoryMb": {
-            "type": "integer"
+          "description": {
+            "type": "string"
           },
-          "timeoutMs": {
-            "type": "integer"
+          "type": {
+            "type": "string",
+            "enum": [
+              "TYPE_UNSPECIFIED",
+              "INTEGER",
+              "FLOAT",
+              "STRING",
+              "BOOLEAN",
+              "DATETIME"
+            ]
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "lastModifiedAt": {
+            "type": "integer"
           },
           "updatedAt": {
             "type": "string",
@@ -1409,25 +1362,36 @@
           }
         }
       },
-      "FunctionCreate": {
+      "DataCollectorCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "memoryMb": {
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TYPE_UNSPECIFIED",
+              "INTEGER",
+              "FLOAT",
+              "STRING",
+              "BOOLEAN",
+              "DATETIME"
+            ]
+          },
+          "createdAt": {
             "type": "integer"
           },
-          "timeoutMs": {
+          "lastModifiedAt": {
             "type": "integer"
           }
         },
         "required": [
           "name",
-          "memoryMb"
+          "description"
         ]
       }
     }

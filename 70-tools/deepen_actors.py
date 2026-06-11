@@ -2826,6 +2826,19 @@ PLATFORM_OVERRIDES["edinet"] = {
     "Metadata": E(title="string", parameterDate="datetime", parameterType="string", resultsetCount="integer", processDateTime="datetime", status="string", message="string"),
 }
 
+# Faithful Apigee model (the official Google Discovery document, rev
+# 20260529, 342 schemas — machine-extracted). Complete lifecycle/type sets
+# enforced (state CRUD lifecycle, CRUD operationType, scalar-type system,
+# runtime/proxy/deployment types); product-coupled growable sets
+# (TraceConfig.exporter, riskAssessmentType) gapped.
+PLATFORM_OVERRIDES["apigee"] = {
+    "Organization": E(name="string", customerName="string", runtimeType="string", state="string", subscriptionType="string", analyticsRegion="string", lastModifiedAt="integer", expiresAt="integer", networkEgressRestricted="boolean"),
+    "Environment": E(name="string", displayName="string", state="string", apiProxyType="string", deploymentType="string", createdAt="integer", lastModifiedAt="integer", hasAttachedFlowHooks="boolean"),
+    "ApiProxy": E(name="string", readOnly="boolean", apiProxyType="string", latestRevisionId="string", space="string"),
+    "Deployment": E(apiProxy="string", environment="string", revision="string", state="string", proxyDeploymentType="string", deployStartTime="integer", serviceAccount="string"),
+    "DataCollector": E(name="string", description="string", type="string", createdAt="integer", lastModifiedAt="integer"),
+}
+
 # Faithful Microsoft 365 (Graph v1.0) model — the official $metadata CSDL
 # (graph.microsoft.com/v1.0/$metadata, 827 declared EnumTypes; v1.0 is the
 # compatibility-bound surface). Outlook-era-stable enums enforced:

@@ -760,3 +760,12 @@ is an open string upstream (the size catalog grows continuously) — nothing
 fabricated. **The big-three clouds (aws / gcp / azure) are now all L5**,
 each on its own official machine-readable contract: botocore wire model /
 Discovery document / frozen stable snapshot.
+
+### §16.20 /loop iteration 19 — wave 20: apigee (215, 21.5%)
+
+apigee → ledger **215** (785 L4 / 215 L5 = 21.5%), enforced 207 / **867
+enum fields** (+10, the largest Discovery-seam haul), verify PASS 0/0,
+contract suite green. Harness-direct. Enforced complete sets: the CRUD
+state lifecycle (×2), runtimeType/subscriptionType/apiProxyType (×2)/
+deploymentType/proxyDeploymentType, deployment runtime state, and the
+DataCollector scalar-type system; product-coupled growable sets gapped.

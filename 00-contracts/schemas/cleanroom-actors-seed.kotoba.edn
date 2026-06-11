@@ -558,11 +558,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "apigee.kotoba"
-   :actor/wasm-cid "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku"
+   :actor/wasm-cid "bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:apigee-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:apigee-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:apigee-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "apollo_auto-compat"
    :actor/did "did:web:etzhayyim.com:actor:apollo_auto-compat"
    :actor/kind :compat

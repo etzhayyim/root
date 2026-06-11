@@ -5,21 +5,100 @@
   "kind": "compat",
   "title": "apigee clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (apigee); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+  "wasmCid": "bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicq3f2ixi42o3trwcwctmthd7i7cawc4bdgqxro4z2zm2qqbi4mku",
+  "ipfs": "ipfs://bafkreig2q4eq63bbopfjqtpscxmu6olzz4vnu2mjnvymtvaetx7zli6bee",
   "schema": "schema/apigee.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.googleapis.com/discovery/v1/apis/apigee/v1/rest (official Google Discovery document, rev 20260529, 342 schemas)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Organization",
+      "Environment",
+      "ApiProxy",
+      "Deployment",
+      "DataCollector"
+    ],
+    "enums": {
+      "Organization": {
+        "runtimeType": [
+          "RUNTIME_TYPE_UNSPECIFIED",
+          "CLOUD",
+          "HYBRID"
+        ],
+        "state": [
+          "STATE_UNSPECIFIED",
+          "CREATING",
+          "ACTIVE",
+          "DELETING",
+          "UPDATING"
+        ],
+        "subscriptionType": [
+          "SUBSCRIPTION_TYPE_UNSPECIFIED",
+          "PAID",
+          "TRIAL"
+        ]
+      },
+      "Environment": {
+        "state": [
+          "STATE_UNSPECIFIED",
+          "CREATING",
+          "ACTIVE",
+          "DELETING",
+          "UPDATING"
+        ],
+        "apiProxyType": [
+          "API_PROXY_TYPE_UNSPECIFIED",
+          "PROGRAMMABLE",
+          "CONFIGURABLE"
+        ],
+        "deploymentType": [
+          "DEPLOYMENT_TYPE_UNSPECIFIED",
+          "PROXY",
+          "ARCHIVE"
+        ]
+      },
+      "ApiProxy": {
+        "apiProxyType": [
+          "API_PROXY_TYPE_UNSPECIFIED",
+          "PROGRAMMABLE",
+          "CONFIGURABLE"
+        ]
+      },
+      "Deployment": {
+        "state": [
+          "RUNTIME_STATE_UNSPECIFIED",
+          "READY",
+          "PROGRESSING",
+          "ERROR"
+        ],
+        "proxyDeploymentType": [
+          "PROXY_DEPLOYMENT_TYPE_UNSPECIFIED",
+          "STANDARD",
+          "EXTENSIBLE"
+        ]
+      },
+      "DataCollector": {
+        "type": [
+          "TYPE_UNSPECIFIED",
+          "INTEGER",
+          "FLOAT",
+          "STRING",
+          "BOOLEAN",
+          "DATETIME"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Deployment",
-    "Secret",
+    "Organization",
+    "Environment",
     "ApiProxy",
-    "Database",
-    "Function"
+    "Deployment",
+    "DataCollector"
   ],
   "adr": [
     "260607",
@@ -31,82 +110,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         },
         {
           "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
+          "path": "/v1/environments",
+          "op": "create Environment"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
+          "path": "/v1/environments",
+          "op": "list Environment"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
+          "path": "/v1/environments/{id}",
+          "op": "get Environment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
+          "path": "/v1/environments/{id}",
+          "op": "update Environment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/secrets",
-          "op": "create Secret"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/secrets",
-          "op": "list Secret"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/secrets/{id}",
-          "op": "get Secret"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/secrets/{id}",
-          "op": "update Secret"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/secrets/{id}",
-          "op": "delete Secret"
+          "path": "/v1/environments/{id}",
+          "op": "delete Environment"
         },
         {
           "method": "POST",
@@ -135,53 +189,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/databases",
-          "op": "create Database"
+          "path": "/v1/deployments",
+          "op": "create Deployment"
         },
         {
           "method": "GET",
-          "path": "/v1/databases",
-          "op": "list Database"
+          "path": "/v1/deployments",
+          "op": "list Deployment"
         },
         {
           "method": "GET",
-          "path": "/v1/databases/{id}",
-          "op": "get Database"
+          "path": "/v1/deployments/{id}",
+          "op": "get Deployment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/databases/{id}",
-          "op": "update Database"
+          "path": "/v1/deployments/{id}",
+          "op": "update Deployment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/databases/{id}",
-          "op": "delete Database"
+          "path": "/v1/deployments/{id}",
+          "op": "delete Deployment"
         },
         {
           "method": "POST",
-          "path": "/v1/functions",
-          "op": "create Function"
+          "path": "/v1/datacollectors",
+          "op": "create DataCollector"
         },
         {
           "method": "GET",
-          "path": "/v1/functions",
-          "op": "list Function"
+          "path": "/v1/datacollectors",
+          "op": "list DataCollector"
         },
         {
           "method": "GET",
-          "path": "/v1/functions/{id}",
-          "op": "get Function"
+          "path": "/v1/datacollectors/{id}",
+          "op": "get DataCollector"
         },
         {
           "method": "PATCH",
-          "path": "/v1/functions/{id}",
-          "op": "update Function"
+          "path": "/v1/datacollectors/{id}",
+          "op": "update DataCollector"
         },
         {
           "method": "DELETE",
-          "path": "/v1/functions/{id}",
-          "op": "delete Function"
+          "path": "/v1/datacollectors/{id}",
+          "op": "delete DataCollector"
         }
       ],
       "features": {
@@ -244,44 +298,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_organization",
+          "description": "Create a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "runtime": {
+              "customerName": {
                 "type": "string"
               },
-              "region": {
+              "runtimeType": {
                 "type": "string"
               },
-              "status": {
+              "state": {
                 "type": "string"
+              },
+              "subscriptionType": {
+                "type": "string"
+              },
+              "analyticsRegion": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "integer"
+              },
+              "expiresAt": {
+                "type": "integer"
+              },
+              "networkEgressRestricted": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "runtime"
+              "customerName"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_organizations",
+          "description": "List Organizations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +364,8 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
+          "name": "update_organization",
+          "description": "Update a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,14 +375,29 @@
               "name": {
                 "type": "string"
               },
-              "runtime": {
+              "customerName": {
                 "type": "string"
               },
-              "region": {
+              "runtimeType": {
                 "type": "string"
               },
-              "status": {
+              "state": {
                 "type": "string"
+              },
+              "subscriptionType": {
+                "type": "string"
+              },
+              "analyticsRegion": {
+                "type": "string"
+              },
+              "lastModifiedAt": {
+                "type": "integer"
+              },
+              "expiresAt": {
+                "type": "integer"
+              },
+              "networkEgressRestricted": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -322,8 +406,8 @@
           }
         },
         {
-          "name": "delete_service",
-          "description": "Delete a Service.",
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,128 +421,53 @@
           }
         },
         {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "deployedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "version",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_deployments",
-          "description": "List Deployments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "deployedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_secret",
-          "description": "Create a Secret.",
+          "name": "create_environment",
+          "description": "Create a Environment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "scope": {
+              "displayName": {
                 "type": "string"
               },
-              "rotatedAt": {
+              "state": {
                 "type": "string"
+              },
+              "apiProxyType": {
+                "type": "string"
+              },
+              "deploymentType": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "lastModifiedAt": {
+                "type": "integer"
+              },
+              "hasAttachedFlowHooks": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "scope"
+              "displayName"
             ]
           }
         },
         {
-          "name": "list_secrets",
-          "description": "List Secrets.",
+          "name": "list_environments",
+          "description": "List Environments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_secret",
-          "description": "Get a Secret by id.",
+          "name": "get_environment",
+          "description": "Get a Environment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +481,8 @@
           }
         },
         {
-          "name": "update_secret",
-          "description": "Update a Secret.",
+          "name": "update_environment",
+          "description": "Update a Environment.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,11 +492,26 @@
               "name": {
                 "type": "string"
               },
-              "scope": {
+              "displayName": {
                 "type": "string"
               },
-              "rotatedAt": {
+              "state": {
                 "type": "string"
+              },
+              "apiProxyType": {
+                "type": "string"
+              },
+              "deploymentType": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "lastModifiedAt": {
+                "type": "integer"
+              },
+              "hasAttachedFlowHooks": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -496,8 +520,8 @@
           }
         },
         {
-          "name": "delete_secret",
-          "description": "Delete a Secret.",
+          "name": "delete_environment",
+          "description": "Delete a Environment.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -519,19 +543,22 @@
               "name": {
                 "type": "string"
               },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
+              "readOnly": {
                 "type": "boolean"
+              },
+              "apiProxyType": {
+                "type": "string"
+              },
+              "latestRevisionId": {
+                "type": "string"
+              },
+              "space": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "basePath"
+              "readOnly"
             ]
           }
         },
@@ -570,14 +597,17 @@
               "name": {
                 "type": "string"
               },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
+              "readOnly": {
                 "type": "boolean"
+              },
+              "apiProxyType": {
+                "type": "string"
+              },
+              "latestRevisionId": {
+                "type": "string"
+              },
+              "space": {
+                "type": "string"
               }
             },
             "required": [
@@ -601,41 +631,50 @@
           }
         },
         {
-          "name": "create_database",
-          "description": "Create a Database.",
+          "name": "create_deployment",
+          "description": "Create a Deployment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "apiProxy": {
                 "type": "string"
               },
-              "engine": {
+              "environment": {
                 "type": "string"
               },
-              "region": {
+              "revision": {
                 "type": "string"
               },
-              "sizeGb": {
+              "state": {
+                "type": "string"
+              },
+              "proxyDeploymentType": {
+                "type": "string"
+              },
+              "deployStartTime": {
                 "type": "integer"
+              },
+              "serviceAccount": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "engine"
+              "apiProxy",
+              "environment"
             ]
           }
         },
         {
-          "name": "list_databases",
-          "description": "List Databases.",
+          "name": "list_deployments",
+          "description": "List Deployments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_database",
-          "description": "Get a Database by id.",
+          "name": "get_deployment",
+          "description": "Get a Deployment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,83 +688,95 @@
           }
         },
         {
-          "name": "update_database",
-          "description": "Update a Database.",
+          "name": "update_deployment",
+          "description": "Update a Deployment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
+              "apiProxy": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string"
+              },
+              "revision": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "proxyDeploymentType": {
+                "type": "string"
+              },
+              "deployStartTime": {
+                "type": "integer"
+              },
+              "serviceAccount": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_deployment",
+          "description": "Delete a Deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_data_collector",
+          "description": "Create a DataCollector.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "name": {
                 "type": "string"
               },
-              "engine": {
+              "description": {
                 "type": "string"
               },
-              "region": {
+              "type": {
                 "type": "string"
               },
-              "sizeGb": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_database",
-          "description": "Delete a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_function",
-          "description": "Create a Function.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "memoryMb": {
+              "createdAt": {
                 "type": "integer"
               },
-              "timeoutMs": {
+              "lastModifiedAt": {
                 "type": "integer"
               }
             },
             "required": [
               "name",
-              "memoryMb"
+              "description"
             ]
           }
         },
         {
-          "name": "list_functions",
-          "description": "List Functions.",
+          "name": "list_data_collectors",
+          "description": "List DataCollectors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_function",
-          "description": "Get a Function by id.",
+          "name": "get_data_collector",
+          "description": "Get a DataCollector by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +790,27 @@
           }
         },
         {
-          "name": "update_function",
-          "description": "Update a Function.",
+          "name": "update_data_collector",
+          "description": "Update a DataCollector.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "serviceId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "memoryMb": {
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "integer"
               },
-              "timeoutMs": {
+              "lastModifiedAt": {
                 "type": "integer"
               }
             },
@@ -766,8 +820,8 @@
           }
         },
         {
-          "name": "delete_function",
-          "description": "Delete a Function.",
+          "name": "delete_data_collector",
+          "description": "Delete a DataCollector.",
           "inputSchema": {
             "type": "object",
             "properties": {
