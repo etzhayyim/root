@@ -737,6 +737,22 @@
   :proc/verify-current-law true}
 
  ;; ── :it ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:it-licenziamento" :proc/label "Lettera di licenziamento (解雇・労働・イタリア)"
+  :proc/jurisdiction :it :proc/track :labor
+  :proc/trigger-keywords ["licenziamento"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Impugnazione (異議)"
+    :dl/rule "licenziamento の通知から60日以内に書面で impugnazione (stragiudiziale — PEC/raccomandata で足りる); その後180日以内に提訴/調停申立て — 徒過は失権"
+    :dl/anchor "L. 604/1966 art. 6 (L. 183/2010 改正)" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :impugnazione :opt/kind :self-submit :opt/protective true
+    :opt/label "60日以内に書面 impugnazione を送付 (PEC 可 — まず期限を止める)"}
+   {:opt/id :patronato :opt/kind :self-decide :opt/label "sindacato/patronato の無料相談 (NASpI 失業給付も)"}]
+  :proc/refer-when ["180日内の提訴段階 → avvocato giuslavorista"
+                    "kokoro 心 (精神的サポート)" ]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:it-decreto-ingiuntivo" :proc/label "Decreto ingiuntivo (支払命令・イタリア)"
   :proc/jurisdiction :it
   :proc/trigger-keywords ["decreto ingiuntivo"]
@@ -752,6 +768,23 @@
   :proc/verify-current-law true}
 
  ;; ── :es ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:es-despido" :proc/label "Carta de despido (解雇・労働・スペイン)"
+  :proc/jurisdiction :es :proc/track :labor
+  :proc/trigger-keywords ["despido"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Demanda por despido"
+    :dl/rule "despido の効力発生から20日 (días hábiles・営業日) 以内に papeleta de conciliación → demanda — 欧州最短級; 徒過は caducidad (失権)"
+    :dl/anchor "Estatuto de los Trabajadores art. 59.3 / LRJS art. 103" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :papeleta :opt/kind :self-submit :opt/protective true
+    :opt/label "papeleta de conciliación を SMAC へ (20日を止める — 本人可・無料)"}
+   {:opt/id :finiquito-care :opt/kind :self-decide
+    :opt/label "finiquito へのサインは『no conforme』を添えるか保留 (請求権放棄になり得る)"}]
+  :proc/refer-when ["sindicato / abogado laboralista (graduado social も可)"
+                    "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:es-monitorio" :proc/label "Proceso monitorio (支払督促・スペイン)"
   :proc/jurisdiction :es
   :proc/trigger-keywords ["proceso monitorio" "requerimiento de pago"]

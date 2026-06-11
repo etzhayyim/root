@@ -78,6 +78,11 @@ def coverage():
         "procedure_tracks": dict(sorted(tracks.items())),
         "track_matrix": {j: dict(sorted(ts.items())) for j, ts in sorted(matrix.items())},
         "civil_only_jurisdictions": civil_only,
+        "critical_deadlines": [
+            {"proc": p[":proc/id"], "juris": p.get(":proc/jurisdiction", ":jp"),
+             "label": dl[":dl/label"], "anchor": dl[":dl/anchor"]}
+            for p in procs for dl in p.get(":proc/deadline-rules", [])
+            if dl.get(":dl/critical")],
         "jurisdictions": covered,
         "patterns_by_jurisdiction": dict(sorted(pat_by_j.items())),
         "procedures_by_jurisdiction": dict(sorted(proc_by_j.items())),
@@ -110,6 +115,11 @@ def report(cov: dict) -> str:
     L.append("|---|" + "---|" * len(all_tracks))
     for j, ts in cov["track_matrix"].items():
         L.append(f"| {j} | " + " | ".join(str(ts.get(t, "·")) for t in all_tracks) + " |")
+    L.append("")
+    L.append("## Critical deadlines (徒過で権利が消える期限 — 全管轄一覧)")
+    L.append("")
+    for cd in cov["critical_deadlines"]:
+        L.append(f"- [{cd['juris']}] {cd['proc']} — {cd['label']} ({cd['anchor']})")
     L.append("")
     L.append("## Named gaps (next-wave worklist)")
     for g in cov["named_gaps"]:

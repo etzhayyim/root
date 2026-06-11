@@ -97,10 +97,22 @@ def test_civil_only_jurisdictions_named():
     (the matrix's empty rows become a worklist, not silence)."""
     cov = coverage()
     co = cov["civil_only_jurisdictions"]
-    assert ":it" in co and ":es" in co  # known civil-only rows today
-    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk"):
+    assert ":nl" in co and ":tw" in co  # known civil-only rows today (:it/:es は wave 21 で解消)
+    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es"):
         assert j not in co
     assert any("専門トラック未開削" in g for g in cov["named_gaps"])
+
+
+def test_critical_deadline_census():
+    """Wave 21: the report carries the full list of rights-killing deadlines —
+    one place a member can see every :dl/critical across all jurisdictions."""
+    cov = coverage()
+    cds = cov["critical_deadlines"]
+    assert len(cds) >= 8
+    ids = {c["proc"] for c in cds}
+    assert {"proc:de-kuendigung", "proc:ch-zahlungsbefehl", "proc:au-unfair-dismissal",
+            "proc:it-licenziamento", "proc:es-despido"} <= ids
+    assert "Critical deadlines" in report(cov)
 
 
 def test_report_names_the_gap():

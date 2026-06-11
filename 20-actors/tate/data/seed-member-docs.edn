@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 21 (:it/:es labor) ──────────────────────────────────────────────────
+ {:notice/id "ntc:it-licenziamento" :notice/label "IT lettera di licenziamento (raccomandata・労働)"
+  :notice/jurisdiction :it
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Lettera di licenziamento per giustificato motivo oggettivo."}
+
+ {:notice/id "ntc:es-despido" :notice/label "ES carta de despido (entrega・労働)"
+  :notice/jurisdiction :es
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Carta de despido por causas objetivas con efectos en la fecha indicada."}
+
  ;; ── wave 20 (:au/:ca enforcement + :nz) ──────────────────────────────────────
  {:doc/id "doc:nz-terms" :doc/label "NZ subscription terms (synthetic)"
   :doc/jurisdiction :nz

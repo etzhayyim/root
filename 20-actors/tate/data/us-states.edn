@@ -254,4 +254,65 @@
   :state/answer-rule "magistrate/metropolitan court: 送達から20日以内に answer"
   :state/answer-anchor "NMRA 2-301 系"
   :state/arl "—"
-  :state/sourcing :representative :state/verify-current-law true}]
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 21 (+10: NE NH RI HI ID ME MT ND SD WV) ─────────────────────────────
+ {:state/id :us-ne :state/label "Nebraska"
+  :state/small-claims-usd 3900
+  :state/answer-rule "small claims: 通知記載の trial date に出頭"
+  :state/answer-anchor "Neb. Rev. Stat. §25-2801 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-nh :state/label "New Hampshire"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 電子通知記載の期限内に応答 (circuit court)"
+  :state/answer-anchor "RSA ch. 503"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ri :state/label "Rhode Island"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims: answer date に出頭/応答"
+  :state/answer-anchor "R.I. Dist. Ct. R. Small Claims"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-hi :state/label "Hawaii"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims: 通知記載の return date に出頭"
+  :state/answer-anchor "HRS ch. 633"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-id :state/label "Idaho"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims: 送達から21日以内に answer"
+  :state/answer-anchor "I.R.C.P. small claims / Idaho Code §1-2301 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-me :state/label "Maine"
+  :state/small-claims-usd 6000
+  :state/answer-rule "small claims: 通知記載の hearing に出頭"
+  :state/answer-anchor "14 M.R.S. §7481 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-mt :state/label "Montana"
+  :state/small-claims-usd 7000
+  :state/answer-rule "small claims (justice court): 通知記載の期日に出頭"
+  :state/answer-anchor "MCA §25-35-501 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-nd :state/label "North Dakota"
+  :state/small-claims-usd 15000
+  :state/answer-rule "small claims: 通知から指定期限内に応答 (election to remove も可)"
+  :state/answer-anchor "N.D.C.C. ch. 27-08.1"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-sd :state/label "South Dakota"
+  :state/small-claims-usd 12000
+  :state/answer-rule "small claims: 通知記載の期日に出頭/応答"
+  :state/answer-anchor "SDCL ch. 15-39"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-wv :state/label "West Virginia"
+  :state/small-claims-usd 10000
+  :state/answer-rule "magistrate court: 送達から20日以内に answer"
+  :state/answer-anchor "W. Va. Code §50-4-1 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}]

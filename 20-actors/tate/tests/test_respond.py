@@ -744,6 +744,22 @@ def test_wave20_enforcement_au_ca_and_nz():
                for d in nz["deadlines"])
 
 
+def test_wave21_it_es_labor_critical():
+    """Wave 21: civil-only 行の解消開始 — :it impugnazione **60 giorni** (L.604/1966
+    art.6, その後180日提訴) · :es demanda por despido **20 días hábiles** (ET 59.3 —
+    欧州最短級, caducidad); both critical → plan 先頭; finiquito/『no conforme』
+    警告 = protective."""
+    ps, _ = _by_id()
+    it = ps["ntc:it-licenziamento"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-licenziamento"
+    assert it["deadlines"][0]["critical"] is True
+    assert "60日" in it["deadlines"][0]["rule"]
+    es = ps["ntc:es-despido"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-despido"
+    assert es["deadlines"][0]["critical"] is True
+    assert "20日" in es["deadlines"][0]["rule"] and "caducidad" in es["deadlines"][0]["rule"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
