@@ -56,8 +56,8 @@ function findShimDirs(config: ResolvedConfig): string[] {
 	return dirs;
 }
 
-/** Scan a .svelte file for Svelte 4 anti-patterns. */
-function checkSvelteFile(filePath: string, content: string): string[] {
+/** Scan a .svelte file for Svelte 4 anti-patterns. Exported for testing. */
+export function checkSvelteFile(filePath: string, content: string): string[] {
 	const issues: string[] = [];
 	const basename = path.basename(filePath, '.svelte');
 	const short = filePath.replace(/^.*\/src\//, 'src/');
