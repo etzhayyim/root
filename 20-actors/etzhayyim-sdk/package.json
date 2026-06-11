@@ -64,6 +64,10 @@
     "./pq": {
       "import": "./dist/pq.js",
       "types": "./dist/pq.d.ts"
+    },
+    "./kdf": {
+      "import": "./dist/kdf.js",
+      "types": "./dist/kdf.d.ts"
     }
   },
   "bin": {
