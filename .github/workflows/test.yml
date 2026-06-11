@@ -13,6 +13,7 @@ on:
       - "20-actors/etzhayyim-sdk/**"
       - "20-actors/etzhayyim-sdk-mock/**"
       - "20-actors/etzhayyim-sdk-auth/**"
+      - "20-actors/mst-projector/**"
       - "50-infra/mst-projector/**"
       - "60-apps/etzhayyim-project-*/rw-free/**"
       - "70-tools/lexicon-to-openapi/**"
@@ -24,6 +25,7 @@ on:
       - "20-actors/etzhayyim-sdk/**"
       - "20-actors/etzhayyim-sdk-mock/**"
       - "20-actors/etzhayyim-sdk-auth/**"
+      - "20-actors/mst-projector/**"
       - "50-infra/mst-projector/**"
       - "60-apps/etzhayyim-project-*/rw-free/**"
       - "70-tools/lexicon-to-openapi/**"
@@ -95,6 +97,16 @@ jobs:
           - 70-tools/integration-tests
     steps:
       - uses: actions/checkout@v4
+      # mst-projector imports @etzhayyim/yorishiro-huggingface-inference-mcp/handle,
+      # a pnpm workspace package that lives INSIDE the 40-engine/kotoba submodule
+      # (pnpm-workspace.yaml glob "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp").
+      # Init just that submodule for just that scope — a blanket `submodules: true`
+      # would also clone the private spirit-in-physics repo and the local-only
+      # DataLad submodules (relative URLs), which fail on CI runners.
+      - name: Checkout kotoba submodule (mst-projector workspace deps)
+        if: matrix.scope == '20-actors/mst-projector'
+        run: git submodule update --init --depth 1 40-engine/kotoba
+          || git submodule update --init 40-engine/kotoba
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
