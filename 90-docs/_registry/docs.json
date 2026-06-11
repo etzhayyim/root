@@ -26066,6 +26066,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+      "id": "paper-2606111500-kojin-genealogy-visibility-inversion-mishmeret",
+      "title": "「個人」の系譜と可視性の倒錯 — 個人情報レジーム批判と相互保持者会 (mishmeret ha-adam) の構想",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "kojin-concept-genealogy-visibility",
+      "authoritative": false,
+      "related": [
+        "2606082100",
+        "2606062100",
+        "2605192100",
+        "2605192315",
+        "2605302357",
+        "2605302358",
+        "2606042330",
+        "2606011800",
+        "2606066000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/portfolio-timeline.md",
       "id": "portfolio-timeline",
       "title": "DoDAF PV-2 — Project Timeline & Portfolio Roadmap",
