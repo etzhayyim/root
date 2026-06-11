@@ -1,0 +1,56 @@
+;; hakoniwa 箱庭 — PUBLIC real-entity ingest sources + bounded QID allowlist (ADR-2606111500)
+;;
+;; methods/ingest.py reads this to pull a BOUNDED, REPRESENTATIVE slice of REAL PUBLIC entities
+;; (organizations / topics / concepts) from Wikidata and fold them into the box as :entity nodes
+;; the SYNTHETIC personas hold stances toward. The personas themselves are NEVER ingested — they
+;; stay fictional archetypes (G1). Only already-PUBLIC organizations/topics enter; natural
+;; persons (Wikidata P31 = Q5 "human") are REFUSED by construction (G1 by construction + a test).
+;;
+;; SOURCE — PUBLIC, no auth, no individual person data:
+;;   - Wikidata Special:EntityData/<QID>.json — the public entity record (labels, P31 instance-of,
+;;       and bounded structural properties). https://www.wikidata.org/wiki/Special:EntityData/
+;;       License: CC0. We read ONLY entity-type (org/topic) labels + public structural edges.
+;;
+;; G1 GUARD: an ingested QID MUST be an organization / topic / concept; if its P31 instance-of
+;;   set contains Q5 (human) — or any natural-person class — the entity is DROPPED. No person,
+;;   no PII, no biographical field is ever stored. The box's AGENTS remain synthetic.
+
+{:ingest/id "hakoniwa-public-entity-r1"
+ :ingest/adr "2606111500"
+ :ingest/bounded? true
+ :ingest/source
+ {:source/id :wikidata
+  :source/url "https://www.wikidata.org/wiki/Special:EntityData/"
+  :source/scope "PUBLIC organizations / topics (CC0)"
+  :source/license "CC0"
+  :source/individual? false}
+
+ ;; the topic the synthetic personas deliberate over (becomes the :outcome anchor)
+ :ingest/topic
+ {:topic/label "civic adoption of an open public-resilience commons"
+  :topic/use :preparedness}
+
+ ;; bounded allowlist of REAL PUBLIC entities (organizations / topics) — NOT persons
+ ;; each is folded in as an :entity node with :entity/public-ref "wd:<QID>"
+ ;; NOTE: labels are whatever Wikidata returns at fetch time (QIDs are authoritative, the :note
+ ;; is a fetch-time annotation only — the live label overrides it). All are organizations / works
+ ;; / topics — never persons (verified: none has P31=Q5; the G1 check drops any that would).
+ :ingest/entities
+ [{:qid "Q193563"  :role :org         :note "public organization (library)"}
+  {:qid "Q37156"   :role :org         :note "IBM (public corporation)"}
+  {:qid "Q478214"  :role :public-work :note "public creative work / group"}
+  {:qid "Q1067205" :role :public-work :note "public creative work (film)"}
+  {:qid "Q8513"    :role :public-topic :note "database (public concept)"}
+  {:qid "Q11862829":role :public-topic :note "academic discipline (public concept)"}]
+
+ ;; bounded structural properties read from each entity (PUBLIC, org/topic-level only)
+ ;; P31 instance-of (for the G1 human-refusal check) · P361 part-of · P527 has-part ·
+ ;; P749 parent-org · P127 owned-by — these become :relates-to edges among :entity nodes.
+ :ingest/properties
+ {:instance-of "P31" :part-of "P361" :has-part "P527" :parent-org "P749" :owned-by "P127"}
+
+ ;; Wikidata classes that mark a NATURAL PERSON — an entity whose P31 hits any of these is DROPPED (G1)
+ :ingest/person-classes ["Q5" "Q15632617" "Q21070598"]
+
+ ;; how many synthetic personas to generate around the ingested topic (fictional archetypes)
+ :ingest/synthetic-personas 16}
