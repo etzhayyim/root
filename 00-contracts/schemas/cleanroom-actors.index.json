@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 781,
-    "L5": 219
+    "L4": 780,
+    "L5": 220
   },
   "actors": [
     {
@@ -899,10 +899,10 @@
     {
       "handle": "aptos_pos-compat",
       "did": "did:web:etzhayyim.com:actor:aptos_pos-compat",
-      "wasmCid": "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+      "wasmCid": "bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "aptos_pos clean-room actor",
       "category": "ecommerce",
       "capabilities": [

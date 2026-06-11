@@ -5,21 +5,45 @@
   "kind": "compat",
   "title": "aptos_pos clean-room actor",
   "description": "Clean-room, API-compatible e-commerce storefront actor (aptos_pos); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+  "wasmCid": "bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+  "ipfs": "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
   "schema": "schema/aptos_pos.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Block",
+      "LedgerInfo",
+      "UserTransaction",
+      "MoveFunction",
+      "AccountData"
+    ],
+    "enums": {
+      "LedgerInfo": {
+        "nodeRole": [
+          "validator",
+          "full_node"
+        ]
+      },
+      "MoveFunction": {
+        "visibility": [
+          "private",
+          "public",
+          "friend"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Product",
-    "Variant",
-    "Order",
-    "LineItem",
-    "Customer",
-    "Collection"
+    "Block",
+    "LedgerInfo",
+    "UserTransaction",
+    "MoveFunction",
+    "AccountData"
   ],
   "adr": [
     "260607",
@@ -31,157 +55,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/products",
-          "op": "create Product"
+          "path": "/v1/blocks",
+          "op": "create Block"
         },
         {
           "method": "GET",
-          "path": "/v1/products",
-          "op": "list Product"
+          "path": "/v1/blocks",
+          "op": "list Block"
         },
         {
           "method": "GET",
-          "path": "/v1/products/{id}",
-          "op": "get Product"
+          "path": "/v1/blocks/{id}",
+          "op": "get Block"
         },
         {
           "method": "PATCH",
-          "path": "/v1/products/{id}",
-          "op": "update Product"
+          "path": "/v1/blocks/{id}",
+          "op": "update Block"
         },
         {
           "method": "DELETE",
-          "path": "/v1/products/{id}",
-          "op": "delete Product"
+          "path": "/v1/blocks/{id}",
+          "op": "delete Block"
         },
         {
           "method": "POST",
-          "path": "/v1/variants",
-          "op": "create Variant"
+          "path": "/v1/ledgerinfos",
+          "op": "create LedgerInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/variants",
-          "op": "list Variant"
+          "path": "/v1/ledgerinfos",
+          "op": "list LedgerInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/variants/{id}",
-          "op": "get Variant"
+          "path": "/v1/ledgerinfos/{id}",
+          "op": "get LedgerInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/variants/{id}",
-          "op": "update Variant"
+          "path": "/v1/ledgerinfos/{id}",
+          "op": "update LedgerInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/variants/{id}",
-          "op": "delete Variant"
+          "path": "/v1/ledgerinfos/{id}",
+          "op": "delete LedgerInfo"
         },
         {
           "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
+          "path": "/v1/usertransactions",
+          "op": "create UserTransaction"
         },
         {
           "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
+          "path": "/v1/usertransactions",
+          "op": "list UserTransaction"
         },
         {
           "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
+          "path": "/v1/usertransactions/{id}",
+          "op": "get UserTransaction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
+          "path": "/v1/usertransactions/{id}",
+          "op": "update UserTransaction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
+          "path": "/v1/usertransactions/{id}",
+          "op": "delete UserTransaction"
         },
         {
           "method": "POST",
-          "path": "/v1/lineitems",
-          "op": "create LineItem"
+          "path": "/v1/movefunctions",
+          "op": "create MoveFunction"
         },
         {
           "method": "GET",
-          "path": "/v1/lineitems",
-          "op": "list LineItem"
+          "path": "/v1/movefunctions",
+          "op": "list MoveFunction"
         },
         {
           "method": "GET",
-          "path": "/v1/lineitems/{id}",
-          "op": "get LineItem"
+          "path": "/v1/movefunctions/{id}",
+          "op": "get MoveFunction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/lineitems/{id}",
-          "op": "update LineItem"
+          "path": "/v1/movefunctions/{id}",
+          "op": "update MoveFunction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/lineitems/{id}",
-          "op": "delete LineItem"
+          "path": "/v1/movefunctions/{id}",
+          "op": "delete MoveFunction"
         },
         {
           "method": "POST",
-          "path": "/v1/customers",
-          "op": "create Customer"
+          "path": "/v1/accountdatas",
+          "op": "create AccountData"
         },
         {
           "method": "GET",
-          "path": "/v1/customers",
-          "op": "list Customer"
+          "path": "/v1/accountdatas",
+          "op": "list AccountData"
         },
         {
           "method": "GET",
-          "path": "/v1/customers/{id}",
-          "op": "get Customer"
+          "path": "/v1/accountdatas/{id}",
+          "op": "get AccountData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/customers/{id}",
-          "op": "update Customer"
+          "path": "/v1/accountdatas/{id}",
+          "op": "update AccountData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/customers/{id}",
-          "op": "delete Customer"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/collections",
-          "op": "create Collection"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/collections",
-          "op": "list Collection"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/collections/{id}",
-          "op": "get Collection"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/collections/{id}",
-          "op": "update Collection"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/collections/{id}",
-          "op": "delete Collection"
+          "path": "/v1/accountdatas/{id}",
+          "op": "delete AccountData"
         }
       ],
       "features": {
@@ -244,47 +243,47 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_product",
-          "description": "Create a Product.",
+          "name": "create_block",
+          "description": "Create a Block.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "sku": {
+              "blockHeight": {
                 "type": "string"
               },
-              "title": {
+              "blockHash": {
                 "type": "string"
               },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
+              "blockTimestamp": {
                 "type": "string"
               },
-              "inventory": {
-                "type": "integer"
+              "firstVersion": {
+                "type": "string"
+              },
+              "lastVersion": {
+                "type": "string"
               }
             },
             "required": [
-              "sku",
-              "title"
+              "blockHeight",
+              "blockHash"
             ]
           }
         },
         {
-          "name": "list_products",
-          "description": "List Products.",
+          "name": "list_blocks",
+          "description": "List Blocks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_product",
-          "description": "Get a Product by id.",
+          "name": "get_block",
+          "description": "Get a Block by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -298,42 +297,27 @@
           }
         },
         {
-          "name": "update_product",
-          "description": "Update a Product.",
+          "name": "update_block",
+          "description": "Update a Block.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "sku": {
+              "blockHeight": {
                 "type": "string"
               },
-              "title": {
+              "blockHash": {
                 "type": "string"
               },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
+              "blockTimestamp": {
                 "type": "string"
               },
-              "inventory": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_product",
-          "description": "Delete a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "firstVersion": {
+                "type": "string"
+              },
+              "lastVersion": {
                 "type": "string"
               }
             },
@@ -343,41 +327,8 @@
           }
         },
         {
-          "name": "create_variant",
-          "description": "Create a Variant.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "productId": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "optionValues": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "price"
-            ]
-          }
-        },
-        {
-          "name": "list_variants",
-          "description": "List Variants.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_variant",
-          "description": "Get a Variant by id.",
+          "name": "delete_block",
+          "description": "Delete a Block.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -391,179 +342,53 @@
           }
         },
         {
-          "name": "update_variant",
-          "description": "Update a Variant.",
+          "name": "create_ledger_info",
+          "description": "Create a LedgerInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "optionValues": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_variant",
-          "description": "Delete a Variant.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_order",
-          "description": "Create a Order.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customerId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "total"
-            ]
-          }
-        },
-        {
-          "name": "list_orders",
-          "description": "List Orders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_order",
-          "description": "Get a Order by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_order",
-          "description": "Update a Order.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "customerId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_order",
-          "description": "Delete a Order.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_line_item",
-          "description": "Create a LineItem.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "quantity": {
+              "chainId": {
                 "type": "integer"
               },
-              "unitPrice": {
-                "type": "number"
+              "epoch": {
+                "type": "string"
+              },
+              "ledgerVersion": {
+                "type": "string"
+              },
+              "oldestLedgerVersion": {
+                "type": "string"
+              },
+              "ledgerTimestamp": {
+                "type": "string"
+              },
+              "nodeRole": {
+                "type": "string"
+              },
+              "blockHeight": {
+                "type": "string"
+              },
+              "gitHash": {
+                "type": "string"
               }
             },
             "required": [
-              "quantity",
-              "unitPrice"
+              "epoch",
+              "ledgerVersion"
             ]
           }
         },
         {
-          "name": "list_line_items",
-          "description": "List LineItems.",
+          "name": "list_ledger_infos",
+          "description": "List LedgerInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_line_item",
-          "description": "Get a LineItem by id.",
+          "name": "get_ledger_info",
+          "description": "Get a LedgerInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -577,25 +402,37 @@
           }
         },
         {
-          "name": "update_line_item",
-          "description": "Update a LineItem.",
+          "name": "update_ledger_info",
+          "description": "Update a LedgerInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "orderId": {
-                "type": "string"
-              },
-              "productId": {
-                "type": "string"
-              },
-              "quantity": {
+              "chainId": {
                 "type": "integer"
               },
-              "unitPrice": {
-                "type": "number"
+              "epoch": {
+                "type": "string"
+              },
+              "ledgerVersion": {
+                "type": "string"
+              },
+              "oldestLedgerVersion": {
+                "type": "string"
+              },
+              "ledgerTimestamp": {
+                "type": "string"
+              },
+              "nodeRole": {
+                "type": "string"
+              },
+              "blockHeight": {
+                "type": "string"
+              },
+              "gitHash": {
+                "type": "string"
               }
             },
             "required": [
@@ -604,8 +441,8 @@
           }
         },
         {
-          "name": "delete_line_item",
-          "description": "Delete a LineItem.",
+          "name": "delete_ledger_info",
+          "description": "Delete a LedgerInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -619,41 +456,56 @@
           }
         },
         {
-          "name": "create_customer",
-          "description": "Create a Customer.",
+          "name": "create_user_transaction",
+          "description": "Create a UserTransaction.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "email": {
+              "version": {
                 "type": "string"
               },
-              "firstName": {
+              "hash": {
                 "type": "string"
               },
-              "lastName": {
+              "gasUsed": {
                 "type": "string"
               },
-              "phone": {
+              "success": {
+                "type": "boolean"
+              },
+              "vmStatus": {
+                "type": "string"
+              },
+              "sender": {
+                "type": "string"
+              },
+              "sequenceNumber": {
+                "type": "string"
+              },
+              "maxGasAmount": {
+                "type": "string"
+              },
+              "gasUnitPrice": {
                 "type": "string"
               }
             },
             "required": [
-              "email",
-              "firstName"
+              "version",
+              "hash"
             ]
           }
         },
         {
-          "name": "list_customers",
-          "description": "List Customers.",
+          "name": "list_user_transactions",
+          "description": "List UserTransactions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_customer",
-          "description": "Get a Customer by id.",
+          "name": "get_user_transaction",
+          "description": "Get a UserTransaction by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -667,24 +519,39 @@
           }
         },
         {
-          "name": "update_customer",
-          "description": "Update a Customer.",
+          "name": "update_user_transaction",
+          "description": "Update a UserTransaction.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "email": {
+              "version": {
                 "type": "string"
               },
-              "firstName": {
+              "hash": {
                 "type": "string"
               },
-              "lastName": {
+              "gasUsed": {
                 "type": "string"
               },
-              "phone": {
+              "success": {
+                "type": "boolean"
+              },
+              "vmStatus": {
+                "type": "string"
+              },
+              "sender": {
+                "type": "string"
+              },
+              "sequenceNumber": {
+                "type": "string"
+              },
+              "maxGasAmount": {
+                "type": "string"
+              },
+              "gasUnitPrice": {
                 "type": "string"
               }
             },
@@ -694,8 +561,8 @@
           }
         },
         {
-          "name": "delete_customer",
-          "description": "Delete a Customer.",
+          "name": "delete_user_transaction",
+          "description": "Delete a UserTransaction.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -709,38 +576,41 @@
           }
         },
         {
-          "name": "create_collection",
-          "description": "Create a Collection.",
+          "name": "create_move_function",
+          "description": "Create a MoveFunction.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "handle": {
+              "visibility": {
                 "type": "string"
               },
-              "published": {
+              "isEntry": {
+                "type": "boolean"
+              },
+              "isView": {
                 "type": "boolean"
               }
             },
             "required": [
-              "title",
-              "handle"
+              "name",
+              "visibility"
             ]
           }
         },
         {
-          "name": "list_collections",
-          "description": "List Collections.",
+          "name": "list_move_functions",
+          "description": "List MoveFunctions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_collection",
-          "description": "Get a Collection by id.",
+          "name": "get_move_function",
+          "description": "Get a MoveFunction by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -754,21 +624,24 @@
           }
         },
         {
-          "name": "update_collection",
-          "description": "Update a Collection.",
+          "name": "update_move_function",
+          "description": "Update a MoveFunction.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "handle": {
+              "visibility": {
                 "type": "string"
               },
-              "published": {
+              "isEntry": {
+                "type": "boolean"
+              },
+              "isView": {
                 "type": "boolean"
               }
             },
@@ -778,8 +651,86 @@
           }
         },
         {
-          "name": "delete_collection",
-          "description": "Delete a Collection.",
+          "name": "delete_move_function",
+          "description": "Delete a MoveFunction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_account_data",
+          "description": "Create a AccountData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sequenceNumber": {
+                "type": "string"
+              },
+              "authenticationKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sequenceNumber",
+              "authenticationKey"
+            ]
+          }
+        },
+        {
+          "name": "list_account_datas",
+          "description": "List AccountDatas.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_account_data",
+          "description": "Get a AccountData by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_account_data",
+          "description": "Update a AccountData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequenceNumber": {
+                "type": "string"
+              },
+              "authenticationKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_account_data",
+          "description": "Delete a AccountData.",
           "inputSchema": {
             "type": "object",
             "properties": {

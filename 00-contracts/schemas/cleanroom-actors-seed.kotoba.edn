@@ -662,11 +662,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible e-commerce storefront actor (aptos_pos); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "aptos_pos.kotoba"
-   :actor/wasm-cid "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za"
+   :actor/wasm-cid "bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aptos_pos-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "argo_ocean_floats-compat"
    :actor/did "did:web:etzhayyim.com:actor:argo_ocean_floats-compat"
    :actor/kind :compat

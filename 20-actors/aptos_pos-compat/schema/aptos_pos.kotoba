@@ -3,74 +3,62 @@
 
 namespace aptos_pos {
 
-    entity Product {
+    entity Block {
         id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        inventory: integer
+        blockHeight: string
+        blockHash: string
+        blockTimestamp: string
+        firstVersion: string
+        lastVersion: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Variant {
+    entity LedgerInfo {
         id: string @unique
-        productId: string
-        sku: string
-        price: float
-        optionValues: string
+        chainId: integer
+        epoch: string
+        ledgerVersion: string
+        oldestLedgerVersion: string
+        ledgerTimestamp: string
+        nodeRole: string
+        blockHeight: string
+        gitHash: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Order {
+    entity UserTransaction {
         id: string @unique
-        customerId: string
-        number: string
-        total: float
-        currency: string
-        status: string
+        version: string
+        hash: string
+        gasUsed: string
+        success: boolean
+        vmStatus: string
+        sender: string
+        sequenceNumber: string
+        maxGasAmount: string
+        gasUnitPrice: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity LineItem {
+    entity MoveFunction {
         id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        name: string
+        visibility: string
+        isEntry: boolean
+        isView: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Customer {
+    entity AccountData {
         id: string @unique
-        email: string
-        firstName: string
-        lastName: string
-        phone: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Collection {
-        id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        sequenceNumber: string
+        authenticationKey: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

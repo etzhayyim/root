@@ -111,54 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
+@app.route("/v1/blocks", methods=["POST"])
+def create_block(request):
+    """Create a Block."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
+    err = _reject_unknown(data, ['blockHeight', 'blockHash', 'blockTimestamp', 'firstVersion', 'lastVersion'])
     if err:
         return err, 400
-    err = _require(data, ['sku', 'title'])
+    err = _require(data, ['blockHeight', 'blockHash'])
     if err:
         return err, 400
-    rec = {"id": new_id("aptospos_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["inventory"] = _as_int(data.get('inventory'))
+    rec = {"id": new_id("aptospos_blo")}
+    rec["blockHeight"] = data.get('blockHeight')
+    rec["blockHash"] = data.get('blockHash')
+    rec["blockTimestamp"] = data.get('blockTimestamp')
+    rec["firstVersion"] = data.get('firstVersion')
+    rec["lastVersion"] = data.get('lastVersion')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
+    _persist("Block", rec)
     return rec, 201
 
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
+@app.route("/v1/blocks", methods=["GET"])
+def list_blocks(request):
+    """List Blocks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency', 'inventory'])
+    rows = _query("Block")
+    rows = _apply_filters(rows, params, ['blockHeight', 'blockHash', 'blockTimestamp', 'firstVersion', 'lastVersion'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
+@app.route("/v1/blocks/<eid>", methods=["GET"])
+def get_block(request, eid):
+    """Retrieve a Block by id (supports ?expand=)."""
+    rows = _query("Block", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
+@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
+def update_block(request, eid):
+    """Update a Block."""
+    rows = _query("Block", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
+    err = _reject_unknown(data, ['blockHeight', 'blockHash', 'blockTimestamp', 'firstVersion', 'lastVersion'])
     if err:
         return err, 400
     rec = rows[0]
@@ -166,134 +166,144 @@ def update_product(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Product", rec)
+    _persist("Block", rec)
     return rec, 200
 
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
+@app.route("/v1/blocks/<eid>", methods=["DELETE"])
+def delete_block(request, eid):
+    """Delete a Block."""
+    rows = _query("Block", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.Product", "id": eid})
+    db.retract({"entity": f"aptos_pos.Block", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/variants", methods=["POST"])
-def create_variant(request):
-    """Create a Variant."""
+@app.route("/v1/ledgerinfos", methods=["POST"])
+def create_ledger_info(request):
+    """Create a LedgerInfo."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
+    err = _reject_unknown(data, ['chainId', 'epoch', 'ledgerVersion', 'oldestLedgerVersion', 'ledgerTimestamp', 'nodeRole', 'blockHeight', 'gitHash'])
     if err:
         return err, 400
-    err = _require(data, ['sku', 'price'])
+    err = _require(data, ['epoch', 'ledgerVersion'])
     if err:
         return err, 400
-    rec = {"id": new_id("aptospos_var")}
-    rec["productId"] = data.get('productId')
-    rec["sku"] = data.get('sku')
-    rec["price"] = _as_float(data.get('price'))
-    rec["optionValues"] = data.get('optionValues')
+    if data.get('nodeRole') and data['nodeRole'] not in ['validator', 'full_node']:
+        return {"error": {"message": "invalid nodeRole; allowed: " + ", ".join(['validator', 'full_node']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aptospos_led")}
+    rec["chainId"] = _as_int(data.get('chainId'))
+    rec["epoch"] = data.get('epoch')
+    rec["ledgerVersion"] = data.get('ledgerVersion')
+    rec["oldestLedgerVersion"] = data.get('oldestLedgerVersion')
+    rec["ledgerTimestamp"] = data.get('ledgerTimestamp')
+    rec["nodeRole"] = data.get('nodeRole')
+    rec["blockHeight"] = data.get('blockHeight')
+    rec["gitHash"] = data.get('gitHash')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Variant", rec)
+    _persist("LedgerInfo", rec)
     return rec, 201
 
-@app.route("/v1/variants", methods=["GET"])
-def list_variants(request):
-    """List Variants with filtering + cursor pagination."""
+@app.route("/v1/ledgerinfos", methods=["GET"])
+def list_ledger_infos(request):
+    """List LedgerInfos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Variant")
-    rows = _apply_filters(rows, params, ['productId', 'sku', 'price', 'optionValues'])
+    rows = _query("LedgerInfo")
+    rows = _apply_filters(rows, params, ['chainId', 'epoch', 'ledgerVersion', 'oldestLedgerVersion', 'ledgerTimestamp', 'nodeRole', 'blockHeight', 'gitHash'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/variants/<eid>", methods=["GET"])
-def get_variant(request, eid):
-    """Retrieve a Variant by id (supports ?expand=)."""
-    rows = _query("Variant", eid)
+@app.route("/v1/ledgerinfos/<eid>", methods=["GET"])
+def get_ledger_info(request, eid):
+    """Retrieve a LedgerInfo by id (supports ?expand=)."""
+    rows = _query("LedgerInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'productId': 'Product'})
     return rec, 200
 
-@app.route("/v1/variants/<eid>", methods=["POST", "PATCH"])
-def update_variant(request, eid):
-    """Update a Variant."""
-    rows = _query("Variant", eid)
+@app.route("/v1/ledgerinfos/<eid>", methods=["POST", "PATCH"])
+def update_ledger_info(request, eid):
+    """Update a LedgerInfo."""
+    rows = _query("LedgerInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
+    err = _reject_unknown(data, ['chainId', 'epoch', 'ledgerVersion', 'oldestLedgerVersion', 'ledgerTimestamp', 'nodeRole', 'blockHeight', 'gitHash'])
     if err:
         return err, 400
+    if data.get('nodeRole') and data['nodeRole'] not in ['validator', 'full_node']:
+        return {"error": {"message": "invalid nodeRole; allowed: " + ", ".join(['validator', 'full_node']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Variant", rec)
+    _persist("LedgerInfo", rec)
     return rec, 200
 
-@app.route("/v1/variants/<eid>", methods=["DELETE"])
-def delete_variant(request, eid):
-    """Delete a Variant."""
-    rows = _query("Variant", eid)
+@app.route("/v1/ledgerinfos/<eid>", methods=["DELETE"])
+def delete_ledger_info(request, eid):
+    """Delete a LedgerInfo."""
+    rows = _query("LedgerInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.Variant", "id": eid})
+    db.retract({"entity": f"aptos_pos.LedgerInfo", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
+@app.route("/v1/usertransactions", methods=["POST"])
+def create_user_transaction(request):
+    """Create a UserTransaction."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['version', 'hash', 'gasUsed', 'success', 'vmStatus', 'sender', 'sequenceNumber', 'maxGasAmount', 'gasUnitPrice'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['version', 'hash'])
     if err:
         return err, 400
-    rec = {"id": new_id("aptospos_ord")}
-    rec["customerId"] = data.get('customerId')
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("aptospos_use")}
+    rec["version"] = data.get('version')
+    rec["hash"] = data.get('hash')
+    rec["gasUsed"] = data.get('gasUsed')
+    rec["success"] = _as_bool(data.get('success'))
+    rec["vmStatus"] = data.get('vmStatus')
+    rec["sender"] = data.get('sender')
+    rec["sequenceNumber"] = data.get('sequenceNumber')
+    rec["maxGasAmount"] = data.get('maxGasAmount')
+    rec["gasUnitPrice"] = data.get('gasUnitPrice')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
+    _persist("UserTransaction", rec)
     return rec, 201
 
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
+@app.route("/v1/usertransactions", methods=["GET"])
+def list_user_transactions(request):
+    """List UserTransactions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['customerId', 'number', 'total', 'currency', 'status'])
+    rows = _query("UserTransaction")
+    rows = _apply_filters(rows, params, ['version', 'hash', 'gasUsed', 'success', 'vmStatus', 'sender', 'sequenceNumber', 'maxGasAmount', 'gasUnitPrice'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
+@app.route("/v1/usertransactions/<eid>", methods=["GET"])
+def get_user_transaction(request, eid):
+    """Retrieve a UserTransaction by id (supports ?expand=)."""
+    rows = _query("UserTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/usertransactions/<eid>", methods=["POST", "PATCH"])
+def update_user_transaction(request, eid):
+    """Update a UserTransaction."""
+    rows = _query("UserTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['version', 'hash', 'gasUsed', 'success', 'vmStatus', 'sender', 'sequenceNumber', 'maxGasAmount', 'gasUnitPrice'])
     if err:
         return err, 400
     rec = rows[0]
@@ -301,132 +311,133 @@ def update_order(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Order", rec)
+    _persist("UserTransaction", rec)
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/usertransactions/<eid>", methods=["DELETE"])
+def delete_user_transaction(request, eid):
+    """Delete a UserTransaction."""
+    rows = _query("UserTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.Order", "id": eid})
+    db.retract({"entity": f"aptos_pos.UserTransaction", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/lineitems", methods=["POST"])
-def create_line_item(request):
-    """Create a LineItem."""
+@app.route("/v1/movefunctions", methods=["POST"])
+def create_move_function(request):
+    """Create a MoveFunction."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['name', 'visibility', 'isEntry', 'isView'])
     if err:
         return err, 400
-    err = _require(data, ['quantity', 'unitPrice'])
+    err = _require(data, ['name', 'visibility'])
     if err:
         return err, 400
-    rec = {"id": new_id("aptospos_lin")}
-    rec["orderId"] = data.get('orderId')
-    rec["productId"] = data.get('productId')
-    rec["quantity"] = _as_int(data.get('quantity'))
-    rec["unitPrice"] = _as_float(data.get('unitPrice'))
+    if data.get('visibility') and data['visibility'] not in ['private', 'public', 'friend']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['private', 'public', 'friend']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aptospos_mov")}
+    rec["name"] = data.get('name')
+    rec["visibility"] = data.get('visibility')
+    rec["isEntry"] = _as_bool(data.get('isEntry'))
+    rec["isView"] = _as_bool(data.get('isView'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LineItem", rec)
+    _persist("MoveFunction", rec)
     return rec, 201
 
-@app.route("/v1/lineitems", methods=["GET"])
-def list_line_items(request):
-    """List LineItems with filtering + cursor pagination."""
+@app.route("/v1/movefunctions", methods=["GET"])
+def list_move_functions(request):
+    """List MoveFunctions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LineItem")
-    rows = _apply_filters(rows, params, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    rows = _query("MoveFunction")
+    rows = _apply_filters(rows, params, ['name', 'visibility', 'isEntry', 'isView'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["GET"])
-def get_line_item(request, eid):
-    """Retrieve a LineItem by id (supports ?expand=)."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/movefunctions/<eid>", methods=["GET"])
+def get_move_function(request, eid):
+    """Retrieve a MoveFunction by id (supports ?expand=)."""
+    rows = _query("MoveFunction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order', 'productId': 'Product'})
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["POST", "PATCH"])
-def update_line_item(request, eid):
-    """Update a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/movefunctions/<eid>", methods=["POST", "PATCH"])
+def update_move_function(request, eid):
+    """Update a MoveFunction."""
+    rows = _query("MoveFunction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['name', 'visibility', 'isEntry', 'isView'])
     if err:
         return err, 400
+    if data.get('visibility') and data['visibility'] not in ['private', 'public', 'friend']:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join(['private', 'public', 'friend']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LineItem", rec)
+    _persist("MoveFunction", rec)
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["DELETE"])
-def delete_line_item(request, eid):
-    """Delete a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/movefunctions/<eid>", methods=["DELETE"])
+def delete_move_function(request, eid):
+    """Delete a MoveFunction."""
+    rows = _query("MoveFunction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.LineItem", "id": eid})
+    db.retract({"entity": f"aptos_pos.MoveFunction", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/customers", methods=["POST"])
-def create_customer(request):
-    """Create a Customer."""
+@app.route("/v1/accountdatas", methods=["POST"])
+def create_account_data(request):
+    """Create a AccountData."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['sequenceNumber', 'authenticationKey'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'firstName'])
+    err = _require(data, ['sequenceNumber', 'authenticationKey'])
     if err:
         return err, 400
-    rec = {"id": new_id("aptospos_cus")}
-    rec["email"] = data.get('email')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["phone"] = data.get('phone')
+    rec = {"id": new_id("aptospos_acc")}
+    rec["sequenceNumber"] = data.get('sequenceNumber')
+    rec["authenticationKey"] = data.get('authenticationKey')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Customer", rec)
+    _persist("AccountData", rec)
     return rec, 201
 
-@app.route("/v1/customers", methods=["GET"])
-def list_customers(request):
-    """List Customers with filtering + cursor pagination."""
+@app.route("/v1/accountdatas", methods=["GET"])
+def list_account_datas(request):
+    """List AccountDatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'phone'])
+    rows = _query("AccountData")
+    rows = _apply_filters(rows, params, ['sequenceNumber', 'authenticationKey'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/customers/<eid>", methods=["GET"])
-def get_customer(request, eid):
-    """Retrieve a Customer by id (supports ?expand=)."""
-    rows = _query("Customer", eid)
+@app.route("/v1/accountdatas/<eid>", methods=["GET"])
+def get_account_data(request, eid):
+    """Retrieve a AccountData by id (supports ?expand=)."""
+    rows = _query("AccountData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/customers/<eid>", methods=["POST", "PATCH"])
-def update_customer(request, eid):
-    """Update a Customer."""
-    rows = _query("Customer", eid)
+@app.route("/v1/accountdatas/<eid>", methods=["POST", "PATCH"])
+def update_account_data(request, eid):
+    """Update a AccountData."""
+    rows = _query("AccountData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['sequenceNumber', 'authenticationKey'])
     if err:
         return err, 400
     rec = rows[0]
@@ -434,87 +445,22 @@ def update_customer(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Customer", rec)
+    _persist("AccountData", rec)
     return rec, 200
 
-@app.route("/v1/customers/<eid>", methods=["DELETE"])
-def delete_customer(request, eid):
-    """Delete a Customer."""
-    rows = _query("Customer", eid)
+@app.route("/v1/accountdatas/<eid>", methods=["DELETE"])
+def delete_account_data(request, eid):
+    """Delete a AccountData."""
+    rows = _query("AccountData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.Customer", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/collections", methods=["POST"])
-def create_collection(request):
-    """Create a Collection."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'handle'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aptospos_col")}
-    rec["title"] = data.get('title')
-    rec["handle"] = data.get('handle')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Collection", rec)
-    return rec, 201
-
-@app.route("/v1/collections", methods=["GET"])
-def list_collections(request):
-    """List Collections with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Collection")
-    rows = _apply_filters(rows, params, ['title', 'handle', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/collections/<eid>", methods=["GET"])
-def get_collection(request, eid):
-    """Retrieve a Collection by id (supports ?expand=)."""
-    rows = _query("Collection", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
-def update_collection(request, eid):
-    """Update a Collection."""
-    rows = _query("Collection", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Collection", rec)
-    return rec, 200
-
-@app.route("/v1/collections/<eid>", methods=["DELETE"])
-def delete_collection(request, eid):
-    """Delete a Collection."""
-    rows = _query("Collection", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aptos_pos.Collection", "id": eid})
+    db.retract({"entity": f"aptos_pos.AccountData", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "aptos_pos-compat", "tier": "L4",
-            "entities": ['Product', 'Variant', 'Order', 'LineItem', 'Customer', 'Collection']}, 200
+            "entities": ['Block', 'LedgerInfo', 'UserTransaction', 'MoveFunction', 'AccountData']}, 200
 
 
 if __name__ == "__main__":

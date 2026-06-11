@@ -829,17 +829,16 @@
       "handle": "aptos_pos-compat",
       "platform": "aptos_pos",
       "bytes": 2123,
-      "wasmCid": "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+      "wasmCid": "bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Product",
-        "Variant",
-        "Order",
-        "LineItem",
-        "Customer",
-        "Collection"
+        "Block",
+        "LedgerInfo",
+        "UserTransaction",
+        "MoveFunction",
+        "AccountData"
       ]
     },
     {

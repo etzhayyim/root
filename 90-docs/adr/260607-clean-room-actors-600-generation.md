@@ -808,3 +808,14 @@ provider's OWN documentation documents the standard eth_* methods
 (docs.metamask.io/services for Infura; alchemy.com/docs — both
 harness-fetched). The transaction-type registry (legacy/2930/1559/4844/
 7702) honestly gapped as growing.
+
+### §16.24 /loop iteration 23 — wave 24: aptos (220, 22.0%)
+
+aptos_pos → ledger **220** (780 L4 / 220 L5 = **22.0%**), enforced 212 /
+**883 enum fields**, verify PASS 0/0, contract suite green. Harness-direct.
+The official aptos-core Node API OpenAPI (1.2.0, 188 schemas) anchors
+MoveFunctionVisibility {private, public, friend} — a LANGUAGE-anchored
+closed set (the Move visibility system) — and RoleType {validator,
+full_node}; U64-as-string wire convention kept faithfully. chainlink
+carries (the AggregatorV3Interface path moved; needs a fresh repo-tree
+walk).

@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 211,
-  "totalVerifiedEnumFields": 881,
+  "l5VerifiedActors": 212,
+  "totalVerifiedEnumFields": 883,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -507,8 +507,8 @@
       "source": "aptos_pos.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "argo_ocean_floats-compat",

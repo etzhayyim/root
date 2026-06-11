@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 219,
+  "count": 220,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1990,6 +1990,103 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (2/2) vs Apple's official docs JSON API. Enforced enums: phase(3) + immersionStyle(4) = 2 enum fields."
+    },
+    {
+      "handle": "aptos_pos-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+      "remodeled": "Remodeled to the faithful Aptos Node API surface verified against the OFFICIAL OpenAPI shipped in aptos-core (machine-extracted). MoveFunctionVisibility enforced {private, public, friend} — the Move LANGUAGE's visibility system, a language-anchored closed set — and RoleType {validator, full_node}. U64 quantities are strings per the Aptos wire convention, kept faithfully. Harness-direct.",
+      "resources": [
+        {
+          "entity": "Block",
+          "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+          "verifiedFields": [
+            "blockHeight",
+            "blockHash",
+            "blockTimestamp",
+            "firstVersion",
+            "lastVersion"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "LedgerInfo",
+          "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+          "verifiedFields": [
+            "chainId",
+            "epoch",
+            "ledgerVersion",
+            "oldestLedgerVersion",
+            "ledgerTimestamp",
+            "nodeRole",
+            "blockHeight",
+            "gitHash"
+          ],
+          "fieldStatus": "confirmed (IndexResponse schema)",
+          "discoveredEnums": {
+            "nodeRole": [
+              "validator",
+              "full_node"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "UserTransaction",
+          "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+          "verifiedFields": [
+            "version",
+            "hash",
+            "gasUsed",
+            "success",
+            "vmStatus",
+            "sender",
+            "sequenceNumber",
+            "maxGasAmount",
+            "gasUnitPrice"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "transaction-payload-variants-not-modeled"
+          ]
+        },
+        {
+          "entity": "MoveFunction",
+          "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+          "verifiedFields": [
+            "name",
+            "visibility",
+            "isEntry",
+            "isView"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "visibility": [
+              "private",
+              "public",
+              "friend"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AccountData",
+          "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml (the official Aptos Node API OpenAPI, version 1.2.0, 188 schemas)",
+          "verifiedFields": [
+            "sequenceNumber",
+            "authenticationKey"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs the official aptos-core Node API spec. Enforced enums: visibility(3, Move-language-anchored) + nodeRole(2) = 2 enum fields."
     },
     {
       "handle": "argo_ocean_floats-compat",

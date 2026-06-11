@@ -2851,6 +2851,19 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Aptos model (the official aptos-core Node API OpenAPI, version
+# 1.2.0, 188 schemas). MoveFunctionVisibility(3: private/public/friend —
+# the Move LANGUAGE's visibility system, language-anchored) + RoleType(2:
+# validator/full_node) enforced. U64s are strings per the Aptos wire
+# convention.
+PLATFORM_OVERRIDES["aptos_pos"] = {
+    "Block": E(blockHeight="string", blockHash="string", blockTimestamp="string", firstVersion="string", lastVersion="string"),
+    "LedgerInfo": E(chainId="integer", epoch="string", ledgerVersion="string", oldestLedgerVersion="string", ledgerTimestamp="string", nodeRole="string", blockHeight="string", gitHash="string"),
+    "UserTransaction": E(version="string", hash="string", gasUsed="string", success="boolean", vmStatus="string", sender="string", sequenceNumber="string", maxGasAmount="string", gasUnitPrice="string"),
+    "MoveFunction": E(name="string", visibility="string", isEntry="boolean", isView="boolean"),
+    "AccountData": E(sequenceNumber="string", authenticationKey="string"),
+}
+
 # Ethereum JSON-RPC conformance family (the 5th family): node providers
 # whose OWN docs document the standard eth_* JSON-RPC interface join on the
 # official ethereum/execution-apis spec model. BlockTag(5, declared with

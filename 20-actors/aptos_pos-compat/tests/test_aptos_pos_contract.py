@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "aptos_pos.kotoba")
-ENTITIES = ['Product', 'Variant', 'Order', 'LineItem', 'Customer', 'Collection']
-PLURALS = {'Product': 'products', 'Variant': 'variants', 'Order': 'orders', 'LineItem': 'lineitems', 'Customer': 'customers', 'Collection': 'collections'}
+ENTITIES = ['Block', 'LedgerInfo', 'UserTransaction', 'MoveFunction', 'AccountData']
+PLURALS = {'Block': 'blocks', 'LedgerInfo': 'ledgerinfos', 'UserTransaction': 'usertransactions', 'MoveFunction': 'movefunctions', 'AccountData': 'accountdatas'}
 
 
 class AptosPosContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class AptosPosContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['nodeRole', 'visibility']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

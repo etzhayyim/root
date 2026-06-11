@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible e-commerce storefront actor (aptos_pos); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aptos_pos-compat",
-    "x-wasm-cid": "bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+    "x-wasm-cid": "bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreichlt4vuxcg2u2ex2ajwmh2tiglzliborc6tmipoxo5pjxa22n4za",
+      "url": "ipfs://bafkreig2mnklnv3knfntjazdeyd55zmfpr7qlygdk4this3o5m5maateam",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/products": {
+    "/v1/blocks": {
       "get": {
-        "summary": "List Products",
+        "summary": "List Blocks",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Product"
+                        "$ref": "#/components/schemas/Block"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Product",
+        "summary": "Create a Block",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/BlockCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Block"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/products/{id}": {
+    "/v1/blocks/{id}": {
       "get": {
-        "summary": "Get a Product",
+        "summary": "Get a Block",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Block"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Product",
+        "summary": "Update a Block",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/BlockCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Block"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Product",
+        "summary": "Delete a Block",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/variants": {
+    "/v1/ledgerinfos": {
       "get": {
-        "summary": "List Variants",
+        "summary": "List LedgerInfos",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Variant"
+                        "$ref": "#/components/schemas/LedgerInfo"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Variant",
+        "summary": "Create a LedgerInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VariantCreate"
+                "$ref": "#/components/schemas/LedgerInfoCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Variant"
+                  "$ref": "#/components/schemas/LedgerInfo"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/variants/{id}": {
+    "/v1/ledgerinfos/{id}": {
       "get": {
-        "summary": "Get a Variant",
+        "summary": "Get a LedgerInfo",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Variant"
+                  "$ref": "#/components/schemas/LedgerInfo"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Variant",
+        "summary": "Update a LedgerInfo",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VariantCreate"
+                "$ref": "#/components/schemas/LedgerInfoCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Variant"
+                  "$ref": "#/components/schemas/LedgerInfo"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Variant",
+        "summary": "Delete a LedgerInfo",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/orders": {
+    "/v1/usertransactions": {
       "get": {
-        "summary": "List Orders",
+        "summary": "List UserTransactions",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Order"
+                        "$ref": "#/components/schemas/UserTransaction"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Order",
+        "summary": "Create a UserTransaction",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/UserTransactionCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/UserTransaction"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/orders/{id}": {
+    "/v1/usertransactions/{id}": {
       "get": {
-        "summary": "Get a Order",
+        "summary": "Get a UserTransaction",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/UserTransaction"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Order",
+        "summary": "Update a UserTransaction",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/UserTransactionCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/UserTransaction"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Order",
+        "summary": "Delete a UserTransaction",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/lineitems": {
+    "/v1/movefunctions": {
       "get": {
-        "summary": "List LineItems",
+        "summary": "List MoveFunctions",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/LineItem"
+                        "$ref": "#/components/schemas/MoveFunction"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a LineItem",
+        "summary": "Create a MoveFunction",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LineItemCreate"
+                "$ref": "#/components/schemas/MoveFunctionCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/MoveFunction"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/lineitems/{id}": {
+    "/v1/movefunctions/{id}": {
       "get": {
-        "summary": "Get a LineItem",
+        "summary": "Get a MoveFunction",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/MoveFunction"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a LineItem",
+        "summary": "Update a MoveFunction",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LineItemCreate"
+                "$ref": "#/components/schemas/MoveFunctionCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LineItem"
+                  "$ref": "#/components/schemas/MoveFunction"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a LineItem",
+        "summary": "Delete a MoveFunction",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/customers": {
+    "/v1/accountdatas": {
       "get": {
-        "summary": "List Customers",
+        "summary": "List AccountDatas",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Customer"
+                        "$ref": "#/components/schemas/AccountData"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Customer",
+        "summary": "Create a AccountData",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/AccountDataCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/AccountData"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/customers/{id}": {
+    "/v1/accountdatas/{id}": {
       "get": {
-        "summary": "Get a Customer",
+        "summary": "Get a AccountData",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/AccountData"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Customer",
+        "summary": "Update a AccountData",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/AccountDataCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/AccountData"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Customer",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/collections": {
-      "get": {
-        "summary": "List Collections",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Collection"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Collection",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/collections/{id}": {
-      "get": {
-        "summary": "Get a Collection",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collection"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Collection",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collection"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Collection",
+        "summary": "Delete a AccountData",
         "parameters": [
           {
             "name": "id",
@@ -1140,77 +955,93 @@
   },
   "components": {
     "schemas": {
-      "Product": {
+      "Block": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "sku": {
+          "blockHeight": {
             "type": "string"
           },
-          "title": {
+          "blockHash": {
             "type": "string"
           },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
+          "blockTimestamp": {
             "type": "string"
           },
-          "inventory": {
+          "firstVersion": {
+            "type": "string"
+          },
+          "lastVersion": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BlockCreate": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "string"
+          },
+          "blockHash": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "firstVersion": {
+            "type": "string"
+          },
+          "lastVersion": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockHeight",
+          "blockHash"
+        ]
+      },
+      "LedgerInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "chainId": {
             "type": "integer"
           },
-          "createdAt": {
+          "epoch": {
+            "type": "string"
+          },
+          "ledgerVersion": {
+            "type": "string"
+          },
+          "oldestLedgerVersion": {
+            "type": "string"
+          },
+          "ledgerTimestamp": {
+            "type": "string"
+          },
+          "nodeRole": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "validator",
+              "full_node"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProductCreate": {
-        "type": "object",
-        "properties": {
-          "sku": {
+          "blockHeight": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "inventory": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "sku",
-          "title"
-        ]
-      },
-      "Variant": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "productId": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "optionValues": {
+          "gitHash": {
             "type": "string"
           },
           "createdAt": {
@@ -1223,99 +1054,75 @@
           }
         }
       },
-      "VariantCreate": {
+      "LedgerInfoCreate": {
         "type": "object",
         "properties": {
-          "productId": {
-            "type": "string"
-          },
-          "sku": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "optionValues": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sku",
-          "price"
-        ]
-      },
-      "Order": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "customerId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "OrderCreate": {
-        "type": "object",
-        "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "total": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "number",
-          "total"
-        ]
-      },
-      "LineItem": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "orderId": {
-            "type": "string"
-          },
-          "productId": {
-            "type": "string"
-          },
-          "quantity": {
+          "chainId": {
             "type": "integer"
           },
-          "unitPrice": {
-            "type": "number"
+          "epoch": {
+            "type": "string"
+          },
+          "ledgerVersion": {
+            "type": "string"
+          },
+          "oldestLedgerVersion": {
+            "type": "string"
+          },
+          "ledgerTimestamp": {
+            "type": "string"
+          },
+          "nodeRole": {
+            "type": "string",
+            "enum": [
+              "validator",
+              "full_node"
+            ]
+          },
+          "blockHeight": {
+            "type": "string"
+          },
+          "gitHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "epoch",
+          "ledgerVersion"
+        ]
+      },
+      "UserTransaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "gasUsed": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "vmStatus": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "sequenceNumber": {
+            "type": "string"
+          },
+          "maxGasAmount": {
+            "type": "string"
+          },
+          "gasUnitPrice": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1327,89 +1134,63 @@
           }
         }
       },
-      "LineItemCreate": {
+      "UserTransactionCreate": {
         "type": "object",
         "properties": {
-          "orderId": {
+          "version": {
             "type": "string"
           },
-          "productId": {
+          "hash": {
             "type": "string"
           },
-          "quantity": {
-            "type": "integer"
+          "gasUsed": {
+            "type": "string"
           },
-          "unitPrice": {
-            "type": "number"
+          "success": {
+            "type": "boolean"
+          },
+          "vmStatus": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "sequenceNumber": {
+            "type": "string"
+          },
+          "maxGasAmount": {
+            "type": "string"
+          },
+          "gasUnitPrice": {
+            "type": "string"
           }
         },
         "required": [
-          "quantity",
-          "unitPrice"
+          "version",
+          "hash"
         ]
       },
-      "Customer": {
+      "MoveFunction": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "email": {
+          "name": {
             "type": "string"
           },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          },
-          "createdAt": {
+          "visibility": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "private",
+              "public",
+              "friend"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CustomerCreate": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
+          "isEntry": {
+            "type": "boolean"
           },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "email",
-          "firstName"
-        ]
-      },
-      "Collection": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "handle": {
-            "type": "string"
-          },
-          "published": {
+          "isView": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1422,22 +1203,67 @@
           }
         }
       },
-      "CollectionCreate": {
+      "MoveFunctionCreate": {
         "type": "object",
         "properties": {
-          "title": {
+          "name": {
             "type": "string"
           },
-          "handle": {
-            "type": "string"
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "private",
+              "public",
+              "friend"
+            ]
           },
-          "published": {
+          "isEntry": {
+            "type": "boolean"
+          },
+          "isView": {
             "type": "boolean"
           }
         },
         "required": [
-          "title",
-          "handle"
+          "name",
+          "visibility"
+        ]
+      },
+      "AccountData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sequenceNumber": {
+            "type": "string"
+          },
+          "authenticationKey": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AccountDataCreate": {
+        "type": "object",
+        "properties": {
+          "sequenceNumber": {
+            "type": "string"
+          },
+          "authenticationKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sequenceNumber",
+          "authenticationKey"
         ]
       }
     }
