@@ -15288,6 +15288,26 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112201-kaiyaku-tie-severance-executor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606112201: kaiyaku 解約 — 縁切り (tie-severance) executor, Tier-B actor R0",
+      "status": "proposed",
+      "topic": "kaiyaku-tie-severance-executor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kaiyaku-actor-charter",
+        "enkiri-ledger-ontology"
+      ],
+      "related": [
+        "doc:adr-2605312500",
+        "doc:adr-2605312030",
+        "doc:adr-2605302130",
+        "doc:adr-2605263700",
+        "doc:adr-2605181100"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
       "type": "TechArticle",
       "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
