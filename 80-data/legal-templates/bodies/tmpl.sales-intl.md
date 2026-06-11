@@ -28,7 +28,7 @@ _Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late pay
 _Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
 
 ### 6. Dispute resolution — arbitration  (dispute, optional)
-_Rests on:_ New York Convention 1958, Art. III (Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)); UNCITRAL Model Law, Art. 7 (UNCITRAL Model Law on International Commercial Arbitration)
+_Rests on:_ New York Convention 1958, Art. III (Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)); UNCITRAL Model Law, Art. 7 (UNCITRAL Model Law on International Commercial Arbitration); 仲裁法13条 (仲裁法 (平成15年法律第138号)); Arbitration Act 1996, s.6 (Arbitration Act 1996 (UK)); 9 U.S.C. §2 (Federal Arbitration Act (US)); ZPO §1029 (Zivilprozessordnung (ZPO), Germany); Code de procedure civile, Art. 1442 (Code de procedure civile (France)); Arbitration and Conciliation Act 1996, §7 (Arbitration and Conciliation Act, 1996 (India))
 
 ### 7. Governing law  (governing-law, recommended)
 _Rests on:_ Regulation (EC) No 593/2008, Art. 3 (Rome I Regulation (EC) No 593/2008); Hague Principles 2015, Art. 2 (HCCH Principles on Choice of Law in International Commercial Contracts)

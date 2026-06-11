@@ -111,9 +111,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigh6pjl6dy7wmmib2fsagjwqvujusot7lth37dsi2dpt2kudhfeq4",
-      "bodySha256": "0xc7f3d2bf0f1fb31880e8b20193685689a49d3fae67dfc724686f9e95419ca487",
-      "bytes": 3331,
+      "bodyCid": "bafkreihxujwkcqes6jwjxqqib3hxbeckaksufpj2tkfaz3pgenq7sdmp6m",
+      "bodySha256": "0xf7a26ca14092f26c9bc2080ecf70904a02a542bd3a9a8a0cede62361f90d8ff3",
+      "bytes": 3499,
       "clauseCount": 8,
       "statutes": [
         {
@@ -187,6 +187,18 @@
           "citation": "Singapore Convention 2019, Art. 3",
           "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
           "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
+        {
+          "id": "st.eu-mediation-2008",
+          "citation": "Directive 2008/52/EC, Art. 3",
+          "instrument": "Directive 2008/52/EC (Mediation)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2008/52/oj"
+        },
+        {
+          "id": "st.jp-adr-2004",
+          "citation": "ADR法 (平成16年法律第151号)",
+          "instrument": "裁判外紛争解決手続の利用の促進に関する法律",
+          "url": "https://laws.e-gov.go.jp/law/416AC0000000151"
         },
         {
           "id": "st.eidas-25",
@@ -1474,9 +1486,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreia53urw3tworpf4qhz4th6o2uigcspcbtobxm4lalbvyapldzusmu",
-      "bodySha256": "0x1ddd236dcece8bcbc81f3c99fced5106149e20cdc1bb38b02c35c01eb1e69265",
-      "bytes": 2655,
+      "bodyCid": "bafkreigwj7hdhjnisnfo6k22b3or3bi6mtehxvei4zfugpialkk6iwlgwi",
+      "bodySha256": "0xd64fce33a5a8934aef2b5a0edd1d851e64c87bd488e64b433d005a95e45966b2",
+      "bytes": 2823,
       "clauseCount": 6,
       "statutes": [
         {
@@ -1520,6 +1532,18 @@
           "citation": "Singapore Convention 2019, Art. 3",
           "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
           "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
+        {
+          "id": "st.eu-mediation-2008",
+          "citation": "Directive 2008/52/EC, Art. 3",
+          "instrument": "Directive 2008/52/EC (Mediation)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2008/52/oj"
+        },
+        {
+          "id": "st.jp-adr-2004",
+          "citation": "ADR法 (平成16年法律第151号)",
+          "instrument": "裁判外紛争解決手続の利用の促進に関する法律",
+          "url": "https://laws.e-gov.go.jp/law/416AC0000000151"
         },
         {
           "id": "st.eidas-25",
@@ -1682,9 +1706,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicwtlphey53iumyuwpasyv76wqix5chadwkeeuvee2coa5hiube3m",
-      "bodySha256": "0x569ade7263bb45198a59e0962bff5a08bf44700eca2129521342703a745024db",
-      "bytes": 2719,
+      "bodyCid": "bafkreidjtqvsyezjxcgkfkry3lyd5sdtwu73a6gli6l3wgtoauctkfh5pe",
+      "bodySha256": "0x699c2b2c1329b88ca2aa38daf03ec873b53fb078cb4797bb1a6e05053514fd79",
+      "bytes": 2887,
       "clauseCount": 7,
       "statutes": [
         {
@@ -1722,6 +1746,18 @@
           "citation": "Singapore Convention 2019, Art. 3",
           "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
           "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
+        {
+          "id": "st.eu-mediation-2008",
+          "citation": "Directive 2008/52/EC, Art. 3",
+          "instrument": "Directive 2008/52/EC (Mediation)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2008/52/oj"
+        },
+        {
+          "id": "st.jp-adr-2004",
+          "citation": "ADR法 (平成16年法律第151号)",
+          "instrument": "裁判外紛争解決手続の利用の促進に関する法律",
+          "url": "https://laws.e-gov.go.jp/law/416AC0000000151"
         },
         {
           "id": "st.jp-civil-541",
@@ -1896,9 +1932,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicq5nkzknwfms67piytvezbqabtpvq6x5be2bmnvl27iobmdptnci",
-      "bodySha256": "0x50eb559536c564bdf7a313a9321800337d61ebf424d058daaf5f4382c1be6d12",
-      "bytes": 3659,
+      "bodyCid": "bafkreidubeaaopze33f3sbmfxgfucfyt4ppjwtyofiiarg7hchpannkmwa",
+      "bodySha256": "0x740900073f24decbb90585b98b411713e3de9b4f0e2a10089be711de06b54cb0",
+      "bytes": 4031,
       "clauseCount": 9,
       "statutes": [
         {
@@ -1984,6 +2020,42 @@
           "citation": "UNCITRAL Model Law, Art. 7",
           "instrument": "UNCITRAL Model Law on International Commercial Arbitration",
           "url": "https://uncitral.un.org/en/texts/arbitration/modellaw/commercial_arbitration"
+        },
+        {
+          "id": "st.jp-arb-2003",
+          "citation": "仲裁法13条",
+          "instrument": "仲裁法 (平成15年法律第138号)",
+          "url": "https://laws.e-gov.go.jp/law/415AC0000000138"
+        },
+        {
+          "id": "st.uk-arb-1996",
+          "citation": "Arbitration Act 1996, s.6",
+          "instrument": "Arbitration Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/23/section/6"
+        },
+        {
+          "id": "st.us-faa-2",
+          "citation": "9 U.S.C. §2",
+          "instrument": "Federal Arbitration Act (US)",
+          "url": "https://www.law.cornell.edu/uscode/text/9/2"
+        },
+        {
+          "id": "st.de-zpo-1029",
+          "citation": "ZPO §1029",
+          "instrument": "Zivilprozessordnung (ZPO), Germany",
+          "url": "https://www.gesetze-im-internet.de/zpo/__1029.html"
+        },
+        {
+          "id": "st.fr-cpc-1442",
+          "citation": "Code de procedure civile, Art. 1442",
+          "instrument": "Code de procedure civile (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000023450177/"
+        },
+        {
+          "id": "st.india-arb-1996",
+          "citation": "Arbitration and Conciliation Act 1996, §7",
+          "instrument": "Arbitration and Conciliation Act, 1996 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1978"
         },
         {
           "id": "st.eu-rome-i",
@@ -2194,9 +2266,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigdp6agceny6f7dgrm35obltdozfidce6f73fvnmwbxf64zxgss4m",
-      "bodySha256": "0xc37f806111b8f17e33459beb82b98dd92a062278bfd96ad658372fb99b9a52e3",
-      "bytes": 2352,
+      "bodyCid": "bafkreibyyyjhv63s2gviag6wv2w5mb5hxc36r6d5dj2o6pzepnyjlkf27a",
+      "bodySha256": "0x38c6127afb72d1aa801bd6aeadd607a7b8b7e8f87d1a74ef3f247b7095a8baf8",
+      "bytes": 2520,
       "clauseCount": 5,
       "statutes": [
         {
@@ -2222,6 +2294,18 @@
           "citation": "Singapore Convention 2019, Art. 3",
           "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
           "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
+        {
+          "id": "st.eu-mediation-2008",
+          "citation": "Directive 2008/52/EC, Art. 3",
+          "instrument": "Directive 2008/52/EC (Mediation)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2008/52/oj"
+        },
+        {
+          "id": "st.jp-adr-2004",
+          "citation": "ADR法 (平成16年法律第151号)",
+          "instrument": "裁判外紛争解決手続の利用の促進に関する法律",
+          "url": "https://laws.e-gov.go.jp/law/416AC0000000151"
         },
         {
           "id": "st.eidas-25",

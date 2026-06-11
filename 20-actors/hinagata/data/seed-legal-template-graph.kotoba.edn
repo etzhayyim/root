@@ -198,6 +198,16 @@
  {:lt/id "st.fr-conso-l221-18" :lt/kind :statute :lt/label "Code de la consommation L221-18 — delai de retractation (14 jours)" :statute/citation "Code de la consommation, Art. L221-18" :statute/instrument "Code de la consommation (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032227299/" :lt/sourcing :authoritative}
  {:lt/id "st.us-ftc-cooling-off" :lt/kind :statute :lt/label "US FTC Cooling-Off Rule — 3-day cancellation (16 CFR Part 429)" :statute/citation "16 CFR Part 429" :statute/instrument "FTC Cooling-Off Rule (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-429" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 9 (/loop): GLOBAL dispute-resolution law (arbitration + mediation, domestic) ───
+ {:lt/id "st.jp-arb-2003" :lt/kind :statute :lt/label "日本仲裁法 13条 — 仲裁合意 (arbitration agreement)" :statute/citation "仲裁法13条" :statute/instrument "仲裁法 (平成15年法律第138号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/415AC0000000138" :lt/sourcing :authoritative}
+ {:lt/id "st.uk-arb-1996" :lt/kind :statute :lt/label "UK Arbitration Act 1996 §6 — definition of arbitration agreement" :statute/citation "Arbitration Act 1996, s.6" :statute/instrument "Arbitration Act 1996 (UK)" :statute/jurisdiction "jx.uk" :statute/url "https://www.legislation.gov.uk/ukpga/1996/23/section/6" :lt/sourcing :authoritative}
+ {:lt/id "st.us-faa-2" :lt/kind :statute :lt/label "US Federal Arbitration Act — 9 U.S.C. §2 (validity of arbitration agreements)" :statute/citation "9 U.S.C. §2" :statute/instrument "Federal Arbitration Act (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/uscode/text/9/2" :lt/sourcing :authoritative}
+ {:lt/id "st.de-zpo-1029" :lt/kind :statute :lt/label "ZPO §1029 — Schiedsvereinbarung (arbitration agreement)" :statute/citation "ZPO §1029" :statute/instrument "Zivilprozessordnung (ZPO), Germany" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/zpo/__1029.html" :lt/sourcing :authoritative}
+ {:lt/id "st.fr-cpc-1442" :lt/kind :statute :lt/label "Code de procedure civile Art. 1442 — convention d'arbitrage" :statute/citation "Code de procedure civile, Art. 1442" :statute/instrument "Code de procedure civile (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000023450177/" :lt/sourcing :authoritative}
+ {:lt/id "st.india-arb-1996" :lt/kind :statute :lt/label "India Arbitration and Conciliation Act 1996 §7 — arbitration agreement" :statute/citation "Arbitration and Conciliation Act 1996, §7" :statute/instrument "Arbitration and Conciliation Act, 1996 (India)" :statute/jurisdiction "jx.in" :statute/url "https://www.indiacode.nic.in/handle/123456789/1978" :lt/sourcing :authoritative}
+ {:lt/id "st.eu-mediation-2008" :lt/kind :statute :lt/label "EU Mediation Directive 2008/52/EC Art. 3 — definition of mediation" :statute/citation "Directive 2008/52/EC, Art. 3" :statute/instrument "Directive 2008/52/EC (Mediation)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/2008/52/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-adr-2004" :lt/kind :statute :lt/label "ADR法 — 裁判外紛争解決手続の利用の促進に関する法律" :statute/citation "ADR法 (平成16年法律第151号)" :statute/instrument "裁判外紛争解決手続の利用の促進に関する法律" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/416AC0000000151" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -476,6 +486,16 @@
  {:en/from "cl.cooling-off" :en/to "st.uk-ccr-2013" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.cooling-off" :en/to "st.fr-conso-l221-18" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.cooling-off" :en/to "st.us-ftc-cooling-off" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+
+ ;; coverage wave 9 — GLOBAL dispute-resolution grounding (arbitration clause now domestic-grounded worldwide)
+ {:en/from "cl.dispute-arbitration" :en/to "st.jp-arb-2003" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.uk-arb-1996" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.us-faa-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.de-zpo-1029" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.fr-cpc-1442" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.india-arb-1996" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-mediation" :en/to "st.eu-mediation-2008" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-mediation" :en/to "st.jp-adr-2004" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  ;; coverage wave 3 — GLOBAL electronic-signature grounding (the e-sign clause now rests on law on every continent)
  {:en/from "cl.signature-esign" :en/to "st.uncitral-mlesig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.india-it-act-5" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
@@ -649,6 +669,16 @@
  {:en/from "st.uk-ccr-2013" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.fr-conso-l221-18" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.us-ftc-cooling-off" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; coverage wave 9 — applies-in for dispute-resolution instruments
+ {:en/from "st.jp-arb-2003" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uk-arb-1996" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-faa-2" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-zpo-1029" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.fr-cpc-1442" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.india-arb-1996" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-mediation-2008" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-adr-2004" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]

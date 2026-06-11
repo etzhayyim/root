@@ -28,7 +28,7 @@ _Rests on:_ Directive (EU) 2016/943, Art. 2 (Directive (EU) 2016/943 (Trade Secr
 _Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
 
 ### 6. Dispute resolution — good-faith mediation first  (dispute, recommended)
-_Rests on:_ Singapore Convention 2019, Art. 3 (United Nations Convention on International Settlement Agreements Resulting from Mediation)
+_Rests on:_ Singapore Convention 2019, Art. 3 (United Nations Convention on International Settlement Agreements Resulting from Mediation); Directive 2008/52/EC, Art. 3 (Directive 2008/52/EC (Mediation)); ADR法 (平成16年法律第151号) (裁判外紛争解決手続の利用の促進に関する法律)
 
 ### 7. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)
