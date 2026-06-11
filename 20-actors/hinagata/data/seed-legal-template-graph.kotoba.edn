@@ -47,6 +47,7 @@
  {:lt/id "jx.es" :lt/kind :jurisdiction :lt/label "Spain" :jurisdiction/code "ES" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.au" :lt/kind :jurisdiction :lt/label "Australia" :jurisdiction/code "AU" :jurisdiction/system :common-law :lt/sourcing :authoritative}
  {:lt/id "jx.ca" :lt/kind :jurisdiction :lt/label "Canada" :jurisdiction/code "CA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
+ {:lt/id "jx.ae" :lt/kind :jurisdiction :lt/label "United Arab Emirates" :jurisdiction/code "AE" :jurisdiction/system :mixed :lt/sourcing :authoritative}
  ;; coverage wave 23 — major economies on more continents (Latin America / SE Asia / Africa)
  {:lt/id "jx.mx" :lt/kind :jurisdiction :lt/label "Mexico" :jurisdiction/code "MX" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.id" :lt/kind :jurisdiction :lt/label "Indonesia" :jurisdiction/code "ID" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
@@ -284,6 +285,15 @@
  {:lt/id "st.id-kuhperdata-1320" :lt/kind :statute :lt/label "Indonesia KUHPerdata Art. 1320 — syarat sahnya perjanjian (validity of contract)" :statute/citation "KUHPerdata, Pasal 1320" :statute/instrument "Kitab Undang-Undang Hukum Perdata (Indonesia)" :statute/jurisdiction "jx.id" :statute/url "https://www.peraturan.go.id/id/kuh-perdata" :lt/sourcing :authoritative}
  {:lt/id "st.id-ite-11" :lt/kind :statute :lt/label "Indonesia UU ITE No. 11/2008 Pasal 11 — tanda tangan elektronik" :statute/citation "UU No. 11/2008 (ITE), Pasal 11" :statute/instrument "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)" :statute/jurisdiction "jx.id" :statute/url "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008" :lt/sourcing :authoritative}
  {:lt/id "st.ng-ndpa-2023" :lt/kind :statute :lt/label "Nigeria Data Protection Act 2023 §34 — rights of data subjects" :statute/citation "Nigeria Data Protection Act 2023, s.34" :statute/instrument "Nigeria Data Protection Act 2023" :statute/jurisdiction "jx.ng" :statute/url "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 24 (/loop): lift MX/ID/NG to "ok" + UAE (Gulf grounding for Arabic) ───
+ {:lt/id "st.mx-lft-25" :lt/kind :statute :lt/label "Mexico Ley Federal del Trabajo Art. 25 — escrito que contenga las condiciones de trabajo" :statute/citation "Ley Federal del Trabajo, Art. 25" :statute/instrument "Ley Federal del Trabajo (Mexico)" :statute/jurisdiction "jx.mx" :statute/url "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.id-naker-54" :lt/kind :statute :lt/label "Indonesia UU 13/2003 Ketenagakerjaan Pasal 54 — isi perjanjian kerja tertulis" :statute/citation "UU 13/2003, Pasal 54" :statute/instrument "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)" :statute/jurisdiction "jx.id" :statute/url "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003" :lt/sourcing :authoritative}
+ {:lt/id "st.ng-labour-7" :lt/kind :statute :lt/label "Nigeria Labour Act §7 — written statement of terms of employment" :statute/citation "Labour Act, s.7" :statute/instrument "Labour Act (Nigeria), Cap L1 LFN 2004" :statute/jurisdiction "jx.ng" :statute/url "https://lawsofnigeria.placng.org/laws/L1.pdf" :lt/sourcing :authoritative}
+ {:lt/id "st.ng-evidence-93" :lt/kind :statute :lt/label "Nigeria Evidence Act 2011 §93 — proof of electronic signature" :statute/citation "Evidence Act 2011, s.93" :statute/instrument "Evidence Act 2011 (Nigeria)" :statute/jurisdiction "jx.ng" :statute/url "https://www.placng.org/lawsofnigeria/laws/E14.pdf" :lt/sourcing :authoritative}
+ {:lt/id "st.ae-civil-246" :lt/kind :statute :lt/label "UAE Civil Transactions Law Art. 246 — performance in good faith" :statute/citation "Federal Law 5/1985, Art. 246" :statute/instrument "Civil Transactions Law (UAE Federal Law No. 5 of 1985)" :statute/jurisdiction "jx.ae" :statute/url "https://uaelegislation.gov.ae/en/legislations/1083" :lt/sourcing :authoritative}
+ {:lt/id "st.ae-etl-2021" :lt/kind :statute :lt/label "UAE Electronic Transactions & Trust Services Law — electronic signature" :statute/citation "Federal Decree-Law 46/2021, Art. 17" :statute/instrument "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)" :statute/jurisdiction "jx.ae" :statute/url "https://uaelegislation.gov.ae/en/legislations/1530" :lt/sourcing :authoritative}
+ {:lt/id "st.ae-labour-8" :lt/kind :statute :lt/label "UAE Labour Law Art. 8 — written employment contract" :statute/citation "Federal Decree-Law 33/2021, Art. 8" :statute/instrument "UAE Labour Law (Federal Decree-Law No. 33 of 2021)" :statute/jurisdiction "jx.ae" :statute/url "https://uaelegislation.gov.ae/en/legislations/1538" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -686,6 +696,14 @@
  {:en/from "cl.employment-termination" :en/to "st.sg-employment-10" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.ca-labour-230" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.cn-civil-509" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ ;; coverage wave 24 — bind MX/ID/NG depth + UAE
+ {:en/from "cl.employment-particulars" :en/to "st.mx-lft-25" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.id-naker-54" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.ng-labour-7" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.ae-labour-8" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.ng-evidence-93" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.ae-etl-2021" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.ae-civil-246" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 23 — bind MX/ID/NG statutes
  {:en/from "cl.good-faith" :en/to "st.mx-ccf-1796" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.id-kuhperdata-1320" :en/kind :cites-statute :en/force :referenced :en/binding-load 0.5 :en/sourcing :authoritative}
@@ -1087,6 +1105,14 @@
  {:en/from "st.id-kuhperdata-1320" :en/to "jx.id" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.id-ite-11" :en/to "jx.id" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.ng-ndpa-2023" :en/to "jx.ng" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 24 — applies-in
+ {:en/from "st.mx-lft-25" :en/to "jx.mx" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.id-naker-54" :en/to "jx.id" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ng-labour-7" :en/to "jx.ng" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ng-evidence-93" :en/to "jx.ng" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ae-civil-246" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ae-etl-2021" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ae-labour-8" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
