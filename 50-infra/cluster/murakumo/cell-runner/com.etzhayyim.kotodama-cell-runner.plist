@@ -34,7 +34,7 @@
     <string>run</string>
     <string>--project</string>
     <string>@@REPO_PATH@@/40-engine/kotoba/crates/kotoba-kotodama/py</string>
-    <string>kotodama-cell-runner</string>
+    <string>kotoba-kotodama-cell-runner</string>
     <string>--node</string>
     <string>@@NODE_NAME@@</string>
     <string>--log-level</string>

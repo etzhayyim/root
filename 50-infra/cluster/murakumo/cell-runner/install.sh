@@ -124,7 +124,7 @@ step "ensuring kotodama venv is synced (uv sync)"
 ok "kotodama venv ready"
 
 step "running --health for $NODE_NAME (config readback)"
-(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" run kotodama-cell-runner --node "$NODE_NAME" --health)
+(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" run kotoba-kotodama-cell-runner --node "$NODE_NAME" --health)
 ok "health probe ok"
 
 # --- Materialise plist -----------------------------------------------------
