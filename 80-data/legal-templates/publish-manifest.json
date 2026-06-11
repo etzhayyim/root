@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 19,
+  "templateCount": 22,
   "templates": [
     {
       "id": "tmpl.cc-content-license",
@@ -324,6 +324,119 @@
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
           "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.distribution",
+      "title": "Distribution Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "EU"
+      ],
+      "bodyCid": "bafkreibhomdgwjp74kwcgs5kxfwye6nirym5xinrtuokqhynd7245ikdbe",
+      "bodySha256": "0x2773066b25ffe2ac234baab96d8279a88e19dba1b19d1ca81f0d1ff5cea14309",
+      "bytes": 2523,
+      "clauseCount": 6,
+      "statutes": [
+        {
+          "id": "st.eu-commercial-agents",
+          "citation": "Directive 86/653/EEC, Art. 17",
+          "instrument": "Council Directive 86/653/EEC",
+          "url": "https://eur-lex.europa.eu/eli/dir/1986/653/oj"
+        },
+        {
+          "id": "st.jp-shoho-27",
+          "citation": "商法27条",
+          "instrument": "商法 (明治32年法律第48号)",
+          "url": "https://laws.e-gov.go.jp/law/132AC0000000048"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.jp-civil-541",
+          "citation": "民法541条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
           "id": "st.eidas-25",
@@ -974,6 +1087,280 @@
           "citation": "Industrial Disputes Act 1947, §25F",
           "instrument": "Industrial Disputes Act, 1947 (India)",
           "url": "https://www.indiacode.nic.in/handle/123456789/2316"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.franchise",
+      "title": "Franchise Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreignklckrn3l6zjq6yrwswdhzdgdp5ylravhz3wzboldq6ldrwhmxu",
+      "bodySha256": "0xcd52c4a8b76bf6530f623695867c8cc37f70b882a7ceed90b963879638d8ecbd",
+      "bytes": 3125,
+      "clauseCount": 7,
+      "statutes": [
+        {
+          "id": "st.unidroit-franchise",
+          "citation": "UNIDROIT Model Franchise Disclosure Law 2002, Art. 3",
+          "instrument": "UNIDROIT Model Franchise Disclosure Law",
+          "url": "https://www.unidroit.org/instruments/franchising/model-law/"
+        },
+        {
+          "id": "st.us-ftc-franchise",
+          "citation": "16 CFR Part 436",
+          "instrument": "FTC Franchise Rule (US)",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-436"
+        },
+        {
+          "id": "st.apache-2",
+          "citation": "Apache-2.0 §2–§4",
+          "instrument": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+          "id": "st.us-copyright-106",
+          "citation": "17 U.S.C. §106",
+          "instrument": "US Copyright Act (Title 17)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title17/USCODE-2022-title17-chap1-sec106"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.jp-civil-541",
+          "citation": "民法541条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.ny-convention",
+          "citation": "New York Convention 1958, Art. III",
+          "instrument": "Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)",
+          "url": "https://uncitral.un.org/en/texts/arbitration/conventions/foreign_arbitral_awards"
+        },
+        {
+          "id": "st.uncitral-model-arb",
+          "citation": "UNCITRAL Model Law, Art. 7",
+          "instrument": "UNCITRAL Model Law on International Commercial Arbitration",
+          "url": "https://uncitral.un.org/en/texts/arbitration/modellaw/commercial_arbitration"
+        },
+        {
+          "id": "st.jp-arb-2003",
+          "citation": "仲裁法13条",
+          "instrument": "仲裁法 (平成15年法律第138号)",
+          "url": "https://laws.e-gov.go.jp/law/415AC0000000138"
+        },
+        {
+          "id": "st.uk-arb-1996",
+          "citation": "Arbitration Act 1996, s.6",
+          "instrument": "Arbitration Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/23/section/6"
+        },
+        {
+          "id": "st.us-faa-2",
+          "citation": "9 U.S.C. §2",
+          "instrument": "Federal Arbitration Act (US)",
+          "url": "https://www.law.cornell.edu/uscode/text/9/2"
+        },
+        {
+          "id": "st.de-zpo-1029",
+          "citation": "ZPO §1029",
+          "instrument": "Zivilprozessordnung (ZPO), Germany",
+          "url": "https://www.gesetze-im-internet.de/zpo/__1029.html"
+        },
+        {
+          "id": "st.fr-cpc-1442",
+          "citation": "Code de procedure civile, Art. 1442",
+          "instrument": "Code de procedure civile (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000023450177/"
+        },
+        {
+          "id": "st.india-arb-1996",
+          "citation": "Arbitration and Conciliation Act 1996, §7",
+          "instrument": "Arbitration and Conciliation Act, 1996 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1978"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.guaranty",
+      "title": "Guaranty Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "JP"
+      ],
+      "bodyCid": "bafkreicdiqquoreyto6ly5gaw35necusoklx2argio46r7wleo6g5qfgrm",
+      "bodySha256": "0x4344214744989bbcbc74c0b6fad20a9272977d022643b9e8fecb23bc6ec0a68b",
+      "bytes": 2428,
+      "clauseCount": 5,
+      "statutes": [
+        {
+          "id": "st.jp-civil-446",
+          "citation": "民法446条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.jp-civil-465-2",
+          "citation": "民法465条の2",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.de-bgb-765",
+          "citation": "BGB §765",
+          "instrument": "Buergerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__765.html"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.eu-rome-i",
+          "citation": "Regulation (EC) No 593/2008, Art. 3",
+          "instrument": "Rome I Regulation (EC) No 593/2008",
+          "url": "https://eur-lex.europa.eu/eli/reg/2008/593/oj"
+        },
+        {
+          "id": "st.hague-choice-law",
+          "citation": "Hague Principles 2015, Art. 2",
+          "instrument": "HCCH Principles on Choice of Law in International Commercial Contracts",
+          "url": "https://www.hcch.net/en/instruments/conventions/full-text/?cid=135"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },

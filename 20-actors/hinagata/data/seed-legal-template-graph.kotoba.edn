@@ -67,6 +67,9 @@
  {:lt/id "concept.agency" :lt/kind :concept :lt/label "Agency / mandate (代理 / mandat)" :concept/code "agency" :lt/sourcing :authoritative}
  {:lt/id "concept.settlement" :lt/kind :concept :lt/label "Settlement / release of claims (和解)" :concept/code "settlement" :lt/sourcing :authoritative}
  {:lt/id "concept.service-level" :lt/kind :concept :lt/label "Service-level commitment (SLA)" :concept/code "service-level" :lt/sourcing :authoritative}
+ {:lt/id "concept.guaranty" :lt/kind :concept :lt/label "Guaranty / suretyship (保証)" :concept/code "guaranty" :lt/sourcing :authoritative}
+ {:lt/id "concept.franchise" :lt/kind :concept :lt/label "Franchise" :concept/code "franchise" :lt/sourcing :authoritative}
+ {:lt/id "concept.distribution" :lt/kind :concept :lt/label "Distribution / commercial agency (販売店・代理商)" :concept/code "distribution" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -208,6 +211,15 @@
  {:lt/id "st.eu-mediation-2008" :lt/kind :statute :lt/label "EU Mediation Directive 2008/52/EC Art. 3 — definition of mediation" :statute/citation "Directive 2008/52/EC, Art. 3" :statute/instrument "Directive 2008/52/EC (Mediation)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/2008/52/oj" :lt/sourcing :authoritative}
  {:lt/id "st.jp-adr-2004" :lt/kind :statute :lt/label "ADR法 — 裁判外紛争解決手続の利用の促進に関する法律" :statute/citation "ADR法 (平成16年法律第151号)" :statute/instrument "裁判外紛争解決手続の利用の促進に関する法律" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/416AC0000000151" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 10 (/loop): new commercial families — guaranty / franchise / distribution ───
+ {:lt/id "st.jp-civil-446" :lt/kind :statute :lt/label "日本民法 446条 — 保証債務 (suretyship)" :statute/citation "民法446条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-civil-465-2" :lt/kind :statute :lt/label "日本民法 465条の2 — 個人根保証契約の極度額 (cap on personal continuing guarantee)" :statute/citation "民法465条の2" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ {:lt/id "st.de-bgb-765" :lt/kind :statute :lt/label "BGB §765 — Buergschaft (suretyship/guarantee)" :statute/citation "BGB §765" :statute/instrument "Buergerliches Gesetzbuch (BGB), Germany" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/bgb/__765.html" :lt/sourcing :authoritative}
+ {:lt/id "st.unidroit-franchise" :lt/kind :statute :lt/label "UNIDROIT Model Franchise Disclosure Law (2002) — pre-contractual disclosure" :statute/citation "UNIDROIT Model Franchise Disclosure Law 2002, Art. 3" :statute/instrument "UNIDROIT Model Franchise Disclosure Law" :statute/jurisdiction "jx.intl" :statute/url "https://www.unidroit.org/instruments/franchising/model-law/" :lt/sourcing :authoritative}
+ {:lt/id "st.us-ftc-franchise" :lt/kind :statute :lt/label "US FTC Franchise Rule — 16 CFR Part 436 (disclosure)" :statute/citation "16 CFR Part 436" :statute/instrument "FTC Franchise Rule (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-436" :lt/sourcing :authoritative}
+ {:lt/id "st.eu-commercial-agents" :lt/kind :statute :lt/label "EU Commercial Agents Directive 86/653/EEC — protection of self-employed agents" :statute/citation "Directive 86/653/EEC, Art. 17" :statute/instrument "Council Directive 86/653/EEC" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/1986/653/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-shoho-27" :lt/kind :statute :lt/label "日本商法 27条 — 代理商 (commercial agent)" :statute/citation "商法27条" :statute/instrument "商法 (明治32年法律第48号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/132AC0000000048" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -246,6 +258,9 @@
  {:lt/id "cl.lease-term-generic" :lt/kind :clause :lt/label "Lease term, rent & renewal (jurisdiction-neutral)" :clause/role :term :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.lease-repairs" :lt/kind :clause :lt/label "Landlord repair & habitability obligation" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.cc-license" :lt/kind :clause :lt/label "Open-content license grant (Creative Commons)" :clause/role :ip-license :clause/optionality :optional :lt/sourcing :authoritative}
+ {:lt/id "cl.guaranty" :lt/kind :clause :lt/label "Guaranty / suretyship obligation (incl. cap)" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.franchise-grant" :lt/kind :clause :lt/label "Franchise grant, system & pre-contractual disclosure" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.distribution-appointment" :lt/kind :clause :lt/label "Distributor/agent appointment & territory" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── templates (nodes) — the publishable units ───
  {:lt/id "tmpl.sales-intl" :lt/kind :template :lt/label "International Sale of Goods Agreement" :template/title "International Sale of Goods Agreement (CISG)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -269,6 +284,9 @@
  {:lt/id "tmpl.employment-de" :lt/kind :template :lt/label "Employment Agreement (Germany)" :template/title "Arbeitsvertrag / Employment Agreement (Germany)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.lease-de" :lt/kind :template :lt/label "Residential Lease Agreement (Germany)" :template/title "Wohnraummietvertrag / Residential Lease (Germany)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
  {:lt/id "tmpl.cc-content-license" :lt/kind :template :lt/label "Open-Content License Grant (CC BY 4.0)" :template/title "Open-Content License Grant (Creative Commons Attribution 4.0)" :template/lang "en" :template/license "CC-BY-4.0" :template/version "1.0.0" :template/stance :neutral :lt/sourcing :authoritative}
+ {:lt/id "tmpl.guaranty" :lt/kind :template :lt/label "Guaranty / Suretyship Agreement" :template/title "Guaranty Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.franchise" :lt/kind :template :lt/label "Franchise Agreement" :template/title "Franchise Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.distribution" :lt/kind :template :lt/label "Distribution Agreement" :template/title "Distribution Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -390,6 +408,26 @@
  {:en/from "tmpl.cc-content-license" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.cc-content-license" :en/to "cl.cc-license" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.cc-content-license" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 10 — guaranty / franchise / distribution template composition
+ {:en/from "tmpl.guaranty" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.guaranty" :en/to "cl.guaranty" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.guaranty" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.guaranty" :en/to "cl.governing-law" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.guaranty" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.franchise" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "cl.franchise-grant" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.franchise" :en/to "cl.ip-license-apache" :en/kind :has-clause :en/binding-load 0.4 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "cl.dispute-arbitration" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.distribution" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.distribution" :en/to "cl.distribution-appointment" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.distribution" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.distribution" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.distribution" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.distribution" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -496,6 +534,15 @@
  {:en/from "cl.dispute-arbitration" :en/to "st.india-arb-1996" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.dispute-mediation" :en/to "st.eu-mediation-2008" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.dispute-mediation" :en/to "st.jp-adr-2004" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+
+ ;; coverage wave 10 — guaranty / franchise / distribution clause bindings
+ {:en/from "cl.guaranty" :en/to "st.jp-civil-446" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.guaranty" :en/to "st.jp-civil-465-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.guaranty" :en/to "st.de-bgb-765" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.franchise-grant" :en/to "st.unidroit-franchise" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.franchise-grant" :en/to "st.us-ftc-franchise" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.distribution-appointment" :en/to "st.eu-commercial-agents" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.distribution-appointment" :en/to "st.jp-shoho-27" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 3 — GLOBAL electronic-signature grounding (the e-sign clause now rests on law on every continent)
  {:en/from "cl.signature-esign" :en/to "st.uncitral-mlesig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.india-it-act-5" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
@@ -546,6 +593,9 @@
  {:en/from "cl.lease-term-generic" :en/to "concept.lease" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.lease-repairs" :en/to "concept.lease" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "cl.cc-license" :en/to "concept.ip-license" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.guaranty" :en/to "concept.guaranty" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.franchise-grant" :en/to "concept.franchise" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.distribution-appointment" :en/to "concept.distribution" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (D) :governed-by — template → jurisdiction
  {:en/from "tmpl.sales-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -567,6 +617,9 @@
  {:en/from "tmpl.employment-de" :en/to "jx.de" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.lease-de" :en/to "jx.de" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.cc-content-license" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.guaranty" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.franchise" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.distribution" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -679,6 +732,15 @@
  {:en/from "st.india-arb-1996" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-mediation-2008" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-adr-2004" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; coverage wave 10 — applies-in for guaranty / franchise / distribution instruments
+ {:en/from "st.jp-civil-446" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-465-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-bgb-765" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.unidroit-franchise" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-ftc-franchise" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-commercial-agents" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-shoho-27" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
