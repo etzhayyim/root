@@ -2608,6 +2608,33 @@ PLATFORM_OVERRIDES["agones"] = {
     "SdkServer": E(logLevel="string", grpcPort="integer", httpPort="integer"),
 }
 
+# Faithful ARM architecture model (official Arm docs via the
+# documentation-service.arm.com JSON API — the JS-gated developer.arm.com
+# pages are served verbatim there as base64 content, harness-fetchable).
+# ISA-anchored closed sets enforced: condition-code suffixes (17, fixed by
+# the 4-bit cond encoding incl. CS/HS + CC/LO aliases) and Exception levels
+# (EL0-EL3 — 'there are four Exception levels', Arm's own learn-the-
+# architecture doc). System registers / instruction lists are open-ended.
+PLATFORM_OVERRIDES["arm_isa"] = {
+    "ConditionCode": E(suffix="string", meaning="string"),
+    "ExceptionLevel": E(level="string", typicalUsage="string"),
+    "PrivilegeModel": E(name="string", description="string"),
+}
+
+# Faithful Cloud Firestore model (official Google Discovery document,
+# firestore v1 — versioned API surface, machine-extracted enums). Stable
+# sets enforced (direction/index state/index-field order+arrayConfig/
+# nullValue); sets that grew WITHIN v1 (CompositeFilter.op +OR 2023,
+# FieldFilter.op +NOT_IN, apiScope +MONGODB 2024, density 2024, queryScope)
+# -> gapped per the airbyte in-place-evolution discipline.
+PLATFORM_OVERRIDES["firebase"] = {
+    "Document": E(name="string", createTime="datetime", updateTime="datetime"),
+    "Value": E(booleanValue="boolean", stringValue="string", integerValue="integer", doubleValue="float", timestampValue="datetime", referenceValue="string", bytesValue="string", nullValue="string"),
+    "Index": E(name="string", state="string", queryScope="string", apiScope="string", multikey="boolean", unique="boolean", shardCount="integer"),
+    "IndexField": E(fieldPath="string", order="string", arrayConfig="string"),
+    "Order": E(direction="string"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

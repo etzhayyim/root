@@ -3,72 +3,56 @@
 
 namespace firebase {
 
-    entity Service {
+    entity Document {
         id: string @unique
         name: string
-        runtime: string
-        region: string
-        status: string
+        createTime: datetime
+        updateTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity Value {
         id: string @unique
-        serviceId: string
-        version: string
-        status: string
-        deployedAt: datetime
+        booleanValue: boolean
+        stringValue: string
+        integerValue: integer
+        doubleValue: float
+        timestampValue: datetime
+        referenceValue: string
+        bytesValue: string
+        nullValue: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Secret {
+    entity Index {
         id: string @unique
         name: string
-        scope: string
-        rotatedAt: datetime
+        state: string
+        queryScope: string
+        apiScope: string
+        multikey: boolean
+        unique: boolean
+        shardCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ApiProxy {
+    entity IndexField {
         id: string @unique
-        name: string
-        basePath: string
-        target: string
-        active: boolean
+        fieldPath: string
+        order: string
+        arrayConfig: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Database {
+    entity Order {
         id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Function {
-        id: string @unique
-        serviceId: string
-        name: string
-        memoryMb: integer
-        timeoutMs: integer
+        direction: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

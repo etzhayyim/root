@@ -3,68 +3,28 @@
 
 namespace arm_isa {
 
-    entity Register {
+    entity ConditionCode {
+        id: string @unique
+        suffix: string
+        meaning: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ExceptionLevel {
+        id: string @unique
+        level: string
+        typicalUsage: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity PrivilegeModel {
         id: string @unique
         name: string
-        widthBits: integer
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Instruction {
-        id: string @unique
-        mnemonic: string
-        opcode: string
-        operands: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Qubit {
-        id: string @unique
-        index: integer
-        t1Us: float
-        t2Us: float
-        readoutError: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Circuit {
-        id: string @unique
-        name: string
-        qubitCount: integer
-        depth: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Gate {
-        id: string @unique
-        circuitId: string
-        name: string
-        targets: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Job {
-        id: string @unique
-        circuitId: string
-        shots: integer
-        status: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

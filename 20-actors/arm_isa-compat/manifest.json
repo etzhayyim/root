@@ -5,21 +5,57 @@
   "kind": "compat",
   "title": "arm_isa clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (arm_isa); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+  "wasmCid": "bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+  "ipfs": "ipfs://bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
   "schema": "schema/arm_isa.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://documentation-service.arm.com/documentation/dui0473/m/arm-and-thumb-instructions/condition-code-suffixes + https://documentation-service.arm.com/documentation/102412/0103/Privilege-and-Exception-levels/Exception-levels (official Arm documentation via the documentation-service JSON API)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ConditionCode",
+      "ExceptionLevel",
+      "PrivilegeModel"
+    ],
+    "enums": {
+      "ConditionCode": {
+        "suffix": [
+          "EQ",
+          "NE",
+          "CS",
+          "HS",
+          "CC",
+          "LO",
+          "MI",
+          "PL",
+          "VS",
+          "VC",
+          "HI",
+          "LS",
+          "GE",
+          "LT",
+          "GT",
+          "LE",
+          "AL"
+        ]
+      },
+      "ExceptionLevel": {
+        "level": [
+          "EL0",
+          "EL1",
+          "EL2",
+          "EL3"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Register",
-    "Instruction",
-    "Qubit",
-    "Circuit",
-    "Gate",
-    "Job"
+    "ConditionCode",
+    "ExceptionLevel",
+    "PrivilegeModel"
   ],
   "adr": [
     "260607",
@@ -31,157 +67,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/registers",
-          "op": "create Register"
+          "path": "/v1/conditioncodes",
+          "op": "create ConditionCode"
         },
         {
           "method": "GET",
-          "path": "/v1/registers",
-          "op": "list Register"
+          "path": "/v1/conditioncodes",
+          "op": "list ConditionCode"
         },
         {
           "method": "GET",
-          "path": "/v1/registers/{id}",
-          "op": "get Register"
+          "path": "/v1/conditioncodes/{id}",
+          "op": "get ConditionCode"
         },
         {
           "method": "PATCH",
-          "path": "/v1/registers/{id}",
-          "op": "update Register"
+          "path": "/v1/conditioncodes/{id}",
+          "op": "update ConditionCode"
         },
         {
           "method": "DELETE",
-          "path": "/v1/registers/{id}",
-          "op": "delete Register"
+          "path": "/v1/conditioncodes/{id}",
+          "op": "delete ConditionCode"
         },
         {
           "method": "POST",
-          "path": "/v1/instructions",
-          "op": "create Instruction"
+          "path": "/v1/exceptionlevels",
+          "op": "create ExceptionLevel"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions",
-          "op": "list Instruction"
+          "path": "/v1/exceptionlevels",
+          "op": "list ExceptionLevel"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions/{id}",
-          "op": "get Instruction"
+          "path": "/v1/exceptionlevels/{id}",
+          "op": "get ExceptionLevel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/instructions/{id}",
-          "op": "update Instruction"
+          "path": "/v1/exceptionlevels/{id}",
+          "op": "update ExceptionLevel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/instructions/{id}",
-          "op": "delete Instruction"
+          "path": "/v1/exceptionlevels/{id}",
+          "op": "delete ExceptionLevel"
         },
         {
           "method": "POST",
-          "path": "/v1/qubits",
-          "op": "create Qubit"
+          "path": "/v1/privilegemodels",
+          "op": "create PrivilegeModel"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits",
-          "op": "list Qubit"
+          "path": "/v1/privilegemodels",
+          "op": "list PrivilegeModel"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits/{id}",
-          "op": "get Qubit"
+          "path": "/v1/privilegemodels/{id}",
+          "op": "get PrivilegeModel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/qubits/{id}",
-          "op": "update Qubit"
+          "path": "/v1/privilegemodels/{id}",
+          "op": "update PrivilegeModel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/qubits/{id}",
-          "op": "delete Qubit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/circuits",
-          "op": "create Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits",
-          "op": "list Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits/{id}",
-          "op": "get Circuit"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/circuits/{id}",
-          "op": "update Circuit"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/circuits/{id}",
-          "op": "delete Circuit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/gates",
-          "op": "create Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates",
-          "op": "list Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates/{id}",
-          "op": "get Gate"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/gates/{id}",
-          "op": "update Gate"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/gates/{id}",
-          "op": "delete Gate"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/jobs",
-          "op": "create Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs",
-          "op": "list Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs/{id}",
-          "op": "get Job"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/jobs/{id}",
-          "op": "update Job"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/jobs/{id}",
-          "op": "delete Job"
+          "path": "/v1/privilegemodels/{id}",
+          "op": "delete PrivilegeModel"
         }
       ],
       "features": {
@@ -244,41 +205,194 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_register",
-          "description": "Create a Register.",
+          "name": "create_condition_code",
+          "description": "Create a ConditionCode.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "suffix": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "suffix",
+              "meaning"
+            ]
+          }
+        },
+        {
+          "name": "list_condition_codes",
+          "description": "List ConditionCodes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_condition_code",
+          "description": "Get a ConditionCode by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_condition_code",
+          "description": "Update a ConditionCode.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "suffix": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_condition_code",
+          "description": "Delete a ConditionCode.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_exception_level",
+          "description": "Create a ExceptionLevel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "string"
+              },
+              "typicalUsage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "level",
+              "typicalUsage"
+            ]
+          }
+        },
+        {
+          "name": "list_exception_levels",
+          "description": "List ExceptionLevels.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_exception_level",
+          "description": "Get a ExceptionLevel by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_exception_level",
+          "description": "Update a ExceptionLevel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              },
+              "typicalUsage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_exception_level",
+          "description": "Delete a ExceptionLevel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_privilege_model",
+          "description": "Create a PrivilegeModel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
+              "description": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "widthBits"
+              "description"
             ]
           }
         },
         {
-          "name": "list_registers",
-          "description": "List Registers.",
+          "name": "list_privilege_models",
+          "description": "List PrivilegeModels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_register",
-          "description": "Get a Register by id.",
+          "name": "get_privilege_model",
+          "description": "Get a PrivilegeModel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,8 +406,8 @@
           }
         },
         {
-          "name": "update_register",
-          "description": "Update a Register.",
+          "name": "update_privilege_model",
+          "description": "Update a PrivilegeModel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -303,10 +417,7 @@
               "name": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
+              "description": {
                 "type": "string"
               }
             },
@@ -316,434 +427,8 @@
           }
         },
         {
-          "name": "delete_register",
-          "description": "Delete a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_instruction",
-          "description": "Create a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "mnemonic",
-              "opcode"
-            ]
-          }
-        },
-        {
-          "name": "list_instructions",
-          "description": "List Instructions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_instruction",
-          "description": "Get a Instruction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_instruction",
-          "description": "Update a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_instruction",
-          "description": "Delete a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_qubit",
-          "description": "Create a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "index",
-              "t1Us"
-            ]
-          }
-        },
-        {
-          "name": "list_qubits",
-          "description": "List Qubits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_qubit",
-          "description": "Get a Qubit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_qubit",
-          "description": "Update a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_qubit",
-          "description": "Delete a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_circuit",
-          "description": "Create a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "qubitCount"
-            ]
-          }
-        },
-        {
-          "name": "list_circuits",
-          "description": "List Circuits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_circuit",
-          "description": "Get a Circuit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_circuit",
-          "description": "Update a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_circuit",
-          "description": "Delete a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_gate",
-          "description": "Create a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "targets"
-            ]
-          }
-        },
-        {
-          "name": "list_gates",
-          "description": "List Gates.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_gate",
-          "description": "Get a Gate by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_gate",
-          "description": "Update a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_gate",
-          "description": "Delete a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_job",
-          "description": "Create a Job.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "shots": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "shots",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_jobs",
-          "description": "List Jobs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_job",
-          "description": "Get a Job by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_job",
-          "description": "Update a Job.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "circuitId": {
-                "type": "string"
-              },
-              "shots": {
-                "type": "integer"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_job",
-          "description": "Delete a Job.",
+          "name": "delete_privilege_model",
+          "description": "Delete a PrivilegeModel.",
           "inputSchema": {
             "type": "object",
             "properties": {

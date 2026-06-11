@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevSecOps / serverless actor (firebase); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:firebase-compat",
-    "x-wasm-cid": "bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+    "x-wasm-cid": "bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+      "url": "ipfs://bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/documents": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Documents",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Document"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Document",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/DocumentCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/documents/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Document",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Document",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/DocumentCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Document",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/values": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Values",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Value"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Value",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/ValueCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Value"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/values/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Value",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Value"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Value",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/ValueCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Value"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
+        "summary": "Delete a Value",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/secrets": {
+    "/v1/indexes": {
       "get": {
-        "summary": "List Secrets",
+        "summary": "List Indexes",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Secret"
+                        "$ref": "#/components/schemas/Index"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Secret",
+        "summary": "Create a Index",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/secrets/{id}": {
+    "/v1/indexes/{id}": {
       "get": {
-        "summary": "Get a Secret",
+        "summary": "Get a Index",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Secret",
+        "summary": "Update a Index",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/IndexCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Index"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Secret",
+        "summary": "Delete a Index",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/apiproxies": {
+    "/v1/indexfields": {
       "get": {
-        "summary": "List ApiProxies",
+        "summary": "List IndexFields",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ApiProxy"
+                        "$ref": "#/components/schemas/IndexField"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ApiProxy",
+        "summary": "Create a IndexField",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/IndexFieldCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/IndexField"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/apiproxies/{id}": {
+    "/v1/indexfields/{id}": {
       "get": {
-        "summary": "Get a ApiProxy",
+        "summary": "Get a IndexField",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/IndexField"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ApiProxy",
+        "summary": "Update a IndexField",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/IndexFieldCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/IndexField"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ApiProxy",
+        "summary": "Delete a IndexField",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/databases": {
+    "/v1/orders": {
       "get": {
-        "summary": "List Databases",
+        "summary": "List Orders",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Database"
+                        "$ref": "#/components/schemas/Order"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Database",
+        "summary": "Create a Order",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/OrderCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/databases/{id}": {
+    "/v1/orders/{id}": {
       "get": {
-        "summary": "Get a Database",
+        "summary": "Get a Order",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Database",
+        "summary": "Update a Order",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/OrderCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Database",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/functions": {
-      "get": {
-        "summary": "List Functions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Function"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Function",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/functions/{id}": {
-      "get": {
-        "summary": "Get a Function",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Function",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a Order",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,7 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Document": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,14 +964,13 @@
           "name": {
             "type": "string"
           },
-          "runtime": {
-            "type": "string"
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
           },
-          "region": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1168,139 +982,58 @@
           }
         }
       },
-      "ServiceCreate": {
+      "DocumentCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "createTime": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "status": {
+          "updateTime": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "runtime"
+          "createTime"
         ]
       },
-      "Deployment": {
+      "Value": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "deployedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DeploymentCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "deployedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "version",
-          "status"
-        ]
-      },
-      "Secret": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SecretCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "scope"
-        ]
-      },
-      "ApiProxy": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
+          "booleanValue": {
             "type": "boolean"
           },
+          "stringValue": {
+            "type": "string"
+          },
+          "integerValue": {
+            "type": "integer"
+          },
+          "doubleValue": {
+            "type": "number"
+          },
+          "timestampValue": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "referenceValue": {
+            "type": "string"
+          },
+          "bytesValue": {
+            "type": "string"
+          },
+          "nullValue": {
+            "type": "string",
+            "enum": [
+              "NULL_VALUE"
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1311,28 +1044,43 @@
           }
         }
       },
-      "ApiProxyCreate": {
+      "ValueCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
+          "booleanValue": {
             "type": "boolean"
+          },
+          "stringValue": {
+            "type": "string"
+          },
+          "integerValue": {
+            "type": "integer"
+          },
+          "doubleValue": {
+            "type": "number"
+          },
+          "timestampValue": {
+            "type": "string"
+          },
+          "referenceValue": {
+            "type": "string"
+          },
+          "bytesValue": {
+            "type": "string"
+          },
+          "nullValue": {
+            "type": "string",
+            "enum": [
+              "NULL_VALUE"
+            ]
           }
         },
         "required": [
-          "name",
-          "basePath"
+          "booleanValue",
+          "stringValue"
         ]
       },
-      "Database": {
+      "Index": {
         "type": "object",
         "properties": {
           "id": {
@@ -1341,13 +1089,28 @@
           "name": {
             "type": "string"
           },
-          "engine": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "READY",
+              "NEEDS_REPAIR"
+            ]
+          },
+          "queryScope": {
             "type": "string"
           },
-          "region": {
+          "apiScope": {
             "type": "string"
           },
-          "sizeGb": {
+          "multikey": {
+            "type": "boolean"
+          },
+          "unique": {
+            "type": "boolean"
+          },
+          "shardCount": {
             "type": "integer"
           },
           "createdAt": {
@@ -1360,44 +1123,65 @@
           }
         }
       },
-      "DatabaseCreate": {
+      "IndexCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "engine": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "READY",
+              "NEEDS_REPAIR"
+            ]
+          },
+          "queryScope": {
             "type": "string"
           },
-          "region": {
+          "apiScope": {
             "type": "string"
           },
-          "sizeGb": {
+          "multikey": {
+            "type": "boolean"
+          },
+          "unique": {
+            "type": "boolean"
+          },
+          "shardCount": {
             "type": "integer"
           }
         },
         "required": [
           "name",
-          "engine"
+          "state"
         ]
       },
-      "Function": {
+      "IndexField": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
+          "fieldPath": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "order": {
+            "type": "string",
+            "enum": [
+              "ORDER_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ]
           },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
+          "arrayConfig": {
+            "type": "string",
+            "enum": [
+              "ARRAY_CONFIG_UNSPECIFIED",
+              "CONTAINS"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1409,25 +1193,71 @@
           }
         }
       },
-      "FunctionCreate": {
+      "IndexFieldCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "fieldPath": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "order": {
+            "type": "string",
+            "enum": [
+              "ORDER_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ]
           },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
+          "arrayConfig": {
+            "type": "string",
+            "enum": [
+              "ARRAY_CONFIG_UNSPECIFIED",
+              "CONTAINS"
+            ]
           }
         },
         "required": [
-          "name",
-          "memoryMb"
+          "fieldPath",
+          "order"
+        ]
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "DIRECTION_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrderCreate": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "enum": [
+              "DIRECTION_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ]
+          }
+        },
+        "required": [
+          "direction"
         ]
       }
     }

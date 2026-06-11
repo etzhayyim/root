@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible hardware ISA / quantum actor (arm_isa); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:arm_isa-compat",
-    "x-wasm-cid": "bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+    "x-wasm-cid": "bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+      "url": "ipfs://bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/registers": {
+    "/v1/conditioncodes": {
       "get": {
-        "summary": "List Registers",
+        "summary": "List ConditionCodes",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Register"
+                        "$ref": "#/components/schemas/ConditionCode"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Register",
+        "summary": "Create a ConditionCode",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ConditionCodeCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ConditionCode"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/registers/{id}": {
+    "/v1/conditioncodes/{id}": {
       "get": {
-        "summary": "Get a Register",
+        "summary": "Get a ConditionCode",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ConditionCode"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Register",
+        "summary": "Update a ConditionCode",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ConditionCodeCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ConditionCode"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Register",
+        "summary": "Delete a ConditionCode",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/instructions": {
+    "/v1/exceptionlevels": {
       "get": {
-        "summary": "List Instructions",
+        "summary": "List ExceptionLevels",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Instruction"
+                        "$ref": "#/components/schemas/ExceptionLevel"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Instruction",
+        "summary": "Create a ExceptionLevel",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/ExceptionLevelCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExceptionLevel"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/instructions/{id}": {
+    "/v1/exceptionlevels/{id}": {
       "get": {
-        "summary": "Get a Instruction",
+        "summary": "Get a ExceptionLevel",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExceptionLevel"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Instruction",
+        "summary": "Update a ExceptionLevel",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/ExceptionLevelCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/ExceptionLevel"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Instruction",
+        "summary": "Delete a ExceptionLevel",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/qubits": {
+    "/v1/privilegemodels": {
       "get": {
-        "summary": "List Qubits",
+        "summary": "List PrivilegeModels",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Qubit"
+                        "$ref": "#/components/schemas/PrivilegeModel"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Qubit",
+        "summary": "Create a PrivilegeModel",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/PrivilegeModelCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/PrivilegeModel"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/qubits/{id}": {
+    "/v1/privilegemodels/{id}": {
       "get": {
-        "summary": "Get a Qubit",
+        "summary": "Get a PrivilegeModel",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/PrivilegeModel"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Qubit",
+        "summary": "Update a PrivilegeModel",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/PrivilegeModelCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/PrivilegeModel"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Qubit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/circuits": {
-      "get": {
-        "summary": "List Circuits",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Circuit"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Circuit",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/circuits/{id}": {
-      "get": {
-        "summary": "Get a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/gates": {
-      "get": {
-        "summary": "List Gates",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Gate"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Gate",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/gates/{id}": {
-      "get": {
-        "summary": "Get a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/jobs": {
-      "get": {
-        "summary": "List Jobs",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Job"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Job",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/jobs/{id}": {
-      "get": {
-        "summary": "Get a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Job",
+        "summary": "Delete a PrivilegeModel",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +585,35 @@
   },
   "components": {
     "schemas": {
-      "Register": {
+      "ConditionCode": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "suffix": {
+            "type": "string",
+            "enum": [
+              "EQ",
+              "NE",
+              "CS",
+              "HS",
+              "CC",
+              "LO",
+              "MI",
+              "PL",
+              "VS",
+              "VC",
+              "HI",
+              "LS",
+              "GE",
+              "LT",
+              "GT",
+              "LE",
+              "AL"
+            ]
           },
-          "widthBits": {
-            "type": "integer"
-          },
-          "role": {
+          "meaning": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,243 +626,124 @@
           }
         }
       },
-      "RegisterCreate": {
+      "ConditionCodeCreate": {
+        "type": "object",
+        "properties": {
+          "suffix": {
+            "type": "string",
+            "enum": [
+              "EQ",
+              "NE",
+              "CS",
+              "HS",
+              "CC",
+              "LO",
+              "MI",
+              "PL",
+              "VS",
+              "VC",
+              "HI",
+              "LS",
+              "GE",
+              "LT",
+              "GT",
+              "LE",
+              "AL"
+            ]
+          },
+          "meaning": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "suffix",
+          "meaning"
+        ]
+      },
+      "ExceptionLevel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "EL0",
+              "EL1",
+              "EL2",
+              "EL3"
+            ]
+          },
+          "typicalUsage": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ExceptionLevelCreate": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string",
+            "enum": [
+              "EL0",
+              "EL1",
+              "EL2",
+              "EL3"
+            ]
+          },
+          "typicalUsage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "level",
+          "typicalUsage"
+        ]
+      },
+      "PrivilegeModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PrivilegeModelCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
-          },
-          "role": {
+          "description": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "widthBits"
-        ]
-      },
-      "Instruction": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "mnemonic": {
-            "type": "string"
-          },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "InstructionCreate": {
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string"
-          },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "mnemonic",
-          "opcode"
-        ]
-      },
-      "Qubit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "index": {
-            "type": "integer"
-          },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "QubitCreate": {
-        "type": "object",
-        "properties": {
-          "index": {
-            "type": "integer"
-          },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "index",
-          "t1Us"
-        ]
-      },
-      "Circuit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CircuitCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "qubitCount"
-        ]
-      },
-      "Gate": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GateCreate": {
-        "type": "object",
-        "properties": {
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "targets"
-        ]
-      },
-      "Job": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "shots": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "JobCreate": {
-        "type": "object",
-        "properties": {
-          "circuitId": {
-            "type": "string"
-          },
-          "shots": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "shots",
-          "status"
+          "description"
         ]
       }
     }

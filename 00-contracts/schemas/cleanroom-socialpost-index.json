@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 184,
-  "totalVerifiedEnumFields": 782,
+  "l5VerifiedActors": 186,
+  "totalVerifiedEnumFields": 789,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -547,8 +547,8 @@
       "source": "arm_isa.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "arxiv_api-compat",
@@ -3347,8 +3347,8 @@
       "source": "firebase.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 5
     },
     {
       "handle": "firebase_games-compat",

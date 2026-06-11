@@ -111,52 +111,187 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/registers", methods=["POST"])
-def create_register(request):
-    """Create a Register."""
+@app.route("/v1/conditioncodes", methods=["POST"])
+def create_condition_code(request):
+    """Create a ConditionCode."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['suffix', 'meaning'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'widthBits'])
+    err = _require(data, ['suffix', 'meaning'])
     if err:
         return err, 400
-    rec = {"id": new_id("armisa_reg")}
+    if data.get('suffix') and data['suffix'] not in ['EQ', 'NE', 'CS', 'HS', 'CC', 'LO', 'MI', 'PL', 'VS', 'VC', 'HI', 'LS', 'GE', 'LT', 'GT', 'LE', 'AL']:
+        return {"error": {"message": "invalid suffix; allowed: " + ", ".join(['EQ', 'NE', 'CS', 'HS', 'CC', 'LO', 'MI', 'PL', 'VS', 'VC', 'HI', 'LS', 'GE', 'LT', 'GT', 'LE', 'AL']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("armisa_con")}
+    rec["suffix"] = data.get('suffix')
+    rec["meaning"] = data.get('meaning')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ConditionCode", rec)
+    return rec, 201
+
+@app.route("/v1/conditioncodes", methods=["GET"])
+def list_condition_codes(request):
+    """List ConditionCodes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ConditionCode")
+    rows = _apply_filters(rows, params, ['suffix', 'meaning'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/conditioncodes/<eid>", methods=["GET"])
+def get_condition_code(request, eid):
+    """Retrieve a ConditionCode by id (supports ?expand=)."""
+    rows = _query("ConditionCode", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/conditioncodes/<eid>", methods=["POST", "PATCH"])
+def update_condition_code(request, eid):
+    """Update a ConditionCode."""
+    rows = _query("ConditionCode", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['suffix', 'meaning'])
+    if err:
+        return err, 400
+    if data.get('suffix') and data['suffix'] not in ['EQ', 'NE', 'CS', 'HS', 'CC', 'LO', 'MI', 'PL', 'VS', 'VC', 'HI', 'LS', 'GE', 'LT', 'GT', 'LE', 'AL']:
+        return {"error": {"message": "invalid suffix; allowed: " + ", ".join(['EQ', 'NE', 'CS', 'HS', 'CC', 'LO', 'MI', 'PL', 'VS', 'VC', 'HI', 'LS', 'GE', 'LT', 'GT', 'LE', 'AL']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ConditionCode", rec)
+    return rec, 200
+
+@app.route("/v1/conditioncodes/<eid>", methods=["DELETE"])
+def delete_condition_code(request, eid):
+    """Delete a ConditionCode."""
+    rows = _query("ConditionCode", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"arm_isa.ConditionCode", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/exceptionlevels", methods=["POST"])
+def create_exception_level(request):
+    """Create a ExceptionLevel."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['level', 'typicalUsage'])
+    if err:
+        return err, 400
+    err = _require(data, ['level', 'typicalUsage'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['EL0', 'EL1', 'EL2', 'EL3']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['EL0', 'EL1', 'EL2', 'EL3']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("armisa_exc")}
+    rec["level"] = data.get('level')
+    rec["typicalUsage"] = data.get('typicalUsage')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ExceptionLevel", rec)
+    return rec, 201
+
+@app.route("/v1/exceptionlevels", methods=["GET"])
+def list_exception_levels(request):
+    """List ExceptionLevels with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ExceptionLevel")
+    rows = _apply_filters(rows, params, ['level', 'typicalUsage'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/exceptionlevels/<eid>", methods=["GET"])
+def get_exception_level(request, eid):
+    """Retrieve a ExceptionLevel by id (supports ?expand=)."""
+    rows = _query("ExceptionLevel", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/exceptionlevels/<eid>", methods=["POST", "PATCH"])
+def update_exception_level(request, eid):
+    """Update a ExceptionLevel."""
+    rows = _query("ExceptionLevel", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['level', 'typicalUsage'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['EL0', 'EL1', 'EL2', 'EL3']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['EL0', 'EL1', 'EL2', 'EL3']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ExceptionLevel", rec)
+    return rec, 200
+
+@app.route("/v1/exceptionlevels/<eid>", methods=["DELETE"])
+def delete_exception_level(request, eid):
+    """Delete a ExceptionLevel."""
+    rows = _query("ExceptionLevel", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"arm_isa.ExceptionLevel", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/privilegemodels", methods=["POST"])
+def create_privilege_model(request):
+    """Create a PrivilegeModel."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("armisa_pri")}
     rec["name"] = data.get('name')
-    rec["widthBits"] = _as_int(data.get('widthBits'))
-    rec["role"] = data.get('role')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Register", rec)
+    _persist("PrivilegeModel", rec)
     return rec, 201
 
-@app.route("/v1/registers", methods=["GET"])
-def list_registers(request):
-    """List Registers with filtering + cursor pagination."""
+@app.route("/v1/privilegemodels", methods=["GET"])
+def list_privilege_models(request):
+    """List PrivilegeModels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Register")
-    rows = _apply_filters(rows, params, ['name', 'widthBits', 'role'])
+    rows = _query("PrivilegeModel")
+    rows = _apply_filters(rows, params, ['name', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/registers/<eid>", methods=["GET"])
-def get_register(request, eid):
-    """Retrieve a Register by id (supports ?expand=)."""
-    rows = _query("Register", eid)
+@app.route("/v1/privilegemodels/<eid>", methods=["GET"])
+def get_privilege_model(request, eid):
+    """Retrieve a PrivilegeModel by id (supports ?expand=)."""
+    rows = _query("PrivilegeModel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["POST", "PATCH"])
-def update_register(request, eid):
-    """Update a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/privilegemodels/<eid>", methods=["POST", "PATCH"])
+def update_privilege_model(request, eid):
+    """Update a PrivilegeModel."""
+    rows = _query("PrivilegeModel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['name', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,350 +299,22 @@ def update_register(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Register", rec)
+    _persist("PrivilegeModel", rec)
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["DELETE"])
-def delete_register(request, eid):
-    """Delete a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/privilegemodels/<eid>", methods=["DELETE"])
+def delete_privilege_model(request, eid):
+    """Delete a PrivilegeModel."""
+    rows = _query("PrivilegeModel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Register", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/instructions", methods=["POST"])
-def create_instruction(request):
-    """Create a Instruction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    err = _require(data, ['mnemonic', 'opcode'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("armisa_ins")}
-    rec["mnemonic"] = data.get('mnemonic')
-    rec["opcode"] = data.get('opcode')
-    rec["operands"] = data.get('operands')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Instruction", rec)
-    return rec, 201
-
-@app.route("/v1/instructions", methods=["GET"])
-def list_instructions(request):
-    """List Instructions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Instruction")
-    rows = _apply_filters(rows, params, ['mnemonic', 'opcode', 'operands'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/instructions/<eid>", methods=["GET"])
-def get_instruction(request, eid):
-    """Retrieve a Instruction by id (supports ?expand=)."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["POST", "PATCH"])
-def update_instruction(request, eid):
-    """Update a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Instruction", rec)
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["DELETE"])
-def delete_instruction(request, eid):
-    """Delete a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Instruction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/qubits", methods=["POST"])
-def create_qubit(request):
-    """Create a Qubit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    err = _require(data, ['index', 't1Us'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("armisa_qub")}
-    rec["index"] = _as_int(data.get('index'))
-    rec["t1Us"] = _as_float(data.get('t1Us'))
-    rec["t2Us"] = _as_float(data.get('t2Us'))
-    rec["readoutError"] = _as_float(data.get('readoutError'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Qubit", rec)
-    return rec, 201
-
-@app.route("/v1/qubits", methods=["GET"])
-def list_qubits(request):
-    """List Qubits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Qubit")
-    rows = _apply_filters(rows, params, ['index', 't1Us', 't2Us', 'readoutError'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/qubits/<eid>", methods=["GET"])
-def get_qubit(request, eid):
-    """Retrieve a Qubit by id (supports ?expand=)."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["POST", "PATCH"])
-def update_qubit(request, eid):
-    """Update a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Qubit", rec)
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["DELETE"])
-def delete_qubit(request, eid):
-    """Delete a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Qubit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/circuits", methods=["POST"])
-def create_circuit(request):
-    """Create a Circuit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'qubitCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("armisa_cir")}
-    rec["name"] = data.get('name')
-    rec["qubitCount"] = _as_int(data.get('qubitCount'))
-    rec["depth"] = _as_int(data.get('depth'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Circuit", rec)
-    return rec, 201
-
-@app.route("/v1/circuits", methods=["GET"])
-def list_circuits(request):
-    """List Circuits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Circuit")
-    rows = _apply_filters(rows, params, ['name', 'qubitCount', 'depth'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/circuits/<eid>", methods=["GET"])
-def get_circuit(request, eid):
-    """Retrieve a Circuit by id (supports ?expand=)."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["POST", "PATCH"])
-def update_circuit(request, eid):
-    """Update a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Circuit", rec)
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["DELETE"])
-def delete_circuit(request, eid):
-    """Delete a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Circuit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gates", methods=["POST"])
-def create_gate(request):
-    """Create a Gate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'targets'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("armisa_gat")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["name"] = data.get('name')
-    rec["targets"] = data.get('targets')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Gate", rec)
-    return rec, 201
-
-@app.route("/v1/gates", methods=["GET"])
-def list_gates(request):
-    """List Gates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Gate")
-    rows = _apply_filters(rows, params, ['circuitId', 'name', 'targets'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/gates/<eid>", methods=["GET"])
-def get_gate(request, eid):
-    """Retrieve a Gate by id (supports ?expand=)."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["POST", "PATCH"])
-def update_gate(request, eid):
-    """Update a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Gate", rec)
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["DELETE"])
-def delete_gate(request, eid):
-    """Delete a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Gate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/jobs", methods=["POST"])
-def create_job(request):
-    """Create a Job."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['shots', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("armisa_job")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["shots"] = _as_int(data.get('shots'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Job", rec)
-    return rec, 201
-
-@app.route("/v1/jobs", methods=["GET"])
-def list_jobs(request):
-    """List Jobs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Job")
-    rows = _apply_filters(rows, params, ['circuitId', 'shots', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/jobs/<eid>", methods=["GET"])
-def get_job(request, eid):
-    """Retrieve a Job by id (supports ?expand=)."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
-def update_job(request, eid):
-    """Update a Job."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Job", rec)
-    return rec, 200
-
-@app.route("/v1/jobs/<eid>", methods=["DELETE"])
-def delete_job(request, eid):
-    """Delete a Job."""
-    rows = _query("Job", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"arm_isa.Job", "id": eid})
+    db.retract({"entity": f"arm_isa.PrivilegeModel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "arm_isa-compat", "tier": "L4",
-            "entities": ['Register', 'Instruction', 'Qubit', 'Circuit', 'Gate', 'Job']}, 200
+            "entities": ['ConditionCode', 'ExceptionLevel', 'PrivilegeModel']}, 200
 
 
 if __name__ == "__main__":

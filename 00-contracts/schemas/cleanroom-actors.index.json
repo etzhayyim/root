@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 811,
-    "L5": 189
+    "L4": 809,
+    "L5": 191
   },
   "actors": [
     {
@@ -971,10 +971,10 @@
     {
       "handle": "arm_isa-compat",
       "did": "did:web:etzhayyim.com:actor:arm_isa-compat",
-      "wasmCid": "bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+      "wasmCid": "bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "arm_isa clean-room actor",
       "category": "isa_quantum",
       "capabilities": [
@@ -6011,10 +6011,10 @@
     {
       "handle": "firebase-compat",
       "did": "did:web:etzhayyim.com:actor:firebase-compat",
-      "wasmCid": "bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+      "wasmCid": "bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "firebase clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [

@@ -902,17 +902,14 @@
       "handle": "arm_isa-compat",
       "platform": "arm_isa",
       "bytes": 2121,
-      "wasmCid": "bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+      "wasmCid": "bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "ConditionCode",
+        "ExceptionLevel",
+        "PrivilegeModel"
       ]
     },
     {
@@ -5621,17 +5618,16 @@
       "handle": "firebase-compat",
       "platform": "firebase",
       "bytes": 2122,
-      "wasmCid": "bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+      "wasmCid": "bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Document",
+        "Value",
+        "Index",
+        "IndexField",
+        "Order"
       ]
     },
     {

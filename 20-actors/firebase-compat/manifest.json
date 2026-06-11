@@ -5,21 +5,63 @@
   "kind": "compat",
   "title": "firebase clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (firebase); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+  "wasmCid": "bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+  "ipfs": "ipfs://bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
   "schema": "schema/firebase.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Document",
+      "Value",
+      "Index",
+      "IndexField",
+      "Order"
+    ],
+    "enums": {
+      "Value": {
+        "nullValue": [
+          "NULL_VALUE"
+        ]
+      },
+      "Index": {
+        "state": [
+          "STATE_UNSPECIFIED",
+          "CREATING",
+          "READY",
+          "NEEDS_REPAIR"
+        ]
+      },
+      "IndexField": {
+        "order": [
+          "ORDER_UNSPECIFIED",
+          "ASCENDING",
+          "DESCENDING"
+        ],
+        "arrayConfig": [
+          "ARRAY_CONFIG_UNSPECIFIED",
+          "CONTAINS"
+        ]
+      },
+      "Order": {
+        "direction": [
+          "DIRECTION_UNSPECIFIED",
+          "ASCENDING",
+          "DESCENDING"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Deployment",
-    "Secret",
-    "ApiProxy",
-    "Database",
-    "Function"
+    "Document",
+    "Value",
+    "Index",
+    "IndexField",
+    "Order"
   ],
   "adr": [
     "260607",
@@ -31,157 +73,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/documents",
+          "op": "create Document"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/documents",
+          "op": "list Document"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/documents/{id}",
+          "op": "get Document"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/documents/{id}",
+          "op": "update Document"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/documents/{id}",
+          "op": "delete Document"
         },
         {
           "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
+          "path": "/v1/values",
+          "op": "create Value"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
+          "path": "/v1/values",
+          "op": "list Value"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
+          "path": "/v1/values/{id}",
+          "op": "get Value"
         },
         {
           "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
+          "path": "/v1/values/{id}",
+          "op": "update Value"
         },
         {
           "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
+          "path": "/v1/values/{id}",
+          "op": "delete Value"
         },
         {
           "method": "POST",
-          "path": "/v1/secrets",
-          "op": "create Secret"
+          "path": "/v1/indexes",
+          "op": "create Index"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets",
-          "op": "list Secret"
+          "path": "/v1/indexes",
+          "op": "list Index"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets/{id}",
-          "op": "get Secret"
+          "path": "/v1/indexes/{id}",
+          "op": "get Index"
         },
         {
           "method": "PATCH",
-          "path": "/v1/secrets/{id}",
-          "op": "update Secret"
+          "path": "/v1/indexes/{id}",
+          "op": "update Index"
         },
         {
           "method": "DELETE",
-          "path": "/v1/secrets/{id}",
-          "op": "delete Secret"
+          "path": "/v1/indexes/{id}",
+          "op": "delete Index"
         },
         {
           "method": "POST",
-          "path": "/v1/apiproxies",
-          "op": "create ApiProxy"
+          "path": "/v1/indexfields",
+          "op": "create IndexField"
         },
         {
           "method": "GET",
-          "path": "/v1/apiproxies",
-          "op": "list ApiProxy"
+          "path": "/v1/indexfields",
+          "op": "list IndexField"
         },
         {
           "method": "GET",
-          "path": "/v1/apiproxies/{id}",
-          "op": "get ApiProxy"
+          "path": "/v1/indexfields/{id}",
+          "op": "get IndexField"
         },
         {
           "method": "PATCH",
-          "path": "/v1/apiproxies/{id}",
-          "op": "update ApiProxy"
+          "path": "/v1/indexfields/{id}",
+          "op": "update IndexField"
         },
         {
           "method": "DELETE",
-          "path": "/v1/apiproxies/{id}",
-          "op": "delete ApiProxy"
+          "path": "/v1/indexfields/{id}",
+          "op": "delete IndexField"
         },
         {
           "method": "POST",
-          "path": "/v1/databases",
-          "op": "create Database"
+          "path": "/v1/orders",
+          "op": "create Order"
         },
         {
           "method": "GET",
-          "path": "/v1/databases",
-          "op": "list Database"
+          "path": "/v1/orders",
+          "op": "list Order"
         },
         {
           "method": "GET",
-          "path": "/v1/databases/{id}",
-          "op": "get Database"
+          "path": "/v1/orders/{id}",
+          "op": "get Order"
         },
         {
           "method": "PATCH",
-          "path": "/v1/databases/{id}",
-          "op": "update Database"
+          "path": "/v1/orders/{id}",
+          "op": "update Order"
         },
         {
           "method": "DELETE",
-          "path": "/v1/databases/{id}",
-          "op": "delete Database"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/functions",
-          "op": "create Function"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/functions",
-          "op": "list Function"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/functions/{id}",
-          "op": "get Function"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/functions/{id}",
-          "op": "update Function"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/functions/{id}",
-          "op": "delete Function"
+          "path": "/v1/orders/{id}",
+          "op": "delete Order"
         }
       ],
       "features": {
@@ -244,44 +261,41 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_document",
+          "description": "Create a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "runtime": {
+              "createTime": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
-              },
-              "status": {
+              "updateTime": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "runtime"
+              "createTime"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_documents",
+          "description": "List Documents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_document",
+          "description": "Get a Document by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,185 +309,8 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "runtime": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service",
-          "description": "Delete a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "deployedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "version",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_deployments",
-          "description": "List Deployments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "deployedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_secret",
-          "description": "Create a Secret.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "scope": {
-                "type": "string"
-              },
-              "rotatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "scope"
-            ]
-          }
-        },
-        {
-          "name": "list_secrets",
-          "description": "List Secrets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_secret",
-          "description": "Get a Secret by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_secret",
-          "description": "Update a Secret.",
+          "name": "update_document",
+          "description": "Update a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,10 +320,10 @@
               "name": {
                 "type": "string"
               },
-              "scope": {
+              "createTime": {
                 "type": "string"
               },
-              "rotatedAt": {
+              "updateTime": {
                 "type": "string"
               }
             },
@@ -496,8 +333,8 @@
           }
         },
         {
-          "name": "delete_secret",
-          "description": "Delete a Secret.",
+          "name": "delete_document",
+          "description": "Delete a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,41 +348,53 @@
           }
         },
         {
-          "name": "create_api_proxy",
-          "description": "Create a ApiProxy.",
+          "name": "create_value",
+          "description": "Create a Value.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string"
-              },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
+              "booleanValue": {
                 "type": "boolean"
+              },
+              "stringValue": {
+                "type": "string"
+              },
+              "integerValue": {
+                "type": "integer"
+              },
+              "doubleValue": {
+                "type": "number"
+              },
+              "timestampValue": {
+                "type": "string"
+              },
+              "referenceValue": {
+                "type": "string"
+              },
+              "bytesValue": {
+                "type": "string"
+              },
+              "nullValue": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "basePath"
+              "booleanValue",
+              "stringValue"
             ]
           }
         },
         {
-          "name": "list_api_proxies",
-          "description": "List ApiProxies.",
+          "name": "list_values",
+          "description": "List Values.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_api_proxy",
-          "description": "Get a ApiProxy by id.",
+          "name": "get_value",
+          "description": "Get a Value by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -559,25 +408,37 @@
           }
         },
         {
-          "name": "update_api_proxy",
-          "description": "Update a ApiProxy.",
+          "name": "update_value",
+          "description": "Update a Value.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
+              "booleanValue": {
                 "type": "boolean"
+              },
+              "stringValue": {
+                "type": "string"
+              },
+              "integerValue": {
+                "type": "integer"
+              },
+              "doubleValue": {
+                "type": "number"
+              },
+              "timestampValue": {
+                "type": "string"
+              },
+              "referenceValue": {
+                "type": "string"
+              },
+              "bytesValue": {
+                "type": "string"
+              },
+              "nullValue": {
+                "type": "string"
               }
             },
             "required": [
@@ -586,8 +447,8 @@
           }
         },
         {
-          "name": "delete_api_proxy",
-          "description": "Delete a ApiProxy.",
+          "name": "delete_value",
+          "description": "Delete a Value.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,41 +462,50 @@
           }
         },
         {
-          "name": "create_database",
-          "description": "Create a Database.",
+          "name": "create_index",
+          "description": "Create a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "engine": {
+              "state": {
                 "type": "string"
               },
-              "region": {
+              "queryScope": {
                 "type": "string"
               },
-              "sizeGb": {
+              "apiScope": {
+                "type": "string"
+              },
+              "multikey": {
+                "type": "boolean"
+              },
+              "unique": {
+                "type": "boolean"
+              },
+              "shardCount": {
                 "type": "integer"
               }
             },
             "required": [
               "name",
-              "engine"
+              "state"
             ]
           }
         },
         {
-          "name": "list_databases",
-          "description": "List Databases.",
+          "name": "list_indexes",
+          "description": "List Indexes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_database",
-          "description": "Get a Database by id.",
+          "name": "get_index",
+          "description": "Get a Index by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,8 +519,8 @@
           }
         },
         {
-          "name": "update_database",
-          "description": "Update a Database.",
+          "name": "update_index",
+          "description": "Update a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -660,13 +530,22 @@
               "name": {
                 "type": "string"
               },
-              "engine": {
+              "state": {
                 "type": "string"
               },
-              "region": {
+              "queryScope": {
                 "type": "string"
               },
-              "sizeGb": {
+              "apiScope": {
+                "type": "string"
+              },
+              "multikey": {
+                "type": "boolean"
+              },
+              "unique": {
+                "type": "boolean"
+              },
+              "shardCount": {
                 "type": "integer"
               }
             },
@@ -676,8 +555,8 @@
           }
         },
         {
-          "name": "delete_database",
-          "description": "Delete a Database.",
+          "name": "delete_index",
+          "description": "Delete a Index.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,41 +570,38 @@
           }
         },
         {
-          "name": "create_function",
-          "description": "Create a Function.",
+          "name": "create_index_field",
+          "description": "Create a IndexField.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
+              "fieldPath": {
                 "type": "string"
               },
-              "name": {
+              "order": {
                 "type": "string"
               },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
+              "arrayConfig": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "memoryMb"
+              "fieldPath",
+              "order"
             ]
           }
         },
         {
-          "name": "list_functions",
-          "description": "List Functions.",
+          "name": "list_index_fields",
+          "description": "List IndexFields.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_function",
-          "description": "Get a Function by id.",
+          "name": "get_index_field",
+          "description": "Get a IndexField by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,25 +615,22 @@
           }
         },
         {
-          "name": "update_function",
-          "description": "Update a Function.",
+          "name": "update_index_field",
+          "description": "Update a IndexField.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "serviceId": {
+              "fieldPath": {
                 "type": "string"
               },
-              "name": {
+              "order": {
                 "type": "string"
               },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
+              "arrayConfig": {
+                "type": "string"
               }
             },
             "required": [
@@ -766,8 +639,79 @@
           }
         },
         {
-          "name": "delete_function",
-          "description": "Delete a Function.",
+          "name": "delete_index_field",
+          "description": "Delete a IndexField.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_order",
+          "description": "Create a Order.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "direction": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "direction"
+            ]
+          }
+        },
+        {
+          "name": "list_orders",
+          "description": "List Orders.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_order",
+          "description": "Get a Order by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_order",
+          "description": "Update a Order.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_order",
+          "description": "Delete a Order.",
           "inputSchema": {
             "type": "object",
             "properties": {

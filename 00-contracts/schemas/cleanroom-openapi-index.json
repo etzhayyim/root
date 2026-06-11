@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29465,
+  "totalEndpoints": 29445,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 184,
-  "totalVerifiedEnumFields": 782,
+  "l5VerifiedActors": 186,
+  "totalVerifiedEnumFields": 789,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -1021,10 +1021,10 @@
     {
       "handle": "arm_isa-compat",
       "did": "did:web:etzhayyim.com:actor:arm_isa-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreifnkvqkwfuu3u34pn6vyv4fon7jifgh2uuczdvompyjjw2anlow6u",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -1033,8 +1033,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/arm_isa-compat/openapi.json"
     },
     {
@@ -6341,10 +6341,10 @@
     {
       "handle": "firebase-compat",
       "did": "did:web:etzhayyim.com:actor:firebase-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreicn3327eczidpg73gnlkb4tqpehrrb5yowr3twpszvcta7w53ytiy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -6353,8 +6353,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 5,
       "openapi": "20-actors/firebase-compat/openapi.json"
     },
     {

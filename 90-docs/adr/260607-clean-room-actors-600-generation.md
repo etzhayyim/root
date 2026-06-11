@@ -573,3 +573,14 @@ the same KB page plus DIRECT 'Mavlink' mentions on Freefly's own product
 pages, strengthening hop 1 of the chain. The previously-shipped auterion
 conformance was also retro-confirmed by its late gemini run (same PX4
 quotes + MAVSDK-Proto fetched), closing the loop promised in §16.6.
+
+### §16.8 /loop iteration 7 — wave 8: ISA anchors via a new fetch path + Discovery docs (191, 19.1%)
+
+arm_isa + firebase → ledger **191** (809 L4 / 191 L5 = 19.1%), enforced 186
+actors / **789 enum fields** (+7), verify PASS 0/0, 2/2 green. drone_deploy
+carries (developer.dronedeploy.com SPA defeats fetching so far).
+
+| Actor | Anchor | Enforced |
+|---|---|---|
+| arm_isa | **the hardest physical anchors in the corpus**: condition codes (17) are fixed by a 4-bit instruction-encoding field — it CANNOT grow; EL0-EL3 are architecture-constants ('there are four Exception levels', Arm's own doc). **New fetch path**: developer.arm.com is a JS SPA, but documentation-service.arm.com serves the SAME official content as base64-in-JSON — harness-decoded and verified; the gemini draft (Google-rendered fetch of the SPA pages) matched exactly | suffix(17) + level(4) |
+| firebase | Google's OFFICIAL machine-readable Discovery document (v1, revision-dated) — a new official-spec seam | direction(3)+state(4)+order(3)+arrayConfig(2)+nullValue(1); v1 grew in place (CompositeFilter +OR 2023, apiScope +MONGODB 2024, FieldFilter +NOT_IN) → those gapped per the airbyte in-place-evolution discipline |

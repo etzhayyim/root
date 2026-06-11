@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 189,
+  "count": 191,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1822,6 +1822,80 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (3/3) vs the official Argo User's Manual + NVS vocabularies. Enforced enums: direction(2) + dataMode(3) + positionQc(8) + presQc/tempQc/psalQc(8 each) = 6 enum fields. The QC scale's published omission of 6 and 7 is preserved faithfully."
+    },
+    {
+      "handle": "arm_isa-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://documentation-service.arm.com/documentation/dui0473/m/arm-and-thumb-instructions/condition-code-suffixes + https://documentation-service.arm.com/documentation/102412/0103/Privilege-and-Exception-levels/Exception-levels (official Arm documentation via the documentation-service JSON API)",
+      "remodeled": "Remodeled to a faithful ARM architecture subset verified against Arm's OFFICIAL documentation. NEW FETCH PATH: developer.arm.com pages are JS-gated SPAs (unfetchable by curl), but documentation-service.arm.com serves the SAME official content as JSON with base64-encoded HTML — harness-decoded and verified. ConditionCode.suffix enforced (17: EQ NE CS HS CC LO MI PL VS VC HI LS GE LT GT LE AL — fixed by the 4-bit cond instruction encoding, incl. the CS/HS and CC/LO alias pairs, from Arm's own table 'Condition code suffixes'); ExceptionLevel.level enforced (EL0-EL3 — Arm's learn-the-architecture doc states verbatim 'there are four Exception levels: EL0, EL1, EL2 and EL3'). System registers and instruction lists are open-ended -> out of model. The gemini draft (which fetched the same two pages Google-rendered) matched exactly and honestly deferred the JS-gated register pages.",
+      "resources": [
+        {
+          "entity": "ConditionCode",
+          "source": "https://documentation-service.arm.com/documentation/dui0473/m/arm-and-thumb-instructions/condition-code-suffixes",
+          "verifiedFields": [
+            "suffix",
+            "meaning"
+          ],
+          "fieldStatus": "confirmed (official suffix/meaning table)",
+          "discoveredEnums": {
+            "suffix": [
+              "EQ",
+              "NE",
+              "CS",
+              "HS",
+              "CC",
+              "LO",
+              "MI",
+              "PL",
+              "VS",
+              "VC",
+              "HI",
+              "LS",
+              "GE",
+              "LT",
+              "GT",
+              "LE",
+              "AL"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ExceptionLevel",
+          "source": "https://documentation-service.arm.com/documentation/102412/0103/Privilege-and-Exception-levels/Exception-levels",
+          "verifiedFields": [
+            "level",
+            "typicalUsage"
+          ],
+          "fieldStatus": "confirmed ('there are four Exception levels: EL0, EL1, EL2 and EL3' + common-usage model text)",
+          "discoveredEnums": {
+            "level": [
+              "EL0",
+              "EL1",
+              "EL2",
+              "EL3"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "PrivilegeModel",
+          "source": "https://documentation-service.arm.com/documentation/102412/0103/Privilege-and-Exception-levels/Exception-levels",
+          "verifiedFields": [
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed (privilege concept narrative)",
+          "discoveredEnums": {},
+          "gaps": [
+            "system-registers-open-ended-not-modeled",
+            "instruction-set-open-ended-not-modeled"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs official Arm documentation. Enforced enums: ConditionCode.suffix(17, encoding-fixed) + ExceptionLevel.level(4, architecture-fixed) = 2 enum fields — the hardest physical anchors in the corpus (a 4-bit field cannot grow). documentation-service.arm.com joins the fetch-path toolbox for JS-gated official docs."
     },
     {
       "handle": "arxiv_api-compat",
@@ -9522,6 +9596,119 @@
       ],
       "notApplicable": [],
       "note": "3/6 doc-verified (Comment/Project/Style endpoint pages 404'd via WebFetch — DEFERRED). Enforced enums: Node.type."
+    },
+    {
+      "handle": "firebase-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+      "remodeled": "Remodeled to the faithful Cloud Firestore v1 surface verified against Google's OFFICIAL machine-readable Discovery document (every enum machine-extracted). Stable sets enforced: Order.direction(3), Index.state(4: UNSPECIFIED/CREATING/READY/NEEDS_REPAIR — stable lifecycle), IndexField.order(3) + arrayConfig(2), Value.nullValue(1, proto well-known). Gapped per the airbyte in-place-evolution discipline (v1 grew in place): CompositeFilter.op (+OR in 2023), FieldFilter.op (+NOT_IN/+NOT_EQUAL 2020), UnaryFilter.op (+IS_NOT_* 2020), Index.apiScope (+MONGODB_COMPATIBLE_API 2024), density (2024 feature), queryScope (+COLLECTION_RECURSIVE). gemini-CLI-drafted; draft and harness extraction matched on every set.",
+      "resources": [
+        {
+          "entity": "Document",
+          "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+          "verifiedFields": [
+            "name",
+            "createTime",
+            "updateTime"
+          ],
+          "fieldStatus": "confirmed (fields map not modeled)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Value",
+          "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+          "verifiedFields": [
+            "booleanValue",
+            "stringValue",
+            "integerValue",
+            "doubleValue",
+            "timestampValue",
+            "referenceValue",
+            "bytesValue",
+            "nullValue"
+          ],
+          "fieldStatus": "confirmed (typed value union; map/array/geoPoint sub-objects not modeled)",
+          "discoveredEnums": {
+            "nullValue": [
+              "NULL_VALUE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Index",
+          "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+          "verifiedFields": [
+            "name",
+            "state",
+            "queryScope",
+            "apiScope",
+            "multikey",
+            "unique",
+            "shardCount"
+          ],
+          "fieldStatus": "confirmed (GoogleFirestoreAdminV1Index); queryScope/apiScope/density grew within v1 -> gapped",
+          "discoveredEnums": {
+            "state": [
+              "STATE_UNSPECIFIED",
+              "CREATING",
+              "READY",
+              "NEEDS_REPAIR"
+            ]
+          },
+          "gaps": [
+            "queryScope-grew-within-v1",
+            "apiScope-grew-within-v1 (+MONGODB_COMPATIBLE_API)",
+            "density-2024-feature"
+          ]
+        },
+        {
+          "entity": "IndexField",
+          "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+          "verifiedFields": [
+            "fieldPath",
+            "order",
+            "arrayConfig"
+          ],
+          "fieldStatus": "confirmed (vectorConfig/searchConfig newer sub-objects not modeled)",
+          "discoveredEnums": {
+            "order": [
+              "ORDER_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ],
+            "arrayConfig": [
+              "ARRAY_CONFIG_UNSPECIFIED",
+              "CONTAINS"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Order",
+          "source": "https://firestore.googleapis.com/$discovery/rest?version=v1 (official Google Discovery document, revision 20260605)",
+          "verifiedFields": [
+            "direction"
+          ],
+          "fieldStatus": "confirmed (StructuredQuery Order)",
+          "discoveredEnums": {
+            "direction": [
+              "DIRECTION_UNSPECIFIED",
+              "ASCENDING",
+              "DESCENDING"
+            ]
+          },
+          "gaps": [
+            "FieldFilter.op-grew-within-v1",
+            "CompositeFilter.op-grew-within-v1 (+OR 2023)",
+            "UnaryFilter.op-grew-within-v1"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Google's official Discovery document. Enforced enums: direction(3) + state(4) + order(3) + arrayConfig(2) + nullValue(1) = 5 enum fields. Google Discovery documents join the official-machine-readable-spec seam."
     },
     {
       "handle": "fivetran-compat",
