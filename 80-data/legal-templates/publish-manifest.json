@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifbbzynoxxhc3h7odjj3nkww6lfnfpea4bq3nydix7736xdip3xwu",
-      "bodySha256": "0xa10e70d75ee716cff70d29db556b7965695e407030db70345fffdfae343f77b5",
-      "bytes": 2336,
+      "bodyCid": "bafkreifrphajgtqxgxgrhkxuxnqx6sp7ygitplhkmejcqy37f6l4hwccqa",
+      "bodySha256": "0xb179c0934e1735cd13aaf4bb617f49ffc19137acea611228637f2f97c3d84280",
+      "bytes": 2431,
       "clauseCount": 3,
       "statutes": [
         {
@@ -76,6 +76,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -123,9 +129,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreie6xgizrs6g35pxowlxgux7q3okh5ghd2fbp4svpzkzyzndgrfg54",
-      "bodySha256": "0x9eb99198cbc6df5f775977352ff86dca3f4c71e8a17f2557e559c65a3344a6ef",
-      "bytes": 3481,
+      "bodyCid": "bafkreicuhwomc6lnomg3dx7gmk6g66at5vlc7zeo3mpp3yvmo5ikbj7kzq",
+      "bodySha256": "0x543d9cc1796d730db1dfe662bc6f7813ed562fe48edb1efde2ac7750a0a7eacc",
+      "bytes": 3576,
       "clauseCount": 7,
       "statutes": [
         {
@@ -267,6 +273,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -314,9 +326,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiguazuetnvmaywuj6grwuwuo6pxlgrldqtghfb3iuizdb52d4djre",
-      "bodySha256": "0xd4066849b6ac062d44f8d1b52d4779f759a2b1c2663943b45119187ba1f06989",
-      "bytes": 2823,
+      "bodyCid": "bafkreiauybpspqydr47qa6gmqkje2tynorltqz2wtiioydlx6g55kgkzdy",
+      "bodySha256": "0x14c05f27c3038f3f0078cc82924d4f0d74573867569a10ec0d77f1bbd519591e",
+      "bytes": 2918,
       "clauseCount": 4,
       "statutes": [
         {
@@ -416,6 +428,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -463,9 +481,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihqblglwx4g7tnpw3k5qlmbcq4sk2n47vfgx2grhbngtmutxixdqu",
-      "bodySha256": "0xf00accbb5f86fcdafb6d5d82d8114392569bcfd4a6be8d1385a69b293ba2e385",
-      "bytes": 4234,
+      "bodyCid": "bafkreiajzp2t7kbcqjqnbolj7lqkhj7jtzpoxup6t6okhyvw2axkpbyz64",
+      "bodySha256": "0x09cbf53fa8228260d0b969fae0a3a7e99e5eebd1fe9f9ca3e2b6d02ea78719f7",
+      "bytes": 4466,
       "clauseCount": 9,
       "statutes": [
         {
@@ -607,6 +625,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -661,6 +685,18 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -690,9 +726,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihnskb7vri6lyf3m34pe34lzksm7u55o7gs4ohkpv3tpbrcu24eh4",
-      "bodySha256": "0xed9283fac51e5e0bb66f8f26f8bcaa4cfd3bd77cd2e38ea7d77378622a6b843f",
-      "bytes": 2669,
+      "bodyCid": "bafkreibr253dfuo7ane6vymmvxvm3vuh4tpaxmnikfeb3vnokna2lr5mvq",
+      "bodySha256": "0x31d77632d1df0349eae18cadeacdd687e4de0bb1a851481dd5ae5341a5c7acac",
+      "bytes": 2764,
       "clauseCount": 3,
       "statutes": [
         {
@@ -774,6 +810,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -821,9 +863,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreifktgytvbgsnffcdme5wyommdpk3v53nbvlz3pegu4o4yd5qvzhq4",
-      "bodySha256": "0xaa99b13a84d2694a21b09db61cc60deadd7bb686abcede43538ee607d8572787",
-      "bytes": 3061,
+      "bodyCid": "bafkreiguxnwoc6cmb5nkfgrg4bkibfdn3zc5amqx4v3vgx45ile7jnga7u",
+      "bodySha256": "0xd4bb6ce1784c0f5aa29a26e05480946dde45d03217e577535f9d42c9f4b4c0fd",
+      "bytes": 3293,
       "clauseCount": 6,
       "statutes": [
         {
@@ -873,6 +915,18 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
         },
         {
           "id": "st.unidroit-2016",
@@ -929,6 +983,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -976,9 +1036,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidayxblbjp5nve2oofqthttfq7usyphqy2f3x5ntnx4ve4qn5xkta",
-      "bodySha256": "0x60c5c2b0a5fd6d49a738b099e732c3f4961e786345ddfad9b6fca93906f6ea98",
-      "bytes": 2069,
+      "bodyCid": "bafkreidmxroyg22jecj4777d4bft4tykd65u3mjl2srn6ag4nysogniyri",
+      "bodySha256": "0x6cbc5d836b492093cfffe3e04b3e4f0a1fbb4db12bd4a2df00dc6e24e335188a",
+      "bytes": 2164,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1022,6 +1082,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1071,9 +1137,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreic7invywrww6rmge3vhgs33oi6pem2dtkbf6hlgupkq6eqqys2i6m",
-      "bodySha256": "0x5f436b8b46d6f458626ea734b7b723cf233439a825f1d66a3d50f1210c4b48f3",
-      "bytes": 3209,
+      "bodyCid": "bafkreifhbqusjgrc7aptarrgzf3qasmbblwcvr2poznfesey6w2gvw5sh4",
+      "bodySha256": "0xa70c29249a22f81f304626c9770049810aec2ac74f765a524898f5b46adbb23f",
+      "bytes": 3379,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1111,6 +1177,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-ndpa-2023",
+          "citation": "Nigeria Data Protection Act 2023, s.34",
+          "instrument": "Nigeria Data Protection Act 2023",
+          "url": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf"
         },
         {
           "id": "st.israel-privacy-1981",
@@ -1189,6 +1261,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1238,9 +1316,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreih6joxlshsmdl2thc4uivxikhw7ngxv3vaqb5mexfae3stpokbmz4",
-      "bodySha256": "0xfe4baeb91e4c1af5338b94456e851edf69af5dd4100f584b9404dca6f7282ccf",
-      "bytes": 3165,
+      "bodyCid": "bafkreiabosvz3cuhows3wq66eik2dye7cnniwdtuysmyf2mhn3uhg4j7rq",
+      "bodySha256": "0x0174ab9d8a8775a5bb43de2215a1e09f135a8b0e74c49982e9876ee873713f8c",
+      "bytes": 3335,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1278,6 +1356,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-ndpa-2023",
+          "citation": "Nigeria Data Protection Act 2023, s.34",
+          "instrument": "Nigeria Data Protection Act 2023",
+          "url": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf"
         },
         {
           "id": "st.israel-privacy-1981",
@@ -1356,6 +1440,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1405,9 +1495,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreia2guwcjcrq5fzgha2jicnhqmxdwks47gpr3k6yhq4xzsjdylgi64",
-      "bodySha256": "0x1a352c248a30e972638349409a7832e3b2a5cf99f1dabd83c397cc923c2cc8f7",
-      "bytes": 3169,
+      "bodyCid": "bafkreifosdamncjuizxn3h25n2i4mrg2ywb7zxtgasxxv35oaat2qdep2a",
+      "bodySha256": "0xae90c0c68934466edd9f5d6e91c644dac583fcde6604af7aefae0027a80c8fd0",
+      "bytes": 3339,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1445,6 +1535,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-ndpa-2023",
+          "citation": "Nigeria Data Protection Act 2023, s.34",
+          "instrument": "Nigeria Data Protection Act 2023",
+          "url": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf"
         },
         {
           "id": "st.israel-privacy-1981",
@@ -1525,6 +1621,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1572,9 +1674,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreifudogdsk3pjufd5snp4fshyl5dmgpslhuhijawe4zobich5rqcay",
-      "bodySha256": "0xb41b8c392b6f4d0a3ec9afe1647c2fa3619f259e87424162732e0a047ec60206",
-      "bytes": 3402,
+      "bodyCid": "bafkreih2cjv456pghobstueo5iicseeqzm3u6rwem667beandrblhsjzfu",
+      "bodySha256": "0xfa126bcef9e63b8329d08eea10291090cb374f46c467bdf0900d1c42b3c9392d",
+      "bytes": 3572,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1612,6 +1714,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-ndpa-2023",
+          "citation": "Nigeria Data Protection Act 2023, s.34",
+          "instrument": "Nigeria Data Protection Act 2023",
+          "url": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf"
         },
         {
           "id": "st.israel-privacy-1981",
@@ -1698,6 +1806,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1745,9 +1859,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiehtgajuy5jn5ohc4rzan6rc5t4jkmsu5mihqmh2kd5qvvoflxniq",
-      "bodySha256": "0x8799809a63a96f5c717239037d11767c4a992a75883c187d287d856ae2aeed44",
-      "bytes": 2386,
+      "bodyCid": "bafkreicrcbmh6vsee7i6xc3pgmvapvafs6ap2ec2gr7oq7auae5mgikane",
+      "bodySha256": "0x5110587f564427d1eb8b6f332a07d4059780fd105a347ee87c14013ac3214069",
+      "bytes": 2481,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1823,6 +1937,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1870,9 +1990,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreiemb5iwlgz6vuazdz3jwcexjkusnhhg63447ik53pylbwl336zsye",
-      "bodySha256": "0x8c0f51659b3ead0191e769b08974aa9269ce6f6f9cfa15ddbf0b0d97bdfb32c1",
-      "bytes": 4218,
+      "bodyCid": "bafkreibx3osylfpheizv7x2ggrdrppkams4ifgc7w4o5ooelo4vxs5hgla",
+      "bodySha256": "0x37dba58595e722335fdf46344717bd4064b882985fb71dd7388b772b7974e658",
+      "bytes": 4519,
       "clauseCount": 7,
       "statutes": [
         {
@@ -1948,6 +2068,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
           "id": "st.jp-roukei-16",
           "citation": "労働契約法16条",
           "instrument": "労働契約法 (平成19年法律第128号)",
@@ -2014,6 +2140,18 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -2068,6 +2206,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2115,9 +2259,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreigg22skt7yoq4uezw7w3nqwdvfmj43feomoebzoidov4ccbxhhjx4",
-      "bodySha256": "0xc6d6a4a9ff0e87284cdbf6db6161d4ac4f3652398e2072e40dd5e0841b9ce9bf",
-      "bytes": 2621,
+      "bodyCid": "bafkreicbos3m2kfhue6fgiofpng233uelit7s67v7jnalo6jlioepqpkum",
+      "bodySha256": "0x4174b6cd28a7a13c5321c57b4dadee845a27f97bf5fa5a05bbc95a1c47c1eaa3",
+      "bytes": 2716,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2205,6 +2349,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2252,9 +2402,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreihhs3pumwkq7lcpuv6sltibrnwxuinte2rx5h666g36xuelkxcb6q",
-      "bodySha256": "0xe796df465950fac4fa57d25cd018b6d7a21b326a37e9fdef1b7ebd08b55c41f4",
-      "bytes": 3055,
+      "bodyCid": "bafkreif7p5ajofhzq62xy2ejqqx7sdmxpyvdoyqzo4owrj3x54escjihta",
+      "bodySha256": "0xbf7f409714f987b57c6889842ff90d977e2a376219771d68a777ef0921250798",
+      "bytes": 3219,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2316,6 +2466,12 @@
           "citation": "Canada Labour Code, s.230",
           "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
+        },
+        {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
         },
         {
           "id": "st.jp-roukei-16",
@@ -2384,6 +2540,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2431,9 +2593,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreidjafq3og6ud4p47lt6cu7bpqmkatt5bussgwoo75yb52eb2ex5nm",
-      "bodySha256": "0x690161b71bd41f1fcfae7e153e17c18a04e7d0d252359ceff701ee881d12fd6b",
-      "bytes": 2410,
+      "bodyCid": "bafkreiaopwhq2232rcpnms4iwxizljlbfmherlmed7n74isa4u4tjmlvgy",
+      "bodySha256": "0x0e7d8f0d6b7a889ed64b88b5d195a5612b0e48ad841fdbfe2240e53934b17536",
+      "bytes": 2505,
       "clauseCount": 2,
       "statutes": [
         {
@@ -2509,6 +2671,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2556,9 +2724,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihdo32ysbh2papc32qecuugxm5fwinfsnysc5b7ooppxh6acqb6ki",
-      "bodySha256": "0xe376f58904fa781e2dea0415286bb3a5b21a5937121743f739efb9fc01403e52",
-      "bytes": 4386,
+      "bodyCid": "bafkreiauwh4kswxih2dul66n7btixckce4e5ennfllr334bccpwjtsyhva",
+      "bodySha256": "0x14b1f8a95ae83e8745fbcdf8668b89422709d235a55ae3bdf02213ec99cb07a8",
+      "bytes": 4550,
       "clauseCount": 8,
       "statutes": [
         {
@@ -2676,6 +2844,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2772,6 +2946,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
           "id": "st.jp-roukei-16",
           "citation": "労働契約法16条",
           "instrument": "労働契約法 (平成19年法律第128号)",
@@ -2813,9 +2993,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreid5vb4x5hv3z4s7e2ecddkamxjnoksk4juivpsviorqog6aipmecq",
-      "bodySha256": "0x7da8797e9ebbcf25f2688218d4065d2d72a4ae2688abe5543a3071bc043d8414",
-      "bytes": 3281,
+      "bodyCid": "bafkreihigw37ojkniwd3ecqntzss47vuska6kelqc24uozsgfzdediyaiu",
+      "bodySha256": "0xe835b7f7254d4587b20a0d9e652e7eb49281e5117016b94766462e4641a30045",
+      "bytes": 3445,
       "clauseCount": 4,
       "statutes": [
         {
@@ -2891,6 +3071,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
           "id": "st.jp-roukei-16",
           "citation": "労働契約法16条",
           "instrument": "労働契約法 (平成19年法律第128号)",
@@ -2957,6 +3143,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3004,9 +3196,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreidxptie5bsdff5qbrb3fpz3wczrqqtrg4nhzuarvgjw3d3b2dyaty",
-      "bodySha256": "0x777cd04e8643297b00c43b2bf3bb0b3184271371a7cd011a9936d8f61d0f009e",
-      "bytes": 2617,
+      "bodyCid": "bafkreic73jbmk7tkoldugcpabzuwu3oxrhvf5pvx6detx2lrtwkfx6sfaq",
+      "bodySha256": "0x5fda42c57e6a72c74309e00e696a6dd789ea5ebeb7f0c93be9719d945bfa4504",
+      "bytes": 2712,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3094,6 +3286,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3141,9 +3339,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreigt6naqxq2n5wsumhxlsn35kxwfwqmsqccnt3zxwuldbfdlyjiz4i",
-      "bodySha256": "0xd3f3410bc34deda5461eeb9377d55ec5b41928084d9ef37b51630946bc2519e2",
-      "bytes": 3068,
+      "bodyCid": "bafkreiey6fp3g7ttcjrhh6wcpbekzkklzjuik232cbq2zzkc34tpnml6ge",
+      "bodySha256": "0x98f15fb37e73126273fac27848aca94bca68856b7a1061ace542df26f6b17e31",
+      "bytes": 3232,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3205,6 +3403,12 @@
           "citation": "Canada Labour Code, s.230",
           "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
+        },
+        {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
         },
         {
           "id": "st.jp-roukei-16",
@@ -3273,6 +3477,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3320,9 +3530,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreigh656koddezhgtph7jh7gtrobgpv2mldokhvoeq2ufb6iu62l6ye",
-      "bodySha256": "0xc7f77ca70c64c9cd379fe93fcd38b8267d74c58dca3d5c486a850f914f697ec1",
-      "bytes": 2385,
+      "bodyCid": "bafkreibg75v3w2fwhanlrty2po3a6mt7amn4y5ac2jrvo5bqnibd4fzece",
+      "bodySha256": "0x26ff6bbb68b6381ab8cf1a7bb60f327f031bcc7402d2635774306a023e172411",
+      "bytes": 2480,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3398,6 +3608,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3445,9 +3661,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidpyldfvwvf3xrhoqnhfrtloofraedmux5fx2elsab6fmtudv6vma",
-      "bodySha256": "0x6fc2c65adaa5dde27741a72c66b738b10106ca5fa5be88b9003e2b2741d7d560",
-      "bytes": 2306,
+      "bodyCid": "bafkreia4zai2mkmnanf27nvzuf4n6fwt3myuabk7doxaxzx2g6relbdfje",
+      "bodySha256": "0x1cc811a6298d034bafb6b9a178df16d3db3140055f1bae0be6fa37a245846549",
+      "bytes": 2401,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3505,6 +3721,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3552,9 +3774,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicfsa7qjfs42acrs22664wedhsyuixvdfuiyva22op53x5c66f7wu",
-      "bodySha256": "0x45903f04965cd005196b5ef72c419e58a22f519688c541ad39fdddfa2f78bfb5",
-      "bytes": 3373,
+      "bodyCid": "bafkreidq5mwoextvkslorcvu6kf5clgbpvwmau5vbx3id3n3smwl2k2pru",
+      "bodySha256": "0x70eb2ce25e755496e88ab4f28bd12cc17d6cc053b50df681edbb932cbd2b4f8d",
+      "bytes": 3468,
       "clauseCount": 7,
       "statutes": [
         {
@@ -3684,6 +3906,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3731,9 +3959,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreienph2rpcfjffs6dpmduryow2ryut57j4gleb7dn7ukjb647i7cge",
-      "bodySha256": "0x8d79f51788a92965e1bd83a470eb6a38a4fbf4f0cb207e36fe8a487dcfa3e231",
-      "bytes": 2676,
+      "bodyCid": "bafkreichhwdurckpcaabjhgoolqzroulm7eni2s32ld6mhc6k2n5sjx3wm",
+      "bodySha256": "0x473d8748894f1000149cce72e198ba8b67c8d46a5bd2c7e61c5e569bd926fbb3",
+      "bytes": 2771,
       "clauseCount": 5,
       "statutes": [
         {
@@ -3815,6 +4043,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3862,9 +4096,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreif3fgwbg5xic5vpfheabyuuqutdv7q5l3boghosxlagzvbajqfkhq",
-      "bodySha256": "0xbb29ac1376e8176af29c800e29485263afe1d5ec2e31dd2bac06cd4204c0aa3c",
-      "bytes": 2384,
+      "bodyCid": "bafkreihicrhflsrcc2fo7syatvmvzl7ewiyeciznug37znypcb2jnxf7wu",
+      "bodySha256": "0xe8144e55ca22168aefcb009d595cafe4b23041232da1b7fcb70f107496dcbfb5",
+      "bytes": 2479,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3934,6 +4168,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3981,9 +4221,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicrrf73oee3qzmi33uuxw47smnqtlhvlr5xlt5x3g3uggogyf23l4",
-      "bodySha256": "0x51897fb7109b86588dee94bdb9f931b09acf55c7b75cfb7d9b74319c6c175b5f",
-      "bytes": 2914,
+      "bodyCid": "bafkreig5dchqzsmwjsfvciucyfc2ltbhhj4772rbtnb3vzrrjvsifadpaq",
+      "bodySha256": "0xdd188f0cc9964c8b512282c145a5cc273a79ffea219b43bae6314d6482806f04",
+      "bytes": 3146,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4021,6 +4261,18 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
         },
         {
           "id": "st.unidroit-2016",
@@ -4077,6 +4329,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4124,9 +4382,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreie63w4l2xwbfqmx2pdfxshzeregc3ugl7gcioa2xmettdzphfazme",
-      "bodySha256": "0x9eddb8bd5ec12c197d3c65bc8f92448616e865fcc24381abb09398f2f3941961",
-      "bytes": 2960,
+      "bodyCid": "bafkreicsl6gdhh54la5zh6fak5gjfrdlnhipmf6dlkv3ynuuwp7obw7uvu",
+      "bodySha256": "0x525f8c339fbc583b93f8a0574c92c46b69d0f617c35aabbc3694b3fee0dbf4ad",
+      "bytes": 3055,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4226,6 +4484,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4273,9 +4537,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihgaj4d7u43g4aaxmdthl2p6ywzlaucrhnolz5zefu5uxjyevr2oe",
-      "bodySha256": "0xe602783fd39b37000bb0733af4ff62d95828289dae5e7b92169da5d382563a71",
-      "bytes": 3224,
+      "bodyCid": "bafkreiddaafxjjrxn7kvibsdbh5qktlipxguwfe3nikyrfruprxyomrune",
+      "bodySha256": "0x63000b74a6376fd554064309fb054d687dcd4b149b6a158896347c6f87323469",
+      "bytes": 3319,
       "clauseCount": 6,
       "statutes": [
         {
@@ -4399,6 +4663,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4446,9 +4716,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreifxdkkqzay22wrxlslkvfbqgo6kgvpxxhvgstvvr73vt6uqwit7bm",
-      "bodySha256": "0xb71a950c831ad5a375c96aa943033bca355f7b9ea694eb58ff759fa90b227f0b",
-      "bytes": 3052,
+      "bodyCid": "bafkreib7bdoh63vw3tsqgsoctmzvkwtjb2jt27uvhbi4mpdyht3by5tyvy",
+      "bodySha256": "0x3f08dc7f6eb6dce50349c29b33555a690e933d7e953851c63c783cf61c7678ae",
+      "bytes": 3147,
       "clauseCount": 6,
       "statutes": [
         {
@@ -4560,6 +4830,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4607,9 +4883,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiao3hhrzeld55yuy7unb3gjek3msdw6mnekavrcc3xhpwpd4a4j74",
-      "bodySha256": "0x0ed9cf1c9163ef714c7e8d0ecc922b6c90ede6348a0562216ee77d9e3e0389ff",
-      "bytes": 2597,
+      "bodyCid": "bafkreigy7kk4nlj7x4jq6en75lzujfkci5bavls6bhgror7nkv4hwwxgm4",
+      "bodySha256": "0xd8fa95c6ad3fbf130f11bfeaf344954247420aae5e09cd1747ed55787b5ae667",
+      "bytes": 2692,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4685,6 +4961,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4732,9 +5014,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihhezsobywc47fji3zyzuzflmtdhowdi5rlrprrqkyyrdrde4vu4i",
-      "bodySha256": "0xe72664e0e2c2e7ca946f38cd3255b2633bac34762b8be3182b1888e23272b4e2",
-      "bytes": 2491,
+      "bodyCid": "bafkreiadhxzwmqewp7qcf4y7gukgpqfoz4q34lbame6i4yhthc734gdw6q",
+      "bodySha256": "0x033df36640967fe022f31f351467c0aecf21be2c20613c8e60f338bfbe1876f4",
+      "bytes": 2586,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4804,6 +5086,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4851,9 +5139,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiaxtqqwzzb6ahuppunfbenog3ba2zzlgink63ovw44ctxn5qchlgu",
-      "bodySha256": "0x179c216ce43e01e8f7d1a5091ae36c20d672b321aaf6dd5b73829ddbd808eb35",
-      "bytes": 2944,
+      "bodyCid": "bafkreidlchhx4ue6h4lp4vlq7xjf3eivryiuzoatu4j5ditst6ojlhszhe",
+      "bodySha256": "0x6b11cf7e509e3f16fe5570fdd25d91158e114cb813a713d1a2729f9c959e5939",
+      "bytes": 3176,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4917,6 +5205,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4971,6 +5265,18 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -5000,9 +5306,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiajglypwz7iqffd6zxm64fqptqnbemozw6qhwvyx2amddfpg5cgpi",
-      "bodySha256": "0x0932f0fb67e8814a3f66ecf70b07ce0d0918ecdbd03dab8be80c18caf374467a",
-      "bytes": 2378,
+      "bodyCid": "bafkreigf2qhfhrxeggiggwtqa6hm6whkwl25q5qx4u6niorl4yz7tsrj2i",
+      "bodySha256": "0xc5d40e53c6e43190635a70078ecf58eab2f5d87617e53cd43a2be633f9ca29d2",
+      "bytes": 2473,
       "clauseCount": 3,
       "statutes": [
         {
@@ -5066,6 +5372,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -5113,9 +5425,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreict5da7uow3gcuisib7svbhduvdtfdhjlhqoknia5jm6cysgmvlza",
-      "bodySha256": "0x53e8c1fa3adb30a889203f954271d2a3994674acf0729a80752cf0b12332abc8",
-      "bytes": 2232,
+      "bodyCid": "bafkreiex2mlfhlx6qsgcdyro5w7wt6tx5henylipqc2njw4tcfgpu3s7qi",
+      "bodySha256": "0x97d31653aefe848c21e22eedbf69fa77e9c8dc2d0f80b4d4db93114cfa6e5f82",
+      "bytes": 2327,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5171,6 +5483,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -5220,9 +5538,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreicz3hflylgp3u44kry6srxmdfnpqrw4dhg5tfz6tieo4ir4lu3tnm",
-      "bodySha256": "0x59d9cabc2ccfdd39c5471e946ec195af846dc19cdd9973e9a08ee223c5d3736b",
-      "bytes": 2216,
+      "bodyCid": "bafkreibnwnfywmqzax6m3v3wpktnzgofdnbvsfwjsh3l73ba3kt46xczju",
+      "bodySha256": "0x2db34b8b321905fccdd7767aa6dc99c51b435916c991f6bfec20daa7cf5c594d",
+      "bytes": 2311,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5278,6 +5596,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -5327,9 +5651,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreigihrphob4tdqeszbj4nmpaa5wwjknsrsrhrvuk7tp57rcn4gb7mq",
-      "bodySha256": "0xc83c5e7707931c092c853c6b1e0076d64a9b28ca278d68afcdfdfc44de183f64",
-      "bytes": 2210,
+      "bodyCid": "bafkreibolyepngwa3ikzh4unlbgp3rreutaa7ytm4jf5zybmftnasl5fge",
+      "bodySha256": "0x2e5e08f69ac0da1593f28d584cfdc624a4c00fe26ce24bdce02c2cda092fa531",
+      "bytes": 2305,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5385,6 +5709,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -5434,9 +5764,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreifyvlhowo5sg6eyrpgok3uhdgks5yqgg7nlz62csddm6j6t5svbze",
-      "bodySha256": "0xb8aaceeb3bb2378988bcce56e8719952ee20637dabcfb4290c6cf27d3ecaa1c9",
-      "bytes": 2213,
+      "bodyCid": "bafkreidwnpmil7wcy2oyg3xxwjwnxoc2istr552iawvkznocggkcrsorly",
+      "bodySha256": "0x766bd885fec2c69d836ef7b26cdbb85a44a71ef74805aaacb5c2319428c9d15e",
+      "bytes": 2308,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5492,6 +5822,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -5541,9 +5877,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreiaycase5zzwlkgkdvmch3ilyhcbtuzvadxjuwm6y6n7h7wgqfpqmu",
-      "bodySha256": "0x1810244ee7365a8ca1d5823ed0bc1c419d33500ee9a599ec79bf3fec6815f065",
-      "bytes": 2248,
+      "bodyCid": "bafkreifxzkadpjq7iue3l3njol66d7aqnrwj33fflcuxdchwbaj35ynp4a",
+      "bodySha256": "0xb7ca8037a61f4509b5eda972fde1fc106c6c9deca558a97188f60813bee1afe0",
+      "bytes": 2343,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5599,6 +5935,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -5648,9 +5990,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreihfbpiym2ilwn2a3j5mvwilqncoe2qyls2irfeygnogabm3wkmyxy",
-      "bodySha256": "0xe50bd186690bb3740da7acad90b8344e26a185cb4889498335c60059bb2998be",
-      "bytes": 2205,
+      "bodyCid": "bafkreifybnisa7jgkpwf5igjmcjnledyc7yr4imlcbssg3acurjjy6pkvy",
+      "bodySha256": "0xb80b51207d2653ec5ea0c96092d5907817f11e218b1065236c02a4529c79eaae",
+      "bytes": 2300,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5708,6 +6050,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -5755,9 +6103,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicz244zyd7jrnliftmsew44kxymdzmzeb7o5wulgzpkrdjb7gyi5i",
-      "bodySha256": "0x59d7399c0fe98b5682cd9225b9c55f0c1e599207eeeda8b365ea88d21f9b08ea",
-      "bytes": 3002,
+      "bodyCid": "bafkreief5d3c4nj7yixdihbsu63kqa343rkqy2gxmq46kq3shfk4rjlfeu",
+      "bodySha256": "0x85e8f62e353fc22e341c32a7b6a8037cdc550c68d76439e543723955c8a56525",
+      "bytes": 3097,
       "clauseCount": 6,
       "statutes": [
         {
@@ -5851,6 +6199,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -5898,9 +6252,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreigo7yzmix2ss72mde5cppembosxzrpruik4eh4qlx5wyekmyzdmba",
-      "bodySha256": "0xcefe32c45f5297f4c193a27bc8c0ba57cc5f1a215c21f905dfb6c114cc646c08",
-      "bytes": 2757,
+      "bodyCid": "bafkreids34q4vojytz4x7dmkvbxh7znbg7vbr5mkybrawfmymvgslbw7ja",
+      "bodySha256": "0x72df21cab9389e797f8d8aa86e7fe5a137ea18f58ac0620b1598654d2586df48",
+      "bytes": 2852,
       "clauseCount": 5,
       "statutes": [
         {
@@ -5982,6 +6336,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -6029,9 +6389,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreihrtideg5vf6z35m4pe2wrkx2ryfxfybniibe744cquf3iqpqmkdy",
-      "bodySha256": "0xf19a064376a5f677d671e4d5a2abea382dcb80b508093fce0a142ed107c18a1e",
-      "bytes": 2210,
+      "bodyCid": "bafkreihjrg75wom5pcbg3vp5m2zqyv3caxzdezsy276x57lrhrrekxyvae",
+      "bodySha256": "0xe989bfdb399d78826dd5fd66b30c576205f2326658d7fd7efd713c62455f1501",
+      "bytes": 2305,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6087,6 +6447,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -6136,9 +6502,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreibjl77x2ns677ryknoef2utogg3x666ftqqs4hy4ise2bhl7rhwqu",
-      "bodySha256": "0x295fff7d365effe38535c42ea93718dbbfbde2ce10970f8e2244d04ebfc4f685",
-      "bytes": 2195,
+      "bodyCid": "bafkreidsqd3734bpabhf3toraz4po5pi2hqdzzukslhijuztlhe5ci6iwe",
+      "bodySha256": "0x7280f7fdf02f004e5dcdd10678f775e8d1e03ce68a92ce84d33359c9d123c8b1",
+      "bytes": 2290,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6196,6 +6562,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -6243,9 +6615,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreichrl3h2q4spbkw5ds6a2cmn76uvjyooodyhpn5lfoydfm3fu5mym",
-      "bodySha256": "0x478af67d439278556e8e5e0684c6ffd4aa70e738783bdbd595d81959b2d3acc3",
-      "bytes": 2327,
+      "bodyCid": "bafkreifan3bquguqbnpj4twtq7dzqkgopunbhgpoekwqu6j5aaoeid3kpa",
+      "bodySha256": "0xa06ec30a1a900b5e9e4ed387c79828ce7d1a1399ee22ad0a793d001c440f6a78",
+      "bytes": 2422,
       "clauseCount": 3,
       "statutes": [
         {
@@ -6295,6 +6667,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -6356,9 +6734,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreid2mdhcbxvhvmckmbzvmiyp4xv7x522wpmahmlisymwwlyphmnfhq",
-      "bodySha256": "0x7a60ce20dea7ab04a607356230fe5ebfbf75ab3d803b16896196b2f0f3b1a53c",
-      "bytes": 3356,
+      "bodyCid": "bafkreifze5yki7q3ve7p35de3eechqtmxxcmpei2wdzetilndiyn5rrs2q",
+      "bodySha256": "0xb92770a47e1ba93efdf464d90823c26cbdc4c7911ab0f249a16d1a30dec632d4",
+      "bytes": 3588,
       "clauseCount": 7,
       "statutes": [
         {
@@ -6396,6 +6774,18 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
         },
         {
           "id": "st.unidroit-2016",
@@ -6476,6 +6866,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -6523,9 +6919,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibbaok4ucwzanzcbwpst64rj7chixgfxj3sg3c5zmcpstje2pyefu",
-      "bodySha256": "0x210395ca0ad9037220d9f29fb914fc4745cc5ba77236c5dcb04f94d24d3f042d",
-      "bytes": 2250,
+      "bodyCid": "bafkreialscqtu2kclnf6brhabe235xajihxgf7joxc36dmal3zrynei4qi",
+      "bodySha256": "0x0b90a13a69425b4be0c4e00935bedc0941ee62fd2eb8b7e1b00bde6386911c82",
+      "bytes": 2345,
       "clauseCount": 4,
       "statutes": [
         {
@@ -6583,6 +6979,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -6630,9 +7032,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidlpfhzuxcfjm3pytbpejcrtyhbb6indo6rgpcfrbr4wakvjtlsgi",
-      "bodySha256": "0x6b794f9a5c454b36fc4c2f224519e0e10f90d1bbd133c458863cb01554cd7232",
-      "bytes": 3260,
+      "bodyCid": "bafkreicianyfccxfmoaovze2lnil7wlm23n5dfgz4gcss2pzfh3shd2nxm",
+      "bodySha256": "0x480370510ae56380eae49a5b50bfd96cd6dbd194d9e1852969f929f7238f4dbb",
+      "bytes": 3430,
       "clauseCount": 6,
       "statutes": [
         {
@@ -6664,6 +7066,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-ndpa-2023",
+          "citation": "Nigeria Data Protection Act 2023, s.34",
+          "instrument": "Nigeria Data Protection Act 2023",
+          "url": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf"
         },
         {
           "id": "st.israel-privacy-1981",
@@ -6750,6 +7158,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -6797,9 +7211,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihq2bgfii4rwgcchlbd4ug2mo5k4txw2komemdkhqermvhfaakwbe",
-      "bodySha256": "0xf0d04c542391b18423ac23e50da63baae4ef6d29cc2306a3c091654e50015609",
-      "bytes": 4767,
+      "bodyCid": "bafkreid24vmzpzodqshjk7vpq4yak7bjy6svopntsl3uf2lzvnmpnw73ti",
+      "bodySha256": "0x7ae55997e5c3848e957eaf8730057c29c7a5573db392f742e979ab58f6dbfb9a",
+      "bytes": 4999,
       "clauseCount": 10,
       "statutes": [
         {
@@ -6977,6 +7391,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -7043,6 +7463,18 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -7072,9 +7504,9 @@
       "jurisdictions": [
         "US"
       ],
-      "bodyCid": "bafkreig42gjhdpnhl7654jpqmb5d764shiiyylvqi7e7hxppxndtrxslqi",
-      "bodySha256": "0xdcd19271bda75ffdde25f0607a3ffb923a118c2eb047c9f3ddefbb4738de4b82",
-      "bytes": 2435,
+      "bodyCid": "bafkreidifohbkgtarcbjh5s7yqyf233iqkrfibuzgyu6alprylhxafszhy",
+      "bodySha256": "0x682b8e151a60888293f65fc4305d6f6882a25406993629e02df1c2cf7016593e",
+      "bytes": 2530,
       "clauseCount": 4,
       "statutes": [
         {
@@ -7144,6 +7576,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -7191,9 +7629,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibpeb4mn3t4jgg7owghrajo5yxt5csekuhv3idkcm776wog5ylycq",
-      "bodySha256": "0x2f2078c6ee7c498df758c78812eee2f3e8a44550f5da06a133fff59c6ee17814",
-      "bytes": 3133,
+      "bodyCid": "bafkreiab5cki2zighbj3hbgvol46oxoehh6sjz6d5ehjvqzk6xugrgdaxy",
+      "bodySha256": "0x01e8948d65063853b384d572f9e75dc439fd24e7c3e90e9ac32af5e8689860be",
+      "bytes": 3365,
       "clauseCount": 7,
       "statutes": [
         {
@@ -7237,6 +7675,18 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.mx-ccf-1796",
+          "citation": "Codigo Civil Federal, Art. 1796",
+          "instrument": "Codigo Civil Federal (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm"
+        },
+        {
+          "id": "st.id-kuhperdata-1320",
+          "citation": "KUHPerdata, Pasal 1320",
+          "instrument": "Kitab Undang-Undang Hukum Perdata (Indonesia)",
+          "url": "https://www.peraturan.go.id/id/kuh-perdata"
         },
         {
           "id": "st.unidroit-2016",
@@ -7299,6 +7749,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -7346,9 +7802,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicc5ymxv2zyqzfqu635o7xwamfligvqakw2km3k4idqp7kp7ggk6i",
-      "bodySha256": "0x42ee197aeb38864b0a7b7d77ef6030ab41ab002ada5336ae20707fd4ff98caf2",
-      "bytes": 2768,
+      "bodyCid": "bafkreia3opj7quvsds2i7lqqb76znielvruvaeijoyqijudmkjnfxzk7r4",
+      "bodySha256": "0x1b73d3f852b21cb48fae100ffd96a08bac69501109762084d06c525a5be55f8f",
+      "bytes": 2863,
       "clauseCount": 5,
       "statutes": [
         {
@@ -7428,6 +7884,12 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
         },
         {
           "id": "st.uncitral-mlesig",

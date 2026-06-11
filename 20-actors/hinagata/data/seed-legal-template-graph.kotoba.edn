@@ -47,6 +47,10 @@
  {:lt/id "jx.es" :lt/kind :jurisdiction :lt/label "Spain" :jurisdiction/code "ES" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.au" :lt/kind :jurisdiction :lt/label "Australia" :jurisdiction/code "AU" :jurisdiction/system :common-law :lt/sourcing :authoritative}
  {:lt/id "jx.ca" :lt/kind :jurisdiction :lt/label "Canada" :jurisdiction/code "CA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
+ ;; coverage wave 23 — major economies on more continents (Latin America / SE Asia / Africa)
+ {:lt/id "jx.mx" :lt/kind :jurisdiction :lt/label "Mexico" :jurisdiction/code "MX" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.id" :lt/kind :jurisdiction :lt/label "Indonesia" :jurisdiction/code "ID" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.ng" :lt/kind :jurisdiction :lt/label "Nigeria" :jurisdiction/code "NG" :jurisdiction/system :common-law :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -273,6 +277,13 @@
 
  ;; ─── coverage wave 22 (/loop): exercise :supersedes — 2021 SCC DPA supersedes the original ───
  {:lt/id "st.eu-scc-2021" :lt/kind :statute :lt/label "EU Standard Contractual Clauses — Commission Implementing Decision (EU) 2021/914" :statute/citation "Commission Implementing Decision (EU) 2021/914" :statute/instrument "Standard Contractual Clauses for international transfers (EU)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 23 (/loop): Mexico / Indonesia / Nigeria statutes ───
+ {:lt/id "st.mx-ccf-1796" :lt/kind :statute :lt/label "Mexico Codigo Civil Federal Art. 1796 — contratos obligan a la buena fe" :statute/citation "Codigo Civil Federal, Art. 1796" :statute/instrument "Codigo Civil Federal (Mexico)" :statute/jurisdiction "jx.mx" :statute/url "https://www.diputados.gob.mx/LeyesBiblio/ref/ccf.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.mx-lft-47" :lt/kind :statute :lt/label "Mexico Ley Federal del Trabajo Art. 47 — rescision de la relacion de trabajo" :statute/citation "Ley Federal del Trabajo, Art. 47" :statute/instrument "Ley Federal del Trabajo (Mexico)" :statute/jurisdiction "jx.mx" :statute/url "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.id-kuhperdata-1320" :lt/kind :statute :lt/label "Indonesia KUHPerdata Art. 1320 — syarat sahnya perjanjian (validity of contract)" :statute/citation "KUHPerdata, Pasal 1320" :statute/instrument "Kitab Undang-Undang Hukum Perdata (Indonesia)" :statute/jurisdiction "jx.id" :statute/url "https://www.peraturan.go.id/id/kuh-perdata" :lt/sourcing :authoritative}
+ {:lt/id "st.id-ite-11" :lt/kind :statute :lt/label "Indonesia UU ITE No. 11/2008 Pasal 11 — tanda tangan elektronik" :statute/citation "UU No. 11/2008 (ITE), Pasal 11" :statute/instrument "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)" :statute/jurisdiction "jx.id" :statute/url "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008" :lt/sourcing :authoritative}
+ {:lt/id "st.ng-ndpa-2023" :lt/kind :statute :lt/label "Nigeria Data Protection Act 2023 §34 — rights of data subjects" :statute/citation "Nigeria Data Protection Act 2023, s.34" :statute/instrument "Nigeria Data Protection Act 2023" :statute/jurisdiction "jx.ng" :statute/url "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -675,6 +686,12 @@
  {:en/from "cl.employment-termination" :en/to "st.sg-employment-10" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.ca-labour-230" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.cn-civil-509" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ ;; coverage wave 23 — bind MX/ID/NG statutes
+ {:en/from "cl.good-faith" :en/to "st.mx-ccf-1796" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.id-kuhperdata-1320" :en/kind :cites-statute :en/force :referenced :en/binding-load 0.5 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.mx-lft-47" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.id-ite-11" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.ng-ndpa-2023" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
 
  ;; coverage wave 21 — JV / subscription / escrow bindings
  {:en/from "cl.jv-governance" :en/to "st.jp-kaisha-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
@@ -1064,6 +1081,12 @@
  {:en/from "st.jp-kaisha-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.us-rosca" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-civil-494" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 23 — applies-in
+ {:en/from "st.mx-ccf-1796" :en/to "jx.mx" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.mx-lft-47" :en/to "jx.mx" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.id-kuhperdata-1320" :en/to "jx.id" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.id-ite-11" :en/to "jx.id" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ng-ndpa-2023" :en/to "jx.ng" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
