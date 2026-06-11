@@ -23936,6 +23936,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112000-kotoba-actor-dna-code-data-unification.md",
+      "id": "adr-2606112000-kotoba-actor-dna-code-data-unification",
+      "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-dna-code-data-unification",
+      "authoritative": true,
+      "authoritative_for": [
+        "the Actor DNA manifest format (kotoba-actor-dna/v0)",
+        "the integrity ruleset format (kotoba-integrity/v0) — client-tier data validation",
+        "the actor deploy descriptor (kotoba-actor-deploy/v0)"
+      ],
+      "related": [
+        "adr-2606015600",
+        "adr-2606036000",
+        "adr-2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013800",
+        "adr-2606014500",
+        "adr-2606015400",
+        "adr-2605312345",
+        "adr-2606111400",
+        "adr-2606091500"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606112100-session-close-donation-media-and-apex-deploy.md",
       "id": "adr-2606112100-session-close-donation-media-and-apex-deploy",
       "title": "ADR-2606112100: Session close (2026-06-11) — donation solicitation + media expansion (fiat/asset) shipped & apex Worker deployed live",
