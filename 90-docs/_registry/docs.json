@@ -23936,6 +23936,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112100-session-close-donation-media-and-apex-deploy.md",
+      "id": "adr-2606112100-session-close-donation-media-and-apex-deploy",
+      "title": "ADR-2606112100: Session close (2026-06-11) — donation solicitation + media expansion (fiat/asset) shipped & apex Worker deployed live",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-donation-media-and-apex-deploy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606012100",
+        "2605172100",
+        "2606014600",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606111700",
+        "2606111800",
+        "2606111400",
+        "2606111500"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
