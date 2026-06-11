@@ -3,70 +3,61 @@
 
 namespace brightcove {
 
-    entity Asset {
-        id: string @unique
-        title: string
-        type: string
-        durationMs: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Rendition {
-        id: string @unique
-        assetId: string
-        format: string
-        bitrate: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Channel {
+    entity Video {
         id: string @unique
         name: string
         description: string
-        public: boolean
+        state: string
+        economics: string
+        deliveryType: string
+        duration: integer
+        complete: boolean
+        createdAt: datetime
+        drmDisabled: boolean
+        hasDigitalMaster: boolean
+        folderId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity IngestJobStatus {
+        id: string @unique
+        accountId: string
+        errorCode: string
+        errorMessage: string
+        priority: string
+        startedAt: datetime
+        state: string
+        submittedAt: datetime
+        updatedAt: datetime
+        videoId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Playlist {
         id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
+        accountId: string
         createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
-        id: string @unique
+        description: string
+        favorite: boolean
         name: string
+        referenceId: string
+        search: string
+        state: string
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AudioTrack {
+        id: string @unique
+        duration: integer
+        isDefault: boolean
+        language: string
         variant: string
-        conversionRate: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -782,3 +782,14 @@ sessionType(2); entryStatus/entryType REFUSED as plugin-extension-bearing
 openxr discipline; enforcing the core would false-reject plugin values).
 Probes this wave: ecwid (ReadMe.io JS shell) and ibm_zos (IBM Docs JS
 shell) both unfetchable -> remain L4, not deferred.
+
+### §16.22 /loop iteration 21 — wave 22: brightcove (217, 21.7%)
+
+brightcove → ledger **217** (783 L4 / 217 L5 = 21.7%), enforced 209 / **878
+enum fields** (+8), verify PASS 0/0, contract suite green. Harness-direct.
+The operator's published OpenAPI 3.0.3 anchors eight declared enums incl.
+the Video state lifecycle(4), the ingest lifecycle(5), the complete
+8-value smart-playlist algebra and the semantic-complete audio-track
+variant(5). Method note: when the same field carries different enum sets
+on the FULL schema vs a request-body subset (Video.state 4 vs 2), the full
+schema's set wins — request bodies constrain writes, not the domain.

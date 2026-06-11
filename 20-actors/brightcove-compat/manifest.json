@@ -5,21 +5,82 @@
   "kind": "compat",
   "title": "brightcove clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (brightcove); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+  "wasmCid": "bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+  "ipfs": "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
   "schema": "schema/brightcove.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://apis.support.brightcove.com/cms/references/openapi.yaml (the operator's own published OpenAPI 3.0.3, 52 schemas)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Video",
+      "IngestJobStatus",
+      "Playlist",
+      "AudioTrack"
+    ],
+    "enums": {
+      "Video": {
+        "state": [
+          "ACTIVE",
+          "INACTIVE",
+          "PENDING",
+          "DELETED"
+        ],
+        "economics": [
+          "AD_SUPPORTED",
+          "FREE"
+        ],
+        "deliveryType": [
+          "remote",
+          "dynamic_origin",
+          "live_origin",
+          "unknown"
+        ]
+      },
+      "IngestJobStatus": {
+        "state": [
+          "processing",
+          "publishing",
+          "published",
+          "finished",
+          "failed"
+        ]
+      },
+      "Playlist": {
+        "state": [
+          "READY",
+          "UPDATING"
+        ],
+        "type": [
+          "EXPLICIT",
+          "ACTIVATED_OLDEST_TO_NEWEST",
+          "ACTIVATED_NEWEST_TO_OLDEST",
+          "ALPHABETICAL",
+          "PLAYS_TOTAL",
+          "PLAYS_TRAILING_WEEK",
+          "START_DATE_OLDEST_TO_NEWEST",
+          "START_DATE_NEWEST_TO_OLDEST"
+        ]
+      },
+      "AudioTrack": {
+        "variant": [
+          "main",
+          "alternate",
+          "commentary",
+          "dub",
+          "descriptive"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Asset",
-    "Rendition",
-    "Channel",
+    "Video",
+    "IngestJobStatus",
     "Playlist",
-    "ContentEntry",
-    "Experiment"
+    "AudioTrack"
   ],
   "adr": [
     "260607",
@@ -31,82 +92,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/videos",
+          "op": "create Video"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/videos",
+          "op": "list Video"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/videos/{id}",
+          "op": "get Video"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/videos/{id}",
+          "op": "update Video"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/videos/{id}",
+          "op": "delete Video"
         },
         {
           "method": "POST",
-          "path": "/v1/renditions",
-          "op": "create Rendition"
+          "path": "/v1/ingestjobstatuses",
+          "op": "create IngestJobStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions",
-          "op": "list Rendition"
+          "path": "/v1/ingestjobstatuses",
+          "op": "list IngestJobStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions/{id}",
-          "op": "get Rendition"
+          "path": "/v1/ingestjobstatuses/{id}",
+          "op": "get IngestJobStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/renditions/{id}",
-          "op": "update Rendition"
+          "path": "/v1/ingestjobstatuses/{id}",
+          "op": "update IngestJobStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/renditions/{id}",
-          "op": "delete Rendition"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/ingestjobstatuses/{id}",
+          "op": "delete IngestJobStatus"
         },
         {
           "method": "POST",
@@ -135,53 +171,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/audiotracks",
+          "op": "create AudioTrack"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/audiotracks",
+          "op": "list AudioTrack"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/audiotracks/{id}",
+          "op": "get AudioTrack"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/audiotracks/{id}",
+          "op": "update AudioTrack"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/experiments",
-          "op": "create Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments",
-          "op": "list Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments/{id}",
-          "op": "get Experiment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/experiments/{id}",
-          "op": "update Experiment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/experiments/{id}",
-          "op": "delete Experiment"
+          "path": "/v1/audiotracks/{id}",
+          "op": "delete AudioTrack"
         }
       ],
       "features": {
@@ -244,191 +255,11 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_assets",
-          "description": "List Assets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_asset",
-          "description": "Update a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rendition",
-          "description": "Create a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "format",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_renditions",
-          "description": "List Renditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rendition",
-          "description": "Get a Rendition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_rendition",
-          "description": "Update a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rendition",
-          "description": "Delete a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_video",
+          "description": "Create a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -438,8 +269,32 @@
               "description": {
                 "type": "string"
               },
-              "public": {
+              "state": {
+                "type": "string"
+              },
+              "economics": {
+                "type": "string"
+              },
+              "deliveryType": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "complete": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "drmDisabled": {
+                "type": "boolean"
+              },
+              "hasDigitalMaster": {
+                "type": "boolean"
+              },
+              "folderId": {
+                "type": "string"
               }
             },
             "required": [
@@ -449,16 +304,16 @@
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_videos",
+          "description": "List Videos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_video",
+          "description": "Get a Video by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +327,8 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_video",
+          "description": "Update a Video.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -486,8 +341,32 @@
               "description": {
                 "type": "string"
               },
-              "public": {
+              "state": {
+                "type": "string"
+              },
+              "economics": {
+                "type": "string"
+              },
+              "deliveryType": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "complete": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "drmDisabled": {
+                "type": "boolean"
+              },
+              "hasDigitalMaster": {
+                "type": "boolean"
+              },
+              "folderId": {
+                "type": "string"
               }
             },
             "required": [
@@ -496,8 +375,128 @@
           }
         },
         {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
+          "name": "delete_video",
+          "description": "Delete a Video.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_ingest_job_status",
+          "description": "Create a IngestJobStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "errorCode": {
+                "type": "string"
+              },
+              "errorMessage": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "startedAt": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "submittedAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "videoId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "errorCode",
+              "errorMessage"
+            ]
+          }
+        },
+        {
+          "name": "list_ingest_job_statuses",
+          "description": "List IngestJobStatuses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_ingest_job_status",
+          "description": "Get a IngestJobStatus by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_ingest_job_status",
+          "description": "Update a IngestJobStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "accountId": {
+                "type": "string"
+              },
+              "errorCode": {
+                "type": "string"
+              },
+              "errorMessage": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "startedAt": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "submittedAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "videoId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_ingest_job_status",
+          "description": "Delete a IngestJobStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -516,19 +515,37 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "channelId": {
+              "accountId": {
                 "type": "string"
               },
-              "title": {
+              "createdAt": {
                 "type": "string"
               },
-              "itemCount": {
-                "type": "integer"
+              "description": {
+                "type": "string"
+              },
+              "favorite": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "referenceId": {
+                "type": "string"
+              },
+              "search": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
               }
             },
             "required": [
-              "title",
-              "itemCount"
+              "createdAt",
+              "description"
             ]
           }
         },
@@ -564,14 +581,32 @@
               "id": {
                 "type": "string"
               },
-              "channelId": {
+              "accountId": {
                 "type": "string"
               },
-              "title": {
+              "createdAt": {
                 "type": "string"
               },
-              "itemCount": {
-                "type": "integer"
+              "description": {
+                "type": "string"
+              },
+              "favorite": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "referenceId": {
+                "type": "string"
+              },
+              "search": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
               }
             },
             "required": [
@@ -595,41 +630,41 @@
           }
         },
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
+          "name": "create_audio_track",
+          "description": "Create a AudioTrack.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelName": {
-                "type": "string"
+              "duration": {
+                "type": "integer"
               },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
+              "isDefault": {
                 "type": "boolean"
+              },
+              "language": {
+                "type": "string"
+              },
+              "variant": {
+                "type": "string"
               }
             },
             "required": [
-              "modelName",
-              "title"
+              "duration",
+              "isDefault"
             ]
           }
         },
         {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
+          "name": "list_audio_tracks",
+          "description": "List AudioTracks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
+          "name": "get_audio_track",
+          "description": "Get a AudioTrack by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,85 +678,25 @@
           }
         },
         {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
+          "name": "update_audio_track",
+          "description": "Update a AudioTrack.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
-                "type": "string"
+              "duration": {
+                "type": "integer"
               },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
+              "isDefault": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_experiment",
-          "description": "Create a Experiment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
+              },
+              "language": {
                 "type": "string"
               },
               "variant": {
                 "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "variant"
-            ]
-          }
-        },
-        {
-          "name": "list_experiments",
-          "description": "List Experiments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_experiment",
-          "description": "Get a Experiment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               }
             },
             "required": [
@@ -730,32 +705,8 @@
           }
         },
         {
-          "name": "update_experiment",
-          "description": "Update a Experiment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "variant": {
-                "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_experiment",
-          "description": "Delete a Experiment.",
+          "name": "delete_audio_track",
+          "description": "Delete a AudioTrack.",
           "inputSchema": {
             "type": "object",
             "properties": {

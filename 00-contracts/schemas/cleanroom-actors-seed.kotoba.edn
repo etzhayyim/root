@@ -1715,11 +1715,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible media / video / CMS actor (brightcove); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "brightcove.kotoba"
-   :actor/wasm-cid "bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey"
+   :actor/wasm-cid "bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:brightcove-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:brightcove-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:brightcove-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bsi_standards-compat"
    :actor/did "did:web:etzhayyim.com:actor:bsi_standards-compat"
    :actor/kind :compat

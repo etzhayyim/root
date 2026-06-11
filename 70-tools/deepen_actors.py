@@ -2839,6 +2839,18 @@ PLATFORM_OVERRIDES["apigee"] = {
     "DataCollector": E(name="string", description="string", type="string", createdAt="integer", lastModifiedAt="integer"),
 }
 
+# Faithful Brightcove CMS model (the operator's own published OpenAPI 3.0.3
+# at apis.support.brightcove.com — 52 schemas, machine-extracted). Eight
+# spec-declared enums enforced incl. the Video state lifecycle(4), ingest
+# lifecycle(5), playlist type(8, the complete smart-playlist algebra) and
+# audio-track variant(5).
+PLATFORM_OVERRIDES["brightcove"] = {
+    "Video": E(name="string", description="string", state="string", economics="string", deliveryType="string", duration="integer", complete="boolean", createdAt="datetime", drmDisabled="boolean", hasDigitalMaster="boolean", folderId="string"),
+    "IngestJobStatus": E(accountId="string", errorCode="string", errorMessage="string", priority="string", startedAt="datetime", state="string", submittedAt="datetime", updatedAt="datetime", videoId="string"),
+    "Playlist": E(accountId="string", createdAt="datetime", description="string", favorite="boolean", name="string", referenceId="string", search="string", state="string", type="string"),
+    "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
+}
+
 # Faithful Kaltura model (the operator's own machine-readable API schema:
 # kaltura.com/api_v3/api_schema.php, apiVersion 21.12.0). mediaType(7,
 # legacy live-stream members fossilized) + moderationStatus(6, complete

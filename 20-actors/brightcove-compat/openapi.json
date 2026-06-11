@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible media / video / CMS actor (brightcove); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:brightcove-compat",
-    "x-wasm-cid": "bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+    "x-wasm-cid": "bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+      "url": "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/assets": {
+    "/v1/videos": {
       "get": {
-        "summary": "List Assets",
+        "summary": "List Videos",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Asset"
+                        "$ref": "#/components/schemas/Video"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Asset",
+        "summary": "Create a Video",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/VideoCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Video"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/assets/{id}": {
+    "/v1/videos/{id}": {
       "get": {
-        "summary": "Get a Asset",
+        "summary": "Get a Video",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Video"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Asset",
+        "summary": "Update a Video",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/VideoCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Video"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Asset",
+        "summary": "Delete a Video",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/renditions": {
+    "/v1/ingestjobstatuses": {
       "get": {
-        "summary": "List Renditions",
+        "summary": "List IngestJobStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Rendition"
+                        "$ref": "#/components/schemas/IngestJobStatus"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Rendition",
+        "summary": "Create a IngestJobStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/IngestJobStatusCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/IngestJobStatus"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/renditions/{id}": {
+    "/v1/ingestjobstatuses/{id}": {
       "get": {
-        "summary": "Get a Rendition",
+        "summary": "Get a IngestJobStatus",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/IngestJobStatus"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Rendition",
+        "summary": "Update a IngestJobStatus",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/IngestJobStatusCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/IngestJobStatus"
                 }
               }
             }
@@ -366,192 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Rendition",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/channels": {
-      "get": {
-        "summary": "List Channels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Channel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Channel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Channel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/channels/{id}": {
-      "get": {
-        "summary": "Get a Channel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Channel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Channel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Channel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Channel",
+        "summary": "Delete a IngestJobStatus",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/contententries": {
+    "/v1/audiotracks": {
       "get": {
-        "summary": "List ContentEntries",
+        "summary": "List AudioTracks",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
+                        "$ref": "#/components/schemas/AudioTrack"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ContentEntry",
+        "summary": "Create a AudioTrack",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/AudioTrackCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/AudioTrack"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/contententries/{id}": {
+    "/v1/audiotracks/{id}": {
       "get": {
-        "summary": "Get a ContentEntry",
+        "summary": "Get a AudioTrack",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/AudioTrack"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ContentEntry",
+        "summary": "Update a AudioTrack",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/AudioTrackCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/AudioTrack"
                 }
               }
             }
@@ -921,192 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ContentEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/experiments": {
-      "get": {
-        "summary": "List Experiments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Experiment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Experiment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/experiments/{id}": {
-      "get": {
-        "summary": "Get a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Experiment",
+        "summary": "Delete a AudioTrack",
         "parameters": [
           {
             "name": "id",
@@ -1140,105 +770,7 @@
   },
   "components": {
     "schemas": {
-      "Asset": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AssetCreate": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title",
-          "type"
-        ]
-      },
-      "Rendition": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "assetId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RenditionCreate": {
-        "type": "object",
-        "properties": {
-          "assetId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "format",
-          "bitrate"
-        ]
-      },
-      "Channel": {
+      "Video": {
         "type": "object",
         "properties": {
           "id": {
@@ -1250,12 +782,49 @@
           "description": {
             "type": "string"
           },
-          "public": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "PENDING",
+              "DELETED"
+            ]
+          },
+          "economics": {
+            "type": "string",
+            "enum": [
+              "AD_SUPPORTED",
+              "FREE"
+            ]
+          },
+          "deliveryType": {
+            "type": "string",
+            "enum": [
+              "remote",
+              "dynamic_origin",
+              "live_origin",
+              "unknown"
+            ]
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "complete": {
             "type": "boolean"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "drmDisabled": {
+            "type": "boolean"
+          },
+          "hasDigitalMaster": {
+            "type": "boolean"
+          },
+          "folderId": {
+            "type": "string"
           },
           "updatedAt": {
             "type": "string",
@@ -1263,7 +832,7 @@
           }
         }
       },
-      "ChannelCreate": {
+      "VideoCreate": {
         "type": "object",
         "properties": {
           "name": {
@@ -1272,13 +841,145 @@
           "description": {
             "type": "string"
           },
-          "public": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "PENDING",
+              "DELETED"
+            ]
+          },
+          "economics": {
+            "type": "string",
+            "enum": [
+              "AD_SUPPORTED",
+              "FREE"
+            ]
+          },
+          "deliveryType": {
+            "type": "string",
+            "enum": [
+              "remote",
+              "dynamic_origin",
+              "live_origin",
+              "unknown"
+            ]
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "complete": {
             "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "drmDisabled": {
+            "type": "boolean"
+          },
+          "hasDigitalMaster": {
+            "type": "boolean"
+          },
+          "folderId": {
+            "type": "string"
           }
         },
         "required": [
           "name",
           "description"
+        ]
+      },
+      "IngestJobStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "processing",
+              "publishing",
+              "published",
+              "finished",
+              "failed"
+            ]
+          },
+          "submittedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "videoId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IngestJobStatusCreate": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "processing",
+              "publishing",
+              "published",
+              "finished",
+              "failed"
+            ]
+          },
+          "submittedAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "videoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "errorCode",
+          "errorMessage"
         ]
       },
       "Playlist": {
@@ -1287,18 +988,47 @@
           "id": {
             "type": "string"
           },
-          "channelId": {
+          "accountId": {
             "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "itemCount": {
-            "type": "integer"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          },
+          "favorite": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "referenceId": {
+            "type": "string"
+          },
+          "search": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "READY",
+              "UPDATING"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EXPLICIT",
+              "ACTIVATED_OLDEST_TO_NEWEST",
+              "ACTIVATED_NEWEST_TO_OLDEST",
+              "ALPHABETICAL",
+              "PLAYS_TOTAL",
+              "PLAYS_TRAILING_WEEK",
+              "START_DATE_OLDEST_TO_NEWEST",
+              "START_DATE_NEWEST_TO_OLDEST"
+            ]
           },
           "updatedAt": {
             "type": "string",
@@ -1309,38 +1039,77 @@
       "PlaylistCreate": {
         "type": "object",
         "properties": {
-          "channelId": {
+          "accountId": {
             "type": "string"
           },
-          "title": {
+          "createdAt": {
             "type": "string"
           },
-          "itemCount": {
+          "description": {
+            "type": "string"
+          },
+          "favorite": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "referenceId": {
+            "type": "string"
+          },
+          "search": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "READY",
+              "UPDATING"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EXPLICIT",
+              "ACTIVATED_OLDEST_TO_NEWEST",
+              "ACTIVATED_NEWEST_TO_OLDEST",
+              "ALPHABETICAL",
+              "PLAYS_TOTAL",
+              "PLAYS_TRAILING_WEEK",
+              "START_DATE_OLDEST_TO_NEWEST",
+              "START_DATE_NEWEST_TO_OLDEST"
+            ]
+          }
+        },
+        "required": [
+          "createdAt",
+          "description"
+        ]
+      },
+      "AudioTrack": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "duration": {
             "type": "integer"
-          }
-        },
-        "required": [
-          "title",
-          "itemCount"
-        ]
-      },
-      "ContentEntry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
           },
-          "modelName": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
+          "isDefault": {
             "type": "boolean"
+          },
+          "language": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "main",
+              "alternate",
+              "commentary",
+              "dub",
+              "descriptive"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1352,68 +1121,32 @@
           }
         }
       },
-      "ContentEntryCreate": {
+      "AudioTrackCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
-            "type": "string"
+          "duration": {
+            "type": "integer"
           },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
+          "isDefault": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Experiment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
           },
-          "name": {
+          "language": {
             "type": "string"
           },
           "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          },
-          "createdAt": {
             "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ExperimentCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
+            "enum": [
+              "main",
+              "alternate",
+              "commentary",
+              "dub",
+              "descriptive"
+            ]
           }
         },
         "required": [
-          "name",
-          "variant"
+          "duration",
+          "isDefault"
         ]
       }
     }

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 784,
-    "L5": 216
+    "L4": 783,
+    "L5": 217
   },
   "actors": [
     {
@@ -2357,10 +2357,10 @@
     {
       "handle": "brightcove-compat",
       "did": "did:web:etzhayyim.com:actor:brightcove-compat",
-      "wasmCid": "bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+      "wasmCid": "bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "brightcove clean-room actor",
       "category": "media_video_cms",
       "capabilities": [

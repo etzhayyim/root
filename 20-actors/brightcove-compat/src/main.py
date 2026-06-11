@@ -111,218 +111,191 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
+@app.route("/v1/videos", methods=["POST"])
+def create_video(request):
+    """Create a Video."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("brightco_ass")}
-    rec["title"] = data.get('title')
-    rec["type"] = data.get('type')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
-    return rec, 201
-
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['title', 'type', 'durationMs', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Asset", rec)
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"brightcove.Asset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/renditions", methods=["POST"])
-def create_rendition(request):
-    """Create a Rendition."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['format', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("brightco_ren")}
-    rec["assetId"] = data.get('assetId')
-    rec["format"] = data.get('format')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Rendition", rec)
-    return rec, 201
-
-@app.route("/v1/renditions", methods=["GET"])
-def list_renditions(request):
-    """List Renditions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Rendition")
-    rows = _apply_filters(rows, params, ['assetId', 'format', 'bitrate', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/renditions/<eid>", methods=["GET"])
-def get_rendition(request, eid):
-    """Retrieve a Rendition by id (supports ?expand=)."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'assetId': 'Asset'})
-    return rec, 200
-
-@app.route("/v1/renditions/<eid>", methods=["POST", "PATCH"])
-def update_rendition(request, eid):
-    """Update a Rendition."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Rendition", rec)
-    return rec, 200
-
-@app.route("/v1/renditions/<eid>", methods=["DELETE"])
-def delete_rendition(request, eid):
-    """Delete a Rendition."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"brightcove.Rendition", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'description', 'state', 'economics', 'deliveryType', 'duration', 'complete', 'createdAt', 'drmDisabled', 'hasDigitalMaster', 'folderId'])
     if err:
         return err, 400
     err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("brightco_cha")}
+    if data.get('state') and data['state'] not in ['ACTIVE', 'INACTIVE', 'PENDING', 'DELETED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'PENDING', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('economics') and data['economics'] not in ['AD_SUPPORTED', 'FREE']:
+        return {"error": {"message": "invalid economics; allowed: " + ", ".join(['AD_SUPPORTED', 'FREE']), "type": "invalid_request_error"}}, 400
+    if data.get('deliveryType') and data['deliveryType'] not in ['remote', 'dynamic_origin', 'live_origin', 'unknown']:
+        return {"error": {"message": "invalid deliveryType; allowed: " + ", ".join(['remote', 'dynamic_origin', 'live_origin', 'unknown']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("brightco_vid")}
     rec["name"] = data.get('name')
     rec["description"] = data.get('description')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["state"] = data.get('state')
+    rec["economics"] = data.get('economics')
+    rec["deliveryType"] = data.get('deliveryType')
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["complete"] = _as_bool(data.get('complete'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["drmDisabled"] = _as_bool(data.get('drmDisabled'))
+    rec["hasDigitalMaster"] = _as_bool(data.get('hasDigitalMaster'))
+    rec["folderId"] = data.get('folderId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("Video", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/videos", methods=["GET"])
+def list_videos(request):
+    """List Videos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'description', 'public'])
+    rows = _query("Video")
+    rows = _apply_filters(rows, params, ['name', 'description', 'state', 'economics', 'deliveryType', 'duration', 'complete', 'createdAt', 'drmDisabled', 'hasDigitalMaster', 'folderId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/videos/<eid>", methods=["GET"])
+def get_video(request, eid):
+    """Retrieve a Video by id (supports ?expand=)."""
+    rows = _query("Video", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/videos/<eid>", methods=["POST", "PATCH"])
+def update_video(request, eid):
+    """Update a Video."""
+    rows = _query("Video", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'description', 'state', 'economics', 'deliveryType', 'duration', 'complete', 'createdAt', 'drmDisabled', 'hasDigitalMaster', 'folderId'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['ACTIVE', 'INACTIVE', 'PENDING', 'DELETED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['ACTIVE', 'INACTIVE', 'PENDING', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('economics') and data['economics'] not in ['AD_SUPPORTED', 'FREE']:
+        return {"error": {"message": "invalid economics; allowed: " + ", ".join(['AD_SUPPORTED', 'FREE']), "type": "invalid_request_error"}}, 400
+    if data.get('deliveryType') and data['deliveryType'] not in ['remote', 'dynamic_origin', 'live_origin', 'unknown']:
+        return {"error": {"message": "invalid deliveryType; allowed: " + ", ".join(['remote', 'dynamic_origin', 'live_origin', 'unknown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("Video", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/videos/<eid>", methods=["DELETE"])
+def delete_video(request, eid):
+    """Delete a Video."""
+    rows = _query("Video", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"brightcove.Channel", "id": eid})
+    db.retract({"entity": f"brightcove.Video", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/ingestjobstatuses", methods=["POST"])
+def create_ingest_job_status(request):
+    """Create a IngestJobStatus."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['accountId', 'errorCode', 'errorMessage', 'priority', 'startedAt', 'state', 'submittedAt', 'updatedAt', 'videoId'])
+    if err:
+        return err, 400
+    err = _require(data, ['errorCode', 'errorMessage'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['processing', 'publishing', 'published', 'finished', 'failed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['processing', 'publishing', 'published', 'finished', 'failed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("brightco_ing")}
+    rec["accountId"] = data.get('accountId')
+    rec["errorCode"] = data.get('errorCode')
+    rec["errorMessage"] = data.get('errorMessage')
+    rec["priority"] = data.get('priority')
+    rec["startedAt"] = data.get('startedAt')
+    rec["state"] = data.get('state')
+    rec["submittedAt"] = data.get('submittedAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["videoId"] = data.get('videoId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("IngestJobStatus", rec)
+    return rec, 201
+
+@app.route("/v1/ingestjobstatuses", methods=["GET"])
+def list_ingest_job_statuses(request):
+    """List IngestJobStatuses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("IngestJobStatus")
+    rows = _apply_filters(rows, params, ['accountId', 'errorCode', 'errorMessage', 'priority', 'startedAt', 'state', 'submittedAt', 'updatedAt', 'videoId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/ingestjobstatuses/<eid>", methods=["GET"])
+def get_ingest_job_status(request, eid):
+    """Retrieve a IngestJobStatus by id (supports ?expand=)."""
+    rows = _query("IngestJobStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'videoId': 'Video'})
+    return rec, 200
+
+@app.route("/v1/ingestjobstatuses/<eid>", methods=["POST", "PATCH"])
+def update_ingest_job_status(request, eid):
+    """Update a IngestJobStatus."""
+    rows = _query("IngestJobStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['accountId', 'errorCode', 'errorMessage', 'priority', 'startedAt', 'state', 'submittedAt', 'updatedAt', 'videoId'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['processing', 'publishing', 'published', 'finished', 'failed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['processing', 'publishing', 'published', 'finished', 'failed']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("IngestJobStatus", rec)
+    return rec, 200
+
+@app.route("/v1/ingestjobstatuses/<eid>", methods=["DELETE"])
+def delete_ingest_job_status(request, eid):
+    """Delete a IngestJobStatus."""
+    rows = _query("IngestJobStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"brightcove.IngestJobStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/playlists", methods=["POST"])
 def create_playlist(request):
     """Create a Playlist."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['accountId', 'createdAt', 'description', 'favorite', 'name', 'referenceId', 'search', 'state', 'type'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'itemCount'])
+    err = _require(data, ['createdAt', 'description'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['READY', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['READY', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['EXPLICIT', 'ACTIVATED_OLDEST_TO_NEWEST', 'ACTIVATED_NEWEST_TO_OLDEST', 'ALPHABETICAL', 'PLAYS_TOTAL', 'PLAYS_TRAILING_WEEK', 'START_DATE_OLDEST_TO_NEWEST', 'START_DATE_NEWEST_TO_OLDEST']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['EXPLICIT', 'ACTIVATED_OLDEST_TO_NEWEST', 'ACTIVATED_NEWEST_TO_OLDEST', 'ALPHABETICAL', 'PLAYS_TOTAL', 'PLAYS_TRAILING_WEEK', 'START_DATE_OLDEST_TO_NEWEST', 'START_DATE_NEWEST_TO_OLDEST']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("brightco_pla")}
-    rec["channelId"] = data.get('channelId')
-    rec["title"] = data.get('title')
-    rec["itemCount"] = _as_int(data.get('itemCount'))
+    rec["accountId"] = data.get('accountId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["description"] = data.get('description')
+    rec["favorite"] = _as_bool(data.get('favorite'))
+    rec["name"] = data.get('name')
+    rec["referenceId"] = data.get('referenceId')
+    rec["search"] = data.get('search')
+    rec["state"] = data.get('state')
+    rec["type"] = data.get('type')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Playlist", rec)
@@ -333,7 +306,7 @@ def list_playlists(request):
     """List Playlists with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Playlist")
-    rows = _apply_filters(rows, params, ['channelId', 'title', 'itemCount'])
+    rows = _apply_filters(rows, params, ['accountId', 'createdAt', 'description', 'favorite', 'name', 'referenceId', 'search', 'state', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -345,7 +318,6 @@ def get_playlist(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
     return rec, 200
 
 @app.route("/v1/playlists/<eid>", methods=["POST", "PATCH"])
@@ -355,9 +327,13 @@ def update_playlist(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['accountId', 'createdAt', 'description', 'favorite', 'name', 'referenceId', 'search', 'state', 'type'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['READY', 'UPDATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['READY', 'UPDATING']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['EXPLICIT', 'ACTIVATED_OLDEST_TO_NEWEST', 'ACTIVATED_NEWEST_TO_OLDEST', 'ALPHABETICAL', 'PLAYS_TOTAL', 'PLAYS_TRAILING_WEEK', 'START_DATE_OLDEST_TO_NEWEST', 'START_DATE_NEWEST_TO_OLDEST']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['EXPLICIT', 'ACTIVATED_OLDEST_TO_NEWEST', 'ACTIVATED_NEWEST_TO_OLDEST', 'ALPHABETICAL', 'PLAYS_TOTAL', 'PLAYS_TRAILING_WEEK', 'START_DATE_OLDEST_TO_NEWEST', 'START_DATE_NEWEST_TO_OLDEST']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -375,141 +351,80 @@ def delete_playlist(request, eid):
     db.retract({"entity": f"brightcove.Playlist", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/audiotracks", methods=["POST"])
+def create_audio_track(request):
+    """Create a AudioTrack."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['duration', 'isDefault', 'language', 'variant'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['duration', 'isDefault'])
     if err:
         return err, 400
-    rec = {"id": new_id("brightco_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"brightcove.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/experiments", methods=["POST"])
-def create_experiment(request):
-    """Create a Experiment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'variant'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("brightco_exp")}
-    rec["name"] = data.get('name')
+    if data.get('variant') and data['variant'] not in ['main', 'alternate', 'commentary', 'dub', 'descriptive']:
+        return {"error": {"message": "invalid variant; allowed: " + ", ".join(['main', 'alternate', 'commentary', 'dub', 'descriptive']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("brightco_aud")}
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["isDefault"] = _as_bool(data.get('isDefault'))
+    rec["language"] = data.get('language')
     rec["variant"] = data.get('variant')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Experiment", rec)
+    _persist("AudioTrack", rec)
     return rec, 201
 
-@app.route("/v1/experiments", methods=["GET"])
-def list_experiments(request):
-    """List Experiments with filtering + cursor pagination."""
+@app.route("/v1/audiotracks", methods=["GET"])
+def list_audio_tracks(request):
+    """List AudioTracks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Experiment")
-    rows = _apply_filters(rows, params, ['name', 'variant', 'conversionRate'])
+    rows = _query("AudioTrack")
+    rows = _apply_filters(rows, params, ['duration', 'isDefault', 'language', 'variant'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/experiments/<eid>", methods=["GET"])
-def get_experiment(request, eid):
-    """Retrieve a Experiment by id (supports ?expand=)."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/audiotracks/<eid>", methods=["GET"])
+def get_audio_track(request, eid):
+    """Retrieve a AudioTrack by id (supports ?expand=)."""
+    rows = _query("AudioTrack", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["POST", "PATCH"])
-def update_experiment(request, eid):
-    """Update a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/audiotracks/<eid>", methods=["POST", "PATCH"])
+def update_audio_track(request, eid):
+    """Update a AudioTrack."""
+    rows = _query("AudioTrack", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
+    err = _reject_unknown(data, ['duration', 'isDefault', 'language', 'variant'])
     if err:
         return err, 400
+    if data.get('variant') and data['variant'] not in ['main', 'alternate', 'commentary', 'dub', 'descriptive']:
+        return {"error": {"message": "invalid variant; allowed: " + ", ".join(['main', 'alternate', 'commentary', 'dub', 'descriptive']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Experiment", rec)
+    _persist("AudioTrack", rec)
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["DELETE"])
-def delete_experiment(request, eid):
-    """Delete a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/audiotracks/<eid>", methods=["DELETE"])
+def delete_audio_track(request, eid):
+    """Delete a AudioTrack."""
+    rows = _query("AudioTrack", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"brightcove.Experiment", "id": eid})
+    db.retract({"entity": f"brightcove.AudioTrack", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "brightcove-compat", "tier": "L4",
-            "entities": ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']}, 200
+            "entities": ['Video', 'IngestJobStatus', 'Playlist', 'AudioTrack']}, 200
 
 
 if __name__ == "__main__":

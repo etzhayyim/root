@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29100,
+  "totalEndpoints": 29090,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 208,
-  "totalVerifiedEnumFields": 870,
+  "l5VerifiedActors": 209,
+  "totalVerifiedEnumFields": 877,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -2484,10 +2484,10 @@
     {
       "handle": "brightcove-compat",
       "did": "did:web:etzhayyim.com:actor:brightcove-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -2496,8 +2496,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 7,
       "openapi": "20-actors/brightcove-compat/openapi.json"
     },
     {

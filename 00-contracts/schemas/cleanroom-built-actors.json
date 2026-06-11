@@ -2178,17 +2178,15 @@
       "handle": "brightcove-compat",
       "platform": "brightcove",
       "bytes": 2124,
-      "wasmCid": "bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
+      "wasmCid": "bafkreigjyahzrz3s4fwq7m3ce7n2zwtzqzxilq5trgu3vj6kpvzl3ruoti",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Asset",
-        "Rendition",
-        "Channel",
+        "Video",
+        "IngestJobStatus",
         "Playlist",
-        "ContentEntry",
-        "Experiment"
+        "AudioTrack"
       ]
     },
     {

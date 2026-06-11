@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "brightcove.kotoba")
-ENTITIES = ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']
-PLURALS = {'Asset': 'assets', 'Rendition': 'renditions', 'Channel': 'channels', 'Playlist': 'playlists', 'ContentEntry': 'contententries', 'Experiment': 'experiments'}
+ENTITIES = ['Video', 'IngestJobStatus', 'Playlist', 'AudioTrack']
+PLURALS = {'Video': 'videos', 'IngestJobStatus': 'ingestjobstatuses', 'Playlist': 'playlists', 'AudioTrack': 'audiotracks'}
 
 
 class BrightcoveContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class BrightcoveContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['deliveryType', 'economics', 'state', 'type', 'variant']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":
