@@ -2,7 +2,9 @@
 
 **ADR**: 2606112300 · **doctrine**: 2606112200 (D3 NEVER-a-throne + D6) · **paper**:
 `90-docs/papers/2606111500` §6 · **sibling**: mishmar storage covenant (2606082100 —
-data keeping ↔ human keeping). **Status**: 🟡 R0 design-only (synthetic seed; live legs G7-gated).
+data keeping ↔ human keeping). **Status**: 🟢 R1-offline — autonomous heartbeat +
+offer-matching + local kotoba commit-DAG persistence (ADR-2606091000 pattern);
+synthetic seed only; live legs G7-gated.
 
 mimamori is the substrate for **bonds of keeping** (縁): offer → consent →
 content-free heartbeat → consented care-routing → relay (継ぎ) → unilateral exit.
@@ -53,13 +55,19 @@ relay · 解ける=G3 · 見えている=G4).
 ├── CLAUDE.md                         # this file
 ├── manifest.jsonld                   # actor manifest (2 cells, 8 gates)
 ├── data/
-│   └── seed-mimamori-bonds.json      # SYNTHETIC fictional roster + bonds (zero real persons)
+│   ├── seed-mimamori-bonds.json      # SYNTHETIC fictional roster + bonds (zero real persons)
+│   └── mimamori.datoms.kotoba.edn    # GENERATED append-only commit-DAG (git-ignored)
 ├── methods/                          # pure-stdlib → kotoba pywasm-runnable
 │   ├── bond.py                       # bond lifecycle + schema validator + EAVT emit
-│   └── coverage_report.py            # aggregate-only coverage (no DID in output)
+│   ├── coverage_report.py            # aggregate-only coverage (no DID in output)
+│   ├── match.py                      # §D4 offer-matching cell (reach the unkept directly)
+│   ├── kotoba.py                     # content-addressed commit-DAG writer (shionome pattern)
+│   ├── autorun.py                    # deterministic heartbeat: replay→match→coverage→persist
+│   └── _edn.py                       # minimal EDN reader (ake/noroshi/watatsuna parity port)
 ├── tests/
-│   ├── test_bond.py
-│   └── test_coverage.py
+│   ├── test_bond.py                  # 10 gate tests
+│   ├── test_coverage.py              # 3 aggregate-only tests
+│   └── test_kotoba_autorun.py        # 8 R1 tests (DAG/tamper/determinism/match)
 └── out/                              # GENERATED — do not hand-edit
 ```
 
@@ -69,5 +77,6 @@ relay · 解ける=G3 · 見えている=G4).
 cd 20-actors/mimamori
 python3 methods/bond.py               # → out/mimamori-datoms.kotoba.edn
 python3 methods/coverage_report.py    # → out/coverage-report.md
-python3 tests/test_bond.py && python3 tests/test_coverage.py
+python3 methods/autorun.py --cycles 3 # heartbeat → data/mimamori.datoms.kotoba.edn
+python3 tests/test_bond.py && python3 tests/test_coverage.py && python3 tests/test_kotoba_autorun.py  # 21 green
 ```
