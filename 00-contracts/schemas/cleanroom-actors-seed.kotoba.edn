@@ -6187,11 +6187,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible marketing technology actor (iterable); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "iterable.kotoba"
-   :actor/wasm-cid "bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju"
+   :actor/wasm-cid "bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:iterable-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:iterable-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:iterable-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "itsme_norway-compat"
    :actor/did "did:web:etzhayyim.com:actor:itsme_norway-compat"
    :actor/kind :compat

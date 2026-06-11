@@ -7934,17 +7934,15 @@
       "handle": "iterable-compat",
       "platform": "iterable",
       "bytes": 2122,
-      "wasmCid": "bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju",
+      "wasmCid": "bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "Channel",
+        "Device",
+        "Webhook"
       ]
     },
     {

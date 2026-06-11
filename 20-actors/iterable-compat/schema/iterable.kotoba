@@ -6,67 +6,47 @@ namespace iterable {
     entity Campaign {
         id: string @unique
         name: string
-        channel: string
-        status: string
-        budget: float
+        campaignState: string
+        type: string
+        createdAt: integer
+        endedAt: integer
+        startAt: integer
+        sendSize: integer
+        templateId: integer
+        workflowId: integer
+        messageMedium: string
+        createdByUserId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Audience {
+    entity Channel {
         id: string @unique
         name: string
-        size: integer
-        definition: string
+        channelType: string
+        messageMedium: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Event {
+    entity Device {
         id: string @unique
-        profileId: string
-        name: string
-        properties: string
-        occurredAt: datetime
+        applicationName: string
+        platform: string
+        token: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Profile {
+    entity Webhook {
         id: string @unique
-        email: string
-        externalId: string
-        traits: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Funnel {
-        id: string @unique
-        name: string
-        steps: string
-        conversionRate: float
+        endpoint: string
+        authType: string
+        enabled: boolean
+        blastSendEnabled: boolean
+        triggeredSendEnabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

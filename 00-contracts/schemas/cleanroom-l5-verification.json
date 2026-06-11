@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 222,
+  "count": 223,
   "actors": [
     {
       "handle": "aave-compat",
@@ -15002,6 +15002,115 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (4/4 schemas) vs the public ISO 8583 reference (ISO standard paywalled). Enforced enums: Message.messageClass(8), messageFunction(8), messageOrigin(5), version(5) = 4 MTI-position enums. transactionType/responseCode partial -> gapped."
+    },
+    {
+      "handle": "iterable-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://api.iterable.com/api-docs (the operator's own live Swagger 2.0, 196 definitions)",
+      "remodeled": "Remodeled to the faithful Iterable surface verified against the operator's OWN live Swagger 2.0 (served at /api-docs on the API host itself — machine-extracted, 196 definitions, 19 small declared enums). Enforced: campaignState(9: Draft/Ready/Scheduled/Running/Finished/Starting/Aborted/Recurring/Archived — the complete campaign lifecycle), Campaign.type(2: Blast/Triggered), channelType(2: Marketing/Transactional), Channel.messageMedium(3: Email/Push/SMS), Device.platform(3: APNS/APNS_SANDBOX/GCM), Webhook.authType(3: NoAuth/Basic/OAuth2). CampaignDetails.messageMedium is untyped on that entity (no enum declared there) -> not enforced on Campaign (per-field declarations only — no cross-entity borrowing). Harness-direct.",
+      "resources": [
+        {
+          "entity": "Campaign",
+          "source": "https://api.iterable.com/api-docs (the operator's own live Swagger 2.0, 196 definitions)",
+          "verifiedFields": [
+            "name",
+            "campaignState",
+            "type",
+            "createdAt",
+            "endedAt",
+            "startAt",
+            "sendSize",
+            "templateId",
+            "workflowId",
+            "messageMedium",
+            "createdByUserId"
+          ],
+          "fieldStatus": "confirmed (CampaignDetails definition); messageMedium untyped on this entity -> no enum borrowed",
+          "discoveredEnums": {
+            "campaignState": [
+              "Draft",
+              "Ready",
+              "Scheduled",
+              "Running",
+              "Finished",
+              "Starting",
+              "Aborted",
+              "Recurring",
+              "Archived"
+            ],
+            "type": [
+              "Blast",
+              "Triggered"
+            ]
+          },
+          "gaps": [
+            "messageMedium-untyped-on-this-entity (enum exists only on ChannelDetails)"
+          ]
+        },
+        {
+          "entity": "Channel",
+          "source": "https://api.iterable.com/api-docs (the operator's own live Swagger 2.0, 196 definitions)",
+          "verifiedFields": [
+            "name",
+            "channelType",
+            "messageMedium"
+          ],
+          "fieldStatus": "confirmed (ChannelDetails definition)",
+          "discoveredEnums": {
+            "channelType": [
+              "Marketing",
+              "Transactional"
+            ],
+            "messageMedium": [
+              "Email",
+              "Push",
+              "SMS"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Device",
+          "source": "https://api.iterable.com/api-docs (the operator's own live Swagger 2.0, 196 definitions)",
+          "verifiedFields": [
+            "applicationName",
+            "platform",
+            "token"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "platform": [
+              "APNS",
+              "APNS_SANDBOX",
+              "GCM"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Webhook",
+          "source": "https://api.iterable.com/api-docs (the operator's own live Swagger 2.0, 196 definitions)",
+          "verifiedFields": [
+            "endpoint",
+            "authType",
+            "enabled",
+            "blastSendEnabled",
+            "triggeredSendEnabled"
+          ],
+          "fieldStatus": "confirmed (ApiWebhookModel)",
+          "discoveredEnums": {
+            "authType": [
+              "NoAuth",
+              "Basic",
+              "OAuth2"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs the operator's live Swagger. Enforced enums: campaignState(9)+type(2)+channelType(2)+messageMedium(3)+platform(3)+authType(3) = 6 enum fields. NEW discipline note: per-field declarations only — an enum declared on one entity is NOT borrowed onto an untyped same-named field of another."
     },
     {
       "handle": "jenkins-compat",

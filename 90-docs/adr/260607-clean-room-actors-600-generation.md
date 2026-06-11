@@ -840,3 +840,15 @@ contract suite green. Harness-direct. The FINAL-status ERC-4337 EIP
 docs declare its account-abstraction base. UserOperation v0.7 verified
 verbatim; actualGasUsed EXCLUDED from the receipt (not present in the spec
 text — a small fabrication-refusal at field level).
+
+### §16.27 /loop iteration 26 — wave 27: iterable (223, 22.3%)
+
+iterable → ledger **223** (777 L4 / 223 L5 = 22.3%), enforced 213 / **889
+enum fields** (+6), verify PASS 0/0, contract suite green. Harness-direct.
+The operator's own live Swagger (served at /api-docs on the API host
+itself) anchors the 9-state campaign lifecycle + 5 more declared sets.
+**New discipline note: per-field declarations only** — ChannelDetails
+declares a messageMedium enum but CampaignDetails' same-named field is
+untyped, so no enum is borrowed across entities. Probes this wave: klarna
+(Next.js shell), honeycomb (no fetchable spec found), salesforce skipped
+(owned by the ADR-2606081200 workstream).

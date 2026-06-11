@@ -2851,6 +2851,19 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Iterable model (the operator's own live Swagger 2.0 at
+# api.iterable.com/api-docs — 196 definitions, machine-extracted).
+# campaignState(9, the complete campaign lifecycle) + type(2) +
+# channelType(2) + channel messageMedium(3) + Device.platform(3) +
+# Webhook.authType(3) enforced. CampaignDetails.messageMedium is untyped
+# upstream (no enum on that field) -> not enforced there.
+PLATFORM_OVERRIDES["iterable"] = {
+    "Campaign": E(name="string", campaignState="string", type="string", createdAt="integer", endedAt="integer", startAt="integer", sendSize="integer", templateId="integer", workflowId="integer", messageMedium="string", createdByUserId="string"),
+    "Channel": E(name="string", channelType="string", messageMedium="string"),
+    "Device": E(applicationName="string", platform="string", token="string"),
+    "Webhook": E(endpoint="string", authType="string", enabled="boolean", blastSendEnabled="boolean", triggeredSendEnabled="boolean"),
+}
+
 # Faithful Biconomy model via ERC-4337 conformance (the official EIP at
 # eips.ethereum.org — a FINAL-status standard; biconomy's own docs declare
 # its stack is built on ERC-4337 account abstraction). UserOperation v0.7

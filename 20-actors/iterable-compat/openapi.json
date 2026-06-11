@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible marketing technology actor (iterable); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:iterable-compat",
-    "x-wasm-cid": "bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju",
+    "x-wasm-cid": "bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiaovtpgm5gjbnw2jwgq257zb6e4e24uy3z7vc4dxrn5t23mg4waju",
+      "url": "ipfs://bafkreig6a2ardxza6dangghoecnrajeqquqwz3ampkuck3rrasxcwjene4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/audiences": {
+    "/v1/channels": {
       "get": {
-        "summary": "List Audiences",
+        "summary": "List Channels",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Audience"
+                        "$ref": "#/components/schemas/Channel"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Audience",
+        "summary": "Create a Channel",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/ChannelCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/Channel"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/audiences/{id}": {
+    "/v1/channels/{id}": {
       "get": {
-        "summary": "Get a Audience",
+        "summary": "Get a Channel",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/Channel"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Audience",
+        "summary": "Update a Channel",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/ChannelCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/Channel"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Audience",
+        "summary": "Delete a Channel",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/events": {
+    "/v1/devices": {
       "get": {
-        "summary": "List Events",
+        "summary": "List Devices",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Event"
+                        "$ref": "#/components/schemas/Device"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Event",
+        "summary": "Create a Device",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/DeviceCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/events/{id}": {
+    "/v1/devices/{id}": {
       "get": {
-        "summary": "Get a Event",
+        "summary": "Get a Device",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Event",
+        "summary": "Update a Device",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/DeviceCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Event",
+        "summary": "Delete a Device",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/profiles": {
+    "/v1/webhooks": {
       "get": {
-        "summary": "List Profiles",
+        "summary": "List Webhooks",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Profile"
+                        "$ref": "#/components/schemas/Webhook"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Profile",
+        "summary": "Create a Webhook",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/profiles/{id}": {
+    "/v1/webhooks/{id}": {
       "get": {
-        "summary": "Get a Profile",
+        "summary": "Get a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Profile",
+        "summary": "Update a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Profile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/messages": {
-      "get": {
-        "summary": "List Messages",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Message"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Message",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/messages/{id}": {
-      "get": {
-        "summary": "Get a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/funnels": {
-      "get": {
-        "summary": "List Funnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Funnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Funnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/funnels/{id}": {
-      "get": {
-        "summary": "Get a Funnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Funnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Funnel",
+        "summary": "Delete a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -1149,18 +779,51 @@
           "name": {
             "type": "string"
           },
-          "channel": {
-            "type": "string"
+          "campaignState": {
+            "type": "string",
+            "enum": [
+              "Draft",
+              "Ready",
+              "Scheduled",
+              "Running",
+              "Finished",
+              "Starting",
+              "Aborted",
+              "Recurring",
+              "Archived"
+            ]
           },
-          "status": {
-            "type": "string"
-          },
-          "budget": {
-            "type": "number"
+          "type": {
+            "type": "string",
+            "enum": [
+              "Blast",
+              "Triggered"
+            ]
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "endedAt": {
+            "type": "integer"
+          },
+          "startAt": {
+            "type": "integer"
+          },
+          "sendSize": {
+            "type": "integer"
+          },
+          "templateId": {
+            "type": "integer"
+          },
+          "workflowId": {
+            "type": "integer"
+          },
+          "messageMedium": {
+            "type": "string"
+          },
+          "createdByUserId": {
+            "type": "string"
           },
           "updatedAt": {
             "type": "string",
@@ -1174,82 +837,80 @@
           "name": {
             "type": "string"
           },
-          "channel": {
-            "type": "string"
+          "campaignState": {
+            "type": "string",
+            "enum": [
+              "Draft",
+              "Ready",
+              "Scheduled",
+              "Running",
+              "Finished",
+              "Starting",
+              "Aborted",
+              "Recurring",
+              "Archived"
+            ]
           },
-          "status": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "Blast",
+              "Triggered"
+            ]
           },
-          "budget": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "channel"
-        ]
-      },
-      "Audience": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "size": {
+          "createdAt": {
             "type": "integer"
           },
-          "definition": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AudienceCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "size": {
+          "endedAt": {
             "type": "integer"
           },
-          "definition": {
+          "startAt": {
+            "type": "integer"
+          },
+          "sendSize": {
+            "type": "integer"
+          },
+          "templateId": {
+            "type": "integer"
+          },
+          "workflowId": {
+            "type": "integer"
+          },
+          "messageMedium": {
+            "type": "string"
+          },
+          "createdByUserId": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "size"
+          "campaignState"
         ]
       },
-      "Event": {
+      "Channel": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "profileId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "properties": {
-            "type": "string"
-          },
-          "occurredAt": {
+          "channelType": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "Marketing",
+              "Transactional"
+            ]
+          },
+          "messageMedium": {
+            "type": "string",
+            "enum": [
+              "Email",
+              "Push",
+              "SMS"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1261,40 +922,51 @@
           }
         }
       },
-      "EventCreate": {
+      "ChannelCreate": {
         "type": "object",
         "properties": {
-          "profileId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "properties": {
-            "type": "string"
+          "channelType": {
+            "type": "string",
+            "enum": [
+              "Marketing",
+              "Transactional"
+            ]
           },
-          "occurredAt": {
-            "type": "string"
+          "messageMedium": {
+            "type": "string",
+            "enum": [
+              "Email",
+              "Push",
+              "SMS"
+            ]
           }
         },
         "required": [
           "name",
-          "properties"
+          "channelType"
         ]
       },
-      "Profile": {
+      "Device": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "email": {
+          "applicationName": {
             "type": "string"
           },
-          "externalId": {
-            "type": "string"
+          "platform": {
+            "type": "string",
+            "enum": [
+              "APNS",
+              "APNS_SANDBOX",
+              "GCM"
+            ]
           },
-          "traits": {
+          "token": {
             "type": "string"
           },
           "createdAt": {
@@ -1307,41 +979,54 @@
           }
         }
       },
-      "ProfileCreate": {
+      "DeviceCreate": {
         "type": "object",
         "properties": {
-          "email": {
+          "applicationName": {
             "type": "string"
           },
-          "externalId": {
-            "type": "string"
+          "platform": {
+            "type": "string",
+            "enum": [
+              "APNS",
+              "APNS_SANDBOX",
+              "GCM"
+            ]
           },
-          "traits": {
+          "token": {
             "type": "string"
           }
         },
         "required": [
-          "email",
-          "traits"
+          "applicationName",
+          "platform"
         ]
       },
-      "Message": {
+      "Webhook": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "campaignId": {
+          "endpoint": {
             "type": "string"
           },
-          "profileId": {
-            "type": "string"
+          "authType": {
+            "type": "string",
+            "enum": [
+              "NoAuth",
+              "Basic",
+              "OAuth2"
+            ]
           },
-          "channel": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "status": {
-            "type": "string"
+          "blastSendEnabled": {
+            "type": "boolean"
+          },
+          "triggeredSendEnabled": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1353,68 +1038,33 @@
           }
         }
       },
-      "MessageCreate": {
+      "WebhookCreate": {
         "type": "object",
         "properties": {
-          "campaignId": {
+          "endpoint": {
             "type": "string"
           },
-          "profileId": {
-            "type": "string"
+          "authType": {
+            "type": "string",
+            "enum": [
+              "NoAuth",
+              "Basic",
+              "OAuth2"
+            ]
           },
-          "channel": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "status": {
-            "type": "string"
+          "blastSendEnabled": {
+            "type": "boolean"
+          },
+          "triggeredSendEnabled": {
+            "type": "boolean"
           }
         },
         "required": [
-          "channel",
-          "status"
-        ]
-      },
-      "Funnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunnelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "steps"
+          "endpoint",
+          "authType"
         ]
       }
     }
