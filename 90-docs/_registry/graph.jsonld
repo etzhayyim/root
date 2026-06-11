@@ -15391,6 +15391,26 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112238-kadode-resignation-concierge",
+      "type": "TechArticle",
+      "title": "ADR-2606112238: kadode 門出 — labour-resignation concierge + 使者 (退職代行), UPL-bounded",
+      "status": "active",
+      "topic": "kadode-resignation-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "labor-resignation-concierge",
+        "labor-exit-ontology",
+        "退職代行-upl-boundary"
+      ],
+      "related": [
+        "doc:2605312030",
+        "doc:2605312500",
+        "doc:2606060900",
+        "doc:2605263700"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
       "type": "TechArticle",
       "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
