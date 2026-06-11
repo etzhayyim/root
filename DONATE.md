@@ -3,7 +3,8 @@
 **etzhayyim is operated _only_ on donation.** It is a 宗教法人 (任意団体 / unincorporated
 religious voluntary association) whose constitution forbids profit distribution, advertising,
 and selling anything. There is no paywall, no ad, no subscription, no member cash stipend. The
-only way the work continues is that people give — **money** or **compute**.
+only way the work continues is that people give — **money** (USDC, other crypto, or fiat),
+**compute**, or by **paying one of the mission's bills**.
 
 > **Giving earns you nothing.** No perks, no tiers, no priority, no governance weight, no
 > recognition leaderboard. A donation is a pure gift (anti-class invariant, ADR-2606012100 §G4).
@@ -19,16 +20,17 @@ This is the public-facing companion to the always-on declaration at
 
 ## Why only on-chain / in-kind — and why no GitHub Sponsors / Patreon / Stripe
 
-etzhayyim's substrate is blockchain-self-contained (ADR-2605172100). Value may flow in **only**
-as:
+etzhayyim's substrate is blockchain-self-contained (ADR-2605172100). The load-bearing rule is
+**no money custodian can hold, freeze, or KYC-gate etzhayyim's funds** — not "the word fiat is
+forbidden." Under that rule, value may flow in as: **USDC on Base L2**, a **curated crypto
+allowlist** (held as-is), **fiat via a non-custodial USDC-settling on-ramp**, **in-kind compute**,
+or **in-kind fiat** (paying a mission bill direct to the vendor) — all **donation purpose only**
+(ADR-2606111800).
 
-- **USDC on Base L2** (purposes: `donation` / `kisha` / `grant`), or
-- **in-kind compute** donated to the Murakumo mesh.
-
-Fiat donation rails — **GitHub Sponsors (Stripe), Patreon, Open Collective, Ko-fi, Liberapay** —
-route money through prohibited fiat processors (Stripe / PayPal / Square …; `deps.toml`
-`payment_prohibited`) and so are **not used**. The repo's **Sponsor button** (`.github/FUNDING.yml`)
-therefore points at our own on-chain donation page, not at a fiat platform.
+What stays prohibited: **custodial** fiat rails — **GitHub Sponsors (Stripe), Patreon, Open
+Collective, Ko-fi, Liberapay** — that hold the balance / KYC etzhayyim / retain donor PII (`deps.toml`
+`payment_prohibited`). The repo's **Sponsor button** (`.github/FUNDING.yml`) therefore points at
+our own on-chain donation page, not at a fiat platform.
 
 ---
 
@@ -53,7 +55,38 @@ program, **10%** auto-splits to the **Public Fund** (the constitutional 10% tith
 > moment it is live, in exactly one place, so it can never drift. Do **not** send funds to any
 > address claimed elsewhere.
 
-## 2. Give compute — the most valuable gift
+### Other crypto assets (held as-is)
+
+Beyond USDC we accept a **curated allowlist of liquid majors** — **ETH / WETH / USDC / USDT /
+DAI** — **held in their native asset** (not auto-swapped), with the 10% tithe computed **per
+asset** at receipt. No memecoins, no algorithmic stablecoins (issuer/peg risk). Adding an asset
+is a Council Tier-2 governance parameter. (ADR-2606111800 §C; per-asset TitheRouter support is a
+follow-up — until then non-USDC gifts are recorded and manually tithed.)
+
+### Give in fiat — via a non-custodial on-ramp
+
+Prefer your **card or bank**? You can give in fiat through a **non-custodial on-ramp** that
+**settles immediately to USDC on-chain** at the donation address. The point of difference (and why
+this is charter-clean): **etzhayyim never holds a fiat balance, retains _no_ donor PII** (any KYC
+is strictly between you and the on-ramp), and **no processor can ever freeze etzhayyim's
+treasury** — preserving the exact property the on-chain-only rule protects. A **custodial** fiat
+processor (one that holds our balance / KYCs etzhayyim / keeps your data) stays **prohibited**.
+(ADR-2606111800 §B — a Tier-1 amendment ratified by Council Lv7+ unanimity.)
+
+## 2. Pay one of our bills — fiat, in-kind (how the founder already gives)
+
+The most direct fiat gift needs **no on-ramp at all**: **pay one of the mission's real-world
+costs** — a **server / cloud / domain / bandwidth / hardware** bill — **directly to the vendor**,
+for the mission. **No money flows to etzhayyim** (exactly like donating compute), so no fiat
+processor and no amendment is involved — it is already charter-clean. It is **imputed-valued for
+transparency only** (toritate, aggregate, no per-donor leaderboard), **non-titheable**, and earns
+you nothing.
+
+This is, in fact, how the **founder already donates** — paying the servers in Japanese yen. The
+new record **`com.etzhayyim.give.infrastructureDonationAttestation`** makes that (and any
+supporter's bill) a visible, accountable in-kind donation for the first time. (ADR-2606111800 §A.)
+
+## 3. Give compute — the most valuable gift
 
 Our inference runs on the **Murakumo mesh only** — we deliberately do **not** rent commercial
 GPUs (ADR-2605215000). So donated compute goes **directly** to the mission. It is an
@@ -87,7 +120,10 @@ accounting) but no money moves to or from you and donating more grants no priori
 
 - **Live:** <https://etzhayyim.com/donate> · <https://etzhayyim.com/.well-known/donation.json>
 - **ADR-2606012100** — donation-funded operation + compute-node donation (the design this implements)
+- **ADR-2606111700** — public sponsor/donation solicitation surfaces (FUNDING.yml + this doc + /donate CTA)
+- **ADR-2606111800** — donation-media expansion: fiat in-kind (§A) + non-custodial fiat on-ramp (§B, Tier-1 amendment) + curated crypto allowlist (§C)
 - **ADR-2605192115** — non-profit / donation-only / no-ads doctrine (§1.2: 案内 is not advertising)
 - **ADR-2605192130** — 10% tithe → Public Fund (constitutional constant)
-- **ADR-2605172100** — payments on-chain only (Stripe/PayPal/fiat processors prohibited)
+- **ADR-2605172100** — payments on-chain only (the rule §B narrows; custodial fiat stays prohibited)
+- **`com.etzhayyim.give.infrastructureDonationAttestation`** — the in-kind fiat (infra-cost) donation record
 - **`@etzhayyim/sdk`** `DONATE.md` — the `donate()` API surface
