@@ -172,18 +172,22 @@ class NodePool:
 
 
 def chat(ip: str, messages: list[dict]) -> str:
+    # Ollama ネイティブ API: OpenAI 互換側は options/num_ctx を無視するので使わない。
+    # gemma4 *-qat は reasoning モデル — think:false で思考トレースの ctx 浪費を止める。
     body = json.dumps(
-        {"model": MODEL, "messages": messages, "stream": False,
+        {"model": MODEL, "messages": messages, "stream": False, "think": False,
          "options": {"temperature": 0.1, "num_ctx": 16384}}
     ).encode()
     req = urllib.request.Request(
-        f"http://{ip}:11434/v1/chat/completions",
+        f"http://{ip}:11434/api/chat",
         data=body,
         headers={"Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT_S) as resp:
         data = json.load(resp)
-    return data["choices"][0]["message"]["content"]
+    if "error" in data:
+        raise OSError(f"ollama: {data['error']}")
+    return data["message"]["content"]
 
 
 def extract_clojure(text: str) -> str | None:
