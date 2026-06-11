@@ -8,12 +8,13 @@ import tempfile
 import delegation as dg
 from _t import expect_raises, run
 
-ACTOR = "did:web:etzhayyim.com:actor:ibuki"
-MEMBER = "did:key:zMemberExample"
+ACTOR = "did:web:etzhayyim.com:actor:ibuki"   # the organism (bearer) — NOT the CACAO audience
+NODE = "did:key:zNodeOperatorExample"          # the kotoba node (the CACAO audience)
+MEMBER = "did:key:zMemberExample"              # the signer == write_author
 
 
 def _bundle(**over):
-    b = {"cacao_b64": "bWVtYmVyLXNpZ25lZC1jYm9y", "aud": ACTOR, "capability": "datom:transact",
+    b = {"cacao_b64": "bWVtYmVyLXNpZ25lZC1jYm9y", "aud": NODE, "capability": "datom:transact",
          "graph": "ibuki", "exp": 2000, "nonce": "deadbeef"}
     b.update(over)
     return b
@@ -67,17 +68,18 @@ def test_none_bundle_unusable_failopen():
     assert not ok and "no delegation" in why
 
 
-def test_actor_did_is_the_audience():
-    assert dg.actor_did(_bundle()) == ACTOR
+def test_audience_is_the_node_not_the_organism():
+    assert dg.audience(_bundle()) == NODE           # kotoba checks aud == operator_did
 
 
 def test_issuance_template_is_member_signed_shape_only():
-    """The template is the payload the MEMBER signs in their own runtime — ibuki never signs."""
-    t = dg.issuance_template(member_did=MEMBER, actor_did=ACTOR, graph_cid="bafyibuki",
-                             exp_epoch=2000, nonce_hex="deadbeef")
-    assert t["iss"] == MEMBER and t["aud"] == ACTOR
-    assert "datom:transact" in t["resources"][0] and "bafyibuki" in t["resources"][0]
-    assert "never signs" in t["_note"]
+    """The template is the payload the MEMBER signs in their own runtime — ibuki never signs.
+    aud = the NODE; resources = the SIWE two-entry form; write_author = the member (iss)."""
+    t = dg.issuance_template(member_did=MEMBER, node_did=NODE, graph_cid="bafyibuki",
+                             exp_iso="2026-07-11T00:00:00Z", nonce_hex="deadbeef")
+    assert t["iss"] == MEMBER and t["aud"] == NODE
+    assert t["resources"] == ["kotoba://can/datom:transact", "kotoba://graph/bafyibuki"]
+    assert "never signs" in t["_note"] and "accountability" in t["_note"]
 
 
 def test_module_does_no_crypto_stdlib_only():
