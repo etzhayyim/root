@@ -19,7 +19,7 @@ Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 _Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
 ### 3. Assignment of intellectual property  (ip-assignment, optional)
-_Rests on:_ 著作権法61条 (著作権法 (昭和45年法律第48号)); 17 U.S.C. §201 (US Copyright Act (Title 17))
+_Rests on:_ 著作権法61条 (著作権法 (昭和45年法律第48号)); 17 U.S.C. §201 (US Copyright Act (Title 17)); Berne Convention, Art. 5 (Berne Convention for the Protection of Literary and Artistic Works); Directive 2001/29/EC, Art. 2 (Directive 2001/29/EC (InfoSoc)); 17 U.S.C. §106 (US Copyright Act (Title 17))
 
 ### 4. Confidentiality / non-disclosure  (confidentiality, recommended)
 _Rests on:_ Directive (EU) 2016/943, Art. 2 (Directive (EU) 2016/943 (Trade Secrets)); 不正競争防止法2条6項 (不正競争防止法 (平成5年法律第47号)); 18 U.S.C. §1836 (Defend Trade Secrets Act of 2016)

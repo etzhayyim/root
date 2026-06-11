@@ -14,7 +14,7 @@ Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 
 ## Clauses
 ### 1. Apache-2.0 copyright & patent license grant  (ip-license, mandatory)
-_Rests on:_ Apache-2.0 §2–§4 (Apache License, Version 2.0)
+_Rests on:_ Apache-2.0 §2–§4 (Apache License, Version 2.0); 17 U.S.C. §106 (US Copyright Act (Title 17))
 
 ### 2. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)

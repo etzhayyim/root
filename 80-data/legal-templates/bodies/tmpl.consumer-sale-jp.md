@@ -14,7 +14,7 @@ Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 
 ## Clauses
 ### 1. Cooling-off / withdrawal right  (cooling-off, mandatory)
-_Rests on:_ 特定商取引法9条 (特定商取引に関する法律 (昭和51年法律第57号))
+_Rests on:_ 特定商取引法9条 (特定商取引に関する法律 (昭和51年法律第57号)); Directive 2011/83/EU, Art. 9 (Consumer Rights Directive 2011/83/EU); Consumer Contracts Regulations 2013, reg.29 (The Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013 (UK)); Code de la consommation, Art. L221-18 (Code de la consommation (France)); 16 CFR Part 429 (FTC Cooling-Off Rule (US))
 
 ### 2. Payment terms  (payment, recommended)
 _Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
