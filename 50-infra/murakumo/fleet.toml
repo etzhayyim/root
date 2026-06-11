@@ -160,6 +160,7 @@ cells = [
   "ossekai_emergency_advisory",
   "shionome_ingest",       # 潮目 capital-flow intake (cron 5 * * * *) (ADR-2606072200)
   "shionome_flow_graph",   # 潮目 net-flow index (cron 10 * * * *) (ADR-2606072200)
+  "YabaiTorTorrentCtiPersistenceCell",  # yabai CTI graph persistence (cron */30 * * * *) (ADR-2605301400)
 ]
 shard_index = 1
 total_shards = 3
@@ -433,6 +434,17 @@ actor_did = "did:web:etzhayyim.com:actor:kaizen-observer"
 proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
 dedup_window_s = 7200  # 2 hours
 notes = "Emits KaizenProposal NDJSON. PR agent (Wave 4) opens GitHub PRs from the queue."
+
+[cells.YabaiTorTorrentCtiPersistenceCell]
+healthz_port = 13071
+trigger = "cron"
+cron = "*/30 * * * *"
+adr = ["2605301400", "2605262130", "2605231525"]
+module = "kotodama.primitives.yabai_murakumo"
+entry = "yabai_tor_torrent_persistence_cell"
+actor_did = "did:web:etzhayyim.com:actor:yabai"
+state_path = "/var/lib/etzhayyim/yabai/cti-correlator-runs.ndjson"
+notes = "Persists yabai CTI graph locally every run and live-transacts to Kotoba when graph/auth env is present; Tor is public-exit only, BitTorrent is case-bound evidence only."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 

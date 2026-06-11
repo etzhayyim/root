@@ -82,12 +82,6 @@ if [[ -z "$REPO_PATH" ]]; then
   REPO_PATH="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 fi
 
-if [[ ! -f "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml" ]]; then
-  echo "ERROR: kotodama project not found at $REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" >&2
-  echo "       pass --repo-path <PATH> if your checkout is elsewhere" >&2
-  exit 2
-fi
-
 UV_PATH="$(command -v uv 2>/dev/null || true)"
 if [[ -z "$UV_PATH" ]]; then
   echo "ERROR: 'uv' binary not found in PATH" >&2
@@ -114,6 +108,16 @@ echo "  user:       $USERNAME"
 echo "  plist src:  $PLIST_SRC"
 echo "  installed:  $INSTALLED_PLIST"
 echo "  log dir:    $LOG_DIR"
+
+step "syncing kotoba submodule"
+(cd "$REPO_PATH" && git submodule update --init --recursive 40-engine/kotoba)
+ok "kotoba submodule synced"
+
+if [[ ! -f "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml" ]]; then
+  echo "ERROR: kotodama project not found at $REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" >&2
+  echo "       pass --repo-path <PATH> if your checkout is elsewhere" >&2
+  exit 2
+fi
 
 step "ensuring kotodama venv is synced (uv sync)"
 (cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" sync --quiet)

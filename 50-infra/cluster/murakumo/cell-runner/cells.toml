@@ -209,6 +209,21 @@ trigger = { kind = "cron", expr = "*/10 * * * *" }
 healthz_port = 13070
 adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 
+# ── yabai CTI persistence (ADR-2605301400 §T3) ───────────────────────────────
+#
+# Public Tor-exit indicators + case-bound BitTorrent observations only. The
+# cell preserves the actor graph locally on every run and transacts to Kotoba
+# when YABAI_GRAPH_CID plus KOTOBA_TOKEN or KOTOBA_CACAO_B64 are present.
+
+[[cell]]
+name = "YabaiTorTorrentCtiPersistenceCell"
+module = "kotodama.primitives.yabai_murakumo"
+entry = "yabai_tor_torrent_persistence_cell"
+node = "issachar"
+trigger = { kind = "cron", expr = "*/30 * * * *" }
+healthz_port = 13071
+adr = ["2605301400", "2605262130", "2605231525"]
+
 # ── Optional: maps_sentinel + yoro cells when their wave is ready ─────────────
 # [[cell]]
 # name = "MapsSentinelT0Cell"
