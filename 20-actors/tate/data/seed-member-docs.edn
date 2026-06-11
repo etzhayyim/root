@@ -212,6 +212,36 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 15 (insolvency/family 横展開 :fr/:uk + :be) ─────────────────────────
+ {:doc/id "doc:be-conditions" :doc/label "BE conditions générales (synthetic)"
+  :doc/jurisdiction :be
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Aucune responsabilité ne peut nous être imputée. Le contrat se renouvelle par tacite reconduction."}
+
+ {:notice/id "ntc:be-citation" :notice/label "BE citation à comparaître (huissier)"
+  :notice/jurisdiction :be
+  :notice/channel :formal-service :notice/claim-amount 2300 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Citation à comparaître devant le juge de paix à l'audience indiquée."}
+
+ {:notice/id "ntc:fr-creance" :notice/label "FR procédure collective (債権者宛・倒産)"
+  :notice/jurisdiction :fr
+  :notice/channel :mail :notice/claim-amount 980 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Procédure collective ouverte à l'égard de la société. Vous pouvez procéder à la déclaration de créance."}
+
+ {:notice/id "ntc:uk-pod" :notice/label "UK notice to creditors (倒産)"
+  :notice/jurisdiction :uk
+  :notice/channel :mail :notice/claim-amount 240 :notice/claim-currency "GBP"
+  :notice/sourcing :synthetic
+  :notice/text "Notice to creditors. Submit your proof of debt by the last date for proving."}
+
+ {:notice/id "ntc:uk-divorce" :notice/label "UK divorce application (court・家事)"
+  :notice/jurisdiction :uk
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "GBP"
+  :notice/sourcing :synthetic
+  :notice/text "A divorce application has been issued. Return the acknowledgement of service within 14 days."}
+
  ;; ── wave 14 (matrix fill :us labor / :uk :fr enforcement + :mx) ──────────────
  {:doc/id "doc:mx-terminos" :doc/label "MX términos y condiciones (synthetic)"
   :doc/jurisdiction :mx

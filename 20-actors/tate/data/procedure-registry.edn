@@ -374,6 +374,35 @@
   :proc/refer-when ["possession claim が裁判所に係属した場合"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:uk-proof-of-debt" :proc/label "Notice to creditors (債権者側・倒産・英国)"
+  :proc/jurisdiction :uk :proc/track :insolvency
+  :proc/trigger-keywords ["proof of debt" "notice to creditors"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of debt"
+    :dl/rule "liquidator/administrator の通知記載の last date for proving までに提出 — 配当 (dividend) から漏れない"
+    :dl/anchor "Insolvency (England and Wales) Rules 2016 Pt 14" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :prove :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of debt form を提出 (無料・本人可) — 前払金・gift card 残高も債権"}]
+  :proc/refer-when ["担保・相殺 → insolvency practitioner に確認"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:uk-divorce-response" :proc/label "Divorce application (家事・英国)"
+  :proc/jurisdiction :uk :proc/track :family
+  :proc/trigger-keywords ["divorce application" "acknowledgement of service"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Acknowledgement of service"
+    :dl/rule "application 送達から14日以内に acknowledgement of service — no-fault 制 (DDSA 2020) のため離婚自体を争える事由は管轄等に限定; 財産は financial remedy の別手続"
+    :dl/anchor "FPR 2010 Pt 7 / Divorce, Dissolution and Separation Act 2020" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :acknowledge :opt/kind :self-submit :opt/label "acknowledgement of service をオンライン提出 (14日)"}
+   {:opt/id :financial-separate :opt/kind :self-decide :opt/label "financial remedy / 年金分割は別途 — 合意前にアドバイスを"}]
+  :proc/refer-when ["financial remedy / 子の arrangement → solicitor・mediation"
+                    "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  ;; ── :de ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:de-mahnbescheid" :proc/label "Mahnbescheid (支払督促・ドイツ)"
   :proc/jurisdiction :de
@@ -722,6 +751,21 @@
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
   :proc/verify-current-law true}
 
+ ;; ── :be ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:be-citation" :proc/label "Citation à comparaître (ベルギー)"
+  :proc/jurisdiction :be
+  :proc/trigger-keywords ["citation à comparaître"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Comparution (出頭)"
+    :dl/rule "citation 記載の audience に出頭 (délai de citation は signification から最低8日) — 欠席は jugement par défaut"
+    :dl/anchor "Code judiciaire art. 707・802 系" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :comparution :opt/kind :self-decide :opt/label "audience に出頭 (juge de paix ≤€5,000 は本人可)"}
+   {:opt/id :conclusions :opt/kind :self-submit :opt/label "conclusions (書面の言い分) を greffe へ"}]
+  :proc/refer-when ["€5,000 超 → avocat (pro deo の資力要件を確認)"]
+  :proc/verify-current-law true}
+
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:mx-emplazamiento" :proc/label "Emplazamiento (訴状送達・メキシコ)"
   :proc/jurisdiction :mx
@@ -868,6 +912,21 @@
     :opt/label "SBI が残されているか口座を確認 (自動 — 不足なら銀行へ是正請求)"}
    {:opt/id :contestation :opt/kind :self-submit :opt/label "JEX へ contestation (1か月以内)"}]
   :proc/refer-when ["多重債務 → commission de surendettement (Banque de France・無料)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:fr-declaration-creance" :proc/label "Procédure collective (債権者側・倒産・フランス)"
+  :proc/jurisdiction :fr :proc/track :insolvency
+  :proc/trigger-keywords ["procédure collective" "déclaration de créance"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Déclaration de créance"
+    :dl/rule "BODACC 公告から2か月以内 (国外債権者は+2か月) に mandataire judiciaire へ déclaration — 徒過は forclusion (失権; relevé de forclusion は例外的)"
+    :dl/anchor "Code de commerce L.622-24・R.622-24" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :declarer :opt/kind :self-submit :opt/protective true
+    :opt/label "déclaration de créance を期限内に (オンライン可) — 前払金・avoir も債権 (kaiyaku 縁-ledger 突合)"}
+   {:opt/id :check-bodacc :opt/kind :self-decide :opt/label "BODACC 公告日を確認 (起算点)"}]
+  :proc/refer-when ["担保付き・高額 → avocat"]
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────

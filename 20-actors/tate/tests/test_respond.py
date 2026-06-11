@@ -590,6 +590,26 @@ def test_wave14_matrix_fill_and_mx():
     assert any("entidad federativa" in d["rule"] for d in mx["deadlines"])  # 州差の開示
 
 
+def test_wave15_insolvency_family_expansion_and_be():
+    """Wave 15: :insolvency expands to :fr (déclaration de créance — BODACC 公告
+    2か月, forclusion 失権 L.622-24) and :uk (proof of debt, IR 2016 Pt 14);
+    :family expands to :uk (no-fault AoS 14日, DDSA 2020 — kokoro invariant
+    auto-extends); :be covered (citation, juge de paix ≤€5,000 本人可)."""
+    ps, _ = _by_id()
+    fr = ps["ntc:fr-creance"]
+    assert fr["status"] == ":genuine" and fr["proc"] == "proc:fr-declaration-creance"
+    assert any("L.622-24" in d["anchor"] and "forclusion" in d["rule"] for d in fr["deadlines"])
+    uk_i = ps["ntc:uk-pod"]
+    assert uk_i["status"] == ":genuine" and uk_i["proc"] == "proc:uk-proof-of-debt"
+    assert any("Rules 2016" in d["anchor"] for d in uk_i["deadlines"])
+    uk_f = ps["ntc:uk-divorce"]
+    assert uk_f["status"] == ":genuine" and uk_f["proc"] == "proc:uk-divorce-response"
+    assert any("14日" in d["rule"] and "2020" in d["anchor"] for d in uk_f["deadlines"])
+    be = ps["ntc:be-citation"]
+    assert be["status"] == ":genuine" and be["proc"] == "proc:be-citation"
+    assert any("最低8日" in d["rule"] for d in be["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

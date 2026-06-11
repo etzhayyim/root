@@ -126,6 +126,8 @@ def test_registry_lint():
         for dl in p[":proc/deadline-rules"]:
             assert dl[":dl/anchor"], (p[":proc/id"], dl)
         assert p[":proc/genuine-channels"], p[":proc/id"]
+        # wave 15: there is ALWAYS someone to ask — no procedure ships without referrals
+        assert p.get(":proc/refer-when"), p[":proc/id"]
         assert p.get(":proc/track", ":civil") in (":civil", ":labor", ":housing",
                                                   ":enforcement", ":insolvency",
                                                   ":family"), p[":proc/id"]
@@ -155,6 +157,8 @@ def test_track_matrix():
     assert sum(1 for ts in matrix.values() if ts.get(":labor", 0)) >= 6
     assert sum(1 for ts in matrix.values() if ts.get(":housing", 0)) >= 6
     assert sum(1 for ts in matrix.values() if ts.get(":enforcement", 0)) >= 5
+    assert sum(1 for ts in matrix.values() if ts.get(":insolvency", 0)) >= 5
+    assert sum(1 for ts in matrix.values() if ts.get(":family", 0)) >= 4
     text = report(cov)
     assert "Track × jurisdiction matrix" in text
 

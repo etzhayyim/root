@@ -274,6 +274,21 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :be — Belgique (G10) ─────────────────────────────────────────────────────
+ {:clause/id "cl:be-exoneration" :clause/label "全部免責 (clause abusive)"
+  :clause/jurisdiction :be
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["aucune responsabilité ne peut nous être imputée"]
+  :clause/anchor "Code de droit économique VI.83 (clauses abusives — liste noire, nulles)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:be-tacite-reconduction" :clause/label "tacite reconduction (黙示更新)"
+  :clause/jurisdiction :be
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["tacite reconduction"]
+  :clause/anchor "CDE VI.91/4 系 (黙示更新後は通知期間2か月以内で随時解約可)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :mx — México (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:mx-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :mx

@@ -150,6 +150,14 @@
   :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :be :juris/label "Belgique / België"
+  :juris/upl-anchor "Code judiciaire art. 440 (monopole de plaidoirie — juge de paix は本人可)"
+  :juris/service-note "citation は huissier de justice による signification (délai de citation 最低8日)"
+  :juris/referrals ["bureau d'aide juridique (pro deo)" "SPF Économie (consommateurs)" "juge de paix greffe"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Police (meldpunt/point de contact)" "SPF Économie"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :mx :juris/label "México"
   :juris/upl-anchor "Ley General de Profesiones (cédula profesional — 訴訟代理は資格者)"
   :juris/service-note "emplazamiento は actuario (裁判所執行官) による — WhatsApp/SMS の『juzgado』通知は偽"
