@@ -31,7 +31,7 @@ superseded_by: []
 
 # ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit
 
-- **Status**: accepted (R0 — client/actor tier landed; engine-tier enforcement gated)
+- **Status**: accepted (R0 — client/actor tier landed; **engine-tier enforcement LANDED 2026-06-11** via the kotoba submodule bump, see Update below; only true single-tx atomic deploy remains gated)
 - **Date**: 2026-06-11 (JST)
 - **Deciders**: founder seat (「いまの kotoba, kotobase の設計では ethereum, holochain のように
   コードとデータが一体化して deploy できている?」→ "ok, do it")
@@ -120,11 +120,27 @@ delegation live test). Schema: `00-contracts/schemas/actor-dna.kotoba.edn`.
 ## Honest scope / follow-up
 
 - **Enforced now (client/actor tier):** `integrity.validate()` rejects before `kotoba_bridge.push`.
-- **Gated follow-up (engine tier, `40-engine/kotoba` submodule — a separate repo):** the kotoba
-  transact path invoking the DNA's `validate` *before commit*, so a **peer's** writes are checked
-  too (full Holochain-integrity parity), and **true single-tx atomic deploy**. The content-addressed
-  ruleset + DNA CID are the half that makes that follow-up trustless. This ADR does not touch the
-  submodule; it is the spec the engine change will implement.
+- **Engine tier — LANDED 2026-06-11 (kotoba submodule `92461b73` → `e3e07439`):** the kotoba
+  `datomic.transact` path now validates incoming datoms against a graph's registered DNA integrity
+  ruleset *before commit*, so a **peer's** writes are checked too — full Holochain integrity-zome
+  parity. `crates/kotoba-server/src/dna_integrity.rs` (`IntegrityRuleset` / `parse_ruleset` /
+  `validate_tx` + a node-config registry from `KOTOBA_DNA_RULES`, authoritative server-side, never
+  caller-supplied; **no-op + backward-compatible** when no ruleset is registered) + a call in
+  `datomic_transact` (422 on violation). 7 Rust unit tests pass; kotoba-server builds clean.
+  Upstream record: etzhayyim/kotoba PR #103. The content-addressed ruleset + DNA CID are what make
+  this trustless — the actor tier and the engine tier enforce the **byte-identical** ruleset.
+- **Still gated:** **true single-tx atomic deploy** (the deploy descriptor gives atomicity-of-identity;
+  one atomic block is a deeper engine change). The integrity half of the gap is now closed at both tiers.
+
+## Update — engine-tier enforcement landed (2026-06-11)
+
+The "gated follow-up" above is done for the integrity half. `datomic.transact` validates against the
+graph's DNA ruleset before commit (`KOTOBA_DNA_RULES` registry). This means code now governs WHAT is
+written into a graph, not only CACAO governing WHO — the Holochain integrity-zome property, at the
+engine. With the actor-tier (PR #1610), the tsumugi real-DNA proof (PR #1612), and this engine-tier
+hook, kotoba now matches Ethereum/Holochain on **all** of: content-addressed code+data, re-verify on
+execute, a single DNA CID fusing code+data, and code-defined data validation. The one remaining
+divergence is multi-step (not single-tx) deploy.
 
 ## Alternatives Considered
 
