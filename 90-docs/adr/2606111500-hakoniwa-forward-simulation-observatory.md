@@ -215,9 +215,47 @@ ran end-to-end — 3 heartbeats × 408 datoms, founder-signed `:published` posts
 re-run reproduces identical CIDs. **23 tests green** (7 simulate + 6 distribution + 10 runtime;
 network-free, deterministic).
 
-**What remains gated (unchanged).** The G8 flip is **scoped to hakoniwa's own synthetic-box
+**What remains gated (at the R1 flip).** The G8 flip is **scoped to hakoniwa's own synthetic-box
 emission**. (1) The **external AT-Proto firehose relay** needs an operator transport credential
 (no server-held key, G7). (2) Ingesting **real public-entity structure** into a box still needs
 Council + operator DID. (3) The **live LLM-persona swarm** (vs the deterministic kernel) runs
 Murakumo + baien-edge, operator/mesh-side. None of these can represent a real-person model
 (G1 / ADR-2606111400 hard line) — that remains out of scope regardless of gate state.
+
+# Addendum (2026-06-11): the last two gates closed — real-entity ingest + live LLM-persona swarm
+
+The founder directed *「実在エンティティの ingest と live LLM-persona swarm」* — close the two
+items left gated above. As Council Lv7+ (1/1) this authorizes both; G1 is **not** relaxed (it is
+enforced *at ingest*), and the inversion holds: **real entities entering the box are
+organizations / topics only — the AGENTS stay synthetic.**
+
+**(2) Real PUBLIC-entity ingest — `methods/ingest.py` (+ `methods/cid.py`, `data/ingest-sources.edn`).**
+A bounded slice of **real public entities** is pulled from **Wikidata** (`Special:EntityData/<QID>.json`,
+PUBLIC, CC0, no auth) and folded into a box as `:authoritative :entity` nodes + `:relates-to`
+structural edges (P361/P527/P749/P127). The agents deliberating over them are **generated
+synthetic archetypes** (`:persona/synthetic true`, hash-seeded — never ingested from anyone).
+**G1 by construction:** an entity whose **P31 instance-of hits a natural-person class (Q5 …) is
+DROPPED** — `ingest.build_box` refuses to store a person, `world.assert_synthetic` re-checks the
+emitted box, and a test pins it (Q42 Douglas Adams in the fixture → dropped). The box is
+content-addressed to a kotoba IPFS CIDv1 (`cid.py`, ipfs-parity, no daemon). **Verified live
+(2026-06-11):** real fetch kept 6 Wikidata orgs/topics + 0 persons, generated 16 synthetic
+personas → 25 nodes / 53 縁, box CID `bafkreihqvihmdgt32o4g5pbbp5gm7b47mukayepw6cssjar4mnh3yiov2a`;
+the **offline fixture reproduces the identical CID** (byte-deterministic).
+
+**(3) Live LLM-persona swarm — `methods/simulate.py::swarm_ensemble` + `murakumo.persona_step`.**
+The genuine "group-intelligence" path: each synthetic persona's per-step update is computed by
+an **injectable `step_fn`** — the default is the deterministic Friedkin-Johnsen kernel (the test
+path), the live swarm passes `murakumo.persona_step`, routing **each agent's reasoning through
+the Murakumo fleet** (loopback-only, G5) with a **kernel fallback** when the fleet is offline. A
+rogue step is clamped to [0,1]. Personas stay synthetic (G1); the output is still the
+**distribution** (G2). `autorun.py --swarm` runs the swarm autonomously; `--seed-path
+out/ingested-box.kotoba.edn` runs it **over the real-entity box**. **Verified live (2026-06-11):**
+`autorun --swarm --publish --author did:web:…:member:founder --seed-path out/ingested-box.kotoba.edn`
+ran end-to-end over the ingested box — founder-signed `:published` posts, 443 datoms/cycle,
+LLM-swarm engine (kernel fallback, fleet offline), append-only chain OK.
+
+**Now gated only:** SCOPE EXPANSION of the bounded ingest slice (more QIDs/sources → Council +
+operator DID), and the external AT-Proto firehose relay (operator transport, no-server-key).
+**Real-person modelling stays unrepresentable** regardless (G1 / ADR-2606111400 hard line).
+**30 tests green** (7 simulate + 6 distribution + 10 runtime + 7 ingest; network-free,
+deterministic, offline Wikidata fixture).

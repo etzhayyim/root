@@ -88,18 +88,35 @@
       "method": "methods/autorun.py",
       "input": "data/seed-scenario.kotoba.edn",
       "output": ["data/hakoniwa.datoms.kotoba.edn"],
-      "pipeline": "AUTONOMOUS heartbeat: load box → simulate → distribution → narrate (Murakumo/fallback) → draft+emit post → persist ONE content-addressed tx per cycle; deterministic + resume-safe (identical CIDs on re-run)",
+      "pipeline": "AUTONOMOUS heartbeat: load box → simulate (scalar kernel OR --swarm LLM-per-agent) → distribution → narrate (Murakumo/fallback) → draft+emit post → persist ONE content-addressed tx per cycle; deterministic + resume-safe (identical CIDs on re-run)",
       "doc": "kotoba で自律的に稼働 — the actor drives its own observe→simulate→emit→persist cycle over its own substrate (R1; live external firehose relay still operator-transport-gated)"
+    },
+    {
+      "id": "cell:hakoniwa.ingest",
+      "method": "methods/ingest.py",
+      "input": "data/ingest-sources.edn",
+      "output": ["out/ingested-box.kotoba.edn", "out/ingested-box.cid", "out/ingest-provenance.json"],
+      "pipeline": "fetch a BOUNDED slice of REAL PUBLIC entities (Wikidata Special:EntityData, CC0) → G1 filter (DROP any P31=Q5 natural person) → fold orgs/topics in as :authoritative :entity nodes + :relates-to structural edges → generate SYNTHETIC personas (hash-seeded fictional archetypes) deliberating over the topic → emit box + content-address (CIDv1 raw, ipfs-parity)",
+      "doc": "REAL-ENTITY INGEST (R1-authorized). Real entities are orgs/topics ONLY (persons refused, G1); the AGENTS stay synthetic. Runs operator/mesh-side (needs network), never in-browser WASM",
+      "gated": "G8 — bounded public slice runs freely; SCOPE EXPANSION (more QIDs/sources) needs Council + operator DID; natural-person ingest is unrepresentable (G1)"
+    },
+    {
+      "id": "cell:hakoniwa.cid",
+      "method": "methods/cid.py",
+      "input": "(any artifact bytes)",
+      "output": ["(kotoba IPFS CIDv1 raw/sha2-256)"],
+      "pipeline": "CIDv1 / raw (0x55) / sha2-256 / base32-'b' — byte-identical to `ipfs add --cid-version=1 --raw-leaves`; verifiable with no daemon (ADR-2605231525 / 2606014500 verify.mjs parity)",
+      "doc": "content-address an ingested box; reused, not re-implemented"
     }
   ],
   "gates": {
-    "G1": "FICTIONAL latent personas only, NEVER a real-person model — every :persona is :persona/synthetic true (a cohort archetype), with NO PII / no real-person profile / no re-identifiable trait; world.assert_synthetic refuses a graph that breaches this. Real already-PUBLIC entities (entity-as-actor org.* / a public topic) may appear as their existing public mirror, never a natural person. Simulating fictional agents is categorically distinct from surveilling real people (ADR-2606111400)",
+    "G1": "FICTIONAL latent personas only, NEVER a real-person model — every :persona is :persona/synthetic true (a cohort archetype), with NO PII / no real-person profile / no re-identifiable trait; world.assert_synthetic refuses a graph that breaches this. Real already-PUBLIC entities (entity-as-actor org.* / a public topic / a Wikidata org/topic) may appear as their existing public mirror, never a natural person — methods/ingest.py DROPS any fetched entity whose P31 instance-of is a natural-person class (Q5 …), so the ingest can never store a person. Simulating fictional agents is categorically distinct from surveilling real people (ADR-2606111400)",
     "G2": "DISTRIBUTION-ONLY (inherits mitooshi ADR-2606051800 G1) — output is a distribution over outcomes (quantiles + histogram), never a point; :forecast/point-asserted is structurally false and no :forecast/point field exists. 非終末論 made structural",
     "G3": "NON-STEERING (inherits mitooshi G2) — routed to resilience / preparedness / robustness; :forecast/use and :outcome/use are a resilience-only enum; trade / wager / position / target / manipulate / campaign are NOT members and are unrepresentable. hakoniwa never trades, never targets a person, never runs an influence campaign",
     "G4": "TRANSPARENT & RECIPROCAL (相互監視; ADR-2606082400 + 2606111400) — the whole box (world graph, persona parameters, every step, the run config) is plaintext-public on kotoba; open-source + on-chain + 1 SBT = 1 vote. No covert/asymmetric modelling — there are no real people in the box",
     "G5": "Murakumo-only inference (ADR-2605215000) for the LLM-persona variant; the swarm rides baien-edge (ADR-2605242600/2605241900)",
     "G6": "sourcing honesty — personas :synthetic, real public facts :authoritative | :representative; coverage honesty preserved (a box is illustrative, never exhaustive of a real population)",
     "G7": "leak-free as-of (inherits mitooshi G5) — the forecast record carries :forecast/as-of; no future information leaks into the persona priors; mitooshi scores it leak-free with proper scoring",
-    "G8": "outward gate — R1 (founder-authorized, Council Lv7+ 1/1, 2026-06-11): hakoniwa runs AUTONOMOUSLY and SOCIAL EMISSION of its synthetic-box distribution is AUTHORIZED. Emission persists to the canonical kotoba Datom log (substrate of record); the EXTERNAL AT-Proto firehose relay is a downstream projection needing an operator transport credential (no-server-key, G7). STILL gated: real-public-entity ingest into a box (Council + operator DID) and the live LLM-persona swarm (Murakumo + baien-edge, operator/mesh-side). Real-person modelling is unrepresentable regardless of gate state (G1 / ADR-2606111400 hard line)"
+    "G8": "outward gate — R1 (founder-authorized, Council Lv7+ 1/1, 2026-06-11): hakoniwa runs AUTONOMOUSLY, SOCIAL EMISSION is AUTHORIZED, REAL-PUBLIC-ENTITY INGEST is AUTHORIZED (methods/ingest.py — bounded Wikidata orgs/topics, persons refused by G1), and the LIVE LLM-PERSONA SWARM is AUTHORIZED (methods/simulate.py swarm_ensemble + murakumo.persona_step, Murakumo + baien-edge, kernel fallback). Emission persists to the canonical kotoba Datom log (substrate of record); the EXTERNAL AT-Proto firehose relay is a downstream projection needing an operator transport credential (no-server-key, G7). STILL gated: SCOPE EXPANSION of the bounded ingest slice (more QIDs/sources → Council + operator DID). Real-person modelling is unrepresentable regardless of gate state (G1 / ADR-2606111400 hard line)"
   }
 }

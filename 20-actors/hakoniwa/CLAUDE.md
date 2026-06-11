@@ -32,9 +32,12 @@ hakoniwa is the missing generative layer between them, built so the core inversi
   real-person profile, no re-identifiable trait, no mapping to a natural person.**
   `world.assert_synthetic` **refuses at load** any persona missing the synthetic marker or
   carrying a PII-class field (`:email`, `:person/name`, `:geo/point`, …). Real **already-
-  public** entities (an entity-as-actor `org.*` mirror, a public topic) may appear as their
-  existing public mirror — **never a natural person**. This is the same move sukashi makes
-  (synthesized fictional fraud entities) and tsumugi makes (latent influence nodes).
+  public** entities (an entity-as-actor `org.*` mirror, a public topic, a **Wikidata
+  org/topic**) may appear as their existing public mirror — **never a natural person**.
+  **`methods/ingest.py` enforces this at ingest**: a fetched entity whose **P31 instance-of
+  hits a natural-person class (Q5 …) is DROPPED** — the ingest cannot store a person. This is
+  the same move sukashi makes (synthesized fictional fraud entities) and tsumugi makes (latent
+  influence nodes).
 - **G2 — DISTRIBUTION-ONLY** (inherits mitooshi G1). The output is a **distribution** over the
   outcome (quantiles + histogram), **never a point**. `:forecast/point-asserted` is
   structurally `false` and **no `:forecast/point` field exists**. 非終末論 (no single foretold
@@ -66,10 +69,12 @@ hakoniwa is the missing generative layer between them, built so the core inversi
   **runs autonomously** (`methods/autorun.py` heartbeat) and **social emission is AUTHORIZED**.
   Emission persists to the **canonical kotoba Datom log** (the substrate of record, ADR-2605312345);
   the **external AT-Proto firehose relay** is a downstream projection needing an **operator
-  transport credential** (no-server-key — substrate-only otherwise, never a silent no-op). **Still
-  gated**: ingest of **real public-entity structure** into a box (Council + operator DID) and the
-  **live LLM-persona swarm** (Murakumo + baien-edge, operator/mesh-side). **Real-person modelling
-  is unrepresentable regardless of gate state** (G1 / ADR-2606111400 hard line).
+  transport credential** (no-server-key — substrate-only otherwise, never a silent no-op).
+  **Real-public-entity ingest** (`methods/ingest.py`, Wikidata orgs/topics — persons refused by
+  G1) and the **live LLM-persona swarm** (`simulate.swarm_ensemble` + `murakumo.persona_step`,
+  kernel fallback) are **also R1-authorized**. **Still gated**: SCOPE EXPANSION of the bounded
+  ingest slice (more QIDs/sources → Council + operator DID). **Real-person modelling is
+  unrepresentable regardless of gate state** (G1 / ADR-2606111400 hard line).
 
 ## Layout
 
@@ -89,14 +94,20 @@ hakoniwa is the missing generative layer between them, built so the core inversi
 │   ├── murakumo.py                       # Murakumo-only narration (G5) + graceful template fallback
 │   ├── social.py                         # social emission (G2 no-point + G3 no-steer + G7 member-signed)
 │   ├── kotoba.py                         # append-only content-addressed Datom log (commit-DAG + verify)
-│   └── autorun.py                        # AUTONOMOUS heartbeat → persist one tx per cycle
-├── tests/                                 # 23 tests, pure stdlib (network-free, deterministic)
+│   ├── autorun.py                        # AUTONOMOUS heartbeat (scalar kernel OR --swarm) → persist tx/cycle
+│   ├── ingest.py                         # REAL public-entity ingest (Wikidata orgs/topics; persons refused, G1)
+│   └── cid.py                            # kotoba IPFS CIDv1 (raw/sha2-256, ipfs-parity, no daemon)
+├── tests/                                 # 30 tests, pure stdlib (network-free, deterministic)
 │   ├── test_simulate.py                  # 7 — load/G1/kernel/determinism/mechanism
 │   ├── test_distribution.py              # 6 — quantiles/G2-no-point/G3-use-enum/datom-emit
-│   └── test_runtime.py                   # 10 — social guards/Murakumo fallback/autonomous loop/tamper
+│   ├── test_runtime.py                   # 10 — social guards/Murakumo fallback/autonomous loop/tamper
+│   ├── test_ingest.py                    # 7 — real-entity ingest/G1-person-drop/swarm/content-address
+│   └── fixtures/wikidata_entities.json   # trimmed Wikidata snapshot (offline, incl. a human → drop test)
 ├── wasm/
 │   └── README.md                          # kotoba pywasm actor (componentize-py) design
 ├── data/
+│   ├── seed-scenario.kotoba.edn           # the hand-curated fictional box
+│   ├── ingest-sources.edn                 # bounded Wikidata QID allowlist (ingest input)
 │   └── hakoniwa.datoms.kotoba.edn         # GENERATED — append-only content-addressed Datom log (autorun)
 └── out/                                   # GENERATED — do not hand-edit
     ├── distribution-report.md            # the outcome distribution (quantiles + histogram)
@@ -119,7 +130,15 @@ python3 methods/social.py                         # a guarded distribution post 
 python3 methods/autorun.py --cycles 3 --fresh     # AUTONOMOUS dry-run loop → data/hakoniwa.datoms.kotoba.edn
 python3 methods/autorun.py --cycles 3 --fresh --publish --author did:web:etzhayyim.com:member:<h>  # LIVE :published
 
-python3 tests/test_simulate.py && python3 tests/test_distribution.py && python3 tests/test_runtime.py   # 23 green
+# R1 — REAL public-entity ingest (Wikidata orgs/topics; persons refused, G1) + LLM-persona swarm
+python3 methods/ingest.py                         # LIVE Wikidata → out/ingested-box.kotoba.edn (+ CID + provenance)
+python3 methods/ingest.py --offline               # deterministic, from tests/fixtures (same CID)
+python3 methods/simulate.py --swarm               # LLM-per-agent swarm (Murakumo; kernel fallback)
+python3 methods/autorun.py --cycles 2 --fresh --swarm --publish \
+        --author did:web:etzhayyim.com:member:<h> --seed-path out/ingested-box.kotoba.edn   # swarm over the REAL box
+
+python3 tests/test_simulate.py && python3 tests/test_distribution.py \
+  && python3 tests/test_runtime.py && python3 tests/test_ingest.py   # 30 green
 ```
 
 The autonomous loop is **deterministic + resume-safe** (each tx links the previous tx's content

@@ -36,9 +36,17 @@ datom_emit = "methods/datom_emit.py"
 murakumo = "methods/murakumo.py"       # Murakumo-only narration (G5) + graceful template fallback
 social = "methods/social.py"           # social emission (G2 no-point + G3 no-steer + G7 member-signed)
 kotoba = "methods/kotoba.py"           # append-only content-addressed Datom log (commit-DAG, verify_chain)
-autorun = "methods/autorun.py"         # autonomous heartbeat → persist tx per cycle
+autorun = "methods/autorun.py"         # autonomous heartbeat (scalar kernel OR --swarm) → persist tx per cycle
+ingest = "methods/ingest.py"           # REAL public-entity ingest (Wikidata orgs/topics; persons refused, G1)
+cid = "methods/cid.py"                 # kotoba IPFS CIDv1 (raw/sha2-256, ipfs-parity, no daemon)
+
+[ingest]
+gated = "G8 — bounded public slice runs freely (R1-authorized); scope expansion (more QIDs/sources) needs Council + operator DID"
+source = "Wikidata Special:EntityData (PUBLIC, CC0, no auth)"
+individual_level = false   # orgs/topics ONLY; natural persons (P31=Q5) dropped at ingest (G1 by construction)
+manifest = "data/ingest-sources.edn"
 
 [tests]
-count = 23
-runner = "python3 tests/test_simulate.py && python3 tests/test_distribution.py && python3 tests/test_runtime.py"
-network = false   # all tests are network-free + deterministic (Murakumo fallback exercised offline)
+count = 30
+runner = "python3 tests/test_simulate.py && python3 tests/test_distribution.py && python3 tests/test_runtime.py && python3 tests/test_ingest.py"
+network = false   # all tests network-free + deterministic (offline Wikidata fixture; Murakumo/swarm fallback exercised offline)

@@ -51,10 +51,17 @@ def _scenario_label(nodes: dict) -> str:
 def run_cycle(cycle: int, *, seed_path: pathlib.Path = SEED, log_path: pathlib.Path = LOG,
               steps: int = S.DEFAULT_STEPS, replicas: int = S.DEFAULT_REPLICAS,
               seed: int = S.DEFAULT_SEED, author: str = "", publish: bool = False,
-              transport=None) -> dict:
-    """One autonomous heartbeat. cycle drives tx-id + as-of (deterministic / resume-safe)."""
+              swarm: bool = False, transport=None) -> dict:
+    """One autonomous heartbeat. cycle drives tx-id + as-of (deterministic / resume-safe).
+    swarm=True runs the LLM-per-agent variant (Murakumo, kernel fallback) instead of the scalar
+    ensemble — still synthetic personas (G1), still distribution-only (G2)."""
     nodes, edges = W.load(seed_path)                       # G1: refuses any non-synthetic persona
-    results, meta = S.ensemble(nodes, edges, steps=steps, replicas=replicas, seed=seed)
+    if swarm:
+        step_fn = lambda st, nm, su, an: M.persona_step(st, nm, su, an, prefer_fleet=True)  # noqa: E731
+        results, meta = S.swarm_ensemble(nodes, edges, steps=steps, replicas=replicas,
+                                         seed=seed, step_fn=step_fn)
+    else:
+        results, meta = S.ensemble(nodes, edges, steps=steps, replicas=replicas, seed=seed)
     dist = D.distribution(results)
     label = _scenario_label(nodes)
 
@@ -84,11 +91,12 @@ def run_cycle(cycle: int, *, seed_path: pathlib.Path = SEED, log_path: pathlib.P
 
 
 def run_autonomous(cycles: int = 3, *, seed_path: pathlib.Path = SEED, log_path: pathlib.Path = LOG,
-                   author: str = "", publish: bool = False, transport=None) -> dict:
+                   author: str = "", publish: bool = False, swarm: bool = False,
+                   transport=None) -> dict:
     """Drive `cycles` self-paced heartbeats. Each appends one content-addressed tx. Returns the
     run summary + final head CID + chain verification."""
     beats = [run_cycle(c, seed_path=seed_path, log_path=log_path, author=author,
-                       publish=publish, transport=transport)
+                       publish=publish, swarm=swarm, transport=transport)
              for c in range(1, cycles + 1)]
     return {
         "cycles": cycles,
@@ -108,13 +116,20 @@ if __name__ == "__main__":
     ap.add_argument("--author", default="", help="member DID (required to :publish; G7)")
     ap.add_argument("--publish", action="store_true",
                     help="emit :published posts (R1-authorized; needs --author). Default dry-run.")
+    ap.add_argument("--swarm", action="store_true",
+                    help="run the LLM-per-agent swarm (Murakumo; kernel fallback) vs scalar kernel")
+    ap.add_argument("--seed-path", type=pathlib.Path, default=SEED,
+                    help="scenario box to run (e.g. out/ingested-box.kotoba.edn from ingest.py)")
     args = ap.parse_args()
     if args.fresh and args.log.exists():
         args.log.unlink()
-    res = run_autonomous(args.cycles, log_path=args.log, author=args.author, publish=args.publish)
+    res = run_autonomous(args.cycles, seed_path=args.seed_path, log_path=args.log,
+                         author=args.author, publish=args.publish, swarm=args.swarm)
     mode = "LIVE :published" if args.publish and args.author else "dry-run"
+    engine = "LLM-swarm" if args.swarm else "scalar-kernel"
     print(f"# hakoniwa 箱庭 — AUTONOMOUS run over the kotoba Datom log  "
-          f"(mode={mode}, Murakumo fleet={'up' if res['fleet'] else 'offline→template fallback'})\n")
+          f"(mode={mode}, engine={engine}, "
+          f"Murakumo fleet={'up' if res['fleet'] else 'offline→template/kernel fallback'})\n")
     for b in res["beats"]:
         print(f"  ♥ cycle {b['cycle']}: {b['scenario'][:28]:<28} "
               f"p50={b['p50']:.2f} spread={b['spread']:.2f} "

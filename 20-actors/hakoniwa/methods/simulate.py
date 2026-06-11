@@ -152,6 +152,56 @@ def ensemble(nodes: dict, edges: list, steps=DEFAULT_STEPS, replicas=DEFAULT_REP
     return results, meta
 
 
+# ── LLM-persona swarm variant (G5/G8) ────────────────────────────────────────
+# Each synthetic persona's step is computed by an injectable step_fn instead of the scalar FJ
+# update. The default step_fn is the deterministic kernel (used in tests); the live swarm passes
+# murakumo.persona_step, which routes each agent's reasoning through the Murakumo fleet and falls
+# back to the kernel when the fleet is offline. The personas stay SYNTHETIC (G1); the output is
+# still the DISTRIBUTION (G2). This is the genuine multi-agent ("group intelligence") path —
+# each agent steps independently, optionally via an LLM.
+
+def _kernel_step(stance, neighbour_mean, susceptibility, anchor):
+    """Default per-persona step = one Friedkin-Johnsen update over the neighbour mean."""
+    return _clamp01(susceptibility * neighbour_mean + (1.0 - susceptibility) * anchor)
+
+
+def run_replica_swarm(pids, sus, base_anchor, incoming, exposure, steps, seed, replica, jitter,
+                      step_fn=None):
+    """One forward run where EACH persona steps via step_fn (LLM or kernel). Genuine agent-wise
+    dynamics: per step, every agent updates from its weighted-neighbour mean + anchor."""
+    step_fn = step_fn or (lambda st, nm, su, an: {"stance": _kernel_step(st, nm, su, an),
+                                                  "via": ":kernel"})
+    jit = {i: _jitter(seed, replica, i, jitter) for i in pids}
+    x = {i: _anchor_at_step(base_anchor[i], exposure[i], 0, jit[i]) for i in pids}
+    vias = set()
+    for step in range(1, steps + 1):
+        anchor = {i: _anchor_at_step(base_anchor[i], exposure[i], step, jit[i]) for i in pids}
+        nx = {}
+        for i in pids:
+            nbr = sum(w * x[j] for j, w in incoming[i]) if incoming[i] else anchor[i]
+            r = step_fn(x[i], nbr, sus[i] if incoming[i] else 0.0, anchor[i])
+            nx[i] = _clamp01(float(r["stance"]))
+            vias.add(r.get("via", ":kernel"))
+        x = nx
+    return x, vias
+
+
+def swarm_ensemble(nodes, edges, steps=DEFAULT_STEPS, replicas=DEFAULT_REPLICAS,
+                   seed=DEFAULT_SEED, jitter=DEFAULT_JITTER, step_fn=None):
+    """Ensemble using the per-agent swarm step. Returns (outcomes, meta) like ensemble(); meta
+    carries the set of step `via` channels actually used (e.g. :murakumo / :kernel-fallback)."""
+    pids, sus, base_anchor, weight, incoming, exposure = build_topology(nodes, edges)
+    results, vias = [], set()
+    for r in range(replicas):
+        x, v = run_replica_swarm(pids, sus, base_anchor, incoming, exposure,
+                                 steps, seed, r, jitter, step_fn)
+        results.append(population_statistic(x, weight))
+        vias |= v
+    meta = {"personas": len(pids), "edges": len(edges), "steps": steps, "replicas": replicas,
+            "seed": seed, "jitter": jitter, "swarm_via": sorted(vias)}
+    return results, meta
+
+
 def main(argv):
     here = pathlib.Path(__file__).resolve().parent.parent
     scenario = pathlib.Path(argv[1]) if len(argv) > 1 and not argv[1].startswith("--") \
@@ -165,10 +215,19 @@ def main(argv):
     seed = opt("--seed", DEFAULT_SEED, int)
 
     nodes, edges = W.load(scenario)
-    results, meta = ensemble(nodes, edges, steps=steps, replicas=replicas, seed=seed)
-    mean = sum(results) / len(results)
-    print(f"hakoniwa: {meta['personas']} synthetic personas, {meta['edges']} 縁, "
-          f"{steps} steps × {replicas} replicas → ensemble mean {mean:.4f}")
+    if "--swarm" in argv:
+        import murakumo as _M
+        step_fn = lambda st, nm, su, an: _M.persona_step(st, nm, su, an, prefer_fleet=True)  # noqa: E731
+        results, meta = swarm_ensemble(nodes, edges, steps=steps, replicas=replicas,
+                                       seed=seed, step_fn=step_fn)
+        via = ",".join(meta["swarm_via"])
+        print(f"hakoniwa SWARM: {meta['personas']} synthetic personas (LLM-per-agent), "
+              f"{meta['edges']} 縁, {steps}×{replicas} → mean {sum(results)/len(results):.4f} "
+              f"[via {via}]")
+    else:
+        results, meta = ensemble(nodes, edges, steps=steps, replicas=replicas, seed=seed)
+        print(f"hakoniwa: {meta['personas']} synthetic personas, {meta['edges']} 縁, "
+              f"{steps} steps × {replicas} replicas → ensemble mean {sum(results)/len(results):.4f}")
     print("  (distribution-only output via distribution.py — never a point assertion, G2)")
     return 0
 
