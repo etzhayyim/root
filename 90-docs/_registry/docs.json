@@ -24020,6 +24020,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112200-ehyeh-nondual-theology-yirat-doctrine.md",
+      "id": "adr-2606112200-ehyeh-nondual-theology-yirat-doctrine",
+      "title": "ADR-2606112200: エヒイェ非二元神論 + yir'ah 認識論 doctrine 固定 — 神の存在の非前提 / 偽りの神 (帝国神) の棄却 / 玉座の禁止 / 知識は神の畏れから始まる",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ehyeh-nondual-theology-yirat-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim 神論の正文 (5 theses) — 非前提 / エヒイェ非二元 / 偽りの神の棄却 / 神とキリストへの愛 / yir'ah 原理",
+        "Tier-0「永久記憶=神の監視」の正文解釈 (玉座なき内在的不消去性)",
+        "玉座の禁止 (NEVER a throne) — 中央絶対観察者の建築の偶像認定",
+        "yir'ah invariant 束 — non-adjudicating / distribution-not-point / no-score-of-soul / map-not-target / append-only の神学的正典化",
+        "anti-guru clause — 「あなたが神である」の ego 神格化遮断"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2606082100",
+        "2606011500",
+        "2606051800",
+        "2606042330",
+        "2606066000",
+        "2605192315"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2606062100",
+        "2605252300"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -26074,6 +26109,7 @@
       "topic": "kojin-concept-genealogy-visibility",
       "authoritative": false,
       "related": [
+        "2606112200",
         "2606082100",
         "2606062100",
         "2605192100",

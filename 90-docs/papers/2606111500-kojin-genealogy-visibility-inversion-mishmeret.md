@@ -6,8 +6,9 @@ doc_type: explanation
 topic: kojin-concept-genealogy-visibility
 authoritative: false
 last_verified: 2026-06-11
-priority_note: "doctrine 化 (Tier-1 への昇格・actor 設計への反映) は別途 ADR を要する。本稿は系譜学的検討 + 教義適合性の評価論文であり、Charter の現行 invariant を変更しない。"
+priority_note: "本稿 §5 の神論 (エヒイェ非二元 / 偽りの神の棄却 / 玉座の禁止 / yir'ah 認識論) は ADR-2606112200 で Tier-1 doctrine として固定 (founder unanimity 1/1, 2026-06-11)。mishmeret ha-adam の membrane/actor 設計は別途 ADR。"
 related:
+  - "2606112200"  # 本稿 §5 を doctrine 固定する ADR (エヒイェ非二元神論 + yir'ah 原理)
   - "2606082100"  # mishmar storage covenant — 本稿の提案する mishmeret はその人間スケール sibling
   - "2606062100"  # 3-Tier 永久記憶=神の監視 Tier-0 / moyai 非移転・減衰 ledger
   - "2605192100"  # mission charter — 反個人主義 ontology / 非終末論 / Wellbecoming
@@ -45,7 +46,9 @@ superseded_by: []
 明確化する: etzhayyim は神の存在を**前提しない**。エヒイェ・アシェル・
 エヒイェ (出3:14) の非二元的読解に立ち、不変・絶対の「GoD」像をギリシア
 形而上学とローマ帝国による歴史的構築 — **偽りの神** — として退け、その上で
-神とキリストを愛する。永久記憶=神の監視は天空の panopticon ではなく
+神とキリストを愛する。**知識は神の畏れから始まる** (箴言1:7) — yir'ah
+(畏敬) ≠ pachad (恐怖) — を認識論的第一原理として §5.5 に置く。
+永久記憶=神の監視は天空の panopticon ではなく
 **観察者の玉座を持たない内在的不消去性**であり、panopticon こそ偽りの神の
 建築である。可視性は対称化してはならない:
 権力には非同意の watch を、人格には covenant 経由の keep を — この
@@ -365,6 +368,42 @@ Malkhut Shamayim の now-and-here reign とはこの意味である。
 いま・ここに指し示した者である。**偽りの神を退けることが、神を正しく
 愛する仕方である。**
 
+### 5.5 知識は神の畏れから始まる — yir'ah の認識論
+
+יִרְאַת יְהוָה רֵאשִׁית דָּעַת — 「YHWH への畏れは知識の初め (reshit)」
+(箴言1:7; 同9:10; 詩篇111:10)。reshit は創世記1:1 冒頭の bereshit と
+同じ語であり、「初め」とは時間的起点であると同時に arche (原理) である。
+知識は畏れから出発した、のではない — 知識は畏れから**始まり続ける**。
+
+ヘブライ語は二つの恐れを区別する。**pachad** (恐怖・戦慄) と **yir'ah**
+(畏れ・畏敬)。Pantokrator が命じるのは pachad — 玉座の処罰者への恐怖
+であり、恐怖は問いを止める。エヒイェが呼び起こすのは yir'ah — 名乗らない
+名、対象化を拒む生成への畏敬であり、畏れは問いを開く。**偽りの神は
+pachad で支配することによって、まさに yir'ah を — したがって知識を —
+殺す。**
+
+非二元の読解のもとで、yir'ah は正確な認識論的内容を持つ: **知る者は
+知られるものと分断されていない。ゆえに知識は所有ではなく参与であり、
+完結しえない。** 自分のモデルは決して存在を覆い尽くさない — この
+不完結性の自覚が知識の初めであり、yir'ah とは epistemic humility の
+宗教的名である。そして分断がない以上、神への畏れは**他者への畏れを
+含む**: あなたが神であるなら、目の前の他者も神である。人を datafy する
+手はすべて、神に触れる手である。
+
+corpus の認識論的 invariant 群は、この yir'ah の工学的形態にほかならない:
+
+| yir'ah の侵犯 (pachad / hubris の側) | yir'ah の形態 (corpus invariant) |
+|---|---|
+| 裁定 — 人や主張に verdict を下し尽くす | non-adjudicating (全 mirror lineage) |
+| 点予測 — 未来を確定として語る | distribution-not-point + skill-honest scoring (mitooshi) |
+| 魂の点数化 — 人を一つの数に還元する | no score-of-soul (Spirit-in-Physics) |
+| target-list — 他者を到達可能な座標に還元する | map-not-target (全 mirror) |
+| 消去 — 在ったことを無かったことにする | append-only / no right to erasure (Tier-0) |
+
+知識のどの行為も、覆い尽くせないものへの畏れから始まるとき正しく、
+所有と支配の確信から始まるとき偽りの神に仕える。kill list とは yir'ah の
+完全な不在 — 他者を住所に還元し尽くせると信じた知識 — であった。
+
 ---
 
 ## 6. 「全人類の相互監視者会」の検討
@@ -504,7 +543,7 @@ etzhayyim の答えは秘匿の再分配ではなく可視性の routing の再�
 - John Locke, *Two Treatises of Government* (1689), II §27
 - Jeremy Bentham, *Panopticon; or, The Inspection-House* (1791)
 - Samuel D. Warren & Louis D. Brandeis, "The Right to Privacy", *Harvard Law Review* 4(5) (1890)
-- 出エジプト記 3:14; 創世記 4:9; 詩篇 121:4; エゼキエル書 33:1-9; ガラテヤ 3:28; ルカ 17:21; ヨハネ 10:30
+- 出エジプト記 3:14; 創世記 1:1, 4:9; 箴言 1:7, 9:10; 詩篇 111:10, 121:4; エゼキエル書 33:1-9; ガラテヤ 3:28; ルカ 17:21; ヨハネ 10:30
 - Blaise Pascal, "Mémorial" (1654)
 - Meister Eckhart, Predigten (13-14世紀)
 
