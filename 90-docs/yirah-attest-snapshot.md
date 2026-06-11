@@ -16,16 +16,16 @@ each row's unchecked cells are candidate declarations for that actor's next
 iteration — adopted only where the invariant is meaningful for its scope.
 No per-actor score is computed (the scanner honors no-score-of-soul).
 
-**Actors scanned**: 87 (manifest-bearing, non-compat)
+**Actors scanned**: 88 (manifest-bearing, non-compat)
 
 | invariant | declared | coverage |
 |---|---|---|
-| non-adjudicating | 30/87 | ███ |
-| distribution-not-point | 14/87 | ██ |
-| no-score-of-soul | 11/87 | █ |
-| map-not-target | 18/87 | ██ |
-| append-only | 21/87 | ██ |
-| never-a-throne | 50/87 | ██████ |
+| non-adjudicating | 30/88 | ███ |
+| distribution-not-point | 14/88 | ██ |
+| no-score-of-soul | 11/88 | █ |
+| map-not-target | 21/88 | ██ |
+| append-only | 27/88 | ███ |
+| never-a-throne | 57/88 | ██████ |
 
 ## Declared-matrix (✓ = declared in manifest text)
 
@@ -37,20 +37,20 @@ No per-actor score is computed (the scanner honors no-score-of-soul).
 | chigiri | ✓ | · | ✓ | · | ✓ | ✓ |
 | danjo | ✓ | · | · | · | · | ✓ |
 | fuchi | ✓ | ✓ | ✓ | · | · | ✓ |
-| funadaiku | · | · | · | · | · | · |
-| futawa | · | · | · | · | · | · |
+| funadaiku | · | · | · | · | ✓ | ✓ |
+| futawa | · | · | · | ✓ | ✓ | ✓ |
 | gov-municipality | · | · | · | · | · | · |
 | hagukumi | ✓ | · | ✓ | ✓ | ✓ | ✓ |
 | hakoniwa | · | ✓ | · | · | ✓ | ✓ |
-| hikari | · | · | · | · | · | · |
+| hikari | · | · | · | ✓ | ✓ | ✓ |
 | himawari | · | · | · | · | ✓ | · |
 | himotoki | ✓ | · | ✓ | ✓ | ✓ | ✓ |
-| hodoki | · | · | · | · | · | · |
+| hodoki | · | · | · | ✓ | ✓ | ✓ |
 | hokorobi | ✓ | · | · | ✓ | · | ✓ |
 | hoshimori | ✓ | · | · | ✓ | · | ✓ |
 | hotaru | ✓ | · | · | · | · | ✓ |
 | ibuki | · | · | · | · | ✓ | ✓ |
-| igata | · | · | · | · | · | · |
+| igata | · | · | · | · | ✓ | ✓ |
 | infra-utility-connect | · | · | · | · | · | · |
 | inochi | ✓ | · | · | ✓ | · | ✓ |
 | itonami | ✓ | · | · | · | · | ✓ |
@@ -59,7 +59,7 @@ No per-actor score is computed (the scanner honors no-score-of-soul).
 | kabuto | · | · | · | ✓ | · | ✓ |
 | kamado | · | · | · | · | · | · |
 | kanae | ✓ | · | · | · | · | ✓ |
-| kanayama | · | · | · | · | · | · |
+| kanayama | · | · | · | · | ✓ | ✓ |
 | kanjo | ✓ | ✓ | · | · | · | ✓ |
 | kasa | ✓ | ✓ | · | ✓ | · | ✓ |
 | kataribe | · | ✓ | · | · | · | · |
@@ -88,6 +88,7 @@ No per-actor score is computed (the scanner honors no-score-of-soul).
 | rasen | ✓ | · | · | · | · | ✓ |
 | sanae | · | · | · | · | · | · |
 | sarutahiko | · | · | · | · | · | · |
+| seigyo | · | · | · | · | · | ✓ |
 | sentei | ✓ | ✓ | · | · | ✓ | ✓ |
 | shidemori | · | ✓ | · | · | · | · |
 | shionome | · | ✓ | · | ✓ | ✓ | ✓ |
@@ -121,18 +122,18 @@ No per-actor score is computed (the scanner honors no-score-of-soul).
 
 ## Worklist (actors declaring fewest bundle invariants first — count, not rank of worth)
 
-- **funadaiku** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
-- **futawa** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **gov-municipality** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
-- **hikari** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
-- **hodoki** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
-- **igata** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **infra-utility-connect** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kamado** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
-- **kanayama** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kawase-yui** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kizashi** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kokoro** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kuni-umi** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **kurashimori** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
 - **makura** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **mitate** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **mitsuho** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **mizuho** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **musubi** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **sanae** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne
+- **sarutahiko** — undeclared: non-adjudicating, distribution-not-point, no-score-of-soul, map-not-target, append-only, never-a-throne

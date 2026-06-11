@@ -170,5 +170,14 @@
     },
     "parent": "/20-actors/kuni-umi/README.md",
     "hanamiPrecedent": "/90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "map-not-target": "no smart-meter device surveillance — grid impact reported ONLY in ≥1-hour aggregate buckets (G6); no per-household consumption profile exists",
+      "append-only": "per-lot sourcing audits (G2) + grid reports persist as appended public records",
+      "never-a-throne": "aggregate-first public reporting (G6) + open-source inverter/BMS/microgrid firmware (G1) — no central view over households"
+    }
   }
 }
