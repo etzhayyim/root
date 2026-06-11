@@ -15453,6 +15453,23 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "type": "TechArticle",
+      "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
+      "status": "active",
+      "topic": "session-close-search-readpath",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-11 search/ingest/read-path session"
+      ],
+      "related": [
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2606041151"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
