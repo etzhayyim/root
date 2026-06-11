@@ -563,8 +563,15 @@ adr = "2606091500"
 #   kotoba-store / kotoba-server: KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net;
 #                                 set off|none|disabled to skip), KOTOBA_IPFS_PIN_JWT (optional Bearer)
 #   e7m-dataset publish-ipfs:     ETZ_KOTOBASE_PIN (default https://kotobase.net)
+#   ipfs-pinner (MST-CAR provider, PR #1606): ETZ_PINNER_PROVIDERS=kubo,kotobase +
+#       ETZ_KOTOBASE_URL (default https://kotobase.net) + ETZ_KOTOBASE_JWT | (ETZ_KOTOBASE_CACAO
+#       + ETZ_KOTOBASE_DID, self-signed CACAO granting kotobase:pin) + ETZ_KOTOBASE_GATEWAY
+#       (default https://ipfs.gftd.ai). Uses the PSA surface (POST /pins), not /api/v0/pin/add.
 env_kotoba = ["KOTOBA_IPFS_PIN_ENDPOINT (default https://kotobase.net; off|none|disabled to skip)", "KOTOBA_IPFS_PIN_JWT (optional)"]
 env_e7m_dataset = ["ETZ_KOTOBASE_PIN (default https://kotobase.net)"]
+env_ipfs_pinner = ["ETZ_PINNER_PROVIDERS (kubo,kotobase)", "ETZ_KOTOBASE_URL (default https://kotobase.net)", "ETZ_KOTOBASE_JWT | ETZ_KOTOBASE_CACAO+ETZ_KOTOBASE_DID (kotobase:pin CACAO)", "ETZ_KOTOBASE_GATEWAY (default https://ipfs.gftd.ai)"]
+api_surface_psa = "ipfs-pinner uses the standard IPFS Pinning Service API (POST /pins); the kotoba node uses the Kubo-compatible /api/v0/pin/add — kotobase.net exposes both"
+consumers = ["kotoba-store IpfsPinClient", "e7m-dataset publish-ipfs", "ipfs-pinner kotobase provider (PR #1606)"]
 supersedes_name = "kotobase.etzhayyim.com"
 
 [platform.dataset_substrate]
