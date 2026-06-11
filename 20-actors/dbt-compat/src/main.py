@@ -111,403 +111,235 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/nodes", methods=["POST"])
+def create_node(request):
+    """Create a Node."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['database', 'schema', 'name', 'packageName', 'uniqueId', 'alias', 'description', 'compiled', 'rawCode', 'resourceType'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['database', 'schema'])
     if err:
         return err, 400
-    rec = {"id": new_id("dbt_con")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
-    return rec, 201
-
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['name', 'source', 'destination', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Connector", rec)
-    return rec, 200
-
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Connector", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/syncs", methods=["POST"])
-def create_sync(request):
-    """Create a Sync."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'rows'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dbt_syn")}
-    rec["connectorId"] = data.get('connectorId')
-    rec["status"] = data.get('status')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["startedAt"] = data.get('startedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Sync", rec)
-    return rec, 201
-
-@app.route("/v1/syncs", methods=["GET"])
-def list_syncs(request):
-    """List Syncs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Sync")
-    rows = _apply_filters(rows, params, ['connectorId', 'status', 'rows', 'startedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/syncs/<eid>", methods=["GET"])
-def get_sync(request, eid):
-    """Retrieve a Sync by id (supports ?expand=)."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'connectorId': 'Connector'})
-    return rec, 200
-
-@app.route("/v1/syncs/<eid>", methods=["POST", "PATCH"])
-def update_sync(request, eid):
-    """Update a Sync."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Sync", rec)
-    return rec, 200
-
-@app.route("/v1/syncs/<eid>", methods=["DELETE"])
-def delete_sync(request, eid):
-    """Delete a Sync."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Sync", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'materialization'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dbt_mod")}
-    rec["name"] = data.get('name')
-    rec["materialization"] = data.get('materialization')
-    rec["sql"] = data.get('sql')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
-    return rec, 201
-
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'materialization', 'sql'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Model", rec)
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Model", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'partitions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dbt_str")}
-    rec["name"] = data.get('name')
-    rec["partitions"] = _as_int(data.get('partitions'))
-    rec["retentionMs"] = _as_int(data.get('retentionMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['name', 'partitions', 'retentionMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/schemas", methods=["POST"])
-def create_schema(request):
-    """Create a Schema."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'database'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("dbt_sch")}
-    rec["name"] = data.get('name')
+    if data.get('resourceType') and data['resourceType'] not in ['model', 'analysis', 'test', 'snapshot', 'operation', 'seed', 'rpc', 'sql_operation', 'doc', 'source', 'macro', 'exposure', 'metric', 'group', 'saved_query', 'semantic_model', 'unit_test', 'fixture', 'function']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['model', 'analysis', 'test', 'snapshot', 'operation', 'seed', 'rpc', 'sql_operation', 'doc', 'source', 'macro', 'exposure', 'metric', 'group', 'saved_query', 'semantic_model', 'unit_test', 'fixture', 'function']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dbt_nod")}
     rec["database"] = data.get('database')
-    rec["tableCount"] = _as_int(data.get('tableCount'))
+    rec["schema"] = data.get('schema')
+    rec["name"] = data.get('name')
+    rec["packageName"] = data.get('packageName')
+    rec["uniqueId"] = data.get('uniqueId')
+    rec["alias"] = data.get('alias')
+    rec["description"] = data.get('description')
+    rec["compiled"] = _as_bool(data.get('compiled'))
+    rec["rawCode"] = data.get('rawCode')
+    rec["resourceType"] = data.get('resourceType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Schema", rec)
+    _persist("Node", rec)
     return rec, 201
 
-@app.route("/v1/schemas", methods=["GET"])
-def list_schemas(request):
-    """List Schemas with filtering + cursor pagination."""
+@app.route("/v1/nodes", methods=["GET"])
+def list_nodes(request):
+    """List Nodes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Schema")
-    rows = _apply_filters(rows, params, ['name', 'database', 'tableCount'])
+    rows = _query("Node")
+    rows = _apply_filters(rows, params, ['database', 'schema', 'name', 'packageName', 'uniqueId', 'alias', 'description', 'compiled', 'rawCode', 'resourceType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/schemas/<eid>", methods=["GET"])
-def get_schema(request, eid):
-    """Retrieve a Schema by id (supports ?expand=)."""
-    rows = _query("Schema", eid)
+@app.route("/v1/nodes/<eid>", methods=["GET"])
+def get_node(request, eid):
+    """Retrieve a Node by id (supports ?expand=)."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/schemas/<eid>", methods=["POST", "PATCH"])
-def update_schema(request, eid):
-    """Update a Schema."""
-    rows = _query("Schema", eid)
+@app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
+def update_node(request, eid):
+    """Update a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
+    err = _reject_unknown(data, ['database', 'schema', 'name', 'packageName', 'uniqueId', 'alias', 'description', 'compiled', 'rawCode', 'resourceType'])
     if err:
         return err, 400
+    if data.get('resourceType') and data['resourceType'] not in ['model', 'analysis', 'test', 'snapshot', 'operation', 'seed', 'rpc', 'sql_operation', 'doc', 'source', 'macro', 'exposure', 'metric', 'group', 'saved_query', 'semantic_model', 'unit_test', 'fixture', 'function']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['model', 'analysis', 'test', 'snapshot', 'operation', 'seed', 'rpc', 'sql_operation', 'doc', 'source', 'macro', 'exposure', 'metric', 'group', 'saved_query', 'semantic_model', 'unit_test', 'fixture', 'function']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Schema", rec)
+    _persist("Node", rec)
     return rec, 200
 
-@app.route("/v1/schemas/<eid>", methods=["DELETE"])
-def delete_schema(request, eid):
-    """Delete a Schema."""
-    rows = _query("Schema", eid)
+@app.route("/v1/nodes/<eid>", methods=["DELETE"])
+def delete_node(request, eid):
+    """Delete a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Schema", "id": eid})
+    db.retract({"entity": f"dbt.Node", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tests", methods=["POST"])
-def create_test(request):
-    """Create a Test."""
+@app.route("/v1/sources", methods=["POST"])
+def create_source(request):
+    """Create a Source."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
+    err = _reject_unknown(data, ['database', 'schema', 'name', 'sourceName', 'sourceDescription', 'loader', 'identifier', 'uniqueId', 'resourceType'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'type'])
+    err = _require(data, ['database', 'schema'])
     if err:
         return err, 400
-    rec = {"id": new_id("dbt_tes")}
-    rec["modelName"] = data.get('modelName')
-    rec["type"] = data.get('type')
-    rec["passed"] = _as_bool(data.get('passed'))
+    if data.get('resourceType') and data['resourceType'] not in ['source']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['source']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dbt_sou")}
+    rec["database"] = data.get('database')
+    rec["schema"] = data.get('schema')
+    rec["name"] = data.get('name')
+    rec["sourceName"] = data.get('sourceName')
+    rec["sourceDescription"] = data.get('sourceDescription')
+    rec["loader"] = data.get('loader')
+    rec["identifier"] = data.get('identifier')
+    rec["uniqueId"] = data.get('uniqueId')
+    rec["resourceType"] = data.get('resourceType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Test", rec)
+    _persist("Source", rec)
     return rec, 201
 
-@app.route("/v1/tests", methods=["GET"])
-def list_tests(request):
-    """List Tests with filtering + cursor pagination."""
+@app.route("/v1/sources", methods=["GET"])
+def list_sources(request):
+    """List Sources with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Test")
-    rows = _apply_filters(rows, params, ['modelName', 'type', 'passed'])
+    rows = _query("Source")
+    rows = _apply_filters(rows, params, ['database', 'schema', 'name', 'sourceName', 'sourceDescription', 'loader', 'identifier', 'uniqueId', 'resourceType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tests/<eid>", methods=["GET"])
-def get_test(request, eid):
-    """Retrieve a Test by id (supports ?expand=)."""
-    rows = _query("Test", eid)
+@app.route("/v1/sources/<eid>", methods=["GET"])
+def get_source(request, eid):
+    """Retrieve a Source by id (supports ?expand=)."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["POST", "PATCH"])
-def update_test(request, eid):
-    """Update a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/sources/<eid>", methods=["POST", "PATCH"])
+def update_source(request, eid):
+    """Update a Source."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
+    err = _reject_unknown(data, ['database', 'schema', 'name', 'sourceName', 'sourceDescription', 'loader', 'identifier', 'uniqueId', 'resourceType'])
     if err:
         return err, 400
+    if data.get('resourceType') and data['resourceType'] not in ['source']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['source']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Test", rec)
+    _persist("Source", rec)
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["DELETE"])
-def delete_test(request, eid):
-    """Delete a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/sources/<eid>", methods=["DELETE"])
+def delete_source(request, eid):
+    """Delete a Source."""
+    rows = _query("Source", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dbt.Test", "id": eid})
+    db.retract({"entity": f"dbt.Source", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/runresults", methods=["POST"])
+def create_run_result(request):
+    """Create a RunResult."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['threadId', 'executionTime', 'message', 'failures', 'uniqueId', 'compiled', 'compiledCode', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['executionTime', 'message'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['success', 'error', 'skipped', 'partial success', 'no-op', 'pass', 'fail', 'warn', 'runtime error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'error', 'skipped', 'partial success', 'no-op', 'pass', 'fail', 'warn', 'runtime error']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("dbt_run")}
+    rec["threadId"] = data.get('threadId')
+    rec["executionTime"] = _as_float(data.get('executionTime'))
+    rec["message"] = data.get('message')
+    rec["failures"] = _as_int(data.get('failures'))
+    rec["uniqueId"] = data.get('uniqueId')
+    rec["compiled"] = _as_bool(data.get('compiled'))
+    rec["compiledCode"] = data.get('compiledCode')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RunResult", rec)
+    return rec, 201
+
+@app.route("/v1/runresults", methods=["GET"])
+def list_run_results(request):
+    """List RunResults with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RunResult")
+    rows = _apply_filters(rows, params, ['threadId', 'executionTime', 'message', 'failures', 'uniqueId', 'compiled', 'compiledCode', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/runresults/<eid>", methods=["GET"])
+def get_run_result(request, eid):
+    """Retrieve a RunResult by id (supports ?expand=)."""
+    rows = _query("RunResult", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/runresults/<eid>", methods=["POST", "PATCH"])
+def update_run_result(request, eid):
+    """Update a RunResult."""
+    rows = _query("RunResult", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['threadId', 'executionTime', 'message', 'failures', 'uniqueId', 'compiled', 'compiledCode', 'status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['success', 'error', 'skipped', 'partial success', 'no-op', 'pass', 'fail', 'warn', 'runtime error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'error', 'skipped', 'partial success', 'no-op', 'pass', 'fail', 'warn', 'runtime error']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RunResult", rec)
+    return rec, 200
+
+@app.route("/v1/runresults/<eid>", methods=["DELETE"])
+def delete_run_result(request, eid):
+    """Delete a RunResult."""
+    rows = _query("RunResult", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"dbt.RunResult", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "dbt-compat", "tier": "L4",
-            "entities": ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']}, 200
+            "entities": ['Node', 'Source', 'RunResult']}, 200
 
 
 if __name__ == "__main__":

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible AI / ML inference actor (huggingface); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:huggingface-compat",
-    "x-wasm-cid": "bafkreihcixhtc2xuf53ro5t55hugxkfg7ulglgbqzqs3oxm5dgipowbykm",
+    "x-wasm-cid": "bafkreieom5vrrwjmk3natbr2ceerdpf42pfqgzie5kpgkk7zfvvkdpqoee",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihcixhtc2xuf53ro5t55hugxkfg7ulglgbqzqs3oxm5dgipowbykm",
+      "url": "ipfs://bafkreieom5vrrwjmk3natbr2ceerdpf42pfqgzie5kpgkk7zfvvkdpqoee",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/models": {
+    "/v1/modelinfos": {
       "get": {
-        "summary": "List Models",
+        "summary": "List ModelInfos",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/ModelInfo"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a ModelInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/ModelInfoCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/ModelInfo"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/modelinfos/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a ModelInfo",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/ModelInfo"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a ModelInfo",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/ModelInfoCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/ModelInfo"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
+        "summary": "Delete a ModelInfo",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/completions": {
+    "/v1/datasetinfos": {
       "get": {
-        "summary": "List Completions",
+        "summary": "List DatasetInfos",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Completion"
+                        "$ref": "#/components/schemas/DatasetInfo"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Completion",
+        "summary": "Create a DatasetInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/DatasetInfoCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/DatasetInfo"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/completions/{id}": {
+    "/v1/datasetinfos/{id}": {
       "get": {
-        "summary": "Get a Completion",
+        "summary": "Get a DatasetInfo",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/DatasetInfo"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Completion",
+        "summary": "Update a DatasetInfo",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/DatasetInfoCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/DatasetInfo"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Completion",
+        "summary": "Delete a DatasetInfo",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/embeddings": {
+    "/v1/spaceinfos": {
       "get": {
-        "summary": "List Embeddings",
+        "summary": "List SpaceInfos",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Embedding"
+                        "$ref": "#/components/schemas/SpaceInfo"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Embedding",
+        "summary": "Create a SpaceInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/SpaceInfoCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/SpaceInfo"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/embeddings/{id}": {
+    "/v1/spaceinfos/{id}": {
       "get": {
-        "summary": "Get a Embedding",
+        "summary": "Get a SpaceInfo",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/SpaceInfo"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Embedding",
+        "summary": "Update a SpaceInfo",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/SpaceInfoCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/SpaceInfo"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Embedding",
+        "summary": "Delete a SpaceInfo",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/finetunes": {
+    "/v1/transformersinfos": {
       "get": {
-        "summary": "List FineTunes",
+        "summary": "List TransformersInfos",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/FineTune"
+                        "$ref": "#/components/schemas/TransformersInfo"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a FineTune",
+        "summary": "Create a TransformersInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
+                "$ref": "#/components/schemas/TransformersInfoCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/TransformersInfo"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/finetunes/{id}": {
+    "/v1/transformersinfos/{id}": {
       "get": {
-        "summary": "Get a FineTune",
+        "summary": "Get a TransformersInfo",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/TransformersInfo"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a FineTune",
+        "summary": "Update a TransformersInfo",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
+                "$ref": "#/components/schemas/TransformersInfoCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FineTune"
+                  "$ref": "#/components/schemas/TransformersInfo"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a FineTune",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/datasets": {
-      "get": {
-        "summary": "List Datasets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Dataset"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Dataset",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/datasets/{id}": {
-      "get": {
-        "summary": "Get a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/files": {
-      "get": {
-        "summary": "List Files",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/File"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a File",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/files/{id}": {
-      "get": {
-        "summary": "Get a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a File",
+        "summary": "Delete a TransformersInfo",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +770,46 @@
   },
   "components": {
     "schemas": {
-      "Model": {
+      "ModelInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "author": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
-          },
-          "contextWindow": {
+          "downloads": {
             "type": "integer"
           },
-          "modality": {
+          "likes": {
+            "type": "integer"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "pipelineTag": {
             "type": "string"
+          },
+          "libraryName": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "inference": {
+            "type": "string",
+            "enum": [
+              "warm"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1168,44 +821,87 @@
           }
         }
       },
-      "ModelCreate": {
+      "ModelInfoCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "author": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
-          },
-          "contextWindow": {
+          "downloads": {
             "type": "integer"
           },
-          "modality": {
+          "likes": {
+            "type": "integer"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "pipelineTag": {
             "type": "string"
+          },
+          "libraryName": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "inference": {
+            "type": "string",
+            "enum": [
+              "warm"
+            ]
           }
         },
         "required": [
-          "name",
-          "family"
+          "author",
+          "downloads"
         ]
       },
-      "Completion": {
+      "DatasetInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelId": {
+          "author": {
             "type": "string"
           },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
+          "downloads": {
             "type": "integer"
+          },
+          "likes": {
+            "type": "integer"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "sha": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "mainSize": {
+            "type": "integer"
+          },
+          "citation": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1217,44 +913,81 @@
           }
         }
       },
-      "CompletionCreate": {
+      "DatasetInfoCreate": {
         "type": "object",
         "properties": {
-          "modelId": {
+          "author": {
             "type": "string"
           },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
+          "downloads": {
             "type": "integer"
+          },
+          "likes": {
+            "type": "integer"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "sha": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "mainSize": {
+            "type": "integer"
+          },
+          "citation": {
+            "type": "string"
           }
         },
         "required": [
-          "prompt",
-          "output"
+          "author",
+          "downloads"
         ]
       },
-      "Embedding": {
+      "SpaceInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelId": {
+          "author": {
             "type": "string"
           },
-          "input": {
+          "sha": {
             "type": "string"
           },
-          "dimensions": {
+          "private": {
+            "type": "boolean"
+          },
+          "sdk": {
+            "type": "string"
+          },
+          "likes": {
             "type": "integer"
           },
-          "vectorRef": {
+          "host": {
             "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1266,89 +999,60 @@
           }
         }
       },
-      "EmbeddingCreate": {
+      "SpaceInfoCreate": {
         "type": "object",
         "properties": {
-          "modelId": {
+          "author": {
             "type": "string"
           },
-          "input": {
+          "sha": {
             "type": "string"
           },
-          "dimensions": {
+          "private": {
+            "type": "boolean"
+          },
+          "sdk": {
+            "type": "string"
+          },
+          "likes": {
             "type": "integer"
           },
-          "vectorRef": {
+          "host": {
             "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "gated": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "manual",
+              false
+            ]
           }
         },
         "required": [
-          "input",
-          "dimensions"
+          "author",
+          "sha"
         ]
       },
-      "FineTune": {
+      "TransformersInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "baseModelId": {
+          "autoModel": {
             "type": "string"
           },
-          "datasetId": {
+          "customClass": {
             "type": "string"
           },
-          "status": {
+          "pipelineTag": {
             "type": "string"
           },
-          "epochs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FineTuneCreate": {
-        "type": "object",
-        "properties": {
-          "baseModelId": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "epochs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "status",
-          "epochs"
-        ]
-      },
-      "Dataset": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "rows": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "processor": {
             "type": "string"
           },
           "createdAt": {
@@ -1361,71 +1065,25 @@
           }
         }
       },
-      "DatasetCreate": {
+      "TransformersInfoCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "autoModel": {
             "type": "string"
           },
-          "rows": {
-            "type": "integer"
+          "customClass": {
+            "type": "string"
           },
-          "contentRef": {
+          "pipelineTag": {
+            "type": "string"
+          },
+          "processor": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "rows"
-        ]
-      },
-      "File": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FileCreate": {
-        "type": "object",
-        "properties": {
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "purpose",
-          "filename"
+          "autoModel",
+          "customClass"
         ]
       }
     }

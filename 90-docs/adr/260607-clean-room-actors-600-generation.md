@@ -444,3 +444,25 @@ research agents need `--allowed-tools google_web_search,web_fetch` — gemini's
 plan mode blocks web_fetch entirely (the agent correctly refused to fabricate
 from training data and returned deferRecommended, which is the honesty gate
 holding under tool failure).
+
+### §16.1 /loop iteration 1 (same session) — wave 2 reaches 171 (17.1%)
+
+Second gemini-CLI wave under the same two-stage harness:
+comma_ai_openpilot + dbt + aave + huggingface → ledger **171** (829 L4 /
+171 L5 = 17.1%), enforced-enum actors 166, enforced enum fields **721**,
+verify PASS 0/0, 4/4 contract suites green.
+
+| Actor | Anchor | Enforced / gapped highlights |
+|---|---|---|
+| comma_ai_openpilot | two-year byte-identity (v0.9.7 ≡ master) | gearShifter(10) enforced; capnp appending-growth keeps all else gapped; CarControl blinkers verified top-level (not HUDControl) |
+| dbt | immutable versioned artifact schemas | resourceType(19, machine-swept union @manifest-v12) + RunResult.status(9, exact anyOf union @run-results-v6); dbt-core main is now the Rust fusion engine — the published schemas ARE the spec |
+| aave | tagged-protocol Solidity (v3-origin main) | interestRateMode(3, faithful post-3.2 __DEPRECATED member); five bitmask fields gapped |
+| huggingface | typed Literals in the official client | gated(['auto','manual',False] mixed-type, ×3 classes) + inference(['warm']); pipelineTag open-registry gapped |
+
+**Draft refutation this wave:** the gemini draft put hardware/title/
+description/emoji on SpaceInfo — all four live on SpaceRuntime/SpaceCardData
+upstream → dropped. **Counter-lesson for the harness:** the draft's
+__deprecatedVirtualUnderlyingBalance claim was initially mis-suspected
+because the harness's own grep window truncated the struct — the field is
+real (DataTypes.sol L78). Verification windows must cover the whole struct
+before refuting; refutation needs the same rigor as enforcement.

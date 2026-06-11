@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 162,
-  "totalVerifiedEnumFields": 712,
+  "l5VerifiedActors": 166,
+  "totalVerifiedEnumFields": 721,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -37,8 +37,8 @@
       "source": "aave.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "abb_800xa-compat",
@@ -1957,8 +1957,8 @@
       "source": "comma_ai_openpilot.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "commercetools-compat",
@@ -2357,8 +2357,8 @@
       "source": "dbt.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "dce_japan-compat",
@@ -4247,8 +4247,8 @@
       "source": "huggingface.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "iata_ndc-compat",

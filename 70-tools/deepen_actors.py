@@ -2394,6 +2394,49 @@ PLATFORM_OVERRIDES = {
         "Company": E(displayName="string", role="string", orgCode="integer"),
         "Walletable": E(name="string", bankId="integer", type="string", syncStatus="string"),
     },
+    # Faithful comma.ai openpilot model (official commaai/opendbc opendbc/car/car.capnp
+    # + commaai/openpilot cereal/log.capnp, master). gearShifter enforced: the 10-value
+    # set is byte-identical at openpilot v0.9.7 (2024) and master (2026) — two-year
+    # stability across an otherwise actively-churning file. Cap'n Proto enums grow by
+    # appending, so no other enum is enforced.
+    "comma_ai_openpilot": {
+        "Event": E(logMonoTime="integer", valid="boolean", logMessage="string"),
+        "CarState": E(vEgo="float", aEgo="float", standstill="boolean", gasPressed="boolean", brakePressed="boolean", steeringAngleDeg="float", steeringTorque="float", gearShifter="string", leftBlinker="boolean", rightBlinker="boolean"),
+        "CarControl": E(enabled="boolean", latActive="boolean", longActive="boolean", leftBlinker="boolean", rightBlinker="boolean"),
+        "CarParams": E(brand="string", carFingerprint="string", minEnableSpeed="float", minSteerSpeed="float", mass="float", wheelbase="float"),
+    },
+    # Faithful dbt artifact model (official schemas.getdbt.com versioned JSON Schemas:
+    # manifest v12 + run-results v6 — immutable once published; a breaking change forces
+    # vN+1, the cleanest closed-at-version anchor in the corpus). resourceType (19 @v12)
+    # + RunResult.status (the exact 9-value anyOf union @v6) enforced.
+    "dbt": {
+        "Node": E(database="string", schema="string", name="string", packageName="string", uniqueId="string", alias="string", description="string", compiled="boolean", rawCode="string", resourceType="string"),
+        "Source": E(database="string", schema="string", name="string", sourceName="string", sourceDescription="string", loader="string", identifier="string", uniqueId="string", resourceType="string"),
+        "RunResult": E(threadId="string", executionTime="float", message="string", failures="integer", uniqueId="string", compiled="boolean", compiledCode="string", status="string"),
+    },
+    # Faithful Aave V3 model (official aave-dao/aave-v3-origin DataTypes.sol, main =
+    # v3.4). interestRateMode enforced: {NONE, __DEPRECATED, VARIABLE} — stable-rate
+    # retired in 3.2, positions preserved, closed at the fetched version. Bitmask
+    # fields (configuration/collateralBitmap/borrowableBitmap/ltvzeroBitmap/data)
+    # are combinable bit-fields, not enums -> gapped per corpus discipline.
+    "aave": {
+        "ReserveData": E(liquidityIndex="integer", currentLiquidityRate="integer", variableBorrowIndex="integer", currentVariableBorrowRate="integer", deficit="integer", lastUpdateTimestamp="integer", liquidationGracePeriodUntil="integer", aTokenAddress="string", variableDebtTokenAddress="string", accruedToTreasury="integer", virtualUnderlyingBalance="integer"),
+        "EModeCategory": E(ltv="integer", liquidationThreshold="integer", liquidationBonus="integer", collateralBitmap="integer", isolated="boolean", label="string", borrowableBitmap="integer", ltvzeroBitmap="integer"),
+        "UserConfigurationMap": E(data="integer"),
+        "ExecuteBorrowParams": E(asset="string", user="string", onBehalfOf="string", interestRateStrategyAddress="string", amount="integer", interestRateMode="string", referralCode="integer", releaseUnderlying="boolean", oracle="string", userEModeCategory="integer"),
+    },
+    # Faithful Hugging Face Hub model (official huggingface/huggingface_hub hf_api.py
+    # dataclasses, main). gated (typed Literal["auto","manual",False] — mixed-type,
+    # kept faithfully) enforced on ModelInfo/DatasetInfo/SpaceInfo + ModelInfo.inference
+    # (Literal["warm"]). pipelineTag is the open ML-task registry -> gapped; SpaceInfo
+    # hardware/title/description/emoji were gemini-draft fabrications (live on
+    # SpaceRuntime/SpaceCardData, not SpaceInfo) -> refuted and dropped.
+    "huggingface": {
+        "ModelInfo": E(author="string", downloads="integer", likes="integer", private="boolean", gated="string", pipelineTag="string", libraryName="string", sha="string", inference="string"),
+        "DatasetInfo": E(author="string", downloads="integer", likes="integer", private="boolean", gated="string", sha="string", description="string", mainSize="integer", citation="string"),
+        "SpaceInfo": E(author="string", sha="string", private="boolean", sdk="string", likes="integer", host="string", subdomain="string", gated="string"),
+        "TransformersInfo": E(autoModel="string", customClass="string", pipelineTag="string", processor="string"),
+    },
 }
 
 # ---------------------------------------------------------------------------

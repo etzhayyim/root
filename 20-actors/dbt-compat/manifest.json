@@ -5,21 +5,69 @@
   "kind": "compat",
   "title": "dbt clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (dbt); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
+  "wasmCid": "bafkreid2qxa4r5ofb6dachkd7aezffj3fcab2ooaqlagkcca6fsk42qqta",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
+  "ipfs": "ipfs://bafkreid2qxa4r5ofb6dachkd7aezffj3fcab2ooaqlagkcca6fsk42qqta",
   "schema": "schema/dbt.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://schemas.getdbt.com/dbt/manifest/v12.json + https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Node",
+      "Source",
+      "RunResult"
+    ],
+    "enums": {
+      "Node": {
+        "resourceType": [
+          "model",
+          "analysis",
+          "test",
+          "snapshot",
+          "operation",
+          "seed",
+          "rpc",
+          "sql_operation",
+          "doc",
+          "source",
+          "macro",
+          "exposure",
+          "metric",
+          "group",
+          "saved_query",
+          "semantic_model",
+          "unit_test",
+          "fixture",
+          "function"
+        ]
+      },
+      "Source": {
+        "resourceType": [
+          "source"
+        ]
+      },
+      "RunResult": {
+        "status": [
+          "success",
+          "error",
+          "skipped",
+          "partial success",
+          "no-op",
+          "pass",
+          "fail",
+          "warn",
+          "runtime error"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Connector",
-    "Sync",
-    "Model",
-    "Stream",
-    "Schema",
-    "Test"
+    "Node",
+    "Source",
+    "RunResult"
   ],
   "adr": [
     "260607",
@@ -31,157 +79,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/nodes",
+          "op": "create Node"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/nodes",
+          "op": "list Node"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/nodes/{id}",
+          "op": "get Node"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/nodes/{id}",
+          "op": "update Node"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/nodes/{id}",
+          "op": "delete Node"
         },
         {
           "method": "POST",
-          "path": "/v1/syncs",
-          "op": "create Sync"
+          "path": "/v1/sources",
+          "op": "create Source"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs",
-          "op": "list Sync"
+          "path": "/v1/sources",
+          "op": "list Source"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs/{id}",
-          "op": "get Sync"
+          "path": "/v1/sources/{id}",
+          "op": "get Source"
         },
         {
           "method": "PATCH",
-          "path": "/v1/syncs/{id}",
-          "op": "update Sync"
+          "path": "/v1/sources/{id}",
+          "op": "update Source"
         },
         {
           "method": "DELETE",
-          "path": "/v1/syncs/{id}",
-          "op": "delete Sync"
+          "path": "/v1/sources/{id}",
+          "op": "delete Source"
         },
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/runresults",
+          "op": "create RunResult"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/runresults",
+          "op": "list RunResult"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/runresults/{id}",
+          "op": "get RunResult"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/runresults/{id}",
+          "op": "update RunResult"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/schemas",
-          "op": "create Schema"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/schemas",
-          "op": "list Schema"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/schemas/{id}",
-          "op": "get Schema"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/schemas/{id}",
-          "op": "update Schema"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/schemas/{id}",
-          "op": "delete Schema"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tests",
-          "op": "create Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests",
-          "op": "list Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests/{id}",
-          "op": "get Test"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tests/{id}",
-          "op": "update Test"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tests/{id}",
-          "op": "delete Test"
+          "path": "/v1/runresults/{id}",
+          "op": "delete RunResult"
         }
       ],
       "features": {
@@ -244,44 +217,62 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_connector",
-          "description": "Create a Connector.",
+          "name": "create_node",
+          "description": "Create a Node.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "database": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "source": {
+              "packageName": {
                 "type": "string"
               },
-              "destination": {
+              "uniqueId": {
                 "type": "string"
               },
-              "status": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "compiled": {
+                "type": "boolean"
+              },
+              "rawCode": {
+                "type": "string"
+              },
+              "resourceType": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "source"
+              "database",
+              "schema"
             ]
           }
         },
         {
-          "name": "list_connectors",
-          "description": "List Connectors.",
+          "name": "list_nodes",
+          "description": "List Nodes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
+          "name": "get_node",
+          "description": "Get a Node by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,367 +286,43 @@
           }
         },
         {
-          "name": "update_connector",
-          "description": "Update a Connector.",
+          "name": "update_node",
+          "description": "Update a Node.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sync",
-          "description": "Create a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status",
-              "rows"
-            ]
-          }
-        },
-        {
-          "name": "list_syncs",
-          "description": "List Syncs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sync",
-          "description": "Get a Sync by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sync",
-          "description": "Update a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sync",
-          "description": "Delete a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_model",
-          "description": "Create a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "materialization"
-            ]
-          }
-        },
-        {
-          "name": "list_models",
-          "description": "List Models.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_model",
-          "description": "Get a Model by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_model",
-          "description": "Update a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_model",
-          "description": "Delete a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "partitions"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_stream",
-          "description": "Update a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_schema",
-          "description": "Create a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
                 "type": "string"
               },
               "database": {
                 "type": "string"
               },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "database"
-            ]
-          }
-        },
-        {
-          "name": "list_schemas",
-          "description": "List Schemas.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_schema",
-          "description": "Get a Schema by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_schema",
-          "description": "Update a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "schema": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "database": {
+              "packageName": {
                 "type": "string"
               },
-              "tableCount": {
-                "type": "integer"
+              "uniqueId": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "compiled": {
+                "type": "boolean"
+              },
+              "rawCode": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
               }
             },
             "required": [
@@ -664,8 +331,8 @@
           }
         },
         {
-          "name": "delete_schema",
-          "description": "Delete a Schema.",
+          "name": "delete_node",
+          "description": "Delete a Node.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,38 +346,56 @@
           }
         },
         {
-          "name": "create_test",
-          "description": "Create a Test.",
+          "name": "create_source",
+          "description": "Create a Source.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelName": {
+              "database": {
                 "type": "string"
               },
-              "type": {
+              "schema": {
                 "type": "string"
               },
-              "passed": {
-                "type": "boolean"
+              "name": {
+                "type": "string"
+              },
+              "sourceName": {
+                "type": "string"
+              },
+              "sourceDescription": {
+                "type": "string"
+              },
+              "loader": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "uniqueId": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
               }
             },
             "required": [
-              "modelName",
-              "type"
+              "database",
+              "schema"
             ]
           }
         },
         {
-          "name": "list_tests",
-          "description": "List Tests.",
+          "name": "list_sources",
+          "description": "List Sources.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_test",
-          "description": "Get a Test by id.",
+          "name": "get_source",
+          "description": "Get a Source by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +409,115 @@
           }
         },
         {
-          "name": "update_test",
-          "description": "Update a Test.",
+          "name": "update_source",
+          "description": "Update a Source.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
+              "database": {
                 "type": "string"
               },
-              "type": {
+              "schema": {
                 "type": "string"
               },
-              "passed": {
+              "name": {
+                "type": "string"
+              },
+              "sourceName": {
+                "type": "string"
+              },
+              "sourceDescription": {
+                "type": "string"
+              },
+              "loader": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "uniqueId": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_source",
+          "description": "Delete a Source.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_run_result",
+          "description": "Create a RunResult.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "threadId": {
+                "type": "string"
+              },
+              "executionTime": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              },
+              "failures": {
+                "type": "integer"
+              },
+              "uniqueId": {
+                "type": "string"
+              },
+              "compiled": {
                 "type": "boolean"
+              },
+              "compiledCode": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "executionTime",
+              "message"
+            ]
+          }
+        },
+        {
+          "name": "list_run_results",
+          "description": "List RunResults.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_run_result",
+          "description": "Get a RunResult by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
               }
             },
             "required": [
@@ -748,8 +526,47 @@
           }
         },
         {
-          "name": "delete_test",
-          "description": "Delete a Test.",
+          "name": "update_run_result",
+          "description": "Update a RunResult.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "threadId": {
+                "type": "string"
+              },
+              "executionTime": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              },
+              "failures": {
+                "type": "integer"
+              },
+              "uniqueId": {
+                "type": "string"
+              },
+              "compiled": {
+                "type": "boolean"
+              },
+              "compiledCode": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_run_result",
+          "description": "Delete a RunResult.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible modern data stack actor (dbt); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:dbt-compat",
-    "x-wasm-cid": "bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
+    "x-wasm-cid": "bafkreid2qxa4r5ofb6dachkd7aezffj3fcab2ooaqlagkcca6fsk42qqta",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
+      "url": "ipfs://bafkreid2qxa4r5ofb6dachkd7aezffj3fcab2ooaqlagkcca6fsk42qqta",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/connectors": {
+    "/v1/nodes": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List Nodes",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/Node"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a Node",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/NodeCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/nodes/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a Node",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a Node",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/NodeCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Node"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
+        "summary": "Delete a Node",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/syncs": {
+    "/v1/sources": {
       "get": {
-        "summary": "List Syncs",
+        "summary": "List Sources",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Sync"
+                        "$ref": "#/components/schemas/Source"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Sync",
+        "summary": "Create a Source",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/syncs/{id}": {
+    "/v1/sources/{id}": {
       "get": {
-        "summary": "Get a Sync",
+        "summary": "Get a Source",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Sync",
+        "summary": "Update a Source",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Sync",
+        "summary": "Delete a Source",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/models": {
+    "/v1/runresults": {
       "get": {
-        "summary": "List Models",
+        "summary": "List RunResults",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/RunResult"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a RunResult",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/RunResultCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/RunResult"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/runresults/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a RunResult",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/RunResult"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a RunResult",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/RunResultCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/RunResult"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/streams": {
-      "get": {
-        "summary": "List Streams",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Stream"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Stream",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/streams/{id}": {
-      "get": {
-        "summary": "Get a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stream"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Stream",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/schemas": {
-      "get": {
-        "summary": "List Schemas",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Schema"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Schema",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Schema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/schemas/{id}": {
-      "get": {
-        "summary": "Get a Schema",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Schema"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Schema",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Schema"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Schema",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tests": {
-      "get": {
-        "summary": "List Tests",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Test"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Test",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tests/{id}": {
-      "get": {
-        "summary": "Get a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Test",
+        "summary": "Delete a RunResult",
         "parameters": [
           {
             "name": "id",
@@ -1140,205 +585,62 @@
   },
   "components": {
     "schemas": {
-      "Connector": {
+      "Node": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ConnectorCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "source"
-        ]
-      },
-      "Sync": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "connectorId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "rows": {
-            "type": "integer"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SyncCreate": {
-        "type": "object",
-        "properties": {
-          "connectorId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "rows": {
-            "type": "integer"
-          },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status",
-          "rows"
-        ]
-      },
-      "Model": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ModelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "materialization"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "partitions"
-        ]
-      },
-      "Schema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
             "type": "string"
           },
           "database": {
             "type": "string"
           },
-          "tableCount": {
-            "type": "integer"
+          "schema": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "packageName": {
+            "type": "string"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "alias": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "compiled": {
+            "type": "boolean"
+          },
+          "rawCode": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "model",
+              "analysis",
+              "test",
+              "snapshot",
+              "operation",
+              "seed",
+              "rpc",
+              "sql_operation",
+              "doc",
+              "source",
+              "macro",
+              "exposure",
+              "metric",
+              "group",
+              "saved_query",
+              "semantic_model",
+              "unit_test",
+              "fixture",
+              "function"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1350,38 +652,101 @@
           }
         }
       },
-      "SchemaCreate": {
+      "NodeCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
           "database": {
             "type": "string"
           },
-          "tableCount": {
-            "type": "integer"
+          "schema": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "packageName": {
+            "type": "string"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "alias": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "compiled": {
+            "type": "boolean"
+          },
+          "rawCode": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "model",
+              "analysis",
+              "test",
+              "snapshot",
+              "operation",
+              "seed",
+              "rpc",
+              "sql_operation",
+              "doc",
+              "source",
+              "macro",
+              "exposure",
+              "metric",
+              "group",
+              "saved_query",
+              "semantic_model",
+              "unit_test",
+              "fixture",
+              "function"
+            ]
           }
         },
         "required": [
-          "name",
-          "database"
+          "database",
+          "schema"
         ]
       },
-      "Test": {
+      "Source": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelName": {
+          "database": {
             "type": "string"
           },
-          "type": {
+          "schema": {
             "type": "string"
           },
-          "passed": {
-            "type": "boolean"
+          "name": {
+            "type": "string"
+          },
+          "sourceName": {
+            "type": "string"
+          },
+          "sourceDescription": {
+            "type": "string"
+          },
+          "loader": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "source"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1393,22 +758,138 @@
           }
         }
       },
-      "TestCreate": {
+      "SourceCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "database": {
             "type": "string"
           },
-          "type": {
+          "schema": {
             "type": "string"
           },
-          "passed": {
-            "type": "boolean"
+          "name": {
+            "type": "string"
+          },
+          "sourceName": {
+            "type": "string"
+          },
+          "sourceDescription": {
+            "type": "string"
+          },
+          "loader": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "source"
+            ]
           }
         },
         "required": [
-          "modelName",
-          "type"
+          "database",
+          "schema"
+        ]
+      },
+      "RunResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "threadId": {
+            "type": "string"
+          },
+          "executionTime": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "failures": {
+            "type": "integer"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "compiled": {
+            "type": "boolean"
+          },
+          "compiledCode": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "error",
+              "skipped",
+              "partial success",
+              "no-op",
+              "pass",
+              "fail",
+              "warn",
+              "runtime error"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RunResultCreate": {
+        "type": "object",
+        "properties": {
+          "threadId": {
+            "type": "string"
+          },
+          "executionTime": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "failures": {
+            "type": "integer"
+          },
+          "uniqueId": {
+            "type": "string"
+          },
+          "compiled": {
+            "type": "boolean"
+          },
+          "compiledCode": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "error",
+              "skipped",
+              "partial success",
+              "no-op",
+              "pass",
+              "fail",
+              "warn",
+              "runtime error"
+            ]
+          }
+        },
+        "required": [
+          "executionTime",
+          "message"
         ]
       }
     }

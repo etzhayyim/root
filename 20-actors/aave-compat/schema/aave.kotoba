@@ -3,79 +3,58 @@
 
 namespace aave {
 
-    entity Block {
+    entity ReserveData {
         id: string @unique
-        number: integer
-        hash: string
-        chain: string
-        minedAt: datetime
+        liquidityIndex: integer
+        currentLiquidityRate: integer
+        variableBorrowIndex: integer
+        currentVariableBorrowRate: integer
+        deficit: integer
+        lastUpdateTimestamp: integer
+        liquidationGracePeriodUntil: integer
+        aTokenAddress: string
+        variableDebtTokenAddress: string
+        accruedToTreasury: integer
+        virtualUnderlyingBalance: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Transaction {
+    entity EModeCategory {
         id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
-        status: string
+        ltv: integer
+        liquidationThreshold: integer
+        liquidationBonus: integer
+        collateralBitmap: integer
+        isolated: boolean
+        label: string
+        borrowableBitmap: integer
+        ltvzeroBitmap: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Contract {
+    entity UserConfigurationMap {
         id: string @unique
-        address: string
-        chain: string
-        abiRef: string
+        data: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Account {
+    entity ExecuteBorrowParams {
         id: string @unique
-        address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
-        name: string
-        blockNumber: integer
-        dataRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Token {
-        id: string @unique
-        contractAddr: string
-        symbol: string
-        decimals: integer
-        standard: string
+        asset: string
+        user: string
+        onBehalfOf: string
+        interestRateStrategyAddress: string
+        amount: integer
+        interestRateMode: string
+        referralCode: integer
+        releaseUnderlying: boolean
+        oracle: string
+        userEModeCategory: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-generated L3 properties by LangGraph
-    entity AdvancedProfile {
-        id: string @unique
-        metadata: json
-    }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

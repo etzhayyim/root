@@ -6,8 +6,100 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 167,
+  "count": 171,
   "actors": [
+    {
+      "handle": "aave-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+      "remodeled": "Remodeled to the faithful Aave V3 DataTypes surface verified against the official aave-dao/aave-v3-origin DataTypes.sol (main = v3.4 era). interestRateMode enforced: {NONE, __DEPRECATED, VARIABLE} — stable-rate mode retired in 3.2 with enum positions preserved; closed at the fetched version. All bitmask fields (ReserveConfigurationMap/collateralBitmap/borrowableBitmap/ltvzeroBitmap/UserConfigurationMap.data) gapped per bitmask≠enum discipline. gemini-CLI-drafted; the draft cited the CURRENT official repo (aave-dao/aave-v3-origin) over the archived aave/aave-v3-core the hint suggested — verified correct, including a field (__deprecatedVirtualUnderlyingBalance) the harness initially mis-suspected because its own verification window was truncated.",
+      "resources": [
+        {
+          "entity": "ReserveData",
+          "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+          "verifiedFields": [
+            "liquidityIndex",
+            "currentLiquidityRate",
+            "variableBorrowIndex",
+            "currentVariableBorrowRate",
+            "deficit",
+            "lastUpdateTimestamp",
+            "liquidationGracePeriodUntil",
+            "aTokenAddress",
+            "variableDebtTokenAddress",
+            "accruedToTreasury",
+            "virtualUnderlyingBalance"
+          ],
+          "fieldStatus": "confirmed; __deprecated* storage-slot fields + uint16 id not modeled (faithful subset)",
+          "discoveredEnums": {},
+          "gaps": [
+            "configuration-bitmask (ReserveConfigurationMap)",
+            "deprecated-storage-slots-not-modeled"
+          ]
+        },
+        {
+          "entity": "EModeCategory",
+          "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+          "verifiedFields": [
+            "ltv",
+            "liquidationThreshold",
+            "liquidationBonus",
+            "collateralBitmap",
+            "isolated",
+            "label",
+            "borrowableBitmap",
+            "ltvzeroBitmap"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "collateralBitmap-bitmask",
+            "borrowableBitmap-bitmask",
+            "ltvzeroBitmap-bitmask"
+          ]
+        },
+        {
+          "entity": "UserConfigurationMap",
+          "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+          "verifiedFields": [
+            "data"
+          ],
+          "fieldStatus": "confirmed (single uint256 bitmap)",
+          "discoveredEnums": {},
+          "gaps": [
+            "data-bitmask (collateral/borrow pair bitmap)"
+          ]
+        },
+        {
+          "entity": "ExecuteBorrowParams",
+          "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+          "verifiedFields": [
+            "asset",
+            "user",
+            "onBehalfOf",
+            "interestRateStrategyAddress",
+            "amount",
+            "interestRateMode",
+            "referralCode",
+            "releaseUnderlying",
+            "oracle",
+            "userEModeCategory"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "interestRateMode": [
+              "NONE",
+              "__DEPRECATED",
+              "VARIABLE"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official aave-v3-origin DataTypes.sol. Enforced enums: ExecuteBorrowParams.interestRateMode(3, faithful to the post-3.2 __DEPRECATED member) = 1 enum field. Five bitmask fields gapped (bitmask≠enum)."
+    },
     {
       "handle": "adyen-compat",
       "verifiedAt": "2026-06-08",
@@ -4632,6 +4724,94 @@
       "note": "FULLY VERIFIED (6/6) vs official Coinbase SDK. Enforced enums: Order.side, Fill.side (2). status/type fields are SDK strings, intentionally NOT enforced."
     },
     {
+      "handle": "comma_ai_openpilot-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/commaai/opendbc (opendbc/car/car.capnp) + https://github.com/commaai/openpilot (cereal/log.capnp)",
+      "remodeled": "Remodeled to the faithful openpilot message surface verified against the official Cap'n Proto schemas (openpilot cereal/car.capnp is a symlink into opendbc — resolved and fetched). gearShifter enforced: the 10-value set is byte-identical at openpilot v0.9.7 (2024) and opendbc master (2026) — two-year stability inside an otherwise actively-churning file (field deprecations as recent as 2026-05-30). Cap'n Proto enums grow by appending, so nothing else is enforced. gemini-CLI-drafted; every field re-verified by struct-body extraction distinguishing top-level fields from nested structs (CarControl blinkers confirmed top-level, not HUDControl).",
+      "resources": [
+        {
+          "entity": "Event",
+          "source": "https://raw.githubusercontent.com/commaai/openpilot/master/cereal/log.capnp",
+          "verifiedFields": [
+            "logMonoTime",
+            "valid",
+            "logMessage"
+          ],
+          "fieldStatus": "confirmed (scalar subset of the Event union)",
+          "discoveredEnums": {},
+          "gaps": [
+            "union-members-not-modeled (initData/carState/... are capnp union arms)"
+          ]
+        },
+        {
+          "entity": "CarState",
+          "source": "https://raw.githubusercontent.com/commaai/opendbc/master/opendbc/car/car.capnp",
+          "verifiedFields": [
+            "vEgo",
+            "aEgo",
+            "standstill",
+            "gasPressed",
+            "brakePressed",
+            "steeringAngleDeg",
+            "steeringTorque",
+            "gearShifter",
+            "leftBlinker",
+            "rightBlinker"
+          ],
+          "fieldStatus": "confirmed (top-level struct fields)",
+          "discoveredEnums": {
+            "gearShifter": [
+              "unknown",
+              "park",
+              "drive",
+              "neutral",
+              "reverse",
+              "sport",
+              "low",
+              "brake",
+              "eco",
+              "manumatic"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "CarControl",
+          "source": "https://raw.githubusercontent.com/commaai/opendbc/master/opendbc/car/car.capnp",
+          "verifiedFields": [
+            "enabled",
+            "latActive",
+            "longActive",
+            "leftBlinker",
+            "rightBlinker"
+          ],
+          "fieldStatus": "confirmed top-level (NOT nested HUDControl)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "CarParams",
+          "source": "https://raw.githubusercontent.com/commaai/opendbc/master/opendbc/car/car.capnp",
+          "verifiedFields": [
+            "brand",
+            "carFingerprint",
+            "minEnableSpeed",
+            "minSteerSpeed",
+            "mass",
+            "wheelbase"
+          ],
+          "fieldStatus": "confirmed; safetyModel version-growing (new platforms) -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "safetyModel-version-growing"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official opendbc/openpilot Cap'n Proto schemas. Enforced enums: CarState.gearShifter(10, v0.9.7≡master two-year anchor) = 1 enum field. Appending-growth capnp discipline keeps every other enum gapped."
+    },
+    {
       "handle": "commercetools-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -5660,6 +5840,109 @@
         }
       ],
       "note": "6 resource(s) doc-verified; enforced enums: Monitor.type, Monitor.overallState, TimeSeries.type, Event.priority, Event.alertType, Incident.severity, Incident.status"
+    },
+    {
+      "handle": "dbt-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://schemas.getdbt.com/dbt/manifest/v12.json + https://schemas.getdbt.com/dbt/run-results/v6.json",
+      "remodeled": "Remodeled to the faithful dbt artifact model verified against dbt's OFFICIAL versioned artifact JSON Schemas (schemas.getdbt.com) — immutable once published (a breaking change forces vN+1), the cleanest closed-at-version anchor in the corpus. resourceType enforced as the exact 19-value union across every node variant in manifest v12 (machine-swept); RunResult.status enforced as the exact 9-value anyOf union in run-results v6 (RunStatus ∪ TestStatus ∪ FreshnessStatus). gemini-CLI-drafted; both unions machine-matched exactly. Note: dbt-labs/dbt-core main is now the Rust fusion engine — the Python tree is gone, making the versioned schemas the canonical spec surface.",
+      "resources": [
+        {
+          "entity": "Node",
+          "source": "https://schemas.getdbt.com/dbt/manifest/v12.json",
+          "verifiedFields": [
+            "database",
+            "schema",
+            "name",
+            "packageName",
+            "uniqueId",
+            "alias",
+            "description",
+            "compiled",
+            "rawCode",
+            "resourceType"
+          ],
+          "fieldStatus": "confirmed (nodes.additionalProperties variants; snake_case->camelCase)",
+          "discoveredEnums": {
+            "resourceType": [
+              "model",
+              "analysis",
+              "test",
+              "snapshot",
+              "operation",
+              "seed",
+              "rpc",
+              "sql_operation",
+              "doc",
+              "source",
+              "macro",
+              "exposure",
+              "metric",
+              "group",
+              "saved_query",
+              "semantic_model",
+              "unit_test",
+              "fixture",
+              "function"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Source",
+          "source": "https://schemas.getdbt.com/dbt/manifest/v12.json",
+          "verifiedFields": [
+            "database",
+            "schema",
+            "name",
+            "sourceName",
+            "sourceDescription",
+            "loader",
+            "identifier",
+            "uniqueId",
+            "resourceType"
+          ],
+          "fieldStatus": "confirmed (sources.additionalProperties)",
+          "discoveredEnums": {
+            "resourceType": [
+              "source"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "RunResult",
+          "source": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+          "verifiedFields": [
+            "threadId",
+            "executionTime",
+            "message",
+            "failures",
+            "uniqueId",
+            "compiled",
+            "compiledCode",
+            "status"
+          ],
+          "fieldStatus": "confirmed (results.items.properties)",
+          "discoveredEnums": {
+            "status": [
+              "success",
+              "error",
+              "skipped",
+              "partial success",
+              "no-op",
+              "pass",
+              "fail",
+              "warn",
+              "runtime error"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs dbt's official versioned artifact schemas. Enforced enums: Node.resourceType(19 @manifest-v12), Source.resourceType(1), RunResult.status(9 @run-results-v6) = 3 enum fields, all version-anchored to immutable published schemas."
     },
     {
       "handle": "deel-compat",
@@ -9866,6 +10149,111 @@
         }
       ],
       "note": "PARTIAL (2/6 doc-confirmed: Contact + Pipeline). HubSpot's generic property system means the other CRM objects' fixed schemas aren't published; modeled with standard props but not certified. No enforced enums (HubSpot stages are configurable)."
+    },
+    {
+      "handle": "huggingface-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+      "remodeled": "Remodeled to the faithful Hugging Face Hub surface verified against the official huggingface_hub hf_api.py dataclasses (ModelInfo/DatasetInfo/SpaceInfo/TransformersInfo). gated enforced on all three info classes as the typed Literal['auto','manual',False] — the mixed string/boolean member set is kept faithfully — plus ModelInfo.inference (Literal['warm']). pipelineTag is the open ML-task registry -> gapped. gemini-CLI-drafted; the draft's SpaceInfo hardware/title/description/emoji fields were REFUTED against the dataclass (they live on SpaceRuntime/SpaceCardData, not SpaceInfo) and dropped; host/subdomain added from the harness's own verification of the primary source.",
+      "resources": [
+        {
+          "entity": "ModelInfo",
+          "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+          "verifiedFields": [
+            "author",
+            "downloads",
+            "likes",
+            "private",
+            "gated",
+            "pipelineTag",
+            "libraryName",
+            "sha",
+            "inference"
+          ],
+          "fieldStatus": "confirmed (dataclass annotations; snake_case->camelCase)",
+          "discoveredEnums": {
+            "gated": [
+              "auto",
+              "manual",
+              false
+            ],
+            "inference": [
+              "warm"
+            ]
+          },
+          "gaps": [
+            "pipelineTag-open-registry (ML task taxonomy)"
+          ]
+        },
+        {
+          "entity": "DatasetInfo",
+          "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+          "verifiedFields": [
+            "author",
+            "downloads",
+            "likes",
+            "private",
+            "gated",
+            "sha",
+            "description",
+            "mainSize",
+            "citation"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "gated": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SpaceInfo",
+          "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+          "verifiedFields": [
+            "author",
+            "sha",
+            "private",
+            "sdk",
+            "likes",
+            "host",
+            "subdomain",
+            "gated"
+          ],
+          "fieldStatus": "confirmed; draft hardware/title/description/emoji REFUTED (not on SpaceInfo) -> dropped",
+          "discoveredEnums": {
+            "gated": [
+              "auto",
+              "manual",
+              false
+            ]
+          },
+          "gaps": [
+            "sdk-untyped-str-upstream (no Literal to enforce)",
+            "hardware-lives-on-SpaceRuntime"
+          ]
+        },
+        {
+          "entity": "TransformersInfo",
+          "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+          "verifiedFields": [
+            "autoModel",
+            "customClass",
+            "pipelineTag",
+            "processor"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "pipelineTag-open-registry"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official huggingface_hub hf_api.py. Enforced enums: gated(3, mixed-type Literal kept faithful) ×3 classes + ModelInfo.inference(1-member Literal) = 4 enum fields. One 4-field draft fabrication refuted (honesty over coverage)."
     },
     {
       "handle": "ibm_qiskit-compat",

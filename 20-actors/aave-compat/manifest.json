@@ -5,21 +5,37 @@
   "kind": "compat",
   "title": "aave clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (aave); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
+  "wasmCid": "bafkreidytpismfkcitfathhfhibefvg6o4tgseipdd6tcvwstayenaitye",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
+  "ipfs": "ipfs://bafkreidytpismfkcitfathhfhibefvg6o4tgseipdd6tcvwstayenaitye",
   "schema": "schema/aave.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/main/src/contracts/protocol/libraries/types/DataTypes.sol",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ReserveData",
+      "EModeCategory",
+      "UserConfigurationMap",
+      "ExecuteBorrowParams"
+    ],
+    "enums": {
+      "ExecuteBorrowParams": {
+        "interestRateMode": [
+          "NONE",
+          "__DEPRECATED",
+          "VARIABLE"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Block",
-    "Transaction",
-    "Contract",
-    "Account",
-    "Event",
-    "Token"
+    "ReserveData",
+    "EModeCategory",
+    "UserConfigurationMap",
+    "ExecuteBorrowParams"
   ],
   "adr": [
     "260607",
@@ -31,157 +47,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/blocks",
-          "op": "create Block"
+          "path": "/v1/reservedatas",
+          "op": "create ReserveData"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks",
-          "op": "list Block"
+          "path": "/v1/reservedatas",
+          "op": "list ReserveData"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks/{id}",
-          "op": "get Block"
+          "path": "/v1/reservedatas/{id}",
+          "op": "get ReserveData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/blocks/{id}",
-          "op": "update Block"
+          "path": "/v1/reservedatas/{id}",
+          "op": "update ReserveData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/blocks/{id}",
-          "op": "delete Block"
+          "path": "/v1/reservedatas/{id}",
+          "op": "delete ReserveData"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/emodecategories",
+          "op": "create EModeCategory"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/emodecategories",
+          "op": "list EModeCategory"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/emodecategories/{id}",
+          "op": "get EModeCategory"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/emodecategories/{id}",
+          "op": "update EModeCategory"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
+          "path": "/v1/emodecategories/{id}",
+          "op": "delete EModeCategory"
         },
         {
           "method": "POST",
-          "path": "/v1/contracts",
-          "op": "create Contract"
+          "path": "/v1/userconfigurationmaps",
+          "op": "create UserConfigurationMap"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts",
-          "op": "list Contract"
+          "path": "/v1/userconfigurationmaps",
+          "op": "list UserConfigurationMap"
         },
         {
           "method": "GET",
-          "path": "/v1/contracts/{id}",
-          "op": "get Contract"
+          "path": "/v1/userconfigurationmaps/{id}",
+          "op": "get UserConfigurationMap"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contracts/{id}",
-          "op": "update Contract"
+          "path": "/v1/userconfigurationmaps/{id}",
+          "op": "update UserConfigurationMap"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contracts/{id}",
-          "op": "delete Contract"
+          "path": "/v1/userconfigurationmaps/{id}",
+          "op": "delete UserConfigurationMap"
         },
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/executeborrowparamses",
+          "op": "create ExecuteBorrowParams"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/executeborrowparamses",
+          "op": "list ExecuteBorrowParams"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/executeborrowparamses/{id}",
+          "op": "get ExecuteBorrowParams"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/executeborrowparamses/{id}",
+          "op": "update ExecuteBorrowParams"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tokens",
-          "op": "create Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens",
-          "op": "list Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens/{id}",
-          "op": "get Token"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tokens/{id}",
-          "op": "update Token"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tokens/{id}",
-          "op": "delete Token"
+          "path": "/v1/executeborrowparamses/{id}",
+          "op": "delete ExecuteBorrowParams"
         }
       ],
       "features": {
@@ -244,44 +210,65 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_block",
-          "description": "Create a Block.",
+          "name": "create_reserve_data",
+          "description": "Create a ReserveData.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "liquidityIndex": {
                 "type": "integer"
               },
-              "hash": {
+              "currentLiquidityRate": {
+                "type": "integer"
+              },
+              "variableBorrowIndex": {
+                "type": "integer"
+              },
+              "currentVariableBorrowRate": {
+                "type": "integer"
+              },
+              "deficit": {
+                "type": "integer"
+              },
+              "lastUpdateTimestamp": {
+                "type": "integer"
+              },
+              "liquidationGracePeriodUntil": {
+                "type": "integer"
+              },
+              "aTokenAddress": {
                 "type": "string"
               },
-              "chain": {
+              "variableDebtTokenAddress": {
                 "type": "string"
               },
-              "minedAt": {
-                "type": "string"
+              "accruedToTreasury": {
+                "type": "integer"
+              },
+              "virtualUnderlyingBalance": {
+                "type": "integer"
               }
             },
             "required": [
-              "number",
-              "hash"
+              "liquidityIndex",
+              "currentLiquidityRate"
             ]
           }
         },
         {
-          "name": "list_blocks",
-          "description": "List Blocks.",
+          "name": "list_reserve_datas",
+          "description": "List ReserveDatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_block",
-          "description": "Get a Block by id.",
+          "name": "get_reserve_data",
+          "description": "Get a ReserveData by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +282,46 @@
           }
         },
         {
-          "name": "update_block",
-          "description": "Update a Block.",
+          "name": "update_reserve_data",
+          "description": "Update a ReserveData.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "number": {
+              "liquidityIndex": {
                 "type": "integer"
               },
-              "hash": {
+              "currentLiquidityRate": {
+                "type": "integer"
+              },
+              "variableBorrowIndex": {
+                "type": "integer"
+              },
+              "currentVariableBorrowRate": {
+                "type": "integer"
+              },
+              "deficit": {
+                "type": "integer"
+              },
+              "lastUpdateTimestamp": {
+                "type": "integer"
+              },
+              "liquidationGracePeriodUntil": {
+                "type": "integer"
+              },
+              "aTokenAddress": {
                 "type": "string"
               },
-              "chain": {
+              "variableDebtTokenAddress": {
                 "type": "string"
               },
-              "minedAt": {
-                "type": "string"
+              "accruedToTreasury": {
+                "type": "integer"
+              },
+              "virtualUnderlyingBalance": {
+                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +330,8 @@
           }
         },
         {
-          "name": "delete_block",
-          "description": "Delete a Block.",
+          "name": "delete_reserve_data",
+          "description": "Delete a ReserveData.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,44 +345,53 @@
           }
         },
         {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
+          "name": "create_e_mode_category",
+          "description": "Create a EModeCategory.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "hash": {
+              "ltv": {
+                "type": "integer"
+              },
+              "liquidationThreshold": {
+                "type": "integer"
+              },
+              "liquidationBonus": {
+                "type": "integer"
+              },
+              "collateralBitmap": {
+                "type": "integer"
+              },
+              "isolated": {
+                "type": "boolean"
+              },
+              "label": {
                 "type": "string"
               },
-              "fromAddr": {
-                "type": "string"
+              "borrowableBitmap": {
+                "type": "integer"
               },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
+              "ltvzeroBitmap": {
+                "type": "integer"
               }
             },
             "required": [
-              "hash",
-              "fromAddr"
+              "ltv",
+              "liquidationThreshold"
             ]
           }
         },
         {
-          "name": "list_transactions",
-          "description": "List Transactions.",
+          "name": "list_e_mode_categories",
+          "description": "List EModeCategories.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
+          "name": "get_e_mode_category",
+          "description": "Get a EModeCategory by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -388,27 +405,51 @@
           }
         },
         {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
+          "name": "update_e_mode_category",
+          "description": "Update a EModeCategory.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "hash": {
+              "ltv": {
+                "type": "integer"
+              },
+              "liquidationThreshold": {
+                "type": "integer"
+              },
+              "liquidationBonus": {
+                "type": "integer"
+              },
+              "collateralBitmap": {
+                "type": "integer"
+              },
+              "isolated": {
+                "type": "boolean"
+              },
+              "label": {
                 "type": "string"
               },
-              "fromAddr": {
-                "type": "string"
+              "borrowableBitmap": {
+                "type": "integer"
               },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
+              "ltvzeroBitmap": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_e_mode_category",
+          "description": "Delete a EModeCategory.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -418,53 +459,31 @@
           }
         },
         {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
+          "name": "create_user_configuration_map",
+          "description": "Create a UserConfigurationMap.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "data": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "data"
             ]
           }
         },
         {
-          "name": "create_contract",
-          "description": "Create a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_contracts",
-          "description": "List Contracts.",
+          "name": "list_user_configuration_maps",
+          "description": "List UserConfigurationMaps.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_contract",
-          "description": "Get a Contract by id.",
+          "name": "get_user_configuration_map",
+          "description": "Get a UserConfigurationMap by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -478,80 +497,92 @@
           }
         },
         {
-          "name": "update_contract",
-          "description": "Update a Contract.",
+          "name": "update_user_configuration_map",
+          "description": "Update a UserConfigurationMap.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contract",
-          "description": "Delete a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "nonce": {
+              "data": {
                 "type": "integer"
               }
             },
             "required": [
-              "address",
-              "chain"
+              "id"
             ]
           }
         },
         {
-          "name": "list_accounts",
-          "description": "List Accounts.",
+          "name": "delete_user_configuration_map",
+          "description": "Delete a UserConfigurationMap.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_execute_borrow_params",
+          "description": "Create a ExecuteBorrowParams.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "asset": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "onBehalfOf": {
+                "type": "string"
+              },
+              "interestRateStrategyAddress": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "interestRateMode": {
+                "type": "string"
+              },
+              "referralCode": {
+                "type": "integer"
+              },
+              "releaseUnderlying": {
+                "type": "boolean"
+              },
+              "oracle": {
+                "type": "string"
+              },
+              "userEModeCategory": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "asset",
+              "user"
+            ]
+          }
+        },
+        {
+          "name": "list_execute_borrow_paramses",
+          "description": "List ExecuteBorrowParamses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_account",
-          "description": "Get a Account by id.",
+          "name": "get_execute_borrow_params",
+          "description": "Get a ExecuteBorrowParams by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,24 +596,42 @@
           }
         },
         {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "update_execute_borrow_params",
+          "description": "Update a ExecuteBorrowParams.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "address": {
+              "asset": {
                 "type": "string"
               },
-              "chain": {
+              "user": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
+              "onBehalfOf": {
+                "type": "string"
               },
-              "nonce": {
+              "interestRateStrategyAddress": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "interestRateMode": {
+                "type": "string"
+              },
+              "referralCode": {
+                "type": "integer"
+              },
+              "releaseUnderlying": {
+                "type": "boolean"
+              },
+              "oracle": {
+                "type": "string"
+              },
+              "userEModeCategory": {
                 "type": "integer"
               }
             },
@@ -592,188 +641,8 @@
           }
         },
         {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_token",
-          "description": "Create a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "symbol"
-            ]
-          }
-        },
-        {
-          "name": "list_tokens",
-          "description": "List Tokens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_token",
-          "description": "Get a Token by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_token",
-          "description": "Update a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_token",
-          "description": "Delete a Token.",
+          "name": "delete_execute_borrow_params",
+          "description": "Delete a ExecuteBorrowParams.",
           "inputSchema": {
             "type": "object",
             "properties": {
