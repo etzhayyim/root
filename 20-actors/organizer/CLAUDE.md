@@ -50,6 +50,12 @@
 
 **メール課金通知からサブスクを自動検出し、不要契約の解約を kaiyaku に委譲する。**
 
+> **kaiyaku now exists** (ADR-2606112200, `20-actors/kaiyaku/`, 🟡 R0): 縁切り executor —
+> en-ledger + burden analyzer (this pipeline's disclosed thresholds) + dependency
+> cascade-guard + T1/T2/T3 severance plans (karakuri tiers; dry-run only, execution
+> Council-gated). Canonical DID `did:web:etzhayyim.com:actor:kaiyaku`
+> (aka `did:web:kaiyaku.etzhayyim.com` referenced below).
+
 ### Data Flow
 
 ```
