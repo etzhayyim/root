@@ -1049,6 +1049,21 @@
   :proc/verify-current-law true}
 
  ;; ── :at ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:at-kuendigung" :proc/label "Kündigung (解雇・労働・オーストリア)"
+  :proc/jurisdiction :at :proc/track :labor
+  :proc/trigger-keywords ["Kündigung Ihres Dienstverhältnisses" "Dienstverhältnis"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Anfechtung (ArbVG)"
+    :dl/rule "sozialwidrig/motivwidrig な Kündigung の Anfechtung は Arbeits- und Sozialgericht へ2 Wochen 以内 — 極端に短い; Betriebsrat の有無で手続が変わる"
+    :dl/anchor "ArbVG §105 (3)-(4)" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :ak-vertretung :opt/kind :self-decide :opt/protective true
+    :opt/label "即 AK (Arbeiterkammer) へ — 労働者は無料の法的代理を受けられる"}
+   {:opt/id :anfechtung :opt/kind :self-submit :opt/label "ASG へ Anfechtung (2 Wochen)"}]
+  :proc/refer-when ["AMS (失業給付) 即登録" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:at-zahlungsbefehl" :proc/label "Zahlungsbefehl (支払命令・オーストリア)"
   :proc/jurisdiction :at
   :proc/trigger-keywords ["Zahlungsbefehl"]
@@ -1094,6 +1109,24 @@
   :proc/verify-current-law true}
 
  ;; ── :ar ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ar-despido" :proc/label "Despido (解雇・労働・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :labor
+  :proc/trigger-keywords ["despido"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Telegrama laboral (実務の起点)"
+    :dl/rule "解雇態様を telegrama laboral (労働者は TT 無料) で intimación・確定するのが実務の起点 — 沈黙は不利に働き得る"
+    :dl/anchor "ley 23.789 (telegrama obrero gratuito)" :dl/verify-service-date true}
+   {:dl/label "Prescripción"
+    :dl/rule "労働債権の prescripción は2 años (indemnización art. 245 含む)"
+    :dl/anchor "LCT arts. 245・256" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :telegrama :opt/kind :self-submit :opt/protective true
+    :opt/label "telegrama laboral を送付 (無料 — 解雇の存在・態様を記録に固定)"}
+   {:opt/id :seclo :opt/kind :self-submit :opt/label "SECLO (CABA) 等の conciliación 前置へ"}]
+  :proc/refer-when ["patrocinio gratuito / sindicato" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:ar-traslado" :proc/label "Traslado de la demanda (訴状送達・アルゼンチン)"
   :proc/jurisdiction :ar
   :proc/trigger-keywords ["traslado de la demanda"]
@@ -1109,6 +1142,24 @@
   :proc/verify-current-law true}
 
  ;; ── :be ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:be-licenciement" :proc/label "Licenciement (解雇・労働・ベルギー)"
+  :proc/jurisdiction :be :proc/track :labor
+  :proc/trigger-keywords ["licenciement"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Demande de motivation (CCT nr.109)"
+    :dl/rule "licenciement の理由開示請求は2 mois 以内に書留で — 無回答は civil penalty (2週間分); manifestement déraisonnable は賠償3-17週分"
+    :dl/anchor "CCT nr. 109" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "時効"
+    :dl/rule "雇用契約上の請求は契約終了から1 an"
+    :dl/anchor "loi 03.07.1978 art. 15" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :demande-motifs :opt/kind :self-submit :opt/protective true
+    :opt/label "書留で motivation を請求 (2 mois — まず理由を固定する)"}
+   {:opt/id :syndicat :opt/kind :self-decide :opt/label "syndicat / CAPAC (失業給付) へ"}]
+  :proc/refer-when ["tribunal du travail 段階 → avocat (pro deo)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:be-citation" :proc/label "Citation à comparaître (ベルギー)"
   :proc/jurisdiction :be
   :proc/trigger-keywords ["citation à comparaître"]
@@ -1154,6 +1205,21 @@
   :proc/verify-current-law true}
 
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:mx-despido" :proc/label "Despido (解雇・労働・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :labor
+  :proc/trigger-keywords ["despido"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Prescripción (2 meses)"
+    :dl/rule "despido injustificado への acción (reinstalación o indemnización 3 meses + 20 días/año) は2 meses 以内 — 極端に短い"
+    :dl/anchor "LFT arts. 48・518" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :profedet :opt/kind :self-submit :opt/protective true
+    :opt/label "PROFEDET (連邦労働弁護庁 — 無料の助言・代理) へ即相談"}
+   {:opt/id :conciliacion :opt/kind :self-submit :opt/label "Centro de Conciliación Laboral へ (2019改革の前置)"}]
+  :proc/refer-when ["firma de renuncia を迫られたら署名しない (renuncia ≠ despido)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:mx-emplazamiento" :proc/label "Emplazamiento (訴状送達・メキシコ)"
   :proc/jurisdiction :mx
   :proc/trigger-keywords ["emplazamiento" "citación"]
@@ -1202,6 +1268,21 @@
   :proc/verify-current-law true}
 
  ;; ── :dk ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:dk-opsigelse" :proc/label "Opsigelse (解雇・労働・デンマーク)"
+  :proc/jurisdiction :dk :proc/track :labor
+  :proc/trigger-keywords ["opsigelse af"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Usaglig opsigelse"
+    :dl/rule "funktionær (勤続1年以上) は usaglig opsigelse の godtgørelse を請求可 — 異議は組合/afskedigelsesnævn ルートが主で期限は労使協約による (協約上は短いことがある — 即組合へ)"
+    :dl/anchor "funktionærloven §2b / hovedaftalen" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :fagforening :opt/kind :self-decide :opt/protective true
+    :opt/label "即 fagforening (組合) へ — DK は協約ルートが標準; a-kasse 登録も同時に"}
+   {:opt/id :godtgorelse :opt/kind :self-decide :opt/label "godtgørelse の根拠 (勤続・理由) を整理"}]
+  :proc/refer-when ["非組合員 → advokat / retshjælp" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:dk-betalingspaakrav" :proc/label "Betalingspåkrav (支払督促・デンマーク)"
   :proc/jurisdiction :dk
   :proc/trigger-keywords ["betalingspåkrav"]
@@ -1217,6 +1298,21 @@
   :proc/verify-current-law true}
 
  ;; ── :fi ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:fi-irtisanominen" :proc/label "Irtisanominen (解雇・労働・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :labor
+  :proc/trigger-keywords ["irtisanominen"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Kanneaika (出訴期間)"
+    :dl/rule "perusteeton irtisanominen の korvaus 請求は työsuhteen päättymisestä 2 vuotta 以内"
+    :dl/anchor "työsopimuslaki 13 luku 9§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :liitto :opt/kind :self-decide :opt/protective true
+    :opt/label "liitto (組合) + työttömyyskassa へ即連絡 (給付と法的支援)"}
+   {:opt/id :kanne :opt/kind :self-submit :opt/label "käräjäoikeus へ kanne (oikeusapu 併用可)"}]
+  :proc/refer-when ["oikeusapu / liitto の弁護士" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:fi-haastehakemus" :proc/label "Haastehakemus (簡易訴状・フィンランド)"
   :proc/jurisdiction :fi
   :proc/trigger-keywords ["haastehakemus"]

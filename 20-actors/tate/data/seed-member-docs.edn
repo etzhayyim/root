@@ -212,6 +212,43 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 28 (civil-only 完全解消: :dk/:fi/:be/:mx/:ar labor) ─────────────────
+ {:notice/id "ntc:at-kuendigung" :notice/label "AT Kündigung des Dienstverhältnisses (労働)"
+  :notice/jurisdiction :at
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Kündigung Ihres Dienstverhältnisses unter Einhaltung der Frist."}
+
+ {:notice/id "ntc:dk-opsigelse" :notice/label "DK opsigelse (労働)"
+  :notice/jurisdiction :dk
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Opsigelse af din stilling med funktionærlovens varsel."}
+
+ {:notice/id "ntc:fi-irtisanominen" :notice/label "FI irtisanominen (労働)"
+  :notice/jurisdiction :fi
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Irtisanominen tuotannollisista ja taloudellisista syistä."}
+
+ {:notice/id "ntc:be-licenciement" :notice/label "BE licenciement (労働)"
+  :notice/jurisdiction :be
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notification de licenciement moyennant indemnité compensatoire de préavis."}
+
+ {:notice/id "ntc:mx-despido" :notice/label "MX aviso de despido (労働)"
+  :notice/jurisdiction :mx
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "Aviso de despido con efectos inmediatos por las causas señaladas."}
+
+ {:notice/id "ntc:ar-despido" :notice/label "AR notificación de despido (労働)"
+  :notice/jurisdiction :ar
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Notificación de despido sin causa conforme a la LCT."}
+
  ;; ── wave 27 (:no/:nz/:in labor) ──────────────────────────────────────────────
  {:notice/id "ntc:no-oppsigelse" :notice/label "NO oppsigelse (労働)"
   :notice/jurisdiction :no

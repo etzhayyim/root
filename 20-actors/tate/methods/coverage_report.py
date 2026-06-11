@@ -71,9 +71,10 @@ def coverage():
     else:
         track_gap = (f"専門トラック: {track_counts} 件 — 計画トラックは全て開削済み; "
                      f"次の深化は各トラックの管轄横展開 (多くは jp/us/de の3管轄のみ)")
-    civil_only = sorted(j for j, ts in matrix.items() if set(ts) == {":civil"})
+    civil_only = sorted(j for j, ts in matrix.items()
+                        if set(ts) == {":civil"} and j != ":eu")  # :eu = 越境 instruments のみで対象外
     civil_only_gap = ("専門トラック未開削の管轄 (civil のみ): " + " ".join(civil_only)
-                      if civil_only else "全管轄に専門トラックあり")
+                      if civil_only else "全管轄に専門トラックあり (:eu は越境 instruments のみで対象外)")
     named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
                   + [us_state_gap, track_gap, civil_only_gap] + list(STRUCTURAL_GAPS))
     return {

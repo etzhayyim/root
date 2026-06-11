@@ -867,6 +867,28 @@ def test_wave27_no_nz_in_labor():
     assert any("Form I" in o["label"] for o in ind["options"])
 
 
+def test_wave28_civil_only_eliminated():
+    """Wave 28 milestone: the last 5 civil-only rows gain :labor — :dk 協約ルート
+    主体の honest 開示 · :fi kanneaika 2v · :be CCT 109 motivation 2 mois (critical) ·
+    :mx prescripción **2 meses** (LFT 518 critical; renuncia 署名拒否警告) · :ar
+    telegrama laboral (TT 無料) — 解雇通知が全管轄で専門応答を持つ."""
+    ps, _ = _by_id()
+    for nid, pid in [("ntc:dk-opsigelse", "proc:dk-opsigelse"),
+                     ("ntc:fi-irtisanominen", "proc:fi-irtisanominen"),
+                     ("ntc:be-licenciement", "proc:be-licenciement"),
+                     ("ntc:mx-despido", "proc:mx-despido"),
+                     ("ntc:ar-despido", "proc:ar-despido")]:
+        p = ps[nid]
+        assert p["status"] == ":genuine" and p["proc"] == pid, nid
+    assert ps["ntc:mx-despido"]["deadlines"][0]["critical"] is True
+    assert ps["ntc:be-licenciement"]["deadlines"][0]["critical"] is True
+    assert any("telegrama" in o["label"] for o in ps["ntc:ar-despido"]["options"])
+    # :at — computed civil-only gap が手元リストの漏れを検出した管轄 (Anfechtung 2 Wochen)
+    at = ps["ntc:at-kuendigung"]
+    assert at["status"] == ":genuine" and at["proc"] == "proc:at-kuendigung"
+    assert at["deadlines"][0]["critical"] is True and "§105" in at["deadlines"][0]["anchor"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -97,10 +97,8 @@ def test_civil_only_jurisdictions_named():
     (the matrix's empty rows become a worklist, not silence)."""
     cov = coverage()
     co = cov["civil_only_jurisdictions"]
-    assert ":mx" in co and ":be" in co  # known civil-only rows (sg/pt も wave 25 で解消)
-    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es", ":nl", ":cn", ":sg", ":pt"):
-        assert j not in co
-    assert any("専門トラック未開削" in g for g in cov["named_gaps"])
+    assert co == []  # wave 28 milestone: 全管轄に専門トラックあり (:eu は instruments のみで対象外)
+    assert any("全管轄に専門トラックあり" in g for g in cov["named_gaps"])
 
 
 def test_critical_deadline_census():
