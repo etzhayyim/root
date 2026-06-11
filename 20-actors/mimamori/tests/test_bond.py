@@ -94,8 +94,11 @@ def test_g5_relay_no_sleepless_center():
     m.consent(A, B)
     m.handoff(A, B, C)
     states = {b["bond"]: b["state"] for b in m.bonds_of(B)}
-    assert ":handed-off" in states.values() and ":active" in states.values()
-    m.heartbeat(C, B)  # the relay keeper keeps
+    # G3: the relay does NOT carry consent — the incoming bond is only :offered
+    assert ":handed-off" in states.values() and ":offered" in states.values()
+    expect_raise(lambda: m.heartbeat(C, B), "G3")  # no keeping before consent
+    m.consent(C, B)                                # the kept consents to C explicitly
+    m.heartbeat(C, B)                              # now the relay keeper keeps
 
 
 def test_g7_synthetic_only():

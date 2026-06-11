@@ -103,6 +103,10 @@ member-held keys, server never reads) への pointer のみ。
    する。routing 先 whitelist = {kokoro, wakai, iyashi} **のみ** (G1)。
 5. **relay (継ぎ)** — keeper は交代できる。まどろまない単一中心ではなく、
    有限な保持者たちの継ぎ (詩篇121:4 の地上的実現形、ADR-2606112200 D2)。
+   **継ぎは同意を運ばない (G3)**: kept が同意したのは元の keeper であって
+   次の keeper ではない — 新 keeper の bond は `:offered` に置かれ、kept の
+   明示同意で初めて active になる (見守りの空白は許容する; 同意の省略は
+   許容しない)。
 6. **exit** — kept はいつでも一方的に exit できる。ペナルティなし、理由
    不要、exit の事実も append (消去はしない — ただし bond の私的内容は
    そもそも substrate に存在しない)。
