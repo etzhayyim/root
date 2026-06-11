@@ -1,0 +1,32 @@
+{
+  "actor": "rasen",
+  "adr": "2606101000",
+  "published_at": "2026-06-11T01:13:03.188494+00:00",
+  "scope": "PUBLIC reference genetics only \u2014 no individual genotypes (G1)",
+  "artifacts": {
+    "graph": {
+      "file": "ingested-genome-graph.kotoba.edn",
+      "bytes": 90131,
+      "cid": "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm",
+      "daemon_cid": "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm",
+      "cid_matches": true
+    },
+    "datoms": {
+      "file": "ingested-genome-datoms.kotoba.edn",
+      "bytes": 229255,
+      "cid": "bafkreihsvbx4cs6qjfxkvipn4npsyq4wfmcrwttgzdtbe3w5t56wstpmay",
+      "daemon_cid": "bafkreihsvbx4cs6qjfxkvipn4npsyq4wfmcrwttgzdtbe3w5t56wstpmay",
+      "cid_matches": true
+    }
+  },
+  "ipns": {
+    "name": "k51qzi5uqu5dgql6m0zggpi47n0jfvcr1q2scowxgekf0lu8ifssm3nzdqblgc",
+    "path": "/ipns/k51qzi5uqu5dgql6m0zggpi47n0jfvcr1q2scowxgekf0lu8ifssm3nzdqblgc",
+    "points_to": "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm"
+  },
+  "gateways": [
+    "https://ipfs.io/ipfs/",
+    "https://dweb.link/ipfs/",
+    "https://cloudflare-ipfs.com/ipfs/"
+  ]
+}
