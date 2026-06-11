@@ -182,4 +182,40 @@
   :state/answer-rule "small claims: 通知記載の trial date に出頭; 通常民事は20日以内に answer"
   :state/answer-anchor "KRS ch. 24A.200 以下 / CR 12.01"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 19 (+5: OR OK CT UT NV) ─────────────────────────────────────────────
+ {:state/id :us-or :state/label "Oregon"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 送達から14日以内に応答 (admit/deny/hearing request)"
+  :state/answer-anchor "ORS 46.455"
+  :state/arl "ORS 646A.295 (自動更新の開示)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ok :state/label "Oklahoma"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 通知記載の trial date に出頭 (書面 answer 不要)"
+  :state/answer-anchor "12 O.S. §1751 以下"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ct :state/label "Connecticut"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims: answer date までに応答 (通知記載)"
+  :state/answer-anchor "Conn. Practice Book §24-1 以下"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ut :state/label "Utah"
+  :state/small-claims-usd 15000
+  :state/answer-rule "small claims: affidavit 送達後の trial date に出頭; 通常民事は21日"
+  :state/answer-anchor "Utah R. Small Claims P. / URCP 12(a)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-nv :state/label "Nevada"
+  :state/small-claims-usd 10000
+  :state/answer-rule "justice court: 送達から20日以内に answer"
+  :state/answer-anchor "JCRCP 12(a)"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

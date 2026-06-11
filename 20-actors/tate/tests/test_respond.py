@@ -698,6 +698,33 @@ def test_critical_deadlines_surface_first():
             assert dl.get(":dl/critical") in (None, True), (p[":proc/id"], dl)
 
 
+def test_wave19_kr_insolvency_au_family():
+    """Wave 19: :kr 채권신고 (실권 리스ク, 채무자회생법 — insolvency 6管轄) ·
+    :au response to divorce 28日 + property settlement 12か月の別期限警告
+    (family 7管轄; kokoro auto)."""
+    ps, _ = _by_id()
+    kr = ps["ntc:kr-singo"]
+    assert kr["status"] == ":genuine" and kr["proc"] == "proc:kr-chaegwon-singo"
+    assert any("실권" in d["rule"] for d in kr["deadlines"])
+    au = ps["ntc:au-divorce"]
+    assert au["status"] == ":genuine" and au["proc"] == "proc:au-divorce-response"
+    assert any("28日" in d["rule"] for d in au["deadlines"])
+    assert any("12か月" in o["label"] for o in au["options"])  # property の別期限
+
+
+def test_universal_protective_invariant():
+    """Wave 19 maturity: EVERY non-civil procedure carries ≥1 :opt/protective
+    option — the per-track invariants (no-self-help / exemption / claim-filing /
+    defensive response) unify into one meta-invariant: tate never ships a
+    specialty-track procedure without a member-protecting move."""
+    _, procs = _by_id()
+    for p in procs:
+        if p.get(":proc/track", ":civil") == ":civil":
+            continue
+        assert any(o.get(":opt/protective") is True for o in p[":proc/options"]), \
+            p[":proc/id"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

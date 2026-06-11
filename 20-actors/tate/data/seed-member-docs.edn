@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 19 (:kr insolvency + :au family) ────────────────────────────────────
+ {:notice/id "ntc:kr-singo" :notice/label "회생절차 채권신고 안내 (郵送・倒産)"
+  :notice/jurisdiction :kr
+  :notice/channel :mail :notice/claim-amount 150000 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "회생절차 개시결정 통지. 채권신고기간 내에 채권신고를 하시기 바랍니다."}
+
+ {:notice/id "ntc:au-divorce" :notice/label "AU divorce application (mail・家事)"
+  :notice/jurisdiction :au
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "A divorce application has been filed. You may file a response to divorce within the stated time."}
+
  ;; ── wave 18 (:kr enforcement + :fr family) ───────────────────────────────────
  {:notice/id "ntc:kr-apnyu" :notice/label "채권압류 및 추심명령 (法院送達・執行)"
   :notice/jurisdiction :kr
