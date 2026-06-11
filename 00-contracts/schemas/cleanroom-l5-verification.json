@@ -4935,7 +4935,7 @@
       "verifiedAt": "2026-06-12",
       "tier": "L5",
       "source": "https://apis.support.brightcove.com/cms/references/openapi.yaml (the operator's own published OpenAPI 3.0.3, 52 schemas)",
-      "remodeled": "Remodeled to the faithful Brightcove CMS surface verified against the operator's OWN published OpenAPI 3.0.3 (machine-extracted; 52 schemas, 20 small declared enums). Eight spec-declared enums enforced: Video.state(4: ACTIVE/INACTIVE/PENDING/DELETED — full lifecycle), economics(2: AD_SUPPORTED/FREE), deliveryType(4 incl. unknown), IngestJobStatus.state(5: processing/publishing/published/finished/failed — complete ingest lifecycle), Playlist.state(2: READY/UPDATING) + type(8 — the complete smart-playlist algebra EXPLICIT/ACTIVATED_*/ALPHABETICAL/PLAYS_*/START_DATE_*), AudioTrack.variant(5: main/alternate/commentary/dub/descriptive — semantic-complete). Harness-direct.",
+      "remodeled": "Remodeled to the faithful Brightcove CMS surface verified against the operator's OWN published OpenAPI 3.0.3 (machine-extracted; 52 schemas, 20 small declared enums). Seven spec-declared enum fields enforced: Video.state(4: ACTIVE/INACTIVE/PENDING/DELETED — full lifecycle), economics(2: AD_SUPPORTED/FREE), deliveryType(4 incl. unknown), IngestJobStatus.state(5: processing/publishing/published/finished/failed — complete ingest lifecycle), Playlist.state(2: READY/UPDATING) + type(8 — the complete smart-playlist algebra EXPLICIT/ACTIVATED_*/ALPHABETICAL/PLAYS_*/START_DATE_*), AudioTrack.variant(5: main/alternate/commentary/dub/descriptive — semantic-complete). Harness-direct.",
       "resources": [
         {
           "entity": "Video",
@@ -5056,7 +5056,7 @@
         }
       ],
       "notApplicable": [],
-      "note": "FULLY VERIFIED (4/4) vs the operator's own published OpenAPI. Enforced enums: state(4)+economics(2)+deliveryType(4)+ingest state(5)+playlist state(2)+type(8)+variant(5) = 8 enum fields (incl. Video.state superseding the create-request's 2-value subset — the FULL schema's set wins)."
+      "note": "FULLY VERIFIED (4/4) vs the operator's own published OpenAPI. Enforced enums: state(4)+economics(2)+deliveryType(4)+ingest state(5)+playlist state(2)+type(8)+variant(5) = 7 enum fields (incl. Video.state superseding the create-request's 2-value subset — the FULL schema's set wins)."
     },
     {
       "handle": "can_bus-compat",

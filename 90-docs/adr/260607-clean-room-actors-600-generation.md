@@ -785,9 +785,9 @@ shell) both unfetchable -> remain L4, not deferred.
 
 ### §16.22 /loop iteration 21 — wave 22: brightcove (217, 21.7%)
 
-brightcove → ledger **217** (783 L4 / 217 L5 = 21.7%), enforced 209 / **878
-enum fields** (+8), verify PASS 0/0, contract suite green. Harness-direct.
-The operator's published OpenAPI 3.0.3 anchors eight declared enums incl.
+brightcove → ledger **217** (783 L4 / 217 L5 = 21.7%), enforced 209 / **877
+enum fields** (+7), verify PASS 0/0, contract suite green. Harness-direct.
+The operator's published OpenAPI 3.0.3 anchors seven declared enum fields incl.
 the Video state lifecycle(4), the ingest lifecycle(5), the complete
 8-value smart-playlist algebra and the semantic-complete audio-track
 variant(5). Method note: when the same field carries different enum sets
