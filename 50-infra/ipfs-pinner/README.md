@@ -28,14 +28,40 @@ mst-projector produces CAR files but doesn't pin them. Separating concerns:
 
 | Provider | Cost | Persistence | Use case |
 |---|---|---|---|
+| **kotobase** | kotoba-native PSA | CAR-on-B2 off-site (durable), per-account quota | **religious-corp durable remote pin** (recommended) |
 | **Pinata** | $20/mo for 1 GB pinned | as long as you pay | low-latency, fast pin |
 | **Web3.Storage** | free tier 5 GB | as long as service exists | bulk pin without billing |
 | **Filecoin (via Storacha)** | per-GB-month | deal-bound (1-2 years), renewable | long-term archive |
 | **Self-hosted Kubo** | infra cost | you decide | full control |
 
 Default (Phase 1 dev): Kubo only (no API key, self-hosted, fits the
-religious-corp ethos). Production must override with `ETZ_PINNER_PROVIDERS=kubo,filecoin`
+religious-corp ethos). Production must override with `ETZ_PINNER_PROVIDERS=kubo,kotobase`
 (or similar dual-pin) to satisfy the replication-factor ≥ 2 invariant.
+
+### kotobase — the kotoba-native durable remote pin
+
+[`kotobase.net`](https://kotobase.net) (`did:web:kotobase.net`, gftd infra, built on
+`etzhayyim/kotoba`) is a content-addressed pin & hosting service exposing the **standard
+IPFS Pinning Service API** (`POST {base}/pins`). It is the religious-corp-aligned durable
+remote target to pair with local Kubo: Kubo provides the blocks, kotobase fetches the
+root CID and archives the commit's blocks off-site as one CAR on Backblaze B2
+(CAR-on-B2, ADR-2606042100), and content is retrievable from any IPFS gateway incl.
+`https://ipfs.gftd.ai/ipfs/<cid>`.
+
+The pinner pins **by CID** — `mst-projector` names each CAR `<rootCid>.car`, so the root
+CID is the filename stem (no CAR parse), submitted to `/pins` and verified against the
+returned `PinStatus`.
+
+**Auth — no platform key is held** (the credential is minted in the member/operator's own
+runtime and presented), exactly one of:
+- `ETZ_KOTOBASE_JWT` → `Authorization: Bearer <jwt>` (gftd-AUTHN JWT, `sub` = tenant DID);
+- `ETZ_KOTOBASE_CACAO` (base64-cbor) + `ETZ_KOTOBASE_DID` → `Authorization: CACAO <b64>` +
+  `x-kotoba-did`. The CACAO must grant `kotobase:pin` over the tenant DID — the **same
+  self-signed-CACAO leash** mechanism ibuki uses for its kotoba write capability
+  (ADR-2606111400), here scoped to pinning rather than `datom:transact`.
+
+Enable with `ETZ_PINNER_PROVIDERS=kubo,kotobase`. Native `ipfs` tooling can use the same
+service directly: `ipfs pin remote service add kotobase https://kotobase.net <JWT>`.
 
 ## Status
 
@@ -44,7 +70,8 @@ religious-corp ethos). Production must override with `ETZ_PINNER_PROVIDERS=kubo,
 - ✅ Kubo provider: real `/api/v0/dag/import` + `/api/v0/pin/add` round-trip
 - ✅ `buildPinRecord` + `emitPinRecord` (AtpAgent, mirrors mst-projector emit pattern)
 - ✅ `discoverCars` + `pinOne` + polling loop over the shared mst-projector data volume
-- ✅ Tests: 12/12 (`pnpm test`, node:test under tsx)
+- ✅ Tests: 21/21 (`pnpm test`, node:test under tsx)
+- ✅ **kotobase provider** (`POST /pins` PSA round-trip; Bearer JWT or self-signed CACAO; gftd gateway in the receipt)
 - ⏳ Pinata / Web3.Storage / Filecoin (via Storacha) providers — stubs remain throw-on-call
 
 The producer side (mst-projector Phase 2) emits CAR files named by their AT-Protocol MST root CID; the pinner verifies the provider's returned CID equals the filename-encoded `rootCid` before emitting the pin record. CID mismatch is fatal.
@@ -63,8 +90,10 @@ ipfs-pinner/
 │   │   ├── pinata.ts        # stub (TODO)
 │   │   ├── web3storage.ts   # stub (TODO)
 │   │   ├── filecoin.ts      # stub (TODO)
-│   │   └── kubo.ts          # working: dag/import + pin/add
+│   │   ├── kubo.ts          # working: dag/import + pin/add
+│   │   └── kotobase.ts      # working: kotobase.net PSA POST /pins (Bearer JWT | CACAO)
 │   ├── kubo.test.ts    # node:test — kubo HTTP round-trip with mocked fetch
+│   ├── kotobase.test.ts # node:test — PSA round-trip + auth/CID internals with mocked fetch
 │   ├── emit.ts         # buildPinRecord + emitPinRecord (AtpAgent)
 │   └── emit.test.ts    # node:test — record shape + required-field invariants
 └── Dockerfile
@@ -74,8 +103,12 @@ ipfs-pinner/
 
 | env | default | purpose |
 |---|---|---|
-| `ETZ_PINNER_PROVIDERS` | `kubo` | comma-separated provider list (production: `kubo,filecoin` or similar) |
+| `ETZ_PINNER_PROVIDERS` | `kubo` | comma-separated provider list (production: `kubo,kotobase` or similar) |
 | `ETZ_PINNER_MIN_PROVIDERS` | `min(providers, 2)` | replication factor floor; pinOne errors if fewer providers confirmed |
+| `ETZ_KOTOBASE_URL` | `https://kotobase.net` | kotobase PSA base (clients append `/pins`) |
+| `ETZ_KOTOBASE_JWT` | — | gftd-AUTHN JWT (`Authorization: Bearer`); `sub` = tenant DID |
+| `ETZ_KOTOBASE_CACAO` + `ETZ_KOTOBASE_DID` | — | self-signed CACAO (base64-cbor) granting `kotobase:pin` + tenant DID (alt to JWT) |
+| `ETZ_KOTOBASE_GATEWAY` | `https://ipfs.gftd.ai` | gateway base reported in the pin receipt |
 | `ETZ_PINNER_PDS_URL` | `https://pds.etzhayyim.com` | PDS where the pinner authenticates + writes pin records |
 | `ETZ_PINNER_PDS_SESSION` | — | JSON `{did,handle,accessJwt,refreshJwt}` (preferred) |
 | `ETZ_PINNER_PDS_AUTH` | — | JSON `{handle,password}` (fallback) |
