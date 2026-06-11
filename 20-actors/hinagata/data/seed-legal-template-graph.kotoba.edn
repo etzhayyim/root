@@ -80,6 +80,9 @@
  {:lt/id "concept.payment" :lt/kind :concept :lt/label "Payment / consideration" :concept/code "payment" :lt/sourcing :authoritative}
  {:lt/id "concept.termination" :lt/kind :concept :lt/label "Termination of contract" :concept/code "termination" :lt/sourcing :authoritative}
  {:lt/id "concept.choice-of-law" :lt/kind :concept :lt/label "Choice of law / governing law" :concept/code "choice-of-law" :lt/sourcing :authoritative}
+ {:lt/id "concept.joint-venture" :lt/kind :concept :lt/label "Joint venture (合弁)" :concept/code "joint-venture" :lt/sourcing :authoritative}
+ {:lt/id "concept.subscription" :lt/kind :concept :lt/label "Subscription / recurring service" :concept/code "subscription" :lt/sourcing :authoritative}
+ {:lt/id "concept.escrow" :lt/kind :concept :lt/label "Escrow / deposit (供託)" :concept/code "escrow" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -263,6 +266,11 @@
  {:lt/id "st.ca-labour-230" :lt/kind :statute :lt/label "Canada Labour Code §230 — notice of termination of employment" :statute/citation "Canada Labour Code, s.230" :statute/instrument "Canada Labour Code (R.S.C. 1985, c. L-2)" :statute/jurisdiction "jx.ca" :statute/url "https://laws-lois.justice.gc.ca/eng/acts/L-2/" :lt/sourcing :authoritative}
  {:lt/id "st.israel-privacy-1981" :lt/kind :statute :lt/label "Israel Protection of Privacy Law 5741-1981 §13 — right of access" :statute/citation "Protection of Privacy Law 5741-1981, §13" :statute/instrument "Protection of Privacy Law, 5741-1981 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.gov.il/en/departments/legalInfo/data_protection_legislation" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 21 (/loop): new families — joint-venture / SaaS-subscription / escrow ───
+ {:lt/id "st.jp-kaisha-2" :lt/kind :statute :lt/label "日本会社法 2条 — 会社の定義 (company / joint-venture vehicle)" :statute/citation "会社法2条" :statute/instrument "会社法 (平成17年法律第86号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/417AC0000000086" :lt/sourcing :authoritative}
+ {:lt/id "st.us-rosca" :lt/kind :statute :lt/label "US ROSCA — 15 U.S.C. §8403 (negative-option / auto-renewal disclosure)" :statute/citation "15 U.S.C. §8403" :statute/instrument "Restore Online Shoppers' Confidence Act (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/uscode/text/15/8403" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-civil-494" :lt/kind :statute :lt/label "日本民法 494条 — 供託 (deposit / escrow)" :statute/citation "民法494条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -302,6 +310,9 @@
  {:lt/id "cl.lease-repairs" :lt/kind :clause :lt/label "Landlord repair & habitability obligation" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.cc-license" :lt/kind :clause :lt/label "Open-content license grant (Creative Commons)" :clause/role :ip-license :clause/optionality :optional :lt/sourcing :authoritative}
  {:lt/id "cl.copyleft-license" :lt/kind :clause :lt/label "Copyleft license grant (GPL/AGPL)" :clause/role :ip-license :clause/optionality :optional :lt/sourcing :authoritative}
+ {:lt/id "cl.jv-governance" :lt/kind :clause :lt/label "JV governance, contribution, profit & exit" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.subscription-terms" :lt/kind :clause :lt/label "Recurring fee, auto-renewal & cancellation" :clause/role :payment :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.escrow-conditions" :lt/kind :clause :lt/label "Escrow agent & release conditions" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.guaranty" :lt/kind :clause :lt/label "Guaranty / suretyship obligation (incl. cap)" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.franchise-grant" :lt/kind :clause :lt/label "Franchise grant, system & pre-contractual disclosure" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.distribution-appointment" :lt/kind :clause :lt/label "Distributor/agent appointment & territory" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
@@ -363,6 +374,9 @@
  ;; coverage wave 19 — lift hi/ar to "ok" with employment translations
  {:lt/id "tmpl.employment-hi" :lt/kind :template :lt/label "रोजगार अनुबंध (Employment, HI)" :template/title "रोजगार अनुबंध" :template/lang "hi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.employment-ar" :lt/kind :template :lt/label "عقد عمل (Employment, AR)" :template/title "عقد عمل" :template/lang "ar" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.joint-venture" :lt/kind :template :lt/label "Joint Venture Agreement" :template/title "Joint Venture Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.saas-subscription" :lt/kind :template :lt/label "SaaS Subscription Agreement" :template/title "SaaS Subscription Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.escrow" :lt/kind :template :lt/label "Escrow Agreement" :template/title "Escrow Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -594,6 +608,24 @@
  {:en/from "tmpl.employment-hi" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-ar" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-ar" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 21 — JV / SaaS / escrow template composition
+ {:en/from "tmpl.joint-venture" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.joint-venture" :en/to "cl.jv-governance" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.joint-venture" :en/to "cl.profit-sharing" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.joint-venture" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.joint-venture" :en/to "cl.dispute-arbitration" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.joint-venture" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.subscription-terms" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.service-levels" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.limitation-liability" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.saas-subscription" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.escrow" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.escrow" :en/to "cl.escrow-conditions" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.escrow" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.escrow" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -631,6 +663,13 @@
  {:en/from "cl.employment-termination" :en/to "st.sg-employment-10" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.ca-labour-230" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.cn-civil-509" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+
+ ;; coverage wave 21 — JV / subscription / escrow bindings
+ {:en/from "cl.jv-governance" :en/to "st.jp-kaisha-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.jv-governance" :en/to "st.jp-civil-667" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.subscription-terms" :en/to "st.us-rosca" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.subscription-terms" :en/to "st.eu-crd-9" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.escrow-conditions" :en/to "st.jp-civil-494" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.data-subject-rights" :en/to "st.israel-privacy-1981" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.payment-terms" :en/to "st.kr-civil-390" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 1 — bind the general-clause backbone (was 10 unbound clauses → only :definitions left, honestly structural)
@@ -780,6 +819,9 @@
  {:en/from "cl.termination" :en/to "concept.termination" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.governing-law" :en/to "concept.choice-of-law" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.copyleft-license" :en/to "concept.ip-license" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.jv-governance" :en/to "concept.joint-venture" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.subscription-terms" :en/to "concept.subscription" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.escrow-conditions" :en/to "concept.escrow" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  ;; coverage wave 2 — new clause→concept spine
  {:en/from "cl.heter-iska" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.no-interest-qard" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -850,6 +892,9 @@
  {:en/from "tmpl.nda-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.employment-hi" :en/to "jx.in" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.employment-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.joint-venture" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.saas-subscription" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.escrow" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -1000,6 +1045,10 @@
  {:en/from "st.cn-civil-509" :en/to "jx.cn" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.ca-labour-230" :en/to "jx.ca" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.israel-privacy-1981" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 21 — applies-in
+ {:en/from "st.jp-kaisha-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-rosca" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-494" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}

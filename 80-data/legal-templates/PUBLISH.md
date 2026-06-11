@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**47 templates published.**
+**50 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -28,11 +28,13 @@
 | 근로계약서 | ko | KR | 3 | 20 | `bafkreidxptie5bsdf…` |
 | Contrato individual de trabalho | pt | BR | 3 | 27 | `bafkreigt6naqxq2n5…` |
 | 劳动合同 | zh | CN | 2 | 18 | `bafkreigh656koddez…` |
+| Escrow Agreement | en | JP | 4 | 15 | `bafkreidpyldfvwvf3…` |
 | Franchise Agreement | en | INTL | 7 | 27 | `bafkreicfsa7qjfs42…` |
 | Guaranty Agreement | en | JP | 5 | 19 | `bafkreienph2rpcfjf…` |
 | 保証契約書 | ja | JP | 3 | 17 | `bafkreif3fgwbg5xic…` |
 | Heter Iska Investment-Partnership Agreement | en | INTL | 4 | 21 | `bafkreicrrf73oee3q…` |
 | Insurance Policy Agreement | en | JP | 5 | 22 | `bafkreie63w4l2xwbf…` |
+| Joint Venture Agreement | en | JP | 6 | 26 | `bafkreihgaj4d7u43g…` |
 | Wohnraummietvertrag / Residential Lease (Germany) | en | DE | 6 | 24 | `bafkreifxdkkqzay22…` |
 | 住宅賃貸借契約書 | ja | JP | 5 | 18 | `bafkreiao3hhrzeld5…` |
 | Residential Lease Agreement (Japan) | en | JP | 4 | 17 | `bafkreihhezsobywc4…` |
@@ -51,6 +53,7 @@
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 3 | 16 | `bafkreichrl3h2q4sp…` |
 | General Partnership Agreement | en | INTL | 7 | 25 | `bafkreid2mdhcbxvhv…` |
 | Power of Attorney | en | JP | 4 | 15 | `bafkreibbaok4ucwza…` |
+| SaaS Subscription Agreement | en | INTL | 6 | 25 | `bafkreidlpfhzuxcfj…` |
 | International Sale of Goods Agreement (CISG) | en | INTL | 10 | 43 | `bafkreihq2bgfii4rw…` |
 | Security Agreement | en | US | 4 | 17 | `bafkreig42gjhdpnhl…` |
 | Service Level Agreement | en | INTL | 7 | 23 | `bafkreibpeb4mn3t4j…` |
