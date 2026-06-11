@@ -146,9 +146,27 @@ const DONATION_POLICY = {
       enrollment: "R0 design; live external mesh-enrollment gated on Council + operator (ADR-2606012100 §6 G9)",
     },
   ],
-  adr: ["2606012100", "2605192115", "2605192130", "2605215000", "2605301020", "2605241900"],
+  // Active solicitation (募集). Benefit-free by construction: a gift earns the donor
+  // nothing — no perk, tier, priority, governance weight, or recognition leaderboard
+  // (anti-class G4, ADR-2606012100). Soliciting support for etzhayyim's own religious
+  // activity is 案内, not advertising (ADR-2605192115 §1.2).
+  solicitation: {
+    open: true,
+    callToAction:
+      "etzhayyim runs only on donation. Give money (USDC on Base L2) or compute (join the Murakumo mesh). A gift earns you nothing — no perks, no tiers, no priority — and is never required.",
+    grantsBenefit: false, // G4 — no quid-pro-quo
+    tiers: "none", // no perk/sponsor tiers (would be a quid-pro-quo)
+    leaderboard: "none", // no per-donor ranking (no class formation)
+    sponsorButton:
+      "GitHub repo Sponsor button (.github/FUNDING.yml) points here — NOT to GitHub Sponsors / Patreon / Stripe (fiat processors prohibited, ADR-2605172100).",
+    addressStatus:
+      "On-chain donate address is published in THIS document (field media[0]) once live — single source of truth, no second place to drift. Currently pending Council ratification + Base L2 testnet.",
+  },
+  adr: ["2606012100", "2606111700", "2605192115", "2605192130", "2605172100", "2605215000", "2605301020", "2605241900"],
   references: {
     page: "https://etzhayyim.com/donate",
+    howToGive: "https://github.com/etzhayyim/root/blob/main/DONATE.md",
+    sponsorButton: "https://github.com/etzhayyim/root/blob/main/.github/FUNDING.yml",
     didDocument: "https://etzhayyim.com/.well-known/did.json",
     repo: "https://github.com/etzhayyim/root",
   },
@@ -210,9 +228,17 @@ a{color:inherit}
 
 <p style="opacity:.75">Compute you donate joins the Murakumo fleet as a first-party node — never a commercial cloud. It is valued (imputed, for transparency only) but no money ever moves to or from you, and donating more grants you no priority. Live enrollment for external nodes is being rolled out under Council oversight.</p>
 
+<h2>Sponsor on GitHub</h2>
+<div class="card">
+<span class="tag">github</span><span class="tag">on-chain only</span>
+<p>The <a href="https://github.com/etzhayyim/root">etzhayyim/root</a> repo carries a <strong>Sponsor</strong> button — it links straight back to this page. We deliberately do <em>not</em> use GitHub Sponsors, Patreon, or any fiat rail (those route through prohibited fiat processors). See <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> for the full how-to.</p>
+</div>
+
+<p style="opacity:.85"><strong>A gift earns you nothing</strong> — no perks, no tiers, no priority, no recognition leaderboard. We say so plainly: you give because the mission (人類の構造的労働解放) is worth it, not for a benefit.</p>
+
 <footer>
-Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
-Design: ADR-2606012100 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
+Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
 </footer>
 </body>
 </html>

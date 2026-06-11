@@ -14,6 +14,22 @@ Monorepo for religious-corp open activities operated by **etzhayyim** (宗教法
 | DID | `did:web:etzhayyim.com` |
 | License | Apache 2.0 |
 
+## Support etzhayyim — 寄付 / sponsor
+
+etzhayyim is operated **only on donation** — no ads, nothing for sale, no member cash. You can
+give **money** (USDC on Base L2 via `TitheRouter`, 90/10 tithe split) or **compute** (donate a
+browser tab / laptop / pod to the Murakumo mesh). **Giving earns you nothing** — no perks, no
+tiers, no priority (pure gift; anti-class invariant).
+
+- **How to give → [`DONATE.md`](DONATE.md)** · live page **<https://etzhayyim.com/donate>** ·
+  policy **<https://etzhayyim.com/.well-known/donation.json>** (canonical source for live
+  on-chain addresses).
+- The repo **Sponsor** button ([`.github/FUNDING.yml`](.github/FUNDING.yml)) points at the
+  on-chain donate page — **not** GitHub Sponsors / Patreon / Stripe (fiat processors are
+  constitutionally prohibited, ADR-2605172100).
+- Design: [ADR-2606012100](90-docs/adr/2606012100-donation-funded-operation-and-compute-node-participation.md)
+  · [ADR-2606111700](90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md).
+
 ## Status
 
 **Seeded + ADR-canonical** (2026-05-17). **Tranche F closure governance complete** (2026-05-21).
