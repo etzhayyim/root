@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 809,
-    "L5": 191
+    "L4": 806,
+    "L5": 194
   },
   "actors": [
     {
@@ -5867,10 +5867,10 @@
     {
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
-      "wasmCid": "bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
+      "wasmCid": "bafkreiejqccqwplrik7m7s32eedxvdqvyevhx6imzsked6x7gutd325oie",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fda clean-room actor",
       "category": "us_federal",
       "capabilities": [
@@ -6623,10 +6623,10 @@
     {
       "handle": "gcp-compat",
       "did": "did:web:etzhayyim.com:actor:gcp-compat",
-      "wasmCid": "bafkreifrwmgtbpdqhyqqjzojjyafosdb2jukz5ezhkubsc3pruoo5mlyxu",
+      "wasmCid": "bafkreifbxep4id623eaghtadykkw4bldbu744r5zat5qtp2welwyusjrje",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gcp clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -8297,10 +8297,10 @@
     {
       "handle": "ios_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:ios_sdk-compat",
-      "wasmCid": "bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+      "wasmCid": "bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ios_sdk clean-room actor",
       "category": "os_kernel",
       "capabilities": [

@@ -3,71 +3,37 @@
 
 namespace ios_sdk {
 
-    entity Process {
-        id: string @unique
-        pid: integer
-        command: string
-        state: string
-        uid: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Thread {
-        id: string @unique
-        pid: integer
-        tid: integer
-        state: string
-        priority: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity FileDescriptor {
-        id: string @unique
-        pid: integer
-        fd: integer
-        path: string
-        mode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Syscall {
+    entity Device {
         id: string @unique
         name: string
-        number: integer
-        argCount: integer
+        model: string
+        systemName: string
+        systemVersion: string
+        batteryLevel: float
+        batteryState: string
+        orientation: string
+        identifierForVendor: string
+        isBatteryMonitoringEnabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity MemoryRegion {
+    entity TraitCollection {
         id: string @unique
-        pid: integer
-        startAddr: string
-        sizeBytes: integer
-        perms: string
+        userInterfaceStyle: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Signal {
+    entity Screen {
         id: string @unique
-        pid: integer
-        number: integer
-        action: string
+        scale: float
+        nativeScale: float
+        brightness: float
+        wantsSoftwareDimming: boolean
+        maximumFramesPerSecond: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

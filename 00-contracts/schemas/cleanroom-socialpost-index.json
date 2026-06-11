@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 186,
-  "totalVerifiedEnumFields": 789,
+  "l5VerifiedActors": 189,
+  "totalVerifiedEnumFields": 802,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -3267,8 +3267,8 @@
       "source": "fda.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 8
     },
     {
       "handle": "fdic-compat",
@@ -3687,8 +3687,8 @@
       "source": "gcp.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "ge_aviation-compat",
@@ -4617,8 +4617,8 @@
       "source": "ios_sdk.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "ipcc-compat",

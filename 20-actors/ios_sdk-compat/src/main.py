@@ -111,381 +111,200 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/processes", methods=["POST"])
-def create_process(request):
-    """Create a Process."""
+@app.route("/v1/devices", methods=["POST"])
+def create_device(request):
+    """Create a Device."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
+    err = _reject_unknown(data, ['name', 'model', 'systemName', 'systemVersion', 'batteryLevel', 'batteryState', 'orientation', 'identifierForVendor', 'isBatteryMonitoringEnabled'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'command'])
+    err = _require(data, ['name', 'model'])
     if err:
         return err, 400
-    rec = {"id": new_id("iossdk_pro")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["command"] = data.get('command')
-    rec["state"] = data.get('state')
-    rec["uid"] = _as_int(data.get('uid'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Process", rec)
-    return rec, 201
-
-@app.route("/v1/processes", methods=["GET"])
-def list_processes(request):
-    """List Processes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Process")
-    rows = _apply_filters(rows, params, ['pid', 'command', 'state', 'uid'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/processes/<eid>", methods=["GET"])
-def get_process(request, eid):
-    """Retrieve a Process by id (supports ?expand=)."""
-    rows = _query("Process", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/processes/<eid>", methods=["POST", "PATCH"])
-def update_process(request, eid):
-    """Update a Process."""
-    rows = _query("Process", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Process", rec)
-    return rec, 200
-
-@app.route("/v1/processes/<eid>", methods=["DELETE"])
-def delete_process(request, eid):
-    """Delete a Process."""
-    rows = _query("Process", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.Process", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/threads", methods=["POST"])
-def create_thread(request):
-    """Create a Thread."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'tid'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("iossdk_thr")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["tid"] = _as_int(data.get('tid'))
-    rec["state"] = data.get('state')
-    rec["priority"] = _as_int(data.get('priority'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Thread", rec)
-    return rec, 201
-
-@app.route("/v1/threads", methods=["GET"])
-def list_threads(request):
-    """List Threads with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Thread")
-    rows = _apply_filters(rows, params, ['pid', 'tid', 'state', 'priority'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/threads/<eid>", methods=["GET"])
-def get_thread(request, eid):
-    """Retrieve a Thread by id (supports ?expand=)."""
-    rows = _query("Thread", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/threads/<eid>", methods=["POST", "PATCH"])
-def update_thread(request, eid):
-    """Update a Thread."""
-    rows = _query("Thread", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Thread", rec)
-    return rec, 200
-
-@app.route("/v1/threads/<eid>", methods=["DELETE"])
-def delete_thread(request, eid):
-    """Delete a Thread."""
-    rows = _query("Thread", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.Thread", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/filedescriptors", methods=["POST"])
-def create_file_descriptor(request):
-    """Create a FileDescriptor."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'fd'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("iossdk_fil")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["fd"] = _as_int(data.get('fd'))
-    rec["path"] = data.get('path')
-    rec["mode"] = data.get('mode')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("FileDescriptor", rec)
-    return rec, 201
-
-@app.route("/v1/filedescriptors", methods=["GET"])
-def list_file_descriptors(request):
-    """List FileDescriptors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("FileDescriptor")
-    rows = _apply_filters(rows, params, ['pid', 'fd', 'path', 'mode'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["GET"])
-def get_file_descriptor(request, eid):
-    """Retrieve a FileDescriptor by id (supports ?expand=)."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["POST", "PATCH"])
-def update_file_descriptor(request, eid):
-    """Update a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("FileDescriptor", rec)
-    return rec, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["DELETE"])
-def delete_file_descriptor(request, eid):
-    """Delete a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.FileDescriptor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/syscalls", methods=["POST"])
-def create_syscall(request):
-    """Create a Syscall."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'number'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("iossdk_sys")}
+    if data.get('batteryState') and data['batteryState'] not in ['unknown', 'unplugged', 'charging', 'full']:
+        return {"error": {"message": "invalid batteryState; allowed: " + ", ".join(['unknown', 'unplugged', 'charging', 'full']), "type": "invalid_request_error"}}, 400
+    if data.get('orientation') and data['orientation'] not in ['unknown', 'portrait', 'portraitUpsideDown', 'landscapeLeft', 'landscapeRight', 'faceUp', 'faceDown']:
+        return {"error": {"message": "invalid orientation; allowed: " + ", ".join(['unknown', 'portrait', 'portraitUpsideDown', 'landscapeLeft', 'landscapeRight', 'faceUp', 'faceDown']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("iossdk_dev")}
     rec["name"] = data.get('name')
-    rec["number"] = _as_int(data.get('number'))
-    rec["argCount"] = _as_int(data.get('argCount'))
+    rec["model"] = data.get('model')
+    rec["systemName"] = data.get('systemName')
+    rec["systemVersion"] = data.get('systemVersion')
+    rec["batteryLevel"] = _as_float(data.get('batteryLevel'))
+    rec["batteryState"] = data.get('batteryState')
+    rec["orientation"] = data.get('orientation')
+    rec["identifierForVendor"] = data.get('identifierForVendor')
+    rec["isBatteryMonitoringEnabled"] = _as_bool(data.get('isBatteryMonitoringEnabled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Syscall", rec)
+    _persist("Device", rec)
     return rec, 201
 
-@app.route("/v1/syscalls", methods=["GET"])
-def list_syscalls(request):
-    """List Syscalls with filtering + cursor pagination."""
+@app.route("/v1/devices", methods=["GET"])
+def list_devices(request):
+    """List Devices with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Syscall")
-    rows = _apply_filters(rows, params, ['name', 'number', 'argCount'])
+    rows = _query("Device")
+    rows = _apply_filters(rows, params, ['name', 'model', 'systemName', 'systemVersion', 'batteryLevel', 'batteryState', 'orientation', 'identifierForVendor', 'isBatteryMonitoringEnabled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/syscalls/<eid>", methods=["GET"])
-def get_syscall(request, eid):
-    """Retrieve a Syscall by id (supports ?expand=)."""
-    rows = _query("Syscall", eid)
+@app.route("/v1/devices/<eid>", methods=["GET"])
+def get_device(request, eid):
+    """Retrieve a Device by id (supports ?expand=)."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/syscalls/<eid>", methods=["POST", "PATCH"])
-def update_syscall(request, eid):
-    """Update a Syscall."""
-    rows = _query("Syscall", eid)
+@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
+def update_device(request, eid):
+    """Update a Device."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
+    err = _reject_unknown(data, ['name', 'model', 'systemName', 'systemVersion', 'batteryLevel', 'batteryState', 'orientation', 'identifierForVendor', 'isBatteryMonitoringEnabled'])
     if err:
         return err, 400
+    if data.get('batteryState') and data['batteryState'] not in ['unknown', 'unplugged', 'charging', 'full']:
+        return {"error": {"message": "invalid batteryState; allowed: " + ", ".join(['unknown', 'unplugged', 'charging', 'full']), "type": "invalid_request_error"}}, 400
+    if data.get('orientation') and data['orientation'] not in ['unknown', 'portrait', 'portraitUpsideDown', 'landscapeLeft', 'landscapeRight', 'faceUp', 'faceDown']:
+        return {"error": {"message": "invalid orientation; allowed: " + ", ".join(['unknown', 'portrait', 'portraitUpsideDown', 'landscapeLeft', 'landscapeRight', 'faceUp', 'faceDown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Syscall", rec)
+    _persist("Device", rec)
     return rec, 200
 
-@app.route("/v1/syscalls/<eid>", methods=["DELETE"])
-def delete_syscall(request, eid):
-    """Delete a Syscall."""
-    rows = _query("Syscall", eid)
+@app.route("/v1/devices/<eid>", methods=["DELETE"])
+def delete_device(request, eid):
+    """Delete a Device."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.Syscall", "id": eid})
+    db.retract({"entity": f"ios_sdk.Device", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/memoryregions", methods=["POST"])
-def create_memory_region(request):
-    """Create a MemoryRegion."""
+@app.route("/v1/traitcollections", methods=["POST"])
+def create_trait_collection(request):
+    """Create a TraitCollection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
+    err = _reject_unknown(data, ['userInterfaceStyle'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'startAddr'])
+    err = _require(data, ['userInterfaceStyle'])
     if err:
         return err, 400
-    rec = {"id": new_id("iossdk_mem")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["startAddr"] = data.get('startAddr')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["perms"] = data.get('perms')
+    if data.get('userInterfaceStyle') and data['userInterfaceStyle'] not in ['unspecified', 'light', 'dark']:
+        return {"error": {"message": "invalid userInterfaceStyle; allowed: " + ", ".join(['unspecified', 'light', 'dark']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("iossdk_tra")}
+    rec["userInterfaceStyle"] = data.get('userInterfaceStyle')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("MemoryRegion", rec)
+    _persist("TraitCollection", rec)
     return rec, 201
 
-@app.route("/v1/memoryregions", methods=["GET"])
-def list_memory_regions(request):
-    """List MemoryRegions with filtering + cursor pagination."""
+@app.route("/v1/traitcollections", methods=["GET"])
+def list_trait_collections(request):
+    """List TraitCollections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("MemoryRegion")
-    rows = _apply_filters(rows, params, ['pid', 'startAddr', 'sizeBytes', 'perms'])
+    rows = _query("TraitCollection")
+    rows = _apply_filters(rows, params, ['userInterfaceStyle'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/memoryregions/<eid>", methods=["GET"])
-def get_memory_region(request, eid):
-    """Retrieve a MemoryRegion by id (supports ?expand=)."""
-    rows = _query("MemoryRegion", eid)
+@app.route("/v1/traitcollections/<eid>", methods=["GET"])
+def get_trait_collection(request, eid):
+    """Retrieve a TraitCollection by id (supports ?expand=)."""
+    rows = _query("TraitCollection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/memoryregions/<eid>", methods=["POST", "PATCH"])
-def update_memory_region(request, eid):
-    """Update a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
+@app.route("/v1/traitcollections/<eid>", methods=["POST", "PATCH"])
+def update_trait_collection(request, eid):
+    """Update a TraitCollection."""
+    rows = _query("TraitCollection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
+    err = _reject_unknown(data, ['userInterfaceStyle'])
     if err:
         return err, 400
+    if data.get('userInterfaceStyle') and data['userInterfaceStyle'] not in ['unspecified', 'light', 'dark']:
+        return {"error": {"message": "invalid userInterfaceStyle; allowed: " + ", ".join(['unspecified', 'light', 'dark']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("MemoryRegion", rec)
+    _persist("TraitCollection", rec)
     return rec, 200
 
-@app.route("/v1/memoryregions/<eid>", methods=["DELETE"])
-def delete_memory_region(request, eid):
-    """Delete a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
+@app.route("/v1/traitcollections/<eid>", methods=["DELETE"])
+def delete_trait_collection(request, eid):
+    """Delete a TraitCollection."""
+    rows = _query("TraitCollection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.MemoryRegion", "id": eid})
+    db.retract({"entity": f"ios_sdk.TraitCollection", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
+@app.route("/v1/screens", methods=["POST"])
+def create_screen(request):
+    """Create a Screen."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
+    err = _reject_unknown(data, ['scale', 'nativeScale', 'brightness', 'wantsSoftwareDimming', 'maximumFramesPerSecond'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'number'])
+    err = _require(data, ['scale', 'nativeScale'])
     if err:
         return err, 400
-    rec = {"id": new_id("iossdk_sig")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["number"] = _as_int(data.get('number'))
-    rec["action"] = data.get('action')
+    rec = {"id": new_id("iossdk_scr")}
+    rec["scale"] = _as_float(data.get('scale'))
+    rec["nativeScale"] = _as_float(data.get('nativeScale'))
+    rec["brightness"] = _as_float(data.get('brightness'))
+    rec["wantsSoftwareDimming"] = _as_bool(data.get('wantsSoftwareDimming'))
+    rec["maximumFramesPerSecond"] = _as_int(data.get('maximumFramesPerSecond'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
+    _persist("Screen", rec)
     return rec, 201
 
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
+@app.route("/v1/screens", methods=["GET"])
+def list_screens(request):
+    """List Screens with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['pid', 'number', 'action'])
+    rows = _query("Screen")
+    rows = _apply_filters(rows, params, ['scale', 'nativeScale', 'brightness', 'wantsSoftwareDimming', 'maximumFramesPerSecond'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
+@app.route("/v1/screens/<eid>", methods=["GET"])
+def get_screen(request, eid):
+    """Retrieve a Screen by id (supports ?expand=)."""
+    rows = _query("Screen", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/screens/<eid>", methods=["POST", "PATCH"])
+def update_screen(request, eid):
+    """Update a Screen."""
+    rows = _query("Screen", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
+    err = _reject_unknown(data, ['scale', 'nativeScale', 'brightness', 'wantsSoftwareDimming', 'maximumFramesPerSecond'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +312,22 @@ def update_signal(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Signal", rec)
+    _persist("Screen", rec)
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/screens/<eid>", methods=["DELETE"])
+def delete_screen(request, eid):
+    """Delete a Screen."""
+    rows = _query("Screen", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ios_sdk.Signal", "id": eid})
+    db.retract({"entity": f"ios_sdk.Screen", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ios_sdk-compat", "tier": "L4",
-            "entities": ['Process', 'Thread', 'FileDescriptor', 'Syscall', 'MemoryRegion', 'Signal']}, 200
+            "entities": ['Device', 'TraitCollection', 'Screen']}, 200
 
 
 if __name__ == "__main__":

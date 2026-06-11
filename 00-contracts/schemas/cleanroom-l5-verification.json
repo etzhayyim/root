@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 191,
+  "count": 194,
   "actors": [
     {
       "handle": "aave-compat",
@@ -9506,6 +9506,140 @@
       "note": "PARTIAL: 5/5 entity SCHEMAS verified vs official Fastly API docs; ZERO enums enforced (Fastly docs publish no closed enum arrays; OpenAPI yaml unreachable). Honesty over coverage — no enum fabricated."
     },
     {
+      "handle": "fda-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://open.fda.gov/fields/drugenforcement.yaml + https://open.fda.gov/fields/drugevent.yaml + https://open.fda.gov/fields/druglabel.yaml + https://open.fda.gov/fields/deviceevent.yaml (the FDA's own machine-readable openFDA field specs)",
+      "remodeled": "Remodeled to the faithful openFDA surface verified against the FDA's OWN machine-readable field-reference YAMLs, which declare explicit possible_values one_of closed sets. 8 enum fields enforced incl. the regulatory recall classification (Class I/II/III — defined by FDA regulation) and the full enforcement status {On-Going, Completed, Terminated, Pending}. DRAFT REFUTATION: gemini claimed status values 'Ongoing' and 'Open' — the official YAML says 'On-Going' and 'Pending' (exact-string fidelity matters for enforcement). DRAFT OVER-CAUTION REVERSED: product_type / reporttype / event_type were draft-gapped as version-growing, but the spec declares one_of sets -> enforced per the landsat spec-declaration rule. gemini-CLI-drafted; every set machine-matched against the fetched YAMLs.",
+      "resources": [
+        {
+          "entity": "DrugEvent",
+          "source": "https://open.fda.gov/fields/drugevent.yaml",
+          "verifiedFields": [
+            "safetyreportid",
+            "transmissiondate",
+            "serious",
+            "seriousnessdeath",
+            "receivedate",
+            "receiptdate",
+            "occurcountry",
+            "reporttype",
+            "fulfillexpeditecriteria"
+          ],
+          "fieldStatus": "confirmed (top-level fields; nested patient/drug arrays not modeled)",
+          "discoveredEnums": {
+            "serious": [
+              "1",
+              "2"
+            ],
+            "reporttype": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "fulfillexpeditecriteria": [
+              "1",
+              "2"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "EnforcementReport",
+          "source": "https://open.fda.gov/fields/drugenforcement.yaml",
+          "verifiedFields": [
+            "eventId",
+            "status",
+            "classification",
+            "country",
+            "productDescription",
+            "productType",
+            "reasonForRecall",
+            "recallingFirm",
+            "recallNumber",
+            "reportDate",
+            "voluntaryMandated"
+          ],
+          "fieldStatus": "confirmed (snake_case->camelCase); voluntaryMandated free-text upstream -> no enum",
+          "discoveredEnums": {
+            "status": [
+              "On-Going",
+              "Completed",
+              "Terminated",
+              "Pending"
+            ],
+            "classification": [
+              "Class I",
+              "Class II",
+              "Class III"
+            ],
+            "productType": [
+              "Drugs",
+              "Devices",
+              "Food"
+            ]
+          },
+          "gaps": [
+            "voluntaryMandated-free-text-upstream"
+          ]
+        },
+        {
+          "entity": "DrugLabel",
+          "source": "https://open.fda.gov/fields/druglabel.yaml",
+          "verifiedFields": [
+            "activeIngredient",
+            "adverseReactions",
+            "clinicalPharmacology",
+            "contraindications",
+            "description",
+            "dosageAndAdministration",
+            "indicationsAndUsage",
+            "warnings",
+            "version",
+            "effectiveTime"
+          ],
+          "fieldStatus": "confirmed (SPL label sections)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "DeviceEvent",
+          "source": "https://open.fda.gov/fields/deviceevent.yaml",
+          "verifiedFields": [
+            "eventKey",
+            "eventType",
+            "dateOfEvent",
+            "reportNumber",
+            "adverseEventFlag",
+            "productProblemFlag",
+            "singleUseFlag",
+            "reprocessedAndReusedFlag",
+            "dateReport"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "eventType": [
+              "Death",
+              "Injury (IN)",
+              "Injury (IL)",
+              "Injury (IJ)",
+              "Malfunction",
+              "Other",
+              "No answer provided"
+            ],
+            "adverseEventFlag": [
+              "Y",
+              "N"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs the FDA's own field-spec YAMLs (possible_values one_of). Enforced enums: serious(2)+reporttype(4)+fulfillexpeditecriteria(2)+status(4)+classification(3)+productType(3)+eventType(7)+adverseEventFlag(2) = 8 enum fields — the largest regulatory-anchored haul in the corpus."
+    },
+    {
       "handle": "figma-compat",
       "verifiedAt": "2026-06-08",
       "tier": "L5",
@@ -10313,6 +10447,112 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official MobilityData/gbfs spec. Enforced enums: VehicleType.formFactor(7)/propulsionType(8)/returnConstraint(4), Station.parkingType(5) = 4 enums. rentalMethods array -> not enforced."
+    },
+    {
+      "handle": "gcp-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+      "remodeled": "Remodeled to the faithful Google Compute Engine v1 surface verified against Google's OFFICIAL Discovery document (machine-extracted). Enforced: Firewall.direction {INGRESS, EGRESS} (complete dichotomy, set unchanged since its introduction) + Operation.status {DONE, PENDING, RUNNING} (stable since GCE v1 2013). Gapped per the in-place-evolution discipline: Instance.status (11 — SUSPENDING/SUSPENDED added 2021, REPAIRING later), Disk.status (UNAVAILABLE recency unconfirmed), Disk.architecture (ARM64/X86_64 — architectures can grow), accessMode (young, 2024). gemini-CLI-drafted; harness machine-extraction matched.",
+      "resources": [
+        {
+          "entity": "Instance",
+          "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+          "verifiedFields": [
+            "name",
+            "machineType",
+            "status",
+            "zone",
+            "creationTimestamp",
+            "cpuPlatform",
+            "hostname",
+            "canIpForward",
+            "deletionProtection"
+          ],
+          "fieldStatus": "confirmed; status grew within v1 -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-grew-within-v1 (+SUSPENDING/+SUSPENDED 2021, +REPAIRING)"
+          ]
+        },
+        {
+          "entity": "Disk",
+          "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+          "verifiedFields": [
+            "name",
+            "sizeGb",
+            "status",
+            "type",
+            "zone",
+            "creationTimestamp",
+            "architecture"
+          ],
+          "fieldStatus": "confirmed; status/architecture gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-growth-recency-unconfirmed",
+            "architecture-can-grow"
+          ]
+        },
+        {
+          "entity": "Firewall",
+          "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+          "verifiedFields": [
+            "name",
+            "network",
+            "direction",
+            "priority",
+            "creationTimestamp",
+            "disabled"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "direction": [
+              "INGRESS",
+              "EGRESS"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Network",
+          "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "autoCreateSubnetworks",
+            "mtu",
+            "creationTimestamp"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Operation",
+          "source": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest (official Discovery document, rev 20260520)",
+          "verifiedFields": [
+            "name",
+            "status",
+            "operationType",
+            "progress",
+            "startTime",
+            "endTime",
+            "zone"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "DONE",
+              "PENDING",
+              "RUNNING"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Google's official Discovery document. Enforced enums: Firewall.direction(2) + Operation.status(3) = 2 enum fields; the flagship Instance.status honestly gapped (grew within v1)."
     },
     {
       "handle": "github-compat",
@@ -12478,6 +12718,81 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Intercom OpenAPI v2.15. Enforced enums: Conversation.state, Conversation.priority, Article.state (3). [+enum Conversation.state(3)/priority(2)]"
+    },
+    {
+      "handle": "ios_sdk-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://developer.apple.com/tutorials/data/documentation/uikit/uidevice.json + uideviceorientation.json + uidevicebatterystate.json + uiuserinterfacestyle.json + uiscreen.json (official Apple developer-docs JSON API)",
+      "remodeled": "Remodeled to a faithful iOS SDK subset verified against Apple's OFFICIAL developer-documentation JSON API (developer.apple.com/tutorials/data/... — machine-readable, no scraping). UIDeviceOrientation enforced (7 cases, stable since iOS 2/2008 — an 18-year anchor) + UIDevice.BatteryState (4, same era) + UIUserInterfaceStyle (3, stable since iOS 12/2018). Property surfaces (UIDevice/UIScreen) machine-verified from topicSections identifiers. gemini-CLI-drafted; harness fetches matched.",
+      "resources": [
+        {
+          "entity": "Device",
+          "source": "https://developer.apple.com/tutorials/data/documentation/uikit/uidevice.json",
+          "verifiedFields": [
+            "name",
+            "model",
+            "systemName",
+            "systemVersion",
+            "batteryLevel",
+            "batteryState",
+            "orientation",
+            "identifierForVendor",
+            "isBatteryMonitoringEnabled"
+          ],
+          "fieldStatus": "confirmed (UIDevice documented properties)",
+          "discoveredEnums": {
+            "batteryState": [
+              "unknown",
+              "unplugged",
+              "charging",
+              "full"
+            ],
+            "orientation": [
+              "unknown",
+              "portrait",
+              "portraitUpsideDown",
+              "landscapeLeft",
+              "landscapeRight",
+              "faceUp",
+              "faceDown"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "TraitCollection",
+          "source": "https://developer.apple.com/tutorials/data/documentation/uikit/uiuserinterfacestyle.json",
+          "verifiedFields": [
+            "userInterfaceStyle"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "userInterfaceStyle": [
+              "unspecified",
+              "light",
+              "dark"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Screen",
+          "source": "https://developer.apple.com/tutorials/data/documentation/uikit/uiscreen.json",
+          "verifiedFields": [
+            "scale",
+            "nativeScale",
+            "brightness",
+            "wantsSoftwareDimming",
+            "maximumFramesPerSecond"
+          ],
+          "fieldStatus": "confirmed (UIScreen documented properties)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs Apple's official docs JSON API. Enforced enums: orientation(7, iOS-2-stable) + batteryState(4) + userInterfaceStyle(3) = 3 enum fields. The Apple docs JSON API joins the official machine-readable seam."
     },
     {
       "handle": "ipsec-compat",

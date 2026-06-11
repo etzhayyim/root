@@ -588,3 +588,15 @@ carries (developer.dronedeploy.com SPA defeats fetching so far).
 **Wave-8 addendum:** drone_deploy → honest defer #14 (gated-SaaS-docs class):
 developer.dronedeploy.com returns 403 without authentication; the gemini run
 recommended defer rather than fabricate — the gate holding as designed.
+
+### §16.9 /loop iteration 8 — wave 9: Discovery + Apple JSON + the FDA's own field specs (194, 19.4%)
+
+gcp + ios_sdk + fda → ledger **194** (806 L4 / 194 L5 = 19.4%), enforced 189
+actors / **802 enum fields** (+13), verify PASS 0/0, 3/3 green. losant's
+draft still in flight (carries if it misses the wave).
+
+| Actor | Anchor | Enforced / gapped |
+|---|---|---|
+| gcp | official compute v1 Discovery doc (rev-dated, machine-extracted) | Firewall.direction(2) + Operation.status(3, stable since 2013); the FLAGSHIP Instance.status(11) honestly gapped — SUSPENDING/SUSPENDED landed 2021 inside v1 (in-place-evolution discipline) |
+| ios_sdk | Apple's official developer-docs JSON API (machine-readable, no scraping) | orientation(7, stable since iOS 2/2008 — an 18-year anchor) + batteryState(4) + userInterfaceStyle(3) |
+| fda | the FDA's OWN field-spec YAMLs with explicit `possible_values: one_of` closed-set declarations | **8 enum fields — the largest regulatory-anchored haul**: classification(Class I/II/III) + status(4) + productType(3) + serious(2) + reporttype(4) + fulfillexpeditecriteria(2) + eventType(7) + adverseEventFlag(2). Draft REFUTED on exact strings (claimed 'Ongoing'/'Open'; official YAML says 'On-Going'/'Pending') and draft over-caution REVERSED on three spec-declared sets (landsat rule) |

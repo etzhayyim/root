@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29445,
-  "l5VerifiedActors": 186,
-  "totalVerifiedEnumFields": 789,
+  "totalTools": 29415,
+  "l5VerifiedActors": 189,
+  "totalVerifiedEnumFields": 802,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -3589,12 +3589,12 @@
     {
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiejqccqwplrik7m7s32eedxvdqvyevhx6imzsked6x7gutd325oie",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 20,
+      "l5Verified": true,
+      "verifiedEnumFields": 8,
       "manifest": "20-actors/fda-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4051,12 +4051,12 @@
     {
       "handle": "gcp-compat",
       "did": "did:web:etzhayyim.com:actor:gcp-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreifrwmgtbpdqhyqqjzojjyafosdb2jukz5ezhkubsc3pruoo5mlyxu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreifbxep4id623eaghtadykkw4bldbu744r5zat5qtp2welwyusjrje",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 25,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/gcp-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -5074,12 +5074,12 @@
     {
       "handle": "ios_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:ios_sdk-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/ios_sdk-compat/manifest.json#/capabilities/mcp"
     },
     {

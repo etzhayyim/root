@@ -111,118 +111,227 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
+@app.route("/v1/drugevents", methods=["POST"])
+def create_drug_event(request):
+    """Create a DrugEvent."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'period', 'status'])
+    err = _reject_unknown(data, ['safetyreportid', 'transmissiondate', 'serious', 'seriousnessdeath', 'receivedate', 'receiptdate', 'occurcountry', 'reporttype', 'fulfillexpeditecriteria'])
     if err:
         return err, 400
-    err = _require(data, ['form', 'period'])
+    err = _require(data, ['safetyreportid', 'transmissiondate'])
     if err:
         return err, 400
-    rec = {"id": new_id("fda_fil")}
-    rec["filerId"] = data.get('filerId')
-    rec["form"] = data.get('form')
-    rec["period"] = data.get('period')
+    if data.get('serious') and data['serious'] not in ['1', '2']:
+        return {"error": {"message": "invalid serious; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('reporttype') and data['reporttype'] not in ['1', '2', '3', '4']:
+        return {"error": {"message": "invalid reporttype; allowed: " + ", ".join(['1', '2', '3', '4']), "type": "invalid_request_error"}}, 400
+    if data.get('fulfillexpeditecriteria') and data['fulfillexpeditecriteria'] not in ['1', '2']:
+        return {"error": {"message": "invalid fulfillexpeditecriteria; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("fda_dru")}
+    rec["safetyreportid"] = data.get('safetyreportid')
+    rec["transmissiondate"] = data.get('transmissiondate')
+    rec["serious"] = data.get('serious')
+    rec["seriousnessdeath"] = data.get('seriousnessdeath')
+    rec["receivedate"] = data.get('receivedate')
+    rec["receiptdate"] = data.get('receiptdate')
+    rec["occurcountry"] = data.get('occurcountry')
+    rec["reporttype"] = data.get('reporttype')
+    rec["fulfillexpeditecriteria"] = data.get('fulfillexpeditecriteria')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("DrugEvent", rec)
+    return rec, 201
+
+@app.route("/v1/drugevents", methods=["GET"])
+def list_drug_events(request):
+    """List DrugEvents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("DrugEvent")
+    rows = _apply_filters(rows, params, ['safetyreportid', 'transmissiondate', 'serious', 'seriousnessdeath', 'receivedate', 'receiptdate', 'occurcountry', 'reporttype', 'fulfillexpeditecriteria'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/drugevents/<eid>", methods=["GET"])
+def get_drug_event(request, eid):
+    """Retrieve a DrugEvent by id (supports ?expand=)."""
+    rows = _query("DrugEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/drugevents/<eid>", methods=["POST", "PATCH"])
+def update_drug_event(request, eid):
+    """Update a DrugEvent."""
+    rows = _query("DrugEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['safetyreportid', 'transmissiondate', 'serious', 'seriousnessdeath', 'receivedate', 'receiptdate', 'occurcountry', 'reporttype', 'fulfillexpeditecriteria'])
+    if err:
+        return err, 400
+    if data.get('serious') and data['serious'] not in ['1', '2']:
+        return {"error": {"message": "invalid serious; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('reporttype') and data['reporttype'] not in ['1', '2', '3', '4']:
+        return {"error": {"message": "invalid reporttype; allowed: " + ", ".join(['1', '2', '3', '4']), "type": "invalid_request_error"}}, 400
+    if data.get('fulfillexpeditecriteria') and data['fulfillexpeditecriteria'] not in ['1', '2']:
+        return {"error": {"message": "invalid fulfillexpeditecriteria; allowed: " + ", ".join(['1', '2']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("DrugEvent", rec)
+    return rec, 200
+
+@app.route("/v1/drugevents/<eid>", methods=["DELETE"])
+def delete_drug_event(request, eid):
+    """Delete a DrugEvent."""
+    rows = _query("DrugEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"fda.DrugEvent", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/enforcementreports", methods=["POST"])
+def create_enforcement_report(request):
+    """Create a EnforcementReport."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'status', 'classification', 'country', 'productDescription', 'productType', 'reasonForRecall', 'recallingFirm', 'recallNumber', 'reportDate', 'voluntaryMandated'])
+    if err:
+        return err, 400
+    err = _require(data, ['status', 'classification'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['On-Going', 'Completed', 'Terminated', 'Pending']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['On-Going', 'Completed', 'Terminated', 'Pending']), "type": "invalid_request_error"}}, 400
+    if data.get('classification') and data['classification'] not in ['Class I', 'Class II', 'Class III']:
+        return {"error": {"message": "invalid classification; allowed: " + ", ".join(['Class I', 'Class II', 'Class III']), "type": "invalid_request_error"}}, 400
+    if data.get('productType') and data['productType'] not in ['Drugs', 'Devices', 'Food']:
+        return {"error": {"message": "invalid productType; allowed: " + ", ".join(['Drugs', 'Devices', 'Food']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("fda_enf")}
+    rec["eventId"] = data.get('eventId')
     rec["status"] = data.get('status')
+    rec["classification"] = data.get('classification')
+    rec["country"] = data.get('country')
+    rec["productDescription"] = data.get('productDescription')
+    rec["productType"] = data.get('productType')
+    rec["reasonForRecall"] = data.get('reasonForRecall')
+    rec["recallingFirm"] = data.get('recallingFirm')
+    rec["recallNumber"] = data.get('recallNumber')
+    rec["reportDate"] = data.get('reportDate')
+    rec["voluntaryMandated"] = data.get('voluntaryMandated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
+    _persist("EnforcementReport", rec)
     return rec, 201
 
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
+@app.route("/v1/enforcementreports", methods=["GET"])
+def list_enforcement_reports(request):
+    """List EnforcementReports with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['filerId', 'form', 'period', 'status'])
+    rows = _query("EnforcementReport")
+    rows = _apply_filters(rows, params, ['eventId', 'status', 'classification', 'country', 'productDescription', 'productType', 'reasonForRecall', 'recallingFirm', 'recallNumber', 'reportDate', 'voluntaryMandated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
+@app.route("/v1/enforcementreports/<eid>", methods=["GET"])
+def get_enforcement_report(request, eid):
+    """Retrieve a EnforcementReport by id (supports ?expand=)."""
+    rows = _query("EnforcementReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/enforcementreports/<eid>", methods=["POST", "PATCH"])
+def update_enforcement_report(request, eid):
+    """Update a EnforcementReport."""
+    rows = _query("EnforcementReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'period', 'status'])
+    err = _reject_unknown(data, ['eventId', 'status', 'classification', 'country', 'productDescription', 'productType', 'reasonForRecall', 'recallingFirm', 'recallNumber', 'reportDate', 'voluntaryMandated'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['On-Going', 'Completed', 'Terminated', 'Pending']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['On-Going', 'Completed', 'Terminated', 'Pending']), "type": "invalid_request_error"}}, 400
+    if data.get('classification') and data['classification'] not in ['Class I', 'Class II', 'Class III']:
+        return {"error": {"message": "invalid classification; allowed: " + ", ".join(['Class I', 'Class II', 'Class III']), "type": "invalid_request_error"}}, 400
+    if data.get('productType') and data['productType'] not in ['Drugs', 'Devices', 'Food']:
+        return {"error": {"message": "invalid productType; allowed: " + ", ".join(['Drugs', 'Devices', 'Food']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Filing", rec)
+    _persist("EnforcementReport", rec)
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/enforcementreports/<eid>", methods=["DELETE"])
+def delete_enforcement_report(request, eid):
+    """Delete a EnforcementReport."""
+    rows = _query("EnforcementReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.Filing", "id": eid})
+    db.retract({"entity": f"fda.EnforcementReport", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/entities", methods=["POST"])
-def create_entity(request):
-    """Create a Entity."""
+@app.route("/v1/druglabels", methods=["POST"])
+def create_drug_label(request):
+    """Create a DrugLabel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ein', 'jurisdiction'])
+    err = _reject_unknown(data, ['activeIngredient', 'adverseReactions', 'clinicalPharmacology', 'contraindications', 'description', 'dosageAndAdministration', 'indicationsAndUsage', 'warnings', 'version', 'effectiveTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'ein'])
+    err = _require(data, ['activeIngredient', 'adverseReactions'])
     if err:
         return err, 400
-    rec = {"id": new_id("fda_ent")}
-    rec["name"] = data.get('name')
-    rec["ein"] = data.get('ein')
-    rec["jurisdiction"] = data.get('jurisdiction')
+    rec = {"id": new_id("fda_dru")}
+    rec["activeIngredient"] = data.get('activeIngredient')
+    rec["adverseReactions"] = data.get('adverseReactions')
+    rec["clinicalPharmacology"] = data.get('clinicalPharmacology')
+    rec["contraindications"] = data.get('contraindications')
+    rec["description"] = data.get('description')
+    rec["dosageAndAdministration"] = data.get('dosageAndAdministration')
+    rec["indicationsAndUsage"] = data.get('indicationsAndUsage')
+    rec["warnings"] = data.get('warnings')
+    rec["version"] = data.get('version')
+    rec["effectiveTime"] = data.get('effectiveTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Entity", rec)
+    _persist("DrugLabel", rec)
     return rec, 201
 
-@app.route("/v1/entities", methods=["GET"])
-def list_entities(request):
-    """List Entities with filtering + cursor pagination."""
+@app.route("/v1/druglabels", methods=["GET"])
+def list_drug_labels(request):
+    """List DrugLabels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Entity")
-    rows = _apply_filters(rows, params, ['name', 'ein', 'jurisdiction'])
+    rows = _query("DrugLabel")
+    rows = _apply_filters(rows, params, ['activeIngredient', 'adverseReactions', 'clinicalPharmacology', 'contraindications', 'description', 'dosageAndAdministration', 'indicationsAndUsage', 'warnings', 'version', 'effectiveTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/entities/<eid>", methods=["GET"])
-def get_entity(request, eid):
-    """Retrieve a Entity by id (supports ?expand=)."""
-    rows = _query("Entity", eid)
+@app.route("/v1/druglabels/<eid>", methods=["GET"])
+def get_drug_label(request, eid):
+    """Retrieve a DrugLabel by id (supports ?expand=)."""
+    rows = _query("DrugLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/entities/<eid>", methods=["POST", "PATCH"])
-def update_entity(request, eid):
-    """Update a Entity."""
-    rows = _query("Entity", eid)
+@app.route("/v1/druglabels/<eid>", methods=["POST", "PATCH"])
+def update_drug_label(request, eid):
+    """Update a DrugLabel."""
+    rows = _query("DrugLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ein', 'jurisdiction'])
+    err = _reject_unknown(data, ['activeIngredient', 'adverseReactions', 'clinicalPharmacology', 'contraindications', 'description', 'dosageAndAdministration', 'indicationsAndUsage', 'warnings', 'version', 'effectiveTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,282 +339,101 @@ def update_entity(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Entity", rec)
+    _persist("DrugLabel", rec)
     return rec, 200
 
-@app.route("/v1/entities/<eid>", methods=["DELETE"])
-def delete_entity(request, eid):
-    """Delete a Entity."""
-    rows = _query("Entity", eid)
+@app.route("/v1/druglabels/<eid>", methods=["DELETE"])
+def delete_drug_label(request, eid):
+    """Delete a DrugLabel."""
+    rows = _query("DrugLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.Entity", "id": eid})
+    db.retract({"entity": f"fda.DrugLabel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/deviceevents", methods=["POST"])
+def create_device_event(request):
+    """Create a DeviceEvent."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
+    err = _reject_unknown(data, ['eventKey', 'eventType', 'dateOfEvent', 'reportNumber', 'adverseEventFlag', 'productProblemFlag', 'singleUseFlag', 'reprocessedAndReusedFlag', 'dateReport'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'agency'])
+    err = _require(data, ['eventKey', 'eventType'])
     if err:
         return err, 400
-    rec = {"id": new_id("fda_dat")}
-    rec["name"] = data.get('name')
-    rec["agency"] = data.get('agency')
-    rec["updatedAt"] = data.get('updatedAt')
+    if data.get('eventType') and data['eventType'] not in ['Death', 'Injury (IN)', 'Injury (IL)', 'Injury (IJ)', 'Malfunction', 'Other', 'No answer provided']:
+        return {"error": {"message": "invalid eventType; allowed: " + ", ".join(['Death', 'Injury (IN)', 'Injury (IL)', 'Injury (IJ)', 'Malfunction', 'Other', 'No answer provided']), "type": "invalid_request_error"}}, 400
+    if data.get('adverseEventFlag') and data['adverseEventFlag'] not in ['Y', 'N']:
+        return {"error": {"message": "invalid adverseEventFlag; allowed: " + ", ".join(['Y', 'N']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("fda_dev")}
+    rec["eventKey"] = data.get('eventKey')
+    rec["eventType"] = data.get('eventType')
+    rec["dateOfEvent"] = data.get('dateOfEvent')
+    rec["reportNumber"] = data.get('reportNumber')
+    rec["adverseEventFlag"] = data.get('adverseEventFlag')
+    rec["productProblemFlag"] = data.get('productProblemFlag')
+    rec["singleUseFlag"] = data.get('singleUseFlag')
+    rec["reprocessedAndReusedFlag"] = data.get('reprocessedAndReusedFlag')
+    rec["dateReport"] = data.get('dateReport')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("DeviceEvent", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/deviceevents", methods=["GET"])
+def list_device_events(request):
+    """List DeviceEvents with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'agency', 'updatedAt'])
+    rows = _query("DeviceEvent")
+    rows = _apply_filters(rows, params, ['eventKey', 'eventType', 'dateOfEvent', 'reportNumber', 'adverseEventFlag', 'productProblemFlag', 'singleUseFlag', 'reprocessedAndReusedFlag', 'dateReport'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/deviceevents/<eid>", methods=["GET"])
+def get_device_event(request, eid):
+    """Retrieve a DeviceEvent by id (supports ?expand=)."""
+    rows = _query("DeviceEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/deviceevents/<eid>", methods=["POST", "PATCH"])
+def update_device_event(request, eid):
+    """Update a DeviceEvent."""
+    rows = _query("DeviceEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
+    err = _reject_unknown(data, ['eventKey', 'eventType', 'dateOfEvent', 'reportNumber', 'adverseEventFlag', 'productProblemFlag', 'singleUseFlag', 'reprocessedAndReusedFlag', 'dateReport'])
     if err:
         return err, 400
+    if data.get('eventType') and data['eventType'] not in ['Death', 'Injury (IN)', 'Injury (IL)', 'Injury (IJ)', 'Malfunction', 'Other', 'No answer provided']:
+        return {"error": {"message": "invalid eventType; allowed: " + ", ".join(['Death', 'Injury (IN)', 'Injury (IL)', 'Injury (IJ)', 'Malfunction', 'Other', 'No answer provided']), "type": "invalid_request_error"}}, 400
+    if data.get('adverseEventFlag') and data['adverseEventFlag'] not in ['Y', 'N']:
+        return {"error": {"message": "invalid adverseEventFlag; allowed: " + ", ".join(['Y', 'N']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("DeviceEvent", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/deviceevents/<eid>", methods=["DELETE"])
+def delete_device_event(request, eid):
+    """Delete a DeviceEvent."""
+    rows = _query("DeviceEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.Dataset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/applications", methods=["POST"])
-def create_application(request):
-    """Create a Application."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['applicantId', 'program', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['program', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fda_app")}
-    rec["applicantId"] = data.get('applicantId')
-    rec["program"] = data.get('program')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Application", rec)
-    return rec, 201
-
-@app.route("/v1/applications", methods=["GET"])
-def list_applications(request):
-    """List Applications with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Application")
-    rows = _apply_filters(rows, params, ['applicantId', 'program', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/applications/<eid>", methods=["GET"])
-def get_application(request, eid):
-    """Retrieve a Application by id (supports ?expand=)."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
-def update_application(request, eid):
-    """Update a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['applicantId', 'program', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Application", rec)
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["DELETE"])
-def delete_application(request, eid):
-    """Delete a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.Application", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/publicrecords", methods=["POST"])
-def create_public_record(request):
-    """Create a PublicRecord."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['recordType', 'jurisdiction', 'recordedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['recordType', 'jurisdiction'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fda_pub")}
-    rec["recordType"] = data.get('recordType')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["recordedAt"] = data.get('recordedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PublicRecord", rec)
-    return rec, 201
-
-@app.route("/v1/publicrecords", methods=["GET"])
-def list_public_records(request):
-    """List PublicRecords with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PublicRecord")
-    rows = _apply_filters(rows, params, ['recordType', 'jurisdiction', 'recordedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/publicrecords/<eid>", methods=["GET"])
-def get_public_record(request, eid):
-    """Retrieve a PublicRecord by id (supports ?expand=)."""
-    rows = _query("PublicRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/publicrecords/<eid>", methods=["POST", "PATCH"])
-def update_public_record(request, eid):
-    """Update a PublicRecord."""
-    rows = _query("PublicRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['recordType', 'jurisdiction', 'recordedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PublicRecord", rec)
-    return rec, 200
-
-@app.route("/v1/publicrecords/<eid>", methods=["DELETE"])
-def delete_public_record(request, eid):
-    """Delete a PublicRecord."""
-    rows = _query("PublicRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.PublicRecord", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/notices", methods=["POST"])
-def create_notice(request):
-    """Create a Notice."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'issuedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fda_not")}
-    rec["subjectId"] = data.get('subjectId')
-    rec["type"] = data.get('type')
-    rec["issuedAt"] = data.get('issuedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Notice", rec)
-    return rec, 201
-
-@app.route("/v1/notices", methods=["GET"])
-def list_notices(request):
-    """List Notices with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Notice")
-    rows = _apply_filters(rows, params, ['subjectId', 'type', 'issuedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/notices/<eid>", methods=["GET"])
-def get_notice(request, eid):
-    """Retrieve a Notice by id (supports ?expand=)."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/notices/<eid>", methods=["POST", "PATCH"])
-def update_notice(request, eid):
-    """Update a Notice."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Notice", rec)
-    return rec, 200
-
-@app.route("/v1/notices/<eid>", methods=["DELETE"])
-def delete_notice(request, eid):
-    """Delete a Notice."""
-    rows = _query("Notice", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fda.Notice", "id": eid})
+    db.retract({"entity": f"fda.DeviceEvent", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "fda-compat", "tier": "L4",
-            "entities": ['Filing', 'Entity', 'Dataset', 'Application', 'PublicRecord', 'Notice']}, 200
+            "entities": ['DrugEvent', 'EnforcementReport', 'DrugLabel', 'DeviceEvent']}, 200
 
 
 if __name__ == "__main__":

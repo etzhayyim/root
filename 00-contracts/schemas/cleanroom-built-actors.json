@@ -5482,17 +5482,15 @@
       "handle": "fda-compat",
       "platform": "fda",
       "bytes": 2117,
-      "wasmCid": "bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
+      "wasmCid": "bafkreiejqccqwplrik7m7s32eedxvdqvyevhx6imzsked6x7gutd325oie",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Filing",
-        "Entity",
-        "Dataset",
-        "Application",
-        "PublicRecord",
-        "Notice"
+        "DrugEvent",
+        "EnforcementReport",
+        "DrugLabel",
+        "DeviceEvent"
       ]
     },
     {
@@ -6194,17 +6192,16 @@
       "handle": "gcp-compat",
       "platform": "gcp",
       "bytes": 2117,
-      "wasmCid": "bafkreifrwmgtbpdqhyqqjzojjyafosdb2jukz5ezhkubsc3pruoo5mlyxu",
+      "wasmCid": "bafkreifbxep4id623eaghtadykkw4bldbu744r5zat5qtp2welwyusjrje",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
+        "Instance",
+        "Disk",
+        "Firewall",
         "Network",
-        "IamRole"
+        "Operation"
       ]
     },
     {
@@ -7770,17 +7767,14 @@
       "handle": "ios_sdk-compat",
       "platform": "ios_sdk",
       "bytes": 2121,
-      "wasmCid": "bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+      "wasmCid": "bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Process",
-        "Thread",
-        "FileDescriptor",
-        "Syscall",
-        "MemoryRegion",
-        "Signal"
+        "Device",
+        "TraitCollection",
+        "Screen"
       ]
     },
     {

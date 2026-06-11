@@ -3,71 +3,68 @@
 
 namespace gcp {
 
-    entity Project {
+    entity Instance {
         id: string @unique
-        name: string
-        region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
         name: string
         machineType: string
-        state: string
-        ipAddress: string
+        status: string
+        zone: string
+        creationTimestamp: datetime
+        cpuPlatform: string
+        hostname: string
+        canIpForward: boolean
+        deletionProtection: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Volume {
+    entity Disk {
         id: string @unique
-        projectId: string
-        sizeGb: integer
-        type: string
-        attachedTo: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Bucket {
-        id: string @unique
-        projectId: string
         name: string
-        region: string
-        public: boolean
+        sizeGb: string
+        status: string
+        type: string
+        zone: string
+        creationTimestamp: datetime
+        architecture: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Firewall {
+        id: string @unique
+        name: string
+        network: string
+        direction: string
+        priority: integer
+        creationTimestamp: datetime
+        disabled: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Network {
         id: string @unique
-        projectId: string
-        cidr: string
-        region: string
+        name: string
+        description: string
+        autoCreateSubnetworks: boolean
+        mtu: integer
+        creationTimestamp: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity IamRole {
+    entity Operation {
         id: string @unique
-        projectId: string
         name: string
-        policy: string
+        status: string
+        operationType: string
+        progress: integer
+        startTime: datetime
+        endTime: datetime
+        zone: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible OS / kernel interface actor (ios_sdk); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ios_sdk-compat",
-    "x-wasm-cid": "bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+    "x-wasm-cid": "bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+      "url": "ipfs://bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/processes": {
+    "/v1/devices": {
       "get": {
-        "summary": "List Processes",
+        "summary": "List Devices",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Process"
+                        "$ref": "#/components/schemas/Device"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Process",
+        "summary": "Create a Device",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProcessCreate"
+                "$ref": "#/components/schemas/DeviceCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Process"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/processes/{id}": {
+    "/v1/devices/{id}": {
       "get": {
-        "summary": "Get a Process",
+        "summary": "Get a Device",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Process"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Process",
+        "summary": "Update a Device",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProcessCreate"
+                "$ref": "#/components/schemas/DeviceCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Process"
+                  "$ref": "#/components/schemas/Device"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Process",
+        "summary": "Delete a Device",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/threads": {
+    "/v1/traitcollections": {
       "get": {
-        "summary": "List Threads",
+        "summary": "List TraitCollections",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Thread"
+                        "$ref": "#/components/schemas/TraitCollection"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Thread",
+        "summary": "Create a TraitCollection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreadCreate"
+                "$ref": "#/components/schemas/TraitCollectionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/TraitCollection"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/threads/{id}": {
+    "/v1/traitcollections/{id}": {
       "get": {
-        "summary": "Get a Thread",
+        "summary": "Get a TraitCollection",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/TraitCollection"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Thread",
+        "summary": "Update a TraitCollection",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreadCreate"
+                "$ref": "#/components/schemas/TraitCollectionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Thread"
+                  "$ref": "#/components/schemas/TraitCollection"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Thread",
+        "summary": "Delete a TraitCollection",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/filedescriptors": {
+    "/v1/screens": {
       "get": {
-        "summary": "List FileDescriptors",
+        "summary": "List Screens",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/FileDescriptor"
+                        "$ref": "#/components/schemas/Screen"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a FileDescriptor",
+        "summary": "Create a Screen",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileDescriptorCreate"
+                "$ref": "#/components/schemas/ScreenCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDescriptor"
+                  "$ref": "#/components/schemas/Screen"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/filedescriptors/{id}": {
+    "/v1/screens/{id}": {
       "get": {
-        "summary": "Get a FileDescriptor",
+        "summary": "Get a Screen",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDescriptor"
+                  "$ref": "#/components/schemas/Screen"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a FileDescriptor",
+        "summary": "Update a Screen",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileDescriptorCreate"
+                "$ref": "#/components/schemas/ScreenCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDescriptor"
+                  "$ref": "#/components/schemas/Screen"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a FileDescriptor",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/syscalls": {
-      "get": {
-        "summary": "List Syscalls",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Syscall"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Syscall",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SyscallCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Syscall"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/syscalls/{id}": {
-      "get": {
-        "summary": "Get a Syscall",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Syscall"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Syscall",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SyscallCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Syscall"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Syscall",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/memoryregions": {
-      "get": {
-        "summary": "List MemoryRegions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/MemoryRegion"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a MemoryRegion",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MemoryRegionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoryRegion"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/memoryregions/{id}": {
-      "get": {
-        "summary": "Get a MemoryRegion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoryRegion"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a MemoryRegion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MemoryRegionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoryRegion"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a MemoryRegion",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/signals": {
-      "get": {
-        "summary": "List Signals",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Signal"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Signal",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Signal"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/signals/{id}": {
-      "get": {
-        "summary": "Get a Signal",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Signal"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Signal",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Signal"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a Screen",
         "parameters": [
           {
             "name": "id",
@@ -1140,154 +585,7 @@
   },
   "components": {
     "schemas": {
-      "Process": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "pid": {
-            "type": "integer"
-          },
-          "command": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "uid": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProcessCreate": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "integer"
-          },
-          "command": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "uid": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "pid",
-          "command"
-        ]
-      },
-      "Thread": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "pid": {
-            "type": "integer"
-          },
-          "tid": {
-            "type": "integer"
-          },
-          "state": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ThreadCreate": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "integer"
-          },
-          "tid": {
-            "type": "integer"
-          },
-          "state": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "pid",
-          "tid"
-        ]
-      },
-      "FileDescriptor": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "pid": {
-            "type": "integer"
-          },
-          "fd": {
-            "type": "integer"
-          },
-          "path": {
-            "type": "string"
-          },
-          "mode": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FileDescriptorCreate": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "integer"
-          },
-          "fd": {
-            "type": "integer"
-          },
-          "path": {
-            "type": "string"
-          },
-          "mode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pid",
-          "fd"
-        ]
-      },
-      "Syscall": {
+      "Device": {
         "type": "object",
         "properties": {
           "id": {
@@ -1296,11 +594,44 @@
           "name": {
             "type": "string"
           },
-          "number": {
-            "type": "integer"
+          "model": {
+            "type": "string"
           },
-          "argCount": {
-            "type": "integer"
+          "systemName": {
+            "type": "string"
+          },
+          "systemVersion": {
+            "type": "string"
+          },
+          "batteryLevel": {
+            "type": "number"
+          },
+          "batteryState": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "unplugged",
+              "charging",
+              "full"
+            ]
+          },
+          "orientation": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "portrait",
+              "portraitUpsideDown",
+              "landscapeLeft",
+              "landscapeRight",
+              "faceUp",
+              "faceDown"
+            ]
+          },
+          "identifierForVendor": {
+            "type": "string"
+          },
+          "isBatteryMonitoringEnabled": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1312,41 +643,70 @@
           }
         }
       },
-      "SyscallCreate": {
+      "DeviceCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "number": {
-            "type": "integer"
+          "model": {
+            "type": "string"
           },
-          "argCount": {
-            "type": "integer"
+          "systemName": {
+            "type": "string"
+          },
+          "systemVersion": {
+            "type": "string"
+          },
+          "batteryLevel": {
+            "type": "number"
+          },
+          "batteryState": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "unplugged",
+              "charging",
+              "full"
+            ]
+          },
+          "orientation": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "portrait",
+              "portraitUpsideDown",
+              "landscapeLeft",
+              "landscapeRight",
+              "faceUp",
+              "faceDown"
+            ]
+          },
+          "identifierForVendor": {
+            "type": "string"
+          },
+          "isBatteryMonitoringEnabled": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "number"
+          "model"
         ]
       },
-      "MemoryRegion": {
+      "TraitCollection": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "pid": {
-            "type": "integer"
-          },
-          "startAddr": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "perms": {
-            "type": "string"
+          "userInterfaceStyle": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "light",
+              "dark"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1358,41 +718,42 @@
           }
         }
       },
-      "MemoryRegionCreate": {
+      "TraitCollectionCreate": {
         "type": "object",
         "properties": {
-          "pid": {
-            "type": "integer"
-          },
-          "startAddr": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "perms": {
-            "type": "string"
+          "userInterfaceStyle": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "light",
+              "dark"
+            ]
           }
         },
         "required": [
-          "pid",
-          "startAddr"
+          "userInterfaceStyle"
         ]
       },
-      "Signal": {
+      "Screen": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "pid": {
-            "type": "integer"
+          "scale": {
+            "type": "number"
           },
-          "number": {
-            "type": "integer"
+          "nativeScale": {
+            "type": "number"
           },
-          "action": {
-            "type": "string"
+          "brightness": {
+            "type": "number"
+          },
+          "wantsSoftwareDimming": {
+            "type": "boolean"
+          },
+          "maximumFramesPerSecond": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1404,22 +765,28 @@
           }
         }
       },
-      "SignalCreate": {
+      "ScreenCreate": {
         "type": "object",
         "properties": {
-          "pid": {
-            "type": "integer"
+          "scale": {
+            "type": "number"
           },
-          "number": {
-            "type": "integer"
+          "nativeScale": {
+            "type": "number"
           },
-          "action": {
-            "type": "string"
+          "brightness": {
+            "type": "number"
+          },
+          "wantsSoftwareDimming": {
+            "type": "boolean"
+          },
+          "maximumFramesPerSecond": {
+            "type": "integer"
           }
         },
         "required": [
-          "pid",
-          "number"
+          "scale",
+          "nativeScale"
         ]
       }
     }

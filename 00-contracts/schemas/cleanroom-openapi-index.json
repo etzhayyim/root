@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29445,
+  "totalEndpoints": 29415,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 186,
-  "totalVerifiedEnumFields": 789,
+  "l5VerifiedActors": 189,
+  "totalVerifiedEnumFields": 802,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -6189,10 +6189,10 @@
     {
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreiejqccqwplrik7m7s32eedxvdqvyevhx6imzsked6x7gutd325oie",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -6201,8 +6201,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 8,
       "openapi": "20-actors/fda-compat/openapi.json"
     },
     {
@@ -6987,10 +6987,10 @@
     {
       "handle": "gcp-compat",
       "did": "did:web:etzhayyim.com:actor:gcp-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifrwmgtbpdqhyqqjzojjyafosdb2jukz5ezhkubsc3pruoo5mlyxu",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreifbxep4id623eaghtadykkw4bldbu744r5zat5qtp2welwyusjrje",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -6999,8 +6999,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/gcp-compat/openapi.json"
     },
     {
@@ -8754,10 +8754,10 @@
     {
       "handle": "ios_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:ios_sdk-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreidnhchhaf5uu7l7otxw74xbgfdhtndyftxddzfmplr4wuojy4jqjm",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -8766,8 +8766,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/ios_sdk-compat/openapi.json"
     },
     {

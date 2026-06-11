@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "gcp.kotoba")
-ENTITIES = ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']
-PLURALS = {'Project': 'projects', 'ComputeInstance': 'computeinstances', 'Volume': 'volumes', 'Bucket': 'buckets', 'Network': 'networks', 'IamRole': 'iamroles'}
+ENTITIES = ['Instance', 'Disk', 'Firewall', 'Network', 'Operation']
+PLURALS = {'Instance': 'instances', 'Disk': 'disks', 'Firewall': 'firewalls', 'Network': 'networks', 'Operation': 'operations'}
 
 
 class GcpContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class GcpContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['direction', 'status']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

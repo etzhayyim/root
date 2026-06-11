@@ -111,120 +111,58 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
+@app.route("/v1/instances", methods=["POST"])
+def create_instance(request):
+    """Create a Instance."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'region'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gcp_pro")}
-    rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["billingId"] = data.get('billingId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
-    return rec, 201
-
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'region', 'billingId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Project", rec)
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gcp.Project", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/computeinstances", methods=["POST"])
-def create_compute_instance(request):
-    """Create a ComputeInstance."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['name', 'machineType', 'status', 'zone', 'creationTimestamp', 'cpuPlatform', 'hostname', 'canIpForward', 'deletionProtection'])
     if err:
         return err, 400
     err = _require(data, ['name', 'machineType'])
     if err:
         return err, 400
-    rec = {"id": new_id("gcp_com")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("gcp_ins")}
     rec["name"] = data.get('name')
     rec["machineType"] = data.get('machineType')
-    rec["state"] = data.get('state')
-    rec["ipAddress"] = data.get('ipAddress')
+    rec["status"] = data.get('status')
+    rec["zone"] = data.get('zone')
+    rec["creationTimestamp"] = data.get('creationTimestamp')
+    rec["cpuPlatform"] = data.get('cpuPlatform')
+    rec["hostname"] = data.get('hostname')
+    rec["canIpForward"] = _as_bool(data.get('canIpForward'))
+    rec["deletionProtection"] = _as_bool(data.get('deletionProtection'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ComputeInstance", rec)
+    _persist("Instance", rec)
     return rec, 201
 
-@app.route("/v1/computeinstances", methods=["GET"])
-def list_compute_instances(request):
-    """List ComputeInstances with filtering + cursor pagination."""
+@app.route("/v1/instances", methods=["GET"])
+def list_instances(request):
+    """List Instances with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ComputeInstance")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    rows = _query("Instance")
+    rows = _apply_filters(rows, params, ['name', 'machineType', 'status', 'zone', 'creationTimestamp', 'cpuPlatform', 'hostname', 'canIpForward', 'deletionProtection'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["GET"])
-def get_compute_instance(request, eid):
-    """Retrieve a ComputeInstance by id (supports ?expand=)."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/instances/<eid>", methods=["GET"])
+def get_instance(request, eid):
+    """Retrieve a Instance by id (supports ?expand=)."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["POST", "PATCH"])
-def update_compute_instance(request, eid):
-    """Update a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/instances/<eid>", methods=["POST", "PATCH"])
+def update_instance(request, eid):
+    """Update a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['name', 'machineType', 'status', 'zone', 'creationTimestamp', 'cpuPlatform', 'hostname', 'canIpForward', 'deletionProtection'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,133 +170,68 @@ def update_compute_instance(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ComputeInstance", rec)
+    _persist("Instance", rec)
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["DELETE"])
-def delete_compute_instance(request, eid):
-    """Delete a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/instances/<eid>", methods=["DELETE"])
+def delete_instance(request, eid):
+    """Delete a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gcp.ComputeInstance", "id": eid})
+    db.retract({"entity": f"gcp.Instance", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/volumes", methods=["POST"])
-def create_volume(request):
-    """Create a Volume."""
+@app.route("/v1/disks", methods=["POST"])
+def create_disk(request):
+    """Create a Disk."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    err = _reject_unknown(data, ['name', 'sizeGb', 'status', 'type', 'zone', 'creationTimestamp', 'architecture'])
     if err:
         return err, 400
-    err = _require(data, ['sizeGb', 'type'])
+    err = _require(data, ['name', 'sizeGb'])
     if err:
         return err, 400
-    rec = {"id": new_id("gcp_vol")}
-    rec["projectId"] = data.get('projectId')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
-    rec["type"] = data.get('type')
-    rec["attachedTo"] = data.get('attachedTo')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Volume", rec)
-    return rec, 201
-
-@app.route("/v1/volumes", methods=["GET"])
-def list_volumes(request):
-    """List Volumes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Volume")
-    rows = _apply_filters(rows, params, ['projectId', 'sizeGb', 'type', 'attachedTo'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/volumes/<eid>", methods=["GET"])
-def get_volume(request, eid):
-    """Retrieve a Volume by id (supports ?expand=)."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
-def update_volume(request, eid):
-    """Update a Volume."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Volume", rec)
-    return rec, 200
-
-@app.route("/v1/volumes/<eid>", methods=["DELETE"])
-def delete_volume(request, eid):
-    """Delete a Volume."""
-    rows = _query("Volume", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gcp.Volume", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/buckets", methods=["POST"])
-def create_bucket(request):
-    """Create a Bucket."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'region'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gcp_buc")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("gcp_dis")}
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["sizeGb"] = data.get('sizeGb')
+    rec["status"] = data.get('status')
+    rec["type"] = data.get('type')
+    rec["zone"] = data.get('zone')
+    rec["creationTimestamp"] = data.get('creationTimestamp')
+    rec["architecture"] = data.get('architecture')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Bucket", rec)
+    _persist("Disk", rec)
     return rec, 201
 
-@app.route("/v1/buckets", methods=["GET"])
-def list_buckets(request):
-    """List Buckets with filtering + cursor pagination."""
+@app.route("/v1/disks", methods=["GET"])
+def list_disks(request):
+    """List Disks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Bucket")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'region', 'public'])
+    rows = _query("Disk")
+    rows = _apply_filters(rows, params, ['name', 'sizeGb', 'status', 'type', 'zone', 'creationTimestamp', 'architecture'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/buckets/<eid>", methods=["GET"])
-def get_bucket(request, eid):
-    """Retrieve a Bucket by id (supports ?expand=)."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/disks/<eid>", methods=["GET"])
+def get_disk(request, eid):
+    """Retrieve a Disk by id (supports ?expand=)."""
+    rows = _query("Disk", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["POST", "PATCH"])
-def update_bucket(request, eid):
-    """Update a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/disks/<eid>", methods=["POST", "PATCH"])
+def update_disk(request, eid):
+    """Update a Disk."""
+    rows = _query("Disk", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['name', 'sizeGb', 'status', 'type', 'zone', 'creationTimestamp', 'architecture'])
     if err:
         return err, 400
     rec = rows[0]
@@ -366,32 +239,106 @@ def update_bucket(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Bucket", rec)
+    _persist("Disk", rec)
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["DELETE"])
-def delete_bucket(request, eid):
-    """Delete a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/disks/<eid>", methods=["DELETE"])
+def delete_disk(request, eid):
+    """Delete a Disk."""
+    rows = _query("Disk", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gcp.Bucket", "id": eid})
+    db.retract({"entity": f"gcp.Disk", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/firewalls", methods=["POST"])
+def create_firewall(request):
+    """Create a Firewall."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'network', 'direction', 'priority', 'creationTimestamp', 'disabled'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'network'])
+    if err:
+        return err, 400
+    if data.get('direction') and data['direction'] not in ['INGRESS', 'EGRESS']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['INGRESS', 'EGRESS']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gcp_fir")}
+    rec["name"] = data.get('name')
+    rec["network"] = data.get('network')
+    rec["direction"] = data.get('direction')
+    rec["priority"] = _as_int(data.get('priority'))
+    rec["creationTimestamp"] = data.get('creationTimestamp')
+    rec["disabled"] = _as_bool(data.get('disabled'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Firewall", rec)
+    return rec, 201
+
+@app.route("/v1/firewalls", methods=["GET"])
+def list_firewalls(request):
+    """List Firewalls with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Firewall")
+    rows = _apply_filters(rows, params, ['name', 'network', 'direction', 'priority', 'creationTimestamp', 'disabled'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/firewalls/<eid>", methods=["GET"])
+def get_firewall(request, eid):
+    """Retrieve a Firewall by id (supports ?expand=)."""
+    rows = _query("Firewall", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/firewalls/<eid>", methods=["POST", "PATCH"])
+def update_firewall(request, eid):
+    """Update a Firewall."""
+    rows = _query("Firewall", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'network', 'direction', 'priority', 'creationTimestamp', 'disabled'])
+    if err:
+        return err, 400
+    if data.get('direction') and data['direction'] not in ['INGRESS', 'EGRESS']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['INGRESS', 'EGRESS']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Firewall", rec)
+    return rec, 200
+
+@app.route("/v1/firewalls/<eid>", methods=["DELETE"])
+def delete_firewall(request, eid):
+    """Delete a Firewall."""
+    rows = _query("Firewall", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gcp.Firewall", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/networks", methods=["POST"])
 def create_network(request):
     """Create a Network."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
+    err = _reject_unknown(data, ['name', 'description', 'autoCreateSubnetworks', 'mtu', 'creationTimestamp'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'region'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
     rec = {"id": new_id("gcp_net")}
-    rec["projectId"] = data.get('projectId')
-    rec["cidr"] = data.get('cidr')
-    rec["region"] = data.get('region')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["autoCreateSubnetworks"] = _as_bool(data.get('autoCreateSubnetworks'))
+    rec["mtu"] = _as_int(data.get('mtu'))
+    rec["creationTimestamp"] = data.get('creationTimestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Network", rec)
@@ -402,7 +349,7 @@ def list_networks(request):
     """List Networks with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Network")
-    rows = _apply_filters(rows, params, ['projectId', 'cidr', 'region'])
+    rows = _apply_filters(rows, params, ['name', 'description', 'autoCreateSubnetworks', 'mtu', 'creationTimestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -414,7 +361,6 @@ def get_network(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
 @app.route("/v1/networks/<eid>", methods=["POST", "PATCH"])
@@ -424,7 +370,7 @@ def update_network(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
+    err = _reject_unknown(data, ['name', 'description', 'autoCreateSubnetworks', 'mtu', 'creationTimestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -444,76 +390,83 @@ def delete_network(request, eid):
     db.retract({"entity": f"gcp.Network", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/iamroles", methods=["POST"])
-def create_iam_role(request):
-    """Create a IamRole."""
+@app.route("/v1/operations", methods=["POST"])
+def create_operation(request):
+    """Create a Operation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
+    err = _reject_unknown(data, ['name', 'status', 'operationType', 'progress', 'startTime', 'endTime', 'zone'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'policy'])
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("gcp_iam")}
-    rec["projectId"] = data.get('projectId')
+    if data.get('status') and data['status'] not in ['DONE', 'PENDING', 'RUNNING']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DONE', 'PENDING', 'RUNNING']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gcp_ope")}
     rec["name"] = data.get('name')
-    rec["policy"] = data.get('policy')
+    rec["status"] = data.get('status')
+    rec["operationType"] = data.get('operationType')
+    rec["progress"] = _as_int(data.get('progress'))
+    rec["startTime"] = data.get('startTime')
+    rec["endTime"] = data.get('endTime')
+    rec["zone"] = data.get('zone')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("IamRole", rec)
+    _persist("Operation", rec)
     return rec, 201
 
-@app.route("/v1/iamroles", methods=["GET"])
-def list_iam_roles(request):
-    """List IamRoles with filtering + cursor pagination."""
+@app.route("/v1/operations", methods=["GET"])
+def list_operations(request):
+    """List Operations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("IamRole")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'policy'])
+    rows = _query("Operation")
+    rows = _apply_filters(rows, params, ['name', 'status', 'operationType', 'progress', 'startTime', 'endTime', 'zone'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["GET"])
-def get_iam_role(request, eid):
-    """Retrieve a IamRole by id (supports ?expand=)."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/operations/<eid>", methods=["GET"])
+def get_operation(request, eid):
+    """Retrieve a Operation by id (supports ?expand=)."""
+    rows = _query("Operation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["POST", "PATCH"])
-def update_iam_role(request, eid):
-    """Update a IamRole."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/operations/<eid>", methods=["POST", "PATCH"])
+def update_operation(request, eid):
+    """Update a Operation."""
+    rows = _query("Operation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
+    err = _reject_unknown(data, ['name', 'status', 'operationType', 'progress', 'startTime', 'endTime', 'zone'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['DONE', 'PENDING', 'RUNNING']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DONE', 'PENDING', 'RUNNING']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("IamRole", rec)
+    _persist("Operation", rec)
     return rec, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["DELETE"])
-def delete_iam_role(request, eid):
-    """Delete a IamRole."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/operations/<eid>", methods=["DELETE"])
+def delete_operation(request, eid):
+    """Delete a Operation."""
+    rows = _query("Operation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gcp.IamRole", "id": eid})
+    db.retract({"entity": f"gcp.Operation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "gcp-compat", "tier": "L4",
-            "entities": ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']}, 200
+            "entities": ['Instance', 'Disk', 'Firewall', 'Network', 'Operation']}, 200
 
 
 if __name__ == "__main__":

@@ -2635,6 +2635,46 @@ PLATFORM_OVERRIDES["firebase"] = {
     "Order": E(direction="string"),
 }
 
+# Faithful Google Compute Engine model (official Discovery document,
+# compute v1 rev 20260520 — machine-extracted). Stable sets enforced
+# (Firewall.direction INGRESS/EGRESS complete dichotomy; Operation.status
+# DONE/PENDING/RUNNING stable since 2013). Instance.status gapped: grew
+# within v1 (SUSPENDING/SUSPENDED 2021, REPAIRING) — firebase/airbyte
+# in-place-evolution discipline; Disk.status/architecture/accessMode
+# gapped (growth recency unconfirmed / young / arch could grow).
+PLATFORM_OVERRIDES["gcp"] = {
+    "Instance": E(name="string", machineType="string", status="string", zone="string", creationTimestamp="datetime", cpuPlatform="string", hostname="string", canIpForward="boolean", deletionProtection="boolean"),
+    "Disk": E(name="string", sizeGb="string", status="string", type="string", zone="string", creationTimestamp="datetime", architecture="string"),
+    "Firewall": E(name="string", network="string", direction="string", priority="integer", creationTimestamp="datetime", disabled="boolean"),
+    "Network": E(name="string", description="string", autoCreateSubnetworks="boolean", mtu="integer", creationTimestamp="datetime"),
+    "Operation": E(name="string", status="string", operationType="string", progress="integer", startTime="datetime", endTime="datetime", zone="string"),
+}
+
+# Faithful iOS SDK model (official Apple developer-docs JSON API:
+# developer.apple.com/tutorials/data/documentation/uikit/*.json). 18-year
+# anchors: UIDeviceOrientation (7 cases, stable since iOS 2/2008) +
+# UIDevice.BatteryState (4) enforced; UIUserInterfaceStyle (3, stable
+# since iOS 12/2018) enforced.
+PLATFORM_OVERRIDES["ios_sdk"] = {
+    "Device": E(name="string", model="string", systemName="string", systemVersion="string", batteryLevel="float", batteryState="string", orientation="string", identifierForVendor="string", isBatteryMonitoringEnabled="boolean"),
+    "TraitCollection": E(userInterfaceStyle="string"),
+    "Screen": E(scale="float", nativeScale="float", brightness="float", wantsSoftwareDimming="boolean", maximumFramesPerSecond="integer"),
+}
+
+# Faithful openFDA model (official open.fda.gov field-reference YAMLs — the
+# FDA's own machine-readable field specs with explicit possible_values
+# one_of closed-set declarations). 8 enum fields enforced from one_of
+# declarations incl. the regulatory recall classification (Class I/II/III).
+# The draft's status set ('Ongoing'/'Open') was REFUTED by the YAML
+# ('On-Going'/'Pending'); product_type/reporttype/event_type were
+# draft-gapped but spec-declared -> enforced (landsat rule).
+PLATFORM_OVERRIDES["fda"] = {
+    "DrugEvent": E(safetyreportid="string", transmissiondate="datetime", serious="string", seriousnessdeath="string", receivedate="datetime", receiptdate="datetime", occurcountry="string", reporttype="string", fulfillexpeditecriteria="string"),
+    "EnforcementReport": E(eventId="string", status="string", classification="string", country="string", productDescription="string", productType="string", reasonForRecall="string", recallingFirm="string", recallNumber="string", reportDate="datetime", voluntaryMandated="string"),
+    "DrugLabel": E(activeIngredient="string", adverseReactions="string", clinicalPharmacology="string", contraindications="string", description="string", dosageAndAdministration="string", indicationsAndUsage="string", warnings="string", version="string", effectiveTime="datetime"),
+    "DeviceEvent": E(eventKey="string", eventType="string", dateOfEvent="datetime", reportNumber="string", adverseEventFlag="string", productProblemFlag="string", singleUseFlag="string", reprocessedAndReusedFlag="string", dateReport="datetime"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

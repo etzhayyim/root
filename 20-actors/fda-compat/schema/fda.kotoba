@@ -3,68 +3,67 @@
 
 namespace fda {
 
-    entity Filing {
+    entity DrugEvent {
         id: string @unique
-        filerId: string
-        form: string
-        period: string
+        safetyreportid: string
+        transmissiondate: datetime
+        serious: string
+        seriousnessdeath: string
+        receivedate: datetime
+        receiptdate: datetime
+        occurcountry: string
+        reporttype: string
+        fulfillexpeditecriteria: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity EnforcementReport {
+        id: string @unique
+        eventId: string
         status: string
+        classification: string
+        country: string
+        productDescription: string
+        productType: string
+        reasonForRecall: string
+        recallingFirm: string
+        recallNumber: string
+        reportDate: datetime
+        voluntaryMandated: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Entity {
+    entity DrugLabel {
         id: string @unique
-        name: string
-        ein: string
-        jurisdiction: string
+        activeIngredient: string
+        adverseReactions: string
+        clinicalPharmacology: string
+        contraindications: string
+        description: string
+        dosageAndAdministration: string
+        indicationsAndUsage: string
+        warnings: string
+        version: string
+        effectiveTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dataset {
+    entity DeviceEvent {
         id: string @unique
-        name: string
-        agency: string
-        updatedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Application {
-        id: string @unique
-        applicantId: string
-        program: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PublicRecord {
-        id: string @unique
-        recordType: string
-        jurisdiction: string
-        recordedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Notice {
-        id: string @unique
-        subjectId: string
-        type: string
-        issuedAt: datetime
+        eventKey: string
+        eventType: string
+        dateOfEvent: datetime
+        reportNumber: string
+        adverseEventFlag: string
+        productProblemFlag: string
+        singleUseFlag: string
+        reprocessedAndReusedFlag: string
+        dateReport: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
