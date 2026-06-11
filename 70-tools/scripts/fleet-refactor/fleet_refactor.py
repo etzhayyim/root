@@ -195,6 +195,48 @@ def extract_clojure(text: str) -> str | None:
     return None
 
 
+_CLOSER = {"(": ")", "[": "]", "{": "}"}
+
+
+def balance_repair(code: str) -> str | None:
+    """EOF で閉じ括弧が不足しているだけのコードを決定的に修復する。
+
+    文字列・文字リテラル・行コメントを除外してデリミタのスタックを追い、
+    不足分の閉じ括弧を正順で末尾に補う。余剰閉じ括弧 (構造破壊) は None。
+    """
+    stack: list[str] = []
+    i, n = 0, len(code)
+    in_str = False
+    while i < n:
+        c = code[i]
+        if in_str:
+            if c == "\\":
+                i += 2
+                continue
+            if c == '"':
+                in_str = False
+        elif c == '"':
+            in_str = True
+        elif c == ";":
+            j = code.find("\n", i)
+            i = n if j == -1 else j
+        elif c == "\\" and i + 1 < n:  # char literal \x \newline etc.
+            i += 2
+            while i < n and code[i].isalpha():
+                i += 1
+            continue
+        elif c in "([{":
+            stack.append(_CLOSER[c])
+        elif c in ")]}":
+            if not stack or stack[-1] != c:
+                return None  # 余剰 or 交差 — 修復不能
+            stack.pop()
+        i += 1
+    if in_str or not stack:
+        return None  # 文字列未終端 or そもそも均衡 (修復対象なし)
+    return code.rstrip() + "".join(reversed(stack)) + "\n"
+
+
 def lint(clj_path: Path) -> tuple[bool, str]:
     if not shutil.which("clj-kondo"):
         return True, "clj-kondo unavailable — lint skipped"
@@ -246,6 +288,14 @@ def port_file(pool: NodePool, src: Path) -> dict:
                 continue
             out.write_text(code, encoding="utf-8")
             ok, lint_out = lint(out)
+            if not ok and ("matching" in lint_out or "bracket" in lint_out):
+                repaired = balance_repair(code)
+                if repaired is not None:
+                    out.write_text(repaired, encoding="utf-8")
+                    ok, lint_out = lint(out)
+                    if ok:
+                        code = repaired
+                        rec["repaired"] = True
             if ok:
                 with _sft_lock, SFT_LOG.open("a") as f:
                     f.write(json.dumps(
