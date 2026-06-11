@@ -168,3 +168,56 @@ identical.
 - ADR-2605242600 / 2605241900 (baien-edge swarm) · ADR-2605215000 (Murakumo-only) · ADR-2605312345 (Datom canonical state) · ADR-2605231525 (no-server-key) · ADR-2605181100 (PII envelope)
 - `20-actors/hakoniwa/` (actor: CLAUDE.md · manifest.jsonld · deps.toml · data/seed-scenario.kotoba.edn · methods/{world,simulate,distribution,datom_emit}.py · tests/{test_simulate,test_distribution}.py · wasm/README.md · out/*) + `00-contracts/schemas/hakoniwa-scenario-ontology.kotoba.edn`
 - upstream shape reference: `github.com/666ghj/MiroFish` (swarm-intelligence prediction engine; AGPL-3.0)
+
+# Addendum (2026-06-11): R1 — live operation + social emission authorized (founder, Council Lv7+ 1/1)
+
+The founder directed *「実際に稼働するところまで, social emission も許可」* — run the actor
+end-to-end and **permit social emission**. As sole-member founder at Council Lv7+, this is a
+**1/1 unanimity ratification** that flips the G8 outward gate **for hakoniwa** from "R0 design
+only" to **R1 live operation + authorized social emission**. The charter invariants G1–G4 are
+**not** relaxed — they are now enforced at the *emission* boundary, not avoided by withholding
+emission. Promotes hakoniwa 🟡 R0 → 🟢 R1.
+
+**What landed (the runtime, all pure-stdlib, pywasm-runnable):**
+
+- **`methods/murakumo.py`** — the LLM narration client. **Murakumo-only (G5)**: it contacts
+  *only* the loopback LiteLLM gateway (`127.0.0.1:4000`), never a commercial endpoint. It has a
+  **graceful template fallback** (deterministic) when the fleet is offline (headless / this
+  session), so the actor runs with or without the fleet and never reaches outside Murakumo to
+  compensate. Also `persona_step` — the LLM-persona swarm variant — with a deterministic
+  scalar-kernel fallback.
+- **`methods/social.py`** — the social-emission cell. A post narrates the **distribution**
+  (p10/p50/p90), with two guards re-applied at draft *and* emit: **`_guard_no_point` (G2)**
+  refuses any certainty/foretelling token (必ず/確実に/guaranteed/…), **`_guard_no_steer` (G3)**
+  refuses any action-steering token (買え/投票/you-should/boycott/…). `:post/status :published`
+  is now representable but **requires a member-DID author (G7 — the member signs, never the
+  server)**.
+- **`methods/kotoba.py`** — the append-only kotoba Datom-log writer (content-addressed
+  commit-DAG, `verify_chain` tamper-evident), mirroring shionome (ADR-2606072200). The
+  distribution persists as quantile datoms + `:forecast/point-asserted false` (G2 — **never** a
+  point datom).
+- **`methods/autorun.py`** — the **autonomous heartbeat**: each cycle loads the box → simulates
+  → distribution → narrates (Murakumo/fallback) → drafts + emits a post → persists ONE
+  content-addressed tx (box + distribution + post). Deterministic + resume-safe (same CIDs on
+  re-run).
+
+**The emission semantics (honest).** Persistence to the **canonical kotoba Datom log IS the
+substrate emission** — the log is the substrate of record (ADR-2605312345). The **external
+AT-Proto relay** is a *downstream projection* delivered by an operator transport when an
+operator credential is present; with no transport, emission is **substrate-only** and the
+receipt says so (`:pending-operator-transport`) — never a silent no-op, never a server-held key
+(G7). Live runs in this session emitted founder-signed `:published` posts to the log; the
+external firehose relay is the one transport-dependent step.
+
+**Verified live (2026-06-11):** `autorun.py --cycles 3 --publish --author did:web:etzhayyim.com:member:founder`
+ran end-to-end — 3 heartbeats × 408 datoms, founder-signed `:published` posts, Murakumo fallback
+(fleet offline), append-only commit-DAG **chain OK**, tamper test breaks the chain as designed,
+re-run reproduces identical CIDs. **23 tests green** (7 simulate + 6 distribution + 10 runtime;
+network-free, deterministic).
+
+**What remains gated (unchanged).** The G8 flip is **scoped to hakoniwa's own synthetic-box
+emission**. (1) The **external AT-Proto firehose relay** needs an operator transport credential
+(no server-held key, G7). (2) Ingesting **real public-entity structure** into a box still needs
+Council + operator DID. (3) The **live LLM-persona swarm** (vs the deterministic kernel) runs
+Murakumo + baien-edge, operator/mesh-side. None of these can represent a real-person model
+(G1 / ADR-2606111400 hard line) — that remains out of scope regardless of gate state.

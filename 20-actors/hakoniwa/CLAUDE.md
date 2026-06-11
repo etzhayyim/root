@@ -5,7 +5,10 @@ charter carve-in) + 2606051800 (mitooshi 見通し — distribution-only forecas
 2606042330 (entity-as-actor — public-entity mirrors) + 2606091200 (sonae 備え — resilience
 consumer) + 2605242600 / 2605241900 (baien-edge swarm) + 2605215000 (Murakumo-only) +
 2605312345 (Datom = canonical state) + 2605231525 (no-server-key) + 2605181100 (PII envelope
-discipline). **Status**: 🟡 R0 — design + deterministic engine + tests (live swarm gated).
+discipline). **Status**: 🟢 R1 — live operation + social emission AUTHORIZED (founder, Council
+Lv7+ 1/1, 2026-06-11): autonomous heartbeat → content-addressed append-only kotoba Datom log;
+Murakumo narration (graceful template fallback); founder-signed `:published` posts. External
+AT-Proto firehose relay still needs an operator transport credential (G7 no-server-key).
 
 hakoniwa ("箱庭" = a contained miniature garden / sandtray world) is the **charter-clean
 inversion of a swarm-intelligence prediction engine** — the shape of `666ghj/MiroFish`. Where
@@ -46,18 +49,27 @@ hakoniwa is the missing generative layer between them, built so the core inversi
   world graph, persona parameters, every step, the run config — is **plaintext-public** on
   kotoba; open-source + on-chain + 1 SBT = 1 vote. No covert/asymmetric modelling, because
   there are **no real people in the box** to watch unwatched.
-- **G5 — Murakumo-only inference** (ADR-2605215000) for the LLM-persona variant; the swarm
-  rides **baien-edge** (ADR-2605242600 / 2605241900). R0 ships the **deterministic kernel
-  only** (no LLM in the test path).
+- **G5 — Murakumo-only inference** (ADR-2605215000). `methods/murakumo.py` contacts **only** the
+  loopback LiteLLM gateway (`127.0.0.1:4000`), never a commercial endpoint, and has a
+  **graceful deterministic template fallback** when the fleet is offline — the actor runs
+  end-to-end with or without the fleet and never reaches outside Murakumo to compensate. The
+  LLM-persona swarm variant (`persona_step`) rides **baien-edge** (ADR-2605242600 / 2605241900)
+  and falls back to the deterministic scalar kernel (the default + test path).
 - **G6 — sourcing honesty.** Personas `:synthetic`; real public facts `:authoritative |
   :representative`. A box is **illustrative**, never an exhaustive model of a real population.
-- **G7 — leak-free as-of** (inherits mitooshi G5). The forecast record carries
-  `:forecast/as-of`; no future information leaks into the persona priors; mitooshi scores it
-  leak-free with proper scoring.
-- **G8 — outward-gated & no-server-key** (ADR-2605231525). R0 = engine + seed scenario +
-  tests. **Live large-swarm runs, ingest of real public-entity structure, and ANY social
-  emission of a distribution require Council + operator DID**; no platform-held key signs a
-  hakoniwa artifact.
+- **G7 — leak-free as-of + member-signed emission** (inherits mitooshi G5; ADR-2605231525). The
+  forecast record carries `:forecast/as-of` (no future info leaks into the persona priors;
+  mitooshi scores it leak-free). A `:published` post **requires a member-DID author**
+  (`methods/social.py` refuses without one, at draft *and* emit); `:post/server-held-key false`
+  — the member signs, the server never does.
+- **G8 — outward gate → R1 (founder-authorized, Council Lv7+ 1/1, 2026-06-11).** hakoniwa now
+  **runs autonomously** (`methods/autorun.py` heartbeat) and **social emission is AUTHORIZED**.
+  Emission persists to the **canonical kotoba Datom log** (the substrate of record, ADR-2605312345);
+  the **external AT-Proto firehose relay** is a downstream projection needing an **operator
+  transport credential** (no-server-key — substrate-only otherwise, never a silent no-op). **Still
+  gated**: ingest of **real public-entity structure** into a box (Council + operator DID) and the
+  **live LLM-persona swarm** (Murakumo + baien-edge, operator/mesh-side). **Real-person modelling
+  is unrepresentable regardless of gate state** (G1 / ADR-2606111400 hard line).
 
 ## Layout
 
@@ -73,12 +85,19 @@ hakoniwa is the missing generative layer between them, built so the core inversi
 │   ├── world.py                          # EDN loader + G1 assert_synthetic (refuses real persons)
 │   ├── simulate.py                       # Friedkin-Johnsen forward kernel + K-replica ensemble
 │   ├── distribution.py                   # ensemble → quantiles/histogram → mitooshi forecast record
-│   └── datom_emit.py                     # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                                 # 13 tests, pure stdlib (network-free, deterministic)
-│   ├── test_simulate.py
-│   └── test_distribution.py
+│   ├── datom_emit.py                     # kotoba Datom-log (EAVT) emitter — canonical state
+│   ├── murakumo.py                       # Murakumo-only narration (G5) + graceful template fallback
+│   ├── social.py                         # social emission (G2 no-point + G3 no-steer + G7 member-signed)
+│   ├── kotoba.py                         # append-only content-addressed Datom log (commit-DAG + verify)
+│   └── autorun.py                        # AUTONOMOUS heartbeat → persist one tx per cycle
+├── tests/                                 # 23 tests, pure stdlib (network-free, deterministic)
+│   ├── test_simulate.py                  # 7 — load/G1/kernel/determinism/mechanism
+│   ├── test_distribution.py              # 6 — quantiles/G2-no-point/G3-use-enum/datom-emit
+│   └── test_runtime.py                   # 10 — social guards/Murakumo fallback/autonomous loop/tamper
 ├── wasm/
 │   └── README.md                          # kotoba pywasm actor (componentize-py) design
+├── data/
+│   └── hakoniwa.datoms.kotoba.edn         # GENERATED — append-only content-addressed Datom log (autorun)
 └── out/                                   # GENERATED — do not hand-edit
     ├── distribution-report.md            # the outcome distribution (quantiles + histogram)
     ├── forecast-record.kotoba.edn        # mitooshi-shaped :forecast/kind :distribution record
@@ -94,8 +113,19 @@ python3 methods/distribution.py                   # → out/distribution-report.
 python3 methods/datom_emit.py                     # → out/scenario-datoms.kotoba.edn (EAVT)
 python3 methods/distribution.py --steps 20 --replicas 256 --seed 11   # larger box (still deterministic)
 
-python3 tests/test_simulate.py && python3 tests/test_distribution.py   # 13 green
+# R1 — autonomous heartbeat → append-only content-addressed kotoba Datom log
+python3 methods/murakumo.py                       # narration (Murakumo loopback; template fallback if offline)
+python3 methods/social.py                         # a guarded distribution post (G2 no-point / G3 no-steer)
+python3 methods/autorun.py --cycles 3 --fresh     # AUTONOMOUS dry-run loop → data/hakoniwa.datoms.kotoba.edn
+python3 methods/autorun.py --cycles 3 --fresh --publish --author did:web:etzhayyim.com:member:<h>  # LIVE :published
+
+python3 tests/test_simulate.py && python3 tests/test_distribution.py && python3 tests/test_runtime.py   # 23 green
 ```
+
+The autonomous loop is **deterministic + resume-safe** (each tx links the previous tx's content
+address → a verifiable commit-DAG; a re-run reproduces identical CIDs). `:published` mode needs
+a member-DID `--author` (G7). Emission persists to the canonical kotoba Datom log; the external
+AT-Proto firehose relay is the one operator-transport-gated step (no-server-key).
 
 ## Simulation kernel (Friedkin-Johnsen opinion dynamics)
 
