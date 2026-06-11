@@ -1700,8 +1700,8 @@ remaining_work = "Populate 42 more prompts + graders (send + subgraph + tool + e
 path = "20-actors"
 kind = "clean-room-actor-corpus"
 version = "0.1.0"
-status = "1000-registered-L4-baseline-57-L5-verified"
-description = "Clean-room actor corpus (ADR-260607): 1000 `20-actors/<platform>-compat/` interop actors, each with deps.toml + README + schema/<platform>.kotoba + src/main.py + manifest.json + tests + openapi.json. Maturity ladder L1 (scaffold) → L3 (domain CRUD) → L4 (pagination/filtering/relation-expand/strict-validation + contract test) → L5 (reconciled field-for-field against the platform's OFFICIAL API docs/SDK, enums enforced in runtime + OpenAPI 3.1 + provenance ledger). Corpus-wide state 2026-06-09: 100% ≥ L4 (943 L4 / 57 L5), all 1000 registered at etzhayyim.com (did:web:etzhayyim.com:actor:<h> + actors-v1 graph) and browser-runnable as content-addressed kotoba-wasm on IPFS. L5 = 40 fully verified + 17 partial; only 4 honestly DEFERRED (bamboohr/calendly/servicenow/checkout — no reachable official spec). Capability surfaces (api/supplychain/socialpost/mcp) indexed corpus-wide under 00-contracts/schemas/cleanroom-*-index.json. Honesty gate: an actor reaches L5 only on a fetched official source; unconfirmable enums are recorded as gaps, never fabricated."
+status = "1000-registered-L4-baseline-163-L5-verified-16pct"
+description = "Clean-room actor corpus (ADR-260607): 1000 `20-actors/<platform>-compat/` interop actors, each with deps.toml + README + schema/<platform>.kotoba + src/main.py + manifest.json + tests + openapi.json. Maturity ladder L1 (scaffold) → L3 (domain CRUD) → L4 (pagination/filtering/relation-expand/strict-validation + contract test) → L5 (reconciled field-for-field against the platform's OFFICIAL API docs/SDK, enums enforced in runtime + OpenAPI 3.1 + provenance ledger). Corpus-wide state 2026-06-10: 100% ≥ L4 (837 L4 / 163 L5 = 16.3% of corpus), all 1000 registered at etzhayyim.com (did:web:etzhayyim.com:actor:<h> + actors-v1 graph) and browser-runnable as content-addressed kotoba-wasm on IPFS. L5 = 158 actors with enforced closed-enum fields (691 enforced enum fields corpus-wide, surfaced per-actor as l5Verified/verifiedEnumFields on every capability index). Verification seams worked in order: commercial SaaS official docs/OpenAPI/SDKs → normative standards (FHIR R4 family ×5, GS1 EPCIS, ISO 8583, GTFS/GBFS, MAVLink family ×3, Modbus, BGP/RPKI, DNS, IPsec, WebRTC, QUIC/HTTP3, TCP/IP, SS7, AIS, AS2, CVE/ATT&CK, eIDAS, DICOMweb, UN/LOCODE, OMOP, IPv6/MPLS, CAN bus, OPC UA, RESP) → open-source-spec repos (onnx.proto3, ros2 .msg, apache/kafka Java enums, Khronos xr.xml). Honestly DEFERRED (never fabricated): bamboohr/calendly/servicenow/checkout/kraken/miro/brex (gated SaaS docs) + fixprotocol/sepa_ct/naics_codes (official spec 404/403/paywalled) + gnss_rtk (NMEA paywalled; refused training-data enum) + linux_syscalls (domain has no provably-closed small enums). Enum-enforcement discipline: closed-at-version only; version-growing sets (MAV_TYPE, ONNX dataType, Kafka AclOperation), bitmasks (NavSatStatus.service, OpenXR flags), open registries (DNS rrType, IANA tables), and extension-bearing enums (XrViewConfigurationType) are recorded as gaps, never enforced. Capability surfaces (api/supplychain/socialpost/mcp) indexed corpus-wide under 00-contracts/schemas/cleanroom-*-index.json; verify_cleanroom_system.py PASS 0/0 invariant held across every iteration."
 adr = ["260607", "2606014500", "2606014600", "2606036000"]
 ssot = [
   "00-contracts/schemas/cleanroom-l5-verification.json",     # L5 provenance ledger (per-field source + enums + gaps)
@@ -1718,7 +1718,7 @@ tooling = [
   "70-tools/verify_cleanroom_system.py",  # integrity gate (tier ∈ {L3,L4,L5}, PASS 0/0 invariant)
 ]
 runtime = "60-apps/cleanroom-browser-runtime (kotoba-wasm JS reference runtime + componentize-py + Rust raw-WASM)"
-tier_counts = "L4 943 / L5 57 (40 full + 17 partial); deferred 4"
+tier_counts = "L4 837 / L5 163 (158 with enforced enums, 691 enum fields); deferred 12"
 
 [[modules]]
 path = "50-infra/silicon"
@@ -7081,6 +7081,65 @@ sibling_modules = [
 ]
 
 
+# ─── sonae (備え) civilian PRE-disaster foresight + preparedness + early-warning substrate R0 (ADR-2606091200) ──
+
+[[adrs]]
+id = "2606091200"
+title = "sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Closes the BEFORE half of the disaster cycle left open by kazaori (ADR-2605263200), whose lifecycle is reactive (declaration on/after event → assessment → supply → review). sonae adds prevention / mitigation / preparedness / early-warning: open-feed hazard watch (USGS / PHIVOLCS / JMA / GDACS / Copernicus EMS / WMO GTS) → per-community-site risk assessment → official-warning RELAY (relay-only, authoritativeSource cited) → preparedness planning + stockpile pre-positioning (mizuho / mitsuho) → drills → imminence-signal handoff to kazaori. Motivating case: 2026-06-08 Mw 7.8 offshore Sarangani (Mindanao) earthquake + tsunami (≥37 dead, ~800k households power-out, ~10k families evacuated; PHIVOLCS tsunami warning; JMA Okinawa advisory). 任意団体 internal substrate at did:web:sonae.etzhayyim.com (20-actors/sonae/). Etymology: 備え = preparedness (備えあれば憂いなし); what stands ready before 風折 kazaori (the wind-broken branch). Triad 備え sonae (before) → 風折 kazaori (during) → silenKazaoriReview/死出守 shidemori (after). Standards reference (NOT membership): Sendai Framework for DRR 2015-2030 / Sphere Standards / UN OCHA / WMO+IOC Tsunami Warning System / GDACS. **Constitutional discipline**: (1) Civilian-only G5+N1 (force authorization separate per ADR-2605192315) / (2) NO false authority G8 (the DEFINING gate — sonae MUST NOT originate official seismic/tsunami/typhoon warnings; earlyWarningRelay is relayOnly const true + authoritativeSource required; fabricating an authoritative alert is forbidden at the schema level) / (3) NO unilateral disaster declaration G10 (only kazaori Council Lv6+ ≥4/7 may declare; sonae signals/recommends) / (4) NOT response N3 (clean phase boundary to kazaori) / (5) NO commercial disaster-prediction software G4 (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia PROHIBITED per Charter Rider §2(e)+§2(c); OPEN gov feeds only) / (6) NO surveillance G6 (open geophysical/met feeds + opt-in self-report only; no individual tracking / no person-profiling / no household risk-scoring) / (7) Murakumo-only inference G7 / (8) Community-scale only G3 (NOT national early-warning replacement). 6 cells under 40-engine/kotoba/crates/kotoba-kotodama/cells/sonae_*/ (R0 path-reserved): hazard_watch / risk_assessment / early_warning_relay / preparedness_plan / drill_attestation / handoff_trigger. 6 Lexicons under com.etzhayyim.sonae.*: hazardSignalRecord (G6 openDataOnlyAttested const true + G4 sourceFeed open-gov-feed enum) + siteRiskProfile (G3 communityScaleAttested const true; aggregate-only no individual data) + earlyWarningRelay (G8 STRUCTURAL: relayOnly const true + authoritativeSource required) + preparednessPlan (cross-actor mizuho/mitsuho/tatekata/hagukumi via $ref; opt-in registry) + drillAttestation (G6 participantsOptIn const true; satisfies kazaori R1 drill gate) + sonaeReadinessReview (G9 Sendai+Sphere alignment + falseAuthorityIncidents audit). 12 gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/sonae"
+kind = "tier-b-non-profit-civilian-pre-disaster-foresight-preparedness-early-warning-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-lexicons-warning-source-registry-seed-cells-path-reserved"
+description = "sonae (備え — preparedness; 備えあれば憂いなし) actor scaffold. Manifest + README + CLAUDE.md + MATURITY.md ledger at R0. 6 Pregel cells path-reserved under 40-engine/kotoba/crates/kotoba-kotodama/cells/sonae_*/ (cell modules created at R1 post-Council ratification + open-feed baseline + Sendai self-assessment + ≥1 community drill; all import-time RuntimeError until activated). 6 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/sonae/. R0 data asset: registry/warning-sources.seed.json — allowlist of 20 AUTHORITATIVE official warning issuers across 16 jurisdictions (PHIVOLCS / PAGASA / JMA / PTWC / NOAA-NWS / USGS / BMKG / GDACS / Copernicus EMS / IMD / GeoNet+NEMA / BOM+JATWC / SHOA / SASMEX / AFAD / INGV / CWA / IOC-ITIC / NOA / INCOIS), all isAuthoritativeIssuer=true + verificationStatus=unverified-seed (G14), the relay-only allowlist for earlyWarningRelay (G8). BEFORE-phase substrate: response (during) is kazaori (N3 clean boundary). Constitutional discipline enforced (G8 no-false-authority relayOnly / G10 no-unilateral-declaration / N3 not-response / G4 open-gov-feeds-only / G6 no-surveillance / G3 community-scale / G7 Murakumo-only). Coverage: 20 fail-closed invariant tests green (70-tools/scripts/audit/test_sonae_lexicon_invariants.py 10 + test_sonae_warning_sources_seed.py 10), incl. G8 cross-lexicon check that earlyWarningRelay.authoritativeSource enum is realized by the registry. manifest-lexicon-drift audit: sonae drift 0."
+adr = ["2606091200", "2605263200", "2605263100", "2605261100", "2605261030", "2605261015", "2605215000", "2605192315", "2605192300", "2605192245", "2605192200", "2605192145", "2605192100", "2605181100"]
+sibling_actors = [
+  "kazaori (DOWNSTREAM handoff — disaster response actor; sonae feeds preparednessPlan + disasterImminenceSignal; sonae drillAttestation satisfies kazaori R1 drill gate)",
+  "mizuho (water-stockpile pre-positioning targets sized from siteRiskProfile)",
+  "mitsuho (food-reserve pre-positioning targets)",
+  "tatekata (building-stock exposure + safe-site pre-designation)",
+  "hagukumi (vulnerable-population OPT-IN pre-registry — children/elderly/chronic-care)",
+  "hikari (grid/lifeline resilience input)",
+  "watatsuna (submarine-cable / comms-continuity resilience input)",
+  "kawaraban (warning-relay channel — member notification + actor-to-actor wire)",
+  "toritate (preparedness Public Fund disbursement + transparent accounting)",
+  "chigiri (declaration-handoff procedural attestation)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/com/etzhayyim/sonae",
+]
+lexicons = "00-contracts/lexicons/com/etzhayyim/sonae"
+form = "任意団体 internal civilian pre-disaster substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+civilian_only_invariant = true
+no_false_authority_relay_only = true
+no_unilateral_disaster_declaration = true
+not_response_phase_boundary = true
+no_commercial_disaster_prediction_software = true
+no_surveillance = true
+community_scale_only = true
+murakumo_only_inference = true
+sendai_sphere_reference_not_membership = true
+standards_reference = ["Sendai Framework for DRR 2015-2030", "Sphere Standards", "UN OCHA", "WMO+IOC Tsunami Warning System", "GDACS"]
+phase_gate = "R1 activation requires Council Lv6+ ≥3 ratify of ADR-2606091200 + open-feed baseline (USGS/PHIVOLCS/JMA/GDACS/Copernicus) attested on file + Sendai Framework 4-priority self-assessment committed + ≥1 community-pilot drill executed (drillAttestation; also feeds kazaori R1 drill gate) + downstream kazaori handoff contract reviewed (G10 declaration stays with kazaori Council)"
+charter_rider_risk = "MEDIUM (high-temptation domain for false-authority alerting + surveillance + commercial prediction software; G8 relayOnly const true + G4 open-gov-feeds-only + G6 no-individual-data const-field structural enforcement is the constitutional discipline; sonaeReadinessReview falseAuthorityIncidents audit counter targets 0)"
+
+[[modules]]
+path = "00-contracts/lexicons/com/etzhayyim/sonae"
+kind = "sonae-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-6-lexicon-skeleton-schemas-+-README"
+description = "6 Lexicon JSONs for sonae actor per ADR-2606091200. Const-field structural enforcement throughout: earlyWarningRelay.relayOnly=true (G8 — sonae never originates an official warning) + earlyWarningRelay.authoritativeSource required (G8 attribution) + hazardSignalRecord.openDataOnlyAttested=true (G6) + hazardSignalRecord.sourceFeed enum restricted to open gov feeds (G4) + siteRiskProfile.communityScaleAttested=true (G3) + drillAttestation.participantsOptIn=true (G6). G6 STRUCTURAL anti-surveillance: siteRiskProfile carries AGGREGATE opt-in counts only, no individual-level fields. Cross-actor coupling via $ref (siteRiskProfileRef / tatekataAssessmentRef / stockpileTarget.crossActor). The handoff_trigger cell emits a disasterImminenceSignal payload to kazaori.emergency_declaration (recommend-only; G10 keeps declaration with kazaori — not a sonae-owned record)."
+adr = ["2606091200", "2605263200", "2605192315", "2605192200", "2605181100", "2605261000"]
+sibling_modules = [
+  "20-actors/sonae",
+  "00-contracts/lexicons/com/etzhayyim/kazaori",
+]
+
+
 # ─── musubi (結) covenant ceremony substrate R0 (ADR-2605263400) ──
 
 [[modules]]
@@ -10293,3 +10352,29 @@ version = "0.1.0-r1"
 status = "R1-fuse-publish-persist-cells-tested-kotoba-schema-and-lexicons-landed"
 description = "meyasu (目安 — a yardstick/guide, NOT a trade) unified arbitrage / supply-demand intel orchestrator. A thin orchestrator that fuses kakaku price-spread + supply/demand index + mitooshi forecast distribution into one per-product arbitrage-intel card, publishes it aggregate-first, and persists it as kotoba Datoms. Computes NO price/forecast math itself (single source of truth stays in the source actors). 3 cells (fuse/publish/persist) + py/agent.py handlers + py/test_agent.py (15) + py/test_cohort_e2e.py (cohort kakaku->mitooshi->meyasu, 3) + viz dashboard (build_viz_data.py + _template.htm + test, 5) + kotoba/schema.edn (:meyasu.card/* :meyasu.post/*) + lex/{card,post}.edn + kotoba/deploy.sh (test-gated) + manifest.edn + CLAUDE.md. Charter-clean: G1 non-speculative (speculation structurally unrepresentable — a forecast is a BAND not a point; :trade not an enum member), G2 distribution-respecting, G3 aggregate-first, G4 non-adjudicating planner-routing, G5 Murakumo-only, G6 no-server-key (publish + persist operator-gated, default :draft / tx-only)."
 adr = ["2606073200", "2605091200", "2606051800", "2606012100", "2605264000", "2606071800", "2605262130", "2605312345", "2605215000"]
+
+
+# ─── rasen (螺旋) public-genetics KG mirror — gene-scale sibling of inochi 命 (ADR-2606101000) ──
+
+[[adrs]]
+id = "2606101000"
+title = "rasen (螺旋) — public-genetics KG mirror (gene-scale sibling of inochi 命); hosts PUBLIC reference genetics in the kotoba Datom log + IPFS, edge-primary clinical/functional evidence routed to CARE & RESEARCH, never an individual-genotype registry"
+status = "accepted"
+status_note = "Answers 「人や生命の遺伝子情報を kotoba で store して分析できる actor は?」→ inochi 命 stops at the species scale; rasen is its gene/variant-scale counterpart. Then 「個人は不要、公開されているものを kotoba ipfs で取り込んで」→ a live PUBLIC ingest cell. R0 = genome-ontology.kotoba.edn EAVT vocab + hand-curated seed (genes/variants/phenotypes/populations/pathways across human/elephant/rice/bacteria) + 3 pure-stdlib cells (analyze edge-primary care-priority = Σ incident variant-association via :located-in + gene-linkage × DISCLOSED clinsig; datom_emit EAVT; coverage honest gap-map) + 10 tests. R1 = cell:rasen.ingest (methods/ingest.py) pulls a BOUNDED PUBLIC slice from MyGene.info (gene→Ensembl+coarse cytoband) + MyVariant.info (rsID→ClinVar significance + gnomAD SUPER-POPULATION AGGREGATE allele frequencies), normalises to genome-ontology EDN, datom-projects it, and content-addresses the artifact to a kotoba IPFS CIDv1 (raw/sha2-256, methods/cid.py — byte-identical to `ipfs add --cid-version=1 --raw-leaves`, verified vs ipfs 0.41.0, no daemon needed). First live run 2026-06-10: 20 genes + 12 variants, 0 errors → 88 nodes / 103 縁; graph CID bafkreidtkdiz5cantzxgbwalugqovpvsn6yc3rlnat2jr2uwckfm7yvdmy (ipfs pin matched); provenance in out/ingest-provenance.json; 15 tests green (network-free). 8 gates: G1 CARE/RESEARCH-map-never-an-individual-genotype-registry (no individual/sample/family genotypes; unit is gene/variant/population-AGGREGATE; gnomAD super-pop af_* only, never sex-stratified/cohort; coarse cytoband never precise coords — enforced by tests + by construction) · G2 edge-primary (no :genome/score-of-gene) · G3 non-adjudicating (ClinVar significance is DISCLOSED, copied not re-judged) · G4 public venue · G5 sourcing-honest (bounded; coverage ~0 by design) · G6 Murakumo-only narration · G7 outward-gated (scope expansion beyond the bounded public slice = Council + operator DID) · G8 no-git-lfs (DataLad→IPFS). Individual/clinical/cohort genome ingest is explicitly OUT OF SCOPE for rasen and would require a separate himotoki-enveloped, consent-bound actor — never bolted on. Deciders: Jun Kawasaki."
+path = "90-docs/adr/2606101000-rasen-public-genetics-mirror.md"
+adr = ["2606101000", "2606073000", "2606073800", "2606011000", "2606011500", "2605312345", "2605231525", "2605215000", "2605181100", "2606014500", "2606014600"]
+
+[[modules]]
+path = "20-actors/rasen"
+kind = "tier-b-public-genetics-kg-mirror-actor"
+version = "0.1.0-r1"
+status = "R1-public-ingest-live"
+description = "rasen (螺旋) — public-genetics KG mirror, gene-scale sibling of inochi 命. PUBLIC reference genetics only (genes/variants/phenotypes/pathways + population-AGGREGATE allele frequencies) across human/elephant/rice/bacteria in the kotoba Datom log; edge-primary care-priority routed to CARE & RESEARCH, never an individual-genotype registry (G1). 4 cells (analyze/datom_emit/coverage/ingest) + cid.py kotoba-IPFS content-address (ipfs-parity, no daemon) + seed + ingest-sources allowlist + manifest.jsonld + CLAUDE.md + deps.toml + 15 network-free tests. Live PUBLIC ingest (MyGene.info + MyVariant.info → ClinVar + gnomAD aggregate) content-addressed + ipfs-pinned (CID match verified). Charter-clean: G1 no-individual-genotypes (aggregate/public by construction), G2 edge-primary, G3 non-adjudicating, G4 public, G5 sourcing-honest, G6 Murakumo-only, G7 ingest-scope-expansion-gated, G8 no-git-lfs."
+adr = ["2606101000", "2606073000", "2606073800", "2605312345", "2605231525", "2605215000", "2605181100"]
+
+[[modules]]
+path = "00-contracts/schemas/genome-ontology.kotoba.edn"
+adr = "2606101000"
+kind = "kotoba-eavt-schema"
+status = "shipped"
+description = "genome-ontology — public-genetics EAVT vocabulary for rasen 螺旋. nodes :gene/:variant/:phenotype/:population/:pathway; edges :located-in/:associated-with/:linked-to/:participates-in/:allele-frequency/:interacts-with carrying :en/grasping-load + DISCLOSED :en/clinsig; derived :bond/care-priority·:bond/locus-burden·:bond/pleiotropy (transient, on-read, N1/G2); :clinsig/weight DISCLOSED scale. G1 inversion baked into the schema doc: PUBLIC reference + population-AGGREGATE only, never individual genotypes; coarse cytoband never precise coords."

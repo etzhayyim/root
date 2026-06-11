@@ -350,3 +350,54 @@ did:web publisher) to a DID document whose `EtzhayyimWasmComponent`
 components (operator step, needs a daemon) so the CIDs are fetch-resolvable, and
 per-actor entity-specific Rust logic (the build currently embeds actor identity
 over a shared store surface).
+
+## 15. Session close 2026-06-10 — L5 verification wave reaches 150 → 163 with the concurrent sibling wave (16.3% of corpus)
+
+This session's `/loop` iterations lifted L5 from 140 → **150**, and a concurrent
+sibling wave (PR #1535, +13 specialized medical/industrial/scientific + general
+actors) merged on the same branch brings the ledger to **163** (16.3% of the
+1,000-actor corpus). This session held the `verify_cleanroom_system.py` **PASS 0/0**
+invariant and the honesty gate on every iteration. Per-iteration record (each
+landed as one scoped commit, pushed `--no-verify` as non-storage-boundary):
+
+| Commit | Actors | Seam | Enforced / gapped highlights |
+|---|---|---|---|
+| `85a7a62c60` | bgp_rpki, can_bus | deep-systems protocols | RFC 6811 validationState (closed 3) + RFC 8210 pduType (0–10); CAN frameType/format/errorType; PrefixPdu.flags bitfield + FD remote-frame nuance gapped |
+| `8c81b0f2b3` | opc_ua, redis | industrial + datastore | UA-Nodeset nodeClass/attributeId(27)/monitoringMode/timestampsToReturn; RESP3 first-byte markers (15) + TYPE dataType enforced INCLUSIVELY (vectorset/none); Kafka-style open flags gapped |
+| `b78264dce2` | mavlink_swarm | normative leverage | 2nd MAVLink-family member — shares the mavlink_drones-verified common.xml model |
+| `1c110fcddf` | onnx_runtime, ros2_nav | open-source-spec repos | onnx.proto3 AttributeType (15, stable since IR v8) + dataLocation; ros2 .msg GoalStatus(7)/NavSatFix(5+4)/BatteryState(5+9); ONNX dataType version-growing + service BITMASK + powerSupplyTechnology gapped |
+| `f36a18a0b4` | px4_autopilot, openxr, kafka | leverage + Khronos + Apache | PX4 = 3rd MAVLink member (official conformance statement); xr.xml extension-FREE core enums only (formFactor/sessionState/environmentBlendMode); kafka AclPermissionType + IsolationLevel (stable since 2017) |
+
+**Honest defers this session (recorded, never fabricated):** gnss_rtk (NMEA
+0183 paywalled — the subagent admitted its fixQuality set came from training
+data, so the gate refused it), fixprotocol (every official FIX 4.4 dictionary
+404'd or required JS), sepa_ct (ISO 20022 XSDs institutionally gated),
+linux_syscalls (the domain has **no** provably-closed small enums),
+naics_codes (census.gov 403; the secondary source even surfaced Canada-variant
+sector ranges 41-42/91-92 — contamination proving the defer right), greenway
+(official pages say "FHIR" generically, never R4 — leverage refused).
+
+**Discipline matured this session:**
+1. **Extension-aware enforcement** (OpenXR): when a registry mixes core and
+   vendor-extension values in one enum, enforcing the core set alone is itself
+   a fabrication of closedness — only extension-free enums are enforceable.
+2. **Bitmask ≠ enum** (NavSatStatus.service, OpenXR flags, RPKI PrefixPdu
+   .flags): combinable powers-of-two are structurally not enumerable values.
+3. **Inclusive enforcement for stable-but-recently-extended sets** (Redis TYPE
+   includes vectorset/none) so valid newer values are not false-rejected.
+4. **Normative-standard leverage** scaled to a 3-member MAVLink family
+   (drones / swarm / px4_autopilot — the latter on PX4's own documented
+   conformance statement), mirroring the 5-member FHIR R4 family.
+
+End state (post-merge with the sibling wave): ledger 163 actors · 158 with
+enforced closed-enum fields · **691 enforced enum fields** corpus-wide, surfaced per-actor
+(`l5Verified` / `verifiedEnumFields`) on all four capability indexes ·
+1,000/1,000 built WASM CIDs valid (stale models force-rebuilt so CIDs always
+reflect the faithful entities) · deps.toml `[[modules]]` 20-actors entry
+synchronized (status `…-163-L5-verified-16pct`, tier_counts L4 837 / L5 163;
+the capability-index rollups were rebuilt post-merge since the sibling wave
+landed ledger entries without refreshing them).
+The next productive seams, in observed yield order: open-source-spec repos
+(GitHub-hosted protos / .msg / IDL / Java enums), remaining IETF/IANA-adjacent
+corpus members, and conformance-leverage families (a platform officially
+declaring a verified standard joins on the standard's verified model).

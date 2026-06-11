@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 146,
-  "totalVerifiedEnumFields": 641,
+  "l5VerifiedActors": 158,
+  "totalVerifiedEnumFields": 691,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -687,8 +687,8 @@
       "source": "autodesk.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "autodesk_bim360-compat",
@@ -907,8 +907,8 @@
       "source": "benchling.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "bentley-compat",
@@ -917,8 +917,8 @@
       "source": "bentley.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "bentley_projectwise-compat",
@@ -1607,8 +1607,8 @@
       "source": "cerner.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 8
     },
     {
       "handle": "cerner_ignite-compat",
@@ -2637,8 +2637,8 @@
       "source": "drchrono.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "drift-compat",
@@ -3007,8 +3007,8 @@
       "source": "epic_systems.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 7
     },
     {
       "handle": "epic_fhir-compat",
@@ -5537,8 +5537,8 @@
       "source": "materials_project.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "matillion-compat",
@@ -5757,8 +5757,8 @@
       "source": "miro.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "mitid_denmark-compat",
@@ -6937,8 +6937,8 @@
       "source": "paystack.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "paytm-compat",
@@ -9207,8 +9207,8 @@
       "source": "universal_robots.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "upi-compat",
@@ -9357,8 +9357,8 @@
       "source": "vimeo.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "vipps_norway-compat",
@@ -9707,8 +9707,8 @@
       "source": "x.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "x86_64_isa-compat",
