@@ -204,6 +204,23 @@ def test_case_insensitive_matching():
     assert any(f["clause"] == "cl:au-guarantee-exclusion" for f in scan_doc(doc, patterns))
 
 
+def test_kaiyaku_handoff_artifact():
+    """Wave 23: the tate → kaiyaku handoff contains EXACTLY the :kaiyaku-routed
+    flags (自動更新/解約窓) in ingestable EDN — the two actors compose on data."""
+    from terms_scan import make_kaiyaku_handoff, read_edn
+    _, res = _res()
+    text = make_kaiyaku_handoff(res)
+    parsed = read_edn(text)
+    expect = [f for f in res["flags"] if f["route"] == ":kaiyaku"]
+    assert len(parsed) == len(expect) and len(parsed) >= 10
+    clause_ids = {h[":handoff/clause"] for h in parsed}
+    for f in expect:
+        assert f["clause"] in clause_ids
+    for h in parsed:
+        assert h[":handoff/action"] == ":calendar-notice-window"
+        assert h[":handoff/anchor"]
+
+
 def test_datoms_ground_and_transient():
     text = datom_emit.emit(tx=3)
     assert ":clause/anchor" in text and ":doc/context" in text

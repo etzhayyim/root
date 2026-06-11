@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 23 (:cn/:nl labor + kaiyaku handoff) ────────────────────────────────
+ {:notice/id "ntc:cn-jiechu" :notice/label "CN 解除劳动合同通知书 (労働)"
+  :notice/jurisdiction :cn
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CNY"
+  :notice/sourcing :synthetic
+  :notice/text "解除劳动合同通知书。公司决定自即日起与您解除劳动合同。"}
+
+ {:notice/id "ntc:nl-ontslag" :notice/label "NL opzegging arbeidsovereenkomst (労働)"
+  :notice/jurisdiction :nl
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Opzegging van uw arbeidsovereenkomst tegen de aangegeven datum."}
+
  ;; ── wave 22 (:br/:tw labor + 50州完遂) ───────────────────────────────────────
  {:notice/id "ntc:br-dispensa" :notice/label "BR comunicação de dispensa (労働)"
   :notice/jurisdiction :br

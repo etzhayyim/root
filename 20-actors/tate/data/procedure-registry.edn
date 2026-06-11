@@ -800,6 +800,25 @@
   :proc/verify-current-law true}
 
  ;; ── :nl ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:nl-ontslag" :proc/label "Opzegging arbeidsovereenkomst (解雇・労働・オランダ)"
+  :proc/jurisdiction :nl :proc/track :labor
+  :proc/trigger-keywords ["opzegging" "ontslag"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Verzoekschrift (vervaltermijn — 失権期間)"
+    :dl/rule "instemming なき opzegging への vernietiging / billijke vergoeding の verzoekschrift は2か月以内 (kantonrechter) — vervaltermijn のため停止・中断なし"
+    :dl/anchor "BW 7:686a lid 4" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Transitievergoeding"
+    :dl/rule "transitievergoeding の請求は雇用終了から3か月以内 (同じく vervaltermijn)"
+    :dl/anchor "BW 7:673 / 7:686a lid 4 sub b" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verzoekschrift :opt/kind :self-submit :opt/protective true
+    :opt/label "kantonrechter へ verzoekschrift (2か月 — kanton は本人可)"}
+   {:opt/id :niet-instemmen :opt/kind :self-decide
+    :opt/label "vaststellingsovereenkomst へのサインは検討期間 (14日撤回権) を確認してから"}]
+  :proc/refer-when ["Juridisch Loket (無料)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:nl-dagvaarding" :proc/label "Dagvaarding (呼出状・オランダ)"
   :proc/jurisdiction :nl
   :proc/trigger-keywords ["dagvaarding"]
@@ -815,6 +834,24 @@
   :proc/verify-current-law true}
 
  ;; ── :cn ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:cn-jiechu" :proc/label "解除劳动合同通知 (解雇・労働・中国)"
+  :proc/jurisdiction :cn :proc/track :labor
+  :proc/trigger-keywords ["解除劳动合同"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "劳动仲裁の時効"
+    :dl/rule "권利侵害を知った日から1年以内に劳动仲裁を申请 (仲裁前置 — 訴訟は仲裁を経てから)"
+    :dl/anchor "劳动争议调解仲裁法 5条・27条" :dl/verify-service-date true}
+   {:dl/label "经济补偿の基準"
+    :dl/rule "経済補償は勤続1年につき1か月分 (N); 違法解除はその2倍 (2N)"
+    :dl/anchor "劳动合同法 46条・47条・87条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :zhongcai :opt/kind :self-submit :opt/protective true
+    :opt/label "劳动仲裁を申请 (無料・本人可 — N/2N の算定根拠を添付)"}
+   {:opt/id :zhengju :opt/kind :self-decide :opt/label "証拠保全: 劳动合同・工资流水・解除通知・考勤記録"}]
+  :proc/refer-when ["12333 (人社热线) / 法律援助 12348" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:cn-zhifuling" :proc/label "支付令 (支払督促・中国)"
   :proc/jurisdiction :cn
   :proc/trigger-keywords ["支付令"]

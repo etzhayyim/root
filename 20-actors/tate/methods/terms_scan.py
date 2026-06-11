@@ -136,6 +136,30 @@ def scan(docs: list, patterns: list):
             "counts_by_route": dict(sorted(by_route.items()))}
 
 
+def make_kaiyaku_handoff(res: dict) -> str:
+    """Machine-readable handoff to kaiyaku 解約 (wave 23): every :kaiyaku-routed flag
+    (自動更新条項・解約窓) as EDN the 縁-ledger can ingest (notice-days カレンダー化).
+    tate detects the clause; kaiyaku owns the severance — the actors COMPOSE."""
+    L = [";; tate 盾 → kaiyaku 解約 handoff — GENERATED (ADR-2606112300/2606112200). DO NOT hand-edit.",
+         ";; :kaiyaku-routed clause flags only — 自動更新/解約窓 candidates for the 縁-ledger.", ""]
+    L.append("[")
+    for f in res["flags"]:
+        if f["route"] != ":kaiyaku":
+            continue
+        L.append(" {:handoff/doc %s" % _edn_str(f["doc"]))
+        L.append("  :handoff/jurisdiction %s" % f["jurisdiction"])
+        L.append("  :handoff/clause %s" % _edn_str(f["clause"]))
+        L.append("  :handoff/matched %s" % _edn_str(f["matched"]))
+        L.append("  :handoff/anchor %s" % _edn_str(f["anchor"]))
+        L.append("  :handoff/action :calendar-notice-window}")
+    L.append("]")
+    return "\n".join(L) + "\n"
+
+
+def _edn_str(s: str) -> str:
+    return '"' + str(s).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
 def report(res: dict) -> str:
     L = ["# tate 盾 — 不利条項 readout (non-adjudicating, G2)", ""]
     L.append(f"- docs scanned: {res['docs_scanned']} · flags: {len(res['flags'])} · "
@@ -161,8 +185,10 @@ def main(argv):
     res = scan(docs, load_patterns())
     out.mkdir(parents=True, exist_ok=True)
     (out / "clause-readout.md").write_text(report(res), encoding="utf-8")
+    (out / "kaiyaku-handoff.edn").write_text(make_kaiyaku_handoff(res), encoding="utf-8")
+    n_k = sum(1 for f in res["flags"] if f["route"] == ":kaiyaku")
     print(f"tate: {len(res['flags'])} clause flags over {res['docs_scanned']} docs "
-          f"→ {out / 'clause-readout.md'}")
+          f"({n_k} → kaiyaku handoff) → {out / 'clause-readout.md'}")
     return 0
 
 

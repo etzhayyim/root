@@ -97,8 +97,8 @@ def test_civil_only_jurisdictions_named():
     (the matrix's empty rows become a worklist, not silence)."""
     cov = coverage()
     co = cov["civil_only_jurisdictions"]
-    assert ":nl" in co and ":sg" in co  # known civil-only rows (:it/:es/:br/:tw 解消済み)
-    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es"):
+    assert ":sg" in co and ":pt" in co  # known civil-only rows (it/es/br/tw/nl/cn 解消済み)
+    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es", ":nl", ":cn"):
         assert j not in co
     assert any("専門トラック未開削" in g for g in cov["named_gaps"])
 

@@ -774,6 +774,21 @@ def test_wave22_br_tw_labor():
     assert any(o["id"] == ":feiziyuan" for o in tw["options"])
 
 
+def test_wave23_cn_nl_labor():
+    """Wave 23: :cn 劳动仲裁 1年时效・仲裁前置 + 经济补偿 N/2N (labor 14 juris) ·
+    :nl vervaltermijn **2か月** (BW 7:686a — 停止・中断なしの失権期間, critical) +
+    vaststellingsovereenkomst 14日撤回権の確認警告."""
+    ps, _ = _by_id()
+    cn = ps["ntc:cn-jiechu"]
+    assert cn["status"] == ":genuine" and cn["proc"] == "proc:cn-jiechu"
+    assert any("27条" in d["anchor"] for d in cn["deadlines"])
+    assert any("2N" in d["rule"] for d in cn["deadlines"])
+    nl = ps["ntc:nl-ontslag"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-ontslag"
+    assert nl["deadlines"][0]["critical"] is True
+    assert "7:686a" in nl["deadlines"][0]["anchor"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
