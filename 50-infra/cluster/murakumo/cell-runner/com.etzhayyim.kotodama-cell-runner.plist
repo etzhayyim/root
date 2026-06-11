@@ -45,6 +45,8 @@
   <dict>
     <key>ETZHAYYIM_REPO</key>
     <string>@@REPO_PATH@@</string>
+    <key>ETZ_REPO</key>
+    <string>@@REPO_PATH@@</string>
     <key>ETZHAYYIM_NODE</key>
     <string>@@NODE_NAME@@</string>
     <key>ETZHAYYIM_NODE_NAME</key>
