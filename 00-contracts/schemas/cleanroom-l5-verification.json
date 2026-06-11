@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 225,
+  "count": 226,
   "actors": [
     {
       "handle": "aave-compat",
@@ -15526,6 +15526,83 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official apache/kafka trunk Java enums + protocol guide. Enforced enums: AclBinding.permissionType(4), FetchRequest.isolationLevel(2) = 2 enum fields. Version-growing enums (AclOperation/GroupState/ResourceType) + ApiKeys/error-code tables gapped — honesty over coverage."
+    },
+    {
+      "handle": "kakao_talk-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://developers.kakao.com/docs/latest/en/kakaologin/rest-api (the operator's official docs — fully server-rendered)",
+      "remodeled": "Remodeled to the faithful Kakao Login/user-info surface verified against the operator's OFFICIAL documentation (developers.kakao.com — fully server-rendered field tables, 858KB of declared content). Declared-complete sets enforced: birthdayType ('SOLAR or LUNAR'), gender ('female or male'), ageRange (the 11 declared brackets 1~9 .. 90~) — all prose-complete declarations (the braze 'must be either' form). API-shape datafication only: the compat actor models the declared schema and stores no person data (consent-bound person flows belong to shomei/himotoki). Harness-direct.",
+      "resources": [
+        {
+          "entity": "Token",
+          "source": "https://developers.kakao.com/docs/latest/en/kakaologin/rest-api (the operator's official docs — fully server-rendered)",
+          "verifiedFields": [
+            "accessToken",
+            "tokenType",
+            "expiresIn",
+            "refreshToken",
+            "refreshTokenExpiresIn",
+            "scope"
+          ],
+          "fieldStatus": "confirmed (token response table)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "KakaoAccount",
+          "source": "https://developers.kakao.com/docs/latest/en/kakaologin/rest-api (the operator's official docs — fully server-rendered)",
+          "verifiedFields": [
+            "email",
+            "ageRange",
+            "birthday",
+            "birthdayType",
+            "isLeapMonth",
+            "gender",
+            "birthyear"
+          ],
+          "fieldStatus": "confirmed (kakao_account field table)",
+          "discoveredEnums": {
+            "birthdayType": [
+              "SOLAR",
+              "LUNAR"
+            ],
+            "gender": [
+              "female",
+              "male"
+            ],
+            "ageRange": [
+              "1~9",
+              "10~14",
+              "15~19",
+              "20~29",
+              "30~39",
+              "40~49",
+              "50~59",
+              "60~69",
+              "70~79",
+              "80~89",
+              "90~"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Profile",
+          "source": "https://developers.kakao.com/docs/latest/en/kakaologin/rest-api (the operator's official docs — fully server-rendered)",
+          "verifiedFields": [
+            "nickname",
+            "thumbnailImageUrl",
+            "profileImageUrl",
+            "isDefaultImage"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the operator's official SSR docs. Enforced enums: birthdayType(2) + gender(2) + ageRange(11) = 3 enum fields, all prose-complete declarations. Schema-only datafication; no person data in the actor."
     },
     {
       "handle": "kaltura-compat",

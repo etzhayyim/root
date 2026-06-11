@@ -8226,17 +8226,14 @@
       "handle": "kakao_talk-compat",
       "platform": "kakao_talk",
       "bytes": 2124,
-      "wasmCid": "bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+      "wasmCid": "bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Token",
+        "KakaoAccount",
+        "Profile"
       ]
     },
     {

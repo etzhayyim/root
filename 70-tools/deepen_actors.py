@@ -2851,6 +2851,17 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Kakao (kakao_talk) model (the operator's official docs at
+# developers.kakao.com — fully server-rendered, 858KB of declared field
+# tables). Declared-complete sets enforced: birthdayType (SOLAR or LUNAR),
+# gender (female or male), ageRange (the 11 declared brackets). API-shape
+# datafication only — the compat actor stores no person data.
+PLATFORM_OVERRIDES["kakao_talk"] = {
+    "Token": E(accessToken="string", tokenType="string", expiresIn="integer", refreshToken="string", refreshTokenExpiresIn="integer", scope="string"),
+    "KakaoAccount": E(email="string", ageRange="string", birthday="string", birthdayType="string", isLeapMonth="boolean", gender="string", birthyear="string"),
+    "Profile": E(nickname="string", thumbnailImageUrl="string", profileImageUrl="string", isDefaultImage="boolean"),
+}
+
 # Faithful Criteo model (the operator's own DATE-VERSIONED official OpenAPI:
 # criteo-api-sdk-generator api-specifications/marketingsolutions_2026-01 —
 # the Azure-stable-style frozen snapshot; 294 schemas, 78 small enums).

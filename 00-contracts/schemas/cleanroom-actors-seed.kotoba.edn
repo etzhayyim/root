@@ -6421,11 +6421,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible communications / social actor (kakao_talk); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "kakao_talk.kotoba"
-   :actor/wasm-cid "bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym"
+   :actor/wasm-cid "bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:kakao_talk-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "kaltura-compat"
    :actor/did "did:web:etzhayyim.com:actor:kaltura-compat"
    :actor/kind :compat

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 775,
-    "L5": 225
+    "L4": 774,
+    "L5": 226
   },
   "actors": [
     {
@@ -8873,10 +8873,10 @@
     {
       "handle": "kakao_talk-compat",
       "did": "did:web:etzhayyim.com:actor:kakao_talk-compat",
-      "wasmCid": "bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+      "wasmCid": "bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kakao_talk clean-room actor",
       "category": "comms_social",
       "capabilities": [

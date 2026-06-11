@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 28975,
+  "totalEndpoints": 28960,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 215,
-  "totalVerifiedEnumFields": 894,
+  "l5VerifiedActors": 216,
+  "totalVerifiedEnumFields": 897,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -9362,10 +9362,10 @@
     {
       "handle": "kakao_talk-compat",
       "did": "did:web:etzhayyim.com:actor:kakao_talk-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -9374,8 +9374,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/kakao_talk-compat/openapi.json"
     },
     {

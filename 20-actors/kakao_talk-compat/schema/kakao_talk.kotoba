@@ -3,69 +3,39 @@
 
 namespace kakao_talk {
 
-    entity Channel {
+    entity Token {
         id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
+        accessToken: string
+        tokenType: string
+        expiresIn: integer
+        refreshToken: string
+        refreshTokenExpiresIn: integer
+        scope: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Message {
+    entity KakaoAccount {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        email: string
+        ageRange: string
+        birthday: string
+        birthdayType: string
+        isLeapMonth: boolean
+        gender: string
+        birthyear: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity Profile {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Room {
-        id: string @unique
-        name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
+        nickname: string
+        thumbnailImageUrl: string
+        profileImageUrl: string
+        isDefaultImage: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

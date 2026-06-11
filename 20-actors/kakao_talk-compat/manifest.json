@@ -5,21 +5,51 @@
   "kind": "compat",
   "title": "kakao_talk clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (kakao_talk); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+  "wasmCid": "bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+  "ipfs": "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
   "schema": "schema/kakao_talk.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developers.kakao.com/docs/latest/en/kakaologin/rest-api (the operator's official docs — fully server-rendered)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Token",
+      "KakaoAccount",
+      "Profile"
+    ],
+    "enums": {
+      "KakaoAccount": {
+        "birthdayType": [
+          "SOLAR",
+          "LUNAR"
+        ],
+        "gender": [
+          "female",
+          "male"
+        ],
+        "ageRange": [
+          "1~9",
+          "10~14",
+          "15~19",
+          "20~29",
+          "30~39",
+          "40~49",
+          "50~59",
+          "60~69",
+          "70~79",
+          "80~89",
+          "90~"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
-    "Message",
-    "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Token",
+    "KakaoAccount",
+    "Profile"
   ],
   "adr": [
     "260607",
@@ -31,157 +61,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/tokens",
+          "op": "create Token"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/tokens",
+          "op": "list Token"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/tokens/{id}",
+          "op": "get Token"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/tokens/{id}",
+          "op": "update Token"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/tokens/{id}",
+          "op": "delete Token"
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/kakaoaccounts",
+          "op": "create KakaoAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/kakaoaccounts",
+          "op": "list KakaoAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/kakaoaccounts/{id}",
+          "op": "get KakaoAccount"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/kakaoaccounts/{id}",
+          "op": "update KakaoAccount"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/kakaoaccounts/{id}",
+          "op": "delete KakaoAccount"
         },
         {
           "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
+          "path": "/v1/profiles",
+          "op": "create Profile"
         },
         {
           "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
+          "path": "/v1/profiles",
+          "op": "list Profile"
         },
         {
           "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
+          "path": "/v1/profiles/{id}",
+          "op": "get Profile"
         },
         {
           "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
+          "path": "/v1/profiles/{id}",
+          "op": "update Profile"
         },
         {
           "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/profiles/{id}",
+          "op": "delete Profile"
         }
       ],
       "features": {
@@ -244,44 +199,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_token",
+          "description": "Create a Token.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "accessToken": {
                 "type": "string"
               },
-              "type": {
+              "tokenType": {
                 "type": "string"
               },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
+              "expiresIn": {
                 "type": "integer"
+              },
+              "refreshToken": {
+                "type": "string"
+              },
+              "refreshTokenExpiresIn": {
+                "type": "integer"
+              },
+              "scope": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "type"
+              "accessToken",
+              "tokenType"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_tokens",
+          "description": "List Tokens.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_token",
+          "description": "Get a Token by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +256,31 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_token",
+          "description": "Update a Token.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "accessToken": {
                 "type": "string"
               },
-              "type": {
+              "tokenType": {
                 "type": "string"
               },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
+              "expiresIn": {
                 "type": "integer"
+              },
+              "refreshToken": {
+                "type": "string"
+              },
+              "refreshTokenExpiresIn": {
+                "type": "integer"
+              },
+              "scope": {
+                "type": "string"
               }
             },
             "required": [
@@ -322,8 +289,8 @@
           }
         },
         {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
+          "name": "delete_token",
+          "description": "Delete a Token.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +304,50 @@
           }
         },
         {
-          "name": "create_message",
-          "description": "Create a Message.",
+          "name": "create_kakao_account",
+          "description": "Create a KakaoAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "channelId": {
+              "email": {
                 "type": "string"
               },
-              "authorId": {
+              "ageRange": {
                 "type": "string"
               },
-              "body": {
+              "birthday": {
                 "type": "string"
               },
-              "sentAt": {
+              "birthdayType": {
+                "type": "string"
+              },
+              "isLeapMonth": {
+                "type": "boolean"
+              },
+              "gender": {
+                "type": "string"
+              },
+              "birthyear": {
                 "type": "string"
               }
             },
             "required": [
-              "body",
-              "sentAt"
+              "email",
+              "ageRange"
             ]
           }
         },
         {
-          "name": "list_messages",
-          "description": "List Messages.",
+          "name": "list_kakao_accounts",
+          "description": "List KakaoAccounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_message",
-          "description": "Get a Message by id.",
+          "name": "get_kakao_account",
+          "description": "Get a KakaoAccount by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +361,33 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
+          "name": "update_kakao_account",
+          "description": "Update a KakaoAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "channelId": {
+              "email": {
                 "type": "string"
               },
-              "authorId": {
+              "ageRange": {
                 "type": "string"
               },
-              "body": {
+              "birthday": {
                 "type": "string"
               },
-              "sentAt": {
+              "birthdayType": {
+                "type": "string"
+              },
+              "isLeapMonth": {
+                "type": "boolean"
+              },
+              "gender": {
+                "type": "string"
+              },
+              "birthyear": {
                 "type": "string"
               }
             },
@@ -412,8 +397,8 @@
           }
         },
         {
-          "name": "delete_message",
-          "description": "Delete a Message.",
+          "name": "delete_kakao_account",
+          "description": "Delete a KakaoAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,38 +412,41 @@
           }
         },
         {
-          "name": "create_user",
-          "description": "Create a User.",
+          "name": "create_profile",
+          "description": "Create a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "nickname": {
                 "type": "string"
               },
-              "displayName": {
+              "thumbnailImageUrl": {
                 "type": "string"
               },
-              "verified": {
+              "profileImageUrl": {
+                "type": "string"
+              },
+              "isDefaultImage": {
                 "type": "boolean"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "nickname",
+              "thumbnailImageUrl"
             ]
           }
         },
         {
-          "name": "list_users",
-          "description": "List Users.",
+          "name": "list_profiles",
+          "description": "List Profiles.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_user",
-          "description": "Get a User by id.",
+          "name": "get_profile",
+          "description": "Get a Profile by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,105 +460,24 @@
           }
         },
         {
-          "name": "update_user",
-          "description": "Update a User.",
+          "name": "update_profile",
+          "description": "Update a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "nickname": {
                 "type": "string"
               },
-              "displayName": {
+              "thumbnailImageUrl": {
                 "type": "string"
               },
-              "verified": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_user",
-          "description": "Delete a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_room",
-          "description": "Create a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
+              "profileImageUrl": {
                 "type": "string"
               },
-              "maxParticipants": {
-                "type": "integer"
-              },
-              "recording": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "maxParticipants"
-            ]
-          }
-        },
-        {
-          "name": "list_rooms",
-          "description": "List Rooms.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_room",
-          "description": "Get a Room by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_room",
-          "description": "Update a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "maxParticipants": {
-                "type": "integer"
-              },
-              "recording": {
+              "isDefaultImage": {
                 "type": "boolean"
               }
             },
@@ -580,176 +487,8 @@
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "roomId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "status",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_stream",
-          "description": "Update a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "roomId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_profile",
+          "description": "Delete a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {

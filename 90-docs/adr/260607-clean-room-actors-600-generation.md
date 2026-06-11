@@ -873,3 +873,15 @@ Azure-stable-style frozen snapshot) anchors inventoryType(3) + goal(3) +
 deliveryStatus(3) + frequency(4). Charter note: the buyer-side compat
 surface is datafication-only, consistent with sukashi's ad-tech
 observatory framing (no serving/targeting in the actor).
+
+### §16.30 /loop iteration 29 — wave 30: kakao (226, 22.6%)
+
+kakao_talk → ledger **226** (774 L4 / 226 L5 = 22.6%), enforced 216 / **897
+enum fields** (+3), verify PASS 0/0, contract suite green. Harness-direct.
+developers.kakao.com is fully server-rendered (858KB of declared field
+tables) — prose-complete declarations enforced: birthdayType (SOLAR or
+LUNAR), gender (female or male), ageRange (the 11 declared brackets).
+Charter note: schema-only datafication — the compat actor models the
+declared API shape and stores no person data (consent-bound person flows
+belong to shomei/himotoki). Probes this wave: marketo (moved to Adobe
+Experience League JS), jwplayer (no public spec), eventbrite (JS shell).

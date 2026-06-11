@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 28975,
-  "l5VerifiedActors": 215,
-  "totalVerifiedEnumFields": 894,
+  "totalTools": 28960,
+  "l5VerifiedActors": 216,
+  "totalVerifiedEnumFields": 897,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -5426,12 +5426,12 @@
     {
       "handle": "kakao_talk-compat",
       "did": "did:web:etzhayyim.com:actor:kakao_talk-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreiebt7uf2ebicffoocdn2licahxx23tpzwixekpu3qbx3l6bi4nn7u",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/kakao_talk-compat/manifest.json#/capabilities/mcp"
     },
     {

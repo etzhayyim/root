@@ -111,53 +111,55 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
+@app.route("/v1/tokens", methods=["POST"])
+def create_token(request):
+    """Create a Token."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['accessToken', 'tokenType', 'expiresIn', 'refreshToken', 'refreshTokenExpiresIn', 'scope'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['accessToken', 'tokenType'])
     if err:
         return err, 400
-    rec = {"id": new_id("kakaotal_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
+    rec = {"id": new_id("kakaotal_tok")}
+    rec["accessToken"] = data.get('accessToken')
+    rec["tokenType"] = data.get('tokenType')
+    rec["expiresIn"] = _as_int(data.get('expiresIn'))
+    rec["refreshToken"] = data.get('refreshToken')
+    rec["refreshTokenExpiresIn"] = _as_int(data.get('refreshTokenExpiresIn'))
+    rec["scope"] = data.get('scope')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("Token", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/tokens", methods=["GET"])
+def list_tokens(request):
+    """List Tokens with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
+    rows = _query("Token")
+    rows = _apply_filters(rows, params, ['accessToken', 'tokenType', 'expiresIn', 'refreshToken', 'refreshTokenExpiresIn', 'scope'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/tokens/<eid>", methods=["GET"])
+def get_token(request, eid):
+    """Retrieve a Token by id (supports ?expand=)."""
+    rows = _query("Token", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
+def update_token(request, eid):
+    """Update a Token."""
+    rows = _query("Token", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
+    err = _reject_unknown(data, ['accessToken', 'tokenType', 'expiresIn', 'refreshToken', 'refreshTokenExpiresIn', 'scope'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,131 +167,146 @@ def update_channel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("Token", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/tokens/<eid>", methods=["DELETE"])
+def delete_token(request, eid):
+    """Delete a Token."""
+    rows = _query("Token", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.Channel", "id": eid})
+    db.retract({"entity": f"kakao_talk.Token", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
+@app.route("/v1/kakaoaccounts", methods=["POST"])
+def create_kakao_account(request):
+    """Create a KakaoAccount."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['email', 'ageRange', 'birthday', 'birthdayType', 'isLeapMonth', 'gender', 'birthyear'])
     if err:
         return err, 400
-    err = _require(data, ['body', 'sentAt'])
+    err = _require(data, ['email', 'ageRange'])
     if err:
         return err, 400
-    rec = {"id": new_id("kakaotal_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
+    if data.get('birthdayType') and data['birthdayType'] not in ['SOLAR', 'LUNAR']:
+        return {"error": {"message": "invalid birthdayType; allowed: " + ", ".join(['SOLAR', 'LUNAR']), "type": "invalid_request_error"}}, 400
+    if data.get('gender') and data['gender'] not in ['female', 'male']:
+        return {"error": {"message": "invalid gender; allowed: " + ", ".join(['female', 'male']), "type": "invalid_request_error"}}, 400
+    if data.get('ageRange') and data['ageRange'] not in ['1~9', '10~14', '15~19', '20~29', '30~39', '40~49', '50~59', '60~69', '70~79', '80~89', '90~']:
+        return {"error": {"message": "invalid ageRange; allowed: " + ", ".join(['1~9', '10~14', '15~19', '20~29', '30~39', '40~49', '50~59', '60~69', '70~79', '80~89', '90~']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kakaotal_kak")}
+    rec["email"] = data.get('email')
+    rec["ageRange"] = data.get('ageRange')
+    rec["birthday"] = data.get('birthday')
+    rec["birthdayType"] = data.get('birthdayType')
+    rec["isLeapMonth"] = _as_bool(data.get('isLeapMonth'))
+    rec["gender"] = data.get('gender')
+    rec["birthyear"] = data.get('birthyear')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("KakaoAccount", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/kakaoaccounts", methods=["GET"])
+def list_kakao_accounts(request):
+    """List KakaoAccounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
+    rows = _query("KakaoAccount")
+    rows = _apply_filters(rows, params, ['email', 'ageRange', 'birthday', 'birthdayType', 'isLeapMonth', 'gender', 'birthyear'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/kakaoaccounts/<eid>", methods=["GET"])
+def get_kakao_account(request, eid):
+    """Retrieve a KakaoAccount by id (supports ?expand=)."""
+    rows = _query("KakaoAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/kakaoaccounts/<eid>", methods=["POST", "PATCH"])
+def update_kakao_account(request, eid):
+    """Update a KakaoAccount."""
+    rows = _query("KakaoAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['email', 'ageRange', 'birthday', 'birthdayType', 'isLeapMonth', 'gender', 'birthyear'])
     if err:
         return err, 400
+    if data.get('birthdayType') and data['birthdayType'] not in ['SOLAR', 'LUNAR']:
+        return {"error": {"message": "invalid birthdayType; allowed: " + ", ".join(['SOLAR', 'LUNAR']), "type": "invalid_request_error"}}, 400
+    if data.get('gender') and data['gender'] not in ['female', 'male']:
+        return {"error": {"message": "invalid gender; allowed: " + ", ".join(['female', 'male']), "type": "invalid_request_error"}}, 400
+    if data.get('ageRange') and data['ageRange'] not in ['1~9', '10~14', '15~19', '20~29', '30~39', '40~49', '50~59', '60~69', '70~79', '80~89', '90~']:
+        return {"error": {"message": "invalid ageRange; allowed: " + ", ".join(['1~9', '10~14', '15~19', '20~29', '30~39', '40~49', '50~59', '60~69', '70~79', '80~89', '90~']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("KakaoAccount", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/kakaoaccounts/<eid>", methods=["DELETE"])
+def delete_kakao_account(request, eid):
+    """Delete a KakaoAccount."""
+    rows = _query("KakaoAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.Message", "id": eid})
+    db.retract({"entity": f"kakao_talk.KakaoAccount", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
+@app.route("/v1/profiles", methods=["POST"])
+def create_profile(request):
+    """Create a Profile."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['nickname', 'thumbnailImageUrl', 'profileImageUrl', 'isDefaultImage'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['nickname', 'thumbnailImageUrl'])
     if err:
         return err, 400
-    rec = {"id": new_id("kakaotal_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec = {"id": new_id("kakaotal_pro")}
+    rec["nickname"] = data.get('nickname')
+    rec["thumbnailImageUrl"] = data.get('thumbnailImageUrl')
+    rec["profileImageUrl"] = data.get('profileImageUrl')
+    rec["isDefaultImage"] = _as_bool(data.get('isDefaultImage'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("Profile", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/profiles", methods=["GET"])
+def list_profiles(request):
+    """List Profiles with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _query("Profile")
+    rows = _apply_filters(rows, params, ['nickname', 'thumbnailImageUrl', 'profileImageUrl', 'isDefaultImage'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/profiles/<eid>", methods=["GET"])
+def get_profile(request, eid):
+    """Retrieve a Profile by id (supports ?expand=)."""
+    rows = _query("Profile", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
+def update_profile(request, eid):
+    """Update a Profile."""
+    rows = _query("Profile", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['nickname', 'thumbnailImageUrl', 'profileImageUrl', 'isDefaultImage'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,218 +314,22 @@ def update_user(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("Profile", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/profiles/<eid>", methods=["DELETE"])
+def delete_profile(request, eid):
+    """Delete a Profile."""
+    rows = _query("Profile", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.User", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kakaotal_roo")}
-    rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
-    return rec, 201
-
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Room", rec)
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.Room", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kakaotal_str")}
-    rec["roomId"] = data.get('roomId')
-    rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kakaotal_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kakao_talk.Webhook", "id": eid})
+    db.retract({"entity": f"kakao_talk.Profile", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "kakao_talk-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['Token', 'KakaoAccount', 'Profile']}, 200
 
 
 if __name__ == "__main__":
