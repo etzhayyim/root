@@ -27,6 +27,7 @@
     {"op": "offer",     "keeper": "did:web:etzhayyim.com:member:fictional:dalet", "kept": "did:web:etzhayyim.com:member:fictional:he"},
     {"op": "consent",   "keeper": "did:web:etzhayyim.com:member:fictional:dalet", "kept": "did:web:etzhayyim.com:member:fictional:he"},
     {"op": "handoff",   "keeper": "did:web:etzhayyim.com:member:fictional:dalet", "kept": "did:web:etzhayyim.com:member:fictional:he", "to_keeper": "did:web:etzhayyim.com:member:fictional:vav"},
+    {"op": "consent",   "keeper": "did:web:etzhayyim.com:member:fictional:vav",   "kept": "did:web:etzhayyim.com:member:fictional:he"},
     {"op": "heartbeat", "keeper": "did:web:etzhayyim.com:member:fictional:vav",   "kept": "did:web:etzhayyim.com:member:fictional:he"},
     {"op": "offer",     "keeper": "did:web:etzhayyim.com:member:fictional:he",    "kept": "did:web:etzhayyim.com:member:fictional:zayin"},
     {"op": "consent",   "keeper": "did:web:etzhayyim.com:member:fictional:he",    "kept": "did:web:etzhayyim.com:member:fictional:zayin"},

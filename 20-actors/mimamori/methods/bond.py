@@ -159,7 +159,12 @@ class Mishmeret:
         self._add(rid, ":mishmeret.route/cycle", tx, tx)
 
     def handoff(self, keeper: str, kept: str, to_keeper: str) -> str:
-        """Relay 継ぎ (G5): finite keepers in succession — no sleepless center."""
+        """Relay 継ぎ (G5): finite keepers in succession — no sleepless center.
+
+        G3: the relay does NOT carry consent. The kept consented to THIS keeper,
+        not to the next one — the incoming keeper's bond is left at :offered and
+        the kept must consent explicitly (a keeping gap is acceptable; consent is
+        not). Matches com.etzhayyim.mimamori.relayHandoff ("fresh offer + consent")."""
         validate_did(to_keeper)
         bid = self._bid(keeper, kept)
         if self._state.get(bid) != ":active":
@@ -172,10 +177,7 @@ class Mishmeret:
         self._add(rid, ":mishmeret.relay/from", keeper, tx)
         self._add(rid, ":mishmeret.relay/to", to_keeper, tx)
         self._add(rid, ":mishmeret.relay/cycle", tx, tx)
-        # the new bond is offered + consented as part of the relay covenant
-        nbid = self.offer(to_keeper, kept)
-        self.consent(to_keeper, kept)
-        return nbid
+        return self.offer(to_keeper, kept)
 
     # ── queries (G4 + G5: own-DID-only; both parties see) ──────────────────
     def bonds_of(self, did: str) -> list[dict]:
