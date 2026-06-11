@@ -5,21 +5,27 @@
   "kind": "compat",
   "title": "bipm_utc clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (bipm_utc); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiezn4zde5bub6k4bgulusb2yfoyh7v7ymgyahuyj7onmfjcdberii",
+  "wasmCid": "bafkreihx53ifussk6jaycgrcoe56risxq6g5ga2szafr5c7n7aardxnkmq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiezn4zde5bub6k4bgulusb2yfoyh7v7ymgyahuyj7onmfjcdberii",
+  "ipfs": "ipfs://bafkreihx53ifussk6jaycgrcoe56risxq6g5ga2szafr5c7n7aardxnkmq",
   "schema": "schema/bipm_utc.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://webtai.bipm.org/ftp/pub/tai/Circular-T/cirt/cirt.460 + https://webtai.bipm.org/ftp/pub/tai/other-products/notes/explanatory_supplement_v0.8.pdf",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "CircularT",
+      "UtcDifference",
+      "Laboratory"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Code",
-    "Unit",
-    "Reference",
-    "Mapping",
-    "Location",
-    "Epoch"
+    "CircularT",
+    "UtcDifference",
+    "Laboratory"
   ],
   "adr": [
     "260607",
@@ -31,157 +37,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/codes",
-          "op": "create Code"
+          "path": "/v1/circularts",
+          "op": "create CircularT"
         },
         {
           "method": "GET",
-          "path": "/v1/codes",
-          "op": "list Code"
+          "path": "/v1/circularts",
+          "op": "list CircularT"
         },
         {
           "method": "GET",
-          "path": "/v1/codes/{id}",
-          "op": "get Code"
+          "path": "/v1/circularts/{id}",
+          "op": "get CircularT"
         },
         {
           "method": "PATCH",
-          "path": "/v1/codes/{id}",
-          "op": "update Code"
+          "path": "/v1/circularts/{id}",
+          "op": "update CircularT"
         },
         {
           "method": "DELETE",
-          "path": "/v1/codes/{id}",
-          "op": "delete Code"
+          "path": "/v1/circularts/{id}",
+          "op": "delete CircularT"
         },
         {
           "method": "POST",
-          "path": "/v1/units",
-          "op": "create Unit"
+          "path": "/v1/utcdifferences",
+          "op": "create UtcDifference"
         },
         {
           "method": "GET",
-          "path": "/v1/units",
-          "op": "list Unit"
+          "path": "/v1/utcdifferences",
+          "op": "list UtcDifference"
         },
         {
           "method": "GET",
-          "path": "/v1/units/{id}",
-          "op": "get Unit"
+          "path": "/v1/utcdifferences/{id}",
+          "op": "get UtcDifference"
         },
         {
           "method": "PATCH",
-          "path": "/v1/units/{id}",
-          "op": "update Unit"
+          "path": "/v1/utcdifferences/{id}",
+          "op": "update UtcDifference"
         },
         {
           "method": "DELETE",
-          "path": "/v1/units/{id}",
-          "op": "delete Unit"
+          "path": "/v1/utcdifferences/{id}",
+          "op": "delete UtcDifference"
         },
         {
           "method": "POST",
-          "path": "/v1/references",
-          "op": "create Reference"
+          "path": "/v1/laboratories",
+          "op": "create Laboratory"
         },
         {
           "method": "GET",
-          "path": "/v1/references",
-          "op": "list Reference"
+          "path": "/v1/laboratories",
+          "op": "list Laboratory"
         },
         {
           "method": "GET",
-          "path": "/v1/references/{id}",
-          "op": "get Reference"
+          "path": "/v1/laboratories/{id}",
+          "op": "get Laboratory"
         },
         {
           "method": "PATCH",
-          "path": "/v1/references/{id}",
-          "op": "update Reference"
+          "path": "/v1/laboratories/{id}",
+          "op": "update Laboratory"
         },
         {
           "method": "DELETE",
-          "path": "/v1/references/{id}",
-          "op": "delete Reference"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/mappings",
-          "op": "create Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings",
-          "op": "list Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings/{id}",
-          "op": "get Mapping"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/mappings/{id}",
-          "op": "update Mapping"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/mappings/{id}",
-          "op": "delete Mapping"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/locations",
-          "op": "create Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations",
-          "op": "list Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations/{id}",
-          "op": "get Location"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/locations/{id}",
-          "op": "update Location"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/locations/{id}",
-          "op": "delete Location"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/epoches",
-          "op": "create Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches",
-          "op": "list Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches/{id}",
-          "op": "get Epoch"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/epoches/{id}",
-          "op": "update Epoch"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/epoches/{id}",
-          "op": "delete Epoch"
+          "path": "/v1/laboratories/{id}",
+          "op": "delete Laboratory"
         }
       ],
       "features": {
@@ -244,44 +175,230 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_code",
-          "description": "Create a Code.",
+          "name": "create_circular_t",
+          "description": "Create a CircularT.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "integer"
+              },
+              "issueDate": {
+                "type": "string"
+              },
+              "issn": {
+                "type": "string"
+              },
+              "taiMinusUtc": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "number",
+              "issueDate"
+            ]
+          }
+        },
+        {
+          "name": "list_circular_ts",
+          "description": "List CircularTs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_circular_t",
+          "description": "Get a CircularT by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_circular_t",
+          "description": "Update a CircularT.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "integer"
+              },
+              "issueDate": {
+                "type": "string"
+              },
+              "issn": {
+                "type": "string"
+              },
+              "taiMinusUtc": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_circular_t",
+          "description": "Delete a CircularT.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_utc_difference",
+          "description": "Create a UtcDifference.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "laboratory": {
+                "type": "string"
+              },
+              "mjd": {
+                "type": "integer"
+              },
+              "utcMinusUtck": {
+                "type": "number"
+              },
+              "uncertaintyA": {
+                "type": "number"
+              },
+              "uncertaintyB": {
+                "type": "number"
+              },
+              "uncertaintyTotal": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "laboratory",
+              "mjd"
+            ]
+          }
+        },
+        {
+          "name": "list_utc_differences",
+          "description": "List UtcDifferences.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_utc_difference",
+          "description": "Get a UtcDifference by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_utc_difference",
+          "description": "Update a UtcDifference.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "laboratory": {
+                "type": "string"
+              },
+              "mjd": {
+                "type": "integer"
+              },
+              "utcMinusUtck": {
+                "type": "number"
+              },
+              "uncertaintyA": {
+                "type": "number"
+              },
+              "uncertaintyB": {
+                "type": "number"
+              },
+              "uncertaintyTotal": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_utc_difference",
+          "description": "Delete a UtcDifference.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_laboratory",
+          "description": "Create a Laboratory.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "code": {
                 "type": "string"
               },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
+              "location": {
                 "type": "string"
               }
             },
             "required": [
               "code",
-              "description"
+              "location"
             ]
           }
         },
         {
-          "name": "list_codes",
-          "description": "List Codes.",
+          "name": "list_laboratories",
+          "description": "List Laboratories.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_code",
-          "description": "Get a Code by id.",
+          "name": "get_laboratory",
+          "description": "Get a Laboratory by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +412,8 @@
           }
         },
         {
-          "name": "update_code",
-          "description": "Update a Code.",
+          "name": "update_laboratory",
+          "description": "Update a Laboratory.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,13 +423,7 @@
               "code": {
                 "type": "string"
               },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
+              "location": {
                 "type": "string"
               }
             },
@@ -322,434 +433,8 @@
           }
         },
         {
-          "name": "delete_code",
-          "description": "Delete a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_unit",
-          "description": "Create a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "symbol",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_units",
-          "description": "List Units.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_unit",
-          "description": "Get a Unit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_unit",
-          "description": "Update a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_unit",
-          "description": "Delete a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_reference",
-          "description": "Create a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "uncertainty": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_references",
-          "description": "List References.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_reference",
-          "description": "Get a Reference by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_reference",
-          "description": "Update a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "uncertainty": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_reference",
-          "description": "Delete a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mapping",
-          "description": "Create a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "fromCode",
-              "toScheme"
-            ]
-          }
-        },
-        {
-          "name": "list_mappings",
-          "description": "List Mappings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_mapping",
-          "description": "Get a Mapping by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_mapping",
-          "description": "Update a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_mapping",
-          "description": "Delete a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_location",
-          "description": "Create a Location.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "unLocode": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "unLocode",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_locations",
-          "description": "List Locations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_location",
-          "description": "Get a Location by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_location",
-          "description": "Update a Location.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "unLocode": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_location",
-          "description": "Delete a Location.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_epoch",
-          "description": "Create a Epoch.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "utcOffset"
-            ]
-          }
-        },
-        {
-          "name": "list_epoches",
-          "description": "List Epoches.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_epoch",
-          "description": "Get a Epoch by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_epoch",
-          "description": "Update a Epoch.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_epoch",
-          "description": "Delete a Epoch.",
+          "name": "delete_laboratory",
+          "description": "Delete a Laboratory.",
           "inputSchema": {
             "type": "object",
             "properties": {

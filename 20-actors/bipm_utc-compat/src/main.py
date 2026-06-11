@@ -111,53 +111,185 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/codes", methods=["POST"])
-def create_code(request):
-    """Create a Code."""
+@app.route("/v1/circularts", methods=["POST"])
+def create_circular_t(request):
+    """Create a CircularT."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'description', 'scheme', 'parentCode'])
+    err = _reject_unknown(data, ['number', 'issueDate', 'issn', 'taiMinusUtc'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'description'])
+    err = _require(data, ['number', 'issueDate'])
     if err:
         return err, 400
-    rec = {"id": new_id("bipmutc_cod")}
+    rec = {"id": new_id("bipmutc_cir")}
+    rec["number"] = _as_int(data.get('number'))
+    rec["issueDate"] = data.get('issueDate')
+    rec["issn"] = data.get('issn')
+    rec["taiMinusUtc"] = _as_int(data.get('taiMinusUtc'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("CircularT", rec)
+    return rec, 201
+
+@app.route("/v1/circularts", methods=["GET"])
+def list_circular_ts(request):
+    """List CircularTs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("CircularT")
+    rows = _apply_filters(rows, params, ['number', 'issueDate', 'issn', 'taiMinusUtc'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/circularts/<eid>", methods=["GET"])
+def get_circular_t(request, eid):
+    """Retrieve a CircularT by id (supports ?expand=)."""
+    rows = _query("CircularT", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/circularts/<eid>", methods=["POST", "PATCH"])
+def update_circular_t(request, eid):
+    """Update a CircularT."""
+    rows = _query("CircularT", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['number', 'issueDate', 'issn', 'taiMinusUtc'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("CircularT", rec)
+    return rec, 200
+
+@app.route("/v1/circularts/<eid>", methods=["DELETE"])
+def delete_circular_t(request, eid):
+    """Delete a CircularT."""
+    rows = _query("CircularT", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"bipm_utc.CircularT", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/utcdifferences", methods=["POST"])
+def create_utc_difference(request):
+    """Create a UtcDifference."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['laboratory', 'mjd', 'utcMinusUtck', 'uncertaintyA', 'uncertaintyB', 'uncertaintyTotal'])
+    if err:
+        return err, 400
+    err = _require(data, ['laboratory', 'mjd'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("bipmutc_utc")}
+    rec["laboratory"] = data.get('laboratory')
+    rec["mjd"] = _as_int(data.get('mjd'))
+    rec["utcMinusUtck"] = _as_float(data.get('utcMinusUtck'))
+    rec["uncertaintyA"] = _as_float(data.get('uncertaintyA'))
+    rec["uncertaintyB"] = _as_float(data.get('uncertaintyB'))
+    rec["uncertaintyTotal"] = _as_float(data.get('uncertaintyTotal'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("UtcDifference", rec)
+    return rec, 201
+
+@app.route("/v1/utcdifferences", methods=["GET"])
+def list_utc_differences(request):
+    """List UtcDifferences with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("UtcDifference")
+    rows = _apply_filters(rows, params, ['laboratory', 'mjd', 'utcMinusUtck', 'uncertaintyA', 'uncertaintyB', 'uncertaintyTotal'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/utcdifferences/<eid>", methods=["GET"])
+def get_utc_difference(request, eid):
+    """Retrieve a UtcDifference by id (supports ?expand=)."""
+    rows = _query("UtcDifference", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/utcdifferences/<eid>", methods=["POST", "PATCH"])
+def update_utc_difference(request, eid):
+    """Update a UtcDifference."""
+    rows = _query("UtcDifference", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['laboratory', 'mjd', 'utcMinusUtck', 'uncertaintyA', 'uncertaintyB', 'uncertaintyTotal'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("UtcDifference", rec)
+    return rec, 200
+
+@app.route("/v1/utcdifferences/<eid>", methods=["DELETE"])
+def delete_utc_difference(request, eid):
+    """Delete a UtcDifference."""
+    rows = _query("UtcDifference", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"bipm_utc.UtcDifference", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/laboratories", methods=["POST"])
+def create_laboratory(request):
+    """Create a Laboratory."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['code', 'location'])
+    if err:
+        return err, 400
+    err = _require(data, ['code', 'location'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("bipmutc_lab")}
     rec["code"] = data.get('code')
-    rec["description"] = data.get('description')
-    rec["scheme"] = data.get('scheme')
-    rec["parentCode"] = data.get('parentCode')
+    rec["location"] = data.get('location')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Code", rec)
+    _persist("Laboratory", rec)
     return rec, 201
 
-@app.route("/v1/codes", methods=["GET"])
-def list_codes(request):
-    """List Codes with filtering + cursor pagination."""
+@app.route("/v1/laboratories", methods=["GET"])
+def list_laboratories(request):
+    """List Laboratories with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Code")
-    rows = _apply_filters(rows, params, ['code', 'description', 'scheme', 'parentCode'])
+    rows = _query("Laboratory")
+    rows = _apply_filters(rows, params, ['code', 'location'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/codes/<eid>", methods=["GET"])
-def get_code(request, eid):
-    """Retrieve a Code by id (supports ?expand=)."""
-    rows = _query("Code", eid)
+@app.route("/v1/laboratories/<eid>", methods=["GET"])
+def get_laboratory(request, eid):
+    """Retrieve a Laboratory by id (supports ?expand=)."""
+    rows = _query("Laboratory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/codes/<eid>", methods=["POST", "PATCH"])
-def update_code(request, eid):
-    """Update a Code."""
-    rows = _query("Code", eid)
+@app.route("/v1/laboratories/<eid>", methods=["POST", "PATCH"])
+def update_laboratory(request, eid):
+    """Update a Laboratory."""
+    rows = _query("Laboratory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'description', 'scheme', 'parentCode'])
+    err = _reject_unknown(data, ['code', 'location'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,348 +297,22 @@ def update_code(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Code", rec)
+    _persist("Laboratory", rec)
     return rec, 200
 
-@app.route("/v1/codes/<eid>", methods=["DELETE"])
-def delete_code(request, eid):
-    """Delete a Code."""
-    rows = _query("Code", eid)
+@app.route("/v1/laboratories/<eid>", methods=["DELETE"])
+def delete_laboratory(request, eid):
+    """Delete a Laboratory."""
+    rows = _query("Laboratory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Code", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/units", methods=["POST"])
-def create_unit(request):
-    """Create a Unit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'name', 'quantity'])
-    if err:
-        return err, 400
-    err = _require(data, ['symbol', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bipmutc_uni")}
-    rec["symbol"] = data.get('symbol')
-    rec["name"] = data.get('name')
-    rec["quantity"] = data.get('quantity')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Unit", rec)
-    return rec, 201
-
-@app.route("/v1/units", methods=["GET"])
-def list_units(request):
-    """List Units with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Unit")
-    rows = _apply_filters(rows, params, ['symbol', 'name', 'quantity'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/units/<eid>", methods=["GET"])
-def get_unit(request, eid):
-    """Retrieve a Unit by id (supports ?expand=)."""
-    rows = _query("Unit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/units/<eid>", methods=["POST", "PATCH"])
-def update_unit(request, eid):
-    """Update a Unit."""
-    rows = _query("Unit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'name', 'quantity'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Unit", rec)
-    return rec, 200
-
-@app.route("/v1/units/<eid>", methods=["DELETE"])
-def delete_unit(request, eid):
-    """Delete a Unit."""
-    rows = _query("Unit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Unit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/references", methods=["POST"])
-def create_reference(request):
-    """Create a Reference."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'value', 'uncertainty', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bipmutc_ref")}
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["uncertainty"] = _as_float(data.get('uncertainty'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Reference", rec)
-    return rec, 201
-
-@app.route("/v1/references", methods=["GET"])
-def list_references(request):
-    """List References with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Reference")
-    rows = _apply_filters(rows, params, ['name', 'value', 'uncertainty', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/references/<eid>", methods=["GET"])
-def get_reference(request, eid):
-    """Retrieve a Reference by id (supports ?expand=)."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/references/<eid>", methods=["POST", "PATCH"])
-def update_reference(request, eid):
-    """Update a Reference."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'value', 'uncertainty', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Reference", rec)
-    return rec, 200
-
-@app.route("/v1/references/<eid>", methods=["DELETE"])
-def delete_reference(request, eid):
-    """Delete a Reference."""
-    rows = _query("Reference", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Reference", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/mappings", methods=["POST"])
-def create_mapping(request):
-    """Create a Mapping."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromCode', 'toScheme', 'toCode'])
-    if err:
-        return err, 400
-    err = _require(data, ['fromCode', 'toScheme'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bipmutc_map")}
-    rec["fromCode"] = data.get('fromCode')
-    rec["toScheme"] = data.get('toScheme')
-    rec["toCode"] = data.get('toCode')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Mapping", rec)
-    return rec, 201
-
-@app.route("/v1/mappings", methods=["GET"])
-def list_mappings(request):
-    """List Mappings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Mapping")
-    rows = _apply_filters(rows, params, ['fromCode', 'toScheme', 'toCode'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/mappings/<eid>", methods=["GET"])
-def get_mapping(request, eid):
-    """Retrieve a Mapping by id (supports ?expand=)."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/mappings/<eid>", methods=["POST", "PATCH"])
-def update_mapping(request, eid):
-    """Update a Mapping."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromCode', 'toScheme', 'toCode'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Mapping", rec)
-    return rec, 200
-
-@app.route("/v1/mappings/<eid>", methods=["DELETE"])
-def delete_mapping(request, eid):
-    """Delete a Mapping."""
-    rows = _query("Mapping", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Mapping", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/locations", methods=["POST"])
-def create_location(request):
-    """Create a Location."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['unLocode', 'name', 'country'])
-    if err:
-        return err, 400
-    err = _require(data, ['unLocode', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bipmutc_loc")}
-    rec["unLocode"] = data.get('unLocode')
-    rec["name"] = data.get('name')
-    rec["country"] = data.get('country')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Location", rec)
-    return rec, 201
-
-@app.route("/v1/locations", methods=["GET"])
-def list_locations(request):
-    """List Locations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Location")
-    rows = _apply_filters(rows, params, ['unLocode', 'name', 'country'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/locations/<eid>", methods=["GET"])
-def get_location(request, eid):
-    """Retrieve a Location by id (supports ?expand=)."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/locations/<eid>", methods=["POST", "PATCH"])
-def update_location(request, eid):
-    """Update a Location."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['unLocode', 'name', 'country'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Location", rec)
-    return rec, 200
-
-@app.route("/v1/locations/<eid>", methods=["DELETE"])
-def delete_location(request, eid):
-    """Delete a Location."""
-    rows = _query("Location", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Location", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/epoches", methods=["POST"])
-def create_epoch(request):
-    """Create a Epoch."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'utcOffset', 'asOf'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'utcOffset'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bipmutc_epo")}
-    rec["name"] = data.get('name')
-    rec["utcOffset"] = data.get('utcOffset')
-    rec["asOf"] = data.get('asOf')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Epoch", rec)
-    return rec, 201
-
-@app.route("/v1/epoches", methods=["GET"])
-def list_epoches(request):
-    """List Epoches with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Epoch")
-    rows = _apply_filters(rows, params, ['name', 'utcOffset', 'asOf'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/epoches/<eid>", methods=["GET"])
-def get_epoch(request, eid):
-    """Retrieve a Epoch by id (supports ?expand=)."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/epoches/<eid>", methods=["POST", "PATCH"])
-def update_epoch(request, eid):
-    """Update a Epoch."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'utcOffset', 'asOf'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Epoch", rec)
-    return rec, 200
-
-@app.route("/v1/epoches/<eid>", methods=["DELETE"])
-def delete_epoch(request, eid):
-    """Delete a Epoch."""
-    rows = _query("Epoch", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bipm_utc.Epoch", "id": eid})
+    db.retract({"entity": f"bipm_utc.Laboratory", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bipm_utc-compat", "tier": "L4",
-            "entities": ['Code', 'Unit', 'Reference', 'Mapping', 'Location', 'Epoch']}, 200
+            "entities": ['CircularT', 'UtcDifference', 'Laboratory']}, 200
 
 
 if __name__ == "__main__":

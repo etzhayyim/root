@@ -1718,17 +1718,14 @@
       "handle": "bipm_utc-compat",
       "platform": "bipm_utc",
       "bytes": 2122,
-      "wasmCid": "bafkreiezn4zde5bub6k4bgulusb2yfoyh7v7ymgyahuyj7onmfjcdberii",
+      "wasmCid": "bafkreihx53ifussk6jaycgrcoe56risxq6g5ga2szafr5c7n7aardxnkmq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Code",
-        "Unit",
-        "Reference",
-        "Mapping",
-        "Location",
-        "Epoch"
+        "CircularT",
+        "UtcDifference",
+        "Laboratory"
       ]
     },
     {
@@ -4628,17 +4625,14 @@
       "handle": "ecb-compat",
       "platform": "ecb",
       "bytes": 2117,
-      "wasmCid": "bafkreiabhu375jenfyjfljhkzgjnqxhebfhlgp6hrxdcrhftzmplkxydwe",
+      "wasmCid": "bafkreiccx7biw4o5cbpcns44vedfk44ozccvguwk2gd3hcgoitwums7qxm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Observation",
-        "Country",
-        "Series",
-        "Report",
-        "ExchangeRate"
+        "DataQuery",
+        "Dataflow",
+        "Series"
       ]
     },
     {

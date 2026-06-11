@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 203,
+  "count": 205,
   "actors": [
     {
       "handle": "aave-compat",
@@ -3942,6 +3942,60 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official binance-spot-api-docs. Enforced enums: Order.status(9), Order.type(7), Order.side(2), Order.timeInForce(3) = 4 enums (full arrays from enums.md)."
+    },
+    {
+      "handle": "bipm_utc-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://webtai.bipm.org/ftp/pub/tai/Circular-T/cirt/cirt.460 + https://webtai.bipm.org/ftp/pub/tai/other-products/notes/explanatory_supplement_v0.8.pdf",
+      "remodeled": "Remodeled to the faithful BIPM Circular T surface verified against the OFFICIAL live publication (cirt.460, 2026 MAY) and the Explanatory Supplement the Circular itself cites (PDF text-extracted per the argo/jma precedent — defines the sections and the uA/uB/u uncertainty semantics). Structure verified: Circular number + ISSN + issue date header, 'TAI-UTC = 37 s', the [UTC-UTC(k)]/ns laboratory table keyed by lab code + location with per-MJD values and uA/uB/u uncertainties. Laboratory codes are an open registry (laboratories join and leave) -> no enum enforced; this is a fields-verified L5. Carried twice on quota/404s; landed by harness-direct fetch after the Circular-T directory was found under its capitalized path.",
+      "resources": [
+        {
+          "entity": "CircularT",
+          "source": "https://webtai.bipm.org/ftp/pub/tai/Circular-T/cirt/cirt.460 + https://webtai.bipm.org/ftp/pub/tai/other-products/notes/explanatory_supplement_v0.8.pdf",
+          "verifiedFields": [
+            "number",
+            "issueDate",
+            "issn",
+            "taiMinusUtc"
+          ],
+          "fieldStatus": "confirmed (header of the live publication)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "UtcDifference",
+          "source": "https://webtai.bipm.org/ftp/pub/tai/Circular-T/cirt/cirt.460 + https://webtai.bipm.org/ftp/pub/tai/other-products/notes/explanatory_supplement_v0.8.pdf",
+          "verifiedFields": [
+            "laboratory",
+            "mjd",
+            "utcMinusUtck",
+            "uncertaintyA",
+            "uncertaintyB",
+            "uncertaintyTotal"
+          ],
+          "fieldStatus": "confirmed (section 1 table; uA/uB/u semantics from the supplement)",
+          "discoveredEnums": {},
+          "gaps": [
+            "NC-special-value (uncertainty not computed) recorded, not enforced"
+          ]
+        },
+        {
+          "entity": "Laboratory",
+          "source": "https://webtai.bipm.org/ftp/pub/tai/Circular-T/cirt/cirt.460 + https://webtai.bipm.org/ftp/pub/tai/other-products/notes/explanatory_supplement_v0.8.pdf",
+          "verifiedFields": [
+            "code",
+            "location"
+          ],
+          "fieldStatus": "confirmed (lab code + city parenthetical)",
+          "discoveredEnums": {},
+          "gaps": [
+            "laboratory-codes-open-registry (labs join/leave)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official BIPM publication + its explanatory supplement. No enum enforced (open lab registry) — a fields-verified L5. The world's time-coordination bulletin joins the corpus."
     },
     {
       "handle": "bird_scooters-compat",
@@ -8665,6 +8719,68 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs Dropbox official SDK. Enforced enums: SharedLink.requestedVisibility, SharedLink.visibility, SharedFolder.accessType (3)."
+    },
+    {
+      "handle": "ecb-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://data.ecb.europa.eu/help/api/data (official ECB Data Portal API documentation)",
+      "remodeled": "Remodeled to the faithful ECB Data Portal (SDMX REST) surface verified against the OFFICIAL API documentation. DataQuery.detail enforced {full, dataonly, serieskeysonly, nodata} — all four values declared with their semantics in the official help ('full... This is the default / dataonly: the Attributes will be excluded / serieskeysonly: only the Time series / nodata: ... the Observations will not'). Parameters (startPeriod/endPeriod/updatedAfter/firstNObservations/lastNObservations/includeHistory) verified against the documented parameter list. Harness-direct (gemini quota window exhausted).",
+      "resources": [
+        {
+          "entity": "DataQuery",
+          "source": "https://data.ecb.europa.eu/help/api/data (official ECB Data Portal API documentation)",
+          "verifiedFields": [
+            "flowRef",
+            "key",
+            "startPeriod",
+            "endPeriod",
+            "updatedAfter",
+            "firstNObservations",
+            "lastNObservations",
+            "detail",
+            "includeHistory"
+          ],
+          "fieldStatus": "confirmed (documented request parameters)",
+          "discoveredEnums": {
+            "detail": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Dataflow",
+          "source": "https://data.ecb.europa.eu/help/api/data (official ECB Data Portal API documentation)",
+          "verifiedFields": [
+            "agencyID",
+            "version",
+            "name"
+          ],
+          "fieldStatus": "confirmed (flowRef components agencyID,flowId,version per the docs)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Series",
+          "source": "https://data.ecb.europa.eu/help/api/data (official ECB Data Portal API documentation)",
+          "verifiedFields": [
+            "seriesKey",
+            "frequency",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed (time-series concepts in the docs)",
+          "discoveredEnums": {},
+          "gaps": [
+            "frequency-codelist-CL_FREQ-not-enforced (SDMX codelist, externally versioned)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official ECB Data Portal API docs. Enforced enums: detail(4, doc-declared with semantics) = 1 enum field."
     },
     {
       "handle": "eclinicalworks-compat",

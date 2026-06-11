@@ -648,3 +648,19 @@ by harness-direct fetches per the §16.3 precedent).
 | googleads | googleapis versioned protos — each vN dir immutable on release (dbt-style) | Campaign.status(5) + servingStatus(7) + AdGroup.status(5) |
 | apple_visionos | Apple docs JSON API | ScenePhase(3, complete lifecycle) + ImmersionStyle(4) |
 | jma_weather | **first JP-government machine-readable-schema anchor**: the official XSD zip (xs:enumeration for Control.Status 通常/訓練/試験) + the normative format v1.3 PDF (text-extracted; declares InfoType 発表/更新/訂正/取消 — correcting the research hint's 3-value guess to 4) | status(3) + infoType(4) |
+
+### §16.12 /loop iteration 11 — wave 12: BIPM + ECB, harness-direct (205, 20.5%)
+
+bipm_utc + ecb → ledger **205** (795 L4 / 205 L5 = 20.5%), enforced 199
+actors / **828 enum fields**, verify PASS 0/0, 2/2 green. The gemini quota
+window stayed exhausted, so both actors landed entirely harness-direct
+(§16.3 precedent).
+
+| Actor | Anchor | Note |
+|---|---|---|
+| bipm_utc | the LIVE official Circular T (cirt.460) + the Explanatory Supplement it cites (pdftotext) | a **fields-verified L5 with zero enums** — laboratory codes are an open registry (labs join/leave); fabricating closedness was refused. The world's time-coordination bulletin joins the corpus |
+| ecb | official Data Portal API docs | detail(4) doc-declared with semantics; the SDMX CL_FREQ codelist left unenforced (externally versioned) |
+
+Carried twice → landed: the bipm Circular-T directory lives under a
+case-sensitive path (Circular-T, not circular-t) — path-casing now on the
+fetch-debug checklist.

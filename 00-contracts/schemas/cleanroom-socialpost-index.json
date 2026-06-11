@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 198,
-  "totalVerifiedEnumFields": 827,
+  "l5VerifiedActors": 199,
+  "totalVerifiedEnumFields": 828,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2767,8 +2767,8 @@
       "source": "ecb.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "ecdc-compat",

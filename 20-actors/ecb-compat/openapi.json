@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible intl org / central bank data actor (ecb); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ecb-compat",
-    "x-wasm-cid": "bafkreiabhu375jenfyjfljhkzgjnqxhebfhlgp6hrxdcrhftzmplkxydwe",
+    "x-wasm-cid": "bafkreiccx7biw4o5cbpcns44vedfk44ozccvguwk2gd3hcgoitwums7qxm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiabhu375jenfyjfljhkzgjnqxhebfhlgp6hrxdcrhftzmplkxydwe",
+      "url": "ipfs://bafkreiccx7biw4o5cbpcns44vedfk44ozccvguwk2gd3hcgoitwums7qxm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/indicators": {
+    "/v1/dataqueries": {
       "get": {
-        "summary": "List Indicators",
+        "summary": "List DataQueries",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Indicator"
+                        "$ref": "#/components/schemas/DataQuery"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Indicator",
+        "summary": "Create a DataQuery",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
+                "$ref": "#/components/schemas/DataQueryCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/indicators/{id}": {
+    "/v1/dataqueries/{id}": {
       "get": {
-        "summary": "Get a Indicator",
+        "summary": "Get a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Indicator",
+        "summary": "Update a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
+                "$ref": "#/components/schemas/DataQueryCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Indicator",
+        "summary": "Delete a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/observations": {
+    "/v1/dataflows": {
       "get": {
-        "summary": "List Observations",
+        "summary": "List Dataflows",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Observation"
+                        "$ref": "#/components/schemas/Dataflow"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Observation",
+        "summary": "Create a Dataflow",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/DataflowCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/observations/{id}": {
+    "/v1/dataflows/{id}": {
       "get": {
-        "summary": "Get a Observation",
+        "summary": "Get a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Observation",
+        "summary": "Update a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/DataflowCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -366,192 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Observation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/countries": {
-      "get": {
-        "summary": "List Countries",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Country"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Country",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Country"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/countries/{id}": {
-      "get": {
-        "summary": "Get a Country",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Country"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Country",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Country"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Country",
+        "summary": "Delete a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -757,376 +572,6 @@
         }
       }
     },
-    "/v1/reports": {
-      "get": {
-        "summary": "List Reports",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Report"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Report",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/reports/{id}": {
-      "get": {
-        "summary": "Get a Report",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Report",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Report",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/exchangerates": {
-      "get": {
-        "summary": "List ExchangeRates",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ExchangeRate"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ExchangeRate",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExchangeRateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/exchangerates/{id}": {
-      "get": {
-        "summary": "Get a ExchangeRate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ExchangeRate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExchangeRateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExchangeRate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ExchangeRate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/healthz": {
       "get": {
         "summary": "Health probe",
@@ -1140,23 +585,45 @@
   },
   "components": {
     "schemas": {
-      "Indicator": {
+      "DataQuery": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "code": {
+          "flowRef": {
             "type": "string"
           },
-          "name": {
+          "key": {
             "type": "string"
           },
-          "unit": {
+          "startPeriod": {
             "type": "string"
           },
-          "source": {
+          "endPeriod": {
             "type": "string"
+          },
+          "updatedAfter": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "firstNObservations": {
+            "type": "integer"
+          },
+          "lastNObservations": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "includeHistory": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,89 +635,61 @@
           }
         }
       },
-      "IndicatorCreate": {
+      "DataQueryCreate": {
         "type": "object",
         "properties": {
-          "code": {
+          "flowRef": {
             "type": "string"
           },
-          "name": {
+          "key": {
             "type": "string"
           },
-          "unit": {
+          "startPeriod": {
             "type": "string"
           },
-          "source": {
+          "endPeriod": {
             "type": "string"
+          },
+          "updatedAfter": {
+            "type": "string"
+          },
+          "firstNObservations": {
+            "type": "integer"
+          },
+          "lastNObservations": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "includeHistory": {
+            "type": "boolean"
           }
         },
         "required": [
-          "code",
-          "name"
+          "key",
+          "startPeriod"
         ]
       },
-      "Observation": {
+      "Dataflow": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "indicatorId": {
+          "agencyID": {
             "type": "string"
           },
-          "country": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ObservationCreate": {
-        "type": "object",
-        "properties": {
-          "indicatorId": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "country",
-          "period"
-        ]
-      },
-      "Country": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "iso3": {
+          "version": {
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "region": {
             "type": "string"
           },
           "createdAt": {
@@ -1263,22 +702,22 @@
           }
         }
       },
-      "CountryCreate": {
+      "DataflowCreate": {
         "type": "object",
         "properties": {
-          "iso3": {
+          "agencyID": {
+            "type": "string"
+          },
+          "version": {
             "type": "string"
           },
           "name": {
             "type": "string"
-          },
-          "region": {
-            "type": "string"
           }
         },
         "required": [
-          "iso3",
-          "name"
+          "agencyID",
+          "version"
         ]
       },
       "Series": {
@@ -1287,14 +726,15 @@
           "id": {
             "type": "string"
           },
-          "indicatorId": {
+          "seriesKey": {
             "type": "string"
           },
           "frequency": {
             "type": "string"
           },
-          "startPeriod": {
-            "type": "string"
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1309,113 +749,19 @@
       "SeriesCreate": {
         "type": "object",
         "properties": {
-          "indicatorId": {
+          "seriesKey": {
             "type": "string"
           },
           "frequency": {
             "type": "string"
           },
-          "startPeriod": {
+          "lastUpdated": {
             "type": "string"
           }
         },
         "required": [
-          "frequency",
-          "startPeriod"
-        ]
-      },
-      "Report": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "publishedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ReportCreate": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "publishedAt": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title",
-          "publishedAt"
-        ]
-      },
-      "ExchangeRate": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "base": {
-            "type": "string"
-          },
-          "quote": {
-            "type": "string"
-          },
-          "rate": {
-            "type": "number"
-          },
-          "asOf": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ExchangeRateCreate": {
-        "type": "object",
-        "properties": {
-          "base": {
-            "type": "string"
-          },
-          "quote": {
-            "type": "string"
-          },
-          "rate": {
-            "type": "number"
-          },
-          "asOf": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "base",
-          "quote"
+          "seriesKey",
+          "frequency"
         ]
       }
     }

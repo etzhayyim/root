@@ -2771,6 +2771,27 @@ PLATFORM_OVERRIDES["jma_weather"] = {
     "Head": E(title="string", reportDateTime="datetime", targetDateTime="datetime", validDateTime="datetime", eventID="string", infoType="string", serial="string", infoKind="string", infoKindVersion="string"),
 }
 
+# Faithful BIPM Circular T model (the official cirt files on
+# webtai.bipm.org + the Explanatory Supplement PDF the Circular itself
+# cites — text-extracted per the argo/jma precedent). Laboratory codes are
+# an open registry (labs join/leave) -> no enum; fields verified against
+# the live cirt.460 structure + supplement section definitions.
+PLATFORM_OVERRIDES["bipm_utc"] = {
+    "CircularT": E(number="integer", issueDate="datetime", issn="string", taiMinusUtc="integer"),
+    "UtcDifference": E(laboratory="string", mjd="integer", utcMinusUtck="float", uncertaintyA="float", uncertaintyB="float", uncertaintyTotal="float"),
+    "Laboratory": E(code="string", location="string"),
+}
+
+# Faithful ECB Data Portal API model (the official data-api.ecb.europa.eu
+# help — declares the SDMX REST surface). detail enforced
+# {full, dataonly, serieskeysonly, nodata} — all four declared with
+# semantics in the official docs.
+PLATFORM_OVERRIDES["ecb"] = {
+    "DataQuery": E(flowRef="string", key="string", startPeriod="string", endPeriod="string", updatedAfter="datetime", firstNObservations="integer", lastNObservations="integer", detail="string", includeHistory="boolean"),
+    "Dataflow": E(agencyID="string", version="string", name="string"),
+    "Series": E(seriesKey="string", frequency="string", lastUpdated="datetime"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the
