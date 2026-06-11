@@ -306,3 +306,28 @@ python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-pl
   niche of ibuki's food web — the colony feeds humanity, not only itself.
 - **Foraging** (`--forage`): cadence by HUNGER not clock — harvested anchors vs frontier tips,
   and substrate-starvation → fruit (switch source). The daily routine reads `out/forage-plan.json`.
+
+## kotoba-native routine — self-expansion on etzhayyim's OWN fleet, not Claude-cloud (ADR-2606092000)
+
+The recurring loop runs on the **Mac-mini fleet** (`70-tools/scripts/fleet-heartbeat/heartbeat.sh`
+beats `methods/autorun.py`), recording each cycle on the **local append-only kotoba Datom log** —
+**zero dependency on Anthropic's cron-routine cloud** (which is also network-blocked for WDQS/GLEIF,
+so it could only re-promote offline fixtures). Self-sovereign substrate, mirroring ibuki/shionome.
+
+```bash
+python3 20-actors/tsumugi/methods/autorun.py --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
+ACTORS="tsumugi" 70-tools/scripts/fleet-heartbeat/heartbeat.sh   # via the fleet beat (tsumugi is in DEFAULT_ACTORS)
+```
+
+- **A beat is OFFLINE + deterministic + fail-open**: forage (粘菌/菌糸 growth plan) → publish
+  (植物-producer: regenerate the provider linked-data so etzhayyim keeps FEEDING others) → measure
+  (coverage + seed stats) → append a content-addressed `:tsumugi.cycle/*` tx (chain-verified;
+  same seed + same beat index → byte-identical head CID). Local log is `.gitignore`'d / regenerable.
+- **Live WDQS/GLEIF ingest stays operator-gated** (`TSUMUGI_OPERATOR_GATE`, run on the fleet where
+  network IS available) — the heartbeat beats only the offline metabolism, never live I/O (kanjo
+  EDGAR pattern). Scheduling = a fleet-node `cron`/`launchd` entry calling heartbeat.sh — on
+  etzhayyim's own machines, recorded on its own kotoba log.
+
+```bash
+python3 20-actors/tsumugi/tests/test_autorun.py   # 11 tests (content-addressed chain + determinism)
+```

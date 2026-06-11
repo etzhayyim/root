@@ -33,7 +33,7 @@ LOG_ROTATE_MB="${LOG_ROTATE_MB:-16}"
 KEEP_ARCHIVES="${KEEP_ARCHIVES:-3}"
 # actor → autorun dir (relative to repo root). tadori is case-anchored (needs TADORI_CASE_ID)
 # so it is opt-in via ACTORS rather than part of the default beat.
-DEFAULT_ACTORS="shionome kanjo kabuto kosatsu keizu danjo watari watatsuna sukashi ipaddress yabai"
+DEFAULT_ACTORS="shionome kanjo kabuto kosatsu keizu danjo tsumugi watari watatsuna sukashi ipaddress yabai"
 ACTORS="${ACTORS:-$DEFAULT_ACTORS}"
 
 # segment an actor's local Datom log when it exceeds the size threshold (see header)
