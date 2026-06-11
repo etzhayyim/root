@@ -23751,6 +23751,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111300-pq-hybrid-crypto-layer.md",
+      "id": "adr-2606111300-pq-hybrid-crypto-layer",
+      "title": "ADR-2606111300: pqh-v1 post-quantum hybrid cryptography layer in @etzhayyim/sdk",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "pq-hybrid-crypto-layer",
+      "authoritative": true,
+      "authoritative_for": [
+        "post-quantum hybrid KEM and dual-signature suite (pqh-v1)"
+      ],
+      "related": [
+        "security-quantum-singularity-crypto-survivability",
+        "security-crypto-agility-policy"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin.md",
       "id": "adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
       "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
@@ -26317,6 +26341,27 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-03-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/security/2606111200-quantum-singularity-crypto-survivability.md",
+      "id": "security-quantum-singularity-crypto-survivability",
+      "title": "暗号は無意味になるか — 量子計算機・シンギュラリティ下における etzhayyim 暗号基盤の生存性: 統計・数理分析",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "post-quantum",
+      "authoritative": true,
+      "authoritative_for": [
+        "quantum threat model and post-quantum migration rationale"
+      ],
+      "related": [
+        "security-crypto-agility-policy",
+        "security-readme"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-11",
       "amends": [],
       "amended_by": []
     },

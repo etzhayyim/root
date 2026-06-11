@@ -22,6 +22,7 @@ superseded_by: []
 This folder defines the repository-wide security design for a zero-knowledge model with did:web + Passkey authentication.
 
 - `docs/security/260403-security-architecture-threat-key-consolidated.md` (authoritative)
+- `90-docs/security/2606111200-quantum-singularity-crypto-survivability.md` (quantum/singularity survivability paper → suite pqh-v1, ADR-2606111300)
 - `docs/security/crypto-agility-policy.md`
 - `docs/security/schemas/zk-v1-envelope.schema.json`
 - `docs/security/test-vectors/zk-v1-envelope.example.json`

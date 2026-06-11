@@ -15094,6 +15094,22 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111300-pq-hybrid-crypto-layer",
+      "type": "TechArticle",
+      "title": "ADR-2606111300: pqh-v1 post-quantum hybrid cryptography layer in @etzhayyim/sdk",
+      "status": "accepted",
+      "topic": "pq-hybrid-crypto-layer",
+      "authoritative": true,
+      "authoritativeFor": [
+        "post-quantum hybrid KEM and dual-signature suite (pqh-v1)"
+      ],
+      "related": [
+        "doc:security-quantum-singularity-crypto-survivability",
+        "doc:security-crypto-agility-policy"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
       "type": "TechArticle",
       "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
@@ -16946,6 +16962,22 @@
         "doc:security-key-management"
       ],
       "lastVerified": "2026-03-20"
+    },
+    {
+      "id": "doc:security-quantum-singularity-crypto-survivability",
+      "type": "Article",
+      "title": "暗号は無意味になるか — 量子計算機・シンギュラリティ下における etzhayyim 暗号基盤の生存性: 統計・数理分析",
+      "status": "active",
+      "topic": "post-quantum",
+      "authoritative": true,
+      "authoritativeFor": [
+        "quantum threat model and post-quantum migration rationale"
+      ],
+      "related": [
+        "doc:security-crypto-agility-policy",
+        "doc:security-readme"
+      ],
+      "lastVerified": "2026-06-11"
     },
     {
       "id": "doc:security-readme",
