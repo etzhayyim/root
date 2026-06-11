@@ -285,15 +285,35 @@ class KotobaClient:
             "User-Agent": USER_AGENT,
         }
 
+    RETRIES = 3
+
     def call(self, nsid: str, *, method: str = "GET", body=None, params=None):
         url = f"{self.base}/xrpc/{nsid}"
         if params:
             url += "?" + urllib.parse.urlencode(params)
         data = json.dumps(body).encode() if body is not None else None
-        req = urllib.request.Request(url, data=data, headers=self.headers,
-                                     method=method)
-        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
-            return json.load(resp)
+        last_err: Exception | None = None
+        for attempt in range(self.RETRIES + 1):
+            req = urllib.request.Request(url, data=data, headers=self.headers,
+                                         method=method)
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                    return json.load(resp)
+            except urllib.error.HTTPError as e:
+                # 4xx is a caller bug — don't mask it with retries.
+                if e.code < 500:
+                    raise
+                last_err = e
+                detail = e.read().decode(errors="replace")[:200]
+                print(f"  retryable {e.code} from {nsid} "
+                      f"(attempt {attempt + 1}/{self.RETRIES + 1}): {detail}")
+            except (TimeoutError, OSError) as e:
+                last_err = e
+                print(f"  retryable {type(e).__name__} from {nsid} "
+                      f"(attempt {attempt + 1}/{self.RETRIES + 1}): {e}")
+            if attempt < self.RETRIES:
+                time.sleep(2 ** attempt * 5)
+        raise last_err  # type: ignore[misc]
 
     def transact(self, graph_cid: str, tx_edn: str) -> dict:
         return self.call(
