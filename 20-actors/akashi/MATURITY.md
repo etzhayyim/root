@@ -46,3 +46,9 @@ the score remains capped because live collection is intentionally absent.
 1. Add additional real-world regulator/bulk fixtures before any platform page/API adapter.
 2. Add R1 source-policy transaction execution that still defaults rollback to disabled.
 3. Promote from R0 design maturity only after Council attestation and source review.
+
+## 2026-06-11 — adapter test coverage (loop iteration 2)
+
+| Item | Status | Evidence |
+|---|---|---|
+| Adapter unit + e2e tests | ✅ 21 green | `tests/test_adapters.py` — lexicon validator (every violation class), regulator fixture parser (determinism, content-addressing, source-limited gap preservation, domain/range normalization), dry-run pipeline against the real lexicons. Run: `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest tests/ -q` |

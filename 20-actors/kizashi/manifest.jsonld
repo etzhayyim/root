@@ -212,5 +212,15 @@
       "chigiriCrossActor": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
       "toritateCrossActor": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "NON-DIAGNOSTIC by constitution (G3, 医師法 §17) — 兆候 + consult recommendation ONLY; 'never diagnosis/treatment/adjudication' is the gate's own text",
+      "distribution-not-point": "attribution is PROBABILISTIC only (G3) — signs are sensed as likelihoods with a consult recommendation, never asserted as a point diagnosis",
+      "no-score-of-soul": "a body scan never becomes a score of the person — non-diagnostic boundary (G3) + anti-pseudoscience discipline; signs are sensed, persons are not rated",
+      "map-not-target": "biometric scan = 要配慮 PII, encrypted envelope MANDATORY with plaintext rejected at schema layer (G2) — a scan can never become a locator or registry entry"
+    }
   }
 }

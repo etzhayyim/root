@@ -164,5 +164,13 @@
     "parent": "/20-actors/kuni-umi/README.md",
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md",
     "landTrust": "/90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "harvest records witness-signed into lineage (G3) — the field's history appends, nothing erased",
+      "never-a-throne": "harvest truth by quorum: ≥2 robot Ed25519 + ≥1 human agronomist (G3); open-source firmware (G1) + open-source seed banks only, no patented varietals (G2) — no proprietary seat over the seed or the record"
+    }
   }
 }

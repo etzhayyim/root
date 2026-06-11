@@ -15077,6 +15077,31 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111000-seigyo-industrial-control-layer-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606111000: seigyo (制御) — open industrial control layer (PLC / SCADA / DCS-equivalent, ISA-95 L0–L2) Tier-B actor R0 charter",
+      "status": "proposed",
+      "topic": "seigyo-industrial-control-layer-r0",
+      "authoritative": true,
+      "authoritativeFor": [
+        "seigyo actor R0 charter",
+        "industrial control layer (ISA-95 L0–L2) single SoT: PLC runtime, SCADA, fieldbus, historian",
+        "`com.etzhayyim.seigyo.*` Lexicon namespace boundary",
+        "commercial DCS/PLC/SCADA vendor prohibition (generalizes ADR-2605265000 §1.9 from district-heat to ALL actors)",
+        "safety-path invariant (hardwired interlocks; software/inference advisory-only above L2)",
+        "PLC-program-as-attested-record lifecycle (IEC 61131-3 ST canonical, CID-addressed, runtime hash attestation)",
+        "aggregate-only northbound telemetry invariant (N7 inheritance; full-rate data never leaves site historian)",
+        "bounded-setpoint-envelope invariant for Murakumo optimization proposals"
+      ],
+      "related": [
+        "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
+        "doc:adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
+        "doc:adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "doc:adr-2605261100-hikari-energy-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111011",
       "type": "TechArticle",
       "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
@@ -15092,6 +15117,15 @@
         "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
       ],
       "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111100-seigyo-r1-benchtop-loop-commissioning",
+      "type": "TechArticle",
+      "title": "seigyo R1 — Benchtop temperature-PID loop commissioning and Council baseline (paired with igata R1 benchtop)",
+      "status": "proposed",
+      "topic": "seigyo/control-layer/benchtop-loop",
+      "authoritative": true,
+      "lastVerified": "2026-06-11T00:00:00Z"
     },
     {
       "id": "doc:adr-2606111300-pq-hybrid-crypto-layer",
@@ -15226,6 +15260,35 @@
         "doc:2605215000",
         "doc:2605231525"
       ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111824-session-close-review-merge-wave-adr-id-races",
+      "type": "TechArticle",
+      "title": "ADR-2606111824: Session close — review-and-merge wave (7 root PRs + 3 kotoba PRs) + ADR-id race ×2 renumber pattern",
+      "status": "accepted",
+      "topic": "session-close-review-merge-wave",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606112201",
+        "doc:adr-2606112301",
+        "doc:adr-2606112200",
+        "doc:adr-2606112300"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+      "type": "TechArticle",
+      "title": "ADR-2606111900: CC WET direct datom-native ingest — parquet を入力ワイヤからも排除",
+      "status": "accepted",
+      "topic": "cc-wet-direct-datom-ingest",
+      "authoritative": true,
+      "authoritativeFor": [
+        "cc-wet-direct-datom-ingest tool (70-tools/scripts/cc-direct-ingest/)",
+        "parquet-free CC corpus ingestion path"
+      ],
+      "related": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
       "lastVerified": "2026-06-11"
     },
     {

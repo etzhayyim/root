@@ -234,5 +234,13 @@
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md",
     "charterRider": "/CHARTER-RIDER.md",
     "methodologySource": "YouTube y0oF2UirEMk (IDRA Giga Press build-from-scratch documentary)"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "per-part partAttestation lineage, Ed25519 DID-bound (G4); process parameters fully disclosed (G3) — the casting's history appends and stays public",
+      "never-a-throne": "witness quorum ≥2 robot signers per partAttestation (G4) — no single-attestor seat; no proprietary closed alloys (G2)"
+    }
   }
 }

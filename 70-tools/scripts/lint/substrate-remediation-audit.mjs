@@ -111,6 +111,21 @@ function hasProjectionMarker(content) {
   return /(?:\/\/|#)\s*kotoba-datomic-projection\b/.test(content);
 }
 
+function isNestedRepoRoot(dir) {
+  // A populated git-submodule working tree carries a `.git` FILE (gitlink) at
+  // its root. Its content belongs to another repository with its own gates
+  // (e.g. 40-engine/kotoba, 40-engine/kami-engine), and the monorepo tracks
+  // only the pointer — scanning it would make the audit verdict depend on
+  // whether the submodule happens to be populated in this checkout
+  // (non-deterministic across machines/worktrees; the frozen allowlist holds
+  // zero submodule entries).
+  try {
+    return statSync(path.join(dir, ".git")).isFile();
+  } catch {
+    return false;
+  }
+}
+
 function* walk(dir) {
   let entries;
   try {
@@ -122,6 +137,7 @@ function* walk(dir) {
     const full = path.join(dir, e.name);
     if (e.isDirectory()) {
       if (e.name === "node_modules" || e.name === ".git" || e.name === "_archive") continue;
+      if (isNestedRepoRoot(full)) continue;
       yield* walk(full);
     } else if (e.isFile() && isScanned(e.name)) {
       yield full;

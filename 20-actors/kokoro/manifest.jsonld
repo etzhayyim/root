@@ -209,5 +209,16 @@
       "crossActorChigiri": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
       "crossActorKataribe": "/90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "NOT a clinical psychiatric entity (G3) — community-witnessed support renders no clinical verdict; human-in-loop ALWAYS, no AI-only intervention (G6)",
+      "no-score-of-soul": "no behavior modification (G5) and no scoring of anyone's inner life — support is witnessed presence, never assessment-as-number",
+      "map-not-target": "encrypted envelope MANDATORY + no video recording (G4) — inner-life content never aggregates into any locatable form",
+      "append-only": "kotoba-datomic attestation lineage (G2); records append, nothing erased",
+      "never-a-throne": "no central plaintext registry of inner lives — member-held envelope keys (G4); no all-souls observer view"
+    }
   }
 }

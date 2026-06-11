@@ -29,6 +29,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 **Foundation (Steps 1-24, all ✅ 2026-05-10 … 05-21)**: domain (CF Registrar) + `etzhayyim` org/repo + scaffold; **did:web LIVE 05-17** (CF Worker, curl + uniresolver verified); `amanomibashira`→`etzhayyim` code cutover (118 files); **13-ADR religious-corp constitutional wave** (ADR-2605192100 .. 2605192415); CHARTER-RIDER v2.0 + LANDS.md + Charter Rider on 39 pkgs; 5 Solidity contracts + Constitution.sol (38 const, 110/110 tests) + 4 lefthook lint hooks + Foundry/Anvil smoke; 28 Lexicons; Pregel cell catalog; Murakumo no-VKE mesh + **Murakumo-only inference invariant** (ADR-2605215000) + Charter Rider §2(i) no-commercial-GPU.
 
 **Live governance**: 🟡 Bootstrap Council Seats 2-5 RFP (2026-05-20 → **06-19**, see [`COUNCIL.md`](COUNCIL.md)) · ⏳ Base Sepolia testnet (post-Council) · ⏳ Mainnet + Phase 2 governance (post-testnet).
+**Council attestation = Pull Request review (founder operational premise, 2026-06-11)**: Bootstrap 期において、ADR の Council 付議・ratification・セル活性化 baseline 等の「Council attestation」は **GitHub Pull Request review として執行**する。Council 付議 = 該当変更の PR 化、attestation = PR の review approval(Lv6+ ≥N 閾値は approver 数に対応)。on-chain multisig(Base testnet 以降)へ移行するまでの bridging 運用であり、ADR 本文中の `COUNCIL_*_TX_HASH` / `*_REVIEW_CID` ゲートは PR merge 後にその PR URL / merge commit を暫定値として参照してよい。
+
 
 ### Substrate / infra / dataset / enforcement
 
