@@ -175,6 +175,8 @@ def test_registry_lint():
         assert p[":proc/deadline-rules"], p[":proc/id"]
         for dl in p[":proc/deadline-rules"]:
             assert dl[":dl/anchor"], (p[":proc/id"], dl)
+            # wave 27: 起算点の自己確認フラグは全期限ルール必須 (手書き漏れ防止)
+            assert dl.get(":dl/verify-service-date") is True, (p[":proc/id"], dl[":dl/label"])
         assert p[":proc/genuine-channels"], p[":proc/id"]
         # wave 15: there is ALWAYS someone to ask — no procedure ships without referrals
         assert p.get(":proc/refer-when"), p[":proc/id"]

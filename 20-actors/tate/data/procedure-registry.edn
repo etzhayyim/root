@@ -968,6 +968,24 @@
   :proc/verify-current-law true}
 
  ;; ── :in ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:in-termination" :proc/label "Termination / retrenchment (解雇・労働・インド)"
+  :proc/jurisdiction :in :proc/track :labor
+  :proc/trigger-keywords ["retrenchment" "your services stand terminated"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "ID Act の手続要件"
+    :dl/rule "workman の retrenchment は1か月の notice (または賃金) + 15日/年の補償が要件 — 不備は無効主張の余地; dispute は conciliation officer へ (s.2A 直接申立ては3年以内)"
+    :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/verify-service-date true}
+   {:dl/label "Gratuity (退職金)"
+    :dl/rule "5年以上勤続なら gratuity を30日以内に Form I で申請 (遅れても受理され得るが早く)"
+    :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :form-i :opt/kind :self-submit :opt/protective true
+    :opt/label "gratuity Form I + 未払賃金/PF の請求を書面で (EPFO ポータル)"}
+   {:opt/id :conciliation :opt/kind :self-submit :opt/label "labour department の conciliation officer へ申立て"}]
+  :proc/refer-when ["DLSA (無料法律扶助) / trade union" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:in-summons" :proc/label "Summons (民事訴訟・インド)"
   :proc/jurisdiction :in
   :proc/trigger-keywords ["written statement" "summons"]
@@ -1106,6 +1124,21 @@
   :proc/verify-current-law true}
 
  ;; ── :nz ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:nz-dismissal" :proc/label "Dismissal (解雇・労働・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :labor
+  :proc/trigger-keywords ["your employment is terminated" "personal grievance"]
+  :proc/genuine-channels [:mail :personal-service :email] ; NZ は雇用通知も email が一般的
+  :proc/deadline-rules
+  [{:dl/label "Personal grievance (90日)"
+    :dl/rule "personal grievance は dismissal から90日以内に雇用主へ raise — NZ 労働法で最も周知された期限 (sexual harassment は12か月)"
+    :dl/anchor "Employment Relations Act 2000 s.114" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :raise-pg :opt/kind :self-submit :opt/protective true
+    :opt/label "書面で personal grievance を raise (90日 — mediation は MBIE 無料)"}
+   {:opt/id :mediation :opt/kind :self-decide :opt/label "Employment Mediation Services (無料) → ERA"}]
+  :proc/refer-when ["Community Law / union" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:nz-disputes-tribunal" :proc/label "Disputes Tribunal claim (ニュージーランド)"
   :proc/jurisdiction :nz
   :proc/trigger-keywords ["disputes tribunal"]
@@ -1136,6 +1169,24 @@
   :proc/verify-current-law true}
 
  ;; ── :no ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:no-oppsigelse" :proc/label "Oppsigelse (解雇・労働・ノルウェー)"
+  :proc/jurisdiction :no :proc/track :labor
+  :proc/trigger-keywords ["oppsigelse"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Forhandlinger (協議請求)"
+    :dl/rule "oppsigelse を争う forhandlinger の請求は2 uker 以内 — 在職継続権 (stå i stilling) の起点にもなる"
+    :dl/anchor "arbeidsmiljøloven §17-3" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Søksmål (提訴)"
+    :dl/rule "無効 (ugyldighet) の søksmål は8 uker 以内・erstatning のみなら6か月以内 (forhandling 終了から起算)"
+    :dl/anchor "arbeidsmiljøloven §17-4" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :forhandlinger :opt/kind :self-submit :opt/protective true
+    :opt/label "書面で forhandlinger を請求 (2 uker — まず期限と stå i stilling を確保)"}
+   {:opt/id :fagforening :opt/kind :self-decide :opt/label "fagforening (組合) / NAV へ即登録"}]
+  :proc/refer-when ["fri rettshjelp (労働事件は対象になり得る)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:no-forliksklage" :proc/label "Innkalling til forliksrådet (強制調停・ノルウェー)"
   :proc/jurisdiction :no
   :proc/trigger-keywords ["forliksrådet" "forliksklage"]

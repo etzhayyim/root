@@ -848,6 +848,25 @@ def test_wave26_se_pl_ie_labor():
     assert any("s.41" in d["anchor"] for d in ie["deadlines"])
 
 
+def test_wave27_no_nz_in_labor():
+    """Wave 27: :no forhandlinger **2 uker** + søksmål 8 uker/6mnd (aml §17-3/17-4,
+    critical; stå i stilling) · :nz **personal grievance 90日** (ERA 2000 s.114,
+    critical; email genuine の労働通知) · :in ID Act 25F 手続要件 + gratuity Form I
+    30日 (PGA 1972)."""
+    ps, _ = _by_id()
+    no = ps["ntc:no-oppsigelse"]
+    assert no["status"] == ":genuine" and no["proc"] == "proc:no-oppsigelse"
+    assert no["deadlines"][0]["critical"] is True and "§17-3" in no["deadlines"][0]["anchor"]
+    nz = ps["ntc:nz-dismissal"]
+    assert nz["status"] == ":genuine" and nz["proc"] == "proc:nz-dismissal"
+    assert nz["channel"] == ":email"  # declared digital — NZ 雇用実務
+    assert "90日" in nz["deadlines"][0]["rule"]
+    ind = ps["ntc:in-retrench"]
+    assert ind["status"] == ":genuine" and ind["proc"] == "proc:in-termination"
+    assert any("25F" in d["anchor"] for d in ind["deadlines"])
+    assert any("Form I" in o["label"] for o in ind["options"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

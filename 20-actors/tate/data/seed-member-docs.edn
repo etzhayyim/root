@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 27 (:no/:nz/:in labor) ──────────────────────────────────────────────
+ {:notice/id "ntc:no-oppsigelse" :notice/label "NO oppsigelse (労働)"
+  :notice/jurisdiction :no
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "NOK"
+  :notice/sourcing :synthetic
+  :notice/text "Oppsigelse av ditt arbeidsforhold med lovbestemt frist."}
+
+ {:notice/id "ntc:nz-dismissal" :notice/label "NZ dismissal (email・労働)"
+  :notice/jurisdiction :nz
+  :notice/channel :email :notice/claim-amount 0 :notice/claim-currency "NZD"
+  :notice/sourcing :synthetic
+  :notice/text "We confirm your employment is terminated effective the stated date."}
+
+ {:notice/id "ntc:in-retrench" :notice/label "IN retrenchment notice (労働)"
+  :notice/jurisdiction :in
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of retrenchment under the applicable provisions, with one month's notice."}
+
  ;; ── wave 26 (:se/:pl/:ie labor) ──────────────────────────────────────────────
  {:notice/id "ntc:se-uppsagning" :notice/label "SE uppsägning (労働)"
   :notice/jurisdiction :se
