@@ -5,21 +5,69 @@
   "kind": "compat",
   "title": "edinet clean-room actor",
   "description": "Clean-room, API-compatible Japan / APAC e-government actor (edinet); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu",
+  "wasmCid": "bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu",
+  "ipfs": "ipfs://bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm",
   "schema": "schema/edinet.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/download/ESE140206.pdf (EDINET API仕様書 Version 2, 金融庁, 2026-06-03 更新)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Document",
+      "Metadata"
+    ],
+    "enums": {
+      "Document": {
+        "withdrawalStatus": [
+          "0",
+          "1",
+          "2"
+        ],
+        "docInfoEditStatus": [
+          "0",
+          "1",
+          "2"
+        ],
+        "disclosureStatus": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "xbrlFlag": [
+          "0",
+          "1"
+        ],
+        "pdfFlag": [
+          "0",
+          "1"
+        ],
+        "attachDocFlag": [
+          "0",
+          "1"
+        ],
+        "englishDocFlag": [
+          "0",
+          "1"
+        ],
+        "csvFlag": [
+          "0",
+          "1"
+        ],
+        "legalStatus": [
+          "0",
+          "1",
+          "2"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Filing",
-    "Corporation",
-    "Disclosure",
-    "Citizen",
-    "Application",
-    "Dataset"
+    "Document",
+    "Metadata"
   ],
   "adr": [
     "260607",
@@ -31,157 +79,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/filings",
-          "op": "create Filing"
+          "path": "/v1/documents",
+          "op": "create Document"
         },
         {
           "method": "GET",
-          "path": "/v1/filings",
-          "op": "list Filing"
+          "path": "/v1/documents",
+          "op": "list Document"
         },
         {
           "method": "GET",
-          "path": "/v1/filings/{id}",
-          "op": "get Filing"
+          "path": "/v1/documents/{id}",
+          "op": "get Document"
         },
         {
           "method": "PATCH",
-          "path": "/v1/filings/{id}",
-          "op": "update Filing"
+          "path": "/v1/documents/{id}",
+          "op": "update Document"
         },
         {
           "method": "DELETE",
-          "path": "/v1/filings/{id}",
-          "op": "delete Filing"
+          "path": "/v1/documents/{id}",
+          "op": "delete Document"
         },
         {
           "method": "POST",
-          "path": "/v1/corporations",
-          "op": "create Corporation"
+          "path": "/v1/metadatas",
+          "op": "create Metadata"
         },
         {
           "method": "GET",
-          "path": "/v1/corporations",
-          "op": "list Corporation"
+          "path": "/v1/metadatas",
+          "op": "list Metadata"
         },
         {
           "method": "GET",
-          "path": "/v1/corporations/{id}",
-          "op": "get Corporation"
+          "path": "/v1/metadatas/{id}",
+          "op": "get Metadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/corporations/{id}",
-          "op": "update Corporation"
+          "path": "/v1/metadatas/{id}",
+          "op": "update Metadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/corporations/{id}",
-          "op": "delete Corporation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/disclosures",
-          "op": "create Disclosure"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/disclosures",
-          "op": "list Disclosure"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/disclosures/{id}",
-          "op": "get Disclosure"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/disclosures/{id}",
-          "op": "update Disclosure"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/disclosures/{id}",
-          "op": "delete Disclosure"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/citizens",
-          "op": "create Citizen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/citizens",
-          "op": "list Citizen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/citizens/{id}",
-          "op": "get Citizen"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/citizens/{id}",
-          "op": "update Citizen"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/citizens/{id}",
-          "op": "delete Citizen"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/applications",
-          "op": "create Application"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/applications",
-          "op": "list Application"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/applications/{id}",
-          "op": "get Application"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/applications/{id}",
-          "op": "update Application"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/applications/{id}",
-          "op": "delete Application"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
+          "path": "/v1/metadatas/{id}",
+          "op": "delete Metadata"
         }
       ],
       "features": {
@@ -244,44 +192,239 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
-          "name": "create_filing",
-          "description": "Create a Filing.",
+          "name": "create_document",
+          "description": "Create a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "filerId": {
+              "docID": {
                 "type": "string"
               },
-              "form": {
+              "edinetCode": {
                 "type": "string"
               },
-              "fiscalYear": {
+              "secCode": {
+                "type": "string"
+              },
+              "jcn": {
+                "type": "string"
+              },
+              "filerName": {
+                "type": "string"
+              },
+              "fundCode": {
+                "type": "string"
+              },
+              "docTypeCode": {
+                "type": "string"
+              },
+              "periodStart": {
+                "type": "string"
+              },
+              "periodEnd": {
+                "type": "string"
+              },
+              "submitDateTime": {
+                "type": "string"
+              },
+              "docDescription": {
+                "type": "string"
+              },
+              "withdrawalStatus": {
+                "type": "string"
+              },
+              "docInfoEditStatus": {
+                "type": "string"
+              },
+              "disclosureStatus": {
+                "type": "string"
+              },
+              "xbrlFlag": {
+                "type": "string"
+              },
+              "pdfFlag": {
+                "type": "string"
+              },
+              "attachDocFlag": {
+                "type": "string"
+              },
+              "englishDocFlag": {
+                "type": "string"
+              },
+              "csvFlag": {
+                "type": "string"
+              },
+              "legalStatus": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "docID",
+              "edinetCode"
+            ]
+          }
+        },
+        {
+          "name": "list_documents",
+          "description": "List Documents.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_document",
+          "description": "Get a Document by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_document",
+          "description": "Update a Document.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "docID": {
+                "type": "string"
+              },
+              "edinetCode": {
+                "type": "string"
+              },
+              "secCode": {
+                "type": "string"
+              },
+              "jcn": {
+                "type": "string"
+              },
+              "filerName": {
+                "type": "string"
+              },
+              "fundCode": {
+                "type": "string"
+              },
+              "docTypeCode": {
+                "type": "string"
+              },
+              "periodStart": {
+                "type": "string"
+              },
+              "periodEnd": {
+                "type": "string"
+              },
+              "submitDateTime": {
+                "type": "string"
+              },
+              "docDescription": {
+                "type": "string"
+              },
+              "withdrawalStatus": {
+                "type": "string"
+              },
+              "docInfoEditStatus": {
+                "type": "string"
+              },
+              "disclosureStatus": {
+                "type": "string"
+              },
+              "xbrlFlag": {
+                "type": "string"
+              },
+              "pdfFlag": {
+                "type": "string"
+              },
+              "attachDocFlag": {
+                "type": "string"
+              },
+              "englishDocFlag": {
+                "type": "string"
+              },
+              "csvFlag": {
+                "type": "string"
+              },
+              "legalStatus": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_document",
+          "description": "Delete a Document.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_metadata",
+          "description": "Create a Metadata.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "parameterDate": {
+                "type": "string"
+              },
+              "parameterType": {
+                "type": "string"
+              },
+              "resultsetCount": {
+                "type": "integer"
+              },
+              "processDateTime": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "message": {
+                "type": "string"
               }
             },
             "required": [
-              "form",
-              "fiscalYear"
+              "title",
+              "parameterDate"
             ]
           }
         },
         {
-          "name": "list_filings",
-          "description": "List Filings.",
+          "name": "list_metadatas",
+          "description": "List Metadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_filing",
-          "description": "Get a Filing by id.",
+          "name": "get_metadata",
+          "description": "Get a Metadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,39 +438,33 @@
           }
         },
         {
-          "name": "update_filing",
-          "description": "Update a Filing.",
+          "name": "update_metadata",
+          "description": "Update a Metadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "filerId": {
+              "title": {
                 "type": "string"
               },
-              "form": {
+              "parameterDate": {
                 "type": "string"
               },
-              "fiscalYear": {
+              "parameterType": {
+                "type": "string"
+              },
+              "resultsetCount": {
+                "type": "integer"
+              },
+              "processDateTime": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_filing",
-          "description": "Delete a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "message": {
                 "type": "string"
               }
             },
@@ -337,407 +474,8 @@
           }
         },
         {
-          "name": "create_corporation",
-          "description": "Create a Corporation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "corporateNumber": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "corporateNumber"
-            ]
-          }
-        },
-        {
-          "name": "list_corporations",
-          "description": "List Corporations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_corporation",
-          "description": "Get a Corporation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_corporation",
-          "description": "Update a Corporation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "corporateNumber": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_corporation",
-          "description": "Delete a Corporation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_disclosure",
-          "description": "Create a Disclosure.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "corporationId": {
-                "type": "string"
-              },
-              "docType": {
-                "type": "string"
-              },
-              "submittedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "docType",
-              "submittedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_disclosures",
-          "description": "List Disclosures.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_disclosure",
-          "description": "Get a Disclosure by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_disclosure",
-          "description": "Update a Disclosure.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "corporationId": {
-                "type": "string"
-              },
-              "docType": {
-                "type": "string"
-              },
-              "submittedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_disclosure",
-          "description": "Delete a Disclosure.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_citizen",
-          "description": "Create a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "myNumber": {
-                "type": "string"
-              },
-              "municipality": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "myNumber",
-              "municipality"
-            ]
-          }
-        },
-        {
-          "name": "list_citizens",
-          "description": "List Citizens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_citizen",
-          "description": "Get a Citizen by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_citizen",
-          "description": "Update a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "myNumber": {
-                "type": "string"
-              },
-              "municipality": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_citizen",
-          "description": "Delete a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_application",
-          "description": "Create a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "citizenId": {
-                "type": "string"
-              },
-              "procedure": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "procedure",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_applications",
-          "description": "List Applications.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_application",
-          "description": "Get a Application by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_application",
-          "description": "Update a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "citizenId": {
-                "type": "string"
-              },
-              "procedure": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_application",
-          "description": "Delete a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "agency": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "agency"
-            ]
-          }
-        },
-        {
-          "name": "list_datasets",
-          "description": "List Datasets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "agency": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
+          "name": "delete_metadata",
+          "description": "Delete a Metadata.",
           "inputSchema": {
             "type": "object",
             "properties": {

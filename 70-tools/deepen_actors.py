@@ -2815,6 +2815,17 @@ PLATFORM_OVERRIDES["epsg_registry"] = {
 for _sdmx_agency in ("eurostat", "imf", "bis"):
     PLATFORM_OVERRIDES[_sdmx_agency] = PLATFORM_OVERRIDES["ecb"]
 
+# Faithful EDINET API v2 model (金融庁の公式 API 仕様書 ESE140206 PDF,
+# text-extracted per the argo/jma precedent). Nine flag/status enums
+# enforced — every set is declared with per-value semantics in the spec
+# (取下/修正/不開示/縦覧 statuses + 5 binary document flags, all string-
+# typed "0"/"1"/... per the spec). docTypeCode gapped (様式コードリスト is
+# a large separately-published table that tracks 府令 changes).
+PLATFORM_OVERRIDES["edinet"] = {
+    "Document": E(docID="string", edinetCode="string", secCode="string", jcn="string", filerName="string", fundCode="string", docTypeCode="string", periodStart="datetime", periodEnd="datetime", submitDateTime="datetime", docDescription="string", withdrawalStatus="string", docInfoEditStatus="string", disclosureStatus="string", xbrlFlag="string", pdfFlag="string", attachDocFlag="string", englishDocFlag="string", csvFlag="string", legalStatus="string"),
+    "Metadata": E(title="string", parameterDate="datetime", parameterType="string", resultsetCount="integer", processDateTime="datetime", status="string", message="string"),
+}
+
 # Faithful FDIC BankFind Suite model (the official banks.data.fdic.gov API;
 # field surfaces from live entities per the real-object rule — 27,835
 # institutions live). BKCLASS/RESTYPE values observed-not-declared (the

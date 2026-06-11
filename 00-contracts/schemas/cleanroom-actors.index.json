@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 790,
-    "L5": 210
+    "L4": 789,
+    "L5": 211
   },
   "actors": [
     {
@@ -5093,10 +5093,10 @@
     {
       "handle": "edinet-compat",
       "did": "did:web:etzhayyim.com:actor:edinet-compat",
-      "wasmCid": "bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu",
+      "wasmCid": "bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "edinet clean-room actor",
       "category": "japan_apac_egov",
       "capabilities": [

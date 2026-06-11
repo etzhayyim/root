@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 210,
+  "count": 211,
   "actors": [
     {
       "handle": "aave-compat",
@@ -8995,6 +8995,106 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs HL7 FHIR R4 value sets (eClinicalWorks ONC g10-certified FHIR R4, HL7 registry product_id=461). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 value sets (38 values)."
+    },
+    {
+      "handle": "edinet-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/download/ESE140206.pdf (EDINET API仕様書 Version 2, 金融庁, 2026-06-03 更新)",
+      "remodeled": "Remodeled to the faithful EDINET API v2 document-list surface verified against 金融庁's OFFICIAL API specification PDF (text-extracted per the argo/jma precedent; the numbered field table + per-value semantics read directly). NINE declared enums enforced — every value carries spec-prose semantics: withdrawalStatus {0,1,2} (取下書=1/取り下げられた書類=2/それ以外=0), docInfoEditStatus {0,1,2}, disclosureStatus {0,1,2,3} (不開示開始=1/不開示中=2/解除=3), xbrlFlag/pdfFlag/attachDocFlag/englishDocFlag/csvFlag {0,1} each, legalStatus {0,1,2} (縦覧中=1/延長期間中=2/閲覧期間満了=0). All string-typed per the spec. docTypeCode gapped: the 様式コードリスト is a large separately-published annex that tracks 府令 changes. Second JP-government anchor after jma_weather. Harness-direct (gemini quota window still exhausted).",
+      "resources": [
+        {
+          "entity": "Document",
+          "source": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/download/ESE140206.pdf (EDINET API仕様書 Version 2, 金融庁, 2026-06-03 更新)",
+          "verifiedFields": [
+            "docID",
+            "edinetCode",
+            "secCode",
+            "jcn",
+            "filerName",
+            "fundCode",
+            "docTypeCode",
+            "periodStart",
+            "periodEnd",
+            "submitDateTime",
+            "docDescription",
+            "withdrawalStatus",
+            "docInfoEditStatus",
+            "disclosureStatus",
+            "xbrlFlag",
+            "pdfFlag",
+            "attachDocFlag",
+            "englishDocFlag",
+            "csvFlag",
+            "legalStatus"
+          ],
+          "fieldStatus": "confirmed (numbered field table of the official spec)",
+          "discoveredEnums": {
+            "withdrawalStatus": [
+              "0",
+              "1",
+              "2"
+            ],
+            "docInfoEditStatus": [
+              "0",
+              "1",
+              "2"
+            ],
+            "disclosureStatus": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "xbrlFlag": [
+              "0",
+              "1"
+            ],
+            "pdfFlag": [
+              "0",
+              "1"
+            ],
+            "attachDocFlag": [
+              "0",
+              "1"
+            ],
+            "englishDocFlag": [
+              "0",
+              "1"
+            ],
+            "csvFlag": [
+              "0",
+              "1"
+            ],
+            "legalStatus": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "gaps": [
+            "docTypeCode-様式コードリスト-annex (large, tracks 府令 changes)"
+          ]
+        },
+        {
+          "entity": "Metadata",
+          "source": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/download/ESE140206.pdf (EDINET API仕様書 Version 2, 金融庁, 2026-06-03 更新)",
+          "verifiedFields": [
+            "title",
+            "parameterDate",
+            "parameterType",
+            "resultsetCount",
+            "processDateTime",
+            "status",
+            "message"
+          ],
+          "fieldStatus": "confirmed (metadata block; parameter/resultset flattened)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs 金融庁's official API spec. Enforced enums: 9 fields (23 values total, every one with declared semantics) — the largest single-entity declared-enum haul in the corpus."
     },
     {
       "handle": "eidas-compat",

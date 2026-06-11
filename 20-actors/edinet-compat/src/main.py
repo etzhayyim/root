@@ -111,53 +111,174 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
+@app.route("/v1/documents", methods=["POST"])
+def create_document(request):
+    """Create a Document."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'fiscalYear', 'status'])
+    err = _reject_unknown(data, ['docID', 'edinetCode', 'secCode', 'jcn', 'filerName', 'fundCode', 'docTypeCode', 'periodStart', 'periodEnd', 'submitDateTime', 'docDescription', 'withdrawalStatus', 'docInfoEditStatus', 'disclosureStatus', 'xbrlFlag', 'pdfFlag', 'attachDocFlag', 'englishDocFlag', 'csvFlag', 'legalStatus'])
     if err:
         return err, 400
-    err = _require(data, ['form', 'fiscalYear'])
+    err = _require(data, ['docID', 'edinetCode'])
     if err:
         return err, 400
-    rec = {"id": new_id("edinet_fil")}
-    rec["filerId"] = data.get('filerId')
-    rec["form"] = data.get('form')
-    rec["fiscalYear"] = data.get('fiscalYear')
+    if data.get('withdrawalStatus') and data['withdrawalStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid withdrawalStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('docInfoEditStatus') and data['docInfoEditStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid docInfoEditStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('disclosureStatus') and data['disclosureStatus'] not in ['0', '1', '2', '3']:
+        return {"error": {"message": "invalid disclosureStatus; allowed: " + ", ".join(['0', '1', '2', '3']), "type": "invalid_request_error"}}, 400
+    if data.get('xbrlFlag') and data['xbrlFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid xbrlFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('pdfFlag') and data['pdfFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid pdfFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('attachDocFlag') and data['attachDocFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid attachDocFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('englishDocFlag') and data['englishDocFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid englishDocFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('csvFlag') and data['csvFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid csvFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('legalStatus') and data['legalStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid legalStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("edinet_doc")}
+    rec["docID"] = data.get('docID')
+    rec["edinetCode"] = data.get('edinetCode')
+    rec["secCode"] = data.get('secCode')
+    rec["jcn"] = data.get('jcn')
+    rec["filerName"] = data.get('filerName')
+    rec["fundCode"] = data.get('fundCode')
+    rec["docTypeCode"] = data.get('docTypeCode')
+    rec["periodStart"] = data.get('periodStart')
+    rec["periodEnd"] = data.get('periodEnd')
+    rec["submitDateTime"] = data.get('submitDateTime')
+    rec["docDescription"] = data.get('docDescription')
+    rec["withdrawalStatus"] = data.get('withdrawalStatus')
+    rec["docInfoEditStatus"] = data.get('docInfoEditStatus')
+    rec["disclosureStatus"] = data.get('disclosureStatus')
+    rec["xbrlFlag"] = data.get('xbrlFlag')
+    rec["pdfFlag"] = data.get('pdfFlag')
+    rec["attachDocFlag"] = data.get('attachDocFlag')
+    rec["englishDocFlag"] = data.get('englishDocFlag')
+    rec["csvFlag"] = data.get('csvFlag')
+    rec["legalStatus"] = data.get('legalStatus')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Document", rec)
+    return rec, 201
+
+@app.route("/v1/documents", methods=["GET"])
+def list_documents(request):
+    """List Documents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Document")
+    rows = _apply_filters(rows, params, ['docID', 'edinetCode', 'secCode', 'jcn', 'filerName', 'fundCode', 'docTypeCode', 'periodStart', 'periodEnd', 'submitDateTime', 'docDescription', 'withdrawalStatus', 'docInfoEditStatus', 'disclosureStatus', 'xbrlFlag', 'pdfFlag', 'attachDocFlag', 'englishDocFlag', 'csvFlag', 'legalStatus'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/documents/<eid>", methods=["GET"])
+def get_document(request, eid):
+    """Retrieve a Document by id (supports ?expand=)."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
+def update_document(request, eid):
+    """Update a Document."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['docID', 'edinetCode', 'secCode', 'jcn', 'filerName', 'fundCode', 'docTypeCode', 'periodStart', 'periodEnd', 'submitDateTime', 'docDescription', 'withdrawalStatus', 'docInfoEditStatus', 'disclosureStatus', 'xbrlFlag', 'pdfFlag', 'attachDocFlag', 'englishDocFlag', 'csvFlag', 'legalStatus'])
+    if err:
+        return err, 400
+    if data.get('withdrawalStatus') and data['withdrawalStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid withdrawalStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('docInfoEditStatus') and data['docInfoEditStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid docInfoEditStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    if data.get('disclosureStatus') and data['disclosureStatus'] not in ['0', '1', '2', '3']:
+        return {"error": {"message": "invalid disclosureStatus; allowed: " + ", ".join(['0', '1', '2', '3']), "type": "invalid_request_error"}}, 400
+    if data.get('xbrlFlag') and data['xbrlFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid xbrlFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('pdfFlag') and data['pdfFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid pdfFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('attachDocFlag') and data['attachDocFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid attachDocFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('englishDocFlag') and data['englishDocFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid englishDocFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('csvFlag') and data['csvFlag'] not in ['0', '1']:
+        return {"error": {"message": "invalid csvFlag; allowed: " + ", ".join(['0', '1']), "type": "invalid_request_error"}}, 400
+    if data.get('legalStatus') and data['legalStatus'] not in ['0', '1', '2']:
+        return {"error": {"message": "invalid legalStatus; allowed: " + ", ".join(['0', '1', '2']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Document", rec)
+    return rec, 200
+
+@app.route("/v1/documents/<eid>", methods=["DELETE"])
+def delete_document(request, eid):
+    """Delete a Document."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"edinet.Document", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/metadatas", methods=["POST"])
+def create_metadata(request):
+    """Create a Metadata."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'parameterDate', 'parameterType', 'resultsetCount', 'processDateTime', 'status', 'message'])
+    if err:
+        return err, 400
+    err = _require(data, ['title', 'parameterDate'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("edinet_met")}
+    rec["title"] = data.get('title')
+    rec["parameterDate"] = data.get('parameterDate')
+    rec["parameterType"] = data.get('parameterType')
+    rec["resultsetCount"] = _as_int(data.get('resultsetCount'))
+    rec["processDateTime"] = data.get('processDateTime')
     rec["status"] = data.get('status')
+    rec["message"] = data.get('message')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
+    _persist("Metadata", rec)
     return rec, 201
 
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
+@app.route("/v1/metadatas", methods=["GET"])
+def list_metadatas(request):
+    """List Metadatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['filerId', 'form', 'fiscalYear', 'status'])
+    rows = _query("Metadata")
+    rows = _apply_filters(rows, params, ['title', 'parameterDate', 'parameterType', 'resultsetCount', 'processDateTime', 'status', 'message'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
+@app.route("/v1/metadatas/<eid>", methods=["GET"])
+def get_metadata(request, eid):
+    """Retrieve a Metadata by id (supports ?expand=)."""
+    rows = _query("Metadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/metadatas/<eid>", methods=["POST", "PATCH"])
+def update_metadata(request, eid):
+    """Update a Metadata."""
+    rows = _query("Metadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'form', 'fiscalYear', 'status'])
+    err = _reject_unknown(data, ['title', 'parameterDate', 'parameterType', 'resultsetCount', 'processDateTime', 'status', 'message'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,348 +286,22 @@ def update_filing(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Filing", rec)
+    _persist("Metadata", rec)
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/metadatas/<eid>", methods=["DELETE"])
+def delete_metadata(request, eid):
+    """Delete a Metadata."""
+    rows = _query("Metadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Filing", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/corporations", methods=["POST"])
-def create_corporation(request):
-    """Create a Corporation."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'corporateNumber', 'jurisdiction'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'corporateNumber'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("edinet_cor")}
-    rec["name"] = data.get('name')
-    rec["corporateNumber"] = data.get('corporateNumber')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Corporation", rec)
-    return rec, 201
-
-@app.route("/v1/corporations", methods=["GET"])
-def list_corporations(request):
-    """List Corporations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Corporation")
-    rows = _apply_filters(rows, params, ['name', 'corporateNumber', 'jurisdiction'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/corporations/<eid>", methods=["GET"])
-def get_corporation(request, eid):
-    """Retrieve a Corporation by id (supports ?expand=)."""
-    rows = _query("Corporation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/corporations/<eid>", methods=["POST", "PATCH"])
-def update_corporation(request, eid):
-    """Update a Corporation."""
-    rows = _query("Corporation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'corporateNumber', 'jurisdiction'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Corporation", rec)
-    return rec, 200
-
-@app.route("/v1/corporations/<eid>", methods=["DELETE"])
-def delete_corporation(request, eid):
-    """Delete a Corporation."""
-    rows = _query("Corporation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Corporation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/disclosures", methods=["POST"])
-def create_disclosure(request):
-    """Create a Disclosure."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['corporationId', 'docType', 'submittedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['docType', 'submittedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("edinet_dis")}
-    rec["corporationId"] = data.get('corporationId')
-    rec["docType"] = data.get('docType')
-    rec["submittedAt"] = data.get('submittedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Disclosure", rec)
-    return rec, 201
-
-@app.route("/v1/disclosures", methods=["GET"])
-def list_disclosures(request):
-    """List Disclosures with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Disclosure")
-    rows = _apply_filters(rows, params, ['corporationId', 'docType', 'submittedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/disclosures/<eid>", methods=["GET"])
-def get_disclosure(request, eid):
-    """Retrieve a Disclosure by id (supports ?expand=)."""
-    rows = _query("Disclosure", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'corporationId': 'Corporation'})
-    return rec, 200
-
-@app.route("/v1/disclosures/<eid>", methods=["POST", "PATCH"])
-def update_disclosure(request, eid):
-    """Update a Disclosure."""
-    rows = _query("Disclosure", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['corporationId', 'docType', 'submittedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Disclosure", rec)
-    return rec, 200
-
-@app.route("/v1/disclosures/<eid>", methods=["DELETE"])
-def delete_disclosure(request, eid):
-    """Delete a Disclosure."""
-    rows = _query("Disclosure", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Disclosure", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/citizens", methods=["POST"])
-def create_citizen(request):
-    """Create a Citizen."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['myNumber', 'municipality'])
-    if err:
-        return err, 400
-    err = _require(data, ['myNumber', 'municipality'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("edinet_cit")}
-    rec["myNumber"] = data.get('myNumber')
-    rec["municipality"] = data.get('municipality')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Citizen", rec)
-    return rec, 201
-
-@app.route("/v1/citizens", methods=["GET"])
-def list_citizens(request):
-    """List Citizens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Citizen")
-    rows = _apply_filters(rows, params, ['myNumber', 'municipality'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/citizens/<eid>", methods=["GET"])
-def get_citizen(request, eid):
-    """Retrieve a Citizen by id (supports ?expand=)."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["POST", "PATCH"])
-def update_citizen(request, eid):
-    """Update a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['myNumber', 'municipality'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Citizen", rec)
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["DELETE"])
-def delete_citizen(request, eid):
-    """Delete a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Citizen", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/applications", methods=["POST"])
-def create_application(request):
-    """Create a Application."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'procedure', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['procedure', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("edinet_app")}
-    rec["citizenId"] = data.get('citizenId')
-    rec["procedure"] = data.get('procedure')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Application", rec)
-    return rec, 201
-
-@app.route("/v1/applications", methods=["GET"])
-def list_applications(request):
-    """List Applications with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Application")
-    rows = _apply_filters(rows, params, ['citizenId', 'procedure', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/applications/<eid>", methods=["GET"])
-def get_application(request, eid):
-    """Retrieve a Application by id (supports ?expand=)."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'citizenId': 'Citizen'})
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
-def update_application(request, eid):
-    """Update a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'procedure', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Application", rec)
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["DELETE"])
-def delete_application(request, eid):
-    """Delete a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Application", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'agency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("edinet_dat")}
-    rec["name"] = data.get('name')
-    rec["agency"] = data.get('agency')
-    rec["updatedAt"] = data.get('updatedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
-    return rec, 201
-
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'agency', 'updatedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'agency', 'updatedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Dataset", rec)
-    return rec, 200
-
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"edinet.Dataset", "id": eid})
+    db.retract({"entity": f"edinet.Metadata", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "edinet-compat", "tier": "L4",
-            "entities": ['Filing', 'Corporation', 'Disclosure', 'Citizen', 'Application', 'Dataset']}, 200
+            "entities": ['Document', 'Metadata']}, 200
 
 
 if __name__ == "__main__":

@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 202,
-  "totalVerifiedEnumFields": 831,
+  "l5VerifiedActors": 203,
+  "totalVerifiedEnumFields": 840,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2837,8 +2837,8 @@
       "source": "edinet.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 9
     },
     {
       "handle": "eea_europe-compat",

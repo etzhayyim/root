@@ -4738,17 +4738,13 @@
       "handle": "edinet-compat",
       "platform": "edinet",
       "bytes": 2120,
-      "wasmCid": "bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu",
+      "wasmCid": "bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Filing",
-        "Corporation",
-        "Disclosure",
-        "Citizen",
-        "Application",
-        "Dataset"
+        "Document",
+        "Metadata"
       ]
     },
     {

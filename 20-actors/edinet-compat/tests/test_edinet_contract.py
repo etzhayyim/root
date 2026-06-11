@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "edinet.kotoba")
-ENTITIES = ['Filing', 'Corporation', 'Disclosure', 'Citizen', 'Application', 'Dataset']
-PLURALS = {'Filing': 'filings', 'Corporation': 'corporations', 'Disclosure': 'disclosures', 'Citizen': 'citizens', 'Application': 'applications', 'Dataset': 'datasets'}
+ENTITIES = ['Document', 'Metadata']
+PLURALS = {'Document': 'documents', 'Metadata': 'metadatas'}
 
 
 class EdinetContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class EdinetContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['attachDocFlag', 'csvFlag', 'disclosureStatus', 'docInfoEditStatus', 'englishDocFlag', 'legalStatus', 'pdfFlag', 'withdrawalStatus', 'xbrlFlag']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

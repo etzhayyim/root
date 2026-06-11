@@ -706,3 +706,16 @@ bis + fdic → ledger **210** (790 L4 / 210 L5 = **21.0%**), enforced 202 /
 |---|---|
 | bis | SDMX family member #4 (ecb/eurostat/imf/bis): stats.bis.org/api/v1 serves live SDMX-ML 2.1 with the official v2_1 namespace — even its error messages are namespaced SDMX |
 | fdic | the official BankFind Suite live API (27,835 institutions at verification); Institution + Failure surfaces from live entities per the real-object rule; BKCLASS/RESTYPE observed-not-declared → enums refused (the third fields-verified L5) |
+
+### §16.16 /loop iteration 15 — wave 16: EDINET (211, 21.1%)
+
+edinet → ledger **211** (789 L4 / 211 L5 = 21.1%), enforced 203 / **840
+enum fields** (+9), verify PASS 0/0, contract suite green. Harness-direct.
+
+金融庁's official EDINET API v2 specification PDF (ESE140206, text-
+extracted) declares NINE flag/status enums on the Document entity, every
+value with prose semantics (取下/修正/不開示/縦覧 statuses + five binary
+document flags) — the largest single-entity declared-enum haul in the
+corpus, and the second JP-government anchor after jma_weather. docTypeCode
+honestly gapped (the 様式コードリスト annex is large and tracks 府令
+changes).

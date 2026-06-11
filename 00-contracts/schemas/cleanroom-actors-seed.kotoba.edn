@@ -3691,11 +3691,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible Japan / APAC e-government actor (edinet); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "edinet.kotoba"
-   :actor/wasm-cid "bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu"
+   :actor/wasm-cid "bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:edinet-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:edinet-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:edinet-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreid54g6d7ydcx7jhsyry5w7krlptlikkfv3qwdlwchn2ar4hltqtxm" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "eea_europe-compat"
    :actor/did "did:web:etzhayyim.com:actor:eea_europe-compat"
    :actor/kind :compat
