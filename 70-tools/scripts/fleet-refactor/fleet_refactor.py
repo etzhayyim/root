@@ -48,10 +48,11 @@ NODES = [
     ("benjamin", "100.75.169.8"),
     ("asher", "100.96.122.69"),
 ]
-MODEL = "gemma4:e4b"
+MODEL = "gemma4:e4b"  # --model で上書き可 (e.g. gemma4:12b-it-qat)
 PER_NODE_CONCURRENCY = 2
 MAX_SOURCE_CHARS = 16_000  # e4b コンテキスト保護; 超過ファイルは skip
 REQUEST_TIMEOUT_S = 420
+MAX_ATTEMPTS = 3
 RESULTS_LOG = Path("fleet-refactor-results.jsonl")
 
 LANG_BY_SUFFIX = {".py": "Python", ".ts": "TypeScript", ".tsx": "TypeScript (TSX)"}
@@ -69,7 +70,28 @@ Rules:
 - Keep the original file's docstring/comments as a top ;; comment block (translated to ;;).
 - Start the file with (ns <namespace>) derived from the file path.
 - If something cannot be expressed (FFI, platform API), stub it as a function that
-  throws (ex-info "TODO: port" {:from "<original symbol>"}) — never drop it silently."""
+  throws (ex-info "TODO: port" {:from "<original symbol>"}) — never drop it silently.
+- CRITICAL: every ( [ { must close. Count your brackets. Prefer many small top-level
+  defn forms over deeply nested ones. Use only clojure.core + clojure.string +
+  clojure.set + clojure.edn — never invent symbols (no if-contains?, no %? etc.).
+
+Example shape (Python → Clojure):
+
+```python
+# guards feedstock intake
+def is_allowed(feedstock):
+    return feedstock.get("kind") in {"waste-plastic", "biomass"}
+```
+
+```clojure
+;; guards feedstock intake
+(ns kamado.methods.feedstock-guard)
+
+(def allowed-kinds #{"waste-plastic" "biomass"})
+
+(defn is-allowed? [feedstock]
+  (contains? allowed-kinds (:kind feedstock)))
+```"""
 
 USER_TEMPLATE = """Convert this {lang} file to Clojure per the rules.
 
@@ -156,8 +178,10 @@ def port_file(pool: NodePool, src: Path) -> dict:
     if len(source) > MAX_SOURCE_CHARS:
         return {**rec, "status": "skip", "reason": f"too large ({len(source)} chars)"}
 
-    out = src.with_suffix(".clj")
     ns = ns_from_path(src)
+    # ns 最終セグメントとファイル名を一致させる (clj-kondo namespace-name-mismatch 対策;
+    # Clojure 規約: ns の '-' はファイル名では '_')
+    out = src.parent / (ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj")
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": USER_TEMPLATE.format(
@@ -168,8 +192,9 @@ def port_file(pool: NodePool, src: Path) -> dict:
     node, ip = pool.acquire()
     rec["node"] = node
     t0 = time.time()
+    lint_out = "model never produced a clojure block"
     try:
-        for attempt in (1, 2):
+        for attempt in range(1, MAX_ATTEMPTS + 1):
             try:
                 reply = chat(ip, messages)
             except (urllib.error.URLError, TimeoutError, OSError) as e:
@@ -185,7 +210,7 @@ def port_file(pool: NodePool, src: Path) -> dict:
             if ok:
                 return {**rec, "status": "ok", "out": str(out), "attempt": attempt,
                         "secs": round(time.time() - t0, 1)}
-            if attempt == 1:
+            if attempt < MAX_ATTEMPTS:
                 messages.append({"role": "assistant", "content": reply})
                 messages.append({"role": "user", "content":
                                  f"clj-kondo found errors — fix and re-output the full "
@@ -198,10 +223,13 @@ def port_file(pool: NodePool, src: Path) -> dict:
 
 
 def main() -> int:
+    global MODEL
     ap = argparse.ArgumentParser()
     ap.add_argument("files", nargs="+", help="source files, or '-' for stdin list")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--model", default=MODEL)
     args = ap.parse_args()
+    MODEL = args.model
 
     paths = []
     for f in args.files:
@@ -222,7 +250,11 @@ def main() -> int:
             RESULTS_LOG.open("a") as logf:
         futs = {ex.submit(port_file, pool, p): p for p in paths}
         for fut in concurrent.futures.as_completed(futs):
-            rec = fut.result()
+            try:
+                rec = fut.result()
+            except Exception as e:  # 1 ファイルの例外で全体を殺さない
+                rec = {"src": str(futs[fut]), "status": "error",
+                       "reason": f"harness exception: {e!r}"}
             done[rec["status"]] += 1
             logf.write(json.dumps(rec, ensure_ascii=False) + "\n")
             logf.flush()
