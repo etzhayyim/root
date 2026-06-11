@@ -74,6 +74,7 @@
  {:lt/id "concept.security-interest" :lt/kind :concept :lt/label "Security interest / collateral (担保)" :concept/code "security-interest" :lt/sourcing :authoritative}
  {:lt/id "concept.insurance" :lt/kind :concept :lt/label "Insurance (保険)" :concept/code "insurance" :lt/sourcing :authoritative}
  {:lt/id "concept.construction" :lt/kind :concept :lt/label "Construction / works contract (請負・建設)" :concept/code "construction" :lt/sourcing :authoritative}
+ {:lt/id "concept.force-majeure" :lt/kind :concept :lt/label "Force majeure / impossibility" :concept/code "force-majeure" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -362,6 +363,11 @@
  {:en/from "tmpl.lease-jp-en" :en/to "cl.lease-renewal-jp" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.lease-jp-en" :en/to "cl.lease-deposit-jp" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.lease-jp-en" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.lease-jp-en" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ ;; integrity fixes (validate.py) — use cl.force-majeure + instantiate it
+ {:en/from "tmpl.sales-intl" :en/to "cl.force-majeure" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "cl.force-majeure" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.force-majeure" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
 
  {:en/from "tmpl.employment-intl" :en/to "cl.labor-freedom-association" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
@@ -695,6 +701,7 @@
  {:en/from "cl.donation-irrevocable" :en/to "concept.donation" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.cooling-off" :en/to "concept.consumer-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.limitation-liability" :en/to "concept.limitation-liability" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.force-majeure" :en/to "concept.force-majeure" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  ;; coverage wave 2 — new clause→concept spine
  {:en/from "cl.heter-iska" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.no-interest-qard" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}

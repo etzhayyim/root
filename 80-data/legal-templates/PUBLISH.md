@@ -9,9 +9,9 @@
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
 |---|:--:|:--:|---:|---:|---|
 | Open-Content License Grant (Creative Commons Attribution 4.0) | en | INTL | 3 | 13 | `bafkreigiky2hz5iri…` |
-| Construction Works Contract | en | JP | 6 | 24 | `bafkreifs2fgu3ht4i…` |
+| Construction Works Contract | en | JP | 7 | 26 | `bafkreig6wd47k3aef…` |
 | 業務委託契約書 | ja | JP | 4 | 19 | `bafkreiccmcvt4zg2x…` |
-| Independent Consulting Services Agreement | en | INTL | 8 | 26 | `bafkreihxujwkcqes6…` |
+| Independent Consulting Services Agreement | en | INTL | 9 | 28 | `bafkreib6jbuml2woe…` |
 | 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 16 | `bafkreifwdj6hdjzql…` |
 | Distribution Agreement | en | EU | 6 | 16 | `bafkreibhomdgwjp74…` |
 | Charitable Donation & Grant Agreement | en | INTL | 2 | 11 | `bafkreibjtl2z2beks…` |
@@ -31,7 +31,7 @@
 | Insurance Policy Agreement | en | JP | 5 | 19 | `bafkreichcvmoft5ap…` |
 | Wohnraummietvertrag / Residential Lease (Germany) | en | DE | 6 | 21 | `bafkreieinvykwym72…` |
 | 住宅賃貸借契約書 | ja | JP | 5 | 15 | `bafkreiaik6p4odajr…` |
-| Residential Lease Agreement (Japan) | en | JP | 3 | 4 | `bafkreif65rwqlekm4…` |
+| Residential Lease Agreement (Japan) | en | JP | 4 | 14 | `bafkreidyc7iqjkmsn…` |
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
 | 無利息金銭消費貸借契約書 | ja | JP | 3 | 13 | `bafkreig2npvvenlfj…` |
 | Gegenseitige Geheimhaltungsvereinbarung | de | DE | 2 | 13 | `bafkreieamxkipjp7x…` |
@@ -43,7 +43,7 @@
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 12 | `bafkreifhbarshwydc…` |
 | General Partnership Agreement | en | INTL | 7 | 19 | `bafkreidjtqvsyezjx…` |
 | Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |
-| International Sale of Goods Agreement (CISG) | en | INTL | 9 | 34 | `bafkreidubeaaopze3…` |
+| International Sale of Goods Agreement (CISG) | en | INTL | 10 | 36 | `bafkreihvk3xuvqu2w…` |
 | Security Agreement | en | US | 4 | 15 | `bafkreigucffzdraau…` |
 | Service Level Agreement | en | INTL | 7 | 16 | `bafkreiey6izz3vnez…` |
 | Settlement & Release Agreement | en | INTL | 5 | 16 | `bafkreibyyyjhv63s2…` |

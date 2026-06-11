@@ -111,11 +111,23 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifs2fgu3ht4ijdawjri5rniocogiif4tx5pn26blmezqopg4fv5sm",
-      "bodySha256": "0xb2d14d4d9e7c42460b2628ec5a8709c6420bc9dfaf6ebc15b099839e6e16bd93",
-      "bytes": 3036,
-      "clauseCount": 6,
+      "bodyCid": "bafkreig6wd47k3aefdnh3ztworii5ap4ejmtb662aoebfhhv2ytjo3rawy",
+      "bodySha256": "0xdeb0f9f56c0428da7de67674508e81fc225930fbda0388129cf5d626976e20b6",
+      "bytes": 3233,
+      "clauseCount": 7,
       "statutes": [
+        {
+          "id": "st.cisg-79",
+          "citation": "CISG Art. 79",
+          "instrument": "UN Convention on Contracts for the International Sale of Goods (1980)",
+          "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
+        },
+        {
+          "id": "st.jp-civil-536",
+          "citation": "民法536条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
         {
           "id": "st.jp-civil-632",
           "citation": "民法632条",
@@ -403,11 +415,23 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihxujwkcqes6jwjxqqib3hxbeckaksufpj2tkfaz3pgenq7sdmp6m",
-      "bodySha256": "0xf7a26ca14092f26c9bc2080ecf70904a02a542bd3a9a8a0cede62361f90d8ff3",
-      "bytes": 3499,
-      "clauseCount": 8,
+      "bodyCid": "bafkreib6jbuml2woe6jlj7tyb7xazqhgv43qhu7e3ffykaf6k4cpnmjhae",
+      "bodySha256": "0x3e4868c5eace2792b4fe780fee0cc0e6af3703d3e4d94b8500be5704f6b12701",
+      "bytes": 3696,
+      "clauseCount": 9,
       "statutes": [
+        {
+          "id": "st.cisg-79",
+          "citation": "CISG Art. 79",
+          "instrument": "UN Convention on Contracts for the International Sale of Goods (1980)",
+          "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
+        },
+        {
+          "id": "st.jp-civil-536",
+          "citation": "民法536条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
         {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
@@ -3035,10 +3059,10 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreif65rwqlekm4fgq3vrugvi633mqp526ysk6iylpewrqwzyr2auuku",
-      "bodySha256": "0xbeec6d05914ce14d0dd6343551eded907f75ec495e4616f25a30b6711d029455",
-      "bytes": 1333,
-      "clauseCount": 3,
+      "bodyCid": "bafkreidyc7iqjkmsnosko2mu4vhhelz6zbx6tcr6qeggkw5q42ehbwmoye",
+      "bodySha256": "0x7817d104a9926ba4a76994e54e722f3ec86fe98a3e810c655bb0e68870d98ec1",
+      "bytes": 2243,
+      "clauseCount": 4,
       "statutes": [
         {
           "id": "st.jp-shakuchi-shakka",
@@ -3063,6 +3087,66 @@
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
           "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -4223,10 +4307,10 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidubeaaopze33f3sbmfxgfucfyt4ppjwtyofiiarg7hchpannkmwa",
-      "bodySha256": "0x740900073f24decbb90585b98b411713e3de9b4f0e2a10089be711de06b54cb0",
-      "bytes": 4031,
-      "clauseCount": 9,
+      "bodyCid": "bafkreihvk3xuvqu2wuzkpzqqf5voaqpcerb3doktw7oselabjpi4s24z74",
+      "bodySha256": "0xf556ef4ac29ab532a7e6102f6ae041e22443b1b953b7dd222c014bd1c96b99ff",
+      "bytes": 4229,
+      "clauseCount": 10,
       "statutes": [
         {
           "id": "st.cisg-35",
@@ -4419,6 +4503,18 @@
           "citation": "Digital Signature Act, Art. 3 (Korea)",
           "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        },
+        {
+          "id": "st.cisg-79",
+          "citation": "CISG Art. 79",
+          "instrument": "UN Convention on Contracts for the International Sale of Goods (1980)",
+          "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
+        },
+        {
+          "id": "st.jp-civil-536",
+          "citation": "民法536条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
         },
         {
           "id": "st.unidroit-2016",
