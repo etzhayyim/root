@@ -1,0 +1,14 @@
+{
+  "name": "etzhayyim-open-saas-console",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "open-saas operator console domain logic (tenancy / billing / usage / audit). Tests cover the deterministic domain functions.",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  }
+}
