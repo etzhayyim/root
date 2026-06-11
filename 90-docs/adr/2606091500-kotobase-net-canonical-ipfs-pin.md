@@ -5,7 +5,7 @@ status: active
 doc_type: adr
 topic: ipfs-pin-canonicalization
 authoritative: true
-last_verified: 2026-06-09
+last_verified: 2026-06-11
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -15,6 +15,7 @@ authoritative_for:
   - deps.toml [platform.kotobase_pin] config block
   - kotoba-store IpfsPinClient remote-pin default (KOTOBA_IPFS_PIN_ENDPOINT)
   - e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)
+  - ipfs-pinner kotobase provider (MST-CAR remote pin, ETZ_PINNER_PROVIDERS=kubo,kotobase)
 depends_on:
   - adr-2605241500-etzhayyim-dataset-cid-substrate
   - adr-2605262130-kotoba-storage-substrate-unification
@@ -120,3 +121,27 @@ as-is; new config + code use `kotobase.net`.
   *remote* pin on top of it (two-tier), not a replacement.
 - **Leave the e7m-dataset pinner local-only** → rejected: that left dataset
   CIDs undurable beyond a single workstation Kubo.
+
+# Update — ipfs-pinner kotobase provider (2026-06-11, PR #1606)
+
+Per the operator instruction 「pin は kotobase.net を使って」, the third consumer of this
+canonical endpoint landed: a real **kotobase provider** in `50-infra/ipfs-pinner/`
+(ADR-2605171800 Stage 4). It is the MST-CAR side of pinning — the prior two consumers
+(`kotoba-store` `IpfsPinClient`, `e7m-dataset publish-ipfs`) cover the Datom-node and
+dataset paths; the pinner covers AT-Protocol MST shard CARs.
+
+- `src/providers/kotobase.ts` pins **by CID** via the standard **IPFS Pinning Service API**
+  (`POST {ETZ_KOTOBASE_URL}/pins`, default `https://kotobase.net`) — note this is the PSA
+  surface, complementary to the Kubo-compatible `/api/v0/pin/add` surface the kotoba node
+  uses; both are exposed by kotobase.net. The root CID is the CAR filename stem
+  (`mst-projector` writes `<rootCid>.car`), submitted and verified against the returned
+  `PinStatus`; receipt carries the gftd gateway URL (`https://ipfs.gftd.ai/ipfs/<cid>`).
+- **Auth — no platform key held** (no-server-key, ADR-2605231525): `ETZ_KOTOBASE_JWT`
+  (Bearer) OR `ETZ_KOTOBASE_CACAO` + `ETZ_KOTOBASE_DID` (a self-signed CACAO granting
+  `kotobase:pin`) — the SAME self-signed-CACAO leash mechanism ibuki uses for its kotoba
+  write capability (ADR-2606111400), here scoped to pinning rather than `datom:transact`.
+- Enable with `ETZ_PINNER_PROVIDERS=kubo,kotobase` (kubo provides blocks locally, kotobase
+  is the durable remote — the Stage-4 replication-factor ≥ 2 pairing). 21/21 tests green.
+
+This is a new *consumer*, not a change to the canonical-endpoint decision: kotobase.net
+remains the single canonical remote pin; the substrate ordering is unchanged.
