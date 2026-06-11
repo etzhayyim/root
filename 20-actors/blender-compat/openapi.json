@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible design / creative tooling actor (blender); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:blender-compat",
-    "x-wasm-cid": "bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
+    "x-wasm-cid": "bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
+      "url": "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/objects": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Objects",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Object"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Object",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/ObjectCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Object"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/objects/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Object",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Object"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Object",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/ObjectCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Object"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a Object",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/files": {
+    "/v1/scenes": {
       "get": {
-        "summary": "List Files",
+        "summary": "List Scenes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/File"
+                        "$ref": "#/components/schemas/Scene"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a File",
+        "summary": "Create a Scene",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileCreate"
+                "$ref": "#/components/schemas/SceneCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Scene"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/files/{id}": {
+    "/v1/scenes/{id}": {
       "get": {
-        "summary": "Get a File",
+        "summary": "Get a Scene",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Scene"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a File",
+        "summary": "Update a Scene",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FileCreate"
+                "$ref": "#/components/schemas/SceneCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/File"
+                  "$ref": "#/components/schemas/Scene"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a File",
+        "summary": "Delete a Scene",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/frames": {
+    "/v1/materials": {
       "get": {
-        "summary": "List Frames",
+        "summary": "List Materials",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Frame"
+                        "$ref": "#/components/schemas/Material"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Frame",
+        "summary": "Create a Material",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/MaterialCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Material"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/frames/{id}": {
+    "/v1/materials/{id}": {
       "get": {
-        "summary": "Get a Frame",
+        "summary": "Get a Material",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Material"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Frame",
+        "summary": "Update a Material",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FrameCreate"
+                "$ref": "#/components/schemas/MaterialCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Frame"
+                  "$ref": "#/components/schemas/Material"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Frame",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/components": {
-      "get": {
-        "summary": "List Components",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Component"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Component",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComponentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Component"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/components/{id}": {
-      "get": {
-        "summary": "Get a Component",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Component"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Component",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComponentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Component"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Component",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/comments": {
-      "get": {
-        "summary": "List Comments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Comment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/comments/{id}": {
-      "get": {
-        "summary": "Get a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/exports": {
-      "get": {
-        "summary": "List Exports",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Export"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Export",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Export"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/exports/{id}": {
-      "get": {
-        "summary": "Get a Export",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Export"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Export",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExportCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Export"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Export",
+        "summary": "Delete a Material",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +585,7 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Object": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,11 +594,28 @@
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "type": {
             "type": "string"
           },
-          "teamId": {
+          "parent": {
             "type": "string"
+          },
+          "upAxis": {
+            "type": "string",
+            "enum": [
+              "X",
+              "Y",
+              "Z"
+            ]
+          },
+          "locationX": {
+            "type": "number"
+          },
+          "locationY": {
+            "type": "number"
+          },
+          "locationZ": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1165,39 +627,60 @@
           }
         }
       },
-      "ProjectCreate": {
+      "ObjectCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "ownerId": {
+          "type": {
             "type": "string"
           },
-          "teamId": {
+          "parent": {
             "type": "string"
+          },
+          "upAxis": {
+            "type": "string",
+            "enum": [
+              "X",
+              "Y",
+              "Z"
+            ]
+          },
+          "locationX": {
+            "type": "number"
+          },
+          "locationY": {
+            "type": "number"
+          },
+          "locationZ": {
+            "type": "number"
           }
         },
         "required": [
-          "name"
+          "name",
+          "type"
         ]
       },
-      "File": {
+      "Scene": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "contentRef": {
-            "type": "string"
+          "frameStart": {
+            "type": "integer"
           },
-          "version": {
+          "frameEnd": {
+            "type": "integer"
+          },
+          "frameCurrent": {
+            "type": "integer"
+          },
+          "frameStep": {
             "type": "integer"
           },
           "createdAt": {
@@ -1210,89 +693,49 @@
           }
         }
       },
-      "FileCreate": {
+      "SceneCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "contentRef": {
-            "type": "string"
+          "frameStart": {
+            "type": "integer"
           },
-          "version": {
+          "frameEnd": {
+            "type": "integer"
+          },
+          "frameCurrent": {
+            "type": "integer"
+          },
+          "frameStep": {
             "type": "integer"
           }
         },
         "required": [
           "name",
-          "version"
+          "frameStart"
         ]
       },
-      "Frame": {
+      "Material": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fileId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "width": {
+          "useNodes": {
+            "type": "boolean"
+          },
+          "metallic": {
             "type": "number"
           },
-          "height": {
+          "roughness": {
             "type": "number"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FrameCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "width": {
-            "type": "number"
-          },
-          "height": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "width"
-        ]
-      },
-      "Component": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "fileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
+          "blendMethod": {
             "type": "string"
           },
           "createdAt": {
@@ -1305,120 +748,28 @@
           }
         }
       },
-      "ComponentCreate": {
+      "MaterialCreate": {
         "type": "object",
         "properties": {
-          "fileId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "description": {
+          "useNodes": {
+            "type": "boolean"
+          },
+          "metallic": {
+            "type": "number"
+          },
+          "roughness": {
+            "type": "number"
+          },
+          "blendMethod": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "description"
-        ]
-      },
-      "Comment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "fileId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommentCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "resolved": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "body",
-          "resolved"
-        ]
-      },
-      "Export": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "fileId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "scale": {
-            "type": "number"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ExportCreate": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "scale": {
-            "type": "number"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "format",
-          "scale"
+          "useNodes"
         ]
       }
     }

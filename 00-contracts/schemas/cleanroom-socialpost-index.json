@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 169,
-  "totalVerifiedEnumFields": 734,
+  "l5VerifiedActors": 170,
+  "totalVerifiedEnumFields": 735,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -1117,8 +1117,8 @@
       "source": "blender.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "bloomberg_commodities-compat",

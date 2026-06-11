@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 174,
+  "count": 175,
   "actors": [
     {
       "handle": "aave-compat",
@@ -3354,6 +3354,71 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Bitbucket swagger. Enforced enums: PullRequest.state(4 canonical), Repository.scm(git), Issue.priority(5)/kind(4)/state(9) = 5 enums. (Issue.state gap closed by re-fetch: 'submitted' IS a documented state.)"
+    },
+    {
+      "handle": "blender-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://docs.blender.org/api/4.2/bpy.types.Object.html + bpy.types.Scene.html + bpy.types.Material.html (official VERSION-PINNED API reference)",
+      "remodeled": "Remodeled to a faithful Blender bpy.types subset verified against the official version-pinned 4.2 API reference. upAxis enforced: enum in ['X','Y','Z'] (the 3D axis set cannot grow). Object.type gapped as version-growing: 17 values at 4.2 and the 4.2 page itself carries the GPENCIL->GREASEPENCIL transition (both members present) — growth caught in the act. Material.blendMethod gapped: the 4.2 docs mark it 'Deprecated: use surface_render_method'. location flattened to X/Y/Z scalars per the ros2_nav Odometry precedent. METHOD NOTE: the gemini CLI draft for this actor failed twice on quota exhaustion (empty output, no fabrication) — the harness verified every field/enum directly from the pinned official docs, the same re-verification step that gates every gemini draft.",
+      "resources": [
+        {
+          "entity": "Object",
+          "source": "https://docs.blender.org/api/4.2/bpy.types.Object.html",
+          "verifiedFields": [
+            "name",
+            "type",
+            "parent",
+            "upAxis",
+            "locationX",
+            "locationY",
+            "locationZ"
+          ],
+          "fieldStatus": "confirmed (location float-array flattened to X/Y/Z per ros2_nav precedent)",
+          "discoveredEnums": {
+            "upAxis": [
+              "X",
+              "Y",
+              "Z"
+            ]
+          },
+          "gaps": [
+            "type-version-growing (17 @4.2; GPENCIL->GREASEPENCIL transition visible on the 4.2 page itself)"
+          ]
+        },
+        {
+          "entity": "Scene",
+          "source": "https://docs.blender.org/api/4.2/bpy.types.Scene.html",
+          "verifiedFields": [
+            "name",
+            "frameStart",
+            "frameEnd",
+            "frameCurrent",
+            "frameStep"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Material",
+          "source": "https://docs.blender.org/api/4.2/bpy.types.Material.html",
+          "verifiedFields": [
+            "name",
+            "useNodes",
+            "metallic",
+            "roughness",
+            "blendMethod"
+          ],
+          "fieldStatus": "confirmed; blendMethod deprecated upstream @4.2 -> enum gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "blendMethod-deprecated (use surface_render_method; OPAQUE/CLIP/HASHED/BLEND not enforced)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official version-pinned 4.2 API reference. Enforced enums: Object.upAxis(3) = 1 enum field. Version-pinned docs.blender.org/api/<ver> joins the closedness-anchor toolbox."
     },
     {
       "handle": "box-compat",

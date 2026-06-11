@@ -480,3 +480,18 @@ iteration (stays L4; not a defer).
 | dji_onboard_sdk | closed-by-discontinuation (repo dormant 2024-02, OSDK discontinued) | flight(3, DJI's literal STOPED) + gear(9) as integers; **NEW gap class: reserved-slot-bearing** — DisplayMode's 30/44 MODE_RESERVED_n placeholders refused (enforcing them asserts meaning the vendor never assigned); GPSDetail keeps verbatim usedGPS/usedGLN/NSV/GPScounter casing |
 | helium | protos frozen by the 2023 Solana migration + physics-anchored LoRa PHY | the largest physics-anchored haul: Spreading(7)/Bandwidth(8)/Coderate(5)/RegionSpreading(7) + packet.type(2) + origin(2) = 7 enum fields; region (28 members, deprecations) + token_type version-grown → gapped |
 | langchain | typed discriminator Literals in official sources | AIMessage.type/ToolMessage.type/ToolCall.type (1 each) + ToolMessage.status(2); BaseMessage.type extension-bearing + LogEntry.type open-registry → gapped; directory-listing-first fetching (no guessed paths) |
+
+### §16.3 wave 3b — blender lands via pinned-docs verification (175, 17.5%)
+
+blender's gemini draft failed twice on quota exhaustion (empty output — no
+fabrication, the gate held under tool failure). The harness verified the model
+directly from the official VERSION-PINNED reference (docs.blender.org/api/4.2):
+Object.upAxis(['X','Y','Z']) enforced; Object.type gapped as version-growing
+(the 4.2 page itself shows the GPENCIL→GREASEPENCIL transition — growth caught
+in the act); Material.blendMethod gapped as deprecated-upstream. A late
+gemini retry then CONFIRMED upAxis-closed and type-growing, and its
+blendMethod-closed claim was overridden by the docs' explicit Deprecated
+marker — deprecation discipline beats apparent closedness. Ledger **175**
+(17.5%), enforced 170 actors / 735 enum fields, verify PASS 0/0, contract
+suite green. Version-pinned doc trees (docs.blender.org/api/<ver>) join the
+closedness-anchor toolbox.

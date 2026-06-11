@@ -111,119 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
+@app.route("/v1/objects", methods=["POST"])
+def create_object(request):
+    """Create a Object."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
+    err = _reject_unknown(data, ['name', 'type', 'parent', 'upAxis', 'locationX', 'locationY', 'locationZ'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("blender_pro")}
+    if data.get('upAxis') and data['upAxis'] not in ['X', 'Y', 'Z']:
+        return {"error": {"message": "invalid upAxis; allowed: " + ", ".join(['X', 'Y', 'Z']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("blender_obj")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["teamId"] = data.get('teamId')
+    rec["type"] = data.get('type')
+    rec["parent"] = data.get('parent')
+    rec["upAxis"] = data.get('upAxis')
+    rec["locationX"] = _as_float(data.get('locationX'))
+    rec["locationY"] = _as_float(data.get('locationY'))
+    rec["locationZ"] = _as_float(data.get('locationZ'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
+    _persist("Object", rec)
     return rec, 201
 
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
+@app.route("/v1/objects", methods=["GET"])
+def list_objects(request):
+    """List Objects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'teamId'])
+    rows = _query("Object")
+    rows = _apply_filters(rows, params, ['name', 'type', 'parent', 'upAxis', 'locationX', 'locationY', 'locationZ'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
+@app.route("/v1/objects/<eid>", methods=["GET"])
+def get_object(request, eid):
+    """Retrieve a Object by id (supports ?expand=)."""
+    rows = _query("Object", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/objects/<eid>", methods=["POST", "PATCH"])
+def update_object(request, eid):
+    """Update a Object."""
+    rows = _query("Object", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
+    err = _reject_unknown(data, ['name', 'type', 'parent', 'upAxis', 'locationX', 'locationY', 'locationZ'])
     if err:
         return err, 400
+    if data.get('upAxis') and data['upAxis'] not in ['X', 'Y', 'Z']:
+        return {"error": {"message": "invalid upAxis; allowed: " + ", ".join(['X', 'Y', 'Z']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Project", rec)
+    _persist("Object", rec)
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/objects/<eid>", methods=["DELETE"])
+def delete_object(request, eid):
+    """Delete a Object."""
+    rows = _query("Object", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.Project", "id": eid})
+    db.retract({"entity": f"blender.Object", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/files", methods=["POST"])
-def create_file(request):
-    """Create a File."""
+@app.route("/v1/scenes", methods=["POST"])
+def create_scene(request):
+    """Create a Scene."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['name', 'frameStart', 'frameEnd', 'frameCurrent', 'frameStep'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'version'])
+    err = _require(data, ['name', 'frameStart'])
     if err:
         return err, 400
-    rec = {"id": new_id("blender_fil")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("blender_sce")}
     rec["name"] = data.get('name')
-    rec["contentRef"] = data.get('contentRef')
-    rec["version"] = _as_int(data.get('version'))
+    rec["frameStart"] = _as_int(data.get('frameStart'))
+    rec["frameEnd"] = _as_int(data.get('frameEnd'))
+    rec["frameCurrent"] = _as_int(data.get('frameCurrent'))
+    rec["frameStep"] = _as_int(data.get('frameStep'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("File", rec)
+    _persist("Scene", rec)
     return rec, 201
 
-@app.route("/v1/files", methods=["GET"])
-def list_files(request):
-    """List Files with filtering + cursor pagination."""
+@app.route("/v1/scenes", methods=["GET"])
+def list_scenes(request):
+    """List Scenes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("File")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'contentRef', 'version'])
+    rows = _query("Scene")
+    rows = _apply_filters(rows, params, ['name', 'frameStart', 'frameEnd', 'frameCurrent', 'frameStep'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/files/<eid>", methods=["GET"])
-def get_file(request, eid):
-    """Retrieve a File by id (supports ?expand=)."""
-    rows = _query("File", eid)
+@app.route("/v1/scenes/<eid>", methods=["GET"])
+def get_scene(request, eid):
+    """Retrieve a Scene by id (supports ?expand=)."""
+    rows = _query("Scene", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
-def update_file(request, eid):
-    """Update a File."""
-    rows = _query("File", eid)
+@app.route("/v1/scenes/<eid>", methods=["POST", "PATCH"])
+def update_scene(request, eid):
+    """Update a Scene."""
+    rows = _query("Scene", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['name', 'frameStart', 'frameEnd', 'frameCurrent', 'frameStep'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,66 +239,66 @@ def update_file(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("File", rec)
+    _persist("Scene", rec)
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["DELETE"])
-def delete_file(request, eid):
-    """Delete a File."""
-    rows = _query("File", eid)
+@app.route("/v1/scenes/<eid>", methods=["DELETE"])
+def delete_scene(request, eid):
+    """Delete a Scene."""
+    rows = _query("Scene", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.File", "id": eid})
+    db.retract({"entity": f"blender.Scene", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/frames", methods=["POST"])
-def create_frame(request):
-    """Create a Frame."""
+@app.route("/v1/materials", methods=["POST"])
+def create_material(request):
+    """Create a Material."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['name', 'useNodes', 'metallic', 'roughness', 'blendMethod'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'width'])
+    err = _require(data, ['name', 'useNodes'])
     if err:
         return err, 400
-    rec = {"id": new_id("blender_fra")}
-    rec["fileId"] = data.get('fileId')
+    rec = {"id": new_id("blender_mat")}
     rec["name"] = data.get('name')
-    rec["width"] = _as_float(data.get('width'))
-    rec["height"] = _as_float(data.get('height'))
+    rec["useNodes"] = _as_bool(data.get('useNodes'))
+    rec["metallic"] = _as_float(data.get('metallic'))
+    rec["roughness"] = _as_float(data.get('roughness'))
+    rec["blendMethod"] = data.get('blendMethod')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Frame", rec)
+    _persist("Material", rec)
     return rec, 201
 
-@app.route("/v1/frames", methods=["GET"])
-def list_frames(request):
-    """List Frames with filtering + cursor pagination."""
+@app.route("/v1/materials", methods=["GET"])
+def list_materials(request):
+    """List Materials with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Frame")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'width', 'height'])
+    rows = _query("Material")
+    rows = _apply_filters(rows, params, ['name', 'useNodes', 'metallic', 'roughness', 'blendMethod'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/frames/<eid>", methods=["GET"])
-def get_frame(request, eid):
-    """Retrieve a Frame by id (supports ?expand=)."""
-    rows = _query("Frame", eid)
+@app.route("/v1/materials/<eid>", methods=["GET"])
+def get_material(request, eid):
+    """Retrieve a Material by id (supports ?expand=)."""
+    rows = _query("Material", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["POST", "PATCH"])
-def update_frame(request, eid):
-    """Update a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/materials/<eid>", methods=["POST", "PATCH"])
+def update_material(request, eid):
+    """Update a Material."""
+    rows = _query("Material", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['name', 'useNodes', 'metallic', 'roughness', 'blendMethod'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,222 +306,22 @@ def update_frame(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Frame", rec)
+    _persist("Material", rec)
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["DELETE"])
-def delete_frame(request, eid):
-    """Delete a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/materials/<eid>", methods=["DELETE"])
+def delete_material(request, eid):
+    """Delete a Material."""
+    rows = _query("Material", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.Frame", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/components", methods=["POST"])
-def create_component(request):
-    """Create a Component."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'description'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("blender_com")}
-    rec["fileId"] = data.get('fileId')
-    rec["name"] = data.get('name')
-    rec["description"] = data.get('description')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Component", rec)
-    return rec, 201
-
-@app.route("/v1/components", methods=["GET"])
-def list_components(request):
-    """List Components with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Component")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'description'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/components/<eid>", methods=["GET"])
-def get_component(request, eid):
-    """Retrieve a Component by id (supports ?expand=)."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
-    return rec, 200
-
-@app.route("/v1/components/<eid>", methods=["POST", "PATCH"])
-def update_component(request, eid):
-    """Update a Component."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Component", rec)
-    return rec, 200
-
-@app.route("/v1/components/<eid>", methods=["DELETE"])
-def delete_component(request, eid):
-    """Delete a Component."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.Component", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'resolved'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("blender_com")}
-    rec["fileId"] = data.get('fileId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["resolved"] = _as_bool(data.get('resolved'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['fileId', 'authorId', 'body', 'resolved'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/exports", methods=["POST"])
-def create_export(request):
-    """Create a Export."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['format', 'scale'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("blender_exp")}
-    rec["fileId"] = data.get('fileId')
-    rec["format"] = data.get('format')
-    rec["scale"] = _as_float(data.get('scale'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Export", rec)
-    return rec, 201
-
-@app.route("/v1/exports", methods=["GET"])
-def list_exports(request):
-    """List Exports with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Export")
-    rows = _apply_filters(rows, params, ['fileId', 'format', 'scale', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/exports/<eid>", methods=["GET"])
-def get_export(request, eid):
-    """Retrieve a Export by id (supports ?expand=)."""
-    rows = _query("Export", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
-    return rec, 200
-
-@app.route("/v1/exports/<eid>", methods=["POST", "PATCH"])
-def update_export(request, eid):
-    """Update a Export."""
-    rows = _query("Export", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Export", rec)
-    return rec, 200
-
-@app.route("/v1/exports/<eid>", methods=["DELETE"])
-def delete_export(request, eid):
-    """Delete a Export."""
-    rows = _query("Export", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"blender.Export", "id": eid})
+    db.retract({"entity": f"blender.Material", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "blender-compat", "tier": "L4",
-            "entities": ['Project', 'File', 'Frame', 'Component', 'Comment', 'Export']}, 200
+            "entities": ['Object', 'Scene', 'Material']}, 200
 
 
 if __name__ == "__main__":

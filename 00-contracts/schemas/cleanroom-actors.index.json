@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 826,
-    "L5": 174
+    "L4": 825,
+    "L5": 175
   },
   "actors": [
     {
@@ -1997,10 +1997,10 @@
     {
       "handle": "blender-compat",
       "did": "did:web:etzhayyim.com:actor:blender-compat",
-      "wasmCid": "bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
+      "wasmCid": "bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "blender clean-room actor",
       "category": "design_tools",
       "capabilities": [

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29560,
+  "totalEndpoints": 29545,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 169,
-  "totalVerifiedEnumFields": 734,
+  "l5VerifiedActors": 170,
+  "totalVerifiedEnumFields": 735,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -2104,10 +2104,10 @@
     {
       "handle": "blender-compat",
       "did": "did:web:etzhayyim.com:actor:blender-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -2116,8 +2116,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/blender-compat/openapi.json"
     },
     {

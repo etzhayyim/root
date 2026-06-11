@@ -1455,11 +1455,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible design / creative tooling actor (blender); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "blender.kotoba"
-   :actor/wasm-cid "bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi"
+   :actor/wasm-cid "bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:blender-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:blender-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:blender-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:blender-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:blender-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:blender-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:blender-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:blender-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bloomberg_commodities-compat"
    :actor/did "did:web:etzhayyim.com:actor:bloomberg_commodities-compat"
    :actor/kind :compat

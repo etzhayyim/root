@@ -2477,6 +2477,17 @@ PLATFORM_OVERRIDES = {
         "UsageMetadata": E(inputTokens="integer", outputTokens="integer", totalTokens="integer", inputTokenDetails="string", outputTokenDetails="string"),
         "LogEntry": E(name="string", type="string", tags="string", metadata="string", startTime="datetime", streamedOutputStr="string", streamedOutput="string", inputs="string", finalOutput="string", endTime="datetime"),
     },
+    # Faithful Blender bpy model (official version-PINNED API reference,
+    # docs.blender.org/api/4.2). upAxis enforced (enum in ['X','Y','Z'] — the 3D
+    # axis set cannot grow). Object.type version-growing (17 @4.2; the 4.2 page
+    # itself carries the GPENCIL->GREASEPENCIL transition) and blendMethod
+    # deprecated upstream @4.2 -> both gapped. location flattened to X/Y/Z
+    # scalars per the ros2_nav Odometry precedent.
+    "blender": {
+        "Object": E(name="string", type="string", parent="string", upAxis="string", locationX="float", locationY="float", locationZ="float"),
+        "Scene": E(name="string", frameStart="integer", frameEnd="integer", frameCurrent="integer", frameStep="integer"),
+        "Material": E(name="string", useNodes="boolean", metallic="float", roughness="float", blendMethod="string"),
+    },
 }
 
 # ---------------------------------------------------------------------------

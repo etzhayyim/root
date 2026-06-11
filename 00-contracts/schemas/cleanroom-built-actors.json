@@ -1872,17 +1872,14 @@
       "handle": "blender-compat",
       "platform": "blender",
       "bytes": 2121,
-      "wasmCid": "bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
+      "wasmCid": "bafkreiclh7zlpxqdorv6pyv4jfytben3hy6s4q76cym42fjow4ya7y75gi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "File",
-        "Frame",
-        "Component",
-        "Comment",
-        "Export"
+        "Object",
+        "Scene",
+        "Material"
       ]
     },
     {
