@@ -2544,6 +2544,36 @@ PLATFORM_OVERRIDES = {
     },
 }
 
+# Faithful Argo ocean-float model (official Argo User's Manual, archimer
+# doi:10.13155/29825 PDF text-extracted + the official NVS Argo vocabularies).
+# direction {A,D} (physically anchored: a profile ascends or descends) +
+# dataMode {R,A,D} (manual-defined complete lifecycle) + the QC flags
+# (Reference table 2 = NVS RR2, {0,1,2,3,4,5,8,9} — 6,7 not defined) enforced.
+PLATFORM_OVERRIDES["argo_ocean_floats"] = {
+    "Profile": E(platformNumber="string", projectName="string", piName="string", cycleNumber="integer", direction="string", dataMode="string", juld="float", latitude="float", longitude="float", positionQc="integer", dataCentre="string"),
+    "Measurement": E(pres="float", presQc="integer", temp="float", tempQc="integer", psal="float", psalQc="integer"),
+    "Calibration": E(equation="string", coefficient="string", comment="string"),
+}
+
+# Faithful comma.ai (company) API model — verified against the official
+# api.comma.ai documentation page. deviceType ('one of (neo, panda, app)'),
+# primeType (0/1/2 documented complete), saveType (the page declares both a
+# 2- and 3-value set; the documented superset favorite/recent/next is
+# enforced) and the Segment File Status table (0/10/20/30/40) enforced.
+PLATFORM_OVERRIDES["comma_ai"] = {
+    "Device": E(dongleId="string", alias="string", serial="string", athenaHost="string", lastAthenaPing="integer", ignoreUploads="boolean", isPaired="boolean", isOwner="boolean", publicKey="string", prime="boolean", primeType="integer", trialClaimed="boolean", deviceType="string", lastGpsTime="integer", lastGpsLat="float", lastGpsLng="float", openpilotVersion="string", simId="string"),
+    "Route": E(fullname="string", url="string", createTime="integer", startLat="float", startLng="float", endLat="float", endLng="float", radar="boolean", hpgps="boolean", passive="boolean", platform="string", version="string", gitRemote="string", gitBranch="string", gitCommit="string", gitDirty="boolean", maxlog="integer", proclog="integer", maxcamera="integer", proccamera="integer"),
+    "Segment": E(canonicalName="string", number="integer", procLog="integer", procCamera="integer", procDcamera="integer", startTimeUtcMillis="integer", endTimeUtcMillis="integer"),
+    "SavedLocation": E(placeName="string", placeDetails="string", latitude="float", longitude="float", saveType="string", label="string"),
+    "User": E(email="string", points="integer", regdate="integer", superuser="boolean", username="string"),
+}
+
+# auterion joins the MAVLink family (4th member after mavlink_drones /
+# mavlink_swarm / px4_autopilot): docs.auterion.com documents APX4 (Auterion's
+# PX4-based flight stack) + MAVLink Forwarding as product features, and
+# auterion.com states its PX4 contributions — official conformance.
+PLATFORM_OVERRIDES["auterion"] = PLATFORM_OVERRIDES["mavlink_swarm"]
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "comma_ai.kotoba")
-ENTITIES = ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']
-PLURALS = {'Vehicle': 'vehicles', 'Signal': 'signals', 'ChargeSession': 'chargesessions', 'Connector': 'connectors', 'Trip': 'trips', 'Command': 'commands'}
+ENTITIES = ['Device', 'Route', 'Segment', 'SavedLocation', 'User']
+PLURALS = {'Device': 'devices', 'Route': 'routes', 'Segment': 'segments', 'SavedLocation': 'savedlocations', 'User': 'users'}
 
 
 class CommaAiContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class CommaAiContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['deviceType', 'primeType', 'procCamera', 'procDcamera', 'procLog', 'saveType']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

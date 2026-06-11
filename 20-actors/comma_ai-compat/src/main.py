@@ -111,120 +111,157 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/vehicles", methods=["POST"])
-def create_vehicle(request):
-    """Create a Vehicle."""
+@app.route("/v1/devices", methods=["POST"])
+def create_device(request):
+    """Create a Device."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['dongleId', 'alias', 'serial', 'athenaHost', 'lastAthenaPing', 'ignoreUploads', 'isPaired', 'isOwner', 'publicKey', 'prime', 'primeType', 'trialClaimed', 'deviceType', 'lastGpsTime', 'lastGpsLat', 'lastGpsLng', 'openpilotVersion', 'simId'])
     if err:
         return err, 400
-    err = _require(data, ['vin', 'model'])
+    err = _require(data, ['alias', 'serial'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaai_veh")}
-    rec["vin"] = data.get('vin')
-    rec["model"] = data.get('model')
-    rec["state"] = data.get('state')
-    rec["odometerKm"] = _as_float(data.get('odometerKm'))
+    if data.get('primeType') and data['primeType'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid primeType; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('deviceType') and data['deviceType'] not in ['neo', 'panda', 'app']:
+        return {"error": {"message": "invalid deviceType; allowed: " + ", ".join(['neo', 'panda', 'app']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commaai_dev")}
+    rec["dongleId"] = data.get('dongleId')
+    rec["alias"] = data.get('alias')
+    rec["serial"] = data.get('serial')
+    rec["athenaHost"] = data.get('athenaHost')
+    rec["lastAthenaPing"] = _as_int(data.get('lastAthenaPing'))
+    rec["ignoreUploads"] = _as_bool(data.get('ignoreUploads'))
+    rec["isPaired"] = _as_bool(data.get('isPaired'))
+    rec["isOwner"] = _as_bool(data.get('isOwner'))
+    rec["publicKey"] = data.get('publicKey')
+    rec["prime"] = _as_bool(data.get('prime'))
+    rec["primeType"] = _as_int(data.get('primeType'))
+    rec["trialClaimed"] = _as_bool(data.get('trialClaimed'))
+    rec["deviceType"] = data.get('deviceType')
+    rec["lastGpsTime"] = _as_int(data.get('lastGpsTime'))
+    rec["lastGpsLat"] = _as_float(data.get('lastGpsLat'))
+    rec["lastGpsLng"] = _as_float(data.get('lastGpsLng'))
+    rec["openpilotVersion"] = data.get('openpilotVersion')
+    rec["simId"] = data.get('simId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vehicle", rec)
+    _persist("Device", rec)
     return rec, 201
 
-@app.route("/v1/vehicles", methods=["GET"])
-def list_vehicles(request):
-    """List Vehicles with filtering + cursor pagination."""
+@app.route("/v1/devices", methods=["GET"])
+def list_devices(request):
+    """List Devices with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['vin', 'model', 'state', 'odometerKm'])
+    rows = _query("Device")
+    rows = _apply_filters(rows, params, ['dongleId', 'alias', 'serial', 'athenaHost', 'lastAthenaPing', 'ignoreUploads', 'isPaired', 'isOwner', 'publicKey', 'prime', 'primeType', 'trialClaimed', 'deviceType', 'lastGpsTime', 'lastGpsLat', 'lastGpsLng', 'openpilotVersion', 'simId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["GET"])
-def get_vehicle(request, eid):
-    """Retrieve a Vehicle by id (supports ?expand=)."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/devices/<eid>", methods=["GET"])
+def get_device(request, eid):
+    """Retrieve a Device by id (supports ?expand=)."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
-def update_vehicle(request, eid):
-    """Update a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
+def update_device(request, eid):
+    """Update a Device."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['dongleId', 'alias', 'serial', 'athenaHost', 'lastAthenaPing', 'ignoreUploads', 'isPaired', 'isOwner', 'publicKey', 'prime', 'primeType', 'trialClaimed', 'deviceType', 'lastGpsTime', 'lastGpsLat', 'lastGpsLng', 'openpilotVersion', 'simId'])
     if err:
         return err, 400
+    if data.get('primeType') and data['primeType'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid primeType; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('deviceType') and data['deviceType'] not in ['neo', 'panda', 'app']:
+        return {"error": {"message": "invalid deviceType; allowed: " + ", ".join(['neo', 'panda', 'app']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vehicle", rec)
+    _persist("Device", rec)
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["DELETE"])
-def delete_vehicle(request, eid):
-    """Delete a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/devices/<eid>", methods=["DELETE"])
+def delete_device(request, eid):
+    """Delete a Device."""
+    rows = _query("Device", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.Vehicle", "id": eid})
+    db.retract({"entity": f"comma_ai.Device", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
+@app.route("/v1/routes", methods=["POST"])
+def create_route(request):
+    """Create a Route."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['fullname', 'url', 'createTime', 'startLat', 'startLng', 'endLat', 'endLng', 'radar', 'hpgps', 'passive', 'platform', 'version', 'gitRemote', 'gitBranch', 'gitCommit', 'gitDirty', 'maxlog', 'proclog', 'maxcamera', 'proccamera'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['fullname', 'url'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaai_sig")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    rec = {"id": new_id("commaai_rou")}
+    rec["fullname"] = data.get('fullname')
+    rec["url"] = data.get('url')
+    rec["createTime"] = _as_int(data.get('createTime'))
+    rec["startLat"] = _as_float(data.get('startLat'))
+    rec["startLng"] = _as_float(data.get('startLng'))
+    rec["endLat"] = _as_float(data.get('endLat'))
+    rec["endLng"] = _as_float(data.get('endLng'))
+    rec["radar"] = _as_bool(data.get('radar'))
+    rec["hpgps"] = _as_bool(data.get('hpgps'))
+    rec["passive"] = _as_bool(data.get('passive'))
+    rec["platform"] = data.get('platform')
+    rec["version"] = data.get('version')
+    rec["gitRemote"] = data.get('gitRemote')
+    rec["gitBranch"] = data.get('gitBranch')
+    rec["gitCommit"] = data.get('gitCommit')
+    rec["gitDirty"] = _as_bool(data.get('gitDirty'))
+    rec["maxlog"] = _as_int(data.get('maxlog'))
+    rec["proclog"] = _as_int(data.get('proclog'))
+    rec["maxcamera"] = _as_int(data.get('maxcamera'))
+    rec["proccamera"] = _as_int(data.get('proccamera'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
+    _persist("Route", rec)
     return rec, 201
 
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
+@app.route("/v1/routes", methods=["GET"])
+def list_routes(request):
+    """List Routes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'value', 'unit'])
+    rows = _query("Route")
+    rows = _apply_filters(rows, params, ['fullname', 'url', 'createTime', 'startLat', 'startLng', 'endLat', 'endLng', 'radar', 'hpgps', 'passive', 'platform', 'version', 'gitRemote', 'gitBranch', 'gitCommit', 'gitDirty', 'maxlog', 'proclog', 'maxcamera', 'proccamera'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
+@app.route("/v1/routes/<eid>", methods=["GET"])
+def get_route(request, eid):
+    """Retrieve a Route by id (supports ?expand=)."""
+    rows = _query("Route", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
+def update_route(request, eid):
+    """Update a Route."""
+    rows = _query("Route", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['fullname', 'url', 'createTime', 'startLat', 'startLng', 'endLat', 'endLng', 'radar', 'hpgps', 'passive', 'platform', 'version', 'gitRemote', 'gitBranch', 'gitCommit', 'gitDirty', 'maxlog', 'proclog', 'maxcamera', 'proccamera'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,198 +269,219 @@ def update_signal(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Signal", rec)
+    _persist("Route", rec)
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/routes/<eid>", methods=["DELETE"])
+def delete_route(request, eid):
+    """Delete a Route."""
+    rows = _query("Route", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.Signal", "id": eid})
+    db.retract({"entity": f"comma_ai.Route", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/chargesessions", methods=["POST"])
-def create_charge_session(request):
-    """Create a ChargeSession."""
+@app.route("/v1/segments", methods=["POST"])
+def create_segment(request):
+    """Create a Segment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['canonicalName', 'number', 'procLog', 'procCamera', 'procDcamera', 'startTimeUtcMillis', 'endTimeUtcMillis'])
     if err:
         return err, 400
-    err = _require(data, ['energyKwh', 'status'])
+    err = _require(data, ['canonicalName', 'number'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaai_cha")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["connectorId"] = data.get('connectorId')
-    rec["energyKwh"] = _as_float(data.get('energyKwh'))
-    rec["status"] = data.get('status')
+    if data.get('procLog') and data['procLog'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procLog; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
+    if data.get('procCamera') and data['procCamera'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procCamera; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
+    if data.get('procDcamera') and data['procDcamera'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procDcamera; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commaai_seg")}
+    rec["canonicalName"] = data.get('canonicalName')
+    rec["number"] = _as_int(data.get('number'))
+    rec["procLog"] = _as_int(data.get('procLog'))
+    rec["procCamera"] = _as_int(data.get('procCamera'))
+    rec["procDcamera"] = _as_int(data.get('procDcamera'))
+    rec["startTimeUtcMillis"] = _as_int(data.get('startTimeUtcMillis'))
+    rec["endTimeUtcMillis"] = _as_int(data.get('endTimeUtcMillis'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ChargeSession", rec)
+    _persist("Segment", rec)
     return rec, 201
 
-@app.route("/v1/chargesessions", methods=["GET"])
-def list_charge_sessions(request):
-    """List ChargeSessions with filtering + cursor pagination."""
+@app.route("/v1/segments", methods=["GET"])
+def list_segments(request):
+    """List Segments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ChargeSession")
-    rows = _apply_filters(rows, params, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    rows = _query("Segment")
+    rows = _apply_filters(rows, params, ['canonicalName', 'number', 'procLog', 'procCamera', 'procDcamera', 'startTimeUtcMillis', 'endTimeUtcMillis'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["GET"])
-def get_charge_session(request, eid):
-    """Retrieve a ChargeSession by id (supports ?expand=)."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/segments/<eid>", methods=["GET"])
+def get_segment(request, eid):
+    """Retrieve a Segment by id (supports ?expand=)."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle', 'connectorId': 'Connector'})
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["POST", "PATCH"])
-def update_charge_session(request, eid):
-    """Update a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/segments/<eid>", methods=["POST", "PATCH"])
+def update_segment(request, eid):
+    """Update a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['canonicalName', 'number', 'procLog', 'procCamera', 'procDcamera', 'startTimeUtcMillis', 'endTimeUtcMillis'])
     if err:
         return err, 400
+    if data.get('procLog') and data['procLog'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procLog; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
+    if data.get('procCamera') and data['procCamera'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procCamera; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
+    if data.get('procDcamera') and data['procDcamera'] not in [0, 10, 20, 30, 40]:
+        return {"error": {"message": "invalid procDcamera; allowed: " + ", ".join([0, 10, 20, 30, 40]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ChargeSession", rec)
+    _persist("Segment", rec)
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["DELETE"])
-def delete_charge_session(request, eid):
-    """Delete a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/segments/<eid>", methods=["DELETE"])
+def delete_segment(request, eid):
+    """Delete a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.ChargeSession", "id": eid})
+    db.retract({"entity": f"comma_ai.Segment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/savedlocations", methods=["POST"])
+def create_saved_location(request):
+    """Create a SavedLocation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['placeName', 'placeDetails', 'latitude', 'longitude', 'saveType', 'label'])
     if err:
         return err, 400
-    err = _require(data, ['standard', 'powerKw'])
+    err = _require(data, ['placeName', 'placeDetails'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaai_con")}
-    rec["stationId"] = data.get('stationId')
-    rec["standard"] = data.get('standard')
-    rec["powerKw"] = _as_float(data.get('powerKw'))
-    rec["status"] = data.get('status')
+    if data.get('saveType') and data['saveType'] not in ['favorite', 'recent', 'next']:
+        return {"error": {"message": "invalid saveType; allowed: " + ", ".join(['favorite', 'recent', 'next']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commaai_sav")}
+    rec["placeName"] = data.get('placeName')
+    rec["placeDetails"] = data.get('placeDetails')
+    rec["latitude"] = _as_float(data.get('latitude'))
+    rec["longitude"] = _as_float(data.get('longitude'))
+    rec["saveType"] = data.get('saveType')
+    rec["label"] = data.get('label')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
+    _persist("SavedLocation", rec)
     return rec, 201
 
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
+@app.route("/v1/savedlocations", methods=["GET"])
+def list_saved_locations(request):
+    """List SavedLocations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['stationId', 'standard', 'powerKw', 'status'])
+    rows = _query("SavedLocation")
+    rows = _apply_filters(rows, params, ['placeName', 'placeDetails', 'latitude', 'longitude', 'saveType', 'label'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
+@app.route("/v1/savedlocations/<eid>", methods=["GET"])
+def get_saved_location(request, eid):
+    """Retrieve a SavedLocation by id (supports ?expand=)."""
+    rows = _query("SavedLocation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/savedlocations/<eid>", methods=["POST", "PATCH"])
+def update_saved_location(request, eid):
+    """Update a SavedLocation."""
+    rows = _query("SavedLocation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['placeName', 'placeDetails', 'latitude', 'longitude', 'saveType', 'label'])
     if err:
         return err, 400
+    if data.get('saveType') and data['saveType'] not in ['favorite', 'recent', 'next']:
+        return {"error": {"message": "invalid saveType; allowed: " + ", ".join(['favorite', 'recent', 'next']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connector", rec)
+    _persist("SavedLocation", rec)
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/savedlocations/<eid>", methods=["DELETE"])
+def delete_saved_location(request, eid):
+    """Delete a SavedLocation."""
+    rows = _query("SavedLocation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.Connector", "id": eid})
+    db.retract({"entity": f"comma_ai.SavedLocation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/trips", methods=["POST"])
-def create_trip(request):
-    """Create a Trip."""
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['email', 'points', 'regdate', 'superuser', 'username'])
     if err:
         return err, 400
-    err = _require(data, ['distanceKm', 'startedAt'])
+    err = _require(data, ['email', 'points'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaai_tri")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["distanceKm"] = _as_float(data.get('distanceKm'))
-    rec["startedAt"] = data.get('startedAt')
+    rec = {"id": new_id("commaai_use")}
+    rec["email"] = data.get('email')
+    rec["points"] = _as_int(data.get('points'))
+    rec["regdate"] = _as_int(data.get('regdate'))
+    rec["superuser"] = _as_bool(data.get('superuser'))
+    rec["username"] = data.get('username')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trip", rec)
+    _persist("User", rec)
     return rec, 201
 
-@app.route("/v1/trips", methods=["GET"])
-def list_trips(request):
-    """List Trips with filtering + cursor pagination."""
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['vehicleId', 'distanceKm', 'startedAt'])
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['email', 'points', 'regdate', 'superuser', 'username'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/trips/<eid>", methods=["GET"])
-def get_trip(request, eid):
-    """Retrieve a Trip by id (supports ?expand=)."""
-    rows = _query("Trip", eid)
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
-def update_trip(request, eid):
-    """Update a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['email', 'points', 'regdate', 'superuser', 'username'])
     if err:
         return err, 400
     rec = rows[0]
@@ -431,88 +489,22 @@ def update_trip(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trip", rec)
+    _persist("User", rec)
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["DELETE"])
-def delete_trip(request, eid):
-    """Delete a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.Trip", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("commaai_com")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
-    return rec, 201
-
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Command", rec)
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai.Command", "id": eid})
+    db.retract({"entity": f"comma_ai.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "comma_ai-compat", "tier": "L4",
-            "entities": ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']}, 200
+            "entities": ['Device', 'Route', 'Segment', 'SavedLocation', 'User']}, 200
 
 
 if __name__ == "__main__":

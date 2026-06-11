@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 178,
-  "totalVerifiedEnumFields": 758,
+  "l5VerifiedActors": 181,
+  "totalVerifiedEnumFields": 772,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -517,8 +517,8 @@
       "source": "argo_ocean_floats.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "argus_media-compat",
@@ -667,8 +667,8 @@
       "source": "auterion.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "auto_gpt-compat",
@@ -1947,8 +1947,8 @@
       "source": "comma_ai.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 6
     },
     {
       "handle": "comma_ai_openpilot-compat",

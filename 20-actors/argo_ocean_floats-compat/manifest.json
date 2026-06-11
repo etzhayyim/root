@@ -5,21 +5,81 @@
   "kind": "compat",
   "title": "argo_ocean_floats clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (argo_ocean_floats); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+  "wasmCid": "bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+  "ipfs": "ipfs://bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
   "schema": "schema/argo_ocean_floats.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://archimer.ifremer.fr/doc/00187/29825/120885.pdf (Argo User's Manual, doi:10.13155/29825) + https://vocab.nerc.ac.uk/collection/RR2/current/ (official NVS Argo vocabulary)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Profile",
+      "Measurement",
+      "Calibration"
+    ],
+    "enums": {
+      "Profile": {
+        "direction": [
+          "A",
+          "D"
+        ],
+        "dataMode": [
+          "R",
+          "A",
+          "D"
+        ],
+        "positionQc": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ]
+      },
+      "Measurement": {
+        "presQc": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "tempQc": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "psalQc": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ]
+      }
+    }
+  },
   "entities": [
-    "Object",
-    "Position",
-    "Observation",
-    "Scene",
-    "Float",
-    "Station"
+    "Profile",
+    "Measurement",
+    "Calibration"
   ],
   "adr": [
     "260607",
@@ -31,157 +91,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/objects",
-          "op": "create Object"
+          "path": "/v1/profiles",
+          "op": "create Profile"
         },
         {
           "method": "GET",
-          "path": "/v1/objects",
-          "op": "list Object"
+          "path": "/v1/profiles",
+          "op": "list Profile"
         },
         {
           "method": "GET",
-          "path": "/v1/objects/{id}",
-          "op": "get Object"
+          "path": "/v1/profiles/{id}",
+          "op": "get Profile"
         },
         {
           "method": "PATCH",
-          "path": "/v1/objects/{id}",
-          "op": "update Object"
+          "path": "/v1/profiles/{id}",
+          "op": "update Profile"
         },
         {
           "method": "DELETE",
-          "path": "/v1/objects/{id}",
-          "op": "delete Object"
+          "path": "/v1/profiles/{id}",
+          "op": "delete Profile"
         },
         {
           "method": "POST",
-          "path": "/v1/positions",
-          "op": "create Position"
+          "path": "/v1/measurements",
+          "op": "create Measurement"
         },
         {
           "method": "GET",
-          "path": "/v1/positions",
-          "op": "list Position"
+          "path": "/v1/measurements",
+          "op": "list Measurement"
         },
         {
           "method": "GET",
-          "path": "/v1/positions/{id}",
-          "op": "get Position"
+          "path": "/v1/measurements/{id}",
+          "op": "get Measurement"
         },
         {
           "method": "PATCH",
-          "path": "/v1/positions/{id}",
-          "op": "update Position"
+          "path": "/v1/measurements/{id}",
+          "op": "update Measurement"
         },
         {
           "method": "DELETE",
-          "path": "/v1/positions/{id}",
-          "op": "delete Position"
+          "path": "/v1/measurements/{id}",
+          "op": "delete Measurement"
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/calibrations",
+          "op": "create Calibration"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/calibrations",
+          "op": "list Calibration"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/calibrations/{id}",
+          "op": "get Calibration"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/calibrations/{id}",
+          "op": "update Calibration"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/scenes",
-          "op": "create Scene"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/scenes",
-          "op": "list Scene"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/scenes/{id}",
-          "op": "get Scene"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/scenes/{id}",
-          "op": "update Scene"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/scenes/{id}",
-          "op": "delete Scene"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/floats",
-          "op": "create Float"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/floats",
-          "op": "list Float"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/floats/{id}",
-          "op": "get Float"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/floats/{id}",
-          "op": "update Float"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/floats/{id}",
-          "op": "delete Float"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/stations",
-          "op": "create Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations",
-          "op": "list Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations/{id}",
-          "op": "get Station"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/stations/{id}",
-          "op": "update Station"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/stations/{id}",
-          "op": "delete Station"
+          "path": "/v1/calibrations/{id}",
+          "op": "delete Calibration"
         }
       ],
       "features": {
@@ -244,41 +229,65 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_object",
-          "description": "Create a Object.",
+          "name": "create_profile",
+          "description": "Create a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "designator": {
+              "platformNumber": {
                 "type": "string"
               },
-              "type": {
+              "projectName": {
                 "type": "string"
               },
-              "source": {
+              "piName": {
+                "type": "string"
+              },
+              "cycleNumber": {
+                "type": "integer"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "dataMode": {
+                "type": "string"
+              },
+              "juld": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "positionQc": {
+                "type": "integer"
+              },
+              "dataCentre": {
                 "type": "string"
               }
             },
             "required": [
-              "designator",
-              "type"
+              "platformNumber",
+              "projectName"
             ]
           }
         },
         {
-          "name": "list_objects",
-          "description": "List Objects.",
+          "name": "list_profiles",
+          "description": "List Profiles.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_object",
-          "description": "Get a Object by id.",
+          "name": "get_profile",
+          "description": "Get a Profile by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +301,45 @@
           }
         },
         {
-          "name": "update_object",
-          "description": "Update a Object.",
+          "name": "update_profile",
+          "description": "Update a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "designator": {
+              "platformNumber": {
                 "type": "string"
               },
-              "type": {
+              "projectName": {
                 "type": "string"
               },
-              "source": {
+              "piName": {
+                "type": "string"
+              },
+              "cycleNumber": {
+                "type": "integer"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "dataMode": {
+                "type": "string"
+              },
+              "juld": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "positionQc": {
+                "type": "integer"
+              },
+              "dataCentre": {
                 "type": "string"
               }
             },
@@ -316,8 +349,8 @@
           }
         },
         {
-          "name": "delete_object",
-          "description": "Delete a Object.",
+          "name": "delete_profile",
+          "description": "Delete a Profile.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,44 +364,47 @@
           }
         },
         {
-          "name": "create_position",
-          "description": "Create a Position.",
+          "name": "create_measurement",
+          "description": "Create a Measurement.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "objectId": {
-                "type": "string"
-              },
-              "lat": {
+              "pres": {
                 "type": "number"
               },
-              "lon": {
+              "presQc": {
+                "type": "integer"
+              },
+              "temp": {
                 "type": "number"
               },
-              "altitudeM": {
+              "tempQc": {
+                "type": "integer"
+              },
+              "psal": {
                 "type": "number"
               },
-              "asOf": {
-                "type": "string"
+              "psalQc": {
+                "type": "integer"
               }
             },
             "required": [
-              "lat",
-              "lon"
+              "pres",
+              "presQc"
             ]
           }
         },
         {
-          "name": "list_positions",
-          "description": "List Positions.",
+          "name": "list_measurements",
+          "description": "List Measurements.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_position",
-          "description": "Get a Position by id.",
+          "name": "get_measurement",
+          "description": "Get a Measurement by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,27 +418,45 @@
           }
         },
         {
-          "name": "update_position",
-          "description": "Update a Position.",
+          "name": "update_measurement",
+          "description": "Update a Measurement.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "objectId": {
-                "type": "string"
-              },
-              "lat": {
+              "pres": {
                 "type": "number"
               },
-              "lon": {
+              "presQc": {
+                "type": "integer"
+              },
+              "temp": {
                 "type": "number"
               },
-              "altitudeM": {
+              "tempQc": {
+                "type": "integer"
+              },
+              "psal": {
                 "type": "number"
               },
-              "asOf": {
+              "psalQc": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_measurement",
+          "description": "Delete a Measurement.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -412,56 +466,38 @@
           }
         },
         {
-          "name": "delete_position",
-          "description": "Delete a Position.",
+          "name": "create_calibration",
+          "description": "Create a Calibration.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "equation": {
+                "type": "string"
+              },
+              "coefficient": {
+                "type": "string"
+              },
+              "comment": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "equation",
+              "coefficient"
             ]
           }
         },
         {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "objectId": {
-                "type": "string"
-              },
-              "parameter": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "observedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "parameter",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
+          "name": "list_calibrations",
+          "description": "List Calibrations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
+          "name": "get_calibration",
+          "description": "Get a Calibration by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +511,21 @@
           }
         },
         {
-          "name": "update_observation",
-          "description": "Update a Observation.",
+          "name": "update_calibration",
+          "description": "Update a Calibration.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "objectId": {
+              "equation": {
                 "type": "string"
               },
-              "parameter": {
+              "coefficient": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
-              },
-              "observedAt": {
+              "comment": {
                 "type": "string"
               }
             },
@@ -502,272 +535,8 @@
           }
         },
         {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_scene",
-          "description": "Create a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "satellite": {
-                "type": "string"
-              },
-              "sceneId": {
-                "type": "string"
-              },
-              "cloudCover": {
-                "type": "number"
-              },
-              "capturedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "satellite",
-              "cloudCover"
-            ]
-          }
-        },
-        {
-          "name": "list_scenes",
-          "description": "List Scenes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_scene",
-          "description": "Get a Scene by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_scene",
-          "description": "Update a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "satellite": {
-                "type": "string"
-              },
-              "sceneId": {
-                "type": "string"
-              },
-              "cloudCover": {
-                "type": "number"
-              },
-              "capturedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_scene",
-          "description": "Delete a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_float",
-          "description": "Create a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "wmoId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "parkDepthM": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_floats",
-          "description": "List Floats.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_float",
-          "description": "Get a Float by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_float",
-          "description": "Update a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "wmoId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "parkDepthM": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_float",
-          "description": "Delete a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_station",
-          "description": "Create a Station.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "network"
-            ]
-          }
-        },
-        {
-          "name": "list_stations",
-          "description": "List Stations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_station",
-          "description": "Get a Station by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_station",
-          "description": "Update a Station.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "stationId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_station",
-          "description": "Delete a Station.",
+          "name": "delete_calibration",
+          "description": "Delete a Calibration.",
           "inputSchema": {
             "type": "object",
             "properties": {

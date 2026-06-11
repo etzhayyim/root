@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible space / ocean / earth physics actor (argo_ocean_floats); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
-    "x-wasm-cid": "bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+    "x-wasm-cid": "bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+      "url": "ipfs://bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/objects": {
+    "/v1/profiles": {
       "get": {
-        "summary": "List Objects",
+        "summary": "List Profiles",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Object"
+                        "$ref": "#/components/schemas/Profile"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Object",
+        "summary": "Create a Profile",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObjectCreate"
+                "$ref": "#/components/schemas/ProfileCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/Profile"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/objects/{id}": {
+    "/v1/profiles/{id}": {
       "get": {
-        "summary": "Get a Object",
+        "summary": "Get a Profile",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/Profile"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Object",
+        "summary": "Update a Profile",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObjectCreate"
+                "$ref": "#/components/schemas/ProfileCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Object"
+                  "$ref": "#/components/schemas/Profile"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Object",
+        "summary": "Delete a Profile",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/positions": {
+    "/v1/measurements": {
       "get": {
-        "summary": "List Positions",
+        "summary": "List Measurements",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Position"
+                        "$ref": "#/components/schemas/Measurement"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Position",
+        "summary": "Create a Measurement",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PositionCreate"
+                "$ref": "#/components/schemas/MeasurementCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/Measurement"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/positions/{id}": {
+    "/v1/measurements/{id}": {
       "get": {
-        "summary": "Get a Position",
+        "summary": "Get a Measurement",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/Measurement"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Position",
+        "summary": "Update a Measurement",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PositionCreate"
+                "$ref": "#/components/schemas/MeasurementCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Position"
+                  "$ref": "#/components/schemas/Measurement"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Position",
+        "summary": "Delete a Measurement",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/observations": {
+    "/v1/calibrations": {
       "get": {
-        "summary": "List Observations",
+        "summary": "List Calibrations",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Observation"
+                        "$ref": "#/components/schemas/Calibration"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Observation",
+        "summary": "Create a Calibration",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/CalibrationCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Calibration"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/observations/{id}": {
+    "/v1/calibrations/{id}": {
       "get": {
-        "summary": "Get a Observation",
+        "summary": "Get a Calibration",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Calibration"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Observation",
+        "summary": "Update a Calibration",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationCreate"
+                "$ref": "#/components/schemas/CalibrationCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Observation"
+                  "$ref": "#/components/schemas/Calibration"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Observation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/scenes": {
-      "get": {
-        "summary": "List Scenes",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Scene"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Scene",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Scene"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/scenes/{id}": {
-      "get": {
-        "summary": "Get a Scene",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Scene"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Scene",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Scene"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Scene",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/floats": {
-      "get": {
-        "summary": "List Floats",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Float"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Float",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FloatCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/floats/{id}": {
-      "get": {
-        "summary": "Get a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FloatCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Float"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Float",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/stations": {
-      "get": {
-        "summary": "List Stations",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Station"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Station",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/stations/{id}": {
-      "get": {
-        "summary": "Get a Station",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Station",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Station"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Station",
+        "summary": "Delete a Calibration",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +585,62 @@
   },
   "components": {
     "schemas": {
-      "Object": {
+      "Profile": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "designator": {
+          "platformNumber": {
             "type": "string"
           },
-          "type": {
+          "projectName": {
             "type": "string"
           },
-          "source": {
+          "piName": {
+            "type": "string"
+          },
+          "cycleNumber": {
+            "type": "integer"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "A",
+              "D"
+            ]
+          },
+          "dataMode": {
+            "type": "string",
+            "enum": [
+              "R",
+              "A",
+              "D"
+            ]
+          },
+          "juld": {
+            "type": "number"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "positionQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "dataCentre": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,45 +653,120 @@
           }
         }
       },
-      "ObjectCreate": {
+      "ProfileCreate": {
         "type": "object",
         "properties": {
-          "designator": {
+          "platformNumber": {
             "type": "string"
           },
-          "type": {
+          "projectName": {
             "type": "string"
           },
-          "source": {
+          "piName": {
+            "type": "string"
+          },
+          "cycleNumber": {
+            "type": "integer"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "A",
+              "D"
+            ]
+          },
+          "dataMode": {
+            "type": "string",
+            "enum": [
+              "R",
+              "A",
+              "D"
+            ]
+          },
+          "juld": {
+            "type": "number"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "positionQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "dataCentre": {
             "type": "string"
           }
         },
         "required": [
-          "designator",
-          "type"
+          "platformNumber",
+          "projectName"
         ]
       },
-      "Position": {
+      "Measurement": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "objectId": {
-            "type": "string"
-          },
-          "lat": {
+          "pres": {
             "type": "number"
           },
-          "lon": {
+          "presQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "temp": {
             "type": "number"
           },
-          "altitudeM": {
+          "tempQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "psal": {
             "type": "number"
           },
-          "asOf": {
-            "type": "string",
-            "format": "date-time"
+          "psalQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1215,192 +778,76 @@
           }
         }
       },
-      "PositionCreate": {
+      "MeasurementCreate": {
         "type": "object",
         "properties": {
-          "objectId": {
-            "type": "string"
-          },
-          "lat": {
+          "pres": {
             "type": "number"
           },
-          "lon": {
+          "presQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "temp": {
             "type": "number"
           },
-          "altitudeM": {
+          "tempQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "psal": {
             "type": "number"
           },
-          "asOf": {
-            "type": "string"
+          "psalQc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
           }
         },
         "required": [
-          "lat",
-          "lon"
+          "pres",
+          "presQc"
         ]
       },
-      "Observation": {
+      "Calibration": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "objectId": {
+          "equation": {
             "type": "string"
           },
-          "parameter": {
+          "coefficient": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "observedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ObservationCreate": {
-        "type": "object",
-        "properties": {
-          "objectId": {
-            "type": "string"
-          },
-          "parameter": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "observedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "parameter",
-          "value"
-        ]
-      },
-      "Scene": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "satellite": {
-            "type": "string"
-          },
-          "sceneId": {
-            "type": "string"
-          },
-          "cloudCover": {
-            "type": "number"
-          },
-          "capturedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SceneCreate": {
-        "type": "object",
-        "properties": {
-          "satellite": {
-            "type": "string"
-          },
-          "sceneId": {
-            "type": "string"
-          },
-          "cloudCover": {
-            "type": "number"
-          },
-          "capturedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "satellite",
-          "cloudCover"
-        ]
-      },
-      "Float": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "wmoId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "parkDepthM": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FloatCreate": {
-        "type": "object",
-        "properties": {
-          "wmoId": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "parkDepthM": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "lat",
-          "lon"
-        ]
-      },
-      "Station": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "stationId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "network": {
+          "comment": {
             "type": "string"
           },
           "createdAt": {
@@ -1413,22 +860,22 @@
           }
         }
       },
-      "StationCreate": {
+      "CalibrationCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
+          "equation": {
             "type": "string"
           },
-          "name": {
+          "coefficient": {
             "type": "string"
           },
-          "network": {
+          "comment": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "network"
+          "equation",
+          "coefficient"
         ]
       }
     }

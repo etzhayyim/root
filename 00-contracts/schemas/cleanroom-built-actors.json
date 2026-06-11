@@ -855,17 +855,14 @@
       "handle": "argo_ocean_floats-compat",
       "platform": "argo_ocean_floats",
       "bytes": 2131,
-      "wasmCid": "bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+      "wasmCid": "bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Object",
-        "Position",
-        "Observation",
-        "Scene",
-        "Float",
-        "Station"
+        "Profile",
+        "Measurement",
+        "Calibration"
       ]
     },
     {
@@ -1112,12 +1109,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -3266,17 +3263,16 @@
       "handle": "comma_ai-compat",
       "platform": "comma_ai",
       "bytes": 2122,
-      "wasmCid": "bafkreih24qarb3b7ydidygj633wjt3z6y3z54acxrembwfeslcimfyrx6e",
+      "wasmCid": "bafkreicye2366c6ezue5gmspn3gthseaog3qu4ixeqz2sdu3k2fin3vxhq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Device",
+        "Route",
+        "Segment",
+        "SavedLocation",
+        "User"
       ]
     },
     {

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 183,
+  "count": 186,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1489,6 +1489,117 @@
       "note": "FULLY VERIFIED (4/4) vs official ApolloAuto/apollo common_msgs protos. Enforced enums: Chassis.drivingMode(5), Chassis.frontBumperEvent(3), ADCTrajectory.rightOfWayStatus(2), LocalizationStatus.fusionStatus(5) = 4 enum fields (fusionStatus keeps Apollo's literal WARNNING spelling — fidelity over orthography). Version-growing + deprecated sets gapped."
     },
     {
+      "handle": "argo_ocean_floats-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://archimer.ifremer.fr/doc/00187/29825/120885.pdf (Argo User's Manual, doi:10.13155/29825) + https://vocab.nerc.ac.uk/collection/RR2/current/ (official NVS Argo vocabulary)",
+      "remodeled": "Remodeled to the faithful Argo NetCDF profile surface verified against the OFFICIAL Argo User's Manual (DOI 10.13155/29825; the PDF was text-extracted and every variable read from its NetCDF definitions) plus the official NERC Vocabulary Server Argo collections. direction enforced {A,D} (manual conventions: 'A: ascending profiles, D: descending profiles' — physically anchored); dataMode enforced {R,A,D} (the manual defines the complete real-time/adjusted/delayed lifecycle in prose); QC flags enforced {0,1,2,3,4,5,8,9} (POSITION_QC conventions = 'Argo reference table 2' = NVS RR2, whose published members omit 6 and 7). METHOD NOTE: gemini failed twice on the PDF-heavy sources (empty output, no fabrication); the harness extracted and verified directly (pdftotext + NVS JSON-LD).",
+      "resources": [
+        {
+          "entity": "Profile",
+          "source": "https://archimer.ifremer.fr/doc/00187/29825/120885.pdf (Argo User's Manual, doi:10.13155/29825)",
+          "verifiedFields": [
+            "platformNumber",
+            "projectName",
+            "piName",
+            "cycleNumber",
+            "direction",
+            "dataMode",
+            "juld",
+            "latitude",
+            "longitude",
+            "positionQc",
+            "dataCentre"
+          ],
+          "fieldStatus": "confirmed (NetCDF variable definitions: PLATFORM_NUMBER/PROJECT_NAME/PI_NAME/CYCLE_NUMBER/DIRECTION/DATA_MODE/JULD/LATITUDE/LONGITUDE/POSITION_QC/DATA_CENTRE)",
+          "discoveredEnums": {
+            "direction": [
+              "A",
+              "D"
+            ],
+            "dataMode": [
+              "R",
+              "A",
+              "D"
+            ],
+            "positionQc": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Measurement",
+          "source": "https://archimer.ifremer.fr/doc/00187/29825/120885.pdf (Argo User's Manual, doi:10.13155/29825) + https://vocab.nerc.ac.uk/collection/RR2/current/",
+          "verifiedFields": [
+            "pres",
+            "presQc",
+            "temp",
+            "tempQc",
+            "psal",
+            "psalQc"
+          ],
+          "fieldStatus": "confirmed (<PARAM> + <PARAM>_QC pattern; QC scale = reference table 2)",
+          "discoveredEnums": {
+            "presQc": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ],
+            "tempQc": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ],
+            "psalQc": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Calibration",
+          "source": "https://archimer.ifremer.fr/doc/00187/29825/120885.pdf (Argo User's Manual, doi:10.13155/29825)",
+          "verifiedFields": [
+            "equation",
+            "coefficient",
+            "comment"
+          ],
+          "fieldStatus": "confirmed (SCIENTIFIC_CALIB_* variables)",
+          "discoveredEnums": {},
+          "gaps": [
+            "dataType-R01-version-grown (SPROF/METAAUX additions) -> not enforced"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official Argo User's Manual + NVS vocabularies. Enforced enums: direction(2) + dataMode(3) + positionQc(8) + presQc/tempQc/psalQc(8 each) = 6 enum fields. The QC scale's published omission of 6 and 7 is preserved faithfully."
+    },
+    {
       "handle": "arxiv_api-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -2168,6 +2279,144 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Atlassian Jira swagger. Enforced enums: Project.projectTypeKey, Project.style, User.accountType (3)."
+    },
+    {
+      "handle": "auterion-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model) + https://docs.auterion.com/ (APX4 + MAVLink Forwarding) + https://auterion.com/company/ (PX4 contributions)",
+      "remodeled": "MAVLink-family conformance leverage (4th member after mavlink_drones / mavlink_swarm / px4_autopilot): Auterion's own documentation establishes the conformance — docs.auterion.com documents APX4 (Auterion's PX4-based flight stack, 'Creating Airframe Configurations for APX4') and MAVLink Forwarding as product features, and auterion.com/company states its PX4 contributions (Auterion is the corporate steward of PX4/MAVSDK). The actor therefore joins on the mavlink_drones-verified common.xml model with the same enum discipline (MAV_STATE + MAV_MISSION_TYPE enforced; version-growing sets gapped). Evidence harness-fetched directly (the gemini conformance run died on quota; zero fabrication).",
+      "resources": [
+        {
+          "entity": "Heartbeat",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "type",
+            "autopilot",
+            "baseMode",
+            "customMode",
+            "systemStatus",
+            "mavlinkVersion"
+          ],
+          "fieldStatus": "confirmed via mavlink-family leverage",
+          "discoveredEnums": {
+            "systemStatus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "gaps": [
+            "type-MAV_TYPE-version-growing",
+            "autopilot-version-growing"
+          ]
+        },
+        {
+          "entity": "SysStatus",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "load",
+            "voltageBattery",
+            "currentBattery",
+            "batteryRemaining",
+            "dropRateComm",
+            "errorsComm"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GpsRawInt",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeUsec",
+            "fixType",
+            "lat",
+            "lon",
+            "alt",
+            "vel",
+            "satellitesVisible"
+          ],
+          "fieldStatus": "confirmed via leverage; fixType version-growing -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "fixType-version-growing"
+          ]
+        },
+        {
+          "entity": "Attitude",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeBootMs",
+            "roll",
+            "pitch",
+            "yaw",
+            "rollspeed",
+            "pitchspeed",
+            "yawspeed"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GlobalPositionInt",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeBootMs",
+            "lat",
+            "lon",
+            "alt",
+            "relativeAlt",
+            "vx",
+            "vy",
+            "vz",
+            "hdg"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "MissionItem",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "targetSystem",
+            "targetComponent",
+            "seq",
+            "frame",
+            "command",
+            "current",
+            "autocontinue",
+            "x",
+            "y",
+            "z",
+            "missionType"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {
+            "missionType": [
+              0,
+              1,
+              2,
+              255
+            ]
+          },
+          "gaps": [
+            "frame-version-growing",
+            "command-MAV_CMD-version-growing"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (6/6) onto the mavlink-family verified model (4th member). Evidence: Auterion's own docs (APX4 + MAVLink Forwarding) + corporate PX4-stewardship statements. Enforced enums: Heartbeat.systemStatus(9) + MissionItem.missionType(4) = 2 enum fields."
     },
     {
       "handle": "autodesk-compat",
@@ -5067,6 +5316,159 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Coinbase SDK. Enforced enums: Order.side, Fill.side (2). status/type fields are SDK strings, intentionally NOT enforced."
+    },
+    {
+      "handle": "comma_ai-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://api.comma.ai/",
+      "remodeled": "Remodeled to the faithful comma.ai fleet API surface (the COMPANY API, distinct from the openpilot software actor) verified against the official api.comma.ai documentation. deviceType enforced ('one of (neo, panda, app)' — documented complete); primeType enforced (0/1/2 with documented meanings); the Segment File Status TABLE (upload_url_sent 0 / received 10 / enqueued 20 / processing 30 / processed 40) enforced on procLog/procCamera/procDcamera; saveType enforced as the documented superset {favorite, recent, next} — the page declares both a 2- and a 3-value set on different endpoints (internal variance recorded). gemini-CLI-drafted; harness re-verification corrected two draft type errors (primeType and the proc statuses are integers, not strings) and caught the missed 'next' member.",
+      "resources": [
+        {
+          "entity": "Device",
+          "source": "https://api.comma.ai/",
+          "verifiedFields": [
+            "dongleId",
+            "alias",
+            "serial",
+            "athenaHost",
+            "lastAthenaPing",
+            "ignoreUploads",
+            "isPaired",
+            "isOwner",
+            "publicKey",
+            "prime",
+            "primeType",
+            "trialClaimed",
+            "deviceType",
+            "lastGpsTime",
+            "lastGpsLat",
+            "lastGpsLng",
+            "openpilotVersion",
+            "simId"
+          ],
+          "fieldStatus": "confirmed (documented response fields)",
+          "discoveredEnums": {
+            "primeType": [
+              0,
+              1,
+              2
+            ],
+            "deviceType": [
+              "neo",
+              "panda",
+              "app"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Route",
+          "source": "https://api.comma.ai/",
+          "verifiedFields": [
+            "fullname",
+            "url",
+            "createTime",
+            "startLat",
+            "startLng",
+            "endLat",
+            "endLng",
+            "radar",
+            "hpgps",
+            "passive",
+            "platform",
+            "version",
+            "gitRemote",
+            "gitBranch",
+            "gitCommit",
+            "gitDirty",
+            "maxlog",
+            "proclog",
+            "maxcamera",
+            "proccamera"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Segment",
+          "source": "https://api.comma.ai/",
+          "verifiedFields": [
+            "canonicalName",
+            "number",
+            "procLog",
+            "procCamera",
+            "procDcamera",
+            "startTimeUtcMillis",
+            "endTimeUtcMillis"
+          ],
+          "fieldStatus": "confirmed (Segment File Status table)",
+          "discoveredEnums": {
+            "procLog": [
+              0,
+              10,
+              20,
+              30,
+              40
+            ],
+            "procCamera": [
+              0,
+              10,
+              20,
+              30,
+              40
+            ],
+            "procDcamera": [
+              0,
+              10,
+              20,
+              30,
+              40
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SavedLocation",
+          "source": "https://api.comma.ai/",
+          "verifiedFields": [
+            "placeName",
+            "placeDetails",
+            "latitude",
+            "longitude",
+            "saveType",
+            "label"
+          ],
+          "fieldStatus": "confirmed; page declares 2- AND 3-value saveType sets -> documented superset enforced",
+          "discoveredEnums": {
+            "saveType": [
+              "favorite",
+              "recent",
+              "next"
+            ]
+          },
+          "gaps": [
+            "saveType-page-internal-variance (2-value on PUT, 3-value on PATCH)"
+          ]
+        },
+        {
+          "entity": "User",
+          "source": "https://api.comma.ai/",
+          "verifiedFields": [
+            "email",
+            "points",
+            "regdate",
+            "superuser",
+            "username"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs the official api.comma.ai docs. Enforced enums: deviceType(3) + primeType(3) + procLog/procCamera/procDcamera(5 each) + saveType(3) = 6 enum fields."
     },
     {
       "handle": "comma_ai_openpilot-compat",

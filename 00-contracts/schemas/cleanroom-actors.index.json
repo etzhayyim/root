@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 817,
-    "L5": 183
+    "L4": 814,
+    "L5": 186
   },
   "actors": [
     {
@@ -917,10 +917,10 @@
     {
       "handle": "argo_ocean_floats-compat",
       "did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
-      "wasmCid": "bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+      "wasmCid": "bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "argo_ocean_floats clean-room actor",
       "category": "space_ocean_earth",
       "capabilities": [
@@ -1190,7 +1190,7 @@
       "wasmCid": "bafkreicvpm7kuxxm4gfysenq5vt7q3aw36d22lhfu2v4gbplpamijgsyki",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "auterion clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
@@ -3491,10 +3491,10 @@
     {
       "handle": "comma_ai-compat",
       "did": "did:web:etzhayyim.com:actor:comma_ai-compat",
-      "wasmCid": "bafkreih24qarb3b7ydidygj633wjt3z6y3z54acxrembwfeslcimfyrx6e",
+      "wasmCid": "bafkreicye2366c6ezue5gmspn3gthseaog3qu4ixeqz2sdu3k2fin3vxhq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "comma_ai clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [

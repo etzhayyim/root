@@ -540,3 +540,16 @@ cached for the next iteration).
 | google_cirq | v1alpha1 proto (versioned wire format vendored in Cirq) | State(7)+Health(5)+TimeSlotType(5); Failure.Code(14) gapped as an error-code table (kafka/DJI precedent). **Completes the quantum-cloud family**: ibm_qiskit / aws_braket / d_wave / google_cirq all L5 |
 | d_wave | upstream docstring spells out the COMPLETE state machine | ProblemStatus(5); ProblemType gapped (demonstrably grew ising/qubo→bqm/cqm/dqm/nl); BQ encoding deprecated-for-submission gapped |
 | landsat | official STAC extension schemas' OWN enum arrays | collectionCategory(5)+collectionNumber(2)+wrsType(2)+correction(5). **First override toward MORE enforcement**: the gemini draft gapped three as version-growing, but spec-declared enum arrays are enforceable at the schema version (dbt/freee standard) — while eo:common_name, whose enum array demonstrably grew (green05/rededge07x), stays gapped. Direction-symmetric discipline: the spec's own declaration wins over speculation in both directions |
+
+### §16.6 /loop iteration 5 — wave 6: argo + comma_ai + auterion (186, 18.6%)
+
+argo_ocean_floats + comma_ai + auterion → ledger **186** (814 L4 / 186 L5 =
+18.6%), enforced 181 actors / **772 enum fields** (+14), verify PASS 0/0,
+3/3 green. freefly carries (conformance evidence not yet fetchable;
+gemini quota churn).
+
+| Actor | Anchor | Enforced / gapped |
+|---|---|---|
+| argo_ocean_floats | OFFICIAL Argo User's Manual (DOI 10.13155/29825) PDF **text-extracted by the harness** + NVS vocabularies (JSON-LD) | direction{A,D} (physically anchored) + dataMode{R,A,D} (manual-defined complete lifecycle) + QC flags {0,1,2,3,4,5,8,9} ×4 fields — the published scale's omission of 6/7 preserved faithfully. New anchor class: PDF-only normative manuals are reachable via pdftotext |
+| comma_ai | official api.comma.ai docs (company API, distinct from the openpilot software actor) | deviceType(3, 'one of' declared) + primeType(3) + Segment File Status table (0/10/20/30/40) ×3 + saveType(3, documented superset — the page declares 2- AND 3-value sets; variance recorded). Harness corrected two draft TYPE errors (ints not strings) + a missed member |
+| auterion | Auterion's own docs: APX4 (PX4-based stack) + MAVLink Forwarding + corporate PX4 stewardship | 4th MAVLink-family member; systemStatus(9) + missionType(4) inherited; growing sets stay gapped |

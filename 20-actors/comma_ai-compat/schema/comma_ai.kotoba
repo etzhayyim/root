@@ -3,71 +3,90 @@
 
 namespace comma_ai {
 
-    entity Vehicle {
+    entity Device {
         id: string @unique
-        vin: string
-        model: string
-        state: string
-        odometerKm: float
+        dongleId: string
+        alias: string
+        serial: string
+        athenaHost: string
+        lastAthenaPing: integer
+        ignoreUploads: boolean
+        isPaired: boolean
+        isOwner: boolean
+        publicKey: string
+        prime: boolean
+        primeType: integer
+        trialClaimed: boolean
+        deviceType: string
+        lastGpsTime: integer
+        lastGpsLat: float
+        lastGpsLng: float
+        openpilotVersion: string
+        simId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Signal {
+    entity Route {
         id: string @unique
-        vehicleId: string
-        name: string
-        value: float
-        unit: string
+        fullname: string
+        url: string
+        createTime: integer
+        startLat: float
+        startLng: float
+        endLat: float
+        endLng: float
+        radar: boolean
+        hpgps: boolean
+        passive: boolean
+        platform: string
+        version: string
+        gitRemote: string
+        gitBranch: string
+        gitCommit: string
+        gitDirty: boolean
+        maxlog: integer
+        proclog: integer
+        maxcamera: integer
+        proccamera: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ChargeSession {
+    entity Segment {
         id: string @unique
-        vehicleId: string
-        connectorId: string
-        energyKwh: float
-        status: string
+        canonicalName: string
+        number: integer
+        procLog: integer
+        procCamera: integer
+        procDcamera: integer
+        startTimeUtcMillis: integer
+        endTimeUtcMillis: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connector {
+    entity SavedLocation {
         id: string @unique
-        stationId: string
-        standard: string
-        powerKw: float
-        status: string
+        placeName: string
+        placeDetails: string
+        latitude: float
+        longitude: float
+        saveType: string
+        label: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Trip {
+    entity User {
         id: string @unique
-        vehicleId: string
-        distanceKm: float
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Command {
-        id: string @unique
-        vehicleId: string
-        name: string
-        status: string
+        email: string
+        points: integer
+        regdate: integer
+        superuser: boolean
+        username: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

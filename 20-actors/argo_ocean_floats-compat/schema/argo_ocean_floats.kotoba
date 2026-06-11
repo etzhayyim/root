@@ -3,72 +3,42 @@
 
 namespace argo_ocean_floats {
 
-    entity Object {
+    entity Profile {
         id: string @unique
-        designator: string
-        type: string
-        source: string
+        platformNumber: string
+        projectName: string
+        piName: string
+        cycleNumber: integer
+        direction: string
+        dataMode: string
+        juld: float
+        latitude: float
+        longitude: float
+        positionQc: integer
+        dataCentre: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Position {
+    entity Measurement {
         id: string @unique
-        objectId: string
-        lat: float
-        lon: float
-        altitudeM: float
-        asOf: datetime
+        pres: float
+        presQc: integer
+        temp: float
+        tempQc: integer
+        psal: float
+        psalQc: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Observation {
+    entity Calibration {
         id: string @unique
-        objectId: string
-        parameter: string
-        value: float
-        observedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Scene {
-        id: string @unique
-        satellite: string
-        sceneId: string
-        cloudCover: float
-        capturedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Float {
-        id: string @unique
-        wmoId: string
-        lat: float
-        lon: float
-        parkDepthM: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Station {
-        id: string @unique
-        stationId: string
-        name: string
-        network: string
+        equation: string
+        coefficient: string
+        comment: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

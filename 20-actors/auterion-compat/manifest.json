@@ -11,15 +11,49 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreicvpm7kuxxm4gfysenq5vt7q3aw36d22lhfu2v4gbplpamijgsyki",
   "schema": "schema/auterion.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model) + https://docs.auterion.com/ (APX4 + MAVLink Forwarding) + https://auterion.com/company/ (PX4 contributions)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Heartbeat",
+      "SysStatus",
+      "GpsRawInt",
+      "Attitude",
+      "GlobalPositionInt",
+      "MissionItem"
+    ],
+    "enums": {
+      "Heartbeat": {
+        "systemStatus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "MissionItem": {
+        "missionType": [
+          0,
+          1,
+          2,
+          255
+        ]
+      }
+    }
+  },
   "entities": [
-    "Drone",
-    "Mission",
-    "Waypoint",
-    "Telemetry",
-    "Payload",
-    "Swarm"
+    "Heartbeat",
+    "SysStatus",
+    "GpsRawInt",
+    "Attitude",
+    "GlobalPositionInt",
+    "MissionItem"
   ],
   "adr": [
     "260607",
@@ -35,153 +69,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/drones",
-          "op": "create Drone"
+          "path": "/v1/heartbeats",
+          "op": "create Heartbeat"
         },
         {
           "method": "GET",
-          "path": "/v1/drones",
-          "op": "list Drone"
+          "path": "/v1/heartbeats",
+          "op": "list Heartbeat"
         },
         {
           "method": "GET",
-          "path": "/v1/drones/{id}",
-          "op": "get Drone"
+          "path": "/v1/heartbeats/{id}",
+          "op": "get Heartbeat"
         },
         {
           "method": "PATCH",
-          "path": "/v1/drones/{id}",
-          "op": "update Drone"
+          "path": "/v1/heartbeats/{id}",
+          "op": "update Heartbeat"
         },
         {
           "method": "DELETE",
-          "path": "/v1/drones/{id}",
-          "op": "delete Drone"
+          "path": "/v1/heartbeats/{id}",
+          "op": "delete Heartbeat"
         },
         {
           "method": "POST",
-          "path": "/v1/missions",
-          "op": "create Mission"
+          "path": "/v1/sysstatuses",
+          "op": "create SysStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/missions",
-          "op": "list Mission"
+          "path": "/v1/sysstatuses",
+          "op": "list SysStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/missions/{id}",
-          "op": "get Mission"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "get SysStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/missions/{id}",
-          "op": "update Mission"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "update SysStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/missions/{id}",
-          "op": "delete Mission"
+          "path": "/v1/sysstatuses/{id}",
+          "op": "delete SysStatus"
         },
         {
           "method": "POST",
-          "path": "/v1/waypoints",
-          "op": "create Waypoint"
+          "path": "/v1/gpsrawints",
+          "op": "create GpsRawInt"
         },
         {
           "method": "GET",
-          "path": "/v1/waypoints",
-          "op": "list Waypoint"
+          "path": "/v1/gpsrawints",
+          "op": "list GpsRawInt"
         },
         {
           "method": "GET",
-          "path": "/v1/waypoints/{id}",
-          "op": "get Waypoint"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "get GpsRawInt"
         },
         {
           "method": "PATCH",
-          "path": "/v1/waypoints/{id}",
-          "op": "update Waypoint"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "update GpsRawInt"
         },
         {
           "method": "DELETE",
-          "path": "/v1/waypoints/{id}",
-          "op": "delete Waypoint"
+          "path": "/v1/gpsrawints/{id}",
+          "op": "delete GpsRawInt"
         },
         {
           "method": "POST",
-          "path": "/v1/telemetries",
-          "op": "create Telemetry"
+          "path": "/v1/attitudes",
+          "op": "create Attitude"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries",
-          "op": "list Telemetry"
+          "path": "/v1/attitudes",
+          "op": "list Attitude"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries/{id}",
-          "op": "get Telemetry"
+          "path": "/v1/attitudes/{id}",
+          "op": "get Attitude"
         },
         {
           "method": "PATCH",
-          "path": "/v1/telemetries/{id}",
-          "op": "update Telemetry"
+          "path": "/v1/attitudes/{id}",
+          "op": "update Attitude"
         },
         {
           "method": "DELETE",
-          "path": "/v1/telemetries/{id}",
-          "op": "delete Telemetry"
+          "path": "/v1/attitudes/{id}",
+          "op": "delete Attitude"
         },
         {
           "method": "POST",
-          "path": "/v1/payloads",
-          "op": "create Payload"
+          "path": "/v1/globalpositionints",
+          "op": "create GlobalPositionInt"
         },
         {
           "method": "GET",
-          "path": "/v1/payloads",
-          "op": "list Payload"
+          "path": "/v1/globalpositionints",
+          "op": "list GlobalPositionInt"
         },
         {
           "method": "GET",
-          "path": "/v1/payloads/{id}",
-          "op": "get Payload"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "get GlobalPositionInt"
         },
         {
           "method": "PATCH",
-          "path": "/v1/payloads/{id}",
-          "op": "update Payload"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "update GlobalPositionInt"
         },
         {
           "method": "DELETE",
-          "path": "/v1/payloads/{id}",
-          "op": "delete Payload"
+          "path": "/v1/globalpositionints/{id}",
+          "op": "delete GlobalPositionInt"
         },
         {
           "method": "POST",
-          "path": "/v1/swarms",
-          "op": "create Swarm"
+          "path": "/v1/missionitems",
+          "op": "create MissionItem"
         },
         {
           "method": "GET",
-          "path": "/v1/swarms",
-          "op": "list Swarm"
+          "path": "/v1/missionitems",
+          "op": "list MissionItem"
         },
         {
           "method": "GET",
-          "path": "/v1/swarms/{id}",
-          "op": "get Swarm"
+          "path": "/v1/missionitems/{id}",
+          "op": "get MissionItem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/swarms/{id}",
-          "op": "update Swarm"
+          "path": "/v1/missionitems/{id}",
+          "op": "update MissionItem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/swarms/{id}",
-          "op": "delete Swarm"
+          "path": "/v1/missionitems/{id}",
+          "op": "delete MissionItem"
         }
       ],
       "features": {
@@ -247,128 +281,47 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_drone",
-          "description": "Create a Drone.",
+          "name": "create_heartbeat",
+          "description": "Create a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serial": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "batteryPct": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "serial",
-              "model"
-            ]
-          }
-        },
-        {
-          "name": "list_drones",
-          "description": "List Drones.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_drone",
-          "description": "Get a Drone by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_drone",
-          "description": "Update a Drone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serial": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "batteryPct": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_drone",
-          "description": "Delete a Drone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mission",
-          "description": "Create a Mission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "droneId": {
-                "type": "string"
-              },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "autopilot": {
+                "type": "integer"
+              },
+              "baseMode": {
+                "type": "integer"
+              },
+              "customMode": {
+                "type": "integer"
+              },
+              "systemStatus": {
+                "type": "integer"
+              },
+              "mavlinkVersion": {
+                "type": "integer"
               }
             },
             "required": [
               "type",
-              "status"
+              "autopilot"
             ]
           }
         },
         {
-          "name": "list_missions",
-          "description": "List Missions.",
+          "name": "list_heartbeats",
+          "description": "List Heartbeats.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_mission",
-          "description": "Get a Mission by id.",
+          "name": "get_heartbeat",
+          "description": "Get a Heartbeat by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,22 +335,31 @@
           }
         },
         {
-          "name": "update_mission",
-          "description": "Update a Mission.",
+          "name": "update_heartbeat",
+          "description": "Update a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "droneId": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "autopilot": {
+                "type": "integer"
+              },
+              "baseMode": {
+                "type": "integer"
+              },
+              "customMode": {
+                "type": "integer"
+              },
+              "systemStatus": {
+                "type": "integer"
+              },
+              "mavlinkVersion": {
+                "type": "integer"
               }
             },
             "required": [
@@ -406,8 +368,8 @@
           }
         },
         {
-          "name": "delete_mission",
-          "description": "Delete a Mission.",
+          "name": "delete_heartbeat",
+          "description": "Delete a Heartbeat.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,44 +383,500 @@
           }
         },
         {
-          "name": "create_waypoint",
-          "description": "Create a Waypoint.",
+          "name": "create_sys_status",
+          "description": "Create a SysStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "missionId": {
+              "load": {
+                "type": "integer"
+              },
+              "voltageBattery": {
+                "type": "integer"
+              },
+              "currentBattery": {
+                "type": "integer"
+              },
+              "batteryRemaining": {
+                "type": "integer"
+              },
+              "dropRateComm": {
+                "type": "integer"
+              },
+              "errorsComm": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "load",
+              "voltageBattery"
+            ]
+          }
+        },
+        {
+          "name": "list_sys_statuses",
+          "description": "List SysStatuses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_sys_status",
+          "description": "Get a SysStatus by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_sys_status",
+          "description": "Update a SysStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
+              "load": {
+                "type": "integer"
+              },
+              "voltageBattery": {
+                "type": "integer"
+              },
+              "currentBattery": {
+                "type": "integer"
+              },
+              "batteryRemaining": {
+                "type": "integer"
+              },
+              "dropRateComm": {
+                "type": "integer"
+              },
+              "errorsComm": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sys_status",
+          "description": "Delete a SysStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_gps_raw_int",
+          "description": "Create a GpsRawInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timeUsec": {
+                "type": "integer"
+              },
+              "fixType": {
+                "type": "integer"
+              },
               "lat": {
-                "type": "number"
+                "type": "integer"
               },
               "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "vel": {
+                "type": "integer"
+              },
+              "satellitesVisible": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "timeUsec",
+              "fixType"
+            ]
+          }
+        },
+        {
+          "name": "list_gps_raw_ints",
+          "description": "List GpsRawInts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_gps_raw_int",
+          "description": "Get a GpsRawInt by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_gps_raw_int",
+          "description": "Update a GpsRawInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timeUsec": {
+                "type": "integer"
+              },
+              "fixType": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "vel": {
+                "type": "integer"
+              },
+              "satellitesVisible": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_gps_raw_int",
+          "description": "Delete a GpsRawInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_attitude",
+          "description": "Create a Attitude.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timeBootMs": {
+                "type": "integer"
+              },
+              "roll": {
                 "type": "number"
               },
-              "altitudeM": {
+              "pitch": {
                 "type": "number"
+              },
+              "yaw": {
+                "type": "number"
+              },
+              "rollspeed": {
+                "type": "number"
+              },
+              "pitchspeed": {
+                "type": "number"
+              },
+              "yawspeed": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "timeBootMs",
+              "roll"
+            ]
+          }
+        },
+        {
+          "name": "list_attitudes",
+          "description": "List Attitudes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_attitude",
+          "description": "Get a Attitude by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_attitude",
+          "description": "Update a Attitude.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timeBootMs": {
+                "type": "integer"
+              },
+              "roll": {
+                "type": "number"
+              },
+              "pitch": {
+                "type": "number"
+              },
+              "yaw": {
+                "type": "number"
+              },
+              "rollspeed": {
+                "type": "number"
+              },
+              "pitchspeed": {
+                "type": "number"
+              },
+              "yawspeed": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_attitude",
+          "description": "Delete a Attitude.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_global_position_int",
+          "description": "Create a GlobalPositionInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timeBootMs": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "relativeAlt": {
+                "type": "integer"
+              },
+              "vx": {
+                "type": "integer"
+              },
+              "vy": {
+                "type": "integer"
+              },
+              "vz": {
+                "type": "integer"
+              },
+              "hdg": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "timeBootMs",
+              "lat"
+            ]
+          }
+        },
+        {
+          "name": "list_global_position_ints",
+          "description": "List GlobalPositionInts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_global_position_int",
+          "description": "Get a GlobalPositionInt by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_global_position_int",
+          "description": "Update a GlobalPositionInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timeBootMs": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "integer"
+              },
+              "lon": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "integer"
+              },
+              "relativeAlt": {
+                "type": "integer"
+              },
+              "vx": {
+                "type": "integer"
+              },
+              "vy": {
+                "type": "integer"
+              },
+              "vz": {
+                "type": "integer"
+              },
+              "hdg": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_global_position_int",
+          "description": "Delete a GlobalPositionInt.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_mission_item",
+          "description": "Create a MissionItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "targetSystem": {
+                "type": "integer"
+              },
+              "targetComponent": {
+                "type": "integer"
               },
               "seq": {
                 "type": "integer"
+              },
+              "frame": {
+                "type": "integer"
+              },
+              "command": {
+                "type": "integer"
+              },
+              "current": {
+                "type": "integer"
+              },
+              "autocontinue": {
+                "type": "integer"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "missionType": {
+                "type": "integer"
               }
             },
             "required": [
-              "lat",
-              "lon"
+              "targetSystem",
+              "targetComponent"
             ]
           }
         },
         {
-          "name": "list_waypoints",
-          "description": "List Waypoints.",
+          "name": "list_mission_items",
+          "description": "List MissionItems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_waypoint",
-          "description": "Get a Waypoint by id.",
+          "name": "get_mission_item",
+          "description": "Get a MissionItem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,292 +890,46 @@
           }
         },
         {
-          "name": "update_waypoint",
-          "description": "Update a Waypoint.",
+          "name": "update_mission_item",
+          "description": "Update a MissionItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "missionId": {
-                "type": "string"
+              "targetSystem": {
+                "type": "integer"
               },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
+              "targetComponent": {
+                "type": "integer"
               },
               "seq": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_waypoint",
-          "description": "Delete a Waypoint.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_telemetry",
-          "description": "Create a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "droneId": {
-                "type": "string"
               },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
-              },
-              "recordedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_telemetries",
-          "description": "List Telemetries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_telemetry",
-          "description": "Get a Telemetry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_telemetry",
-          "description": "Update a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "droneId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
-              },
-              "recordedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_telemetry",
-          "description": "Delete a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payload",
-          "description": "Create a Payload.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "droneId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "weightKg": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "type",
-              "weightKg"
-            ]
-          }
-        },
-        {
-          "name": "list_payloads",
-          "description": "List Payloads.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payload",
-          "description": "Get a Payload by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payload",
-          "description": "Update a Payload.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "droneId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "weightKg": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payload",
-          "description": "Delete a Payload.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_swarm",
-          "description": "Create a Swarm.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "droneCount": {
+              "frame": {
                 "type": "integer"
               },
-              "leaderId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "droneCount"
-            ]
-          }
-        },
-        {
-          "name": "list_swarms",
-          "description": "List Swarms.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_swarm",
-          "description": "Get a Swarm by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_swarm",
-          "description": "Update a Swarm.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "droneCount": {
+              "command": {
                 "type": "integer"
               },
-              "leaderId": {
-                "type": "string"
+              "current": {
+                "type": "integer"
+              },
+              "autocontinue": {
+                "type": "integer"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "missionType": {
+                "type": "integer"
               }
             },
             "required": [
@@ -766,8 +938,8 @@
           }
         },
         {
-          "name": "delete_swarm",
-          "description": "Delete a Swarm.",
+          "name": "delete_mission_item",
+          "description": "Delete a MissionItem.",
           "inputSchema": {
             "type": "object",
             "properties": {

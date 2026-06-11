@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29490,
+  "totalEndpoints": 29470,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 178,
-  "totalVerifiedEnumFields": 758,
+  "l5VerifiedActors": 181,
+  "totalVerifiedEnumFields": 772,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -964,10 +964,10 @@
     {
       "handle": "argo_ocean_floats-compat",
       "did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreiapakfvrvdiel5dve4yekllr7psd7hdy4fo6x4ebao2kg34k7ztra",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -976,8 +976,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "openapi": "20-actors/argo_ocean_floats-compat/openapi.json"
     },
     {
@@ -1249,7 +1249,7 @@
     {
       "handle": "auterion-compat",
       "did": "did:web:etzhayyim.com:actor:auterion-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreicvpm7kuxxm4gfysenq5vt7q3aw36d22lhfu2v4gbplpamijgsyki",
@@ -1261,8 +1261,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/auterion-compat/openapi.json"
     },
     {
@@ -3681,10 +3681,10 @@
     {
       "handle": "comma_ai-compat",
       "did": "did:web:etzhayyim.com:actor:comma_ai-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreih24qarb3b7ydidygj633wjt3z6y3z54acxrembwfeslcimfyrx6e",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreicye2366c6ezue5gmspn3gthseaog3qu4ixeqz2sdu3k2fin3vxhq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -3693,8 +3693,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 6,
       "openapi": "20-actors/comma_ai-compat/openapi.json"
     },
     {
