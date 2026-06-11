@@ -15093,6 +15093,20 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+      "type": "TechArticle",
+      "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
+      "status": "accepted",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+        "doc:adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "doc:adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
