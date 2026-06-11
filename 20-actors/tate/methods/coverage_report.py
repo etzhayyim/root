@@ -120,6 +120,12 @@ def report(cov: dict) -> str:
     L.append("|---|" + "---|" * len(all_tracks))
     for j, ts in cov["track_matrix"].items():
         L.append(f"| {j} | " + " | ".join(str(ts.get(t, "·")) for t in all_tracks) + " |")
+    n_juris = max(1, len(cov["track_matrix"]))
+    depth = " · ".join(
+        f"{t.lstrip(':')} {sum(1 for ts in cov['track_matrix'].values() if ts.get(t, 0))}/{n_juris}"
+        for t in [":labor", ":housing", ":enforcement", ":insolvency", ":family"])
+    L.append("")
+    L.append(f"track depth (管轄横展開率): {depth}")
     L.append("")
     L.append("## Critical deadlines (徒過で権利が消える期限 — 全管轄一覧)")
     L.append("")

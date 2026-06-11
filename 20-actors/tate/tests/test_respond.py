@@ -889,6 +889,31 @@ def test_wave28_civil_only_eliminated():
     assert at["deadlines"][0]["critical"] is True and "§105" in at["deadlines"][0]["anchor"]
 
 
+def test_wave29_nl_br_se_housing():
+    """Wave 29: housing 13 juris — :nl BW 7:272 (賃貸人の opzegging では終了しない;
+    同意しない自由 = protective) · :br purga da mora 15日 (Lei 8.245/91 critical) ·
+    :se besittningsskydd + hyresnämnden (anvisning 必須). Labor/housing の同語衝突
+    (uppsägning/opzegging) は雇用特定 trigger へ分離済み."""
+    ps, procs = _by_id()
+    nl = ps["ntc:nl-huur"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-huuropzegging"
+    assert any("7:272" in d["anchor"] for d in nl["deadlines"])
+    br = ps["ntc:br-despejo"]
+    assert br["status"] == ":genuine" and br["proc"] == "proc:br-despejo"
+    assert br["deadlines"][0]["critical"] is True and "purga da mora" in br["deadlines"][0]["rule"]
+    se = ps["ntc:se-hyres"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-hyresuppsagning"
+    assert any("hyresnämnden" in d["rule"] for d in se["deadlines"])
+    # disambiguation: 雇用通知は labor へ, 賃貸通知は housing へ, 裸の語は :unknown
+    base = {":notice/id": "ntc:x", ":notice/channel": ":mail", ":notice/sourcing": ":synthetic"}
+    p1, s1 = classify({**base, ":notice/jurisdiction": ":se",
+                       ":notice/text": "Uppsägning av din anställning"}, procs)
+    assert p1[":proc/id"] == "proc:se-uppsagning"
+    p2, s2 = classify({**base, ":notice/jurisdiction": ":se",
+                       ":notice/text": "Uppsägning"}, procs)
+    assert p2 is None  # bare word → honest degrade
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

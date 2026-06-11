@@ -842,7 +842,7 @@
  ;; ── :nl ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:nl-ontslag" :proc/label "Opzegging arbeidsovereenkomst (解雇・労働・オランダ)"
   :proc/jurisdiction :nl :proc/track :labor
-  :proc/trigger-keywords ["opzegging" "ontslag"]
+  :proc/trigger-keywords ["arbeidsovereenkomst" "ontslag"]
   :proc/genuine-channels [:mail :personal-service]
   :proc/deadline-rules
   [{:dl/label "Verzoekschrift (vervaltermijn — 失権期間)"
@@ -857,6 +857,23 @@
    {:opt/id :niet-instemmen :opt/kind :self-decide
     :opt/label "vaststellingsovereenkomst へのサインは検討期間 (14日撤回権) を確認してから"}]
   :proc/refer-when ["Juridisch Loket (無料)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:nl-huuropzegging" :proc/label "Opzegging huurovereenkomst (住居・オランダ)"
+  :proc/jurisdiction :nl :proc/track :housing
+  :proc/trigger-keywords ["huurovereenkomst" "huur"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "同意しない自由 (huurbescherming)"
+    :dl/rule "verhuurder の opzegging だけでは賃貸借は終了しない — 賃借人が6週間以内に書面で同意しない限り, verhuurder は kantonrechter の判断を求めるしかない (同意する義務はない)"
+    :dl/anchor "BW 7:272" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :do-not-agree :opt/kind :self-decide :opt/protective true
+    :opt/label "同意しない (沈黙でも借家権は続く — 裁判所が判断するまで居住継続)"}
+   {:opt/id :check-grounds :opt/kind :self-decide :opt/label "opzeggingsgrond (dringend eigen gebruik 等) の妥当性を !WOON 等で点検"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換・追い出しは違法 — ontruiming は vonnis + deurwaarder のみ"}]
+  :proc/refer-when ["kantonrechter 手続 → Juridisch Loket / huurteam"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:nl-dagvaarding" :proc/label "Dagvaarding (呼出状・オランダ)"
@@ -1510,7 +1527,7 @@
  ;; ── :se ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:se-uppsagning" :proc/label "Uppsägning (解雇・労働・スウェーデン)"
   :proc/jurisdiction :se :proc/track :labor
-  :proc/trigger-keywords ["uppsägning"]
+  :proc/trigger-keywords ["anställning"]
   :proc/genuine-channels [:mail :personal-service]
   :proc/deadline-rules
   [{:dl/label "Ogiltigförklaring の underrättelse"
@@ -1524,6 +1541,23 @@
     :opt/label "書面 underrättelse を雇用主へ (2 veckor — まず期限を止める)"}
    {:opt/id :facket :opt/kind :self-decide :opt/label "組合員なら facket 経由が標準 (förhandling)"}]
   :proc/refer-when ["a-kassa へ即登録" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:se-hyresuppsagning" :proc/label "Uppsägning av hyresavtal (住居・スウェーデン)"
+  :proc/jurisdiction :se :proc/track :housing
+  :proc/trigger-keywords ["hyresavtal"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Besittningsskydd (継続保護)"
+    :dl/rule "居住用賃借人は強い besittningsskydd — 争いは hyresnämnden へ付託 (uppsägning には付託先の anvisning 記載が必須; 不備は無効主張の余地)"
+    :dl/anchor "Jordabalken 12 kap. 46§・49§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :hyresnamnden :opt/kind :self-submit :opt/protective true
+    :opt/label "hyresnämnden へ付託 (無料・本人手続)"}
+   {:opt/id :hyresgastforeningen :opt/kind :self-decide :opt/label "Hyresgästföreningen (借家人組合) へ"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換等は違法 — avhysning は判決/beslut + Kronofogden のみ"}]
+  :proc/refer-when ["avhysning 段階 → 即 hyresnämnden/jurist"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:se-betalningsforelaggande" :proc/label "Betalningsföreläggande (支払督促・スウェーデン)"
@@ -1555,6 +1589,26 @@
    {:opt/id :seguro-desemprego :opt/kind :self-submit :opt/label "seguro-desemprego を申請 (dispensa sem justa causa)"}]
   :proc/refer-when ["justa causa に争い → advogado trabalhista / sindicato"
                     "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:br-despejo" :proc/label "Ação de despejo (立退き・住居・ブラジル)"
+  :proc/jurisdiction :br :proc/track :housing
+  :proc/trigger-keywords ["despejo"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Purga da mora (滞納の解消)"
+    :dl/rule "賃料滞納型は15日以内の purga da mora (全額+費用・諸経費の支払) で despejo を解消できる"
+    :dl/anchor "Lei 8.245/91 art. 62 II" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Contestação"
+    :dl/rule "争う場合の contestação は15日 (dias úteis)"
+    :dl/anchor "CPC 2015 art. 335 / Lei 8.245/91" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :purga :opt/kind :self-submit :opt/protective true
+    :opt/label "purga da mora を申し出る (15日 — 計算書を請求して全額を確定)"}
+   {:opt/id :contestacao :opt/kind :self-submit :opt/label "contestação を提出"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換・断水断電は違法 (autotutela) — despejo は judicial + oficial de justiça のみ"}]
+  :proc/refer-when ["Defensoria Pública (住居は優先対応の州が多い)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"

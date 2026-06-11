@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 29 (:nl/:br/:se housing) ────────────────────────────────────────────
+ {:notice/id "ntc:nl-huur" :notice/label "NL opzegging huurovereenkomst (住居)"
+  :notice/jurisdiction :nl
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Opzegging van de huurovereenkomst wegens dringend eigen gebruik."}
+
+ {:notice/id "ntc:br-despejo" :notice/label "BR ação de despejo (住居)"
+  :notice/jurisdiction :br
+  :notice/channel :formal-service :notice/claim-amount 4800 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Ação de despejo por falta de pagamento. O locatário poderá purgar a mora no prazo legal."}
+
+ {:notice/id "ntc:se-hyres" :notice/label "SE uppsägning av hyresavtal (住居)"
+  :notice/jurisdiction :se
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "SEK"
+  :notice/sourcing :synthetic
+  :notice/text "Uppsägning av hyresavtal för avflyttning, med anvisning till hyresnämnden."}
+
  ;; ── wave 28 (civil-only 完全解消: :dk/:fi/:be/:mx/:ar labor) ─────────────────
  {:notice/id "ntc:at-kuendigung" :notice/label "AT Kündigung des Dienstverhältnisses (労働)"
   :notice/jurisdiction :at
