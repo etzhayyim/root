@@ -19,6 +19,9 @@ _Rests on:_ Apache-2.0 §2–§4 (Apache License, Version 2.0); 17 U.S.C. §106 
 ### 2. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)
 
+### 3. Copyleft license grant (GPL/AGPL)  (ip-license, optional)
+_Rests on:_ GPL-3.0 (GNU General Public License, Version 3); Berne Convention, Art. 5 (Berne Convention for the Protection of Literary and Artistic Works)
+
 ## Execution
 Executed electronically via the etzhayyim esign substrate (com.etzhayyim.esign.envelope): each party signs with a WebAuthn passkey bound to their DID. Electronic execution rests on eIDAS Art. 25 (EU), ESIGN/UETA (US) and 電子署名法 (JP), as cited by the signature clause.
 

@@ -11,14 +11,14 @@
 | Open-Content License Grant (Creative Commons Attribution 4.0) | en | INTL | 3 | 13 | `bafkreigiky2hz5iri…` |
 | Construction Works Contract | en | JP | 7 | 26 | `bafkreig6wd47k3aef…` |
 | 業務委託契約書 | ja | JP | 4 | 19 | `bafkreiccmcvt4zg2x…` |
-| Independent Consulting Services Agreement | en | INTL | 9 | 28 | `bafkreib6jbuml2woe…` |
+| Independent Consulting Services Agreement | en | INTL | 9 | 29 | `bafkreibostpur7ogc…` |
 | 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 16 | `bafkreifwdj6hdjzql…` |
-| Distribution Agreement | en | EU | 6 | 16 | `bafkreibhomdgwjp74…` |
+| Distribution Agreement | en | EU | 6 | 17 | `bafkreigjtovsk3shq…` |
 | Charitable Donation & Grant Agreement | en | INTL | 2 | 11 | `bafkreibjtl2z2beks…` |
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 20 | `bafkreibqwm3icmmik…` |
 | Auftragsverarbeitungsvertrag (DSGVO Art. 28) | de | EU | 4 | 20 | `bafkreihzs5bqus7iv…` |
 | Accord de traitement des données (RGPD Art. 28) | fr | EU | 4 | 20 | `bafkreianan2uq4xic…` |
-| Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 26 | `bafkreig2bevdj6fgt…` |
+| Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 27 | `bafkreid6winksk2at…` |
 | Contrato de trabajo | es | ES | 3 | 16 | `bafkreiad4oqvyvt6y…` |
 | Contrat de travail | fr | FR | 3 | 20 | `bafkreiejf4h2edtnv…` |
 | Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 32 | `bafkreib2asrwaltd7…` |
@@ -27,12 +27,12 @@
 | Franchise Agreement | en | INTL | 7 | 24 | `bafkreignklckrn3l6…` |
 | Guaranty Agreement | en | JP | 5 | 16 | `bafkreicdiqquoreyt…` |
 | 保証契約書 | ja | JP | 3 | 14 | `bafkreiep32q5bbphb…` |
-| Heter Iska Investment-Partnership Agreement | en | INTL | 4 | 14 | `bafkreihglzka5wh74…` |
+| Heter Iska Investment-Partnership Agreement | en | INTL | 4 | 15 | `bafkreiafq2qpnacf6…` |
 | Insurance Policy Agreement | en | JP | 5 | 19 | `bafkreichcvmoft5ap…` |
 | Wohnraummietvertrag / Residential Lease (Germany) | en | DE | 6 | 21 | `bafkreieinvykwym72…` |
 | 住宅賃貸借契約書 | ja | JP | 5 | 15 | `bafkreiaik6p4odajr…` |
 | Residential Lease Agreement (Japan) | en | JP | 4 | 14 | `bafkreidyc7iqjkmsn…` |
-| Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
+| Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 16 | `bafkreig3eowtbdejb…` |
 | 無利息金銭消費貸借契約書 | ja | JP | 3 | 13 | `bafkreig2npvvenlfj…` |
 | Gegenseitige Geheimhaltungsvereinbarung | de | DE | 2 | 13 | `bafkreieamxkipjp7x…` |
 | Acuerdo de confidencialidad mutuo | es | ES | 2 | 13 | `bafkreihflyyvtgxig…` |
@@ -40,12 +40,12 @@
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 19 | `bafkreigwj7hdhjnis…` |
 | 相互秘密保持契約書 | ja | JP | 5 | 17 | `bafkreigkfape6sn2i…` |
 | 相互保密协议 | zh | CN | 2 | 13 | `bafkreid62ffprrm7x…` |
-| Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 12 | `bafkreifhbarshwydc…` |
-| General Partnership Agreement | en | INTL | 7 | 19 | `bafkreidjtqvsyezjx…` |
+| Apache-2.0 Inbound Contribution Grant | en | INTL | 3 | 14 | `bafkreih7mtwldwyns…` |
+| General Partnership Agreement | en | INTL | 7 | 20 | `bafkreifid2t3d6l3d…` |
 | Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |
-| International Sale of Goods Agreement (CISG) | en | INTL | 10 | 36 | `bafkreihvk3xuvqu2w…` |
+| International Sale of Goods Agreement (CISG) | en | INTL | 10 | 37 | `bafkreibrk663lnjgq…` |
 | Security Agreement | en | US | 4 | 15 | `bafkreigucffzdraau…` |
-| Service Level Agreement | en | INTL | 7 | 16 | `bafkreiey6izz3vnez…` |
+| Service Level Agreement | en | INTL | 7 | 17 | `bafkreibv3d7eojovd…` |
 | Settlement & Release Agreement | en | INTL | 5 | 16 | `bafkreibyyyjhv63s2…` |
 
 ---

@@ -22,7 +22,7 @@ _Rests on:_ 民法667条 (民法 (明治29年法律第89号))
 _Rests on:_ 民法667条 (民法 (明治29年法律第89号)); BGB §705 (Bürgerliches Gesetzbuch (BGB), Germany)
 
 ### 4. Good faith & fair dealing  (boilerplate, recommended)
-_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
 
 ### 5. Dispute resolution — good-faith mediation first  (dispute, recommended)
 _Rests on:_ Singapore Convention 2019, Art. 3 (United Nations Convention on International Settlement Agreements Resulting from Mediation); Directive 2008/52/EC, Art. 3 (Directive 2008/52/EC (Mediation)); ADR法 (平成16年法律第151号) (裁判外紛争解決手続の利用の促進に関する法律)

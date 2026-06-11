@@ -415,9 +415,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreib6jbuml2woe6jlj7tyb7xazqhgv43qhu7e3ffykaf6k4cpnmjhae",
-      "bodySha256": "0x3e4868c5eace2792b4fe780fee0cc0e6af3703d3e4d94b8500be5704f6b12701",
-      "bytes": 3696,
+      "bodyCid": "bafkreibostpur7ogcaa5fwwbl3qxgxmpql6qzp36wk4duanhgn7xx5p6rm",
+      "bodySha256": "0x2e94df48fdc61001d2dac15ee1735d8f82fd0cbf7eb2b83a01a7337f7bf5fe8b",
+      "bytes": 3744,
       "clauseCount": 9,
       "statutes": [
         {
@@ -583,6 +583,12 @@
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
         },
         {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
+        },
+        {
           "id": "st.israel-contracts-1973",
           "citation": "Contracts (General Part) Law 5733-1973, §39",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
@@ -713,9 +719,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreibhomdgwjp74kwcgs5kxfwye6nirym5xinrtuokqhynd7245ikdbe",
-      "bodySha256": "0x2773066b25ffe2ac234baab96d8279a88e19dba1b19d1ca81f0d1ff5cea14309",
-      "bytes": 2523,
+      "bodyCid": "bafkreigjtovsk3shq33jtjg4c2ee53hixai6bqkjm24ftkelalzhssm7aq",
+      "bodySha256": "0xc99bab256e4786f699a4dc16884eece8b811e0c14966b859a88b02f279499f04",
+      "bytes": 2571,
       "clauseCount": 6,
       "statutes": [
         {
@@ -747,6 +753,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",
@@ -1320,9 +1332,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreig2bevdj6fgtoauoea4r34ez7myboe6ruexykzbpq6ukdhhy3e3k4",
-      "bodySha256": "0xda092a34f8a69b8147101c8ef84cfd980b89e8d097c2b217c3d450ce7c6c9b57",
-      "bytes": 3326,
+      "bodyCid": "bafkreid6winksk2ato6q6eyrefh46g4pi4ldh26trjzrkqywxpslsdbbki",
+      "bodySha256": "0x7eb21aa92b409bbd0f1311214fcf1b8f471633ebd38a73154316bbe4b90c2152",
+      "bytes": 3374,
       "clauseCount": 7,
       "statutes": [
         {
@@ -1414,6 +1426,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",
@@ -2577,9 +2595,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihglzka5wh74u6q4jy6pfnrqtxbuzkzgcbwyf5mlaj6tqlucsc62i",
-      "bodySha256": "0xe65e540ed8ffe53d0e271e795b184ee1a655930836c17ac5813e9c1741485ed2",
-      "bytes": 2376,
+      "bodyCid": "bafkreiafq2qpnacf6laovv4xpnrhstcgtgkywhigq7wr3fxg7eltwb44ti",
+      "bodySha256": "0x0586a0f68045f2c0ead7977b62794c4699958b1d0687ed1d96e6f9173b079c9a",
+      "bytes": 2424,
       "clauseCount": 4,
       "statutes": [
         {
@@ -2599,6 +2617,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",
@@ -3160,9 +3184,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiasw6vof6rb6ptz3rp5yc7ae2me3xgkr4smyd7szxnhli2xmdn2pm",
-      "bodySha256": "0x12b7aae2fa21f3e79dc5fdc0be026984ddcca8f24cc0ff2cdda75a35760dba7b",
-      "bytes": 2406,
+      "bodyCid": "bafkreig3eowtbdejbwrxtdwsfbmpteceaomtg46cjegcwhl2yylxqscmt4",
+      "bodySha256": "0xdb23ad308c890da3798ed22858f9904403993373c2490c2b1d7ac61778484c9f",
+      "bytes": 2454,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3248,6 +3272,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",
@@ -3992,10 +4022,10 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifhbarshwydcavvgnjfrld5oddm3pkkf4psuk24vxknzjyeftegnu",
-      "bodySha256": "0xa7082323db03102b5335258ac7d70c6cdbd4a2f1f2a2b5cadd4dca7042cc866d",
-      "bytes": 1927,
-      "clauseCount": 2,
+      "bodyCid": "bafkreih7mtwldwynsju5f2uviuqihkkceuzc35f3buc4cyqqse77u3z5we",
+      "bodySha256": "0xff64ecb1db0d9269d2ea95452083a94225322df4bb0d05c16210913ffa6f3db1",
+      "bytes": 2148,
+      "clauseCount": 3,
       "statutes": [
         {
           "id": "st.apache-2",
@@ -4068,6 +4098,18 @@
           "citation": "Digital Signature Act, Art. 3 (Korea)",
           "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        },
+        {
+          "id": "st.gpl-3",
+          "citation": "GPL-3.0",
+          "instrument": "GNU General Public License, Version 3",
+          "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+        },
+        {
+          "id": "st.berne-5",
+          "citation": "Berne Convention, Art. 5",
+          "instrument": "Berne Convention for the Protection of Literary and Artistic Works",
+          "url": "https://www.wipo.int/wipolex/en/text/283698"
         }
       ]
     },
@@ -4081,9 +4123,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidjtqvsyezjxcgkfkry3lyd5sdtwu73a6gli6l3wgtoauctkfh5pe",
-      "bodySha256": "0x699c2b2c1329b88ca2aa38daf03ec873b53fb078cb4797bb1a6e05053514fd79",
-      "bytes": 2887,
+      "bodyCid": "bafkreifid2t3d6l3dqq6mhnuqh4tio2vqfztlut57cvxahdysehjcaozsu",
+      "bodySha256": "0xa81ea7b1f97b1c21e61db481f9343b55817335d27df8ab701c78910e9101d995",
+      "bytes": 2935,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4109,6 +4151,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",
@@ -4307,9 +4355,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihvk3xuvqu2wuzkpzqqf5voaqpcerb3doktw7oselabjpi4s24z74",
-      "bodySha256": "0xf556ef4ac29ab532a7e6102f6ae041e22443b1b953b7dd222c014bd1c96b99ff",
-      "bytes": 4229,
+      "bodyCid": "bafkreibrk663lnjgq677axgsws34pisei5i3agts4d6revimpkprtzv3wq",
+      "bodySha256": "0x3157bdb5b52687bff05cd2b4b7c7a2444751b01a72e0fd12550c7a9f19e6bbb4",
+      "bytes": 4277,
       "clauseCount": 10,
       "statutes": [
         {
@@ -4523,6 +4571,12 @@
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
         },
         {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
+        },
+        {
           "id": "st.israel-contracts-1973",
           "citation": "Contracts (General Part) Law 5733-1973, §39",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
@@ -4647,9 +4701,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiey6izz3vnezaf47zbmt6obzod3r4xbbpas2kkzdagfbutgtvk3we",
-      "bodySha256": "0x98f2339dd5a4c80bcfe42c9f9c1cb87b8f2e10bc12d2959180c50d2669d55bb1",
-      "bytes": 2595,
+      "bodyCid": "bafkreibv3d7eojovdwr7xweklhe4veylih2cu4blvjgwov73k3doqsdcbe",
+      "bodySha256": "0x35d8fe4725d51da3fbd88a59c9ca930b41f42a702baa4d6757fb56c6e8486209",
+      "bytes": 2643,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4675,6 +4729,12 @@
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
           "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.es-cc-1254",
+          "citation": "Codigo Civil, Art. 1254",
+          "instrument": "Codigo Civil (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
         },
         {
           "id": "st.israel-contracts-1973",

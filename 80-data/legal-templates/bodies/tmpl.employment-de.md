@@ -28,7 +28,7 @@ _Rests on:_ 労働契約法16条 (労働契約法 (平成19年法律第128号));
 _Rests on:_ Directive (EU) 2016/943, Art. 2 (Directive (EU) 2016/943 (Trade Secrets)); 不正競争防止法2条6項 (不正競争防止法 (平成5年法律第47号)); 18 U.S.C. §1836 (Defend Trade Secrets Act of 2016)
 
 ### 6. Good faith & fair dealing  (boilerplate, recommended)
-_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
 
 ### 7. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)

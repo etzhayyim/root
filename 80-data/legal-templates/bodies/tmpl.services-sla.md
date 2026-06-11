@@ -24,7 +24,7 @@ _Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late pay
 _Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
 
 ### 5. Good faith & fair dealing  (boilerplate, recommended)
-_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
 
 ### 6. Term & termination  (termination, recommended)
 _Rests on:_ 民法541条 (民法 (明治29年法律第89号))
