@@ -43,7 +43,7 @@ COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "지급명령", "법원", "injonction de payer", "assignation",
                   "statement of claim", "plaintiff's claim", "decreto ingiuntivo",
                   "proceso monitorio", "dagvaarding", "citação",
-                  "支付命令", "small claims tribunal", "written statement")
+                  "支付命令", "small claims tribunal", "written statement", "支付令")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 
@@ -57,6 +57,12 @@ def load_jurisdictions(path: pathlib.Path | None = None) -> dict:
     path = path or HERE / "data" / "jurisdictions.edn"
     return {j[":juris/id"]: j
             for j in read_edn(path.read_text(encoding="utf-8")) if ":juris/id" in j}
+
+
+def load_us_states(path: pathlib.Path | None = None) -> dict:
+    path = path or HERE / "data" / "us-states.edn"
+    return {s[":state/id"]: s
+            for s in read_edn(path.read_text(encoding="utf-8")) if ":state/id" in s}
 
 
 def _make_option(opt: dict) -> dict:
@@ -158,6 +164,23 @@ def build_plan(notice: dict, procs: list, jurisdictions: dict | None = None) -> 
         plan["deadlines"].append({"label": dl[":dl/label"], "rule": dl[":dl/rule"],
                                   "anchor": dl[":dl/anchor"],
                                   "verify_service_date": bool(dl.get(":dl/verify-service-date"))})
+    # :us sub-jurisdiction (wave 6): state law is where the real deadline lives — append
+    # the DISCLOSED state rule when the state is known; never guess an unknown state (G10)
+    if juris_id == ":us":
+        state = load_us_states().get(notice.get(":notice/us-state"))
+        if state:
+            plan["deadlines"].append({
+                "label": f"州規則 ({state[':state/label']})",
+                "rule": state[":state/answer-rule"]
+                        + f" · small claims 上限 ${state[':state/small-claims-usd']:,}",
+                "anchor": state[":state/answer-anchor"],
+                "verify_service_date": True})
+        else:
+            plan["deadlines"].append({
+                "label": "州規則 (州不明)",
+                "rule": "州が特定できないため州規則は提示しない — サモンズ記載の期限と"
+                        "当該州の rules of civil procedure を必ず確認 (州差が本体)",
+                "anchor": "—", "verify_service_date": True})
     plan["options"] = [_make_option(o) for o in proc.get(":proc/options", [])]
     plan["steps"] = [
         {"verb": "verify-service-date", "detail": "送達/受領日を自分で確認 (期限の起算点)", "mode": "dry-run"},

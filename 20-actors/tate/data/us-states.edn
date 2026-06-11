@@ -1,0 +1,41 @@
+;; tate 盾 — US state sub-jurisdiction registry (wave 6, ADR-2606112400 structural gap).
+;; The :us federal entry is honest but thin — small-claims ceilings and answer deadlines
+;; are STATE law. :representative — 5 of 50 states; coverage_report.py counts the rest
+;; as an open structural gap. :verify-current-law true everywhere (limits change often).
+;; Used by respond_plan: a :us notice carrying :notice/us-state gets the state's
+;; DISCLOSED rule appended; an unknown state stays honest (check the summons), G10.
+
+[{:state/id :us-ca :state/label "California"
+  :state/small-claims-usd 12500
+  :state/answer-rule "送達から30日以内に answer (州裁判所)"
+  :state/answer-anchor "Cal. CCP §412.20(a)(3)"
+  :state/arl "Cal. B&P Code §17600+ (ARL — 自動更新の明示同意・解約導線義務が強い)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ny :state/label "New York"
+  :state/small-claims-usd 10000
+  :state/answer-rule "personal service なら20日以内・その他送達なら30日以内に answer"
+  :state/answer-anchor "NY CPLR 320(a)"
+  :state/arl "NY GOL §5-903 (役務契約の自動更新は事前通知義務)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-tx :state/label "Texas"
+  :state/small-claims-usd 20000
+  :state/answer-rule "justice court: 送達から14日以内に answer"
+  :state/answer-anchor "Tex. R. Civ. P. 501.5"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-fl :state/label "Florida"
+  :state/small-claims-usd 8000
+  :state/answer-rule "summons 記載の期日に出頭/応答 (small claims は pretrial conference 制)"
+  :state/answer-anchor "Fla. Sm. Cl. R. 7.090"
+  :state/arl "Fla. Stat. §501.165 (自動更新の開示義務)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-wa :state/label "Washington"
+  :state/small-claims-usd 10000
+  :state/answer-rule "送達から20日以内に応答 (superior court)"
+  :state/answer-anchor "Wash. CR 4(a)(2)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}]

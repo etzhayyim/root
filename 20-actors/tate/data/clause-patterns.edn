@@ -289,6 +289,21 @@
   :clause/anchor "CDC art. 51 (消費者に過大な不利益) / art. 39 (práticas abusivas) — 事前同意なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :cn — 中国 (G10; 簡体字 — :tw の繁体字パターンとは別エントリ) ─────────────
+ {:clause/id "cl:cn-full-exemption" :clause/label "全部免責 (概不负责)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["概不负责"]
+  :clause/anchor "民法典496–497条 (格式条款 — 不合理な免責は無効) / 消费者权益保护法26条"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:cn-auto-renewal" :clause/label "自动续费 (自動更新課金)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["自动续费"]
+  :clause/anchor "消费者权益保护法26条 / 网络交易监督管理办法 (自動更新は事前の顕著な同意取得・更新前リマインド義務)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :tw — 台灣 (G10) ─────────────────────────────────────────────────────────
  {:clause/id "cl:tw-full-exemption" :clause/label "全部免責 (概不負責)"
   :clause/jurisdiction :tw

@@ -16,7 +16,7 @@ import sys, pathlib
 from collections import defaultdict
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from terms_scan import load_patterns, HERE  # noqa: E402
-from respond_plan import load_procs, load_jurisdictions  # noqa: E402
+from respond_plan import load_procs, load_jurisdictions, load_us_states  # noqa: E402
 
 UN_MEMBER_STATES = 193  # disclosed denominator (the EU bloc entry covers instruments, not 27 states)
 
@@ -26,12 +26,13 @@ JURIS_WORKLIST = [":it", ":es", ":nl", ":kr", ":fr", ":cn", ":tw", ":in",
                   ":br", ":au", ":ca", ":sg", ":mx"]
 
 # structural gaps — true regardless of how many jurisdictions land
+# (:us state decomposition is computed against us-states.edn, not listed here)
 STRUCTURAL_GAPS = [
-    ":us は州レベル未分解 (small-claims 上限・answer 期限は州差が本体)",
     ":eu は越境 instruments のみ (加盟国国内法は各国エントリで個別収載)",
     "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)",
     "労働審判・家事・倒産など民事の専門トラック未収載",
 ]
+US_STATES_TOTAL = 50
 
 
 def coverage():
@@ -46,8 +47,14 @@ def coverage():
         proc_by_j[p.get(":proc/jurisdiction", ":jp")] += 1
     covered = sorted(juris.keys())
     remaining = [j for j in JURIS_WORKLIST if j not in juris]  # drops off once covered
-    named_gaps = [f"{j} — 未収載 (worklist)" for j in remaining] + list(STRUCTURAL_GAPS)
+    states = load_us_states()
+    us_state_gap = (f":us 州レベル: {len(states)}/{US_STATES_TOTAL} 州を収載 — "
+                    f"残り{US_STATES_TOTAL - len(states)}州は『州不明』honest degrade")
+    named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
+                  + [us_state_gap] + list(STRUCTURAL_GAPS))
     return {
+        "us_states_covered": len(states),
+        "us_states_total": US_STATES_TOTAL,
         "jurisdictions": covered,
         "patterns_by_jurisdiction": dict(sorted(pat_by_j.items())),
         "procedures_by_jurisdiction": dict(sorted(proc_by_j.items())),
@@ -64,6 +71,8 @@ def report(cov: dict) -> str:
     L.append(f"- covered: {cov['covered_count']} legal systems "
              f"({', '.join(cov['jurisdictions'])}) of ~{cov['un_member_states']} UN states "
              f"→ ratio ≈ {cov['coverage_ratio']:.2%} (低いのは仕様 — 推測より空白)")
+    L.append(f"- :us 州レベル: {cov['us_states_covered']}/{cov['us_states_total']} 州 "
+             f"(州不明の通知は honest degrade)")
     L.append("")
     L.append("| juris | clause patterns | procedures |")
     L.append("|---|---|---|")

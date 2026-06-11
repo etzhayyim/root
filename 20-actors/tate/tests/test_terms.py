@@ -139,6 +139,9 @@ def test_intl_expected_shapes_hit():
     assert ("doc:sg-tos", "cl:sg-auto-renewal") in hits
     assert ("doc:in-tos", "cl:in-liability-exclusion") in hits
     assert ("doc:in-tos", "cl:in-arbitration-no-ouster") in hits
+    # wave 6 (:cn — 簡体字, :tw 繁体字とは別パターン)
+    assert ("doc:cn-tos", "cl:cn-full-exemption") in hits
+    assert ("doc:cn-tos", "cl:cn-auto-renewal") in hits
 
 
 def test_jurisdiction_isolation():

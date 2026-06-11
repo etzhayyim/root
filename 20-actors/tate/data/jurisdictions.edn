@@ -102,6 +102,14 @@
   :juris/refer-over-amount 25000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :cn :juris/label "中国"
+  :juris/upl-anchor "中华人民共和国律师法 (無資格の法律業務禁止)"
+  :juris/service-note "支付令・起诉状は法院の送达 — SMS/微信の『法院』通知は偽 (96110 へ)"
+  :juris/referrals ["法律援助 (法律援助法・12348 公共法律服务热线)" "消费者协会 12315"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "国家反诈中心 96110" "110"]
+  :juris/refer-over-amount 50000 :juris/refer-over-currency "CNY"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :tw :juris/label "台灣"
   :juris/upl-anchor "律師法 (無資格の法律事務取扱い禁止)"
   :juris/service-note "支付命令・起訴状は法院の送達 — LINE/SMS の『法院』通知は偽 (165 へ)"

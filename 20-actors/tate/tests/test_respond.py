@@ -288,6 +288,33 @@ def test_wave4_es_nl_br_genuine():
     assert any("dias úteis" in d["rule"] for d in br["deadlines"])  # business-day honesty
 
 
+def test_wave6_cn_genuine_and_script_separation():
+    """Wave 6: CN 支付令 (15日 清偿/书面异议, 民事诉讼法 督促程序); simplified-script
+    patterns are a separate registry entry from :tw traditional ones (G10)."""
+    ps, procs = _by_id()
+    cn = ps["ntc:cn-zhifuling"]
+    assert cn["status"] == ":genuine" and cn["proc"] == "proc:cn-zhifuling"
+    assert any("15日" in d["rule"] for d in cn["deadlines"])
+    # 支付令 (:cn) and 支付命令 (:tw) resolve to their own procedures
+    tw = ps["ntc:tw-payment"]
+    assert tw["proc"] == "proc:tw-payment-order" and cn["proc"] != tw["proc"]
+
+
+def test_us_state_sub_jurisdiction():
+    """Wave 6: a :us notice with a known state gets the DISCLOSED state rule appended
+    (CA: CCP §412.20 30d + small-claims ceiling); a stateless :us notice gets the
+    honest 州不明 entry — never a guessed state deadline (G10)."""
+    ps, _ = _by_id()
+    ca = ps["ntc:us-summons-ca"]
+    assert ca["status"] == ":genuine"
+    state_dls = [d for d in ca["deadlines"] if d["label"].startswith("州規則")]
+    assert len(state_dls) == 1 and "California" in state_dls[0]["label"]
+    assert "412.20" in state_dls[0]["anchor"] and "$12,500" in state_dls[0]["rule"]
+    stateless = ps["ntc:us-summons-real"]
+    honest = [d for d in stateless["deadlines"] if d["label"] == "州規則 (州不明)"]
+    assert len(honest) == 1 and "提示しない" in honest[0]["rule"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

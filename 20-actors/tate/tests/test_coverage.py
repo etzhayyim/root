@@ -15,7 +15,7 @@ ACTOR_DIR = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ACTOR_DIR / "methods"))
 
 from coverage_report import coverage, report  # noqa: E402
-from respond_plan import load_jurisdictions, load_procs, plans  # noqa: E402
+from respond_plan import load_jurisdictions, load_procs, load_us_states, plans  # noqa: E402
 from terms_scan import load_docs, load_patterns, scan  # noqa: E402
 
 
@@ -63,6 +63,23 @@ def test_gap_list_never_stale():
     gap_text = " ".join(cov["named_gaps"])
     for j in covered:
         assert f"{j} — 未収載" not in gap_text, f"{j} is covered but named as a gap"
+
+
+def test_us_states_registry():
+    """Wave 6: every US-state entry is complete; the coverage report counts states
+    honestly (5/50 — the structural gap is measured, not hand-waved)."""
+    states = load_us_states()
+    assert len(states) >= 5
+    for s in states.values():
+        assert s[":state/label"] and s[":state/answer-rule"], s[":state/id"]
+        assert s[":state/answer-anchor"], s[":state/id"]
+        assert float(s[":state/small-claims-usd"]) > 0, s[":state/id"]
+        assert s[":state/verify-current-law"] is True
+        assert s[":state/sourcing"] == ":representative"
+    cov = coverage()
+    assert cov["us_states_covered"] == len(states)
+    assert cov["us_states_total"] == 50
+    assert any("州レベル" in g for g in cov["named_gaps"])
 
 
 def test_report_names_the_gap():

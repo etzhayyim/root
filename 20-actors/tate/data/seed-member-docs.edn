@@ -212,6 +212,24 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 6 (:cn + :us 州レベル) ──────────────────────────────────────────────
+ {:doc/id "doc:cn-tos" :doc/label "CN 服务条款 (synthetic)"
+  :doc/jurisdiction :cn
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "因使用本服务造成的任何损失，本公司概不负责。本服务到期后自动续费。"}
+
+ {:notice/id "ntc:cn-zhifuling" :notice/label "支付令 (法院送达)"
+  :notice/jurisdiction :cn
+  :notice/channel :formal-service :notice/claim-amount 30000 :notice/claim-currency "CNY"
+  :notice/sourcing :synthetic
+  :notice/text "支付令。债务人应当在法定期间内清偿债务或者提出书面异议。"}
+
+ {:notice/id "ntc:us-summons-ca" :notice/label "US summons + complaint (California, personal service)"
+  :notice/jurisdiction :us :notice/us-state :us-ca
+  :notice/channel :personal-service :notice/claim-amount 7000 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "SUMMONS (Citacion Judicial). A complaint has been filed against you in the Superior Court of California."}
+
  ;; ── wave 5 (:tw :sg :in) ─────────────────────────────────────────────────────
  {:doc/id "doc:tw-tos" :doc/label "TW 服務條款 (synthetic)"
   :doc/jurisdiction :tw
