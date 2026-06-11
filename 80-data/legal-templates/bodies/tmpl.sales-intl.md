@@ -40,7 +40,7 @@ _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2
 _Rests on:_ CISG Art. 79 (UN Convention on Contracts for the International Sale of Goods (1980)); 民法536条 (民法 (明治29年法律第89号))
 
 ### 10. Good faith & fair dealing  (boilerplate, recommended)
-_Rests on:_ Codigo Civil, Art. 421 (Codigo Civil (Lei 10.406/2002), Brazil); Contracts (General Part) Law 5733-1973, §23 (Contracts (General Part) Law, 5733-1973 (Israel)); UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+_Rests on:_ Codigo Civil, Art. 421 (Codigo Civil (Lei 10.406/2002), Brazil); Contracts (General Part) Law 5733-1973, §23 (Contracts (General Part) Law, 5733-1973 (Israel)); PRC Civil Code, Art. 509 (Civil Code of the People's Republic of China (2021)); UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
 
 ## Execution
 Executed electronically via the etzhayyim esign substrate (com.etzhayyim.esign.envelope): each party signs with a WebAuthn passkey bound to their DID. Electronic execution rests on eIDAS Art. 25 (EU), ESIGN/UETA (US) and 電子署名法 (JP), as cited by the signature clause.

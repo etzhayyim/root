@@ -463,9 +463,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiaezpvnkbhv5tkjivznvmb47y54tuuh3yqaq5bk2td2jatdaissnm",
-      "bodySha256": "0x04cbead504f5ecd494572dab03cfe3bc9d287de2008742ad4c7a48263022526b",
-      "bytes": 4154,
+      "bodyCid": "bafkreihqblglwx4g7tnpw3k5qlmbcq4sk2n47vfgx2grhbngtmutxixdqu",
+      "bodySha256": "0xf00accbb5f86fcdafb6d5d82d8114392569bcfd4a6be8d1385a69b293ba2e385",
+      "bytes": 4234,
       "clauseCount": 9,
       "statutes": [
         {
@@ -655,6 +655,12 @@
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -815,9 +821,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreigbuiugavrrykgxzmxixlhqxijwrra3bxoyajth6qpaktv4mejgpi",
-      "bodySha256": "0xc1a228605631c28d7cb2e8bacf0ba1368c41b0ddd802667f41e054ebc611267a",
-      "bytes": 2981,
+      "bodyCid": "bafkreifktgytvbgsnffcdme5wyommdpk3v53nbvlz3pegu4o4yd5qvzhq4",
+      "bodySha256": "0xaa99b13a84d2694a21b09db61cc60deadd7bb686abcede43538ee607d8572787",
+      "bytes": 3061,
       "clauseCount": 6,
       "statutes": [
         {
@@ -861,6 +867,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -1059,9 +1071,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreiazy4gghs5eujvpqp2vsxeosdda3gx5abfiygolfeosvjvvzjfd7m",
-      "bodySha256": "0x19c70c63cba4a26af83f5595c8e90c60d9afd004a8c19cb291d2aa6b5ca4a3fb",
-      "bytes": 3118,
+      "bodyCid": "bafkreic7invywrww6rmge3vhgs33oi6pem2dtkbf6hlgupkq6eqqys2i6m",
+      "bodySha256": "0x5f436b8b46d6f458626ea734b7b723cf233439a825f1d66a3d50f1210c4b48f3",
+      "bytes": 3209,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1099,6 +1111,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.israel-privacy-1981",
+          "citation": "Protection of Privacy Law 5741-1981, §13",
+          "instrument": "Protection of Privacy Law, 5741-1981 (Israel)",
+          "url": "https://www.gov.il/en/departments/legalInfo/data_protection_legislation"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1220,9 +1238,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreifqc7pef5c3xyd6x72puznvpagj5tjj6rng5srinfqa2bd2dkmyo4",
-      "bodySha256": "0xb017de42f45bbe07ebff4fa65b5780c9ecd29f45a6eca2869600d047a1a99877",
-      "bytes": 3074,
+      "bodyCid": "bafkreih6joxlshsmdl2thc4uivxikhw7ngxv3vaqb5mexfae3stpokbmz4",
+      "bodySha256": "0xfe4baeb91e4c1af5338b94456e851edf69af5dd4100f584b9404dca6f7282ccf",
+      "bytes": 3165,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1260,6 +1278,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.israel-privacy-1981",
+          "citation": "Protection of Privacy Law 5741-1981, §13",
+          "instrument": "Protection of Privacy Law, 5741-1981 (Israel)",
+          "url": "https://www.gov.il/en/departments/legalInfo/data_protection_legislation"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1381,9 +1405,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreidpsuuigwp7sjo4esms6tqb4k47hoefxwxx4gc3vgfh44imjsl2xm",
-      "bodySha256": "0x6f95288359ff925dc24992f4e01e2b9f3b885bdaf7e185ba98a7e710c4c97abb",
-      "bytes": 3078,
+      "bodyCid": "bafkreia2guwcjcrq5fzgha2jicnhqmxdwks47gpr3k6yhq4xzsjdylgi64",
+      "bodySha256": "0x1a352c248a30e972638349409a7832e3b2a5cf99f1dabd83c397cc923c2cc8f7",
+      "bytes": 3169,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1421,6 +1445,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.israel-privacy-1981",
+          "citation": "Protection of Privacy Law 5741-1981, §13",
+          "instrument": "Protection of Privacy Law, 5741-1981 (Israel)",
+          "url": "https://www.gov.il/en/departments/legalInfo/data_protection_legislation"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1542,9 +1572,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreifrg7vqgi432hqwfzoqfqiwthiygrwg3jjt4qufqdc6shf33tlswe",
-      "bodySha256": "0xb137eb03239bd1e162e5d02c11699d18346c6da533e428580c5e91cbbdcd72b1",
-      "bytes": 3934,
+      "bodyCid": "bafkreiemb5iwlgz6vuazdz3jwcexjkusnhhg63447ik53pylbwl336zsye",
+      "bodySha256": "0x8c0f51659b3ead0191e769b08974aa9269ce6f6f9cfa15ddbf0b0d97bdfb32c1",
+      "bytes": 4218,
       "clauseCount": 7,
       "statutes": [
         {
@@ -1600,6 +1630,24 @@
           "citation": "Fair Work Act 2009 (Cth), s.117",
           "instrument": "Fair Work Act 2009 (Australia)",
           "url": "https://www.legislation.gov.au/C2009A00028/latest"
+        },
+        {
+          "id": "st.es-et-49",
+          "citation": "Estatuto de los Trabajadores, Art. 49",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.sg-employment-10",
+          "citation": "Employment Act, s.10",
+          "instrument": "Employment Act 1968 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/EmA1968"
+        },
+        {
+          "id": "st.ca-labour-230",
+          "citation": "Canada Labour Code, s.230",
+          "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
           "id": "st.jp-roukei-16",
@@ -1660,6 +1708,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -1900,9 +1954,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreibkhm365svvwayvdu5qva4h4ait2llcgbsxvdm4ks3ildxroezlpi",
-      "bodySha256": "0x2a3b37eecab5b03151d3b0a8387e0113d2d6230657a8d9c54b6858ef17132b7a",
-      "bytes": 2851,
+      "bodyCid": "bafkreihhs3pumwkq7lcpuv6sltibrnwxuinte2rx5h666g36xuelkxcb6q",
+      "bodySha256": "0xe796df465950fac4fa57d25cd018b6d7a21b326a37e9fdef1b7ebd08b55c41f4",
+      "bytes": 3055,
       "clauseCount": 3,
       "statutes": [
         {
@@ -1946,6 +2000,24 @@
           "citation": "Fair Work Act 2009 (Cth), s.117",
           "instrument": "Fair Work Act 2009 (Australia)",
           "url": "https://www.legislation.gov.au/C2009A00028/latest"
+        },
+        {
+          "id": "st.es-et-49",
+          "citation": "Estatuto de los Trabajadores, Art. 49",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.sg-employment-10",
+          "citation": "Employment Act, s.10",
+          "instrument": "Employment Act 1968 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/EmA1968"
+        },
+        {
+          "id": "st.ca-labour-230",
+          "citation": "Canada Labour Code, s.230",
+          "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
           "id": "st.jp-roukei-16",
@@ -2061,9 +2133,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidwdg4ibhxbrkt5gl47vbe6edpwr6xuperna2fiz4gb6o3upnyqde",
-      "bodySha256": "0x7619b8809ee18aa7d32f9fa849e20df68faf47922d068a8cf0c1f3b747b71019",
-      "bytes": 4182,
+      "bodyCid": "bafkreihdo32ysbh2papc32qecuugxm5fwinfsnysc5b7ooppxh6acqb6ki",
+      "bodySha256": "0xe376f58904fa781e2dea0415286bb3a5b21a5937121743f739efb9fc01403e52",
+      "bytes": 4386,
       "clauseCount": 8,
       "statutes": [
         {
@@ -2259,6 +2331,24 @@
           "url": "https://www.legislation.gov.au/C2009A00028/latest"
         },
         {
+          "id": "st.es-et-49",
+          "citation": "Estatuto de los Trabajadores, Art. 49",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.sg-employment-10",
+          "citation": "Employment Act, s.10",
+          "instrument": "Employment Act 1968 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/EmA1968"
+        },
+        {
+          "id": "st.ca-labour-230",
+          "citation": "Canada Labour Code, s.230",
+          "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
+        },
+        {
           "id": "st.jp-roukei-16",
           "citation": "労働契約法16条",
           "instrument": "労働契約法 (平成19年法律第128号)",
@@ -2300,9 +2390,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibx4wkw5q2set6lnoul6gcgnn44hwvq5oh6gf7nw6l7us3g4cgtbm",
-      "bodySha256": "0x37e5956ec35224fcb6ba8bf18466b79c3dab0eb8fe317edb797fa4b66e08d30b",
-      "bytes": 3077,
+      "bodyCid": "bafkreid5vb4x5hv3z4s7e2ecddkamxjnoksk4juivpsviorqog6aipmecq",
+      "bodySha256": "0x7da8797e9ebbcf25f2688218d4065d2d72a4ae2688abe5543a3071bc043d8414",
+      "bytes": 3281,
       "clauseCount": 4,
       "statutes": [
         {
@@ -2358,6 +2448,24 @@
           "citation": "Fair Work Act 2009 (Cth), s.117",
           "instrument": "Fair Work Act 2009 (Australia)",
           "url": "https://www.legislation.gov.au/C2009A00028/latest"
+        },
+        {
+          "id": "st.es-et-49",
+          "citation": "Estatuto de los Trabajadores, Art. 49",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.sg-employment-10",
+          "citation": "Employment Act, s.10",
+          "instrument": "Employment Act 1968 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/EmA1968"
+        },
+        {
+          "id": "st.ca-labour-230",
+          "citation": "Canada Labour Code, s.230",
+          "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
           "id": "st.jp-roukei-16",
@@ -3027,9 +3135,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiedyyr67z3ygks7bseuhambbjaw6dj4pt4loyqfyea3fpeo6ersu4",
-      "bodySha256": "0x83c623efe77832a5f0c894381810a416f0d3c7cf8b76205c101b2bc8ef1232a7",
-      "bytes": 2834,
+      "bodyCid": "bafkreicrrf73oee3qzmi33uuxw47smnqtlhvlr5xlt5x3g3uggogyf23l4",
+      "bodySha256": "0x51897fb7109b86588dee94bdb9f931b09acf55c7b75cfb7d9b74319c6c175b5f",
+      "bytes": 2914,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3061,6 +3169,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -3718,9 +3832,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidzm7vwsb4zdxbpy3qcu53bxir2sbtdbqwqz7staczo554oizappu",
-      "bodySha256": "0x7967eb6907991dc2fc6e02a7761ba23a906630c2d0cfe5300b2eef78e4640f7d",
-      "bytes": 2864,
+      "bodyCid": "bafkreiaxtqqwzzb6ahuppunfbenog3ba2zzlgink63ovw44ctxn5qchlgu",
+      "bodySha256": "0x179c216ce43e01e8f7d1a5091ae36c20d672b321aaf6dd5b73829ddbd808eb35",
+      "bytes": 2944,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3830,6 +3944,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -4789,9 +4909,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiec6pig5ivzojuwl66ctcj2w5ggqbiqz63o32brgefwjk6m5p7ite",
-      "bodySha256": "0x82f3d06ea2b9726965fbc29893ab74c680510cfb6ede831310b64abccebfe899",
-      "bytes": 3276,
+      "bodyCid": "bafkreid2mdhcbxvhvmckmbzvmiyp4xv7x522wpmahmlisymwwlyphmnfhq",
+      "bodySha256": "0x7a60ce20dea7ab04a607356230fe5ebfbf75ab3d803b16896196b2f0f3b1a53c",
+      "bytes": 3356,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4823,6 +4943,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -5057,9 +5183,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicfg6w37uojb3twuawnpqmn4xx2gyiyj6wohq7pihoabkz2rzmf5q",
-      "bodySha256": "0x4537adbfd1c90ee76a02cd7c18de5efa361184face3c3ef41dc00ab3a8e585ec",
-      "bytes": 4687,
+      "bodyCid": "bafkreihq2bgfii4rwgcchlbd4ug2mo5k4txw2komemdkhqermvhfaakwbe",
+      "bodySha256": "0xf0d04c542391b18423ac23e50da63baae4ef6d29cc2306a3c091654e50015609",
+      "bytes": 4767,
       "clauseCount": 10,
       "statutes": [
         {
@@ -5297,6 +5423,12 @@
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -5445,9 +5577,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiawvq55tdxk6cltokfjcd37bkmonldp234ky4lcjdojjskebgsbmy",
-      "bodySha256": "0x16ac3bd98eeaf0973728a910f7f0a98e6ac6fd6f8ac716248dc94c94409a4166",
-      "bytes": 3053,
+      "bodyCid": "bafkreibpeb4mn3t4jgg7owghrajo5yxt5csekuhv3idkcm776wog5ylycq",
+      "bodySha256": "0x2f2078c6ee7c498df758c78812eee2f3e8a44550f5da06a133fff59c6ee17814",
+      "bytes": 3133,
       "clauseCount": 7,
       "statutes": [
         {
@@ -5485,6 +5617,12 @@
           "citation": "Contracts (General Part) Law 5733-1973, §23",
           "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
           "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.cn-civil-509",
+          "citation": "PRC Civil Code, Art. 509",
+          "instrument": "Civil Code of the People's Republic of China (2021)",
+          "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
           "id": "st.unidroit-2016",

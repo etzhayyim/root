@@ -35,7 +35,7 @@ _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2
 _Rests on:_ CLT, Art. 443 (Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil); 労働基準法15条 (労働基準法 (昭和22年法律第49号)); NachwG §2 (Nachweisgesetz (Germany)); Code du travail, Art. L1221-1 (Code du travail (France)); Employment Rights Act 1996, s.1 (Employment Rights Act 1996 (UK)); Estatuto de los Trabajadores, Art. 8 (Estatuto de los Trabajadores (Spain))
 
 ### 8. Notice & dismissal protection  (termination, mandatory)
-_Rests on:_ Fair Work Act 2009 (Cth), s.117 (Fair Work Act 2009 (Australia)); 労働契約法16条 (労働契約法 (平成19年法律第128号)); KSchG §1 (Kuendigungsschutzgesetz (Germany)); Code du travail, Art. L1232-1 (Code du travail (France)); Employment Rights Act 1996, s.94 (Employment Rights Act 1996 (UK)); Industrial Disputes Act 1947, §25F (Industrial Disputes Act, 1947 (India))
+_Rests on:_ Fair Work Act 2009 (Cth), s.117 (Fair Work Act 2009 (Australia)); Estatuto de los Trabajadores, Art. 49 (Estatuto de los Trabajadores (Spain)); Employment Act, s.10 (Employment Act 1968 (Singapore)); Canada Labour Code, s.230 (Canada Labour Code (R.S.C. 1985, c. L-2)); 労働契約法16条 (労働契約法 (平成19年法律第128号)); KSchG §1 (Kuendigungsschutzgesetz (Germany)); Code du travail, Art. L1232-1 (Code du travail (France)); Employment Rights Act 1996, s.94 (Employment Rights Act 1996 (UK)); Industrial Disputes Act 1947, §25F (Industrial Disputes Act, 1947 (India))
 
 ## Execution
 Executed electronically via the etzhayyim esign substrate (com.etzhayyim.esign.envelope): each party signs with a WebAuthn passkey bound to their DID. Electronic execution rests on eIDAS Art. 25 (EU), ESIGN/UETA (US) and 電子署名法 (JP), as cited by the signature clause.

@@ -256,6 +256,13 @@
  {:lt/id "st.kr-civil-390" :lt/kind :statute :lt/label "Korea Civil Act Art. 390 — liability for non-performance" :statute/citation "Civil Act, Art. 390 (Korea)" :statute/instrument "Civil Act (민법), Republic of Korea" :statute/jurisdiction "jx.kr" :statute/url "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act" :lt/sourcing :authoritative}
  {:lt/id "st.israel-contracts-23" :lt/kind :statute :lt/label "Israel Contracts (General Part) Law 5733-1973 §23 — freedom of form" :statute/citation "Contracts (General Part) Law 5733-1973, §23" :statute/instrument "Contracts (General Part) Law, 5733-1973 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.nevo.co.il/law_html/law01/055_002.htm" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 17 (/loop): lift the thin jurisdictions (ES/SG/CN/CA/IL) to "ok" (3+) ───
+ {:lt/id "st.es-et-49" :lt/kind :statute :lt/label "Estatuto de los Trabajadores Art. 49 — extincion del contrato de trabajo" :statute/citation "Estatuto de los Trabajadores, Art. 49" :statute/instrument "Estatuto de los Trabajadores (Spain)" :statute/jurisdiction "jx.es" :statute/url "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" :lt/sourcing :authoritative}
+ {:lt/id "st.sg-employment-10" :lt/kind :statute :lt/label "Singapore Employment Act §10 — notice of termination of contract" :statute/citation "Employment Act, s.10" :statute/instrument "Employment Act 1968 (Singapore)" :statute/jurisdiction "jx.sg" :statute/url "https://sso.agc.gov.sg/Act/EmA1968" :lt/sourcing :authoritative}
+ {:lt/id "st.cn-civil-509" :lt/kind :statute :lt/label "PRC Civil Code (2021) Art. 509 — performance in accordance with good faith" :statute/citation "PRC Civil Code, Art. 509" :statute/instrument "Civil Code of the People's Republic of China (2021)" :statute/jurisdiction "jx.cn" :statute/url "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.ca-labour-230" :lt/kind :statute :lt/label "Canada Labour Code §230 — notice of termination of employment" :statute/citation "Canada Labour Code, s.230" :statute/instrument "Canada Labour Code (R.S.C. 1985, c. L-2)" :statute/jurisdiction "jx.ca" :statute/url "https://laws-lois.justice.gc.ca/eng/acts/L-2/" :lt/sourcing :authoritative}
+ {:lt/id "st.israel-privacy-1981" :lt/kind :statute :lt/label "Israel Protection of Privacy Law 5741-1981 §13 — right of access" :statute/citation "Protection of Privacy Law 5741-1981, §13" :statute/instrument "Protection of Privacy Law, 5741-1981 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.gov.il/en/departments/legalInfo/data_protection_legislation" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -589,6 +596,12 @@
  {:en/from "cl.employment-particulars" :en/to "st.br-clt-443" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.br-cc-421" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.israel-contracts-23" :en/kind :cites-statute :en/force :referenced :en/binding-load 0.5 :en/sourcing :authoritative}
+ ;; coverage wave 17 — bind the thin-jurisdiction statutes to existing clauses
+ {:en/from "cl.employment-termination" :en/to "st.es-et-49" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.sg-employment-10" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.ca-labour-230" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.cn-civil-509" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.israel-privacy-1981" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.payment-terms" :en/to "st.kr-civil-390" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 1 — bind the general-clause backbone (was 10 unbound clauses → only :definitions left, honestly structural)
  {:en/from "cl.confidentiality" :en/to "st.eu-trade-secrets" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
@@ -943,6 +956,12 @@
  {:en/from "st.br-clt-443" :en/to "jx.br" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.kr-civil-390" :en/to "jx.kr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.israel-contracts-23" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 17 — applies-in
+ {:en/from "st.es-et-49" :en/to "jx.es" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.sg-employment-10" :en/to "jx.sg" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.cn-civil-509" :en/to "jx.cn" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ca-labour-230" :en/to "jx.ca" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.israel-privacy-1981" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}

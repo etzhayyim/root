@@ -24,7 +24,7 @@ _Rests on:_ Civil Act, Art. 390 (Korea) (Civil Act (민법), Republic of Korea);
 _Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
 
 ### 5. Good faith & fair dealing  (boilerplate, recommended)
-_Rests on:_ Codigo Civil, Art. 421 (Codigo Civil (Lei 10.406/2002), Brazil); Contracts (General Part) Law 5733-1973, §23 (Contracts (General Part) Law, 5733-1973 (Israel)); UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+_Rests on:_ Codigo Civil, Art. 421 (Codigo Civil (Lei 10.406/2002), Brazil); Contracts (General Part) Law 5733-1973, §23 (Contracts (General Part) Law, 5733-1973 (Israel)); PRC Civil Code, Art. 509 (Civil Code of the People's Republic of China (2021)); UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
 
 ### 6. Term & termination  (termination, recommended)
 _Rests on:_ 民法541条 (民法 (明治29年法律第89号))
