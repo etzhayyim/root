@@ -54,6 +54,10 @@ MAX_SOURCE_CHARS = 16_000  # e4b コンテキスト保護; 超過ファイルは
 REQUEST_TIMEOUT_S = 420
 MAX_ATTEMPTS = 3
 RESULTS_LOG = Path("fleet-refactor-results.jsonl")
+# lint 合格ペアは SFT 蒸留データとして収穫する (teacher = fleet 内モデル + clj-kondo filter;
+# EVO-X2 の e7m bench distill (peft+trl LoRA, ADR-2605250400) がそのまま食える形式)
+SFT_LOG = Path("fleet-refactor-sft.jsonl")
+_sft_lock = threading.Lock()
 
 LANG_BY_SUFFIX = {".py": "Python", ".ts": "TypeScript", ".tsx": "TypeScript (TSX)"}
 
@@ -64,9 +68,10 @@ Rules:
 - Preserve the module's behavior and public API surface (function names become kebab-case).
 - Idiomatic Clojure: pure functions, immutable data, EDN maps with namespaced keywords.
 - State/persistence code is ported onto the kotoba Datom log idiom: facts are EAVT
-  datoms `[e a v t]`, attributes are namespaced keywords like :entity/attr,
-  writes are `(transact! conn tx-data)`, reads are datalog `(q '[:find ...] db)`.
-  Do NOT invent HTTP clients for this; express it as data + a `transact!`/`q` boundary.
+  datoms, attributes are namespaced keywords like :entity/attr, writes are
+  `(kd/transact! conn tx-data)`, reads are datalog `(kd/q '[:find ...] db)` with
+  `(:require [kotoba.datom :as kd])`. Do NOT invent HTTP clients for this;
+  express it as pure tx-data builders + a thin kd/transact!/kd/q boundary.
 - Keep the original file's docstring/comments as a top ;; comment block (translated to ;;).
 - Start the file with (ns <namespace>) derived from the file path.
 - If something cannot be expressed (FFI, platform API), stub it as a function that
@@ -91,6 +96,40 @@ def is_allowed(feedstock):
 
 (defn is-allowed? [feedstock]
   (contains? allowed-kinds (:kind feedstock)))
+```
+
+Example shape (stateful Python → kotoba Datom log):
+
+```python
+class Registry:
+    def __init__(self):
+        self.entries = {}
+    def register(self, name, url):
+        self.entries[name] = {"url": url, "active": True}
+    def active_urls(self):
+        return [e["url"] for e in self.entries.values() if e["active"]]
+```
+
+```clojure
+(ns keizu.methods.registry
+  (:require [kotoba.datom :as kd]))
+
+(defn register-tx
+  "Pure: returns tx-data asserting the entry as datoms."
+  [entry-name url]
+  [{:registry.entry/name entry-name
+    :registry.entry/url url
+    :registry.entry/active true}])
+
+(defn register! [conn entry-name url]
+  (kd/transact! conn (register-tx entry-name url)))
+
+(defn active-urls [db]
+  (kd/q '[:find [?url ...]
+          :where
+          [?e :registry.entry/active true]
+          [?e :registry.entry/url ?url]]
+        db))
 ```"""
 
 USER_TEMPLATE = """Convert this {lang} file to Clojure per the rules.
@@ -208,6 +247,16 @@ def port_file(pool: NodePool, src: Path) -> dict:
             out.write_text(code, encoding="utf-8")
             ok, lint_out = lint(out)
             if ok:
+                with _sft_lock, SFT_LOG.open("a") as f:
+                    f.write(json.dumps(
+                        {"messages": [
+                            {"role": "system", "content": SYSTEM_PROMPT},
+                            {"role": "user", "content": messages[1]["content"]},
+                            {"role": "assistant",
+                             "content": f"```clojure\n{code}```"}],
+                         "meta": {"src": str(src), "teacher": MODEL,
+                                  "verified": "clj-kondo"}},
+                        ensure_ascii=False) + "\n")
                 return {**rec, "status": "ok", "out": str(out), "attempt": attempt,
                         "secs": round(time.time() - t0, 1)}
             if attempt < MAX_ATTEMPTS:
