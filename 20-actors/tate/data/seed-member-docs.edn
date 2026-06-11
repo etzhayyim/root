@@ -212,6 +212,47 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 11 (:insolvency track jp/us/de + :ie :ch) ───────────────────────────
+ {:doc/id "doc:ie-terms" :doc/label "IE subscription terms (synthetic)"
+  :doc/jurisdiction :ie
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "We accept no liability for any loss. Your plan will automatically renew each year."}
+
+ {:doc/id "doc:ch-agb" :doc/label "CH AGB (synthetic)"
+  :doc/jurisdiction :ch
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Jegliche Haftung wird ausgeschlossen. Das Abonnement verlängert sich stillschweigend um ein weiteres Jahr."}
+
+ {:notice/id "ntc:ie-summons" :notice/label "IE civil summons (court office)"
+  :notice/jurisdiction :ie
+  :notice/channel :mail :notice/claim-amount 1400 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Civil summons. You are required to enter an appearance within the time stated."}
+
+ {:notice/id "ntc:ch-zb" :notice/label "CH Zahlungsbefehl (Betreibungsamt)"
+  :notice/jurisdiction :ch
+  :notice/channel :formal-service :notice/claim-amount 5400 :notice/claim-currency "CHF"
+  :notice/sourcing :synthetic
+  :notice/text "Zahlungsbefehl des Betreibungsamtes. Sie können innert 10 Tagen Rechtsvorschlag erheben."}
+
+ {:notice/id "ntc:jp-hasan" :notice/label "破産手続開始決定の通知 (債権者宛)"
+  :notice/jurisdiction :jp
+  :notice/channel :mail :notice/claim-jpy 45000
+  :notice/sourcing :synthetic
+  :notice/text "破産手続開始決定の通知。債権届出期間内に債権を届け出てください。"}
+
+ {:notice/id "ntc:us-bk" :notice/label "US notice of chapter 7 (court mail)"
+  :notice/jurisdiction :us
+  :notice/channel :mail :notice/claim-amount 800 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of chapter 7 bankruptcy case. The deadline to file a proof of claim is stated below."}
+
+ {:notice/id "ntc:de-inso" :notice/label "DE Insolvenzeröffnung (Gericht/Verwalter)"
+  :notice/jurisdiction :de
+  :notice/channel :mail :notice/claim-amount 650 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Eröffnung des Insolvenzverfahrens über das Vermögen der Gesellschaft. Forderungsanmeldung beim Insolvenzverwalter."}
+
  ;; ── wave 10 (:enforcement track jp/us/de) ────────────────────────────────────
  {:notice/id "ntc:jp-sashiosae" :notice/label "債権差押命令 (特別送達・執行)"
   :notice/jurisdiction :jp

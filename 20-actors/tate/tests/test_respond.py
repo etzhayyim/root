@@ -462,6 +462,41 @@ def test_sashiosae_sms_scam_guard():
     assert status == ":suspected-fake"
 
 
+def test_wave11_insolvency_track():
+    """Wave 11: the :insolvency track (creditor-side defense — protecting the
+    member's OWN prepaid/deposit claims when a counterparty fails). Every
+    :insolvency proc carries a :opt/protective claim-filing option."""
+    ps, procs = _by_id()
+    jp = ps["ntc:jp-hasan"]
+    assert jp["status"] == ":genuine" and jp["proc"] == "proc:jp-hasan-tsuchi"
+    assert any("破産法31条・111条" in d["anchor"] for d in jp["deadlines"])
+    us = ps["ntc:us-bk"]
+    assert us["status"] == ":genuine" and us["proc"] == "proc:us-bankruptcy-notice"
+    assert any("3002" in d["anchor"] for d in us["deadlines"])
+    de = ps["ntc:de-inso"]
+    assert de["status"] == ":genuine" and de["proc"] == "proc:de-insolvenz"
+    assert any("§174" in d["anchor"] for d in de["deadlines"])
+    for p in procs:
+        if p.get(":proc/track") == ":insolvency":
+            assert any(o.get(":opt/protective") is True for o in p[":proc/options"]), \
+                p[":proc/id"]
+
+
+def test_wave11_ie_ch():
+    """Wave 11: IE civil summons (small claims ≤€2,000 Registrar) · CH Zahlungsbefehl
+    (Rechtsvorschlag 10日 — SchKG 74; same word as :at Zahlungsbefehl resolves to a
+    DIFFERENT procedure per jurisdiction, G10)."""
+    ps, _ = _by_id()
+    ie = ps["ntc:ie-summons"]
+    assert ie["status"] == ":genuine" and ie["proc"] == "proc:ie-civil-summons"
+    ch = ps["ntc:ch-zb"]
+    assert ch["status"] == ":genuine" and ch["proc"] == "proc:ch-zahlungsbefehl"
+    assert any("10日" in d["rule"] and "SchKG" in d["anchor"] for d in ch["deadlines"])
+    assert any(o["id"] == ":register-cleanup" for o in ch["options"])  # SchKG 8a 信用保護
+    at = ps["ntc:at-zb"]
+    assert at["proc"] == "proc:at-zahlungsbefehl" and at["proc"] != ch["proc"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -274,6 +274,36 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :ie — Ireland (G10) ──────────────────────────────────────────────────────
+ {:clause/id "cl:ie-liability" :clause/label "包括免責 (unfair term)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["accept no liability"]
+  :clause/anchor "Consumer Rights Act 2022 / EC (Unfair Terms) Regulations 1995 (SI 27/1995)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ie-auto-renewal" :clause/label "automatically renew (自動更新)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["automatically renew"]
+  :clause/anchor "Consumer Rights Act 2022 (transparency) — CCPC guidance; 解約窓のカレンダー化"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :ch — Schweiz (G10) ──────────────────────────────────────────────────────
+ {:clause/id "cl:ch-haftungsausschluss" :clause/label "全部免責 (ungewöhnliche AGB)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["jegliche Haftung wird ausgeschlossen"]
+  :clause/anchor "UWG Art. 8 (missbräuchliche AGB) / OR Art. 100 (故意・重過失の免責は無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ch-auto-renewal" :clause/label "stillschweigende Verlängerung (黙示更新)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["verlängert sich stillschweigend"]
+  :clause/anchor "— (CH は黙示更新の一般規制が薄い — 条項どおり有効になりやすい; 解約窓を kaiyaku でカレンダー化)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :at — Österreich (G10) ───────────────────────────────────────────────────
  {:clause/id "cl:at-haftungsausschluss" :clause/label "全部免責 (Haftungsausschluss)"
   :clause/jurisdiction :at

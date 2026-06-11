@@ -152,6 +152,11 @@ def test_intl_expected_shapes_hit():
     assert ("doc:at-agb", "cl:at-auto-renewal") in hits
     assert ("doc:pt-condicoes", "cl:pt-exclusao") in hits
     assert ("doc:pt-condicoes", "cl:pt-renovacao") in hits
+    # wave 11 (:ie :ch)
+    assert ("doc:ie-terms", "cl:ie-liability") in hits
+    assert ("doc:ie-terms", "cl:ie-auto-renewal") in hits
+    assert ("doc:ch-agb", "cl:ch-haftungsausschluss") in hits
+    assert ("doc:ch-agb", "cl:ch-auto-renewal") in hits
 
 
 def test_jurisdiction_isolation():

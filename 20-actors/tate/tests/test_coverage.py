@@ -127,16 +127,17 @@ def test_registry_lint():
             assert dl[":dl/anchor"], (p[":proc/id"], dl)
         assert p[":proc/genuine-channels"], p[":proc/id"]
         assert p.get(":proc/track", ":civil") in (":civil", ":labor", ":housing",
-                                                  ":enforcement"), p[":proc/id"]
+                                                  ":enforcement", ":insolvency"), p[":proc/id"]
 
 
 def test_specialty_track_counted():
-    """Waves 8-10: labor (≥3), housing (≥4) and enforcement (≥3) tracks are
-    measured; the remaining specialty tracks (:family/:insolvency) stay NAMED gaps."""
+    """Waves 8-11: labor (≥3), housing (≥4), enforcement (≥3) and insolvency (≥3)
+    tracks are measured; :family stays the NAMED gap."""
     cov = coverage()
     assert cov["procedure_tracks"].get(":labor", 0) >= 3
     assert cov["procedure_tracks"].get(":housing", 0) >= 4
     assert cov["procedure_tracks"].get(":enforcement", 0) >= 3
+    assert cov["procedure_tracks"].get(":insolvency", 0) >= 3
     assert cov["procedure_tracks"].get(":civil", 0) >= 20
     assert any("専門トラック" in g and ":family" in g for g in cov["named_gaps"])
 

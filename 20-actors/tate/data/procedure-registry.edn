@@ -138,6 +138,21 @@
   :proc/refer-when ["複数債権者からの差押え" "債務整理 → 弁護士/司法書士/法テラス"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:jp-hasan-tsuchi" :proc/label "破産手続開始の通知 (債権者側・倒産・日本)"
+  :proc/jurisdiction :jp :proc/track :insolvency
+  :proc/trigger-keywords ["破産手続開始" "債権届出"]
+  :proc/genuine-channels [:mail :special-service]
+  :proc/deadline-rules
+  [{:dl/label "債権届出"
+    :dl/rule "債権届出期間は開始決定で裁判所が定める (通知記載) — 期間内に届け出ないと配当から漏れ得る (一般調査期間後の届出は制限)"
+    :dl/anchor "破産法31条・111条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :saiken-todoke :opt/kind :self-submit :opt/protective true
+    :opt/label "債権届出書を提出 — 前払金・預け金・未消化サブスク・ポイントも債権 (kaiyaku 縁-ledger と突合)"}
+   {:opt/id :check-haitou :opt/kind :self-decide :opt/label "少額なら配当見込みと手間を比較して判断"}]
+  :proc/refer-when ["高額債権" "別除権・相殺が絡む場合"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
   :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
@@ -214,6 +229,21 @@
    {:opt/id :verify-judgment :opt/kind :self-decide
     :opt/label "前提の judgment を確認 — 身に覚えがなければ default judgment の vacate を検討 (→ 専門家)"}]
   :proc/refer-when ["judgment 自体に争いがある" "複数 garnishment → legal aid"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:us-bankruptcy-notice" :proc/label "Bankruptcy notice (債権者側・倒産・米国)"
+  :proc/jurisdiction :us :proc/track :insolvency
+  :proc/trigger-keywords ["notice of chapter 7" "meeting of creditors" "proof of claim"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of claim (bar date)"
+    :dl/rule "proof of claim の bar date は通知記載 — chapter 7 no-asset 事件では届出不要の指示が来ることもある (通知の指示に従う)"
+    :dl/anchor "Fed. R. Bankr. P. 3002" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :file-claim :opt/kind :self-submit :opt/protective true
+    :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可)"}
+   {:opt/id :no-asset-wait :opt/kind :self-decide :opt/label "no-asset 通知なら指示どおり待機 (後日 asset 化したら届出案内が来る)"}]
+  :proc/refer-when ["債権が高額・担保付き"]
   :proc/verify-current-law true}
 
  ;; ── :eu ──────────────────────────────────────────────────────────────────────
@@ -529,6 +559,20 @@
   :proc/refer-when ["多重債務 → Schuldnerberatung (公的債務相談・無料)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:de-insolvenz" :proc/label "Insolvenzeröffnung (債権者側・倒産・ドイツ)"
+  :proc/jurisdiction :de :proc/track :insolvency
+  :proc/trigger-keywords ["Insolvenzverfahren" "Forderungsanmeldung"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Forderungsanmeldung"
+    :dl/rule "Eröffnungsbeschluss の定める期間内に Insolvenzverwalter へ債権を anmelden (遅延届出も可だが追加費用)"
+    :dl/anchor "InsO §28・§174" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anmelden :opt/kind :self-submit :opt/protective true
+    :opt/label "Forderungsanmeldung を Verwalter へ (書式は通知同封 — 本人可)"}]
+  :proc/refer-when ["担保・相殺・高額債権"]
+  :proc/verify-current-law true}
+
  ;; ── :at ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:at-zahlungsbefehl" :proc/label "Zahlungsbefehl (支払命令・オーストリア)"
   :proc/jurisdiction :at
@@ -557,6 +601,39 @@
   [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
+  :proc/verify-current-law true}
+
+ ;; ── :ie ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ie-civil-summons" :proc/label "Civil summons / claim notice (アイルランド)"
+  :proc/jurisdiction :ie
+  :proc/trigger-keywords ["civil summons" "claim notice"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Appearance / defence"
+    :dl/rule "通知記載の期限内に appearance/defence (District Court Rules; ≤€2,000 は Small Claims Registrar 手続 — 本人・低コスト)"
+    :dl/anchor "District Court Rules / CCPC small claims" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :appearance :opt/kind :self-submit :opt/label "appearance + defence を court office へ"}
+   {:opt/id :sct-respond :opt/kind :self-submit :opt/label "small claims なら Registrar 経由で応答 (調停的手続)"}]
+  :proc/refer-when ["€2,000 超" "FLAC の無料相談を先に"]
+  :proc/verify-current-law true}
+
+ ;; ── :ch ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ch-zahlungsbefehl" :proc/label "Zahlungsbefehl / Betreibung (スイス)"
+  :proc/jurisdiction :ch
+  :proc/trigger-keywords ["Zahlungsbefehl" "Betreibung"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Rechtsvorschlag (異議)"
+    :dl/rule "Zustellung から10日以内に Rechtsvorschlag (理由不要・口頭でも可) — これだけで手続が止まる; Betreibung は証拠不要で誰でも開始できるため、身に覚えがなければ必ず異議"
+    :dl/anchor "SchKG Art. 74" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :rechtsvorschlag :opt/kind :self-submit :opt/protective true
+    :opt/label "Betreibungsamt へ Rechtsvorschlag (10日以内 — 受領時にその場で宣言も可)"}
+   {:opt/id :register-cleanup :opt/kind :self-submit
+    :opt/label "根拠のない Betreibung は登録簿の不開示申立て (SchKG Art. 8a Abs. 3 lit. d) — 信用記録を守る"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["Rechtsöffnung (異議排除) を申し立てられた場合"]
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────

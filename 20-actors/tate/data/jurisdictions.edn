@@ -150,6 +150,22 @@
   :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :ie :juris/label "Ireland"
+  :juris/upl-anchor "Legal Services Regulation Act 2015 (solicitor/barrister の資格独占)"
+  :juris/service-note "civil summons / claim notice は court office から (small claims は Registrar 手続)"
+  :juris/referrals ["FLAC (Free Legal Advice Centres)" "Citizens Information" "Legal Aid Board"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "An Garda Síochána" "CCPC (消費者保護)"]
+  :juris/refer-over-amount 2000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :ch :juris/label "Schweiz"
+  :juris/upl-anchor "BGFA (Anwaltsgesetz — 訴訟代理の資格独占; Betreibung 手続は本人可)"
+  :juris/service-note "Zahlungsbefehl は Betreibungsamt の送達 — 証拠不要で誰でも申立て可能な制度のため、身に覚えがなければ Rechtsvorschlag が唯一の防御"
+  :juris/referrals ["unentgeltliche Rechtspflege (法律扶助)" "Schlichtungsbehörde" "kantonale Rechtsberatung"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "cybercrimepolice.ch" "Polizei 117"]
+  :juris/refer-over-amount 30000 :juris/refer-over-currency "CHF"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :pl :juris/label "Polska"
   :juris/upl-anchor "Prawo o adwokaturze / ustawa o radcach prawnych (法律業務の資格独占)"
   :juris/service-note "nakaz zapłaty は裁判所からの書留 (za potwierdzeniem odbioru) — SMS の『sąd』通知は偽"
