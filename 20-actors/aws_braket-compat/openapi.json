@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible hardware ISA / quantum actor (aws_braket); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aws_braket-compat",
-    "x-wasm-cid": "bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+    "x-wasm-cid": "bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+      "url": "ipfs://bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/registers": {
+    "/v1/executionwindows": {
       "get": {
-        "summary": "List Registers",
+        "summary": "List ExecutionWindows",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Register"
+                        "$ref": "#/components/schemas/ExecutionWindow"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Register",
+        "summary": "Create a ExecutionWindow",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ExecutionWindowCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ExecutionWindow"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/registers/{id}": {
+    "/v1/executionwindows/{id}": {
       "get": {
-        "summary": "Get a Register",
+        "summary": "Get a ExecutionWindow",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ExecutionWindow"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Register",
+        "summary": "Update a ExecutionWindow",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterCreate"
+                "$ref": "#/components/schemas/ExecutionWindowCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Register"
+                  "$ref": "#/components/schemas/ExecutionWindow"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Register",
+        "summary": "Delete a ExecutionWindow",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/instructions": {
+    "/v1/deviceservicepropertieses": {
       "get": {
-        "summary": "List Instructions",
+        "summary": "List DeviceServicePropertieses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Instruction"
+                        "$ref": "#/components/schemas/DeviceServiceProperties"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Instruction",
+        "summary": "Create a DeviceServiceProperties",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/DeviceServicePropertiesCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/DeviceServiceProperties"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/instructions/{id}": {
+    "/v1/deviceservicepropertieses/{id}": {
       "get": {
-        "summary": "Get a Instruction",
+        "summary": "Get a DeviceServiceProperties",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/DeviceServiceProperties"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Instruction",
+        "summary": "Update a DeviceServiceProperties",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InstructionCreate"
+                "$ref": "#/components/schemas/DeviceServicePropertiesCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Instruction"
+                  "$ref": "#/components/schemas/DeviceServiceProperties"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Instruction",
+        "summary": "Delete a DeviceServiceProperties",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/qubits": {
+    "/v1/taskmetadatas": {
       "get": {
-        "summary": "List Qubits",
+        "summary": "List TaskMetadatas",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Qubit"
+                        "$ref": "#/components/schemas/TaskMetadata"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Qubit",
+        "summary": "Create a TaskMetadata",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/TaskMetadataCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/TaskMetadata"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/qubits/{id}": {
+    "/v1/taskmetadatas/{id}": {
       "get": {
-        "summary": "Get a Qubit",
+        "summary": "Get a TaskMetadata",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/TaskMetadata"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Qubit",
+        "summary": "Update a TaskMetadata",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QubitCreate"
+                "$ref": "#/components/schemas/TaskMetadataCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Qubit"
+                  "$ref": "#/components/schemas/TaskMetadata"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Qubit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/circuits": {
-      "get": {
-        "summary": "List Circuits",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Circuit"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Circuit",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/circuits/{id}": {
-      "get": {
-        "summary": "Get a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CircuitCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Circuit"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Circuit",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/gates": {
-      "get": {
-        "summary": "List Gates",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Gate"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Gate",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/gates/{id}": {
-      "get": {
-        "summary": "Get a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GateCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Gate"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Gate",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/jobs": {
-      "get": {
-        "summary": "List Jobs",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Job"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Job",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/jobs/{id}": {
-      "get": {
-        "summary": "Get a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Job",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JobCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Job"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Job",
+        "summary": "Delete a TaskMetadata",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +585,31 @@
   },
   "components": {
     "schemas": {
-      "Register": {
+      "ExecutionWindow": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "executionDay": {
+            "type": "string",
+            "enum": [
+              "Everyday",
+              "Weekdays",
+              "Weekend",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          },
+          "windowStartHour": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
-          },
-          "role": {
+          "windowEndHour": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,235 +622,131 @@
           }
         }
       },
-      "RegisterCreate": {
+      "ExecutionWindowCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "executionDay": {
+            "type": "string",
+            "enum": [
+              "Everyday",
+              "Weekdays",
+              "Weekend",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          },
+          "windowStartHour": {
             "type": "string"
           },
-          "widthBits": {
-            "type": "integer"
-          },
-          "role": {
+          "windowEndHour": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "widthBits"
+          "executionDay",
+          "windowStartHour"
         ]
       },
-      "Instruction": {
+      "DeviceServiceProperties": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "mnemonic": {
+          "deviceLocation": {
             "type": "string"
-          },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
           },
           "updatedAt": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "InstructionCreate": {
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string"
           },
-          "opcode": {
-            "type": "string"
-          },
-          "operands": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "mnemonic",
-          "opcode"
-        ]
-      },
-      "Qubit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "index": {
+          "getTaskPollIntervalMillis": {
             "type": "integer"
           },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "QubitCreate": {
-        "type": "object",
-        "properties": {
-          "index": {
+          "shotsRangeMin": {
             "type": "integer"
           },
-          "t1Us": {
-            "type": "number"
-          },
-          "t2Us": {
-            "type": "number"
-          },
-          "readoutError": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "index",
-          "t1Us"
-        ]
-      },
-      "Circuit": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "qubitCount": {
-            "type": "integer"
-          },
-          "depth": {
+          "shotsRangeMax": {
             "type": "integer"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
-      "CircuitCreate": {
+      "DeviceServicePropertiesCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "deviceLocation": {
             "type": "string"
           },
-          "qubitCount": {
+          "updatedAt": {
+            "type": "string"
+          },
+          "getTaskPollIntervalMillis": {
             "type": "integer"
           },
-          "depth": {
+          "shotsRangeMin": {
+            "type": "integer"
+          },
+          "shotsRangeMax": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "qubitCount"
+          "deviceLocation",
+          "updatedAt"
         ]
       },
-      "Gate": {
+      "TaskMetadata": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GateCreate": {
-        "type": "object",
-        "properties": {
-          "circuitId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "targets": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "targets"
-        ]
-      },
-      "Job": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "circuitId": {
             "type": "string"
           },
           "shots": {
             "type": "integer"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endedAt": {
+            "type": "string",
+            "format": "date-time"
           },
           "status": {
             "type": "string"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
           "updatedAt": {
             "type": "string",
             "format": "date-time"
           }
         }
       },
-      "JobCreate": {
+      "TaskMetadataCreate": {
         "type": "object",
         "properties": {
-          "circuitId": {
-            "type": "string"
-          },
           "shots": {
             "type": "integer"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "endedAt": {
+            "type": "string"
           },
           "status": {
             "type": "string"
@@ -1401,7 +754,7 @@
         },
         "required": [
           "shots",
-          "status"
+          "createdAt"
         ]
       }
     }

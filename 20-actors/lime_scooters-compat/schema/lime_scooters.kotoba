@@ -3,74 +3,86 @@
 
 namespace lime_scooters {
 
-    entity Driver {
+    entity SystemInformation {
         id: string @unique
+        systemId: string
         name: string
-        licensePlate: string
-        rating: float
-        online: boolean
+        operator: string
+        url: string
+        timezone: string
+        openingHours: string
+        phoneNumber: string
+        email: string
+        feedContactEmail: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Rider {
+    entity VehicleType {
         id: string @unique
-        name: string
-        phone: string
-        rating: float
+        vehicleTypeId: string
+        formFactor: string
+        propulsionType: string
+        returnConstraint: string
+        maxRangeMeters: float
+        riderCapacity: integer
+        wheelCount: integer
+        maxPermittedSpeed: integer
+        minAge: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Trip {
+    entity Station {
         id: string @unique
-        riderId: string
-        driverId: string
-        origin: string
-        destination: string
-        status: string
+        stationId: string
+        name: string
+        lat: float
+        lon: float
+        address: string
+        city: string
+        regionId: string
+        capacity: integer
+        isVirtualStation: boolean
+        isChargingStation: boolean
+        parkingType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity StationStatus {
+        id: string @unique
+        stationId: string
+        numVehiclesAvailable: integer
+        numDocksAvailable: integer
+        isInstalled: boolean
+        isRenting: boolean
+        isReturning: boolean
+        lastReported: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Vehicle {
         id: string @unique
-        driverId: string
-        make: string
-        model: string
-        plate: string
+        vehicleId: string
+        lat: float
+        lon: float
+        isReserved: boolean
+        isDisabled: boolean
+        vehicleTypeId: string
+        currentRangeMeters: float
+        lastReported: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Fare {
+    entity Region {
         id: string @unique
-        tripId: string
-        base: float
-        distanceKm: float
-        total: float
-        currency: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Rating {
-        id: string @unique
-        tripId: string
-        byRole: string
-        score: integer
-        comment: string
+        regionId: string
+        name: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -3,68 +3,35 @@
 
 namespace aws_braket {
 
-    entity Register {
+    entity ExecutionWindow {
         id: string @unique
-        name: string
-        widthBits: integer
-        role: string
+        executionDay: string
+        windowStartHour: string
+        windowEndHour: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Instruction {
+    entity DeviceServiceProperties {
         id: string @unique
-        mnemonic: string
-        opcode: string
-        operands: string
+        deviceLocation: string
+        updatedAt: datetime
+        getTaskPollIntervalMillis: integer
+        shotsRangeMin: integer
+        shotsRangeMax: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Qubit {
+    entity TaskMetadata {
         id: string @unique
-        index: integer
-        t1Us: float
-        t2Us: float
-        readoutError: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Circuit {
-        id: string @unique
-        name: string
-        qubitCount: integer
-        depth: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Gate {
-        id: string @unique
-        circuitId: string
-        name: string
-        targets: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Job {
-        id: string @unique
-        circuitId: string
         shots: integer
+        deviceId: string
+        createdAt: datetime
+        endedAt: datetime
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

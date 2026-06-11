@@ -11,15 +11,64 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigxrswa6ukdawq2xetnc5nfu35trspcpvgmo4su52ga6iab4i3tuy",
   "schema": "schema/lime_scooters.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/MobilityData/gbfs/master/systems.csv (official MobilityData GBFS systems registry) + live operator feed https://data.lime.bike/api/partners/v2/gbfs/calgary/gbfs.json",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "SystemInformation",
+      "VehicleType",
+      "Station",
+      "StationStatus",
+      "Vehicle",
+      "Region"
+    ],
+    "enums": {
+      "VehicleType": {
+        "formFactor": [
+          "bicycle",
+          "cargo_bicycle",
+          "car",
+          "moped",
+          "scooter_standing",
+          "scooter_seated",
+          "other"
+        ],
+        "propulsionType": [
+          "human",
+          "electric_assist",
+          "electric",
+          "combustion",
+          "combustion_diesel",
+          "hybrid",
+          "plug_in_hybrid",
+          "hydrogen_fuel_cell"
+        ],
+        "returnConstraint": [
+          "free_floating",
+          "roundtrip_station",
+          "any_station",
+          "hybrid"
+        ]
+      },
+      "Station": {
+        "parkingType": [
+          "parking_lot",
+          "street_parking",
+          "underground_parking",
+          "sidewalk_parking",
+          "other"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Driver",
-    "Rider",
-    "Trip",
+    "SystemInformation",
+    "VehicleType",
+    "Station",
+    "StationStatus",
     "Vehicle",
-    "Fare",
-    "Rating"
+    "Region"
   ],
   "adr": [
     "260607",
@@ -35,78 +84,103 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/drivers",
-          "op": "create Driver"
+          "path": "/v1/systeminformations",
+          "op": "create SystemInformation"
         },
         {
           "method": "GET",
-          "path": "/v1/drivers",
-          "op": "list Driver"
+          "path": "/v1/systeminformations",
+          "op": "list SystemInformation"
         },
         {
           "method": "GET",
-          "path": "/v1/drivers/{id}",
-          "op": "get Driver"
+          "path": "/v1/systeminformations/{id}",
+          "op": "get SystemInformation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/drivers/{id}",
-          "op": "update Driver"
+          "path": "/v1/systeminformations/{id}",
+          "op": "update SystemInformation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/drivers/{id}",
-          "op": "delete Driver"
+          "path": "/v1/systeminformations/{id}",
+          "op": "delete SystemInformation"
         },
         {
           "method": "POST",
-          "path": "/v1/riders",
-          "op": "create Rider"
+          "path": "/v1/vehicletypes",
+          "op": "create VehicleType"
         },
         {
           "method": "GET",
-          "path": "/v1/riders",
-          "op": "list Rider"
+          "path": "/v1/vehicletypes",
+          "op": "list VehicleType"
         },
         {
           "method": "GET",
-          "path": "/v1/riders/{id}",
-          "op": "get Rider"
+          "path": "/v1/vehicletypes/{id}",
+          "op": "get VehicleType"
         },
         {
           "method": "PATCH",
-          "path": "/v1/riders/{id}",
-          "op": "update Rider"
+          "path": "/v1/vehicletypes/{id}",
+          "op": "update VehicleType"
         },
         {
           "method": "DELETE",
-          "path": "/v1/riders/{id}",
-          "op": "delete Rider"
+          "path": "/v1/vehicletypes/{id}",
+          "op": "delete VehicleType"
         },
         {
           "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
+          "path": "/v1/stations",
+          "op": "create Station"
         },
         {
           "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
+          "path": "/v1/stations",
+          "op": "list Station"
         },
         {
           "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
+          "path": "/v1/stations/{id}",
+          "op": "get Station"
         },
         {
           "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
+          "path": "/v1/stations/{id}",
+          "op": "update Station"
         },
         {
           "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
+          "path": "/v1/stations/{id}",
+          "op": "delete Station"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/stationstatuses",
+          "op": "create StationStatus"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stationstatuses",
+          "op": "list StationStatus"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stationstatuses/{id}",
+          "op": "get StationStatus"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/stationstatuses/{id}",
+          "op": "update StationStatus"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/stationstatuses/{id}",
+          "op": "delete StationStatus"
         },
         {
           "method": "POST",
@@ -135,53 +209,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/fares",
-          "op": "create Fare"
+          "path": "/v1/regions",
+          "op": "create Region"
         },
         {
           "method": "GET",
-          "path": "/v1/fares",
-          "op": "list Fare"
+          "path": "/v1/regions",
+          "op": "list Region"
         },
         {
           "method": "GET",
-          "path": "/v1/fares/{id}",
-          "op": "get Fare"
+          "path": "/v1/regions/{id}",
+          "op": "get Region"
         },
         {
           "method": "PATCH",
-          "path": "/v1/fares/{id}",
-          "op": "update Fare"
+          "path": "/v1/regions/{id}",
+          "op": "update Region"
         },
         {
           "method": "DELETE",
-          "path": "/v1/fares/{id}",
-          "op": "delete Fare"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/ratings",
-          "op": "create Rating"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/ratings",
-          "op": "list Rating"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/ratings/{id}",
-          "op": "get Rating"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/ratings/{id}",
-          "op": "update Rating"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/ratings/{id}",
-          "op": "delete Rating"
+          "path": "/v1/regions/{id}",
+          "op": "delete Region"
         }
       ],
       "features": {
@@ -247,41 +296,56 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_driver",
-          "description": "Create a Driver.",
+          "name": "create_system_information",
+          "description": "Create a SystemInformation.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "systemId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "licensePlate": {
+              "operator": {
                 "type": "string"
               },
-              "rating": {
-                "type": "number"
+              "url": {
+                "type": "string"
               },
-              "online": {
-                "type": "boolean"
+              "timezone": {
+                "type": "string"
+              },
+              "openingHours": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "feedContactEmail": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "licensePlate"
+              "operator"
             ]
           }
         },
         {
-          "name": "list_drivers",
-          "description": "List Drivers.",
+          "name": "list_system_informations",
+          "description": "List SystemInformations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_driver",
-          "description": "Get a Driver by id.",
+          "name": "get_system_information",
+          "description": "Get a SystemInformation by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,80 +359,239 @@
           }
         },
         {
-          "name": "update_driver",
-          "description": "Update a Driver.",
+          "name": "update_system_information",
+          "description": "Update a SystemInformation.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
+              "systemId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "licensePlate": {
+              "operator": {
                 "type": "string"
               },
-              "rating": {
+              "url": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "string"
+              },
+              "openingHours": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "feedContactEmail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_system_information",
+          "description": "Delete a SystemInformation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_vehicle_type",
+          "description": "Create a VehicleType.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "vehicleTypeId": {
+                "type": "string"
+              },
+              "formFactor": {
+                "type": "string"
+              },
+              "propulsionType": {
+                "type": "string"
+              },
+              "returnConstraint": {
+                "type": "string"
+              },
+              "maxRangeMeters": {
                 "type": "number"
               },
-              "online": {
+              "riderCapacity": {
+                "type": "integer"
+              },
+              "wheelCount": {
+                "type": "integer"
+              },
+              "maxPermittedSpeed": {
+                "type": "integer"
+              },
+              "minAge": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "formFactor",
+              "propulsionType"
+            ]
+          }
+        },
+        {
+          "name": "list_vehicle_types",
+          "description": "List VehicleTypes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_vehicle_type",
+          "description": "Get a VehicleType by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_vehicle_type",
+          "description": "Update a VehicleType.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "vehicleTypeId": {
+                "type": "string"
+              },
+              "formFactor": {
+                "type": "string"
+              },
+              "propulsionType": {
+                "type": "string"
+              },
+              "returnConstraint": {
+                "type": "string"
+              },
+              "maxRangeMeters": {
+                "type": "number"
+              },
+              "riderCapacity": {
+                "type": "integer"
+              },
+              "wheelCount": {
+                "type": "integer"
+              },
+              "maxPermittedSpeed": {
+                "type": "integer"
+              },
+              "minAge": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_vehicle_type",
+          "description": "Delete a VehicleType.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_station",
+          "description": "Create a Station.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "regionId": {
+                "type": "string"
+              },
+              "capacity": {
+                "type": "integer"
+              },
+              "isVirtualStation": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_driver",
-          "description": "Delete a Driver.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rider",
-          "description": "Create a Rider.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
               },
-              "phone": {
-                "type": "string"
+              "isChargingStation": {
+                "type": "boolean"
               },
-              "rating": {
-                "type": "number"
+              "parkingType": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "phone"
+              "lat"
             ]
           }
         },
         {
-          "name": "list_riders",
-          "description": "List Riders.",
+          "name": "list_stations",
+          "description": "List Stations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_rider",
-          "description": "Get a Rider by id.",
+          "name": "get_station",
+          "description": "Get a Station by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,22 +605,46 @@
           }
         },
         {
-          "name": "update_rider",
-          "description": "Update a Rider.",
+          "name": "update_station",
+          "description": "Update a Station.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "stationId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "phone": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "address": {
                 "type": "string"
               },
-              "rating": {
-                "type": "number"
+              "city": {
+                "type": "string"
+              },
+              "regionId": {
+                "type": "string"
+              },
+              "capacity": {
+                "type": "integer"
+              },
+              "isVirtualStation": {
+                "type": "boolean"
+              },
+              "isChargingStation": {
+                "type": "boolean"
+              },
+              "parkingType": {
+                "type": "string"
               }
             },
             "required": [
@@ -406,8 +653,8 @@
           }
         },
         {
-          "name": "delete_rider",
-          "description": "Delete a Rider.",
+          "name": "delete_station",
+          "description": "Delete a Station.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,44 +668,50 @@
           }
         },
         {
-          "name": "create_trip",
-          "description": "Create a Trip.",
+          "name": "create_station_status",
+          "description": "Create a StationStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "riderId": {
+              "stationId": {
                 "type": "string"
               },
-              "driverId": {
-                "type": "string"
+              "numVehiclesAvailable": {
+                "type": "integer"
               },
-              "origin": {
-                "type": "string"
+              "numDocksAvailable": {
+                "type": "integer"
               },
-              "destination": {
-                "type": "string"
+              "isInstalled": {
+                "type": "boolean"
               },
-              "status": {
+              "isRenting": {
+                "type": "boolean"
+              },
+              "isReturning": {
+                "type": "boolean"
+              },
+              "lastReported": {
                 "type": "string"
               }
             },
             "required": [
-              "origin",
-              "destination"
+              "numVehiclesAvailable",
+              "numDocksAvailable"
             ]
           }
         },
         {
-          "name": "list_trips",
-          "description": "List Trips.",
+          "name": "list_station_statuses",
+          "description": "List StationStatuses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
+          "name": "get_station_status",
+          "description": "Get a StationStatus by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,27 +725,33 @@
           }
         },
         {
-          "name": "update_trip",
-          "description": "Update a Trip.",
+          "name": "update_station_status",
+          "description": "Update a StationStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "riderId": {
+              "stationId": {
                 "type": "string"
               },
-              "driverId": {
-                "type": "string"
+              "numVehiclesAvailable": {
+                "type": "integer"
               },
-              "origin": {
-                "type": "string"
+              "numDocksAvailable": {
+                "type": "integer"
               },
-              "destination": {
-                "type": "string"
+              "isInstalled": {
+                "type": "boolean"
               },
-              "status": {
+              "isRenting": {
+                "type": "boolean"
+              },
+              "isReturning": {
+                "type": "boolean"
+              },
+              "lastReported": {
                 "type": "string"
               }
             },
@@ -502,8 +761,8 @@
           }
         },
         {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
+          "name": "delete_station_status",
+          "description": "Delete a StationStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -522,22 +781,34 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "driverId": {
+              "vehicleId": {
                 "type": "string"
               },
-              "make": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "isReserved": {
+                "type": "boolean"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "vehicleTypeId": {
                 "type": "string"
               },
-              "model": {
-                "type": "string"
+              "currentRangeMeters": {
+                "type": "number"
               },
-              "plate": {
+              "lastReported": {
                 "type": "string"
               }
             },
             "required": [
-              "make",
-              "model"
+              "lat",
+              "lon"
             ]
           }
         },
@@ -573,16 +844,28 @@
               "id": {
                 "type": "string"
               },
-              "driverId": {
+              "vehicleId": {
                 "type": "string"
               },
-              "make": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              },
+              "isReserved": {
+                "type": "boolean"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              },
+              "vehicleTypeId": {
                 "type": "string"
               },
-              "model": {
-                "type": "string"
+              "currentRangeMeters": {
+                "type": "number"
               },
-              "plate": {
+              "lastReported": {
                 "type": "string"
               }
             },
@@ -607,44 +890,34 @@
           }
         },
         {
-          "name": "create_fare",
-          "description": "Create a Fare.",
+          "name": "create_region",
+          "description": "Create a Region.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "tripId": {
+              "regionId": {
                 "type": "string"
               },
-              "base": {
-                "type": "number"
-              },
-              "distanceKm": {
-                "type": "number"
-              },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
-              "base",
-              "distanceKm"
+              "name"
             ]
           }
         },
         {
-          "name": "list_fares",
-          "description": "List Fares.",
+          "name": "list_regions",
+          "description": "List Regions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_fare",
-          "description": "Get a Fare by id.",
+          "name": "get_region",
+          "description": "Get a Region by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -658,27 +931,18 @@
           }
         },
         {
-          "name": "update_fare",
-          "description": "Update a Fare.",
+          "name": "update_region",
+          "description": "Update a Region.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "tripId": {
+              "regionId": {
                 "type": "string"
               },
-              "base": {
-                "type": "number"
-              },
-              "distanceKm": {
-                "type": "number"
-              },
-              "total": {
-                "type": "number"
-              },
-              "currency": {
+              "name": {
                 "type": "string"
               }
             },
@@ -688,98 +952,8 @@
           }
         },
         {
-          "name": "delete_fare",
-          "description": "Delete a Fare.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rating",
-          "description": "Create a Rating.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "tripId": {
-                "type": "string"
-              },
-              "byRole": {
-                "type": "string"
-              },
-              "score": {
-                "type": "integer"
-              },
-              "comment": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "byRole",
-              "score"
-            ]
-          }
-        },
-        {
-          "name": "list_ratings",
-          "description": "List Ratings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rating",
-          "description": "Get a Rating by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_rating",
-          "description": "Update a Rating.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "tripId": {
-                "type": "string"
-              },
-              "byRole": {
-                "type": "string"
-              },
-              "score": {
-                "type": "integer"
-              },
-              "comment": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rating",
-          "description": "Delete a Rating.",
+          "name": "delete_region",
+          "description": "Delete a Region.",
           "inputSchema": {
             "type": "object",
             "properties": {

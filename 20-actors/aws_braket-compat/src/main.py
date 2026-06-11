@@ -111,52 +111,123 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/registers", methods=["POST"])
-def create_register(request):
-    """Create a Register."""
+@app.route("/v1/executionwindows", methods=["POST"])
+def create_execution_window(request):
+    """Create a ExecutionWindow."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['executionDay', 'windowStartHour', 'windowEndHour'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'widthBits'])
+    err = _require(data, ['executionDay', 'windowStartHour'])
     if err:
         return err, 400
-    rec = {"id": new_id("awsbrake_reg")}
-    rec["name"] = data.get('name')
-    rec["widthBits"] = _as_int(data.get('widthBits'))
-    rec["role"] = data.get('role')
+    if data.get('executionDay') and data['executionDay'] not in ['Everyday', 'Weekdays', 'Weekend', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']:
+        return {"error": {"message": "invalid executionDay; allowed: " + ", ".join(['Everyday', 'Weekdays', 'Weekend', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("awsbrake_exe")}
+    rec["executionDay"] = data.get('executionDay')
+    rec["windowStartHour"] = data.get('windowStartHour')
+    rec["windowEndHour"] = data.get('windowEndHour')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Register", rec)
+    _persist("ExecutionWindow", rec)
     return rec, 201
 
-@app.route("/v1/registers", methods=["GET"])
-def list_registers(request):
-    """List Registers with filtering + cursor pagination."""
+@app.route("/v1/executionwindows", methods=["GET"])
+def list_execution_windows(request):
+    """List ExecutionWindows with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Register")
-    rows = _apply_filters(rows, params, ['name', 'widthBits', 'role'])
+    rows = _query("ExecutionWindow")
+    rows = _apply_filters(rows, params, ['executionDay', 'windowStartHour', 'windowEndHour'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/registers/<eid>", methods=["GET"])
-def get_register(request, eid):
-    """Retrieve a Register by id (supports ?expand=)."""
-    rows = _query("Register", eid)
+@app.route("/v1/executionwindows/<eid>", methods=["GET"])
+def get_execution_window(request, eid):
+    """Retrieve a ExecutionWindow by id (supports ?expand=)."""
+    rows = _query("ExecutionWindow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["POST", "PATCH"])
-def update_register(request, eid):
-    """Update a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/executionwindows/<eid>", methods=["POST", "PATCH"])
+def update_execution_window(request, eid):
+    """Update a ExecutionWindow."""
+    rows = _query("ExecutionWindow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
+    err = _reject_unknown(data, ['executionDay', 'windowStartHour', 'windowEndHour'])
+    if err:
+        return err, 400
+    if data.get('executionDay') and data['executionDay'] not in ['Everyday', 'Weekdays', 'Weekend', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']:
+        return {"error": {"message": "invalid executionDay; allowed: " + ", ".join(['Everyday', 'Weekdays', 'Weekend', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ExecutionWindow", rec)
+    return rec, 200
+
+@app.route("/v1/executionwindows/<eid>", methods=["DELETE"])
+def delete_execution_window(request, eid):
+    """Delete a ExecutionWindow."""
+    rows = _query("ExecutionWindow", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"aws_braket.ExecutionWindow", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/deviceservicepropertieses", methods=["POST"])
+def create_device_service_properties(request):
+    """Create a DeviceServiceProperties."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['deviceLocation', 'updatedAt', 'getTaskPollIntervalMillis', 'shotsRangeMin', 'shotsRangeMax'])
+    if err:
+        return err, 400
+    err = _require(data, ['deviceLocation', 'updatedAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("awsbrake_dev")}
+    rec["deviceLocation"] = data.get('deviceLocation')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["getTaskPollIntervalMillis"] = _as_int(data.get('getTaskPollIntervalMillis'))
+    rec["shotsRangeMin"] = _as_int(data.get('shotsRangeMin'))
+    rec["shotsRangeMax"] = _as_int(data.get('shotsRangeMax'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("DeviceServiceProperties", rec)
+    return rec, 201
+
+@app.route("/v1/deviceservicepropertieses", methods=["GET"])
+def list_device_service_propertieses(request):
+    """List DeviceServicePropertieses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("DeviceServiceProperties")
+    rows = _apply_filters(rows, params, ['deviceLocation', 'updatedAt', 'getTaskPollIntervalMillis', 'shotsRangeMin', 'shotsRangeMax'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/deviceservicepropertieses/<eid>", methods=["GET"])
+def get_device_service_properties(request, eid):
+    """Retrieve a DeviceServiceProperties by id (supports ?expand=)."""
+    rows = _query("DeviceServiceProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/deviceservicepropertieses/<eid>", methods=["POST", "PATCH"])
+def update_device_service_properties(request, eid):
+    """Update a DeviceServiceProperties."""
+    rows = _query("DeviceServiceProperties", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['deviceLocation', 'updatedAt', 'getTaskPollIntervalMillis', 'shotsRangeMin', 'shotsRangeMax'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,327 +235,66 @@ def update_register(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Register", rec)
+    _persist("DeviceServiceProperties", rec)
     return rec, 200
 
-@app.route("/v1/registers/<eid>", methods=["DELETE"])
-def delete_register(request, eid):
-    """Delete a Register."""
-    rows = _query("Register", eid)
+@app.route("/v1/deviceservicepropertieses/<eid>", methods=["DELETE"])
+def delete_device_service_properties(request, eid):
+    """Delete a DeviceServiceProperties."""
+    rows = _query("DeviceServiceProperties", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Register", "id": eid})
+    db.retract({"entity": f"aws_braket.DeviceServiceProperties", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/instructions", methods=["POST"])
-def create_instruction(request):
-    """Create a Instruction."""
+@app.route("/v1/taskmetadatas", methods=["POST"])
+def create_task_metadata(request):
+    """Create a TaskMetadata."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
+    err = _reject_unknown(data, ['shots', 'deviceId', 'createdAt', 'endedAt', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['mnemonic', 'opcode'])
+    err = _require(data, ['shots', 'createdAt'])
     if err:
         return err, 400
-    rec = {"id": new_id("awsbrake_ins")}
-    rec["mnemonic"] = data.get('mnemonic')
-    rec["opcode"] = data.get('opcode')
-    rec["operands"] = data.get('operands')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Instruction", rec)
-    return rec, 201
-
-@app.route("/v1/instructions", methods=["GET"])
-def list_instructions(request):
-    """List Instructions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Instruction")
-    rows = _apply_filters(rows, params, ['mnemonic', 'opcode', 'operands'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/instructions/<eid>", methods=["GET"])
-def get_instruction(request, eid):
-    """Retrieve a Instruction by id (supports ?expand=)."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["POST", "PATCH"])
-def update_instruction(request, eid):
-    """Update a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Instruction", rec)
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["DELETE"])
-def delete_instruction(request, eid):
-    """Delete a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Instruction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/qubits", methods=["POST"])
-def create_qubit(request):
-    """Create a Qubit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    err = _require(data, ['index', 't1Us'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("awsbrake_qub")}
-    rec["index"] = _as_int(data.get('index'))
-    rec["t1Us"] = _as_float(data.get('t1Us'))
-    rec["t2Us"] = _as_float(data.get('t2Us'))
-    rec["readoutError"] = _as_float(data.get('readoutError'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Qubit", rec)
-    return rec, 201
-
-@app.route("/v1/qubits", methods=["GET"])
-def list_qubits(request):
-    """List Qubits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Qubit")
-    rows = _apply_filters(rows, params, ['index', 't1Us', 't2Us', 'readoutError'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/qubits/<eid>", methods=["GET"])
-def get_qubit(request, eid):
-    """Retrieve a Qubit by id (supports ?expand=)."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["POST", "PATCH"])
-def update_qubit(request, eid):
-    """Update a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Qubit", rec)
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["DELETE"])
-def delete_qubit(request, eid):
-    """Delete a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Qubit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/circuits", methods=["POST"])
-def create_circuit(request):
-    """Create a Circuit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'qubitCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("awsbrake_cir")}
-    rec["name"] = data.get('name')
-    rec["qubitCount"] = _as_int(data.get('qubitCount'))
-    rec["depth"] = _as_int(data.get('depth'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Circuit", rec)
-    return rec, 201
-
-@app.route("/v1/circuits", methods=["GET"])
-def list_circuits(request):
-    """List Circuits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Circuit")
-    rows = _apply_filters(rows, params, ['name', 'qubitCount', 'depth'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/circuits/<eid>", methods=["GET"])
-def get_circuit(request, eid):
-    """Retrieve a Circuit by id (supports ?expand=)."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["POST", "PATCH"])
-def update_circuit(request, eid):
-    """Update a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Circuit", rec)
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["DELETE"])
-def delete_circuit(request, eid):
-    """Delete a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Circuit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gates", methods=["POST"])
-def create_gate(request):
-    """Create a Gate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'targets'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("awsbrake_gat")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["name"] = data.get('name')
-    rec["targets"] = data.get('targets')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Gate", rec)
-    return rec, 201
-
-@app.route("/v1/gates", methods=["GET"])
-def list_gates(request):
-    """List Gates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Gate")
-    rows = _apply_filters(rows, params, ['circuitId', 'name', 'targets'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/gates/<eid>", methods=["GET"])
-def get_gate(request, eid):
-    """Retrieve a Gate by id (supports ?expand=)."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["POST", "PATCH"])
-def update_gate(request, eid):
-    """Update a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Gate", rec)
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["DELETE"])
-def delete_gate(request, eid):
-    """Delete a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Gate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/jobs", methods=["POST"])
-def create_job(request):
-    """Create a Job."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['shots', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("awsbrake_job")}
-    rec["circuitId"] = data.get('circuitId')
+    rec = {"id": new_id("awsbrake_tas")}
     rec["shots"] = _as_int(data.get('shots'))
+    rec["deviceId"] = data.get('deviceId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["endedAt"] = data.get('endedAt')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Job", rec)
+    _persist("TaskMetadata", rec)
     return rec, 201
 
-@app.route("/v1/jobs", methods=["GET"])
-def list_jobs(request):
-    """List Jobs with filtering + cursor pagination."""
+@app.route("/v1/taskmetadatas", methods=["GET"])
+def list_task_metadatas(request):
+    """List TaskMetadatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Job")
-    rows = _apply_filters(rows, params, ['circuitId', 'shots', 'status'])
+    rows = _query("TaskMetadata")
+    rows = _apply_filters(rows, params, ['shots', 'deviceId', 'createdAt', 'endedAt', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/jobs/<eid>", methods=["GET"])
-def get_job(request, eid):
-    """Retrieve a Job by id (supports ?expand=)."""
-    rows = _query("Job", eid)
+@app.route("/v1/taskmetadatas/<eid>", methods=["GET"])
+def get_task_metadata(request, eid):
+    """Retrieve a TaskMetadata by id (supports ?expand=)."""
+    rows = _query("TaskMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
     return rec, 200
 
-@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
-def update_job(request, eid):
-    """Update a Job."""
-    rows = _query("Job", eid)
+@app.route("/v1/taskmetadatas/<eid>", methods=["POST", "PATCH"])
+def update_task_metadata(request, eid):
+    """Update a TaskMetadata."""
+    rows = _query("TaskMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
+    err = _reject_unknown(data, ['shots', 'deviceId', 'createdAt', 'endedAt', 'status'])
     if err:
         return err, 400
     rec = rows[0]
@@ -492,22 +302,22 @@ def update_job(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Job", rec)
+    _persist("TaskMetadata", rec)
     return rec, 200
 
-@app.route("/v1/jobs/<eid>", methods=["DELETE"])
-def delete_job(request, eid):
-    """Delete a Job."""
-    rows = _query("Job", eid)
+@app.route("/v1/taskmetadatas/<eid>", methods=["DELETE"])
+def delete_task_metadata(request, eid):
+    """Delete a TaskMetadata."""
+    rows = _query("TaskMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws_braket.Job", "id": eid})
+    db.retract({"entity": f"aws_braket.TaskMetadata", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "aws_braket-compat", "tier": "L4",
-            "entities": ['Register', 'Instruction', 'Qubit', 'Circuit', 'Gate', 'Job']}, 200
+            "entities": ['ExecutionWindow', 'DeviceServiceProperties', 'TaskMetadata']}, 200
 
 
 if __name__ == "__main__":

@@ -622,17 +622,13 @@
       "handle": "android_aosp-compat",
       "platform": "android_aosp",
       "bytes": 2126,
-      "wasmCid": "bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
+      "wasmCid": "bafkreifwvevqccm7rm4h4adl3y5q4q4svr5z5cvbjkr3ovjgiwu4ycaekq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Process",
-        "Thread",
-        "FileDescriptor",
-        "Syscall",
-        "MemoryRegion",
-        "Signal"
+        "BatteryStatus",
+        "Build"
       ]
     },
     {
@@ -1264,17 +1260,14 @@
       "handle": "aws_braket-compat",
       "platform": "aws_braket",
       "bytes": 2124,
-      "wasmCid": "bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+      "wasmCid": "bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "ExecutionWindow",
+        "DeviceServiceProperties",
+        "TaskMetadata"
       ]
     },
     {
@@ -1758,12 +1751,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Driver",
-        "Rider",
-        "Trip",
+        "SystemInformation",
+        "VehicleType",
+        "Station",
+        "StationStatus",
         "Vehicle",
-        "Fare",
-        "Rating"
+        "Region"
       ]
     },
     {
@@ -4402,12 +4395,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Driver",
-        "Rider",
-        "Trip",
+        "SystemInformation",
+        "VehicleType",
+        "Station",
+        "StationStatus",
         "Vehicle",
-        "Fare",
-        "Rating"
+        "Region"
       ]
     },
     {
@@ -8792,12 +8785,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Driver",
-        "Rider",
-        "Trip",
+        "SystemInformation",
+        "VehicleType",
+        "Station",
+        "StationStatus",
         "Vehicle",
-        "Fare",
-        "Rating"
+        "Region"
       ]
     },
     {

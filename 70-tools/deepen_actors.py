@@ -2488,7 +2488,34 @@ PLATFORM_OVERRIDES = {
         "Scene": E(name="string", frameStart="integer", frameEnd="integer", frameCurrent="integer", frameStep="integer"),
         "Material": E(name="string", useNodes="boolean", metallic="float", roughness="float", blendMethod="string"),
     },
+    # Faithful Amazon Braket model (official amazon-braket-schemas-python pydantic
+    # sources). executionDay enforced: 10-member calendar-anchored set (7 days + 3
+    # aggregates; days of the week cannot grow) — incl. AWS's own singular
+    # WEEKENDS="Weekend" value string. TaskMetadata.status is an untyped constr
+    # upstream -> gapped. shotsRange tuple flattened per ros2_nav precedent.
+    "aws_braket": {
+        "ExecutionWindow": E(executionDay="string", windowStartHour="string", windowEndHour="string"),
+        "DeviceServiceProperties": E(deviceLocation="string", updatedAt="datetime", getTaskPollIntervalMillis="integer", shotsRangeMin="integer", shotsRangeMax="integer"),
+        "TaskMetadata": E(shots="integer", deviceId="string", createdAt="datetime", endedAt="datetime", status="string"),
+    },
+    # Faithful Android platform model (official developer.android.com reference,
+    # android.os.BatteryManager + android.os.Build). BATTERY_STATUS_* (1-5,
+    # unchanged since API 1/2008) + BATTERY_HEALTH_* (1-7, stable since API 11)
+    # enforced as integers. BATTERY_PLUGGED_* gapped: power-of-two values AND
+    # DOCK=8 added in API 33 (2022) — both bitmask-shaped and version-growing.
+    "android_aosp": {
+        "BatteryStatus": E(status="integer", health="integer", plugged="integer", level="integer", scale="integer", temperature="integer", voltage="integer", present="boolean", technology="string"),
+        "Build": E(board="string", brand="string", device="string", hardware="string", manufacturer="string", model="string", product="string", fingerprint="string"),
+    },
 }
+
+# GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
+# OFFICIALLY serve public GBFS feeds from their own domains (per the official
+# MobilityData systems.csv registry + live feed verification) join on the
+# gbfs-verified model. Bird: 124 feeds on mds.bird.co; Lime: 47 on
+# data.lime.bike; Dott: 350 on gbfs.api.ridedott.com.
+for _gbfs_operator in ("bird_scooters", "lime_scooters", "dott"):
+    PLATFORM_OVERRIDES[_gbfs_operator] = PLATFORM_OVERRIDES["gbfs"]
 
 # ---------------------------------------------------------------------------
 # 4. Code generation.

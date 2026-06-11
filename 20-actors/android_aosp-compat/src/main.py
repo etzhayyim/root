@@ -111,119 +111,136 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/processes", methods=["POST"])
-def create_process(request):
-    """Create a Process."""
+@app.route("/v1/batterystatuses", methods=["POST"])
+def create_battery_status(request):
+    """Create a BatteryStatus."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
+    err = _reject_unknown(data, ['status', 'health', 'plugged', 'level', 'scale', 'temperature', 'voltage', 'present', 'technology'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'command'])
+    err = _require(data, ['status', 'health'])
     if err:
         return err, 400
-    rec = {"id": new_id("androida_pro")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["command"] = data.get('command')
-    rec["state"] = data.get('state')
-    rec["uid"] = _as_int(data.get('uid'))
+    if data.get('status') and data['status'] not in [1, 2, 3, 4, 5]:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join([1, 2, 3, 4, 5]), "type": "invalid_request_error"}}, 400
+    if data.get('health') and data['health'] not in [1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("androida_bat")}
+    rec["status"] = _as_int(data.get('status'))
+    rec["health"] = _as_int(data.get('health'))
+    rec["plugged"] = _as_int(data.get('plugged'))
+    rec["level"] = _as_int(data.get('level'))
+    rec["scale"] = _as_int(data.get('scale'))
+    rec["temperature"] = _as_int(data.get('temperature'))
+    rec["voltage"] = _as_int(data.get('voltage'))
+    rec["present"] = _as_bool(data.get('present'))
+    rec["technology"] = data.get('technology')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Process", rec)
+    _persist("BatteryStatus", rec)
     return rec, 201
 
-@app.route("/v1/processes", methods=["GET"])
-def list_processes(request):
-    """List Processes with filtering + cursor pagination."""
+@app.route("/v1/batterystatuses", methods=["GET"])
+def list_battery_statuses(request):
+    """List BatteryStatuses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Process")
-    rows = _apply_filters(rows, params, ['pid', 'command', 'state', 'uid'])
+    rows = _query("BatteryStatus")
+    rows = _apply_filters(rows, params, ['status', 'health', 'plugged', 'level', 'scale', 'temperature', 'voltage', 'present', 'technology'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/processes/<eid>", methods=["GET"])
-def get_process(request, eid):
-    """Retrieve a Process by id (supports ?expand=)."""
-    rows = _query("Process", eid)
+@app.route("/v1/batterystatuses/<eid>", methods=["GET"])
+def get_battery_status(request, eid):
+    """Retrieve a BatteryStatus by id (supports ?expand=)."""
+    rows = _query("BatteryStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/processes/<eid>", methods=["POST", "PATCH"])
-def update_process(request, eid):
-    """Update a Process."""
-    rows = _query("Process", eid)
+@app.route("/v1/batterystatuses/<eid>", methods=["POST", "PATCH"])
+def update_battery_status(request, eid):
+    """Update a BatteryStatus."""
+    rows = _query("BatteryStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'command', 'state', 'uid'])
+    err = _reject_unknown(data, ['status', 'health', 'plugged', 'level', 'scale', 'temperature', 'voltage', 'present', 'technology'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in [1, 2, 3, 4, 5]:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join([1, 2, 3, 4, 5]), "type": "invalid_request_error"}}, 400
+    if data.get('health') and data['health'] not in [1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Process", rec)
+    _persist("BatteryStatus", rec)
     return rec, 200
 
-@app.route("/v1/processes/<eid>", methods=["DELETE"])
-def delete_process(request, eid):
-    """Delete a Process."""
-    rows = _query("Process", eid)
+@app.route("/v1/batterystatuses/<eid>", methods=["DELETE"])
+def delete_battery_status(request, eid):
+    """Delete a BatteryStatus."""
+    rows = _query("BatteryStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.Process", "id": eid})
+    db.retract({"entity": f"android_aosp.BatteryStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/threads", methods=["POST"])
-def create_thread(request):
-    """Create a Thread."""
+@app.route("/v1/builds", methods=["POST"])
+def create_build(request):
+    """Create a Build."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
+    err = _reject_unknown(data, ['board', 'brand', 'device', 'hardware', 'manufacturer', 'model', 'product', 'fingerprint'])
     if err:
         return err, 400
-    err = _require(data, ['pid', 'tid'])
+    err = _require(data, ['board', 'brand'])
     if err:
         return err, 400
-    rec = {"id": new_id("androida_thr")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["tid"] = _as_int(data.get('tid'))
-    rec["state"] = data.get('state')
-    rec["priority"] = _as_int(data.get('priority'))
+    rec = {"id": new_id("androida_bui")}
+    rec["board"] = data.get('board')
+    rec["brand"] = data.get('brand')
+    rec["device"] = data.get('device')
+    rec["hardware"] = data.get('hardware')
+    rec["manufacturer"] = data.get('manufacturer')
+    rec["model"] = data.get('model')
+    rec["product"] = data.get('product')
+    rec["fingerprint"] = data.get('fingerprint')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Thread", rec)
+    _persist("Build", rec)
     return rec, 201
 
-@app.route("/v1/threads", methods=["GET"])
-def list_threads(request):
-    """List Threads with filtering + cursor pagination."""
+@app.route("/v1/builds", methods=["GET"])
+def list_builds(request):
+    """List Builds with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Thread")
-    rows = _apply_filters(rows, params, ['pid', 'tid', 'state', 'priority'])
+    rows = _query("Build")
+    rows = _apply_filters(rows, params, ['board', 'brand', 'device', 'hardware', 'manufacturer', 'model', 'product', 'fingerprint'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/threads/<eid>", methods=["GET"])
-def get_thread(request, eid):
-    """Retrieve a Thread by id (supports ?expand=)."""
-    rows = _query("Thread", eid)
+@app.route("/v1/builds/<eid>", methods=["GET"])
+def get_build(request, eid):
+    """Retrieve a Build by id (supports ?expand=)."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["POST", "PATCH"])
-def update_thread(request, eid):
-    """Update a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
+def update_build(request, eid):
+    """Update a Build."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'tid', 'state', 'priority'])
+    err = _reject_unknown(data, ['board', 'brand', 'device', 'hardware', 'manufacturer', 'model', 'product', 'fingerprint'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,284 +248,22 @@ def update_thread(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Thread", rec)
+    _persist("Build", rec)
     return rec, 200
 
-@app.route("/v1/threads/<eid>", methods=["DELETE"])
-def delete_thread(request, eid):
-    """Delete a Thread."""
-    rows = _query("Thread", eid)
+@app.route("/v1/builds/<eid>", methods=["DELETE"])
+def delete_build(request, eid):
+    """Delete a Build."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.Thread", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/filedescriptors", methods=["POST"])
-def create_file_descriptor(request):
-    """Create a FileDescriptor."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'fd'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("androida_fil")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["fd"] = _as_int(data.get('fd'))
-    rec["path"] = data.get('path')
-    rec["mode"] = data.get('mode')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("FileDescriptor", rec)
-    return rec, 201
-
-@app.route("/v1/filedescriptors", methods=["GET"])
-def list_file_descriptors(request):
-    """List FileDescriptors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("FileDescriptor")
-    rows = _apply_filters(rows, params, ['pid', 'fd', 'path', 'mode'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["GET"])
-def get_file_descriptor(request, eid):
-    """Retrieve a FileDescriptor by id (supports ?expand=)."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["POST", "PATCH"])
-def update_file_descriptor(request, eid):
-    """Update a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'fd', 'path', 'mode'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("FileDescriptor", rec)
-    return rec, 200
-
-@app.route("/v1/filedescriptors/<eid>", methods=["DELETE"])
-def delete_file_descriptor(request, eid):
-    """Delete a FileDescriptor."""
-    rows = _query("FileDescriptor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.FileDescriptor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/syscalls", methods=["POST"])
-def create_syscall(request):
-    """Create a Syscall."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'number'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("androida_sys")}
-    rec["name"] = data.get('name')
-    rec["number"] = _as_int(data.get('number'))
-    rec["argCount"] = _as_int(data.get('argCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Syscall", rec)
-    return rec, 201
-
-@app.route("/v1/syscalls", methods=["GET"])
-def list_syscalls(request):
-    """List Syscalls with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Syscall")
-    rows = _apply_filters(rows, params, ['name', 'number', 'argCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["GET"])
-def get_syscall(request, eid):
-    """Retrieve a Syscall by id (supports ?expand=)."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["POST", "PATCH"])
-def update_syscall(request, eid):
-    """Update a Syscall."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'number', 'argCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Syscall", rec)
-    return rec, 200
-
-@app.route("/v1/syscalls/<eid>", methods=["DELETE"])
-def delete_syscall(request, eid):
-    """Delete a Syscall."""
-    rows = _query("Syscall", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.Syscall", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/memoryregions", methods=["POST"])
-def create_memory_region(request):
-    """Create a MemoryRegion."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'startAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("androida_mem")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["startAddr"] = data.get('startAddr')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["perms"] = data.get('perms')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("MemoryRegion", rec)
-    return rec, 201
-
-@app.route("/v1/memoryregions", methods=["GET"])
-def list_memory_regions(request):
-    """List MemoryRegions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("MemoryRegion")
-    rows = _apply_filters(rows, params, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["GET"])
-def get_memory_region(request, eid):
-    """Retrieve a MemoryRegion by id (supports ?expand=)."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["POST", "PATCH"])
-def update_memory_region(request, eid):
-    """Update a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'startAddr', 'sizeBytes', 'perms'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("MemoryRegion", rec)
-    return rec, 200
-
-@app.route("/v1/memoryregions/<eid>", methods=["DELETE"])
-def delete_memory_region(request, eid):
-    """Delete a MemoryRegion."""
-    rows = _query("MemoryRegion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.MemoryRegion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
-    if err:
-        return err, 400
-    err = _require(data, ['pid', 'number'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("androida_sig")}
-    rec["pid"] = _as_int(data.get('pid'))
-    rec["number"] = _as_int(data.get('number'))
-    rec["action"] = data.get('action')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
-    return rec, 201
-
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['pid', 'number', 'action'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pid', 'number', 'action'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Signal", rec)
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"android_aosp.Signal", "id": eid})
+    db.retract({"entity": f"android_aosp.Build", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "android_aosp-compat", "tier": "L4",
-            "entities": ['Process', 'Thread', 'FileDescriptor', 'Syscall', 'MemoryRegion', 'Signal']}, 200
+            "entities": ['BatteryStatus', 'Build']}, 200
 
 
 if __name__ == "__main__":

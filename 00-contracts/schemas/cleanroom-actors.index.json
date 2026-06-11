@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 825,
-    "L5": 175
+    "L4": 820,
+    "L5": 180
   },
   "actors": [
     {
@@ -665,10 +665,10 @@
     {
       "handle": "android_aosp-compat",
       "did": "did:web:etzhayyim.com:actor:android_aosp-compat",
-      "wasmCid": "bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
+      "wasmCid": "bafkreifwvevqccm7rm4h4adl3y5q4q4svr5z5cvbjkr3ovjgiwu4ycaekq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "android_aosp clean-room actor",
       "category": "os_kernel",
       "capabilities": [
@@ -1349,10 +1349,10 @@
     {
       "handle": "aws_braket-compat",
       "did": "did:web:etzhayyim.com:actor:aws_braket-compat",
-      "wasmCid": "bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+      "wasmCid": "bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "aws_braket clean-room actor",
       "category": "isa_quantum",
       "capabilities": [
@@ -1874,7 +1874,7 @@
       "wasmCid": "bafkreigbaq7qyjlktn7pqzulylqrrrbroi7wpnn5y3xob2zsjhonzzlndq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bird_scooters clean-room actor",
       "category": "ride_hailing",
       "capabilities": [
@@ -4700,7 +4700,7 @@
       "wasmCid": "bafkreihqlrepdxurbrbg4dpca2cmlqkr4576o6k4pjwly5hrocd2ztijuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dott clean-room actor",
       "category": "ride_hailing",
       "capabilities": [
@@ -9362,7 +9362,7 @@
       "wasmCid": "bafkreigxrswa6ukdawq2xetnc5nfu35trspcpvgmo4su52ga6iab4i3tuy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "lime_scooters clean-room actor",
       "category": "ride_hailing",
       "capabilities": [

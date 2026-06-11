@@ -3,71 +3,33 @@
 
 namespace android_aosp {
 
-    entity Process {
+    entity BatteryStatus {
         id: string @unique
-        pid: integer
-        command: string
-        state: string
-        uid: integer
+        status: integer
+        health: integer
+        plugged: integer
+        level: integer
+        scale: integer
+        temperature: integer
+        voltage: integer
+        present: boolean
+        technology: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Thread {
+    entity Build {
         id: string @unique
-        pid: integer
-        tid: integer
-        state: string
-        priority: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity FileDescriptor {
-        id: string @unique
-        pid: integer
-        fd: integer
-        path: string
-        mode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Syscall {
-        id: string @unique
-        name: string
-        number: integer
-        argCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity MemoryRegion {
-        id: string @unique
-        pid: integer
-        startAddr: string
-        sizeBytes: integer
-        perms: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Signal {
-        id: string @unique
-        pid: integer
-        number: integer
-        action: string
+        board: string
+        brand: string
+        device: string
+        hardware: string
+        manufacturer: string
+        model: string
+        product: string
+        fingerprint: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

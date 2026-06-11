@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 170,
-  "totalVerifiedEnumFields": 735,
+  "l5VerifiedActors": 175,
+  "totalVerifiedEnumFields": 750,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -377,8 +377,8 @@
       "source": "android_aosp.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "anduril_lattice-compat",
@@ -757,8 +757,8 @@
       "source": "aws_braket.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "aws_inferentia-compat",
@@ -1047,8 +1047,8 @@
       "source": "bird_scooters.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "bis-compat",
@@ -2617,8 +2617,8 @@
       "source": "dott.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "drata-compat",
@@ -5207,8 +5207,8 @@
       "source": "lime_scooters.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "line_api-compat",

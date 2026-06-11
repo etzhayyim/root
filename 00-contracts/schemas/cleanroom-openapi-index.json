@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29545,
+  "totalEndpoints": 29510,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 170,
-  "totalVerifiedEnumFields": 735,
+  "l5VerifiedActors": 175,
+  "totalVerifiedEnumFields": 750,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -698,10 +698,10 @@
     {
       "handle": "android_aosp-compat",
       "did": "did:web:etzhayyim.com:actor:android_aosp-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreifwvevqccm7rm4h4adl3y5q4q4svr5z5cvbjkr3ovjgiwu4ycaekq",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -710,8 +710,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/android_aosp-compat/openapi.json"
     },
     {
@@ -1420,10 +1420,10 @@
     {
       "handle": "aws_braket-compat",
       "did": "did:web:etzhayyim.com:actor:aws_braket-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -1432,8 +1432,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/aws_braket-compat/openapi.json"
     },
     {
@@ -1971,7 +1971,7 @@
     {
       "handle": "bird_scooters-compat",
       "did": "did:web:etzhayyim.com:actor:bird_scooters-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigbaq7qyjlktn7pqzulylqrrrbroi7wpnn5y3xob2zsjhonzzlndq",
@@ -1983,8 +1983,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/bird_scooters-compat/openapi.json"
     },
     {
@@ -4954,7 +4954,7 @@
     {
       "handle": "dott-compat",
       "did": "did:web:etzhayyim.com:actor:dott-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreihqlrepdxurbrbg4dpca2cmlqkr4576o6k4pjwly5hrocd2ztijuq",
@@ -4966,8 +4966,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/dott-compat/openapi.json"
     },
     {
@@ -9875,7 +9875,7 @@
     {
       "handle": "lime_scooters-compat",
       "did": "did:web:etzhayyim.com:actor:lime_scooters-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigxrswa6ukdawq2xetnc5nfu35trspcpvgmo4su52ga6iab4i3tuy",
@@ -9887,8 +9887,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/lime_scooters-compat/openapi.json"
     },
     {

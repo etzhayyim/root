@@ -495,3 +495,34 @@ marker — deprecation discipline beats apparent closedness. Ledger **175**
 (17.5%), enforced 170 actors / 735 enum fields, verify PASS 0/0, contract
 suite green. Version-pinned doc trees (docs.blender.org/api/<ver>) join the
 closedness-anchor toolbox.
+
+### §16.4 /loop iteration 3 — wave 4: GBFS leverage family + braket + android (180, 18.0%)
+
+Ledger **180** (820 L4 / 180 L5 = **18.0%**), enforced 175 actors / **750
+enum fields** (+15), verify PASS 0/0, 5/5 contract suites green.
+
+**GBFS conformance-leverage family** (the MAVLink/FHIR-family pattern,
+scaled): bird_scooters + lime_scooters + dott join the gbfs-compat verified
+model on MEASURED conformance — the official MobilityData systems.csv
+registry lists 124 Bird feeds on mds.bird.co, 47 Lime on data.lime.bike,
+350 Dott on gbfs.api.ridedott.com (operator-own-domain hosting = the
+operator itself publishing GBFS), and one live feed per operator was
+fetched at verification time (v2.3 / v2.2 / v2). Measured conformance is a
+stronger anchor than px4's documentation statement. A parallel gemini
+systems.csv sweep independently returned the same rows (cross-validated).
+Each inherits the 4 officially-verified enum fields (formFactor 7 /
+propulsionType 8 / returnConstraint 4 / parkingType 5).
+
+**aws_braket** — AWS's OWN open-source schema package
+(amazon-braket-schemas-python). executionDay(10) enforced: calendar-anchored
+(the week cannot grow), preserving AWS's literal singular
+WEEKENDS="Weekend". TaskMetadata.status untyped constr -> gapped.
+**android_aosp** — official developer.android.com reference.
+BatteryStatus.status(5) enforced on an 18-year API-1 stability anchor +
+health(7); plugged gapped (powers-of-two AND DOCK=8 added API 33 —
+bitmask-shaped + version-growing at once).
+
+Both braket and android gemini drafts died on quota exhaustion (empty
+output, zero fabrication — the gate holds under tool failure); the harness
+verified directly from official sources per the §16.3 blender precedent.
+google_cirq carries to the next iteration (still L4, not a defer).

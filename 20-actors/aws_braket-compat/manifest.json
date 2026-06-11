@@ -5,21 +5,42 @@
   "kind": "compat",
   "title": "aws_braket clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (aws_braket); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+  "wasmCid": "bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
+  "ipfs": "ipfs://bafkreigikohxnsehsuy3k4nhk5pd6gz4vciythjekzv7ef6ikrdcpzsyca",
   "schema": "schema/aws_braket.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/amazon-braket/amazon-braket-schemas-python (official AWS-published pydantic schemas)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ExecutionWindow",
+      "DeviceServiceProperties",
+      "TaskMetadata"
+    ],
+    "enums": {
+      "ExecutionWindow": {
+        "executionDay": [
+          "Everyday",
+          "Weekdays",
+          "Weekend",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Register",
-    "Instruction",
-    "Qubit",
-    "Circuit",
-    "Gate",
-    "Job"
+    "ExecutionWindow",
+    "DeviceServiceProperties",
+    "TaskMetadata"
   ],
   "adr": [
     "260607",
@@ -31,157 +52,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/registers",
-          "op": "create Register"
+          "path": "/v1/executionwindows",
+          "op": "create ExecutionWindow"
         },
         {
           "method": "GET",
-          "path": "/v1/registers",
-          "op": "list Register"
+          "path": "/v1/executionwindows",
+          "op": "list ExecutionWindow"
         },
         {
           "method": "GET",
-          "path": "/v1/registers/{id}",
-          "op": "get Register"
+          "path": "/v1/executionwindows/{id}",
+          "op": "get ExecutionWindow"
         },
         {
           "method": "PATCH",
-          "path": "/v1/registers/{id}",
-          "op": "update Register"
+          "path": "/v1/executionwindows/{id}",
+          "op": "update ExecutionWindow"
         },
         {
           "method": "DELETE",
-          "path": "/v1/registers/{id}",
-          "op": "delete Register"
+          "path": "/v1/executionwindows/{id}",
+          "op": "delete ExecutionWindow"
         },
         {
           "method": "POST",
-          "path": "/v1/instructions",
-          "op": "create Instruction"
+          "path": "/v1/deviceservicepropertieses",
+          "op": "create DeviceServiceProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions",
-          "op": "list Instruction"
+          "path": "/v1/deviceservicepropertieses",
+          "op": "list DeviceServiceProperties"
         },
         {
           "method": "GET",
-          "path": "/v1/instructions/{id}",
-          "op": "get Instruction"
+          "path": "/v1/deviceservicepropertieses/{id}",
+          "op": "get DeviceServiceProperties"
         },
         {
           "method": "PATCH",
-          "path": "/v1/instructions/{id}",
-          "op": "update Instruction"
+          "path": "/v1/deviceservicepropertieses/{id}",
+          "op": "update DeviceServiceProperties"
         },
         {
           "method": "DELETE",
-          "path": "/v1/instructions/{id}",
-          "op": "delete Instruction"
+          "path": "/v1/deviceservicepropertieses/{id}",
+          "op": "delete DeviceServiceProperties"
         },
         {
           "method": "POST",
-          "path": "/v1/qubits",
-          "op": "create Qubit"
+          "path": "/v1/taskmetadatas",
+          "op": "create TaskMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits",
-          "op": "list Qubit"
+          "path": "/v1/taskmetadatas",
+          "op": "list TaskMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/qubits/{id}",
-          "op": "get Qubit"
+          "path": "/v1/taskmetadatas/{id}",
+          "op": "get TaskMetadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/qubits/{id}",
-          "op": "update Qubit"
+          "path": "/v1/taskmetadatas/{id}",
+          "op": "update TaskMetadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/qubits/{id}",
-          "op": "delete Qubit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/circuits",
-          "op": "create Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits",
-          "op": "list Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits/{id}",
-          "op": "get Circuit"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/circuits/{id}",
-          "op": "update Circuit"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/circuits/{id}",
-          "op": "delete Circuit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/gates",
-          "op": "create Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates",
-          "op": "list Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates/{id}",
-          "op": "get Gate"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/gates/{id}",
-          "op": "update Gate"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/gates/{id}",
-          "op": "delete Gate"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/jobs",
-          "op": "create Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs",
-          "op": "list Job"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/jobs/{id}",
-          "op": "get Job"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/jobs/{id}",
-          "op": "update Job"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/jobs/{id}",
-          "op": "delete Job"
+          "path": "/v1/taskmetadatas/{id}",
+          "op": "delete TaskMetadata"
         }
       ],
       "features": {
@@ -244,41 +190,41 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_register",
-          "description": "Create a Register.",
+          "name": "create_execution_window",
+          "description": "Create a ExecutionWindow.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "executionDay": {
                 "type": "string"
               },
-              "widthBits": {
-                "type": "integer"
+              "windowStartHour": {
+                "type": "string"
               },
-              "role": {
+              "windowEndHour": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "widthBits"
+              "executionDay",
+              "windowStartHour"
             ]
           }
         },
         {
-          "name": "list_registers",
-          "description": "List Registers.",
+          "name": "list_execution_windows",
+          "description": "List ExecutionWindows.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_register",
-          "description": "Get a Register by id.",
+          "name": "get_execution_window",
+          "description": "Get a ExecutionWindow by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,77 +238,83 @@
           }
         },
         {
-          "name": "update_register",
-          "description": "Update a Register.",
+          "name": "update_execution_window",
+          "description": "Update a ExecutionWindow.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "executionDay": {
                 "type": "string"
               },
-              "widthBits": {
+              "windowStartHour": {
+                "type": "string"
+              },
+              "windowEndHour": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_execution_window",
+          "description": "Delete a ExecutionWindow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_device_service_properties",
+          "description": "Create a DeviceServiceProperties.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "deviceLocation": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "getTaskPollIntervalMillis": {
                 "type": "integer"
               },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_register",
-          "description": "Delete a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_instruction",
-          "description": "Create a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "mnemonic": {
-                "type": "string"
+              "shotsRangeMin": {
+                "type": "integer"
               },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
+              "shotsRangeMax": {
+                "type": "integer"
               }
             },
             "required": [
-              "mnemonic",
-              "opcode"
+              "deviceLocation",
+              "updatedAt"
             ]
           }
         },
         {
-          "name": "list_instructions",
-          "description": "List Instructions.",
+          "name": "list_device_service_propertieses",
+          "description": "List DeviceServicePropertieses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_instruction",
-          "description": "Get a Instruction by id.",
+          "name": "get_device_service_properties",
+          "description": "Get a DeviceServiceProperties by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -376,195 +328,27 @@
           }
         },
         {
-          "name": "update_instruction",
-          "description": "Update a Instruction.",
+          "name": "update_device_service_properties",
+          "description": "Update a DeviceServiceProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "mnemonic": {
+              "deviceLocation": {
                 "type": "string"
               },
-              "opcode": {
+              "updatedAt": {
                 "type": "string"
               },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_instruction",
-          "description": "Delete a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_qubit",
-          "description": "Create a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "index": {
+              "getTaskPollIntervalMillis": {
                 "type": "integer"
               },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "index",
-              "t1Us"
-            ]
-          }
-        },
-        {
-          "name": "list_qubits",
-          "description": "List Qubits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_qubit",
-          "description": "Get a Qubit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_qubit",
-          "description": "Update a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "index": {
+              "shotsRangeMin": {
                 "type": "integer"
               },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_qubit",
-          "description": "Delete a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_circuit",
-          "description": "Create a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "qubitCount"
-            ]
-          }
-        },
-        {
-          "name": "list_circuits",
-          "description": "List Circuits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_circuit",
-          "description": "Get a Circuit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_circuit",
-          "description": "Update a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
+              "shotsRangeMax": {
                 "type": "integer"
               }
             },
@@ -574,8 +358,8 @@
           }
         },
         {
-          "name": "delete_circuit",
-          "description": "Delete a Circuit.",
+          "name": "delete_device_service_properties",
+          "description": "Delete a DeviceServiceProperties.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -589,100 +373,22 @@
           }
         },
         {
-          "name": "create_gate",
-          "description": "Create a Gate.",
+          "name": "create_task_metadata",
+          "description": "Create a TaskMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "targets"
-            ]
-          }
-        },
-        {
-          "name": "list_gates",
-          "description": "List Gates.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_gate",
-          "description": "Get a Gate by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_gate",
-          "description": "Update a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_gate",
-          "description": "Delete a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_job",
-          "description": "Create a Job.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
               "shots": {
                 "type": "integer"
+              },
+              "deviceId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "endedAt": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
@@ -690,21 +396,21 @@
             },
             "required": [
               "shots",
-              "status"
+              "createdAt"
             ]
           }
         },
         {
-          "name": "list_jobs",
-          "description": "List Jobs.",
+          "name": "list_task_metadatas",
+          "description": "List TaskMetadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_job",
-          "description": "Get a Job by id.",
+          "name": "get_task_metadata",
+          "description": "Get a TaskMetadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -718,19 +424,25 @@
           }
         },
         {
-          "name": "update_job",
-          "description": "Update a Job.",
+          "name": "update_task_metadata",
+          "description": "Update a TaskMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "circuitId": {
-                "type": "string"
-              },
               "shots": {
                 "type": "integer"
+              },
+              "deviceId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "endedAt": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
@@ -742,8 +454,8 @@
           }
         },
         {
-          "name": "delete_job",
-          "description": "Delete a Job.",
+          "name": "delete_task_metadata",
+          "description": "Delete a TaskMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {

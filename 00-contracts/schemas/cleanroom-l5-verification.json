@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 175,
+  "count": 180,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1175,6 +1175,73 @@
       "note": "FULLY VERIFIED (5/5) vs official alpaca-py SDK. Enforced enums: Asset.assetClass/status, Order.side/type/status/timeInForce, Position.side, TradeAccount.status, TradeActivity.type (9)."
     },
     {
+      "handle": "android_aosp-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://developer.android.com/reference/android/os/BatteryManager + https://developer.android.com/reference/android/os/Build (official Android API reference)",
+      "remodeled": "Remodeled to a faithful Android platform subset verified against the official developer.android.com reference. BatteryStatus models the ACTION_BATTERY_CHANGED extras surface (EXTRA_STATUS/HEALTH/PLUGGED/LEVEL/SCALE/TEMPERATURE/VOLTAGE/PRESENT/TECHNOLOGY — all confirmed on the BatteryManager page). status enforced [1..5]: BATTERY_STATUS_* constants unchanged since API 1 (2008, 18-year stability); health enforced [1..7]: BATTERY_HEALTH_* stable since API 11. plugged gapped: BATTERY_PLUGGED_* values are powers of two (1/2/4/8) AND DOCK=8 was added in API 33 (2022) — bitmask-shaped and version-growing. Build models the official device-identity string constants. METHOD NOTE: the gemini draft died on quota (empty output — no fabrication); the harness verified every constant value directly from the official reference pages per the blender §16.3 precedent.",
+      "resources": [
+        {
+          "entity": "BatteryStatus",
+          "source": "https://developer.android.com/reference/android/os/BatteryManager",
+          "verifiedFields": [
+            "status",
+            "health",
+            "plugged",
+            "level",
+            "scale",
+            "temperature",
+            "voltage",
+            "present",
+            "technology"
+          ],
+          "fieldStatus": "confirmed (ACTION_BATTERY_CHANGED EXTRA_* surface; constant values extracted from the official page)",
+          "discoveredEnums": {
+            "status": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "health": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          "gaps": [
+            "plugged-bitmask-shaped-and-version-growing (1/2/4 + DOCK=8 added API 33)"
+          ]
+        },
+        {
+          "entity": "Build",
+          "source": "https://developer.android.com/reference/android/os/Build",
+          "verifiedFields": [
+            "board",
+            "brand",
+            "device",
+            "hardware",
+            "manufacturer",
+            "model",
+            "product",
+            "fingerprint"
+          ],
+          "fieldStatus": "confirmed (static device-identity constants)",
+          "discoveredEnums": {},
+          "gaps": [
+            "VERSION_CODES-version-growing-not-modeled"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs the official Android API reference. Enforced enums: BatteryStatus.status(5, API-1-stable since 2008) + health(7) = 2 enum fields."
+    },
+    {
       "handle": "anthropic-compat",
       "verifiedAt": "2026-06-08",
       "tier": "L5",
@@ -2323,6 +2390,74 @@
       "note": "FULLY VERIFIED (5/5) vs official autoware_adapi_v1_msgs. Enforced enums: OperationModeState.mode(5), RouteState.state(5), LocalizationInitializationState.state(4), MotionState.state(4), Gear.status(6) = 5 enum fields. gemini-CLI-drafted research independently re-verified against primary sources (Gear draft omission corrected)."
     },
     {
+      "handle": "aws_braket-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/amazon-braket/amazon-braket-schemas-python (official AWS-published pydantic schemas)",
+      "remodeled": "Remodeled to the faithful Amazon Braket schema surface verified against AWS's OWN open-source schema package (amazon-braket-schemas-python — the official wire-format definition for Braket). executionDay enforced: 10-member calendar-anchored set (Everyday/Weekdays/Weekends + the 7 days; the week cannot grow), preserving AWS's literal singular WEEKENDS=\"Weekend\" value. TaskMetadata.status is an untyped constr upstream -> gapped. shotsRange tuple[int,int] flattened to Min/Max per the ros2_nav precedent. METHOD NOTE: the gemini draft died on quota (critical 429, empty output — no fabrication); the harness verified every field/enum directly from the fetched official sources per the blender §16.3 precedent.",
+      "resources": [
+        {
+          "entity": "ExecutionWindow",
+          "source": "https://raw.githubusercontent.com/amazon-braket/amazon-braket-schemas-python/main/src/braket/device_schema/device_execution_window.py",
+          "verifiedFields": [
+            "executionDay",
+            "windowStartHour",
+            "windowEndHour"
+          ],
+          "fieldStatus": "confirmed (DeviceExecutionWindow pydantic model)",
+          "discoveredEnums": {
+            "executionDay": [
+              "Everyday",
+              "Weekdays",
+              "Weekend",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "DeviceServiceProperties",
+          "source": "https://raw.githubusercontent.com/amazon-braket/amazon-braket-schemas-python/main/src/braket/device_schema/device_service_properties_v1.py",
+          "verifiedFields": [
+            "deviceLocation",
+            "updatedAt",
+            "getTaskPollIntervalMillis",
+            "shotsRangeMin",
+            "shotsRangeMax"
+          ],
+          "fieldStatus": "confirmed (shotsRange tuple flattened per ros2_nav precedent); deviceCost/deviceDocumentation sub-models not modeled",
+          "discoveredEnums": {},
+          "gaps": [
+            "deviceCost-submodel-not-modeled (device_cost.py 404 at verification time)"
+          ]
+        },
+        {
+          "entity": "TaskMetadata",
+          "source": "https://raw.githubusercontent.com/amazon-braket/amazon-braket-schemas-python/main/src/braket/task_result/task_metadata_v1.py",
+          "verifiedFields": [
+            "shots",
+            "deviceId",
+            "createdAt",
+            "endedAt",
+            "status"
+          ],
+          "fieldStatus": "confirmed; status is constr(min=1,max=20) — untyped upstream -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "status-untyped-constr-upstream"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs AWS's official open-source schema package. Enforced enums: ExecutionWindow.executionDay(10, calendar-anchored, singular 'Weekend' preserved) = 1 enum field."
+    },
+    {
       "handle": "bandwidth-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -3215,6 +3350,151 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official binance-spot-api-docs. Enforced enums: Order.status(9), Order.type(7), Order.side(2), Order.timeInForce(3) = 4 enums (full arrays from enums.md)."
+    },
+    {
+      "handle": "bird_scooters-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/MobilityData/gbfs/master/systems.csv (official MobilityData GBFS systems registry) + live operator feed https://mds.bird.co/gbfs/v2/public/calgary/gbfs.json",
+      "remodeled": "GBFS conformance-leverage (MAVLink/FHIR-family pattern): Bird OFFICIALLY serves public GBFS from its own domain — 124 feeds on mds.bird.co in the official MobilityData systems.csv registry, and the live feed https://mds.bird.co/gbfs/v2/public/calgary/gbfs.json returned GBFS version 2.3 at verification time (measured, not declared). The actor therefore joins on the gbfs-compat L5-verified model (same entities + the same officially-verified enum sets).",
+      "resources": [
+        {
+          "entity": "SystemInformation",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "systemId",
+            "name",
+            "operator",
+            "url",
+            "timezone",
+            "openingHours",
+            "phoneNumber",
+            "email",
+            "feedContactEmail"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "VehicleType",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleTypeId",
+            "formFactor",
+            "propulsionType",
+            "returnConstraint",
+            "maxRangeMeters",
+            "riderCapacity",
+            "wheelCount",
+            "maxPermittedSpeed",
+            "minAge"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "formFactor": [
+              "bicycle",
+              "cargo_bicycle",
+              "car",
+              "moped",
+              "scooter_standing",
+              "scooter_seated",
+              "other"
+            ],
+            "propulsionType": [
+              "human",
+              "electric_assist",
+              "electric",
+              "combustion",
+              "combustion_diesel",
+              "hybrid",
+              "plug_in_hybrid",
+              "hydrogen_fuel_cell"
+            ],
+            "returnConstraint": [
+              "free_floating",
+              "roundtrip_station",
+              "any_station",
+              "hybrid"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Station",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "name",
+            "lat",
+            "lon",
+            "address",
+            "city",
+            "regionId",
+            "capacity",
+            "isVirtualStation",
+            "isChargingStation",
+            "parkingType"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "parkingType": [
+              "parking_lot",
+              "street_parking",
+              "underground_parking",
+              "sidewalk_parking",
+              "other"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StationStatus",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "numVehiclesAvailable",
+            "numDocksAvailable",
+            "isInstalled",
+            "isRenting",
+            "isReturning",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Vehicle",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleId",
+            "lat",
+            "lon",
+            "isReserved",
+            "isDisabled",
+            "vehicleTypeId",
+            "currentRangeMeters",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Region",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "regionId",
+            "name"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (6/6) onto the gbfs-compat verified model. Evidence: 124 operator-domain feeds in the official registry + live 2.3 feed measured. Enforced enums: VehicleType formFactor(7)/propulsionType(8)/returnConstraint(4) + Station.parkingType(5) = 4 enum fields."
     },
     {
       "handle": "bitbucket-compat",
@@ -7026,6 +7306,151 @@
         }
       ],
       "note": "Faithful DOI/Handle remodel; DOI syntax (10.<registrantCode>/<suffix>), 3 content-negotiation RAs, and full content-type MIME enum confirmed. Handle-value internals flagged as gaps (standard Handle System, not in fetched DOI docs)."
+    },
+    {
+      "handle": "dott-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/MobilityData/gbfs/master/systems.csv (official MobilityData GBFS systems registry) + live operator feed https://gbfs.api.ridedott.com/public/v2/dubai/gbfs.json",
+      "remodeled": "GBFS conformance-leverage (MAVLink/FHIR-family pattern): Dott OFFICIALLY serves public GBFS from its own domain — 350 feeds on gbfs.api.ridedott.com in the official MobilityData systems.csv registry, and the live feed https://gbfs.api.ridedott.com/public/v2/dubai/gbfs.json returned GBFS version 2 at verification time (measured, not declared). The actor therefore joins on the gbfs-compat L5-verified model (same entities + the same officially-verified enum sets).",
+      "resources": [
+        {
+          "entity": "SystemInformation",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "systemId",
+            "name",
+            "operator",
+            "url",
+            "timezone",
+            "openingHours",
+            "phoneNumber",
+            "email",
+            "feedContactEmail"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "VehicleType",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleTypeId",
+            "formFactor",
+            "propulsionType",
+            "returnConstraint",
+            "maxRangeMeters",
+            "riderCapacity",
+            "wheelCount",
+            "maxPermittedSpeed",
+            "minAge"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "formFactor": [
+              "bicycle",
+              "cargo_bicycle",
+              "car",
+              "moped",
+              "scooter_standing",
+              "scooter_seated",
+              "other"
+            ],
+            "propulsionType": [
+              "human",
+              "electric_assist",
+              "electric",
+              "combustion",
+              "combustion_diesel",
+              "hybrid",
+              "plug_in_hybrid",
+              "hydrogen_fuel_cell"
+            ],
+            "returnConstraint": [
+              "free_floating",
+              "roundtrip_station",
+              "any_station",
+              "hybrid"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Station",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "name",
+            "lat",
+            "lon",
+            "address",
+            "city",
+            "regionId",
+            "capacity",
+            "isVirtualStation",
+            "isChargingStation",
+            "parkingType"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "parkingType": [
+              "parking_lot",
+              "street_parking",
+              "underground_parking",
+              "sidewalk_parking",
+              "other"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StationStatus",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "numVehiclesAvailable",
+            "numDocksAvailable",
+            "isInstalled",
+            "isRenting",
+            "isReturning",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Vehicle",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleId",
+            "lat",
+            "lon",
+            "isReserved",
+            "isDisabled",
+            "vehicleTypeId",
+            "currentRangeMeters",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Region",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "regionId",
+            "name"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (6/6) onto the gbfs-compat verified model. Evidence: 350 operator-domain feeds in the official registry + live 2 feed measured. Enforced enums: VehicleType formFactor(7)/propulsionType(8)/returnConstraint(4) + Station.parkingType(5) = 4 enum fields."
     },
     {
       "handle": "drchrono-compat",
@@ -12162,6 +12587,151 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official ld-openapi. Enforced enums: FeatureFlag.kind(2), Member.role(4) = 2 enums. Member.role gap closed by re-fetch (api-client-ruby NewMemberForm: exactly reader/writer/admin/no_access; owner is not a selectable role value)."
+    },
+    {
+      "handle": "lime_scooters-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/MobilityData/gbfs/master/systems.csv (official MobilityData GBFS systems registry) + live operator feed https://data.lime.bike/api/partners/v2/gbfs/calgary/gbfs.json",
+      "remodeled": "GBFS conformance-leverage (MAVLink/FHIR-family pattern): Lime OFFICIALLY serves public GBFS from its own domain — 47 feeds on data.lime.bike in the official MobilityData systems.csv registry, and the live feed https://data.lime.bike/api/partners/v2/gbfs/calgary/gbfs.json returned GBFS version 2.2 at verification time (measured, not declared). The actor therefore joins on the gbfs-compat L5-verified model (same entities + the same officially-verified enum sets).",
+      "resources": [
+        {
+          "entity": "SystemInformation",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "systemId",
+            "name",
+            "operator",
+            "url",
+            "timezone",
+            "openingHours",
+            "phoneNumber",
+            "email",
+            "feedContactEmail"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "VehicleType",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleTypeId",
+            "formFactor",
+            "propulsionType",
+            "returnConstraint",
+            "maxRangeMeters",
+            "riderCapacity",
+            "wheelCount",
+            "maxPermittedSpeed",
+            "minAge"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "formFactor": [
+              "bicycle",
+              "cargo_bicycle",
+              "car",
+              "moped",
+              "scooter_standing",
+              "scooter_seated",
+              "other"
+            ],
+            "propulsionType": [
+              "human",
+              "electric_assist",
+              "electric",
+              "combustion",
+              "combustion_diesel",
+              "hybrid",
+              "plug_in_hybrid",
+              "hydrogen_fuel_cell"
+            ],
+            "returnConstraint": [
+              "free_floating",
+              "roundtrip_station",
+              "any_station",
+              "hybrid"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Station",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "name",
+            "lat",
+            "lon",
+            "address",
+            "city",
+            "regionId",
+            "capacity",
+            "isVirtualStation",
+            "isChargingStation",
+            "parkingType"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {
+            "parkingType": [
+              "parking_lot",
+              "street_parking",
+              "underground_parking",
+              "sidewalk_parking",
+              "other"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "StationStatus",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "stationId",
+            "numVehiclesAvailable",
+            "numDocksAvailable",
+            "isInstalled",
+            "isRenting",
+            "isReturning",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Vehicle",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "vehicleId",
+            "lat",
+            "lon",
+            "isReserved",
+            "isDisabled",
+            "vehicleTypeId",
+            "currentRangeMeters",
+            "lastReported"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Region",
+          "source": "https://github.com/MobilityData/gbfs (gbfs-compat verified model, leveraged)",
+          "verifiedFields": [
+            "regionId",
+            "name"
+          ],
+          "fieldStatus": "confirmed via gbfs-compat L5 model (conformance leverage)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (6/6) onto the gbfs-compat verified model. Evidence: 47 operator-domain feeds in the official registry + live 2.2 feed measured. Enforced enums: VehicleType formFactor(7)/propulsionType(8)/returnConstraint(4) + Station.parkingType(5) = 4 enum fields."
     },
     {
       "handle": "line_api-compat",

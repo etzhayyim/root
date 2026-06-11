@@ -111,53 +111,58 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/drivers", methods=["POST"])
-def create_driver(request):
-    """Create a Driver."""
+@app.route("/v1/systeminformations", methods=["POST"])
+def create_system_information(request):
+    """Create a SystemInformation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'licensePlate', 'rating', 'online'])
+    err = _reject_unknown(data, ['systemId', 'name', 'operator', 'url', 'timezone', 'openingHours', 'phoneNumber', 'email', 'feedContactEmail'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'licensePlate'])
+    err = _require(data, ['name', 'operator'])
     if err:
         return err, 400
-    rec = {"id": new_id("birdscoo_dri")}
+    rec = {"id": new_id("birdscoo_sys")}
+    rec["systemId"] = data.get('systemId')
     rec["name"] = data.get('name')
-    rec["licensePlate"] = data.get('licensePlate')
-    rec["rating"] = _as_float(data.get('rating'))
-    rec["online"] = _as_bool(data.get('online'))
+    rec["operator"] = data.get('operator')
+    rec["url"] = data.get('url')
+    rec["timezone"] = data.get('timezone')
+    rec["openingHours"] = data.get('openingHours')
+    rec["phoneNumber"] = data.get('phoneNumber')
+    rec["email"] = data.get('email')
+    rec["feedContactEmail"] = data.get('feedContactEmail')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Driver", rec)
+    _persist("SystemInformation", rec)
     return rec, 201
 
-@app.route("/v1/drivers", methods=["GET"])
-def list_drivers(request):
-    """List Drivers with filtering + cursor pagination."""
+@app.route("/v1/systeminformations", methods=["GET"])
+def list_system_informations(request):
+    """List SystemInformations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Driver")
-    rows = _apply_filters(rows, params, ['name', 'licensePlate', 'rating', 'online'])
+    rows = _query("SystemInformation")
+    rows = _apply_filters(rows, params, ['systemId', 'name', 'operator', 'url', 'timezone', 'openingHours', 'phoneNumber', 'email', 'feedContactEmail'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/drivers/<eid>", methods=["GET"])
-def get_driver(request, eid):
-    """Retrieve a Driver by id (supports ?expand=)."""
-    rows = _query("Driver", eid)
+@app.route("/v1/systeminformations/<eid>", methods=["GET"])
+def get_system_information(request, eid):
+    """Retrieve a SystemInformation by id (supports ?expand=)."""
+    rows = _query("SystemInformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/drivers/<eid>", methods=["POST", "PATCH"])
-def update_driver(request, eid):
-    """Update a Driver."""
-    rows = _query("Driver", eid)
+@app.route("/v1/systeminformations/<eid>", methods=["POST", "PATCH"])
+def update_system_information(request, eid):
+    """Update a SystemInformation."""
+    rows = _query("SystemInformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'licensePlate', 'rating', 'online'])
+    err = _reject_unknown(data, ['systemId', 'name', 'operator', 'url', 'timezone', 'openingHours', 'phoneNumber', 'email', 'feedContactEmail'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,132 +170,231 @@ def update_driver(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Driver", rec)
+    _persist("SystemInformation", rec)
     return rec, 200
 
-@app.route("/v1/drivers/<eid>", methods=["DELETE"])
-def delete_driver(request, eid):
-    """Delete a Driver."""
-    rows = _query("Driver", eid)
+@app.route("/v1/systeminformations/<eid>", methods=["DELETE"])
+def delete_system_information(request, eid):
+    """Delete a SystemInformation."""
+    rows = _query("SystemInformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bird_scooters.Driver", "id": eid})
+    db.retract({"entity": f"bird_scooters.SystemInformation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/riders", methods=["POST"])
-def create_rider(request):
-    """Create a Rider."""
+@app.route("/v1/vehicletypes", methods=["POST"])
+def create_vehicle_type(request):
+    """Create a VehicleType."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'phone', 'rating'])
+    err = _reject_unknown(data, ['vehicleTypeId', 'formFactor', 'propulsionType', 'returnConstraint', 'maxRangeMeters', 'riderCapacity', 'wheelCount', 'maxPermittedSpeed', 'minAge'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'phone'])
+    err = _require(data, ['formFactor', 'propulsionType'])
     if err:
         return err, 400
-    rec = {"id": new_id("birdscoo_rid")}
-    rec["name"] = data.get('name')
-    rec["phone"] = data.get('phone')
-    rec["rating"] = _as_float(data.get('rating'))
+    if data.get('formFactor') and data['formFactor'] not in ['bicycle', 'cargo_bicycle', 'car', 'moped', 'scooter_standing', 'scooter_seated', 'other']:
+        return {"error": {"message": "invalid formFactor; allowed: " + ", ".join(['bicycle', 'cargo_bicycle', 'car', 'moped', 'scooter_standing', 'scooter_seated', 'other']), "type": "invalid_request_error"}}, 400
+    if data.get('propulsionType') and data['propulsionType'] not in ['human', 'electric_assist', 'electric', 'combustion', 'combustion_diesel', 'hybrid', 'plug_in_hybrid', 'hydrogen_fuel_cell']:
+        return {"error": {"message": "invalid propulsionType; allowed: " + ", ".join(['human', 'electric_assist', 'electric', 'combustion', 'combustion_diesel', 'hybrid', 'plug_in_hybrid', 'hydrogen_fuel_cell']), "type": "invalid_request_error"}}, 400
+    if data.get('returnConstraint') and data['returnConstraint'] not in ['free_floating', 'roundtrip_station', 'any_station', 'hybrid']:
+        return {"error": {"message": "invalid returnConstraint; allowed: " + ", ".join(['free_floating', 'roundtrip_station', 'any_station', 'hybrid']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("birdscoo_veh")}
+    rec["vehicleTypeId"] = data.get('vehicleTypeId')
+    rec["formFactor"] = data.get('formFactor')
+    rec["propulsionType"] = data.get('propulsionType')
+    rec["returnConstraint"] = data.get('returnConstraint')
+    rec["maxRangeMeters"] = _as_float(data.get('maxRangeMeters'))
+    rec["riderCapacity"] = _as_int(data.get('riderCapacity'))
+    rec["wheelCount"] = _as_int(data.get('wheelCount'))
+    rec["maxPermittedSpeed"] = _as_int(data.get('maxPermittedSpeed'))
+    rec["minAge"] = _as_int(data.get('minAge'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Rider", rec)
+    _persist("VehicleType", rec)
     return rec, 201
 
-@app.route("/v1/riders", methods=["GET"])
-def list_riders(request):
-    """List Riders with filtering + cursor pagination."""
+@app.route("/v1/vehicletypes", methods=["GET"])
+def list_vehicle_types(request):
+    """List VehicleTypes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Rider")
-    rows = _apply_filters(rows, params, ['name', 'phone', 'rating'])
+    rows = _query("VehicleType")
+    rows = _apply_filters(rows, params, ['vehicleTypeId', 'formFactor', 'propulsionType', 'returnConstraint', 'maxRangeMeters', 'riderCapacity', 'wheelCount', 'maxPermittedSpeed', 'minAge'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/riders/<eid>", methods=["GET"])
-def get_rider(request, eid):
-    """Retrieve a Rider by id (supports ?expand=)."""
-    rows = _query("Rider", eid)
+@app.route("/v1/vehicletypes/<eid>", methods=["GET"])
+def get_vehicle_type(request, eid):
+    """Retrieve a VehicleType by id (supports ?expand=)."""
+    rows = _query("VehicleType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'vehicleTypeId': 'VehicleType'})
     return rec, 200
 
-@app.route("/v1/riders/<eid>", methods=["POST", "PATCH"])
-def update_rider(request, eid):
-    """Update a Rider."""
-    rows = _query("Rider", eid)
+@app.route("/v1/vehicletypes/<eid>", methods=["POST", "PATCH"])
+def update_vehicle_type(request, eid):
+    """Update a VehicleType."""
+    rows = _query("VehicleType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'phone', 'rating'])
+    err = _reject_unknown(data, ['vehicleTypeId', 'formFactor', 'propulsionType', 'returnConstraint', 'maxRangeMeters', 'riderCapacity', 'wheelCount', 'maxPermittedSpeed', 'minAge'])
     if err:
         return err, 400
+    if data.get('formFactor') and data['formFactor'] not in ['bicycle', 'cargo_bicycle', 'car', 'moped', 'scooter_standing', 'scooter_seated', 'other']:
+        return {"error": {"message": "invalid formFactor; allowed: " + ", ".join(['bicycle', 'cargo_bicycle', 'car', 'moped', 'scooter_standing', 'scooter_seated', 'other']), "type": "invalid_request_error"}}, 400
+    if data.get('propulsionType') and data['propulsionType'] not in ['human', 'electric_assist', 'electric', 'combustion', 'combustion_diesel', 'hybrid', 'plug_in_hybrid', 'hydrogen_fuel_cell']:
+        return {"error": {"message": "invalid propulsionType; allowed: " + ", ".join(['human', 'electric_assist', 'electric', 'combustion', 'combustion_diesel', 'hybrid', 'plug_in_hybrid', 'hydrogen_fuel_cell']), "type": "invalid_request_error"}}, 400
+    if data.get('returnConstraint') and data['returnConstraint'] not in ['free_floating', 'roundtrip_station', 'any_station', 'hybrid']:
+        return {"error": {"message": "invalid returnConstraint; allowed: " + ", ".join(['free_floating', 'roundtrip_station', 'any_station', 'hybrid']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Rider", rec)
+    _persist("VehicleType", rec)
     return rec, 200
 
-@app.route("/v1/riders/<eid>", methods=["DELETE"])
-def delete_rider(request, eid):
-    """Delete a Rider."""
-    rows = _query("Rider", eid)
+@app.route("/v1/vehicletypes/<eid>", methods=["DELETE"])
+def delete_vehicle_type(request, eid):
+    """Delete a VehicleType."""
+    rows = _query("VehicleType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bird_scooters.Rider", "id": eid})
+    db.retract({"entity": f"bird_scooters.VehicleType", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/trips", methods=["POST"])
-def create_trip(request):
-    """Create a Trip."""
+@app.route("/v1/stations", methods=["POST"])
+def create_station(request):
+    """Create a Station."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['riderId', 'driverId', 'origin', 'destination', 'status'])
+    err = _reject_unknown(data, ['stationId', 'name', 'lat', 'lon', 'address', 'city', 'regionId', 'capacity', 'isVirtualStation', 'isChargingStation', 'parkingType'])
     if err:
         return err, 400
-    err = _require(data, ['origin', 'destination'])
+    err = _require(data, ['name', 'lat'])
     if err:
         return err, 400
-    rec = {"id": new_id("birdscoo_tri")}
-    rec["riderId"] = data.get('riderId')
-    rec["driverId"] = data.get('driverId')
-    rec["origin"] = data.get('origin')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
+    if data.get('parkingType') and data['parkingType'] not in ['parking_lot', 'street_parking', 'underground_parking', 'sidewalk_parking', 'other']:
+        return {"error": {"message": "invalid parkingType; allowed: " + ", ".join(['parking_lot', 'street_parking', 'underground_parking', 'sidewalk_parking', 'other']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("birdscoo_sta")}
+    rec["stationId"] = data.get('stationId')
+    rec["name"] = data.get('name')
+    rec["lat"] = _as_float(data.get('lat'))
+    rec["lon"] = _as_float(data.get('lon'))
+    rec["address"] = data.get('address')
+    rec["city"] = data.get('city')
+    rec["regionId"] = data.get('regionId')
+    rec["capacity"] = _as_int(data.get('capacity'))
+    rec["isVirtualStation"] = _as_bool(data.get('isVirtualStation'))
+    rec["isChargingStation"] = _as_bool(data.get('isChargingStation'))
+    rec["parkingType"] = data.get('parkingType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trip", rec)
+    _persist("Station", rec)
     return rec, 201
 
-@app.route("/v1/trips", methods=["GET"])
-def list_trips(request):
-    """List Trips with filtering + cursor pagination."""
+@app.route("/v1/stations", methods=["GET"])
+def list_stations(request):
+    """List Stations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['riderId', 'driverId', 'origin', 'destination', 'status'])
+    rows = _query("Station")
+    rows = _apply_filters(rows, params, ['stationId', 'name', 'lat', 'lon', 'address', 'city', 'regionId', 'capacity', 'isVirtualStation', 'isChargingStation', 'parkingType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/trips/<eid>", methods=["GET"])
-def get_trip(request, eid):
-    """Retrieve a Trip by id (supports ?expand=)."""
-    rows = _query("Trip", eid)
+@app.route("/v1/stations/<eid>", methods=["GET"])
+def get_station(request, eid):
+    """Retrieve a Station by id (supports ?expand=)."""
+    rows = _query("Station", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'riderId': 'Rider', 'driverId': 'Driver'})
+    rec = _expand(rec, request.query or {}, {'stationId': 'Station', 'regionId': 'Region'})
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
-def update_trip(request, eid):
-    """Update a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/stations/<eid>", methods=["POST", "PATCH"])
+def update_station(request, eid):
+    """Update a Station."""
+    rows = _query("Station", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['riderId', 'driverId', 'origin', 'destination', 'status'])
+    err = _reject_unknown(data, ['stationId', 'name', 'lat', 'lon', 'address', 'city', 'regionId', 'capacity', 'isVirtualStation', 'isChargingStation', 'parkingType'])
+    if err:
+        return err, 400
+    if data.get('parkingType') and data['parkingType'] not in ['parking_lot', 'street_parking', 'underground_parking', 'sidewalk_parking', 'other']:
+        return {"error": {"message": "invalid parkingType; allowed: " + ", ".join(['parking_lot', 'street_parking', 'underground_parking', 'sidewalk_parking', 'other']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Station", rec)
+    return rec, 200
+
+@app.route("/v1/stations/<eid>", methods=["DELETE"])
+def delete_station(request, eid):
+    """Delete a Station."""
+    rows = _query("Station", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"bird_scooters.Station", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/stationstatuses", methods=["POST"])
+def create_station_status(request):
+    """Create a StationStatus."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stationId', 'numVehiclesAvailable', 'numDocksAvailable', 'isInstalled', 'isRenting', 'isReturning', 'lastReported'])
+    if err:
+        return err, 400
+    err = _require(data, ['numVehiclesAvailable', 'numDocksAvailable'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("birdscoo_sta")}
+    rec["stationId"] = data.get('stationId')
+    rec["numVehiclesAvailable"] = _as_int(data.get('numVehiclesAvailable'))
+    rec["numDocksAvailable"] = _as_int(data.get('numDocksAvailable'))
+    rec["isInstalled"] = _as_bool(data.get('isInstalled'))
+    rec["isRenting"] = _as_bool(data.get('isRenting'))
+    rec["isReturning"] = _as_bool(data.get('isReturning'))
+    rec["lastReported"] = data.get('lastReported')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("StationStatus", rec)
+    return rec, 201
+
+@app.route("/v1/stationstatuses", methods=["GET"])
+def list_station_statuses(request):
+    """List StationStatuses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("StationStatus")
+    rows = _apply_filters(rows, params, ['stationId', 'numVehiclesAvailable', 'numDocksAvailable', 'isInstalled', 'isRenting', 'isReturning', 'lastReported'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/stationstatuses/<eid>", methods=["GET"])
+def get_station_status(request, eid):
+    """Retrieve a StationStatus by id (supports ?expand=)."""
+    rows = _query("StationStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'stationId': 'Station'})
+    return rec, 200
+
+@app.route("/v1/stationstatuses/<eid>", methods=["POST", "PATCH"])
+def update_station_status(request, eid):
+    """Update a StationStatus."""
+    rows = _query("StationStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stationId', 'numVehiclesAvailable', 'numDocksAvailable', 'isInstalled', 'isRenting', 'isReturning', 'lastReported'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,33 +402,37 @@ def update_trip(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trip", rec)
+    _persist("StationStatus", rec)
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["DELETE"])
-def delete_trip(request, eid):
-    """Delete a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/stationstatuses/<eid>", methods=["DELETE"])
+def delete_station_status(request, eid):
+    """Delete a StationStatus."""
+    rows = _query("StationStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bird_scooters.Trip", "id": eid})
+    db.retract({"entity": f"bird_scooters.StationStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/vehicles", methods=["POST"])
 def create_vehicle(request):
     """Create a Vehicle."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['driverId', 'make', 'model', 'plate'])
+    err = _reject_unknown(data, ['vehicleId', 'lat', 'lon', 'isReserved', 'isDisabled', 'vehicleTypeId', 'currentRangeMeters', 'lastReported'])
     if err:
         return err, 400
-    err = _require(data, ['make', 'model'])
+    err = _require(data, ['lat', 'lon'])
     if err:
         return err, 400
     rec = {"id": new_id("birdscoo_veh")}
-    rec["driverId"] = data.get('driverId')
-    rec["make"] = data.get('make')
-    rec["model"] = data.get('model')
-    rec["plate"] = data.get('plate')
+    rec["vehicleId"] = data.get('vehicleId')
+    rec["lat"] = _as_float(data.get('lat'))
+    rec["lon"] = _as_float(data.get('lon'))
+    rec["isReserved"] = _as_bool(data.get('isReserved'))
+    rec["isDisabled"] = _as_bool(data.get('isDisabled'))
+    rec["vehicleTypeId"] = data.get('vehicleTypeId')
+    rec["currentRangeMeters"] = _as_float(data.get('currentRangeMeters'))
+    rec["lastReported"] = data.get('lastReported')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Vehicle", rec)
@@ -335,7 +443,7 @@ def list_vehicles(request):
     """List Vehicles with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['driverId', 'make', 'model', 'plate'])
+    rows = _apply_filters(rows, params, ['vehicleId', 'lat', 'lon', 'isReserved', 'isDisabled', 'vehicleTypeId', 'currentRangeMeters', 'lastReported'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -347,7 +455,7 @@ def get_vehicle(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'driverId': 'Driver'})
+    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle', 'vehicleTypeId': 'VehicleType'})
     return rec, 200
 
 @app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
@@ -357,7 +465,7 @@ def update_vehicle(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['driverId', 'make', 'model', 'plate'])
+    err = _reject_unknown(data, ['vehicleId', 'lat', 'lon', 'isReserved', 'isDisabled', 'vehicleTypeId', 'currentRangeMeters', 'lastReported'])
     if err:
         return err, 400
     rec = rows[0]
@@ -377,55 +485,52 @@ def delete_vehicle(request, eid):
     db.retract({"entity": f"bird_scooters.Vehicle", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/fares", methods=["POST"])
-def create_fare(request):
-    """Create a Fare."""
+@app.route("/v1/regions", methods=["POST"])
+def create_region(request):
+    """Create a Region."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['tripId', 'base', 'distanceKm', 'total', 'currency'])
+    err = _reject_unknown(data, ['regionId', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['base', 'distanceKm'])
+    err = _require(data, ['name'])
     if err:
         return err, 400
-    rec = {"id": new_id("birdscoo_far")}
-    rec["tripId"] = data.get('tripId')
-    rec["base"] = _as_float(data.get('base'))
-    rec["distanceKm"] = _as_float(data.get('distanceKm'))
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    rec = {"id": new_id("birdscoo_reg")}
+    rec["regionId"] = data.get('regionId')
+    rec["name"] = data.get('name')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Fare", rec)
+    _persist("Region", rec)
     return rec, 201
 
-@app.route("/v1/fares", methods=["GET"])
-def list_fares(request):
-    """List Fares with filtering + cursor pagination."""
+@app.route("/v1/regions", methods=["GET"])
+def list_regions(request):
+    """List Regions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Fare")
-    rows = _apply_filters(rows, params, ['tripId', 'base', 'distanceKm', 'total', 'currency'])
+    rows = _query("Region")
+    rows = _apply_filters(rows, params, ['regionId', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/fares/<eid>", methods=["GET"])
-def get_fare(request, eid):
-    """Retrieve a Fare by id (supports ?expand=)."""
-    rows = _query("Fare", eid)
+@app.route("/v1/regions/<eid>", methods=["GET"])
+def get_region(request, eid):
+    """Retrieve a Region by id (supports ?expand=)."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'tripId': 'Trip'})
+    rec = _expand(rec, request.query or {}, {'regionId': 'Region'})
     return rec, 200
 
-@app.route("/v1/fares/<eid>", methods=["POST", "PATCH"])
-def update_fare(request, eid):
-    """Update a Fare."""
-    rows = _query("Fare", eid)
+@app.route("/v1/regions/<eid>", methods=["POST", "PATCH"])
+def update_region(request, eid):
+    """Update a Region."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['tripId', 'base', 'distanceKm', 'total', 'currency'])
+    err = _reject_unknown(data, ['regionId', 'name'])
     if err:
         return err, 400
     rec = rows[0]
@@ -433,89 +538,22 @@ def update_fare(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Fare", rec)
+    _persist("Region", rec)
     return rec, 200
 
-@app.route("/v1/fares/<eid>", methods=["DELETE"])
-def delete_fare(request, eid):
-    """Delete a Fare."""
-    rows = _query("Fare", eid)
+@app.route("/v1/regions/<eid>", methods=["DELETE"])
+def delete_region(request, eid):
+    """Delete a Region."""
+    rows = _query("Region", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bird_scooters.Fare", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/ratings", methods=["POST"])
-def create_rating(request):
-    """Create a Rating."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['tripId', 'byRole', 'score', 'comment'])
-    if err:
-        return err, 400
-    err = _require(data, ['byRole', 'score'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("birdscoo_rat")}
-    rec["tripId"] = data.get('tripId')
-    rec["byRole"] = data.get('byRole')
-    rec["score"] = _as_int(data.get('score'))
-    rec["comment"] = data.get('comment')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Rating", rec)
-    return rec, 201
-
-@app.route("/v1/ratings", methods=["GET"])
-def list_ratings(request):
-    """List Ratings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Rating")
-    rows = _apply_filters(rows, params, ['tripId', 'byRole', 'score', 'comment'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/ratings/<eid>", methods=["GET"])
-def get_rating(request, eid):
-    """Retrieve a Rating by id (supports ?expand=)."""
-    rows = _query("Rating", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'tripId': 'Trip'})
-    return rec, 200
-
-@app.route("/v1/ratings/<eid>", methods=["POST", "PATCH"])
-def update_rating(request, eid):
-    """Update a Rating."""
-    rows = _query("Rating", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['tripId', 'byRole', 'score', 'comment'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Rating", rec)
-    return rec, 200
-
-@app.route("/v1/ratings/<eid>", methods=["DELETE"])
-def delete_rating(request, eid):
-    """Delete a Rating."""
-    rows = _query("Rating", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bird_scooters.Rating", "id": eid})
+    db.retract({"entity": f"bird_scooters.Region", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bird_scooters-compat", "tier": "L4",
-            "entities": ['Driver', 'Rider', 'Trip', 'Vehicle', 'Fare', 'Rating']}, 200
+            "entities": ['SystemInformation', 'VehicleType', 'Station', 'StationStatus', 'Vehicle', 'Region']}, 200
 
 
 if __name__ == "__main__":
