@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**39 templates published.**
+**45 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -23,6 +23,8 @@
 | Contrat de travail | fr | FR | 3 | 27 | `bafkreihhs3pumwkq7…` |
 | Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 40 | `bafkreihdo32ysbh2p…` |
 | 雇用契約書 | ja | JP | 4 | 29 | `bafkreid5vb4x5hv3z…` |
+| 근로계약서 | ko | KR | 3 | 20 | `bafkreidxptie5bsdf…` |
+| Contrato individual de trabalho | pt | BR | 3 | 27 | `bafkreigt6naqxq2n5…` |
 | 劳动合同 | zh | CN | 2 | 18 | `bafkreigh656koddez…` |
 | Franchise Agreement | en | INTL | 7 | 27 | `bafkreicfsa7qjfs42…` |
 | Guaranty Agreement | en | JP | 5 | 19 | `bafkreienph2rpcfjf…` |
@@ -34,11 +36,15 @@
 | Residential Lease Agreement (Japan) | en | JP | 4 | 17 | `bafkreihhezsobywc4…` |
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 22 | `bafkreiaxtqqwzzb6a…` |
 | 無利息金銭消費貸借契約書 | ja | JP | 3 | 16 | `bafkreiajglypwz7iq…` |
+| اتفاقية عدم الإفشاء المتبادلة | ar | INTL | 2 | 15 | `bafkreict5da7uow3g…` |
 | Gegenseitige Geheimhaltungsvereinbarung | de | DE | 2 | 15 | `bafkreicz3hflylgp3…` |
 | Acuerdo de confidencialidad mutuo | es | ES | 2 | 15 | `bafkreigihrphob4td…` |
 | Accord de confidentialite reciproque | fr | FR | 2 | 15 | `bafkreifyvlhowo5sg…` |
+| पारस्परिक गोपनीयता समझौता | hi | IN | 2 | 15 | `bafkreiaycase5zzwl…` |
+| 상호 비밀유지계약서 | ko | KR | 2 | 15 | `bafkreihfbpiym2ilw…` |
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 21 | `bafkreicz244zyd7jr…` |
 | 相互秘密保持契約書 | ja | JP | 5 | 19 | `bafkreigo7yzmix2ss…` |
+| Acordo de confidencialidade mutuo | pt | BR | 2 | 15 | `bafkreihrtideg5vf6…` |
 | 相互保密协议 | zh | CN | 2 | 15 | `bafkreibjl77x2ns67…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 3 | 16 | `bafkreichrl3h2q4sp…` |
 | General Partnership Agreement | en | INTL | 7 | 25 | `bafkreid2mdhcbxvhv…` |
