@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ipfs
-  labels:
-    app.kubernetes.io/part-of: ipfs-self-hosted
-    etzhayyim.com/runtime: vultr-vke
-    etzhayyim.com/adr: "adr-2604261936"

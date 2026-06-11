@@ -1,5 +1,0 @@
-package etzhayyimcojp:svelte-adapter;
-
-interface js-runtime {
-    evaluate: func(code: string, request-json: string) -> string;
-}

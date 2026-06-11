@@ -1,3 +1,0 @@
-# hodoki 解き — Python dependencies (R0 scaffold)
-# No external dependencies; all testing is offline (injected functions).
-# kotoba bindings are provided by WASM host at runtime.

@@ -1,8 +1,0 @@
-{
-  "$comment": "lg-drive — Google Drive v3 + Microsoft Graph compatible drive API over kotoba datomic (ADR-2606010500). Primary surface = FastAPI XRPC server (lg_drive.server:app).",
-  "dependencies": ["./lg_drive"],
-  "graphs": { "health": "./lg_drive/graphs/health.py:GRAPH" },
-  "env": ".env",
-  "python_version": "3.11",
-  "auth": { "$comment": "x-api-key (LG_DRIVE_API_KEY env), optional. atproto actor-worker x-internal-trust is the edge boundary." }
-}

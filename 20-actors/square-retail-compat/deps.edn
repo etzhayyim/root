@@ -1,1 +1,0 @@
-{:project {:name "square-retail-compat" :version "0.1.0" :description "Clean room Square-retail compatible actor"} :dependencies {:kotoba "workspace" :kotodama-wasm "workspace" :datomic-client "workspace"}}

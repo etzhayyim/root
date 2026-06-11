@@ -1,2 +1,0 @@
-20-actors/recruit/actor-manifest.jsonld:112:return-bare-alias:p:"sql": "MATCH (p:JobPosting {id: $id})-[:POSTED_BY]->(e:LegalEntity) RETURN p, e LIMIT 1"
-20-actors/recruit/actor-manifest.jsonld:97:return-bare-alias:p:"sql": "MATCH (p:JobPosting) WHERE ($iscoCode IS NULL OR p.iscoCode = $iscoCode) AND ($country IS NULL OR p.country = $country) AND ($employerDid IS NULL OR p.employerDid = $employerDid) RETURN p ORDER BY p.postedAt DESC SKIP $offset LIMIT $limit"

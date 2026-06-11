@@ -1,1 +1,0 @@
-{:project {:name "shopify-compat" :version "0.1.0" :description "Clean room Shopify compatible actor"} :dependencies {:kotoba "workspace" :kotodama-wasm "workspace" :datomic-client "workspace"}}

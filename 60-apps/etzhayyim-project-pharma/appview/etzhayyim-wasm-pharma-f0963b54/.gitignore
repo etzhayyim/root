@@ -1,5 +1,0 @@
-build/
-.spin/
-svelte/node_modules/
-svelte/build/
-svelte/.svelte-kit/

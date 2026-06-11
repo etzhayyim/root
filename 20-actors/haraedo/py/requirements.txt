@@ -1,5 +1,0 @@
-# haraedo 祓戸 — langgraph actor (kotoba WASM cell) — ADR-2606010200
-# Murakumo-only LLM via kotoba host bindings (no provider SDK pinned here).
-langgraph>=0.2
-# kotoba host bindings (datalog, llm) are provided by the WASM Component Model
-# runtime at deploy time; not a pip dependency.

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_GUM" targetNamespace="http://etzhayyim.com/gov/GUM/education">
-  <bpmn:process id="Process_GUM_education" isExecutable="true">
-    <bpmn:startEvent id="S" name="Start"/>
-    <bpmn:task id="T" name="Process"/>
-    <bpmn:endEvent id="E" name="End"/>
-  </bpmn:process>
-</bpmn:definitions>

@@ -1,1 +1,0 @@
-{:project {:name "docusign-compat" :version "0.1.0" :description "Clean room Docusign compatible actor"} :dependencies {:kotoba "workspace" :kotodama-wasm "workspace" :datomic-client "workspace"}}

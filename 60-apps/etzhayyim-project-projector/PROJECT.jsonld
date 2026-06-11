@@ -1,9 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "Project",
-  "@id": "etzhayyim-project-projector",
-  "name": "Projector",
-  "description": "AI Project Manager — recursive project convo with PM agent, slash commands, MCP tool calling, and DID expansion. Unifies Discord channels, Slack threads, Teams channels, and email inboxes.",
-  "url": "https://projector.etzhayyim.com",
-  "components": []
-}

@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "suido.etzhayyim.com",
-  "description": "水道サービス — Basic Life Guarantee 受給者への上下水道供給管理",
-  "applicationCategory": "Utility",
-  "url": "https://suido.etzhayyim.com"
-}

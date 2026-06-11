@@ -1,7 +1,0 @@
-/_miniapp/*
-  Access-Control-Allow-Origin: *
-  Content-Type: application/json
-
-/_app/*
-  Access-Control-Allow-Origin: *
-  Content-Type: application/json

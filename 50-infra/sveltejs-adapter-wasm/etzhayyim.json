@@ -1,8 +1,0 @@
-{
-  "project": {
-    "id": "sveltejs-adapter-wasm",
-    "name": "SvelteKit Adapter for wasmCloud",
-    "namespace": "etzhayyim-performers-org-etzhayyim"
-  },
-  "type": "adapter"
-}

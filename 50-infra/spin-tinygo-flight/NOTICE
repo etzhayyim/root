@@ -1,9 +1,0 @@
-This repository includes code derived from `github.com/spinframework/spin-go-sdk/v2`
-and retains Apache-2.0 licensing.
-
-Local additions include:
-
-- TinyGo gRPC framing helpers over Spin outbound HTTP/2
-- Arrow Flight client support
-- Flight SQL query helpers
-- Arrow IPC decoding and narrow write-path helpers for prepared statements
