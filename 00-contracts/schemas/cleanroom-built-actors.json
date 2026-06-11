@@ -4253,17 +4253,16 @@
       "handle": "dji_onboard_sdk-compat",
       "platform": "dji_onboard_sdk",
       "bytes": 2129,
-      "wasmCid": "bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
+      "wasmCid": "bafkreiao65fsp7rm6wcc7nrqhi3vdavnfo2aydjz7x2nkkpqjnxyp7jixm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Status",
+        "Battery",
+        "GlobalPosition",
+        "GPSDetail",
+        "FlightAnomaly"
       ]
     },
     {
@@ -6901,12 +6900,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Device",
-        "Telemetry",
-        "Gateway",
-        "Command",
-        "Firmware",
-        "Alert"
+        "Packet",
+        "BlockchainPocReceiptV1",
+        "RadioTxReq",
+        "TaggedSpreading",
+        "BlockchainBlockV1",
+        "Payment"
       ]
     },
     {
@@ -8643,12 +8642,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Agent",
-        "Task",
-        "Message",
-        "Tool",
-        "Memory",
-        "Plan"
+        "BaseMessage",
+        "AIMessage",
+        "ToolMessage",
+        "ToolCall",
+        "UsageMetadata",
+        "LogEntry"
       ]
     },
     {

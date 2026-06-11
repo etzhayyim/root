@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigmgl5xoh32pr4qvqghh2nolbrrixdb3i5nlpupeqlrgrfwveur4u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/devices": {
+    "/v1/packets": {
       "get": {
-        "summary": "List Devices",
+        "summary": "List Packets",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Device"
+                        "$ref": "#/components/schemas/Packet"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Device",
+        "summary": "Create a Packet",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/PacketCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Packet"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/devices/{id}": {
+    "/v1/packets/{id}": {
       "get": {
-        "summary": "Get a Device",
+        "summary": "Get a Packet",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Packet"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Device",
+        "summary": "Update a Packet",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/PacketCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Packet"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Device",
+        "summary": "Delete a Packet",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/telemetries": {
+    "/v1/blockchainpocreceiptv1s": {
       "get": {
-        "summary": "List Telemetries",
+        "summary": "List BlockchainPocReceiptV1s",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Telemetry"
+                        "$ref": "#/components/schemas/BlockchainPocReceiptV1"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Telemetry",
+        "summary": "Create a BlockchainPocReceiptV1",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/BlockchainPocReceiptV1Create"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/BlockchainPocReceiptV1"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/telemetries/{id}": {
+    "/v1/blockchainpocreceiptv1s/{id}": {
       "get": {
-        "summary": "Get a Telemetry",
+        "summary": "Get a BlockchainPocReceiptV1",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/BlockchainPocReceiptV1"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Telemetry",
+        "summary": "Update a BlockchainPocReceiptV1",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/BlockchainPocReceiptV1Create"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/BlockchainPocReceiptV1"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Telemetry",
+        "summary": "Delete a BlockchainPocReceiptV1",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/gateways": {
+    "/v1/radiotxreqs": {
       "get": {
-        "summary": "List Gateways",
+        "summary": "List RadioTxReqs",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Gateway"
+                        "$ref": "#/components/schemas/RadioTxReq"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Gateway",
+        "summary": "Create a RadioTxReq",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/RadioTxReqCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/RadioTxReq"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/gateways/{id}": {
+    "/v1/radiotxreqs/{id}": {
       "get": {
-        "summary": "Get a Gateway",
+        "summary": "Get a RadioTxReq",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/RadioTxReq"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Gateway",
+        "summary": "Update a RadioTxReq",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/RadioTxReqCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/RadioTxReq"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Gateway",
+        "summary": "Delete a RadioTxReq",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/commands": {
+    "/v1/taggedspreadings": {
       "get": {
-        "summary": "List Commands",
+        "summary": "List TaggedSpreadings",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Command"
+                        "$ref": "#/components/schemas/TaggedSpreading"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Command",
+        "summary": "Create a TaggedSpreading",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/TaggedSpreadingCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/TaggedSpreading"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/commands/{id}": {
+    "/v1/taggedspreadings/{id}": {
       "get": {
-        "summary": "Get a Command",
+        "summary": "Get a TaggedSpreading",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/TaggedSpreading"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Command",
+        "summary": "Update a TaggedSpreading",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/TaggedSpreadingCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/TaggedSpreading"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a TaggedSpreading",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/firmwares": {
+    "/v1/blockchainblockv1s": {
       "get": {
-        "summary": "List Firmwares",
+        "summary": "List BlockchainBlockV1s",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Firmware"
+                        "$ref": "#/components/schemas/BlockchainBlockV1"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Firmware",
+        "summary": "Create a BlockchainBlockV1",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/BlockchainBlockV1Create"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/BlockchainBlockV1"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/firmwares/{id}": {
+    "/v1/blockchainblockv1s/{id}": {
       "get": {
-        "summary": "Get a Firmware",
+        "summary": "Get a BlockchainBlockV1",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/BlockchainBlockV1"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Firmware",
+        "summary": "Update a BlockchainBlockV1",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/BlockchainBlockV1Create"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/BlockchainBlockV1"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Firmware",
+        "summary": "Delete a BlockchainBlockV1",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/alerts": {
+    "/v1/payments": {
       "get": {
-        "summary": "List Alerts",
+        "summary": "List Payments",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Alert"
+                        "$ref": "#/components/schemas/Payment"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Alert",
+        "summary": "Create a Payment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/alerts/{id}": {
+    "/v1/payments/{id}": {
       "get": {
-        "summary": "Get a Alert",
+        "summary": "Get a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Alert",
+        "summary": "Update a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1140,165 +1140,39 @@
   },
   "components": {
     "schemas": {
-      "Device": {
+      "Packet": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serial": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "firmware": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DeviceCreate": {
-        "type": "object",
-        "properties": {
-          "serial": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "firmware": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "serial",
-          "model"
-        ]
-      },
-      "Telemetry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "metric": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "recordedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TelemetryCreate": {
-        "type": "object",
-        "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "metric": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "recordedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "metric",
-          "value"
-        ]
-      },
-      "Gateway": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "location": {
-            "type": "string"
-          },
-          "deviceCount": {
+          "oui": {
             "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "GatewayCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "location": {
-            "type": "string"
-          },
-          "deviceCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "location"
-        ]
-      },
-      "Command": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
           },
           "payload": {
             "type": "string"
           },
-          "status": {
+          "timestamp": {
+            "type": "integer"
+          },
+          "signalStrength": {
+            "type": "number"
+          },
+          "frequency": {
+            "type": "number"
+          },
+          "datarate": {
             "type": "string"
+          },
+          "snr": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "longfi",
+              "lorawan"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1310,41 +1184,91 @@
           }
         }
       },
-      "CommandCreate": {
+      "PacketCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
+          "oui": {
+            "type": "integer"
           },
           "payload": {
             "type": "string"
           },
-          "status": {
+          "timestamp": {
+            "type": "integer"
+          },
+          "signalStrength": {
+            "type": "number"
+          },
+          "frequency": {
+            "type": "number"
+          },
+          "datarate": {
             "type": "string"
+          },
+          "snr": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "longfi",
+              "lorawan"
+            ]
           }
         },
         "required": [
-          "name",
+          "oui",
           "payload"
         ]
       },
-      "Firmware": {
+      "BlockchainPocReceiptV1": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "model": {
+          "gateway": {
             "type": "string"
           },
-          "version": {
+          "timestamp": {
+            "type": "integer"
+          },
+          "signal": {
+            "type": "integer"
+          },
+          "data": {
             "type": "string"
           },
-          "contentRef": {
+          "origin": {
+            "type": "string",
+            "enum": [
+              "p2p",
+              "radio"
+            ]
+          },
+          "signature": {
             "type": "string"
+          },
+          "snr": {
+            "type": "number"
+          },
+          "frequency": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "integer"
+          },
+          "datarate": {
+            "type": "string"
+          },
+          "addrHash": {
+            "type": "string"
+          },
+          "txPower": {
+            "type": "integer"
+          },
+          "rewardShares": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1356,37 +1280,289 @@
           }
         }
       },
-      "FirmwareCreate": {
+      "BlockchainPocReceiptV1Create": {
         "type": "object",
         "properties": {
-          "model": {
+          "gateway": {
             "type": "string"
           },
-          "version": {
+          "timestamp": {
+            "type": "integer"
+          },
+          "signal": {
+            "type": "integer"
+          },
+          "data": {
             "type": "string"
           },
-          "contentRef": {
+          "origin": {
+            "type": "string",
+            "enum": [
+              "p2p",
+              "radio"
+            ]
+          },
+          "signature": {
             "type": "string"
+          },
+          "snr": {
+            "type": "number"
+          },
+          "frequency": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "integer"
+          },
+          "datarate": {
+            "type": "string"
+          },
+          "addrHash": {
+            "type": "string"
+          },
+          "txPower": {
+            "type": "integer"
+          },
+          "rewardShares": {
+            "type": "integer"
           }
         },
         "required": [
-          "model",
-          "version"
+          "gateway",
+          "timestamp"
         ]
       },
-      "Alert": {
+      "RadioTxReq": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "freq": {
+            "type": "integer"
+          },
+          "power": {
+            "type": "integer"
+          },
+          "invertPolarity": {
+            "type": "boolean"
+          },
+          "omitCrc": {
+            "type": "boolean"
+          },
+          "implicitHeader": {
+            "type": "boolean"
+          },
+          "payload": {
             "type": "string"
           },
-          "rule": {
+          "radio": {
+            "type": "string",
+            "enum": [
+              "R0",
+              "R1"
+            ]
+          },
+          "bandwidth": {
+            "type": "string",
+            "enum": [
+              "BW_UNDEFINED",
+              "BW7_8kHz",
+              "BW15_6kHz",
+              "BW31_2kHz",
+              "BW62_5kHz",
+              "BW125kHz",
+              "BW250kHz",
+              "BW500kHz"
+            ]
+          },
+          "spreading": {
+            "type": "string",
+            "enum": [
+              "SF_UNDEFINED",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ]
+          },
+          "coderate": {
+            "type": "string",
+            "enum": [
+              "CR_UNDEFINED",
+              "CR4_5",
+              "CR4_6",
+              "CR4_7",
+              "CR4_8"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RadioTxReqCreate": {
+        "type": "object",
+        "properties": {
+          "freq": {
+            "type": "integer"
+          },
+          "power": {
+            "type": "integer"
+          },
+          "invertPolarity": {
+            "type": "boolean"
+          },
+          "omitCrc": {
+            "type": "boolean"
+          },
+          "implicitHeader": {
+            "type": "boolean"
+          },
+          "payload": {
             "type": "string"
           },
-          "severity": {
+          "radio": {
+            "type": "string",
+            "enum": [
+              "R0",
+              "R1"
+            ]
+          },
+          "bandwidth": {
+            "type": "string",
+            "enum": [
+              "BW_UNDEFINED",
+              "BW7_8kHz",
+              "BW15_6kHz",
+              "BW31_2kHz",
+              "BW62_5kHz",
+              "BW125kHz",
+              "BW250kHz",
+              "BW500kHz"
+            ]
+          },
+          "spreading": {
+            "type": "string",
+            "enum": [
+              "SF_UNDEFINED",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ]
+          },
+          "coderate": {
+            "type": "string",
+            "enum": [
+              "CR_UNDEFINED",
+              "CR4_5",
+              "CR4_6",
+              "CR4_7",
+              "CR4_8"
+            ]
+          }
+        },
+        "required": [
+          "freq",
+          "power"
+        ]
+      },
+      "TaggedSpreading": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "regionSpreading": {
+            "type": "string",
+            "enum": [
+              "SF_INVALID",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ]
+          },
+          "maxPacketSize": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TaggedSpreadingCreate": {
+        "type": "object",
+        "properties": {
+          "regionSpreading": {
+            "type": "string",
+            "enum": [
+              "SF_INVALID",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ]
+          },
+          "maxPacketSize": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "regionSpreading",
+          "maxPacketSize"
+        ]
+      },
+      "BlockchainBlockV1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "prevHash": {
+            "type": "string"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "time": {
+            "type": "integer"
+          },
+          "hbbftRound": {
+            "type": "integer"
+          },
+          "electionEpoch": {
+            "type": "integer"
+          },
+          "epochStart": {
+            "type": "integer"
+          },
+          "rescueSignature": {
+            "type": "string"
+          },
+          "bbaCompletion": {
+            "type": "string"
+          },
+          "snapshotHash": {
             "type": "string"
           },
           "createdAt": {
@@ -1399,22 +1575,95 @@
           }
         }
       },
-      "AlertCreate": {
+      "BlockchainBlockV1Create": {
         "type": "object",
         "properties": {
-          "deviceId": {
+          "prevHash": {
             "type": "string"
           },
-          "rule": {
+          "height": {
+            "type": "integer"
+          },
+          "time": {
+            "type": "integer"
+          },
+          "hbbftRound": {
+            "type": "integer"
+          },
+          "electionEpoch": {
+            "type": "integer"
+          },
+          "epochStart": {
+            "type": "integer"
+          },
+          "rescueSignature": {
             "type": "string"
           },
-          "severity": {
+          "bbaCompletion": {
+            "type": "string"
+          },
+          "snapshotHash": {
             "type": "string"
           }
         },
         "required": [
-          "rule",
-          "severity"
+          "prevHash",
+          "height"
+        ]
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "payee": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "memo": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "boolean"
+          },
+          "tokenType": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaymentCreate": {
+        "type": "object",
+        "properties": {
+          "payee": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "memo": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "boolean"
+          },
+          "tokenType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "payee",
+          "amount"
         ]
       }
     }

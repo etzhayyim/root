@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreict6r3yicwe3kzbxzpcfdwyyzxj5ygqmb7mfeilkcnkz5ur3uatai",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/agents": {
+    "/v1/basemessages": {
       "get": {
-        "summary": "List Agents",
+        "summary": "List BaseMessages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Agent"
+                        "$ref": "#/components/schemas/BaseMessage"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Agent",
+        "summary": "Create a BaseMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AgentCreate"
+                "$ref": "#/components/schemas/BaseMessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Agent"
+                  "$ref": "#/components/schemas/BaseMessage"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/agents/{id}": {
+    "/v1/basemessages/{id}": {
       "get": {
-        "summary": "Get a Agent",
+        "summary": "Get a BaseMessage",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Agent"
+                  "$ref": "#/components/schemas/BaseMessage"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Agent",
+        "summary": "Update a BaseMessage",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AgentCreate"
+                "$ref": "#/components/schemas/BaseMessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Agent"
+                  "$ref": "#/components/schemas/BaseMessage"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Agent",
+        "summary": "Delete a BaseMessage",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/tasks": {
+    "/v1/aimessages": {
       "get": {
-        "summary": "List Tasks",
+        "summary": "List AIMessages",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Task"
+                        "$ref": "#/components/schemas/AIMessage"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Task",
+        "summary": "Create a AIMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskCreate"
+                "$ref": "#/components/schemas/AIMessageCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Task"
+                  "$ref": "#/components/schemas/AIMessage"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/tasks/{id}": {
+    "/v1/aimessages/{id}": {
       "get": {
-        "summary": "Get a Task",
+        "summary": "Get a AIMessage",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Task"
+                  "$ref": "#/components/schemas/AIMessage"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Task",
+        "summary": "Update a AIMessage",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskCreate"
+                "$ref": "#/components/schemas/AIMessageCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Task"
+                  "$ref": "#/components/schemas/AIMessage"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Task",
+        "summary": "Delete a AIMessage",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/messages": {
+    "/v1/toolmessages": {
       "get": {
-        "summary": "List Messages",
+        "summary": "List ToolMessages",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/ToolMessage"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Message",
+        "summary": "Create a ToolMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/ToolMessageCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ToolMessage"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/messages/{id}": {
+    "/v1/toolmessages/{id}": {
       "get": {
-        "summary": "Get a Message",
+        "summary": "Get a ToolMessage",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ToolMessage"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Message",
+        "summary": "Update a ToolMessage",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/ToolMessageCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ToolMessage"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Message",
+        "summary": "Delete a ToolMessage",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/tools": {
+    "/v1/toolcalls": {
       "get": {
-        "summary": "List Tools",
+        "summary": "List ToolCalls",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Tool"
+                        "$ref": "#/components/schemas/ToolCall"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Tool",
+        "summary": "Create a ToolCall",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ToolCreate"
+                "$ref": "#/components/schemas/ToolCallCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tool"
+                  "$ref": "#/components/schemas/ToolCall"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/tools/{id}": {
+    "/v1/toolcalls/{id}": {
       "get": {
-        "summary": "Get a Tool",
+        "summary": "Get a ToolCall",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tool"
+                  "$ref": "#/components/schemas/ToolCall"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Tool",
+        "summary": "Update a ToolCall",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ToolCreate"
+                "$ref": "#/components/schemas/ToolCallCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tool"
+                  "$ref": "#/components/schemas/ToolCall"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Tool",
+        "summary": "Delete a ToolCall",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/memories": {
+    "/v1/usagemetadatas": {
       "get": {
-        "summary": "List Memories",
+        "summary": "List UsageMetadatas",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Memory"
+                        "$ref": "#/components/schemas/UsageMetadata"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Memory",
+        "summary": "Create a UsageMetadata",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoryCreate"
+                "$ref": "#/components/schemas/UsageMetadataCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Memory"
+                  "$ref": "#/components/schemas/UsageMetadata"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/memories/{id}": {
+    "/v1/usagemetadatas/{id}": {
       "get": {
-        "summary": "Get a Memory",
+        "summary": "Get a UsageMetadata",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Memory"
+                  "$ref": "#/components/schemas/UsageMetadata"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Memory",
+        "summary": "Update a UsageMetadata",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoryCreate"
+                "$ref": "#/components/schemas/UsageMetadataCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Memory"
+                  "$ref": "#/components/schemas/UsageMetadata"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Memory",
+        "summary": "Delete a UsageMetadata",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/plans": {
+    "/v1/logentries": {
       "get": {
-        "summary": "List Plans",
+        "summary": "List LogEntries",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Plan"
+                        "$ref": "#/components/schemas/LogEntry"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Plan",
+        "summary": "Create a LogEntry",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlanCreate"
+                "$ref": "#/components/schemas/LogEntryCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plan"
+                  "$ref": "#/components/schemas/LogEntry"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/plans/{id}": {
+    "/v1/logentries/{id}": {
       "get": {
-        "summary": "Get a Plan",
+        "summary": "Get a LogEntry",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plan"
+                  "$ref": "#/components/schemas/LogEntry"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Plan",
+        "summary": "Update a LogEntry",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlanCreate"
+                "$ref": "#/components/schemas/LogEntryCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plan"
+                  "$ref": "#/components/schemas/LogEntry"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Plan",
+        "summary": "Delete a LogEntry",
         "parameters": [
           {
             "name": "id",
@@ -1140,122 +1140,27 @@
   },
   "components": {
     "schemas": {
-      "Agent": {
+      "BaseMessage": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "modelRef": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AgentCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "modelRef": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "role"
-        ]
-      },
-      "Task": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "agentId": {
-            "type": "string"
-          },
-          "goal": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TaskCreate": {
-        "type": "object",
-        "properties": {
-          "agentId": {
-            "type": "string"
-          },
-          "goal": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "goal",
-          "status"
-        ]
-      },
-      "Message": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "fromAgentId": {
-            "type": "string"
-          },
-          "toAgentId": {
-            "type": "string"
-          },
-          "performative": {
             "type": "string"
           },
           "content": {
             "type": "string"
           },
+          "additionalKwargs": {
+            "type": "string"
+          },
+          "responseMetadata": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1266,28 +1171,173 @@
           }
         }
       },
-      "MessageCreate": {
+      "BaseMessageCreate": {
         "type": "object",
         "properties": {
-          "fromAgentId": {
-            "type": "string"
-          },
-          "toAgentId": {
-            "type": "string"
-          },
-          "performative": {
-            "type": "string"
-          },
           "content": {
+            "type": "string"
+          },
+          "additionalKwargs": {
+            "type": "string"
+          },
+          "responseMetadata": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
             "type": "string"
           }
         },
         "required": [
-          "performative",
-          "content"
+          "content",
+          "additionalKwargs"
         ]
       },
-      "Tool": {
+      "AIMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ai"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "toolCalls": {
+            "type": "string"
+          },
+          "invalidToolCalls": {
+            "type": "string"
+          },
+          "usageMetadata": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AIMessageCreate": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ai"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "toolCalls": {
+            "type": "string"
+          },
+          "invalidToolCalls": {
+            "type": "string"
+          },
+          "usageMetadata": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "content",
+          "type"
+        ]
+      },
+      "ToolMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "tool"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "toolCallId": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "error"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ToolMessageCreate": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "tool"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "toolCallId": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "error"
+            ]
+          }
+        },
+        "required": [
+          "content",
+          "type"
+        ]
+      },
+      "ToolCall": {
         "type": "object",
         "properties": {
           "id": {
@@ -1296,10 +1346,65 @@
           "name": {
             "type": "string"
           },
-          "description": {
+          "args": {
             "type": "string"
           },
-          "schemaRef": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "tool_call"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ToolCallCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "args": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "tool_call"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "args"
+        ]
+      },
+      "UsageMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "inputTokens": {
+            "type": "integer"
+          },
+          "outputTokens": {
+            "type": "integer"
+          },
+          "totalTokens": {
+            "type": "integer"
+          },
+          "inputTokenDetails": {
+            "type": "string"
+          },
+          "outputTokenDetails": {
             "type": "string"
           },
           "createdAt": {
@@ -1312,107 +1417,115 @@
           }
         }
       },
-      "ToolCreate": {
+      "UsageMetadataCreate": {
+        "type": "object",
+        "properties": {
+          "inputTokens": {
+            "type": "integer"
+          },
+          "outputTokens": {
+            "type": "integer"
+          },
+          "totalTokens": {
+            "type": "integer"
+          },
+          "inputTokenDetails": {
+            "type": "string"
+          },
+          "outputTokenDetails": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "inputTokens",
+          "outputTokens"
+        ]
+      },
+      "LogEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "streamedOutputStr": {
+            "type": "string"
+          },
+          "streamedOutput": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "string"
+          },
+          "finalOutput": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LogEntryCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "description": {
+          "type": {
             "type": "string"
           },
-          "schemaRef": {
+          "tags": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "streamedOutputStr": {
+            "type": "string"
+          },
+          "streamedOutput": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "string"
+          },
+          "finalOutput": {
+            "type": "string"
+          },
+          "endTime": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "description"
-        ]
-      },
-      "Memory": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "agentId": {
-            "type": "string"
-          },
-          "kind": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MemoryCreate": {
-        "type": "object",
-        "properties": {
-          "agentId": {
-            "type": "string"
-          },
-          "kind": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "kind"
-        ]
-      },
-      "Plan": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "taskId": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PlanCreate": {
-        "type": "object",
-        "properties": {
-          "taskId": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "steps",
-          "status"
+          "type"
         ]
       }
     }

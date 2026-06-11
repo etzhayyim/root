@@ -111,383 +111,367 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/devices", methods=["POST"])
-def create_device(request):
-    """Create a Device."""
+@app.route("/v1/packets", methods=["POST"])
+def create_packet(request):
+    """Create a Packet."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
+    err = _reject_unknown(data, ['oui', 'payload', 'timestamp', 'signalStrength', 'frequency', 'datarate', 'snr', 'type'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'model'])
+    err = _require(data, ['oui', 'payload'])
     if err:
         return err, 400
-    rec = {"id": new_id("helium_dev")}
-    rec["serial"] = data.get('serial')
-    rec["model"] = data.get('model')
-    rec["status"] = data.get('status')
-    rec["firmware"] = data.get('firmware')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Device", rec)
-    return rec, 201
-
-@app.route("/v1/devices", methods=["GET"])
-def list_devices(request):
-    """List Devices with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Device")
-    rows = _apply_filters(rows, params, ['serial', 'model', 'status', 'firmware'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/devices/<eid>", methods=["GET"])
-def get_device(request, eid):
-    """Retrieve a Device by id (supports ?expand=)."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
-def update_device(request, eid):
-    """Update a Device."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Device", rec)
-    return rec, 200
-
-@app.route("/v1/devices/<eid>", methods=["DELETE"])
-def delete_device(request, eid):
-    """Delete a Device."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Device", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/telemetries", methods=["POST"])
-def create_telemetry(request):
-    """Create a Telemetry."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['metric', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("helium_tel")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["metric"] = data.get('metric')
-    rec["value"] = _as_float(data.get('value'))
-    rec["recordedAt"] = data.get('recordedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Telemetry", rec)
-    return rec, 201
-
-@app.route("/v1/telemetries", methods=["GET"])
-def list_telemetries(request):
-    """List Telemetries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Telemetry")
-    rows = _apply_filters(rows, params, ['deviceId', 'metric', 'value', 'recordedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["GET"])
-def get_telemetry(request, eid):
-    """Retrieve a Telemetry by id (supports ?expand=)."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["POST", "PATCH"])
-def update_telemetry(request, eid):
-    """Update a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Telemetry", rec)
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["DELETE"])
-def delete_telemetry(request, eid):
-    """Delete a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Telemetry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gateways", methods=["POST"])
-def create_gateway(request):
-    """Create a Gateway."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'location'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("helium_gat")}
-    rec["name"] = data.get('name')
-    rec["location"] = data.get('location')
-    rec["deviceCount"] = _as_int(data.get('deviceCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Gateway", rec)
-    return rec, 201
-
-@app.route("/v1/gateways", methods=["GET"])
-def list_gateways(request):
-    """List Gateways with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Gateway")
-    rows = _apply_filters(rows, params, ['name', 'location', 'deviceCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/gateways/<eid>", methods=["GET"])
-def get_gateway(request, eid):
-    """Retrieve a Gateway by id (supports ?expand=)."""
-    rows = _query("Gateway", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/gateways/<eid>", methods=["POST", "PATCH"])
-def update_gateway(request, eid):
-    """Update a Gateway."""
-    rows = _query("Gateway", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Gateway", rec)
-    return rec, 200
-
-@app.route("/v1/gateways/<eid>", methods=["DELETE"])
-def delete_gateway(request, eid):
-    """Delete a Gateway."""
-    rows = _query("Gateway", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Gateway", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'payload'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("helium_com")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["name"] = data.get('name')
+    if data.get('type') and data['type'] not in ['longfi', 'lorawan']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['longfi', 'lorawan']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("helium_pac")}
+    rec["oui"] = _as_int(data.get('oui'))
     rec["payload"] = data.get('payload')
-    rec["status"] = data.get('status')
+    rec["timestamp"] = _as_int(data.get('timestamp'))
+    rec["signalStrength"] = _as_float(data.get('signalStrength'))
+    rec["frequency"] = _as_float(data.get('frequency'))
+    rec["datarate"] = data.get('datarate')
+    rec["snr"] = _as_float(data.get('snr'))
+    rec["type"] = data.get('type')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
+    _persist("Packet", rec)
     return rec, 201
 
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
+@app.route("/v1/packets", methods=["GET"])
+def list_packets(request):
+    """List Packets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['deviceId', 'name', 'payload', 'status'])
+    rows = _query("Packet")
+    rows = _apply_filters(rows, params, ['oui', 'payload', 'timestamp', 'signalStrength', 'frequency', 'datarate', 'snr', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
+@app.route("/v1/packets/<eid>", methods=["GET"])
+def get_packet(request, eid):
+    """Retrieve a Packet by id (supports ?expand=)."""
+    rows = _query("Packet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/packets/<eid>", methods=["POST", "PATCH"])
+def update_packet(request, eid):
+    """Update a Packet."""
+    rows = _query("Packet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
+    err = _reject_unknown(data, ['oui', 'payload', 'timestamp', 'signalStrength', 'frequency', 'datarate', 'snr', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['longfi', 'lorawan']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['longfi', 'lorawan']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Command", rec)
+    _persist("Packet", rec)
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/packets/<eid>", methods=["DELETE"])
+def delete_packet(request, eid):
+    """Delete a Packet."""
+    rows = _query("Packet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Command", "id": eid})
+    db.retract({"entity": f"helium.Packet", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/firmwares", methods=["POST"])
-def create_firmware(request):
-    """Create a Firmware."""
+@app.route("/v1/blockchainpocreceiptv1s", methods=["POST"])
+def create_blockchain_poc_receipt_v1(request):
+    """Create a BlockchainPocReceiptV1."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
+    err = _reject_unknown(data, ['gateway', 'timestamp', 'signal', 'data', 'origin', 'signature', 'snr', 'frequency', 'channel', 'datarate', 'addrHash', 'txPower', 'rewardShares'])
     if err:
         return err, 400
-    err = _require(data, ['model', 'version'])
+    err = _require(data, ['gateway', 'timestamp'])
     if err:
         return err, 400
-    rec = {"id": new_id("helium_fir")}
-    rec["model"] = data.get('model')
-    rec["version"] = data.get('version')
-    rec["contentRef"] = data.get('contentRef')
+    if data.get('origin') and data['origin'] not in ['p2p', 'radio']:
+        return {"error": {"message": "invalid origin; allowed: " + ", ".join(['p2p', 'radio']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("helium_blo")}
+    rec["gateway"] = data.get('gateway')
+    rec["timestamp"] = _as_int(data.get('timestamp'))
+    rec["signal"] = _as_int(data.get('signal'))
+    rec["data"] = data.get('data')
+    rec["origin"] = data.get('origin')
+    rec["signature"] = data.get('signature')
+    rec["snr"] = _as_float(data.get('snr'))
+    rec["frequency"] = _as_float(data.get('frequency'))
+    rec["channel"] = _as_int(data.get('channel'))
+    rec["datarate"] = data.get('datarate')
+    rec["addrHash"] = data.get('addrHash')
+    rec["txPower"] = _as_int(data.get('txPower'))
+    rec["rewardShares"] = _as_int(data.get('rewardShares'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Firmware", rec)
+    _persist("BlockchainPocReceiptV1", rec)
     return rec, 201
 
-@app.route("/v1/firmwares", methods=["GET"])
-def list_firmwares(request):
-    """List Firmwares with filtering + cursor pagination."""
+@app.route("/v1/blockchainpocreceiptv1s", methods=["GET"])
+def list_blockchain_poc_receipt_v1s(request):
+    """List BlockchainPocReceiptV1s with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Firmware")
-    rows = _apply_filters(rows, params, ['model', 'version', 'contentRef'])
+    rows = _query("BlockchainPocReceiptV1")
+    rows = _apply_filters(rows, params, ['gateway', 'timestamp', 'signal', 'data', 'origin', 'signature', 'snr', 'frequency', 'channel', 'datarate', 'addrHash', 'txPower', 'rewardShares'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["GET"])
-def get_firmware(request, eid):
-    """Retrieve a Firmware by id (supports ?expand=)."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/blockchainpocreceiptv1s/<eid>", methods=["GET"])
+def get_blockchain_poc_receipt_v1(request, eid):
+    """Retrieve a BlockchainPocReceiptV1 by id (supports ?expand=)."""
+    rows = _query("BlockchainPocReceiptV1", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["POST", "PATCH"])
-def update_firmware(request, eid):
-    """Update a Firmware."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/blockchainpocreceiptv1s/<eid>", methods=["POST", "PATCH"])
+def update_blockchain_poc_receipt_v1(request, eid):
+    """Update a BlockchainPocReceiptV1."""
+    rows = _query("BlockchainPocReceiptV1", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
+    err = _reject_unknown(data, ['gateway', 'timestamp', 'signal', 'data', 'origin', 'signature', 'snr', 'frequency', 'channel', 'datarate', 'addrHash', 'txPower', 'rewardShares'])
     if err:
         return err, 400
+    if data.get('origin') and data['origin'] not in ['p2p', 'radio']:
+        return {"error": {"message": "invalid origin; allowed: " + ", ".join(['p2p', 'radio']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Firmware", rec)
+    _persist("BlockchainPocReceiptV1", rec)
     return rec, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["DELETE"])
-def delete_firmware(request, eid):
-    """Delete a Firmware."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/blockchainpocreceiptv1s/<eid>", methods=["DELETE"])
+def delete_blockchain_poc_receipt_v1(request, eid):
+    """Delete a BlockchainPocReceiptV1."""
+    rows = _query("BlockchainPocReceiptV1", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Firmware", "id": eid})
+    db.retract({"entity": f"helium.BlockchainPocReceiptV1", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
+@app.route("/v1/radiotxreqs", methods=["POST"])
+def create_radio_tx_req(request):
+    """Create a RadioTxReq."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
+    err = _reject_unknown(data, ['freq', 'power', 'invertPolarity', 'omitCrc', 'implicitHeader', 'payload', 'radio', 'bandwidth', 'spreading', 'coderate'])
     if err:
         return err, 400
-    err = _require(data, ['rule', 'severity'])
+    err = _require(data, ['freq', 'power'])
     if err:
         return err, 400
-    rec = {"id": new_id("helium_ale")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["rule"] = data.get('rule')
-    rec["severity"] = data.get('severity')
+    if data.get('radio') and data['radio'] not in ['R0', 'R1']:
+        return {"error": {"message": "invalid radio; allowed: " + ", ".join(['R0', 'R1']), "type": "invalid_request_error"}}, 400
+    if data.get('bandwidth') and data['bandwidth'] not in ['BW_UNDEFINED', 'BW7_8kHz', 'BW15_6kHz', 'BW31_2kHz', 'BW62_5kHz', 'BW125kHz', 'BW250kHz', 'BW500kHz']:
+        return {"error": {"message": "invalid bandwidth; allowed: " + ", ".join(['BW_UNDEFINED', 'BW7_8kHz', 'BW15_6kHz', 'BW31_2kHz', 'BW62_5kHz', 'BW125kHz', 'BW250kHz', 'BW500kHz']), "type": "invalid_request_error"}}, 400
+    if data.get('spreading') and data['spreading'] not in ['SF_UNDEFINED', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']:
+        return {"error": {"message": "invalid spreading; allowed: " + ", ".join(['SF_UNDEFINED', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']), "type": "invalid_request_error"}}, 400
+    if data.get('coderate') and data['coderate'] not in ['CR_UNDEFINED', 'CR4_5', 'CR4_6', 'CR4_7', 'CR4_8']:
+        return {"error": {"message": "invalid coderate; allowed: " + ", ".join(['CR_UNDEFINED', 'CR4_5', 'CR4_6', 'CR4_7', 'CR4_8']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("helium_rad")}
+    rec["freq"] = _as_int(data.get('freq'))
+    rec["power"] = _as_int(data.get('power'))
+    rec["invertPolarity"] = _as_bool(data.get('invertPolarity'))
+    rec["omitCrc"] = _as_bool(data.get('omitCrc'))
+    rec["implicitHeader"] = _as_bool(data.get('implicitHeader'))
+    rec["payload"] = data.get('payload')
+    rec["radio"] = data.get('radio')
+    rec["bandwidth"] = data.get('bandwidth')
+    rec["spreading"] = data.get('spreading')
+    rec["coderate"] = data.get('coderate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
+    _persist("RadioTxReq", rec)
     return rec, 201
 
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
+@app.route("/v1/radiotxreqs", methods=["GET"])
+def list_radio_tx_reqs(request):
+    """List RadioTxReqs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['deviceId', 'rule', 'severity'])
+    rows = _query("RadioTxReq")
+    rows = _apply_filters(rows, params, ['freq', 'power', 'invertPolarity', 'omitCrc', 'implicitHeader', 'payload', 'radio', 'bandwidth', 'spreading', 'coderate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
+@app.route("/v1/radiotxreqs/<eid>", methods=["GET"])
+def get_radio_tx_req(request, eid):
+    """Retrieve a RadioTxReq by id (supports ?expand=)."""
+    rows = _query("RadioTxReq", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/radiotxreqs/<eid>", methods=["POST", "PATCH"])
+def update_radio_tx_req(request, eid):
+    """Update a RadioTxReq."""
+    rows = _query("RadioTxReq", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
+    err = _reject_unknown(data, ['freq', 'power', 'invertPolarity', 'omitCrc', 'implicitHeader', 'payload', 'radio', 'bandwidth', 'spreading', 'coderate'])
+    if err:
+        return err, 400
+    if data.get('radio') and data['radio'] not in ['R0', 'R1']:
+        return {"error": {"message": "invalid radio; allowed: " + ", ".join(['R0', 'R1']), "type": "invalid_request_error"}}, 400
+    if data.get('bandwidth') and data['bandwidth'] not in ['BW_UNDEFINED', 'BW7_8kHz', 'BW15_6kHz', 'BW31_2kHz', 'BW62_5kHz', 'BW125kHz', 'BW250kHz', 'BW500kHz']:
+        return {"error": {"message": "invalid bandwidth; allowed: " + ", ".join(['BW_UNDEFINED', 'BW7_8kHz', 'BW15_6kHz', 'BW31_2kHz', 'BW62_5kHz', 'BW125kHz', 'BW250kHz', 'BW500kHz']), "type": "invalid_request_error"}}, 400
+    if data.get('spreading') and data['spreading'] not in ['SF_UNDEFINED', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']:
+        return {"error": {"message": "invalid spreading; allowed: " + ", ".join(['SF_UNDEFINED', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']), "type": "invalid_request_error"}}, 400
+    if data.get('coderate') and data['coderate'] not in ['CR_UNDEFINED', 'CR4_5', 'CR4_6', 'CR4_7', 'CR4_8']:
+        return {"error": {"message": "invalid coderate; allowed: " + ", ".join(['CR_UNDEFINED', 'CR4_5', 'CR4_6', 'CR4_7', 'CR4_8']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RadioTxReq", rec)
+    return rec, 200
+
+@app.route("/v1/radiotxreqs/<eid>", methods=["DELETE"])
+def delete_radio_tx_req(request, eid):
+    """Delete a RadioTxReq."""
+    rows = _query("RadioTxReq", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"helium.RadioTxReq", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/taggedspreadings", methods=["POST"])
+def create_tagged_spreading(request):
+    """Create a TaggedSpreading."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['regionSpreading', 'maxPacketSize'])
+    if err:
+        return err, 400
+    err = _require(data, ['regionSpreading', 'maxPacketSize'])
+    if err:
+        return err, 400
+    if data.get('regionSpreading') and data['regionSpreading'] not in ['SF_INVALID', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']:
+        return {"error": {"message": "invalid regionSpreading; allowed: " + ", ".join(['SF_INVALID', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("helium_tag")}
+    rec["regionSpreading"] = data.get('regionSpreading')
+    rec["maxPacketSize"] = _as_int(data.get('maxPacketSize'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("TaggedSpreading", rec)
+    return rec, 201
+
+@app.route("/v1/taggedspreadings", methods=["GET"])
+def list_tagged_spreadings(request):
+    """List TaggedSpreadings with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("TaggedSpreading")
+    rows = _apply_filters(rows, params, ['regionSpreading', 'maxPacketSize'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/taggedspreadings/<eid>", methods=["GET"])
+def get_tagged_spreading(request, eid):
+    """Retrieve a TaggedSpreading by id (supports ?expand=)."""
+    rows = _query("TaggedSpreading", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/taggedspreadings/<eid>", methods=["POST", "PATCH"])
+def update_tagged_spreading(request, eid):
+    """Update a TaggedSpreading."""
+    rows = _query("TaggedSpreading", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['regionSpreading', 'maxPacketSize'])
+    if err:
+        return err, 400
+    if data.get('regionSpreading') and data['regionSpreading'] not in ['SF_INVALID', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']:
+        return {"error": {"message": "invalid regionSpreading; allowed: " + ", ".join(['SF_INVALID', 'SF7', 'SF8', 'SF9', 'SF10', 'SF11', 'SF12']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("TaggedSpreading", rec)
+    return rec, 200
+
+@app.route("/v1/taggedspreadings/<eid>", methods=["DELETE"])
+def delete_tagged_spreading(request, eid):
+    """Delete a TaggedSpreading."""
+    rows = _query("TaggedSpreading", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"helium.TaggedSpreading", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/blockchainblockv1s", methods=["POST"])
+def create_blockchain_block_v1(request):
+    """Create a BlockchainBlockV1."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['prevHash', 'height', 'time', 'hbbftRound', 'electionEpoch', 'epochStart', 'rescueSignature', 'bbaCompletion', 'snapshotHash'])
+    if err:
+        return err, 400
+    err = _require(data, ['prevHash', 'height'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("helium_blo")}
+    rec["prevHash"] = data.get('prevHash')
+    rec["height"] = _as_int(data.get('height'))
+    rec["time"] = _as_int(data.get('time'))
+    rec["hbbftRound"] = _as_int(data.get('hbbftRound'))
+    rec["electionEpoch"] = _as_int(data.get('electionEpoch'))
+    rec["epochStart"] = _as_int(data.get('epochStart'))
+    rec["rescueSignature"] = data.get('rescueSignature')
+    rec["bbaCompletion"] = data.get('bbaCompletion')
+    rec["snapshotHash"] = data.get('snapshotHash')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("BlockchainBlockV1", rec)
+    return rec, 201
+
+@app.route("/v1/blockchainblockv1s", methods=["GET"])
+def list_blockchain_block_v1s(request):
+    """List BlockchainBlockV1s with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("BlockchainBlockV1")
+    rows = _apply_filters(rows, params, ['prevHash', 'height', 'time', 'hbbftRound', 'electionEpoch', 'epochStart', 'rescueSignature', 'bbaCompletion', 'snapshotHash'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/blockchainblockv1s/<eid>", methods=["GET"])
+def get_blockchain_block_v1(request, eid):
+    """Retrieve a BlockchainBlockV1 by id (supports ?expand=)."""
+    rows = _query("BlockchainBlockV1", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/blockchainblockv1s/<eid>", methods=["POST", "PATCH"])
+def update_blockchain_block_v1(request, eid):
+    """Update a BlockchainBlockV1."""
+    rows = _query("BlockchainBlockV1", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['prevHash', 'height', 'time', 'hbbftRound', 'electionEpoch', 'epochStart', 'rescueSignature', 'bbaCompletion', 'snapshotHash'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +479,89 @@ def update_alert(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Alert", rec)
+    _persist("BlockchainBlockV1", rec)
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/blockchainblockv1s/<eid>", methods=["DELETE"])
+def delete_blockchain_block_v1(request, eid):
+    """Delete a BlockchainBlockV1."""
+    rows = _query("BlockchainBlockV1", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"helium.Alert", "id": eid})
+    db.retract({"entity": f"helium.BlockchainBlockV1", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/payments", methods=["POST"])
+def create_payment(request):
+    """Create a Payment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['payee', 'amount', 'memo', 'max', 'tokenType'])
+    if err:
+        return err, 400
+    err = _require(data, ['payee', 'amount'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("helium_pay")}
+    rec["payee"] = data.get('payee')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["memo"] = _as_int(data.get('memo'))
+    rec["max"] = _as_bool(data.get('max'))
+    rec["tokenType"] = data.get('tokenType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Payment", rec)
+    return rec, 201
+
+@app.route("/v1/payments", methods=["GET"])
+def list_payments(request):
+    """List Payments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Payment")
+    rows = _apply_filters(rows, params, ['payee', 'amount', 'memo', 'max', 'tokenType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/payments/<eid>", methods=["GET"])
+def get_payment(request, eid):
+    """Retrieve a Payment by id (supports ?expand=)."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["POST", "PATCH"])
+def update_payment(request, eid):
+    """Update a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['payee', 'amount', 'memo', 'max', 'tokenType'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Payment", rec)
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["DELETE"])
+def delete_payment(request, eid):
+    """Delete a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"helium.Payment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "helium-compat", "tier": "L4",
-            "entities": ['Device', 'Telemetry', 'Gateway', 'Command', 'Firmware', 'Alert']}, 200
+            "entities": ['Packet', 'BlockchainPocReceiptV1', 'RadioTxReq', 'TaggedSpreading', 'BlockchainBlockV1', 'Payment']}, 200
 
 
 if __name__ == "__main__":

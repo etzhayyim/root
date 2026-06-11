@@ -3,72 +3,67 @@
 
 namespace dji_onboard_sdk {
 
-    entity Drone {
+    entity Status {
         id: string @unique
-        serial: string
-        model: string
-        batteryPct: float
-        status: string
+        flight: integer
+        mode: integer
+        gear: integer
+        error: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Mission {
+    entity Battery {
         id: string @unique
-        droneId: string
-        type: string
-        status: string
+        capacity: integer
+        voltage: integer
+        current: integer
+        percentage: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Waypoint {
+    entity GlobalPosition {
         id: string @unique
-        missionId: string
-        lat: float
-        lon: float
-        altitudeM: float
-        seq: integer
+        latitude: float
+        longitude: float
+        altitude: float
+        height: float
+        health: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Telemetry {
+    entity GPSDetail {
         id: string @unique
-        droneId: string
-        lat: float
-        lon: float
-        altitudeM: float
-        recordedAt: datetime
+        hdop: float
+        pdop: float
+        fix: float
+        gnssStatus: float
+        hacc: float
+        sacc: float
+        usedGPS: integer
+        usedGLN: integer
+        NSV: integer
+        GPScounter: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Payload {
+    entity FlightAnomaly {
         id: string @unique
-        droneId: string
-        type: string
-        weightKg: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Swarm {
-        id: string @unique
-        name: string
-        droneCount: integer
-        leaderId: string
+        impactInAir: boolean
+        randomFly: boolean
+        heightCtrlFail: boolean
+        rollPitchCtrlFail: boolean
+        yawCtrlFail: boolean
+        aircraftIsFalling: boolean
+        strongWindLevel1: boolean
+        strongWindLevel2: boolean
+        compassInstallationError: boolean
+        imuInstallationError: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

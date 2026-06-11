@@ -11,15 +11,83 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigmgl5xoh32pr4qvqghh2nolbrrixdb3i5nlpupeqlrgrfwveur4u",
   "schema": "schema/helium.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/helium/proto (src/*.proto; L1 chain migrated to Solana 2023, protos frozen)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Packet",
+      "BlockchainPocReceiptV1",
+      "RadioTxReq",
+      "TaggedSpreading",
+      "BlockchainBlockV1",
+      "Payment"
+    ],
+    "enums": {
+      "Packet": {
+        "type": [
+          "longfi",
+          "lorawan"
+        ]
+      },
+      "BlockchainPocReceiptV1": {
+        "origin": [
+          "p2p",
+          "radio"
+        ]
+      },
+      "RadioTxReq": {
+        "radio": [
+          "R0",
+          "R1"
+        ],
+        "bandwidth": [
+          "BW_UNDEFINED",
+          "BW7_8kHz",
+          "BW15_6kHz",
+          "BW31_2kHz",
+          "BW62_5kHz",
+          "BW125kHz",
+          "BW250kHz",
+          "BW500kHz"
+        ],
+        "spreading": [
+          "SF_UNDEFINED",
+          "SF7",
+          "SF8",
+          "SF9",
+          "SF10",
+          "SF11",
+          "SF12"
+        ],
+        "coderate": [
+          "CR_UNDEFINED",
+          "CR4_5",
+          "CR4_6",
+          "CR4_7",
+          "CR4_8"
+        ]
+      },
+      "TaggedSpreading": {
+        "regionSpreading": [
+          "SF_INVALID",
+          "SF7",
+          "SF8",
+          "SF9",
+          "SF10",
+          "SF11",
+          "SF12"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Device",
-    "Telemetry",
-    "Gateway",
-    "Command",
-    "Firmware",
-    "Alert"
+    "Packet",
+    "BlockchainPocReceiptV1",
+    "RadioTxReq",
+    "TaggedSpreading",
+    "BlockchainBlockV1",
+    "Payment"
   ],
   "adr": [
     "260607",
@@ -35,153 +103,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/devices",
-          "op": "create Device"
+          "path": "/v1/packets",
+          "op": "create Packet"
         },
         {
           "method": "GET",
-          "path": "/v1/devices",
-          "op": "list Device"
+          "path": "/v1/packets",
+          "op": "list Packet"
         },
         {
           "method": "GET",
-          "path": "/v1/devices/{id}",
-          "op": "get Device"
+          "path": "/v1/packets/{id}",
+          "op": "get Packet"
         },
         {
           "method": "PATCH",
-          "path": "/v1/devices/{id}",
-          "op": "update Device"
+          "path": "/v1/packets/{id}",
+          "op": "update Packet"
         },
         {
           "method": "DELETE",
-          "path": "/v1/devices/{id}",
-          "op": "delete Device"
+          "path": "/v1/packets/{id}",
+          "op": "delete Packet"
         },
         {
           "method": "POST",
-          "path": "/v1/telemetries",
-          "op": "create Telemetry"
+          "path": "/v1/blockchainpocreceiptv1s",
+          "op": "create BlockchainPocReceiptV1"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries",
-          "op": "list Telemetry"
+          "path": "/v1/blockchainpocreceiptv1s",
+          "op": "list BlockchainPocReceiptV1"
         },
         {
           "method": "GET",
-          "path": "/v1/telemetries/{id}",
-          "op": "get Telemetry"
+          "path": "/v1/blockchainpocreceiptv1s/{id}",
+          "op": "get BlockchainPocReceiptV1"
         },
         {
           "method": "PATCH",
-          "path": "/v1/telemetries/{id}",
-          "op": "update Telemetry"
+          "path": "/v1/blockchainpocreceiptv1s/{id}",
+          "op": "update BlockchainPocReceiptV1"
         },
         {
           "method": "DELETE",
-          "path": "/v1/telemetries/{id}",
-          "op": "delete Telemetry"
+          "path": "/v1/blockchainpocreceiptv1s/{id}",
+          "op": "delete BlockchainPocReceiptV1"
         },
         {
           "method": "POST",
-          "path": "/v1/gateways",
-          "op": "create Gateway"
+          "path": "/v1/radiotxreqs",
+          "op": "create RadioTxReq"
         },
         {
           "method": "GET",
-          "path": "/v1/gateways",
-          "op": "list Gateway"
+          "path": "/v1/radiotxreqs",
+          "op": "list RadioTxReq"
         },
         {
           "method": "GET",
-          "path": "/v1/gateways/{id}",
-          "op": "get Gateway"
+          "path": "/v1/radiotxreqs/{id}",
+          "op": "get RadioTxReq"
         },
         {
           "method": "PATCH",
-          "path": "/v1/gateways/{id}",
-          "op": "update Gateway"
+          "path": "/v1/radiotxreqs/{id}",
+          "op": "update RadioTxReq"
         },
         {
           "method": "DELETE",
-          "path": "/v1/gateways/{id}",
-          "op": "delete Gateway"
+          "path": "/v1/radiotxreqs/{id}",
+          "op": "delete RadioTxReq"
         },
         {
           "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
+          "path": "/v1/taggedspreadings",
+          "op": "create TaggedSpreading"
         },
         {
           "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
+          "path": "/v1/taggedspreadings",
+          "op": "list TaggedSpreading"
         },
         {
           "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
+          "path": "/v1/taggedspreadings/{id}",
+          "op": "get TaggedSpreading"
         },
         {
           "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
+          "path": "/v1/taggedspreadings/{id}",
+          "op": "update TaggedSpreading"
         },
         {
           "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/taggedspreadings/{id}",
+          "op": "delete TaggedSpreading"
         },
         {
           "method": "POST",
-          "path": "/v1/firmwares",
-          "op": "create Firmware"
+          "path": "/v1/blockchainblockv1s",
+          "op": "create BlockchainBlockV1"
         },
         {
           "method": "GET",
-          "path": "/v1/firmwares",
-          "op": "list Firmware"
+          "path": "/v1/blockchainblockv1s",
+          "op": "list BlockchainBlockV1"
         },
         {
           "method": "GET",
-          "path": "/v1/firmwares/{id}",
-          "op": "get Firmware"
+          "path": "/v1/blockchainblockv1s/{id}",
+          "op": "get BlockchainBlockV1"
         },
         {
           "method": "PATCH",
-          "path": "/v1/firmwares/{id}",
-          "op": "update Firmware"
+          "path": "/v1/blockchainblockv1s/{id}",
+          "op": "update BlockchainBlockV1"
         },
         {
           "method": "DELETE",
-          "path": "/v1/firmwares/{id}",
-          "op": "delete Firmware"
+          "path": "/v1/blockchainblockv1s/{id}",
+          "op": "delete BlockchainBlockV1"
         },
         {
           "method": "POST",
-          "path": "/v1/alerts",
-          "op": "create Alert"
+          "path": "/v1/payments",
+          "op": "create Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts",
-          "op": "list Alert"
+          "path": "/v1/payments",
+          "op": "list Payment"
         },
         {
           "method": "GET",
-          "path": "/v1/alerts/{id}",
-          "op": "get Alert"
+          "path": "/v1/payments/{id}",
+          "op": "get Payment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/alerts/{id}",
-          "op": "update Alert"
+          "path": "/v1/payments/{id}",
+          "op": "update Payment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/alerts/{id}",
-          "op": "delete Alert"
+          "path": "/v1/payments/{id}",
+          "op": "delete Payment"
         }
       ],
       "features": {
@@ -247,305 +315,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_device",
-          "description": "Create a Device.",
+          "name": "create_packet",
+          "description": "Create a Packet.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serial": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "firmware": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "serial",
-              "model"
-            ]
-          }
-        },
-        {
-          "name": "list_devices",
-          "description": "List Devices.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_device",
-          "description": "Get a Device by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_device",
-          "description": "Update a Device.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serial": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "firmware": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_device",
-          "description": "Delete a Device.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_telemetry",
-          "description": "Create a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "metric": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "recordedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "metric",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_telemetries",
-          "description": "List Telemetries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_telemetry",
-          "description": "Get a Telemetry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_telemetry",
-          "description": "Update a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "metric": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "recordedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_telemetry",
-          "description": "Delete a Telemetry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_gateway",
-          "description": "Create a Gateway.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              },
-              "deviceCount": {
+              "oui": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "location"
-            ]
-          }
-        },
-        {
-          "name": "list_gateways",
-          "description": "List Gateways.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_gateway",
-          "description": "Get a Gateway by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_gateway",
-          "description": "Update a Gateway.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              },
-              "deviceCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_gateway",
-          "description": "Delete a Gateway.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_command",
-          "description": "Create a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
               },
               "payload": {
                 "type": "string"
               },
-              "status": {
+              "timestamp": {
+                "type": "integer"
+              },
+              "signalStrength": {
+                "type": "number"
+              },
+              "frequency": {
+                "type": "number"
+              },
+              "datarate": {
+                "type": "string"
+              },
+              "snr": {
+                "type": "number"
+              },
+              "type": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
+              "oui",
               "payload"
             ]
           }
         },
         {
-          "name": "list_commands",
-          "description": "List Commands.",
+          "name": "list_packets",
+          "description": "List Packets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_command",
-          "description": "Get a Command by id.",
+          "name": "get_packet",
+          "description": "Get a Packet by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -559,24 +375,36 @@
           }
         },
         {
-          "name": "update_command",
-          "description": "Update a Command.",
+          "name": "update_packet",
+          "description": "Update a Packet.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "deviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
+              "oui": {
+                "type": "integer"
               },
               "payload": {
                 "type": "string"
               },
-              "status": {
+              "timestamp": {
+                "type": "integer"
+              },
+              "signalStrength": {
+                "type": "number"
+              },
+              "frequency": {
+                "type": "number"
+              },
+              "datarate": {
+                "type": "string"
+              },
+              "snr": {
+                "type": "number"
+              },
+              "type": {
                 "type": "string"
               }
             },
@@ -586,8 +414,8 @@
           }
         },
         {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_packet",
+          "description": "Delete a Packet.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,38 +429,68 @@
           }
         },
         {
-          "name": "create_firmware",
-          "description": "Create a Firmware.",
+          "name": "create_blockchain_poc_receipt_v1",
+          "description": "Create a BlockchainPocReceiptV1.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "model": {
+              "gateway": {
                 "type": "string"
               },
-              "version": {
+              "timestamp": {
+                "type": "integer"
+              },
+              "signal": {
+                "type": "integer"
+              },
+              "data": {
                 "type": "string"
               },
-              "contentRef": {
+              "origin": {
                 "type": "string"
+              },
+              "signature": {
+                "type": "string"
+              },
+              "snr": {
+                "type": "number"
+              },
+              "frequency": {
+                "type": "number"
+              },
+              "channel": {
+                "type": "integer"
+              },
+              "datarate": {
+                "type": "string"
+              },
+              "addrHash": {
+                "type": "string"
+              },
+              "txPower": {
+                "type": "integer"
+              },
+              "rewardShares": {
+                "type": "integer"
               }
             },
             "required": [
-              "model",
-              "version"
+              "gateway",
+              "timestamp"
             ]
           }
         },
         {
-          "name": "list_firmwares",
-          "description": "List Firmwares.",
+          "name": "list_blockchain_poc_receipt_v1s",
+          "description": "List BlockchainPocReceiptV1s.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_firmware",
-          "description": "Get a Firmware by id.",
+          "name": "get_blockchain_poc_receipt_v1",
+          "description": "Get a BlockchainPocReceiptV1 by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -646,21 +504,66 @@
           }
         },
         {
-          "name": "update_firmware",
-          "description": "Update a Firmware.",
+          "name": "update_blockchain_poc_receipt_v1",
+          "description": "Update a BlockchainPocReceiptV1.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "model": {
+              "gateway": {
                 "type": "string"
               },
-              "version": {
+              "timestamp": {
+                "type": "integer"
+              },
+              "signal": {
+                "type": "integer"
+              },
+              "data": {
                 "type": "string"
               },
-              "contentRef": {
+              "origin": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
+              },
+              "snr": {
+                "type": "number"
+              },
+              "frequency": {
+                "type": "number"
+              },
+              "channel": {
+                "type": "integer"
+              },
+              "datarate": {
+                "type": "string"
+              },
+              "addrHash": {
+                "type": "string"
+              },
+              "txPower": {
+                "type": "integer"
+              },
+              "rewardShares": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_blockchain_poc_receipt_v1",
+          "description": "Delete a BlockchainPocReceiptV1.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -670,53 +573,59 @@
           }
         },
         {
-          "name": "delete_firmware",
-          "description": "Delete a Firmware.",
+          "name": "create_radio_tx_req",
+          "description": "Create a RadioTxReq.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "freq": {
+                "type": "integer"
+              },
+              "power": {
+                "type": "integer"
+              },
+              "invertPolarity": {
+                "type": "boolean"
+              },
+              "omitCrc": {
+                "type": "boolean"
+              },
+              "implicitHeader": {
+                "type": "boolean"
+              },
+              "payload": {
+                "type": "string"
+              },
+              "radio": {
+                "type": "string"
+              },
+              "bandwidth": {
+                "type": "string"
+              },
+              "spreading": {
+                "type": "string"
+              },
+              "coderate": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "freq",
+              "power"
             ]
           }
         },
         {
-          "name": "create_alert",
-          "description": "Create a Alert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "rule": {
-                "type": "string"
-              },
-              "severity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "rule",
-              "severity"
-            ]
-          }
-        },
-        {
-          "name": "list_alerts",
-          "description": "List Alerts.",
+          "name": "list_radio_tx_reqs",
+          "description": "List RadioTxReqs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_alert",
-          "description": "Get a Alert by id.",
+          "name": "get_radio_tx_req",
+          "description": "Get a RadioTxReq by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,21 +639,42 @@
           }
         },
         {
-          "name": "update_alert",
-          "description": "Update a Alert.",
+          "name": "update_radio_tx_req",
+          "description": "Update a RadioTxReq.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "deviceId": {
+              "freq": {
+                "type": "integer"
+              },
+              "power": {
+                "type": "integer"
+              },
+              "invertPolarity": {
+                "type": "boolean"
+              },
+              "omitCrc": {
+                "type": "boolean"
+              },
+              "implicitHeader": {
+                "type": "boolean"
+              },
+              "payload": {
                 "type": "string"
               },
-              "rule": {
+              "radio": {
                 "type": "string"
               },
-              "severity": {
+              "bandwidth": {
+                "type": "string"
+              },
+              "spreading": {
+                "type": "string"
+              },
+              "coderate": {
                 "type": "string"
               }
             },
@@ -754,8 +684,302 @@
           }
         },
         {
-          "name": "delete_alert",
-          "description": "Delete a Alert.",
+          "name": "delete_radio_tx_req",
+          "description": "Delete a RadioTxReq.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tagged_spreading",
+          "description": "Create a TaggedSpreading.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "regionSpreading": {
+                "type": "string"
+              },
+              "maxPacketSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "regionSpreading",
+              "maxPacketSize"
+            ]
+          }
+        },
+        {
+          "name": "list_tagged_spreadings",
+          "description": "List TaggedSpreadings.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tagged_spreading",
+          "description": "Get a TaggedSpreading by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tagged_spreading",
+          "description": "Update a TaggedSpreading.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "regionSpreading": {
+                "type": "string"
+              },
+              "maxPacketSize": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tagged_spreading",
+          "description": "Delete a TaggedSpreading.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_blockchain_block_v1",
+          "description": "Create a BlockchainBlockV1.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prevHash": {
+                "type": "string"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "time": {
+                "type": "integer"
+              },
+              "hbbftRound": {
+                "type": "integer"
+              },
+              "electionEpoch": {
+                "type": "integer"
+              },
+              "epochStart": {
+                "type": "integer"
+              },
+              "rescueSignature": {
+                "type": "string"
+              },
+              "bbaCompletion": {
+                "type": "string"
+              },
+              "snapshotHash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "prevHash",
+              "height"
+            ]
+          }
+        },
+        {
+          "name": "list_blockchain_block_v1s",
+          "description": "List BlockchainBlockV1s.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_blockchain_block_v1",
+          "description": "Get a BlockchainBlockV1 by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_blockchain_block_v1",
+          "description": "Update a BlockchainBlockV1.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "prevHash": {
+                "type": "string"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "time": {
+                "type": "integer"
+              },
+              "hbbftRound": {
+                "type": "integer"
+              },
+              "electionEpoch": {
+                "type": "integer"
+              },
+              "epochStart": {
+                "type": "integer"
+              },
+              "rescueSignature": {
+                "type": "string"
+              },
+              "bbaCompletion": {
+                "type": "string"
+              },
+              "snapshotHash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_blockchain_block_v1",
+          "description": "Delete a BlockchainBlockV1.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_payment",
+          "description": "Create a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "payee": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "memo": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "boolean"
+              },
+              "tokenType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "payee",
+              "amount"
+            ]
+          }
+        },
+        {
+          "name": "list_payments",
+          "description": "List Payments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_payment",
+          "description": "Get a Payment by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_payment",
+          "description": "Update a Payment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "payee": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "memo": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "boolean"
+              },
+              "tokenType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payment",
+          "description": "Delete a Payment.",
           "inputSchema": {
             "type": "object",
             "properties": {

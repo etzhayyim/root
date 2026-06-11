@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "helium.kotoba")
-ENTITIES = ['Device', 'Telemetry', 'Gateway', 'Command', 'Firmware', 'Alert']
-PLURALS = {'Device': 'devices', 'Telemetry': 'telemetries', 'Gateway': 'gateways', 'Command': 'commands', 'Firmware': 'firmwares', 'Alert': 'alerts'}
+ENTITIES = ['Packet', 'BlockchainPocReceiptV1', 'RadioTxReq', 'TaggedSpreading', 'BlockchainBlockV1', 'Payment']
+PLURALS = {'Packet': 'packets', 'BlockchainPocReceiptV1': 'blockchainpocreceiptv1s', 'RadioTxReq': 'radiotxreqs', 'TaggedSpreading': 'taggedspreadings', 'BlockchainBlockV1': 'blockchainblockv1s', 'Payment': 'payments'}
 
 
 class HeliumContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class HeliumContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['bandwidth', 'coderate', 'origin', 'radio', 'regionSpreading', 'spreading', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

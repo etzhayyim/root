@@ -111,186 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/agents", methods=["POST"])
-def create_agent(request):
-    """Create a Agent."""
+@app.route("/v1/basemessages", methods=["POST"])
+def create_base_message(request):
+    """Create a BaseMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'role', 'modelRef', 'status'])
+    err = _reject_unknown(data, ['content', 'additionalKwargs', 'responseMetadata', 'type', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'role'])
+    err = _require(data, ['content', 'additionalKwargs'])
     if err:
         return err, 400
-    rec = {"id": new_id("langchai_age")}
-    rec["name"] = data.get('name')
-    rec["role"] = data.get('role')
-    rec["modelRef"] = data.get('modelRef')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Agent", rec)
-    return rec, 201
-
-@app.route("/v1/agents", methods=["GET"])
-def list_agents(request):
-    """List Agents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Agent")
-    rows = _apply_filters(rows, params, ['name', 'role', 'modelRef', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/agents/<eid>", methods=["GET"])
-def get_agent(request, eid):
-    """Retrieve a Agent by id (supports ?expand=)."""
-    rows = _query("Agent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/agents/<eid>", methods=["POST", "PATCH"])
-def update_agent(request, eid):
-    """Update a Agent."""
-    rows = _query("Agent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'role', 'modelRef', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Agent", rec)
-    return rec, 200
-
-@app.route("/v1/agents/<eid>", methods=["DELETE"])
-def delete_agent(request, eid):
-    """Delete a Agent."""
-    rows = _query("Agent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Agent", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tasks", methods=["POST"])
-def create_task(request):
-    """Create a Task."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['agentId', 'goal', 'status', 'priority'])
-    if err:
-        return err, 400
-    err = _require(data, ['goal', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("langchai_tas")}
-    rec["agentId"] = data.get('agentId')
-    rec["goal"] = data.get('goal')
-    rec["status"] = data.get('status')
-    rec["priority"] = _as_int(data.get('priority'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Task", rec)
-    return rec, 201
-
-@app.route("/v1/tasks", methods=["GET"])
-def list_tasks(request):
-    """List Tasks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Task")
-    rows = _apply_filters(rows, params, ['agentId', 'goal', 'status', 'priority'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tasks/<eid>", methods=["GET"])
-def get_task(request, eid):
-    """Retrieve a Task by id (supports ?expand=)."""
-    rows = _query("Task", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'agentId': 'Agent'})
-    return rec, 200
-
-@app.route("/v1/tasks/<eid>", methods=["POST", "PATCH"])
-def update_task(request, eid):
-    """Update a Task."""
-    rows = _query("Task", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['agentId', 'goal', 'status', 'priority'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Task", rec)
-    return rec, 200
-
-@app.route("/v1/tasks/<eid>", methods=["DELETE"])
-def delete_task(request, eid):
-    """Delete a Task."""
-    rows = _query("Task", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Task", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromAgentId', 'toAgentId', 'performative', 'content'])
-    if err:
-        return err, 400
-    err = _require(data, ['performative', 'content'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("langchai_mes")}
-    rec["fromAgentId"] = data.get('fromAgentId')
-    rec["toAgentId"] = data.get('toAgentId')
-    rec["performative"] = data.get('performative')
+    rec = {"id": new_id("langchai_bas")}
     rec["content"] = data.get('content')
+    rec["additionalKwargs"] = data.get('additionalKwargs')
+    rec["responseMetadata"] = data.get('responseMetadata')
+    rec["type"] = data.get('type')
+    rec["name"] = data.get('name')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("BaseMessage", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/basemessages", methods=["GET"])
+def list_base_messages(request):
+    """List BaseMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['fromAgentId', 'toAgentId', 'performative', 'content'])
+    rows = _query("BaseMessage")
+    rows = _apply_filters(rows, params, ['content', 'additionalKwargs', 'responseMetadata', 'type', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/basemessages/<eid>", methods=["GET"])
+def get_base_message(request, eid):
+    """Retrieve a BaseMessage by id (supports ?expand=)."""
+    rows = _query("BaseMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/basemessages/<eid>", methods=["POST", "PATCH"])
+def update_base_message(request, eid):
+    """Update a BaseMessage."""
+    rows = _query("BaseMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromAgentId', 'toAgentId', 'performative', 'content'])
+    err = _reject_unknown(data, ['content', 'additionalKwargs', 'responseMetadata', 'type', 'name'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,130 +166,284 @@ def update_message(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("BaseMessage", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/basemessages/<eid>", methods=["DELETE"])
+def delete_base_message(request, eid):
+    """Delete a BaseMessage."""
+    rows = _query("BaseMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Message", "id": eid})
+    db.retract({"entity": f"langchain.BaseMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tools", methods=["POST"])
-def create_tool(request):
-    """Create a Tool."""
+@app.route("/v1/aimessages", methods=["POST"])
+def create_a_i_message(request):
+    """Create a AIMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'schemaRef'])
+    err = _reject_unknown(data, ['content', 'type', 'name', 'toolCalls', 'invalidToolCalls', 'usageMetadata'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'description'])
+    err = _require(data, ['content', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ai']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ai']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("langchai_aim")}
+    rec["content"] = data.get('content')
+    rec["type"] = data.get('type')
+    rec["name"] = data.get('name')
+    rec["toolCalls"] = data.get('toolCalls')
+    rec["invalidToolCalls"] = data.get('invalidToolCalls')
+    rec["usageMetadata"] = data.get('usageMetadata')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AIMessage", rec)
+    return rec, 201
+
+@app.route("/v1/aimessages", methods=["GET"])
+def list_a_i_messages(request):
+    """List AIMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AIMessage")
+    rows = _apply_filters(rows, params, ['content', 'type', 'name', 'toolCalls', 'invalidToolCalls', 'usageMetadata'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aimessages/<eid>", methods=["GET"])
+def get_a_i_message(request, eid):
+    """Retrieve a AIMessage by id (supports ?expand=)."""
+    rows = _query("AIMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/aimessages/<eid>", methods=["POST", "PATCH"])
+def update_a_i_message(request, eid):
+    """Update a AIMessage."""
+    rows = _query("AIMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['content', 'type', 'name', 'toolCalls', 'invalidToolCalls', 'usageMetadata'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['ai']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ai']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AIMessage", rec)
+    return rec, 200
+
+@app.route("/v1/aimessages/<eid>", methods=["DELETE"])
+def delete_a_i_message(request, eid):
+    """Delete a AIMessage."""
+    rows = _query("AIMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"langchain.AIMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/toolmessages", methods=["POST"])
+def create_tool_message(request):
+    """Create a ToolMessage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['content', 'type', 'name', 'toolCallId', 'artifact', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['content', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['tool']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['tool']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['success', 'error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'error']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("langchai_too")}
+    rec["content"] = data.get('content')
+    rec["type"] = data.get('type')
+    rec["name"] = data.get('name')
+    rec["toolCallId"] = data.get('toolCallId')
+    rec["artifact"] = data.get('artifact')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ToolMessage", rec)
+    return rec, 201
+
+@app.route("/v1/toolmessages", methods=["GET"])
+def list_tool_messages(request):
+    """List ToolMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ToolMessage")
+    rows = _apply_filters(rows, params, ['content', 'type', 'name', 'toolCallId', 'artifact', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/toolmessages/<eid>", methods=["GET"])
+def get_tool_message(request, eid):
+    """Retrieve a ToolMessage by id (supports ?expand=)."""
+    rows = _query("ToolMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'toolCallId': 'ToolCall'})
+    return rec, 200
+
+@app.route("/v1/toolmessages/<eid>", methods=["POST", "PATCH"])
+def update_tool_message(request, eid):
+    """Update a ToolMessage."""
+    rows = _query("ToolMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['content', 'type', 'name', 'toolCallId', 'artifact', 'status'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['tool']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['tool']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['success', 'error']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'error']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ToolMessage", rec)
+    return rec, 200
+
+@app.route("/v1/toolmessages/<eid>", methods=["DELETE"])
+def delete_tool_message(request, eid):
+    """Delete a ToolMessage."""
+    rows = _query("ToolMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"langchain.ToolMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/toolcalls", methods=["POST"])
+def create_tool_call(request):
+    """Create a ToolCall."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'args', 'type'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'args'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['tool_call']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['tool_call']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("langchai_too")}
     rec["name"] = data.get('name')
-    rec["description"] = data.get('description')
-    rec["schemaRef"] = data.get('schemaRef')
+    rec["args"] = data.get('args')
+    rec["type"] = data.get('type')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tool", rec)
+    _persist("ToolCall", rec)
     return rec, 201
 
-@app.route("/v1/tools", methods=["GET"])
-def list_tools(request):
-    """List Tools with filtering + cursor pagination."""
+@app.route("/v1/toolcalls", methods=["GET"])
+def list_tool_calls(request):
+    """List ToolCalls with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tool")
-    rows = _apply_filters(rows, params, ['name', 'description', 'schemaRef'])
+    rows = _query("ToolCall")
+    rows = _apply_filters(rows, params, ['name', 'args', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tools/<eid>", methods=["GET"])
-def get_tool(request, eid):
-    """Retrieve a Tool by id (supports ?expand=)."""
-    rows = _query("Tool", eid)
+@app.route("/v1/toolcalls/<eid>", methods=["GET"])
+def get_tool_call(request, eid):
+    """Retrieve a ToolCall by id (supports ?expand=)."""
+    rows = _query("ToolCall", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tools/<eid>", methods=["POST", "PATCH"])
-def update_tool(request, eid):
-    """Update a Tool."""
-    rows = _query("Tool", eid)
+@app.route("/v1/toolcalls/<eid>", methods=["POST", "PATCH"])
+def update_tool_call(request, eid):
+    """Update a ToolCall."""
+    rows = _query("ToolCall", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'schemaRef'])
+    err = _reject_unknown(data, ['name', 'args', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['tool_call']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['tool_call']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tool", rec)
+    _persist("ToolCall", rec)
     return rec, 200
 
-@app.route("/v1/tools/<eid>", methods=["DELETE"])
-def delete_tool(request, eid):
-    """Delete a Tool."""
-    rows = _query("Tool", eid)
+@app.route("/v1/toolcalls/<eid>", methods=["DELETE"])
+def delete_tool_call(request, eid):
+    """Delete a ToolCall."""
+    rows = _query("ToolCall", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Tool", "id": eid})
+    db.retract({"entity": f"langchain.ToolCall", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/memories", methods=["POST"])
-def create_memory(request):
-    """Create a Memory."""
+@app.route("/v1/usagemetadatas", methods=["POST"])
+def create_usage_metadata(request):
+    """Create a UsageMetadata."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['agentId', 'kind', 'contentRef'])
+    err = _reject_unknown(data, ['inputTokens', 'outputTokens', 'totalTokens', 'inputTokenDetails', 'outputTokenDetails'])
     if err:
         return err, 400
-    err = _require(data, ['kind'])
+    err = _require(data, ['inputTokens', 'outputTokens'])
     if err:
         return err, 400
-    rec = {"id": new_id("langchai_mem")}
-    rec["agentId"] = data.get('agentId')
-    rec["kind"] = data.get('kind')
-    rec["contentRef"] = data.get('contentRef')
+    rec = {"id": new_id("langchai_usa")}
+    rec["inputTokens"] = _as_int(data.get('inputTokens'))
+    rec["outputTokens"] = _as_int(data.get('outputTokens'))
+    rec["totalTokens"] = _as_int(data.get('totalTokens'))
+    rec["inputTokenDetails"] = data.get('inputTokenDetails')
+    rec["outputTokenDetails"] = data.get('outputTokenDetails')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Memory", rec)
+    _persist("UsageMetadata", rec)
     return rec, 201
 
-@app.route("/v1/memories", methods=["GET"])
-def list_memories(request):
-    """List Memories with filtering + cursor pagination."""
+@app.route("/v1/usagemetadatas", methods=["GET"])
+def list_usage_metadatas(request):
+    """List UsageMetadatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Memory")
-    rows = _apply_filters(rows, params, ['agentId', 'kind', 'contentRef'])
+    rows = _query("UsageMetadata")
+    rows = _apply_filters(rows, params, ['inputTokens', 'outputTokens', 'totalTokens', 'inputTokenDetails', 'outputTokenDetails'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/memories/<eid>", methods=["GET"])
-def get_memory(request, eid):
-    """Retrieve a Memory by id (supports ?expand=)."""
-    rows = _query("Memory", eid)
+@app.route("/v1/usagemetadatas/<eid>", methods=["GET"])
+def get_usage_metadata(request, eid):
+    """Retrieve a UsageMetadata by id (supports ?expand=)."""
+    rows = _query("UsageMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'agentId': 'Agent'})
     return rec, 200
 
-@app.route("/v1/memories/<eid>", methods=["POST", "PATCH"])
-def update_memory(request, eid):
-    """Update a Memory."""
-    rows = _query("Memory", eid)
+@app.route("/v1/usagemetadatas/<eid>", methods=["POST", "PATCH"])
+def update_usage_metadata(request, eid):
+    """Update a UsageMetadata."""
+    rows = _query("UsageMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['agentId', 'kind', 'contentRef'])
+    err = _reject_unknown(data, ['inputTokens', 'outputTokens', 'totalTokens', 'inputTokenDetails', 'outputTokenDetails'])
     if err:
         return err, 400
     rec = rows[0]
@@ -429,65 +451,71 @@ def update_memory(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Memory", rec)
+    _persist("UsageMetadata", rec)
     return rec, 200
 
-@app.route("/v1/memories/<eid>", methods=["DELETE"])
-def delete_memory(request, eid):
-    """Delete a Memory."""
-    rows = _query("Memory", eid)
+@app.route("/v1/usagemetadatas/<eid>", methods=["DELETE"])
+def delete_usage_metadata(request, eid):
+    """Delete a UsageMetadata."""
+    rows = _query("UsageMetadata", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Memory", "id": eid})
+    db.retract({"entity": f"langchain.UsageMetadata", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/plans", methods=["POST"])
-def create_plan(request):
-    """Create a Plan."""
+@app.route("/v1/logentries", methods=["POST"])
+def create_log_entry(request):
+    """Create a LogEntry."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['taskId', 'steps', 'status'])
+    err = _reject_unknown(data, ['name', 'type', 'tags', 'metadata', 'startTime', 'streamedOutputStr', 'streamedOutput', 'inputs', 'finalOutput', 'endTime'])
     if err:
         return err, 400
-    err = _require(data, ['steps', 'status'])
+    err = _require(data, ['name', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("langchai_pla")}
-    rec["taskId"] = data.get('taskId')
-    rec["steps"] = data.get('steps')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("langchai_log")}
+    rec["name"] = data.get('name')
+    rec["type"] = data.get('type')
+    rec["tags"] = data.get('tags')
+    rec["metadata"] = data.get('metadata')
+    rec["startTime"] = data.get('startTime')
+    rec["streamedOutputStr"] = data.get('streamedOutputStr')
+    rec["streamedOutput"] = data.get('streamedOutput')
+    rec["inputs"] = data.get('inputs')
+    rec["finalOutput"] = data.get('finalOutput')
+    rec["endTime"] = data.get('endTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Plan", rec)
+    _persist("LogEntry", rec)
     return rec, 201
 
-@app.route("/v1/plans", methods=["GET"])
-def list_plans(request):
-    """List Plans with filtering + cursor pagination."""
+@app.route("/v1/logentries", methods=["GET"])
+def list_log_entries(request):
+    """List LogEntries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Plan")
-    rows = _apply_filters(rows, params, ['taskId', 'steps', 'status'])
+    rows = _query("LogEntry")
+    rows = _apply_filters(rows, params, ['name', 'type', 'tags', 'metadata', 'startTime', 'streamedOutputStr', 'streamedOutput', 'inputs', 'finalOutput', 'endTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/plans/<eid>", methods=["GET"])
-def get_plan(request, eid):
-    """Retrieve a Plan by id (supports ?expand=)."""
-    rows = _query("Plan", eid)
+@app.route("/v1/logentries/<eid>", methods=["GET"])
+def get_log_entry(request, eid):
+    """Retrieve a LogEntry by id (supports ?expand=)."""
+    rows = _query("LogEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'taskId': 'Task'})
     return rec, 200
 
-@app.route("/v1/plans/<eid>", methods=["POST", "PATCH"])
-def update_plan(request, eid):
-    """Update a Plan."""
-    rows = _query("Plan", eid)
+@app.route("/v1/logentries/<eid>", methods=["POST", "PATCH"])
+def update_log_entry(request, eid):
+    """Update a LogEntry."""
+    rows = _query("LogEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['taskId', 'steps', 'status'])
+    err = _reject_unknown(data, ['name', 'type', 'tags', 'metadata', 'startTime', 'streamedOutputStr', 'streamedOutput', 'inputs', 'finalOutput', 'endTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +523,22 @@ def update_plan(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Plan", rec)
+    _persist("LogEntry", rec)
     return rec, 200
 
-@app.route("/v1/plans/<eid>", methods=["DELETE"])
-def delete_plan(request, eid):
-    """Delete a Plan."""
-    rows = _query("Plan", eid)
+@app.route("/v1/logentries/<eid>", methods=["DELETE"])
+def delete_log_entry(request, eid):
+    """Delete a LogEntry."""
+    rows = _query("LogEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"langchain.Plan", "id": eid})
+    db.retract({"entity": f"langchain.LogEntry", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "langchain-compat", "tier": "L4",
-            "entities": ['Agent', 'Task', 'Message', 'Tool', 'Memory', 'Plan']}, 200
+            "entities": ['BaseMessage', 'AIMessage', 'ToolMessage', 'ToolCall', 'UsageMetadata', 'LogEntry']}, 200
 
 
 if __name__ == "__main__":

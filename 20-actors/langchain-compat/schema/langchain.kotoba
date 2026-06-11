@@ -3,70 +3,75 @@
 
 namespace langchain {
 
-    entity Agent {
+    entity BaseMessage {
         id: string @unique
-        name: string
-        role: string
-        modelRef: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Task {
-        id: string @unique
-        agentId: string
-        goal: string
-        status: string
-        priority: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        fromAgentId: string
-        toAgentId: string
-        performative: string
         content: string
+        additionalKwargs: string
+        responseMetadata: string
+        type: string
+        name: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Tool {
+    entity AIMessage {
+        id: string @unique
+        content: string
+        type: string
+        name: string
+        toolCalls: string
+        invalidToolCalls: string
+        usageMetadata: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ToolMessage {
+        id: string @unique
+        content: string
+        type: string
+        name: string
+        toolCallId: string
+        artifact: string
+        status: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ToolCall {
         id: string @unique
         name: string
-        description: string
-        schemaRef: string
+        args: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Memory {
+    entity UsageMetadata {
         id: string @unique
-        agentId: string
-        kind: string
-        contentRef: string
+        inputTokens: integer
+        outputTokens: integer
+        totalTokens: integer
+        inputTokenDetails: string
+        outputTokenDetails: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Plan {
+    entity LogEntry {
         id: string @unique
-        taskId: string
-        steps: string
-        status: string
+        name: string
+        type: string
+        tags: string
+        metadata: string
+        startTime: datetime
+        streamedOutputStr: string
+        streamedOutput: string
+        inputs: string
+        finalOutput: string
+        endTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

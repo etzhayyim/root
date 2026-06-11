@@ -2437,6 +2437,46 @@ PLATFORM_OVERRIDES = {
         "SpaceInfo": E(author="string", sha="string", private="boolean", sdk="string", likes="integer", host="string", subdomain="string", gated="string"),
         "TransformersInfo": E(autoModel="string", customClass="string", pipelineTag="string", processor="string"),
     },
+    # Faithful DJI Onboard SDK model (official dji-sdk/Onboard-SDK headers — repo
+    # dormant since 2024-02 / OSDK discontinued by DJI, freezing its enums).
+    # flight (3, incl. DJI's literal STOPED spelling) + gear (LandingGearMode, 9)
+    # enforced as integers per telemetry encoding. DisplayMode (30 of 44 members
+    # are MODE_RESERVED_n placeholders) gapped as reserved-slot-bearing; error
+    # codes extension-bearing -> gapped. GPSDetail keeps DJI's verbatim member
+    # casing (usedGPS/usedGLN/NSV/GPScounter).
+    "dji_onboard_sdk": {
+        "Status": E(flight="integer", mode="integer", gear="integer", error="integer"),
+        "Battery": E(capacity="integer", voltage="integer", current="integer", percentage="integer"),
+        "GlobalPosition": E(latitude="float", longitude="float", altitude="float", height="float", health="integer"),
+        "GPSDetail": E(hdop="float", pdop="float", fix="float", gnssStatus="float", hacc="float", sacc="float", usedGPS="integer", usedGLN="integer", NSV="integer", GPScounter="integer"),
+        "FlightAnomaly": E(impactInAir="boolean", randomFly="boolean", heightCtrlFail="boolean", rollPitchCtrlFail="boolean", yawCtrlFail="boolean", aircraftIsFalling="boolean", strongWindLevel1="boolean", strongWindLevel2="boolean", compassInstallationError="boolean", imuInstallationError="boolean"),
+    },
+    # Faithful Helium model (official helium/proto protobufs — the L1 chain
+    # migrated to Solana in 2023, freezing these protos). LoRa PHY parameter enums
+    # (Spreading/Bandwidth/Coderate/RegionSpreading) are physics-anchored closed
+    # sets; packet.type + poc origin are tiny frozen sets. region + token_type
+    # grew historically -> gapped.
+    "helium": {
+        "Packet": E(oui="integer", payload="string", timestamp="integer", signalStrength="float", frequency="float", datarate="string", snr="float", type="string"),
+        "BlockchainPocReceiptV1": E(gateway="string", timestamp="integer", signal="integer", data="string", origin="string", signature="string", snr="float", frequency="float", channel="integer", datarate="string", addrHash="string", txPower="integer", rewardShares="integer"),
+        "RadioTxReq": E(freq="integer", power="integer", invertPolarity="boolean", omitCrc="boolean", implicitHeader="boolean", payload="string", radio="string", bandwidth="string", spreading="string", coderate="string"),
+        "TaggedSpreading": E(regionSpreading="string", maxPacketSize="integer"),
+        "BlockchainBlockV1": E(prevHash="string", height="integer", time="integer", hbbftRound="integer", electionEpoch="integer", epochStart="integer", rescueSignature="string", bbaCompletion="string", snapshotHash="string"),
+        "Payment": E(payee="string", amount="integer", memo="integer", max="boolean", tokenType="string"),
+    },
+    # Faithful LangChain core message model (official langchain-ai/langchain
+    # libs/core typed sources). Per-class type Literals ('ai'/'tool'/'tool_call')
+    # + ToolMessage.status Literal['success','error'] enforced; BaseMessage.type
+    # is per-subclass (extension-bearing) and LogEntry.type is the open run-type
+    # registry -> both gapped.
+    "langchain": {
+        "BaseMessage": E(content="string", additionalKwargs="string", responseMetadata="string", type="string", name="string"),
+        "AIMessage": E(content="string", type="string", name="string", toolCalls="string", invalidToolCalls="string", usageMetadata="string"),
+        "ToolMessage": E(content="string", type="string", name="string", toolCallId="string", artifact="string", status="string"),
+        "ToolCall": E(name="string", args="string", type="string"),
+        "UsageMetadata": E(inputTokens="integer", outputTokens="integer", totalTokens="integer", inputTokenDetails="string", outputTokenDetails="string"),
+        "LogEntry": E(name="string", type="string", tags="string", metadata="string", startTime="datetime", streamedOutputStr="string", streamedOutput="string", inputs="string", finalOutput="string", endTime="datetime"),
+    },
 }
 
 # ---------------------------------------------------------------------------

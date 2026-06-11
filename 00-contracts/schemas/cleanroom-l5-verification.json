@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 171,
+  "count": 174,
   "actors": [
     {
       "handle": "aave-compat",
@@ -6427,6 +6427,115 @@
       ]
     },
     {
+      "handle": "dji_onboard_sdk-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/dji-sdk/Onboard-SDK (osdk-core/api/inc headers; repo dormant since 2024-02, OSDK discontinued by DJI)",
+      "remodeled": "Remodeled to the faithful DJI OSDK telemetry surface verified against the official headers. Repo dormancy (no push since 2024-02; DJI discontinued OSDK) freezes the enum sets — closed-by-discontinuation, the FIPA-class anchor that actually fetched. flight {STOPED(DJI's own spelling), ON_GROUND, IN_AIR} + gear (LandingGearMode 0-8) enforced as integers per uint8 telemetry encoding. DisplayMode gapped: 30 of its 44 members are MODE_RESERVED_n placeholders — enforcing a reserved-slot-bearing set asserts meaning the vendor never assigned. gemini-CLI-drafted; every enum + struct re-verified from the cached headers (GPSDetail keeps DJI's verbatim usedGPS/usedGLN/NSV/GPScounter casing).",
+      "resources": [
+        {
+          "entity": "Status",
+          "source": "https://raw.githubusercontent.com/dji-sdk/Onboard-SDK/master/osdk-core/api/inc/dji_status.hpp",
+          "verifiedFields": [
+            "flight",
+            "mode",
+            "gear",
+            "error"
+          ],
+          "fieldStatus": "confirmed (VehicleStatus namespaces); mode reserved-slot-bearing + error extension-bearing -> gapped",
+          "discoveredEnums": {
+            "flight": [
+              0,
+              1,
+              2
+            ],
+            "gear": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "gaps": [
+            "mode-reserved-slot-bearing (30/44 MODE_RESERVED_n)",
+            "error-extension-bearing (per-device error tables)"
+          ]
+        },
+        {
+          "entity": "Battery",
+          "source": "https://raw.githubusercontent.com/dji-sdk/Onboard-SDK/master/osdk-core/api/inc/dji_telemetry.hpp",
+          "verifiedFields": [
+            "capacity",
+            "voltage",
+            "current",
+            "percentage"
+          ],
+          "fieldStatus": "confirmed (uint32/int32/int32/uint8)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GlobalPosition",
+          "source": "https://raw.githubusercontent.com/dji-sdk/Onboard-SDK/master/osdk-core/api/inc/dji_telemetry.hpp",
+          "verifiedFields": [
+            "latitude",
+            "longitude",
+            "altitude",
+            "height",
+            "health"
+          ],
+          "fieldStatus": "confirmed (float64 rad / float32 / uint8 0-5)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GPSDetail",
+          "source": "https://raw.githubusercontent.com/dji-sdk/Onboard-SDK/master/osdk-core/api/inc/dji_telemetry.hpp",
+          "verifiedFields": [
+            "hdop",
+            "pdop",
+            "fix",
+            "gnssStatus",
+            "hacc",
+            "sacc",
+            "usedGPS",
+            "usedGLN",
+            "NSV",
+            "GPScounter"
+          ],
+          "fieldStatus": "confirmed verbatim member casing (NOT camelized — source fidelity)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "FlightAnomaly",
+          "source": "https://raw.githubusercontent.com/dji-sdk/Onboard-SDK/master/osdk-core/api/inc/dji_telemetry.hpp",
+          "verifiedFields": [
+            "impactInAir",
+            "randomFly",
+            "heightCtrlFail",
+            "rollPitchCtrlFail",
+            "yawCtrlFail",
+            "aircraftIsFalling",
+            "strongWindLevel1",
+            "strongWindLevel2",
+            "compassInstallationError",
+            "imuInstallationError"
+          ],
+          "fieldStatus": "confirmed (uint32:1 bitfields modeled as booleans); reserved bits not modeled",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official Onboard-SDK headers. Enforced enums: Status.flight(3, STOPED spelling preserved) + Status.gear(9) = 2 enum fields, anchored on repo discontinuation. DisplayMode refused as reserved-slot-bearing — a NEW gap class this wave."
+    },
+    {
       "handle": "dns_root_zone-compat",
       "verifiedAt": "2026-06-10",
       "tier": "L5",
@@ -9808,6 +9917,172 @@
       "note": "FULLY VERIFIED (6/6) vs official Gusto SDK. Enforced enums: Employee.onboardingStatus/paymentMethod/flsaStatus, Company.status/entityType/tier, Compensation.paymentUnit/flsaStatus, Contractor.wageType/contractorType, Payroll.offCycleReason (11)."
     },
     {
+      "handle": "helium-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/helium/proto (src/*.proto; L1 chain migrated to Solana 2023, protos frozen)",
+      "remodeled": "Remodeled to the faithful Helium protobuf surface verified against the official helium/proto sources. The LoRa PHY parameter enums (Spreading SF7-SF12, Bandwidth 7.8-500kHz, Coderate 4/5-4/8, RegionSpreading) are physics-anchored closed sets — the spreading-factor/bandwidth/coding-rate lattice is fixed by the LoRa PHY itself; packet.type {longfi, lorawan} and poc origin {p2p, radio} are tiny frozen sets. region (grew to 28 members with deprecations) + token_type gapped as version-grown. gemini-CLI-drafted (14 protos fetched); every enum machine-matched against the cached protos.",
+      "resources": [
+        {
+          "entity": "Packet",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/packet.proto",
+          "verifiedFields": [
+            "oui",
+            "payload",
+            "timestamp",
+            "signalStrength",
+            "frequency",
+            "datarate",
+            "snr",
+            "type"
+          ],
+          "fieldStatus": "confirmed (snake_case->camelCase)",
+          "discoveredEnums": {
+            "type": [
+              "longfi",
+              "lorawan"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BlockchainPocReceiptV1",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/blockchain_poc_core_v1.proto",
+          "verifiedFields": [
+            "gateway",
+            "timestamp",
+            "signal",
+            "data",
+            "origin",
+            "signature",
+            "snr",
+            "frequency",
+            "channel",
+            "datarate",
+            "addrHash",
+            "txPower",
+            "rewardShares"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "origin": [
+              "p2p",
+              "radio"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "RadioTxReq",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/radio.proto",
+          "verifiedFields": [
+            "freq",
+            "power",
+            "invertPolarity",
+            "omitCrc",
+            "implicitHeader",
+            "payload",
+            "radio",
+            "bandwidth",
+            "spreading",
+            "coderate"
+          ],
+          "fieldStatus": "confirmed (uint32 freq / int32 power dBm)",
+          "discoveredEnums": {
+            "radio": [
+              "R0",
+              "R1"
+            ],
+            "bandwidth": [
+              "BW_UNDEFINED",
+              "BW7_8kHz",
+              "BW15_6kHz",
+              "BW31_2kHz",
+              "BW62_5kHz",
+              "BW125kHz",
+              "BW250kHz",
+              "BW500kHz"
+            ],
+            "spreading": [
+              "SF_UNDEFINED",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ],
+            "coderate": [
+              "CR_UNDEFINED",
+              "CR4_5",
+              "CR4_6",
+              "CR4_7",
+              "CR4_8"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "TaggedSpreading",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/blockchain_region_param_v1.proto",
+          "verifiedFields": [
+            "regionSpreading",
+            "maxPacketSize"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "regionSpreading": [
+              "SF_INVALID",
+              "SF7",
+              "SF8",
+              "SF9",
+              "SF10",
+              "SF11",
+              "SF12"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "BlockchainBlockV1",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/blockchain_block_v1.proto",
+          "verifiedFields": [
+            "prevHash",
+            "height",
+            "time",
+            "hbbftRound",
+            "electionEpoch",
+            "epochStart",
+            "rescueSignature",
+            "bbaCompletion",
+            "snapshotHash"
+          ],
+          "fieldStatus": "confirmed (repeated txn/signature/vote fields not modeled)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Payment",
+          "source": "https://raw.githubusercontent.com/helium/proto/master/src/blockchain_txn_payment_v2.proto",
+          "verifiedFields": [
+            "payee",
+            "amount",
+            "memo",
+            "max",
+            "tokenType"
+          ],
+          "fieldStatus": "confirmed; token_type version-grown -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "tokenType-version-growing",
+            "region-enum-version-grown-28-members-not-enforced"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official helium/proto. Enforced enums: Packet.type(2), BlockchainPocReceiptV1.origin(2), RadioTxReq radio(2)+bandwidth(8)+spreading(7)+coderate(5), TaggedSpreading.regionSpreading(7) = 7 enum fields — the largest physics-anchored haul in the corpus (LoRa PHY lattice)."
+    },
+    {
       "handle": "heroku-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -11584,6 +11859,126 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Kubernetes OpenAPI. Enforced enums: Pod.phase(5)/restartPolicy(3), Service.type(4), Namespace.phase(2), PersistentVolume.phase(4) = 5 enums."
+    },
+    {
+      "handle": "langchain-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/*.py + https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/tracers/log_stream.py (official langchain-ai/langchain libs/core)",
+      "remodeled": "Remodeled to the faithful LangChain core message surface verified against the official typed sources. Per-class discriminator Literals enforced (AIMessage.type ['ai'], ToolMessage.type ['tool'], ToolCall.type ['tool_call']) + ToolMessage.status Literal['success','error']. BaseMessage.type is per-subclass open (extension-bearing) and LogEntry.type is the open run-type registry ('prompt'/'chain'/'llm'/...) -> both gapped. gemini-CLI-drafted (10 sources incl. directory listings — no guessed paths); fields re-verified incl. UsageMetadata TypedDict keys and LogEntry TypedDict.",
+      "resources": [
+        {
+          "entity": "BaseMessage",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/base.py",
+          "verifiedFields": [
+            "content",
+            "additionalKwargs",
+            "responseMetadata",
+            "type",
+            "name"
+          ],
+          "fieldStatus": "confirmed (pydantic annotations; dict fields modeled as string)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-extension-bearing (per-subclass Literal)"
+          ]
+        },
+        {
+          "entity": "AIMessage",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/ai.py",
+          "verifiedFields": [
+            "content",
+            "type",
+            "name",
+            "toolCalls",
+            "invalidToolCalls",
+            "usageMetadata"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "ai"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ToolMessage",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/tool.py",
+          "verifiedFields": [
+            "content",
+            "type",
+            "name",
+            "toolCallId",
+            "artifact",
+            "status"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "type": [
+              "tool"
+            ],
+            "status": [
+              "success",
+              "error"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ToolCall",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/tool.py",
+          "verifiedFields": [
+            "name",
+            "args",
+            "type"
+          ],
+          "fieldStatus": "confirmed (TypedDict; type NotRequired Literal)",
+          "discoveredEnums": {
+            "type": [
+              "tool_call"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "UsageMetadata",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/ai.py",
+          "verifiedFields": [
+            "inputTokens",
+            "outputTokens",
+            "totalTokens",
+            "inputTokenDetails",
+            "outputTokenDetails"
+          ],
+          "fieldStatus": "confirmed (TypedDict; details keys added in langchain-core 0.3.9 per upstream changelog note)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "LogEntry",
+          "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/tracers/log_stream.py",
+          "verifiedFields": [
+            "name",
+            "type",
+            "tags",
+            "metadata",
+            "startTime",
+            "streamedOutputStr",
+            "streamedOutput",
+            "inputs",
+            "finalOutput",
+            "endTime"
+          ],
+          "fieldStatus": "confirmed (TypedDict)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-open-registry (run types: prompt/chain/llm/...)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs official langchain_core typed sources. Enforced enums: AIMessage.type(1), ToolMessage.type(1)+status(2), ToolCall.type(1) = 4 enum fields (discriminator Literals)."
     },
     {
       "handle": "launchdarkly-compat",

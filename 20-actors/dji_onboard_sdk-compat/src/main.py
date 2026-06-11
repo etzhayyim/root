@@ -111,119 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/drones", methods=["POST"])
-def create_drone(request):
-    """Create a Drone."""
+@app.route("/v1/statuses", methods=["POST"])
+def create_status(request):
+    """Create a Status."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'batteryPct', 'status'])
+    err = _reject_unknown(data, ['flight', 'mode', 'gear', 'error'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'model'])
+    err = _require(data, ['flight', 'mode'])
     if err:
         return err, 400
-    rec = {"id": new_id("djionboa_dro")}
-    rec["serial"] = data.get('serial')
-    rec["model"] = data.get('model')
-    rec["batteryPct"] = _as_float(data.get('batteryPct'))
-    rec["status"] = data.get('status')
+    if data.get('flight') and data['flight'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid flight; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('gear') and data['gear'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid gear; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("djionboa_sta")}
+    rec["flight"] = _as_int(data.get('flight'))
+    rec["mode"] = _as_int(data.get('mode'))
+    rec["gear"] = _as_int(data.get('gear'))
+    rec["error"] = _as_int(data.get('error'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Drone", rec)
+    _persist("Status", rec)
     return rec, 201
 
-@app.route("/v1/drones", methods=["GET"])
-def list_drones(request):
-    """List Drones with filtering + cursor pagination."""
+@app.route("/v1/statuses", methods=["GET"])
+def list_statuses(request):
+    """List Statuses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Drone")
-    rows = _apply_filters(rows, params, ['serial', 'model', 'batteryPct', 'status'])
+    rows = _query("Status")
+    rows = _apply_filters(rows, params, ['flight', 'mode', 'gear', 'error'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/drones/<eid>", methods=["GET"])
-def get_drone(request, eid):
-    """Retrieve a Drone by id (supports ?expand=)."""
-    rows = _query("Drone", eid)
+@app.route("/v1/statuses/<eid>", methods=["GET"])
+def get_status(request, eid):
+    """Retrieve a Status by id (supports ?expand=)."""
+    rows = _query("Status", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/drones/<eid>", methods=["POST", "PATCH"])
-def update_drone(request, eid):
-    """Update a Drone."""
-    rows = _query("Drone", eid)
+@app.route("/v1/statuses/<eid>", methods=["POST", "PATCH"])
+def update_status(request, eid):
+    """Update a Status."""
+    rows = _query("Status", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'batteryPct', 'status'])
+    err = _reject_unknown(data, ['flight', 'mode', 'gear', 'error'])
     if err:
         return err, 400
+    if data.get('flight') and data['flight'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid flight; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('gear') and data['gear'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid gear; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Drone", rec)
+    _persist("Status", rec)
     return rec, 200
 
-@app.route("/v1/drones/<eid>", methods=["DELETE"])
-def delete_drone(request, eid):
-    """Delete a Drone."""
-    rows = _query("Drone", eid)
+@app.route("/v1/statuses/<eid>", methods=["DELETE"])
+def delete_status(request, eid):
+    """Delete a Status."""
+    rows = _query("Status", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Drone", "id": eid})
+    db.retract({"entity": f"dji_onboard_sdk.Status", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/missions", methods=["POST"])
-def create_mission(request):
-    """Create a Mission."""
+@app.route("/v1/batteries", methods=["POST"])
+def create_battery(request):
+    """Create a Battery."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'status'])
+    err = _reject_unknown(data, ['capacity', 'voltage', 'current', 'percentage'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'status'])
+    err = _require(data, ['capacity', 'voltage'])
     if err:
         return err, 400
-    rec = {"id": new_id("djionboa_mis")}
-    rec["droneId"] = data.get('droneId')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("djionboa_bat")}
+    rec["capacity"] = _as_int(data.get('capacity'))
+    rec["voltage"] = _as_int(data.get('voltage'))
+    rec["current"] = _as_int(data.get('current'))
+    rec["percentage"] = _as_int(data.get('percentage'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Mission", rec)
+    _persist("Battery", rec)
     return rec, 201
 
-@app.route("/v1/missions", methods=["GET"])
-def list_missions(request):
-    """List Missions with filtering + cursor pagination."""
+@app.route("/v1/batteries", methods=["GET"])
+def list_batteries(request):
+    """List Batteries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Mission")
-    rows = _apply_filters(rows, params, ['droneId', 'type', 'status'])
+    rows = _query("Battery")
+    rows = _apply_filters(rows, params, ['capacity', 'voltage', 'current', 'percentage'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/missions/<eid>", methods=["GET"])
-def get_mission(request, eid):
-    """Retrieve a Mission by id (supports ?expand=)."""
-    rows = _query("Mission", eid)
+@app.route("/v1/batteries/<eid>", methods=["GET"])
+def get_battery(request, eid):
+    """Retrieve a Battery by id (supports ?expand=)."""
+    rows = _query("Battery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
     return rec, 200
 
-@app.route("/v1/missions/<eid>", methods=["POST", "PATCH"])
-def update_mission(request, eid):
-    """Update a Mission."""
-    rows = _query("Mission", eid)
+@app.route("/v1/batteries/<eid>", methods=["POST", "PATCH"])
+def update_battery(request, eid):
+    """Update a Battery."""
+    rows = _query("Battery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'status'])
+    err = _reject_unknown(data, ['capacity', 'voltage', 'current', 'percentage'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,67 +239,66 @@ def update_mission(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Mission", rec)
+    _persist("Battery", rec)
     return rec, 200
 
-@app.route("/v1/missions/<eid>", methods=["DELETE"])
-def delete_mission(request, eid):
-    """Delete a Mission."""
-    rows = _query("Mission", eid)
+@app.route("/v1/batteries/<eid>", methods=["DELETE"])
+def delete_battery(request, eid):
+    """Delete a Battery."""
+    rows = _query("Battery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Mission", "id": eid})
+    db.retract({"entity": f"dji_onboard_sdk.Battery", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/waypoints", methods=["POST"])
-def create_waypoint(request):
-    """Create a Waypoint."""
+@app.route("/v1/globalpositions", methods=["POST"])
+def create_global_position(request):
+    """Create a GlobalPosition."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
+    err = _reject_unknown(data, ['latitude', 'longitude', 'altitude', 'height', 'health'])
     if err:
         return err, 400
-    err = _require(data, ['lat', 'lon'])
+    err = _require(data, ['latitude', 'longitude'])
     if err:
         return err, 400
-    rec = {"id": new_id("djionboa_way")}
-    rec["missionId"] = data.get('missionId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
-    rec["seq"] = _as_int(data.get('seq'))
+    rec = {"id": new_id("djionboa_glo")}
+    rec["latitude"] = _as_float(data.get('latitude'))
+    rec["longitude"] = _as_float(data.get('longitude'))
+    rec["altitude"] = _as_float(data.get('altitude'))
+    rec["height"] = _as_float(data.get('height'))
+    rec["health"] = _as_int(data.get('health'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Waypoint", rec)
+    _persist("GlobalPosition", rec)
     return rec, 201
 
-@app.route("/v1/waypoints", methods=["GET"])
-def list_waypoints(request):
-    """List Waypoints with filtering + cursor pagination."""
+@app.route("/v1/globalpositions", methods=["GET"])
+def list_global_positions(request):
+    """List GlobalPositions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Waypoint")
-    rows = _apply_filters(rows, params, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
+    rows = _query("GlobalPosition")
+    rows = _apply_filters(rows, params, ['latitude', 'longitude', 'altitude', 'height', 'health'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["GET"])
-def get_waypoint(request, eid):
-    """Retrieve a Waypoint by id (supports ?expand=)."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/globalpositions/<eid>", methods=["GET"])
+def get_global_position(request, eid):
+    """Retrieve a GlobalPosition by id (supports ?expand=)."""
+    rows = _query("GlobalPosition", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'missionId': 'Mission'})
     return rec, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["POST", "PATCH"])
-def update_waypoint(request, eid):
-    """Update a Waypoint."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/globalpositions/<eid>", methods=["POST", "PATCH"])
+def update_global_position(request, eid):
+    """Update a GlobalPosition."""
+    rows = _query("GlobalPosition", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
+    err = _reject_unknown(data, ['latitude', 'longitude', 'altitude', 'height', 'health'])
     if err:
         return err, 400
     rec = rows[0]
@@ -299,67 +306,71 @@ def update_waypoint(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Waypoint", rec)
+    _persist("GlobalPosition", rec)
     return rec, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["DELETE"])
-def delete_waypoint(request, eid):
-    """Delete a Waypoint."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/globalpositions/<eid>", methods=["DELETE"])
+def delete_global_position(request, eid):
+    """Delete a GlobalPosition."""
+    rows = _query("GlobalPosition", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Waypoint", "id": eid})
+    db.retract({"entity": f"dji_onboard_sdk.GlobalPosition", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/telemetries", methods=["POST"])
-def create_telemetry(request):
-    """Create a Telemetry."""
+@app.route("/v1/gpsdetails", methods=["POST"])
+def create_g_p_s_detail(request):
+    """Create a GPSDetail."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
+    err = _reject_unknown(data, ['hdop', 'pdop', 'fix', 'gnssStatus', 'hacc', 'sacc', 'usedGPS', 'usedGLN', 'NSV', 'GPScounter'])
     if err:
         return err, 400
-    err = _require(data, ['lat', 'lon'])
+    err = _require(data, ['hdop', 'pdop'])
     if err:
         return err, 400
-    rec = {"id": new_id("djionboa_tel")}
-    rec["droneId"] = data.get('droneId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
-    rec["recordedAt"] = data.get('recordedAt')
+    rec = {"id": new_id("djionboa_gps")}
+    rec["hdop"] = _as_float(data.get('hdop'))
+    rec["pdop"] = _as_float(data.get('pdop'))
+    rec["fix"] = _as_float(data.get('fix'))
+    rec["gnssStatus"] = _as_float(data.get('gnssStatus'))
+    rec["hacc"] = _as_float(data.get('hacc'))
+    rec["sacc"] = _as_float(data.get('sacc'))
+    rec["usedGPS"] = _as_int(data.get('usedGPS'))
+    rec["usedGLN"] = _as_int(data.get('usedGLN'))
+    rec["NSV"] = _as_int(data.get('NSV'))
+    rec["GPScounter"] = _as_int(data.get('GPScounter'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Telemetry", rec)
+    _persist("GPSDetail", rec)
     return rec, 201
 
-@app.route("/v1/telemetries", methods=["GET"])
-def list_telemetries(request):
-    """List Telemetries with filtering + cursor pagination."""
+@app.route("/v1/gpsdetails", methods=["GET"])
+def list_g_p_s_details(request):
+    """List GPSDetails with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Telemetry")
-    rows = _apply_filters(rows, params, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
+    rows = _query("GPSDetail")
+    rows = _apply_filters(rows, params, ['hdop', 'pdop', 'fix', 'gnssStatus', 'hacc', 'sacc', 'usedGPS', 'usedGLN', 'NSV', 'GPScounter'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["GET"])
-def get_telemetry(request, eid):
-    """Retrieve a Telemetry by id (supports ?expand=)."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/gpsdetails/<eid>", methods=["GET"])
+def get_g_p_s_detail(request, eid):
+    """Retrieve a GPSDetail by id (supports ?expand=)."""
+    rows = _query("GPSDetail", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
     return rec, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["POST", "PATCH"])
-def update_telemetry(request, eid):
-    """Update a Telemetry."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/gpsdetails/<eid>", methods=["POST", "PATCH"])
+def update_g_p_s_detail(request, eid):
+    """Update a GPSDetail."""
+    rows = _query("GPSDetail", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
+    err = _reject_unknown(data, ['hdop', 'pdop', 'fix', 'gnssStatus', 'hacc', 'sacc', 'usedGPS', 'usedGLN', 'NSV', 'GPScounter'])
     if err:
         return err, 400
     rec = rows[0]
@@ -367,65 +378,71 @@ def update_telemetry(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Telemetry", rec)
+    _persist("GPSDetail", rec)
     return rec, 200
 
-@app.route("/v1/telemetries/<eid>", methods=["DELETE"])
-def delete_telemetry(request, eid):
-    """Delete a Telemetry."""
-    rows = _query("Telemetry", eid)
+@app.route("/v1/gpsdetails/<eid>", methods=["DELETE"])
+def delete_g_p_s_detail(request, eid):
+    """Delete a GPSDetail."""
+    rows = _query("GPSDetail", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Telemetry", "id": eid})
+    db.retract({"entity": f"dji_onboard_sdk.GPSDetail", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/payloads", methods=["POST"])
-def create_payload(request):
-    """Create a Payload."""
+@app.route("/v1/flightanomalies", methods=["POST"])
+def create_flight_anomaly(request):
+    """Create a FlightAnomaly."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'weightKg'])
+    err = _reject_unknown(data, ['impactInAir', 'randomFly', 'heightCtrlFail', 'rollPitchCtrlFail', 'yawCtrlFail', 'aircraftIsFalling', 'strongWindLevel1', 'strongWindLevel2', 'compassInstallationError', 'imuInstallationError'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'weightKg'])
+    err = _require(data, ['impactInAir', 'randomFly'])
     if err:
         return err, 400
-    rec = {"id": new_id("djionboa_pay")}
-    rec["droneId"] = data.get('droneId')
-    rec["type"] = data.get('type')
-    rec["weightKg"] = _as_float(data.get('weightKg'))
+    rec = {"id": new_id("djionboa_fli")}
+    rec["impactInAir"] = _as_bool(data.get('impactInAir'))
+    rec["randomFly"] = _as_bool(data.get('randomFly'))
+    rec["heightCtrlFail"] = _as_bool(data.get('heightCtrlFail'))
+    rec["rollPitchCtrlFail"] = _as_bool(data.get('rollPitchCtrlFail'))
+    rec["yawCtrlFail"] = _as_bool(data.get('yawCtrlFail'))
+    rec["aircraftIsFalling"] = _as_bool(data.get('aircraftIsFalling'))
+    rec["strongWindLevel1"] = _as_bool(data.get('strongWindLevel1'))
+    rec["strongWindLevel2"] = _as_bool(data.get('strongWindLevel2'))
+    rec["compassInstallationError"] = _as_bool(data.get('compassInstallationError'))
+    rec["imuInstallationError"] = _as_bool(data.get('imuInstallationError'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Payload", rec)
+    _persist("FlightAnomaly", rec)
     return rec, 201
 
-@app.route("/v1/payloads", methods=["GET"])
-def list_payloads(request):
-    """List Payloads with filtering + cursor pagination."""
+@app.route("/v1/flightanomalies", methods=["GET"])
+def list_flight_anomalies(request):
+    """List FlightAnomalies with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Payload")
-    rows = _apply_filters(rows, params, ['droneId', 'type', 'weightKg'])
+    rows = _query("FlightAnomaly")
+    rows = _apply_filters(rows, params, ['impactInAir', 'randomFly', 'heightCtrlFail', 'rollPitchCtrlFail', 'yawCtrlFail', 'aircraftIsFalling', 'strongWindLevel1', 'strongWindLevel2', 'compassInstallationError', 'imuInstallationError'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/payloads/<eid>", methods=["GET"])
-def get_payload(request, eid):
-    """Retrieve a Payload by id (supports ?expand=)."""
-    rows = _query("Payload", eid)
+@app.route("/v1/flightanomalies/<eid>", methods=["GET"])
+def get_flight_anomaly(request, eid):
+    """Retrieve a FlightAnomaly by id (supports ?expand=)."""
+    rows = _query("FlightAnomaly", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
     return rec, 200
 
-@app.route("/v1/payloads/<eid>", methods=["POST", "PATCH"])
-def update_payload(request, eid):
-    """Update a Payload."""
-    rows = _query("Payload", eid)
+@app.route("/v1/flightanomalies/<eid>", methods=["POST", "PATCH"])
+def update_flight_anomaly(request, eid):
+    """Update a FlightAnomaly."""
+    rows = _query("FlightAnomaly", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'weightKg'])
+    err = _reject_unknown(data, ['impactInAir', 'randomFly', 'heightCtrlFail', 'rollPitchCtrlFail', 'yawCtrlFail', 'aircraftIsFalling', 'strongWindLevel1', 'strongWindLevel2', 'compassInstallationError', 'imuInstallationError'])
     if err:
         return err, 400
     rec = rows[0]
@@ -433,87 +450,22 @@ def update_payload(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Payload", rec)
+    _persist("FlightAnomaly", rec)
     return rec, 200
 
-@app.route("/v1/payloads/<eid>", methods=["DELETE"])
-def delete_payload(request, eid):
-    """Delete a Payload."""
-    rows = _query("Payload", eid)
+@app.route("/v1/flightanomalies/<eid>", methods=["DELETE"])
+def delete_flight_anomaly(request, eid):
+    """Delete a FlightAnomaly."""
+    rows = _query("FlightAnomaly", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Payload", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/swarms", methods=["POST"])
-def create_swarm(request):
-    """Create a Swarm."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'droneCount', 'leaderId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'droneCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("djionboa_swa")}
-    rec["name"] = data.get('name')
-    rec["droneCount"] = _as_int(data.get('droneCount'))
-    rec["leaderId"] = data.get('leaderId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Swarm", rec)
-    return rec, 201
-
-@app.route("/v1/swarms", methods=["GET"])
-def list_swarms(request):
-    """List Swarms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Swarm")
-    rows = _apply_filters(rows, params, ['name', 'droneCount', 'leaderId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/swarms/<eid>", methods=["GET"])
-def get_swarm(request, eid):
-    """Retrieve a Swarm by id (supports ?expand=)."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/swarms/<eid>", methods=["POST", "PATCH"])
-def update_swarm(request, eid):
-    """Update a Swarm."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'droneCount', 'leaderId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Swarm", rec)
-    return rec, 200
-
-@app.route("/v1/swarms/<eid>", methods=["DELETE"])
-def delete_swarm(request, eid):
-    """Delete a Swarm."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"dji_onboard_sdk.Swarm", "id": eid})
+    db.retract({"entity": f"dji_onboard_sdk.FlightAnomaly", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "dji_onboard_sdk-compat", "tier": "L4",
-            "entities": ['Drone', 'Mission', 'Waypoint', 'Telemetry', 'Payload', 'Swarm']}, 200
+            "entities": ['Status', 'Battery', 'GlobalPosition', 'GPSDetail', 'FlightAnomaly']}, 200
 
 
 if __name__ == "__main__":

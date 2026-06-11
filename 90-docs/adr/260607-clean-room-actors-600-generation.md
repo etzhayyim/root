@@ -466,3 +466,17 @@ __deprecatedVirtualUnderlyingBalance claim was initially mis-suspected
 because the harness's own grep window truncated the struct — the field is
 real (DataTypes.sol L78). Verification windows must cover the whole struct
 before refuting; refutation needs the same rigor as enforcement.
+
+### §16.2 /loop iteration 2 — wave 3 reaches 174 (17.4%)
+
+dji_onboard_sdk + helium + langchain → ledger **174** (826 L4 / 174 L5 =
+17.4%), enforced-enum actors 169, enforced enum fields **734** (+13: DJI 2 /
+helium 7 / langchain 4), verify PASS 0/0, 3/3 contract suites green.
+blender's research run hit gemini quota churn and carries to the next
+iteration (stays L4; not a defer).
+
+| Actor | Anchor | Enforced / gapped highlights |
+|---|---|---|
+| dji_onboard_sdk | closed-by-discontinuation (repo dormant 2024-02, OSDK discontinued) | flight(3, DJI's literal STOPED) + gear(9) as integers; **NEW gap class: reserved-slot-bearing** — DisplayMode's 30/44 MODE_RESERVED_n placeholders refused (enforcing them asserts meaning the vendor never assigned); GPSDetail keeps verbatim usedGPS/usedGLN/NSV/GPScounter casing |
+| helium | protos frozen by the 2023 Solana migration + physics-anchored LoRa PHY | the largest physics-anchored haul: Spreading(7)/Bandwidth(8)/Coderate(5)/RegionSpreading(7) + packet.type(2) + origin(2) = 7 enum fields; region (28 members, deprecations) + token_type version-grown → gapped |
+| langchain | typed discriminator Literals in official sources | AIMessage.type/ToolMessage.type/ToolCall.type (1 each) + ToolMessage.status(2); BaseMessage.type extension-bearing + LogEntry.type open-registry → gapped; directory-listing-first fetching (no guessed paths) |

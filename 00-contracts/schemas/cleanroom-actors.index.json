@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 829,
-    "L5": 171
+    "L4": 826,
+    "L5": 174
   },
   "actors": [
     {
@@ -4535,10 +4535,10 @@
     {
       "handle": "dji_onboard_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:dji_onboard_sdk-compat",
-      "wasmCid": "bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
+      "wasmCid": "bafkreiao65fsp7rm6wcc7nrqhi3vdavnfo2aydjz7x2nkkpqjnxyp7jixm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dji_onboard_sdk clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
@@ -7346,7 +7346,7 @@
       "wasmCid": "bafkreigmgl5xoh32pr4qvqghh2nolbrrixdb3i5nlpupeqlrgrfwveur4u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "helium clean-room actor",
       "category": "iot_edge",
       "capabilities": [
@@ -9200,7 +9200,7 @@
       "wasmCid": "bafkreict6r3yicwe3kzbxzpcfdwyyzxj5ygqmb7mfeilkcnkz5ur3uatai",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "langchain clean-room actor",
       "category": "agent_protocol",
       "capabilities": [

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29565,
+  "totalEndpoints": 29560,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 166,
-  "totalVerifiedEnumFields": 721,
+  "l5VerifiedActors": 169,
+  "totalVerifiedEnumFields": 734,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -4783,10 +4783,10 @@
     {
       "handle": "dji_onboard_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:dji_onboard_sdk-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreiao65fsp7rm6wcc7nrqhi3vdavnfo2aydjz7x2nkkpqjnxyp7jixm",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -4795,8 +4795,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/dji_onboard_sdk-compat/openapi.json"
     },
     {
@@ -7747,7 +7747,7 @@
     {
       "handle": "helium-compat",
       "did": "did:web:etzhayyim.com:actor:helium-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreigmgl5xoh32pr4qvqghh2nolbrrixdb3i5nlpupeqlrgrfwveur4u",
@@ -7759,8 +7759,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 7,
       "openapi": "20-actors/helium-compat/openapi.json"
     },
     {
@@ -9704,7 +9704,7 @@
     {
       "handle": "langchain-compat",
       "did": "did:web:etzhayyim.com:actor:langchain-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 30,
       "ipfs": "ipfs://bafkreict6r3yicwe3kzbxzpcfdwyyzxj5ygqmb7mfeilkcnkz5ur3uatai",
@@ -9716,8 +9716,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 4,
       "openapi": "20-actors/langchain-compat/openapi.json"
     },
     {

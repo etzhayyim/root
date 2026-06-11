@@ -11,15 +11,47 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreict6r3yicwe3kzbxzpcfdwyyzxj5ygqmb7mfeilkcnkz5ur3uatai",
   "schema": "schema/langchain.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/messages/*.py + https://raw.githubusercontent.com/langchain-ai/langchain/master/libs/core/langchain_core/tracers/log_stream.py (official langchain-ai/langchain libs/core)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "BaseMessage",
+      "AIMessage",
+      "ToolMessage",
+      "ToolCall",
+      "UsageMetadata",
+      "LogEntry"
+    ],
+    "enums": {
+      "AIMessage": {
+        "type": [
+          "ai"
+        ]
+      },
+      "ToolMessage": {
+        "type": [
+          "tool"
+        ],
+        "status": [
+          "success",
+          "error"
+        ]
+      },
+      "ToolCall": {
+        "type": [
+          "tool_call"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Agent",
-    "Task",
-    "Message",
-    "Tool",
-    "Memory",
-    "Plan"
+    "BaseMessage",
+    "AIMessage",
+    "ToolMessage",
+    "ToolCall",
+    "UsageMetadata",
+    "LogEntry"
   ],
   "adr": [
     "260607",
@@ -35,153 +67,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/agents",
-          "op": "create Agent"
+          "path": "/v1/basemessages",
+          "op": "create BaseMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/agents",
-          "op": "list Agent"
+          "path": "/v1/basemessages",
+          "op": "list BaseMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/agents/{id}",
-          "op": "get Agent"
+          "path": "/v1/basemessages/{id}",
+          "op": "get BaseMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/agents/{id}",
-          "op": "update Agent"
+          "path": "/v1/basemessages/{id}",
+          "op": "update BaseMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/agents/{id}",
-          "op": "delete Agent"
+          "path": "/v1/basemessages/{id}",
+          "op": "delete BaseMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/tasks",
-          "op": "create Task"
+          "path": "/v1/aimessages",
+          "op": "create AIMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tasks",
-          "op": "list Task"
+          "path": "/v1/aimessages",
+          "op": "list AIMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tasks/{id}",
-          "op": "get Task"
+          "path": "/v1/aimessages/{id}",
+          "op": "get AIMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tasks/{id}",
-          "op": "update Task"
+          "path": "/v1/aimessages/{id}",
+          "op": "update AIMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tasks/{id}",
-          "op": "delete Task"
+          "path": "/v1/aimessages/{id}",
+          "op": "delete AIMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/toolmessages",
+          "op": "create ToolMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/toolmessages",
+          "op": "list ToolMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/toolmessages/{id}",
+          "op": "get ToolMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/toolmessages/{id}",
+          "op": "update ToolMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/toolmessages/{id}",
+          "op": "delete ToolMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/tools",
-          "op": "create Tool"
+          "path": "/v1/toolcalls",
+          "op": "create ToolCall"
         },
         {
           "method": "GET",
-          "path": "/v1/tools",
-          "op": "list Tool"
+          "path": "/v1/toolcalls",
+          "op": "list ToolCall"
         },
         {
           "method": "GET",
-          "path": "/v1/tools/{id}",
-          "op": "get Tool"
+          "path": "/v1/toolcalls/{id}",
+          "op": "get ToolCall"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tools/{id}",
-          "op": "update Tool"
+          "path": "/v1/toolcalls/{id}",
+          "op": "update ToolCall"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tools/{id}",
-          "op": "delete Tool"
+          "path": "/v1/toolcalls/{id}",
+          "op": "delete ToolCall"
         },
         {
           "method": "POST",
-          "path": "/v1/memories",
-          "op": "create Memory"
+          "path": "/v1/usagemetadatas",
+          "op": "create UsageMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/memories",
-          "op": "list Memory"
+          "path": "/v1/usagemetadatas",
+          "op": "list UsageMetadata"
         },
         {
           "method": "GET",
-          "path": "/v1/memories/{id}",
-          "op": "get Memory"
+          "path": "/v1/usagemetadatas/{id}",
+          "op": "get UsageMetadata"
         },
         {
           "method": "PATCH",
-          "path": "/v1/memories/{id}",
-          "op": "update Memory"
+          "path": "/v1/usagemetadatas/{id}",
+          "op": "update UsageMetadata"
         },
         {
           "method": "DELETE",
-          "path": "/v1/memories/{id}",
-          "op": "delete Memory"
+          "path": "/v1/usagemetadatas/{id}",
+          "op": "delete UsageMetadata"
         },
         {
           "method": "POST",
-          "path": "/v1/plans",
-          "op": "create Plan"
+          "path": "/v1/logentries",
+          "op": "create LogEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/plans",
-          "op": "list Plan"
+          "path": "/v1/logentries",
+          "op": "list LogEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/plans/{id}",
-          "op": "get Plan"
+          "path": "/v1/logentries/{id}",
+          "op": "get LogEntry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/plans/{id}",
-          "op": "update Plan"
+          "path": "/v1/logentries/{id}",
+          "op": "update LogEntry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/plans/{id}",
-          "op": "delete Plan"
+          "path": "/v1/logentries/{id}",
+          "op": "delete LogEntry"
         }
       ],
       "features": {
@@ -247,41 +279,338 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_agent",
-          "description": "Create a Agent.",
+          "name": "create_base_message",
+          "description": "Create a BaseMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string"
+              },
+              "additionalKwargs": {
+                "type": "string"
+              },
+              "responseMetadata": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content",
+              "additionalKwargs"
+            ]
+          }
+        },
+        {
+          "name": "list_base_messages",
+          "description": "List BaseMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_base_message",
+          "description": "Get a BaseMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_base_message",
+          "description": "Update a BaseMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "additionalKwargs": {
+                "type": "string"
+              },
+              "responseMetadata": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_base_message",
+          "description": "Delete a BaseMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_a_i_message",
+          "description": "Create a AIMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "toolCalls": {
+                "type": "string"
+              },
+              "invalidToolCalls": {
+                "type": "string"
+              },
+              "usageMetadata": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_a_i_messages",
+          "description": "List AIMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_a_i_message",
+          "description": "Get a AIMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_a_i_message",
+          "description": "Update a AIMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "toolCalls": {
+                "type": "string"
+              },
+              "invalidToolCalls": {
+                "type": "string"
+              },
+              "usageMetadata": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_a_i_message",
+          "description": "Delete a AIMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tool_message",
+          "description": "Create a ToolMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "toolCallId": {
+                "type": "string"
+              },
+              "artifact": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_tool_messages",
+          "description": "List ToolMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tool_message",
+          "description": "Get a ToolMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tool_message",
+          "description": "Update a ToolMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "toolCallId": {
+                "type": "string"
+              },
+              "artifact": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tool_message",
+          "description": "Delete a ToolMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tool_call",
+          "description": "Create a ToolCall.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "role": {
+              "args": {
                 "type": "string"
               },
-              "modelRef": {
-                "type": "string"
-              },
-              "status": {
+              "type": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "role"
+              "args"
             ]
           }
         },
         {
-          "name": "list_agents",
-          "description": "List Agents.",
+          "name": "list_tool_calls",
+          "description": "List ToolCalls.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_agent",
-          "description": "Get a Agent by id.",
+          "name": "get_tool_call",
+          "description": "Get a ToolCall by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +624,8 @@
           }
         },
         {
-          "name": "update_agent",
-          "description": "Update a Agent.",
+          "name": "update_tool_call",
+          "description": "Update a ToolCall.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,13 +635,10 @@
               "name": {
                 "type": "string"
               },
-              "role": {
+              "args": {
                 "type": "string"
               },
-              "modelRef": {
-                "type": "string"
-              },
-              "status": {
+              "type": {
                 "type": "string"
               }
             },
@@ -322,8 +648,8 @@
           }
         },
         {
-          "name": "delete_agent",
-          "description": "Delete a Agent.",
+          "name": "delete_tool_call",
+          "description": "Delete a ToolCall.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +663,44 @@
           }
         },
         {
-          "name": "create_task",
-          "description": "Create a Task.",
+          "name": "create_usage_metadata",
+          "description": "Create a UsageMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "agentId": {
-                "type": "string"
-              },
-              "goal": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "priority": {
+              "inputTokens": {
                 "type": "integer"
+              },
+              "outputTokens": {
+                "type": "integer"
+              },
+              "totalTokens": {
+                "type": "integer"
+              },
+              "inputTokenDetails": {
+                "type": "string"
+              },
+              "outputTokenDetails": {
+                "type": "string"
               }
             },
             "required": [
-              "goal",
-              "status"
+              "inputTokens",
+              "outputTokens"
             ]
           }
         },
         {
-          "name": "list_tasks",
-          "description": "List Tasks.",
+          "name": "list_usage_metadatas",
+          "description": "List UsageMetadatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_task",
-          "description": "Get a Task by id.",
+          "name": "get_usage_metadata",
+          "description": "Get a UsageMetadata by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,25 +714,28 @@
           }
         },
         {
-          "name": "update_task",
-          "description": "Update a Task.",
+          "name": "update_usage_metadata",
+          "description": "Update a UsageMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "agentId": {
-                "type": "string"
-              },
-              "goal": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "priority": {
+              "inputTokens": {
                 "type": "integer"
+              },
+              "outputTokens": {
+                "type": "integer"
+              },
+              "totalTokens": {
+                "type": "integer"
+              },
+              "inputTokenDetails": {
+                "type": "string"
+              },
+              "outputTokenDetails": {
+                "type": "string"
               }
             },
             "required": [
@@ -412,8 +744,8 @@
           }
         },
         {
-          "name": "delete_task",
-          "description": "Delete a Task.",
+          "name": "delete_usage_metadata",
+          "description": "Delete a UsageMetadata.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,128 +759,59 @@
           }
         },
         {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fromAgentId": {
-                "type": "string"
-              },
-              "toAgentId": {
-                "type": "string"
-              },
-              "performative": {
-                "type": "string"
-              },
-              "content": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "performative",
-              "content"
-            ]
-          }
-        },
-        {
-          "name": "list_messages",
-          "description": "List Messages.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_message",
-          "description": "Get a Message by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_message",
-          "description": "Update a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fromAgentId": {
-                "type": "string"
-              },
-              "toAgentId": {
-                "type": "string"
-              },
-              "performative": {
-                "type": "string"
-              },
-              "content": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tool",
-          "description": "Create a Tool.",
+          "name": "create_log_entry",
+          "description": "Create a LogEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "description": {
+              "type": {
                 "type": "string"
               },
-              "schemaRef": {
+              "tags": {
+                "type": "string"
+              },
+              "metadata": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "streamedOutputStr": {
+                "type": "string"
+              },
+              "streamedOutput": {
+                "type": "string"
+              },
+              "inputs": {
+                "type": "string"
+              },
+              "finalOutput": {
+                "type": "string"
+              },
+              "endTime": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "description"
+              "type"
             ]
           }
         },
         {
-          "name": "list_tools",
-          "description": "List Tools.",
+          "name": "list_log_entries",
+          "description": "List LogEntries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tool",
-          "description": "Get a Tool by id.",
+          "name": "get_log_entry",
+          "description": "Get a LogEntry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -562,8 +825,8 @@
           }
         },
         {
-          "name": "update_tool",
-          "description": "Update a Tool.",
+          "name": "update_log_entry",
+          "description": "Update a LogEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -573,10 +836,31 @@
               "name": {
                 "type": "string"
               },
-              "description": {
+              "type": {
                 "type": "string"
               },
-              "schemaRef": {
+              "tags": {
+                "type": "string"
+              },
+              "metadata": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string"
+              },
+              "streamedOutputStr": {
+                "type": "string"
+              },
+              "streamedOutput": {
+                "type": "string"
+              },
+              "inputs": {
+                "type": "string"
+              },
+              "finalOutput": {
+                "type": "string"
+              },
+              "endTime": {
                 "type": "string"
               }
             },
@@ -586,175 +870,8 @@
           }
         },
         {
-          "name": "delete_tool",
-          "description": "Delete a Tool.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_memory",
-          "description": "Create a Memory.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "agentId": {
-                "type": "string"
-              },
-              "kind": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          }
-        },
-        {
-          "name": "list_memories",
-          "description": "List Memories.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_memory",
-          "description": "Get a Memory by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_memory",
-          "description": "Update a Memory.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "agentId": {
-                "type": "string"
-              },
-              "kind": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_memory",
-          "description": "Delete a Memory.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_plan",
-          "description": "Create a Plan.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "taskId": {
-                "type": "string"
-              },
-              "steps": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "steps",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_plans",
-          "description": "List Plans.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_plan",
-          "description": "Get a Plan by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_plan",
-          "description": "Update a Plan.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "taskId": {
-                "type": "string"
-              },
-              "steps": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_plan",
-          "description": "Delete a Plan.",
+          "name": "delete_log_entry",
+          "description": "Delete a LogEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
