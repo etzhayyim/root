@@ -664,3 +664,19 @@ window stayed exhausted, so both actors landed entirely harness-direct
 Carried twice → landed: the bipm Circular-T directory lives under a
 case-sensitive path (Circular-T, not circular-t) — path-casing now on the
 fetch-debug checklist.
+
+### §16.13 /loop iteration 12 — wave 13: the EPSG registry (206, 20.6%)
+
+epsg_registry → ledger **206** (794 L4 / 206 L5 = 20.6%), enforced-enum
+counts unchanged (199 / 828 — the second fields-verified zero-enum L5 after
+bipm_utc), verify PASS 0/0, contract suite green. Harness-direct throughout
+(the gemini quota window stayed exhausted across the whole wave).
+
+The world's geodetic-parameter registry (IOGP EPSG) joins via its official
+API: field surfaces machine-read from the live canonical entities (WGS 84 —
+CRS 4326, datum-ensemble 6326, ellipsoid 7030) per the original L5 method's
+real-object rule; Kind/Type/RealizationMethod registry vocabularies left
+unenforced per the censusgov live-observed-is-not-declared discipline.
+eurostat carries (its help wiki is a JS shell; the 13MB SDMX catalog
+truncated mid-fetch) and imf carries (the legacy dataservices endpoint is
+retired; the new data.imf.org portal needs a fresh seam).

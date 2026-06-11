@@ -5,21 +5,29 @@
   "kind": "compat",
   "title": "epsg_registry clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (epsg_registry); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+  "wasmCid": "bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+  "ipfs": "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
   "schema": "schema/epsg_registry.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://apps.epsg.org/api/v1 (the official IOGP EPSG Geodetic Parameter Registry API; live canonical entities CoordRefSystem/4326, Datum/6326, Ellipsoid/7030)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "CoordRefSystem",
+      "Datum",
+      "Ellipsoid",
+      "Usage"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Code",
-    "Unit",
-    "Reference",
-    "Mapping",
-    "Location",
-    "Epoch"
+    "CoordRefSystem",
+    "Datum",
+    "Ellipsoid",
+    "Usage"
   ],
   "adr": [
     "260607",
@@ -31,157 +39,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/codes",
-          "op": "create Code"
+          "path": "/v1/coordrefsystems",
+          "op": "create CoordRefSystem"
         },
         {
           "method": "GET",
-          "path": "/v1/codes",
-          "op": "list Code"
+          "path": "/v1/coordrefsystems",
+          "op": "list CoordRefSystem"
         },
         {
           "method": "GET",
-          "path": "/v1/codes/{id}",
-          "op": "get Code"
+          "path": "/v1/coordrefsystems/{id}",
+          "op": "get CoordRefSystem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/codes/{id}",
-          "op": "update Code"
+          "path": "/v1/coordrefsystems/{id}",
+          "op": "update CoordRefSystem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/codes/{id}",
-          "op": "delete Code"
+          "path": "/v1/coordrefsystems/{id}",
+          "op": "delete CoordRefSystem"
         },
         {
           "method": "POST",
-          "path": "/v1/units",
-          "op": "create Unit"
+          "path": "/v1/datums",
+          "op": "create Datum"
         },
         {
           "method": "GET",
-          "path": "/v1/units",
-          "op": "list Unit"
+          "path": "/v1/datums",
+          "op": "list Datum"
         },
         {
           "method": "GET",
-          "path": "/v1/units/{id}",
-          "op": "get Unit"
+          "path": "/v1/datums/{id}",
+          "op": "get Datum"
         },
         {
           "method": "PATCH",
-          "path": "/v1/units/{id}",
-          "op": "update Unit"
+          "path": "/v1/datums/{id}",
+          "op": "update Datum"
         },
         {
           "method": "DELETE",
-          "path": "/v1/units/{id}",
-          "op": "delete Unit"
+          "path": "/v1/datums/{id}",
+          "op": "delete Datum"
         },
         {
           "method": "POST",
-          "path": "/v1/references",
-          "op": "create Reference"
+          "path": "/v1/ellipsoids",
+          "op": "create Ellipsoid"
         },
         {
           "method": "GET",
-          "path": "/v1/references",
-          "op": "list Reference"
+          "path": "/v1/ellipsoids",
+          "op": "list Ellipsoid"
         },
         {
           "method": "GET",
-          "path": "/v1/references/{id}",
-          "op": "get Reference"
+          "path": "/v1/ellipsoids/{id}",
+          "op": "get Ellipsoid"
         },
         {
           "method": "PATCH",
-          "path": "/v1/references/{id}",
-          "op": "update Reference"
+          "path": "/v1/ellipsoids/{id}",
+          "op": "update Ellipsoid"
         },
         {
           "method": "DELETE",
-          "path": "/v1/references/{id}",
-          "op": "delete Reference"
+          "path": "/v1/ellipsoids/{id}",
+          "op": "delete Ellipsoid"
         },
         {
           "method": "POST",
-          "path": "/v1/mappings",
-          "op": "create Mapping"
+          "path": "/v1/usages",
+          "op": "create Usage"
         },
         {
           "method": "GET",
-          "path": "/v1/mappings",
-          "op": "list Mapping"
+          "path": "/v1/usages",
+          "op": "list Usage"
         },
         {
           "method": "GET",
-          "path": "/v1/mappings/{id}",
-          "op": "get Mapping"
+          "path": "/v1/usages/{id}",
+          "op": "get Usage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/mappings/{id}",
-          "op": "update Mapping"
+          "path": "/v1/usages/{id}",
+          "op": "update Usage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/mappings/{id}",
-          "op": "delete Mapping"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/locations",
-          "op": "create Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations",
-          "op": "list Location"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/locations/{id}",
-          "op": "get Location"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/locations/{id}",
-          "op": "update Location"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/locations/{id}",
-          "op": "delete Location"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/epoches",
-          "op": "create Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches",
-          "op": "list Epoch"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/epoches/{id}",
-          "op": "get Epoch"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/epoches/{id}",
-          "op": "update Epoch"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/epoches/{id}",
-          "op": "delete Epoch"
+          "path": "/v1/usages/{id}",
+          "op": "delete Usage"
         }
       ],
       "features": {
@@ -244,44 +202,53 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_code",
-          "description": "Create a Code.",
+          "name": "create_coord_ref_system",
+          "description": "Create a CoordRefSystem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "code": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "description": {
+              "kind": {
                 "type": "string"
               },
-              "scheme": {
+              "dataSource": {
                 "type": "string"
               },
-              "parentCode": {
+              "informationSource": {
+                "type": "string"
+              },
+              "remark": {
+                "type": "string"
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
             "required": [
               "code",
-              "description"
+              "name"
             ]
           }
         },
         {
-          "name": "list_codes",
-          "description": "List Codes.",
+          "name": "list_coord_ref_systems",
+          "description": "List CoordRefSystems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_code",
-          "description": "Get a Code by id.",
+          "name": "get_coord_ref_system",
+          "description": "Get a CoordRefSystem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +262,8 @@
           }
         },
         {
-          "name": "update_code",
-          "description": "Update a Code.",
+          "name": "update_coord_ref_system",
+          "description": "Update a CoordRefSystem.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -304,15 +271,24 @@
                 "type": "string"
               },
               "code": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "description": {
+              "kind": {
                 "type": "string"
               },
-              "scheme": {
+              "dataSource": {
                 "type": "string"
               },
-              "parentCode": {
+              "informationSource": {
+                "type": "string"
+              },
+              "remark": {
+                "type": "string"
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
@@ -322,8 +298,8 @@
           }
         },
         {
-          "name": "delete_code",
-          "description": "Delete a Code.",
+          "name": "delete_coord_ref_system",
+          "description": "Delete a CoordRefSystem.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,38 +313,56 @@
           }
         },
         {
-          "name": "create_unit",
-          "description": "Create a Unit.",
+          "name": "create_datum",
+          "description": "Create a Datum.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "symbol": {
-                "type": "string"
+              "code": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "quantity": {
+              "type": {
+                "type": "string"
+              },
+              "origin": {
+                "type": "string"
+              },
+              "publicationDate": {
+                "type": "string"
+              },
+              "realizationMethod": {
+                "type": "string"
+              },
+              "anchorEpoch": {
+                "type": "string"
+              },
+              "frameReferenceEpoch": {
+                "type": "string"
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
             "required": [
-              "symbol",
+              "code",
               "name"
             ]
           }
         },
         {
-          "name": "list_units",
-          "description": "List Units.",
+          "name": "list_datums",
+          "description": "List Datums.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_unit",
-          "description": "Get a Unit by id.",
+          "name": "get_datum",
+          "description": "Get a Datum by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,21 +376,39 @@
           }
         },
         {
-          "name": "update_unit",
-          "description": "Update a Unit.",
+          "name": "update_datum",
+          "description": "Update a Datum.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "symbol": {
-                "type": "string"
+              "code": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "quantity": {
+              "type": {
+                "type": "string"
+              },
+              "origin": {
+                "type": "string"
+              },
+              "publicationDate": {
+                "type": "string"
+              },
+              "realizationMethod": {
+                "type": "string"
+              },
+              "anchorEpoch": {
+                "type": "string"
+              },
+              "frameReferenceEpoch": {
+                "type": "string"
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
@@ -406,8 +418,8 @@
           }
         },
         {
-          "name": "delete_unit",
-          "description": "Delete a Unit.",
+          "name": "delete_datum",
+          "description": "Delete a Datum.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,212 +433,53 @@
           }
         },
         {
-          "name": "create_reference",
-          "description": "Create a Reference.",
+          "name": "create_ellipsoid",
+          "description": "Create a Ellipsoid.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "code": {
+                "type": "integer"
+              },
               "name": {
                 "type": "string"
               },
-              "value": {
+              "semiMajorAxis": {
                 "type": "number"
               },
-              "uncertainty": {
+              "semiMinorAxis": {
                 "type": "number"
+              },
+              "inverseFlattening": {
+                "type": "number"
+              },
+              "shape": {
+                "type": "string"
               },
               "unit": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_references",
-          "description": "List References.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_reference",
-          "description": "Get a Reference by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_reference",
-          "description": "Update a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "uncertainty": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_reference",
-          "description": "Delete a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mapping",
-          "description": "Create a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "fromCode",
-              "toScheme"
-            ]
-          }
-        },
-        {
-          "name": "list_mappings",
-          "description": "List Mappings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_mapping",
-          "description": "Get a Mapping by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_mapping",
-          "description": "Update a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_mapping",
-          "description": "Delete a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_location",
-          "description": "Create a Location.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "unLocode": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "unLocode",
+              "code",
               "name"
             ]
           }
         },
         {
-          "name": "list_locations",
-          "description": "List Locations.",
+          "name": "list_ellipsoids",
+          "description": "List Ellipsoids.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_location",
-          "description": "Get a Location by id.",
+          "name": "get_ellipsoid",
+          "description": "Get a Ellipsoid by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,21 +493,36 @@
           }
         },
         {
-          "name": "update_location",
-          "description": "Update a Location.",
+          "name": "update_ellipsoid",
+          "description": "Update a Ellipsoid.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "unLocode": {
-                "type": "string"
+              "code": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "country": {
+              "semiMajorAxis": {
+                "type": "number"
+              },
+              "semiMinorAxis": {
+                "type": "number"
+              },
+              "inverseFlattening": {
+                "type": "number"
+              },
+              "shape": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "revisionDate": {
                 "type": "string"
               }
             },
@@ -664,8 +532,8 @@
           }
         },
         {
-          "name": "delete_location",
-          "description": "Delete a Location.",
+          "name": "delete_ellipsoid",
+          "description": "Delete a Ellipsoid.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,38 +547,38 @@
           }
         },
         {
-          "name": "create_epoch",
-          "description": "Create a Epoch.",
+          "name": "create_usage",
+          "description": "Create a Usage.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "code": {
+                "type": "integer"
+              },
               "name": {
                 "type": "string"
               },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
+              "scopeDetails": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "utcOffset"
+              "code",
+              "name"
             ]
           }
         },
         {
-          "name": "list_epoches",
-          "description": "List Epoches.",
+          "name": "list_usages",
+          "description": "List Usages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_epoch",
-          "description": "Get a Epoch by id.",
+          "name": "get_usage",
+          "description": "Get a Usage by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,21 +592,21 @@
           }
         },
         {
-          "name": "update_epoch",
-          "description": "Update a Epoch.",
+          "name": "update_usage",
+          "description": "Update a Usage.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
+              },
+              "code": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
+              "scopeDetails": {
                 "type": "string"
               }
             },
@@ -748,8 +616,8 @@
           }
         },
         {
-          "name": "delete_epoch",
-          "description": "Delete a Epoch.",
+          "name": "delete_usage",
+          "description": "Delete a Usage.",
           "inputSchema": {
             "type": "object",
             "properties": {

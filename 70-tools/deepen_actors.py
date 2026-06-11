@@ -2792,6 +2792,19 @@ PLATFORM_OVERRIDES["ecb"] = {
     "Series": E(seriesKey="string", frequency="string", lastUpdated="datetime"),
 }
 
+# Faithful EPSG Geodetic Registry model (the official IOGP registry API at
+# apps.epsg.org/api/v1 — field surfaces verified against live canonical
+# entities 4326/6326/7030 per the original L5 method's real-object rule).
+# Kind/Type/RealizationMethod are registry vocabularies without a fetched
+# closed declaration -> gapped (live-observed != declared); a fields-
+# verified L5 like bipm_utc.
+PLATFORM_OVERRIDES["epsg_registry"] = {
+    "CoordRefSystem": E(code="integer", name="string", kind="string", dataSource="string", informationSource="string", remark="string", revisionDate="datetime"),
+    "Datum": E(code="integer", name="string", type="string", origin="string", publicationDate="datetime", realizationMethod="string", anchorEpoch="string", frameReferenceEpoch="string", revisionDate="datetime"),
+    "Ellipsoid": E(code="integer", name="string", semiMajorAxis="float", semiMinorAxis="float", inverseFlattening="float", shape="string", unit="string", revisionDate="datetime"),
+    "Usage": E(code="integer", name="string", scopeDetails="string"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

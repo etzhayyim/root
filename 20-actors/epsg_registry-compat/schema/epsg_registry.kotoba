@@ -3,69 +3,55 @@
 
 namespace epsg_registry {
 
-    entity Code {
+    entity CoordRefSystem {
         id: string @unique
-        code: string
-        description: string
-        scheme: string
-        parentCode: string
+        code: integer
+        name: string
+        kind: string
+        dataSource: string
+        informationSource: string
+        remark: string
+        revisionDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Unit {
+    entity Datum {
         id: string @unique
-        symbol: string
+        code: integer
         name: string
-        quantity: string
+        type: string
+        origin: string
+        publicationDate: datetime
+        realizationMethod: string
+        anchorEpoch: string
+        frameReferenceEpoch: string
+        revisionDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Reference {
+    entity Ellipsoid {
         id: string @unique
+        code: integer
         name: string
-        value: float
-        uncertainty: float
+        semiMajorAxis: float
+        semiMinorAxis: float
+        inverseFlattening: float
+        shape: string
         unit: string
+        revisionDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Mapping {
+    entity Usage {
         id: string @unique
-        fromCode: string
-        toScheme: string
-        toCode: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Location {
-        id: string @unique
-        unLocode: string
+        code: integer
         name: string
-        country: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Epoch {
-        id: string @unique
-        name: string
-        utcOffset: string
-        asOf: datetime
+        scopeDetails: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

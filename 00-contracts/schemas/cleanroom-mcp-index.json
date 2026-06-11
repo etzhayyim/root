@@ -7,7 +7,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29260,
+  "totalTools": 29250,
   "l5VerifiedActors": 199,
   "totalVerifiedEnumFields": 828,
   "servers": [
@@ -3358,10 +3358,10 @@
     {
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "l5Verified": false,
       "verifiedEnumFields": 0,
       "manifest": "20-actors/epsg_registry-compat/manifest.json#/capabilities/mcp"

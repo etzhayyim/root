@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "epsg_registry.kotoba")
-ENTITIES = ['Code', 'Unit', 'Reference', 'Mapping', 'Location', 'Epoch']
-PLURALS = {'Code': 'codes', 'Unit': 'units', 'Reference': 'references', 'Mapping': 'mappings', 'Location': 'locations', 'Epoch': 'epoches'}
+ENTITIES = ['CoordRefSystem', 'Datum', 'Ellipsoid', 'Usage']
+PLURALS = {'CoordRefSystem': 'coordrefsystems', 'Datum': 'datums', 'Ellipsoid': 'ellipsoids', 'Usage': 'usages'}
 
 
 class EpsgRegistryContract(unittest.TestCase):

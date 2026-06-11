@@ -5113,17 +5113,15 @@
       "handle": "epsg_registry-compat",
       "platform": "epsg_registry",
       "bytes": 2127,
-      "wasmCid": "bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+      "wasmCid": "bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Code",
-        "Unit",
-        "Reference",
-        "Mapping",
-        "Location",
-        "Epoch"
+        "CoordRefSystem",
+        "Datum",
+        "Ellipsoid",
+        "Usage"
       ]
     },
     {

@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29260,
+  "totalEndpoints": 29250,
   "l4SpecsAvailable": 1000,
   "l5VerifiedActors": 199,
   "totalVerifiedEnumFields": 828,
@@ -5790,10 +5790,10 @@
     {
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
       "health": "/healthz",
       "features": {
         "pagination": true,

@@ -3977,11 +3977,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible physical benchmarks / classifications actor (epsg_registry); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "epsg_registry.kotoba"
-   :actor/wasm-cid "bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea"
+   :actor/wasm-cid "bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:epsg_registry-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ercot-compat"
    :actor/did "did:web:etzhayyim.com:actor:ercot-compat"
    :actor/kind :compat

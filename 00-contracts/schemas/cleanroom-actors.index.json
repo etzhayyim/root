@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 795,
-    "L5": 205
+    "L4": 794,
+    "L5": 206
   },
   "actors": [
     {
@@ -5489,10 +5489,10 @@
     {
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
-      "wasmCid": "bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
+      "wasmCid": "bafkreidwdlqiozmt7nb7dlgezxarbab45jksgi3izjp6nhkjewforpauly",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "epsg_registry clean-room actor",
       "category": "physical_benchmarks_classifications",
       "capabilities": [
