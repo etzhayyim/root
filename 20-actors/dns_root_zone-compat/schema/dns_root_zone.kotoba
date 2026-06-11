@@ -3,69 +3,53 @@
 
 namespace dns_root_zone {
 
-    entity Prefix {
+    entity Header {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        id: integer
+        qr: boolean
+        opcode: integer
+        aa: boolean
+        tc: boolean
+        rd: boolean
+        ra: boolean
+        rcode: integer
+        qdcount: integer
+        ancount: integer
+        nscount: integer
+        arcount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity Question {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        qname: string
+        qtype: integer
+        qclass: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
-        id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Zone {
+    entity ResourceRecord {
         id: string @unique
         name: string
-        serial: integer
-        refreshSec: integer
+        type: integer
+        class_: integer
+        ttl: integer
+        rdlength: integer
+        rdata: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Record {
+    entity OptRecord {
         id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Tunnel {
-        id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        extendedRcode: integer
+        version: integer
+        flags: integer
+        rdlength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

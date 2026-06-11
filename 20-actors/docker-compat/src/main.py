@@ -111,53 +111,198 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/repositories", methods=["POST"])
-def create_repository(request):
-    """Create a Repository."""
+@app.route("/v1/containers", methods=["POST"])
+def create_container(request):
+    """Create a Container."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['id', 'image', 'imageID', 'command', 'state', 'created', 'sizeRw'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'owner'])
+    err = _require(data, ['id', 'image'])
     if err:
         return err, 400
-    rec = {"id": new_id("docker_rep")}
+    if data.get('state') and data['state'] not in ['created', 'running', 'paused', 'restarting', 'removing', 'exited', 'dead']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'running', 'paused', 'restarting', 'removing', 'exited', 'dead']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("docker_con")}
+    rec["id"] = data.get('id')
+    rec["image"] = data.get('image')
+    rec["imageID"] = data.get('imageID')
+    rec["command"] = data.get('command')
+    rec["state"] = data.get('state')
+    rec["created"] = _as_int(data.get('created'))
+    rec["sizeRw"] = _as_int(data.get('sizeRw'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Container", rec)
+    return rec, 201
+
+@app.route("/v1/containers", methods=["GET"])
+def list_containers(request):
+    """List Containers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Container")
+    rows = _apply_filters(rows, params, ['id', 'image', 'imageID', 'command', 'state', 'created', 'sizeRw'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/containers/<eid>", methods=["GET"])
+def get_container(request, eid):
+    """Retrieve a Container by id (supports ?expand=)."""
+    rows = _query("Container", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/containers/<eid>", methods=["POST", "PATCH"])
+def update_container(request, eid):
+    """Update a Container."""
+    rows = _query("Container", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'image', 'imageID', 'command', 'state', 'created', 'sizeRw'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['created', 'running', 'paused', 'restarting', 'removing', 'exited', 'dead']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'running', 'paused', 'restarting', 'removing', 'exited', 'dead']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Container", rec)
+    return rec, 200
+
+@app.route("/v1/containers/<eid>", methods=["DELETE"])
+def delete_container(request, eid):
+    """Delete a Container."""
+    rows = _query("Container", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"docker.Container", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/images", methods=["POST"])
+def create_image(request):
+    """Create a Image."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'parent', 'comment', 'container', 'size', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'parent'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("docker_ima")}
+    rec["id"] = data.get('id')
+    rec["parent"] = data.get('parent')
+    rec["comment"] = data.get('comment')
+    rec["container"] = data.get('container')
+    rec["size"] = _as_int(data.get('size'))
+    rec["created"] = data.get('created')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Image", rec)
+    return rec, 201
+
+@app.route("/v1/images", methods=["GET"])
+def list_images(request):
+    """List Images with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Image")
+    rows = _apply_filters(rows, params, ['id', 'parent', 'comment', 'container', 'size', 'created'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/images/<eid>", methods=["GET"])
+def get_image(request, eid):
+    """Retrieve a Image by id (supports ?expand=)."""
+    rows = _query("Image", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/images/<eid>", methods=["POST", "PATCH"])
+def update_image(request, eid):
+    """Update a Image."""
+    rows = _query("Image", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'parent', 'comment', 'container', 'size', 'created'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Image", rec)
+    return rec, 200
+
+@app.route("/v1/images/<eid>", methods=["DELETE"])
+def delete_image(request, eid):
+    """Delete a Image."""
+    rows = _query("Image", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"docker.Image", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/networks", methods=["POST"])
+def create_network(request):
+    """Create a Network."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'scope', 'driver', 'enableIPv6', 'internal', 'attachable', 'created'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("docker_net")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["owner"] = data.get('owner')
-    rec["defaultBranch"] = data.get('defaultBranch')
-    rec["private"] = _as_bool(data.get('private'))
+    rec["scope"] = data.get('scope')
+    rec["driver"] = data.get('driver')
+    rec["enableIPv6"] = _as_bool(data.get('enableIPv6'))
+    rec["internal"] = _as_bool(data.get('internal'))
+    rec["attachable"] = _as_bool(data.get('attachable'))
+    rec["created"] = data.get('created')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Repository", rec)
+    _persist("Network", rec)
     return rec, 201
 
-@app.route("/v1/repositories", methods=["GET"])
-def list_repositories(request):
-    """List Repositories with filtering + cursor pagination."""
+@app.route("/v1/networks", methods=["GET"])
+def list_networks(request):
+    """List Networks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Repository")
-    rows = _apply_filters(rows, params, ['name', 'owner', 'defaultBranch', 'private'])
+    rows = _query("Network")
+    rows = _apply_filters(rows, params, ['id', 'name', 'scope', 'driver', 'enableIPv6', 'internal', 'attachable', 'created'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/repositories/<eid>", methods=["GET"])
-def get_repository(request, eid):
-    """Retrieve a Repository by id (supports ?expand=)."""
-    rows = _query("Repository", eid)
+@app.route("/v1/networks/<eid>", methods=["GET"])
+def get_network(request, eid):
+    """Retrieve a Network by id (supports ?expand=)."""
+    rows = _query("Network", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["POST", "PATCH"])
-def update_repository(request, eid):
-    """Update a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/networks/<eid>", methods=["POST", "PATCH"])
+def update_network(request, eid):
+    """Update a Network."""
+    rows = _query("Network", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['id', 'name', 'scope', 'driver', 'enableIPv6', 'internal', 'attachable', 'created'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,354 +310,93 @@ def update_repository(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Repository", rec)
+    _persist("Network", rec)
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["DELETE"])
-def delete_repository(request, eid):
-    """Delete a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/networks/<eid>", methods=["DELETE"])
+def delete_network(request, eid):
+    """Delete a Network."""
+    rows = _query("Network", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Repository", "id": eid})
+    db.retract({"entity": f"docker.Network", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/pipelines", methods=["POST"])
-def create_pipeline(request):
-    """Create a Pipeline."""
+@app.route("/v1/volumes", methods=["POST"])
+def create_volume(request):
+    """Create a Volume."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['name', 'driver', 'mountpoint', 'scope', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'trigger'])
+    err = _require(data, ['name', 'driver'])
     if err:
         return err, 400
-    rec = {"id": new_id("docker_pip")}
-    rec["repoId"] = data.get('repoId')
+    if data.get('scope') and data['scope'] not in ['local', 'global']:
+        return {"error": {"message": "invalid scope; allowed: " + ", ".join(['local', 'global']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("docker_vol")}
     rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
+    rec["driver"] = data.get('driver')
+    rec["mountpoint"] = data.get('mountpoint')
+    rec["scope"] = data.get('scope')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Pipeline", rec)
+    _persist("Volume", rec)
     return rec, 201
 
-@app.route("/v1/pipelines", methods=["GET"])
-def list_pipelines(request):
-    """List Pipelines with filtering + cursor pagination."""
+@app.route("/v1/volumes", methods=["GET"])
+def list_volumes(request):
+    """List Volumes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['repoId', 'name', 'trigger'])
+    rows = _query("Volume")
+    rows = _apply_filters(rows, params, ['name', 'driver', 'mountpoint', 'scope', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["GET"])
-def get_pipeline(request, eid):
-    """Retrieve a Pipeline by id (supports ?expand=)."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/volumes/<eid>", methods=["GET"])
+def get_volume(request, eid):
+    """Retrieve a Volume by id (supports ?expand=)."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["POST", "PATCH"])
-def update_pipeline(request, eid):
-    """Update a Pipeline."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
+def update_volume(request, eid):
+    """Update a Volume."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['name', 'driver', 'mountpoint', 'scope', 'createdAt'])
     if err:
         return err, 400
+    if data.get('scope') and data['scope'] not in ['local', 'global']:
+        return {"error": {"message": "invalid scope; allowed: " + ", ".join(['local', 'global']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Pipeline", rec)
+    _persist("Volume", rec)
     return rec, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["DELETE"])
-def delete_pipeline(request, eid):
-    """Delete a Pipeline."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/volumes/<eid>", methods=["DELETE"])
+def delete_volume(request, eid):
+    """Delete a Volume."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Pipeline", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/builds", methods=["POST"])
-def create_build(request):
-    """Create a Build."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['number', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docker_bui")}
-    rec["pipelineId"] = data.get('pipelineId')
-    rec["number"] = _as_int(data.get('number'))
-    rec["status"] = data.get('status')
-    rec["commitSha"] = data.get('commitSha')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Build", rec)
-    return rec, 201
-
-@app.route("/v1/builds", methods=["GET"])
-def list_builds(request):
-    """List Builds with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Build")
-    rows = _apply_filters(rows, params, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/builds/<eid>", methods=["GET"])
-def get_build(request, eid):
-    """Retrieve a Build by id (supports ?expand=)."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
-def update_build(request, eid):
-    """Update a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Build", rec)
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["DELETE"])
-def delete_build(request, eid):
-    """Delete a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Build", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/artifacts", methods=["POST"])
-def create_artifact(request):
-    """Create a Artifact."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'sizeBytes'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docker_art")}
-    rec["buildId"] = data.get('buildId')
-    rec["name"] = data.get('name')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Artifact", rec)
-    return rec, 201
-
-@app.route("/v1/artifacts", methods=["GET"])
-def list_artifacts(request):
-    """List Artifacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Artifact")
-    rows = _apply_filters(rows, params, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["GET"])
-def get_artifact(request, eid):
-    """Retrieve a Artifact by id (supports ?expand=)."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["POST", "PATCH"])
-def update_artifact(request, eid):
-    """Update a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Artifact", rec)
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["DELETE"])
-def delete_artifact(request, eid):
-    """Delete a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Artifact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['environment', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docker_dep")}
-    rec["buildId"] = data.get('buildId')
-    rec["environment"] = data.get('environment')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
-    return rec, 201
-
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['buildId', 'environment', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Deployment", rec)
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Deployment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['url', 'event'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docker_web")}
-    rec["repoId"] = data.get('repoId')
-    rec["url"] = data.get('url')
-    rec["event"] = data.get('event')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['repoId', 'url', 'event', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docker.Webhook", "id": eid})
+    db.retract({"entity": f"docker.Volume", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "docker-compat", "tier": "L4",
-            "entities": ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']}, 200
+            "entities": ['Container', 'Image', 'Network', 'Volume']}, 200
 
 
 if __name__ == "__main__":

@@ -111,52 +111,56 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/flows", methods=["POST"])
-def create_flow(request):
-    """Create a Flow."""
+@app.route("/v1/sites", methods=["POST"])
+def create_site(request):
+    """Create a Site."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'trigger', 'status'])
+    err = _reject_unknown(data, ['id', 'displayName', 'shortName', 'timeZone', 'createdOn', 'lastUpdated', 'lastPublished'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'trigger'])
+    err = _require(data, ['id', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_flo")}
-    rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("webflow_sit")}
+    rec["id"] = data.get('id')
+    rec["displayName"] = data.get('displayName')
+    rec["shortName"] = data.get('shortName')
+    rec["timeZone"] = data.get('timeZone')
+    rec["createdOn"] = data.get('createdOn')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["lastPublished"] = data.get('lastPublished')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Flow", rec)
+    _persist("Site", rec)
     return rec, 201
 
-@app.route("/v1/flows", methods=["GET"])
-def list_flows(request):
-    """List Flows with filtering + cursor pagination."""
+@app.route("/v1/sites", methods=["GET"])
+def list_sites(request):
+    """List Sites with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Flow")
-    rows = _apply_filters(rows, params, ['name', 'trigger', 'status'])
+    rows = _query("Site")
+    rows = _apply_filters(rows, params, ['id', 'displayName', 'shortName', 'timeZone', 'createdOn', 'lastUpdated', 'lastPublished'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/flows/<eid>", methods=["GET"])
-def get_flow(request, eid):
-    """Retrieve a Flow by id (supports ?expand=)."""
-    rows = _query("Flow", eid)
+@app.route("/v1/sites/<eid>", methods=["GET"])
+def get_site(request, eid):
+    """Retrieve a Site by id (supports ?expand=)."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/flows/<eid>", methods=["POST", "PATCH"])
-def update_flow(request, eid):
-    """Update a Flow."""
-    rows = _query("Flow", eid)
+@app.route("/v1/sites/<eid>", methods=["POST", "PATCH"])
+def update_site(request, eid):
+    """Update a Site."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'trigger', 'status'])
+    err = _reject_unknown(data, ['id', 'displayName', 'shortName', 'timeZone', 'createdOn', 'lastUpdated', 'lastPublished'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,66 +168,67 @@ def update_flow(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Flow", rec)
+    _persist("Site", rec)
     return rec, 200
 
-@app.route("/v1/flows/<eid>", methods=["DELETE"])
-def delete_flow(request, eid):
-    """Delete a Flow."""
-    rows = _query("Flow", eid)
+@app.route("/v1/sites/<eid>", methods=["DELETE"])
+def delete_site(request, eid):
+    """Delete a Site."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.Flow", "id": eid})
+    db.retract({"entity": f"webflow.Site", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/steps", methods=["POST"])
-def create_step(request):
-    """Create a Step."""
+@app.route("/v1/collections", methods=["POST"])
+def create_collection(request):
+    """Create a Collection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'appName', 'action', 'position'])
+    err = _reject_unknown(data, ['id', 'displayName', 'singularName', 'slug', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
-    err = _require(data, ['appName', 'action'])
+    err = _require(data, ['id', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_ste")}
-    rec["flowId"] = data.get('flowId')
-    rec["appName"] = data.get('appName')
-    rec["action"] = data.get('action')
-    rec["position"] = _as_int(data.get('position'))
+    rec = {"id": new_id("webflow_col")}
+    rec["id"] = data.get('id')
+    rec["displayName"] = data.get('displayName')
+    rec["singularName"] = data.get('singularName')
+    rec["slug"] = data.get('slug')
+    rec["createdOn"] = data.get('createdOn')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Step", rec)
+    _persist("Collection", rec)
     return rec, 201
 
-@app.route("/v1/steps", methods=["GET"])
-def list_steps(request):
-    """List Steps with filtering + cursor pagination."""
+@app.route("/v1/collections", methods=["GET"])
+def list_collections(request):
+    """List Collections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Step")
-    rows = _apply_filters(rows, params, ['flowId', 'appName', 'action', 'position'])
+    rows = _query("Collection")
+    rows = _apply_filters(rows, params, ['id', 'displayName', 'singularName', 'slug', 'createdOn', 'lastUpdated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/steps/<eid>", methods=["GET"])
-def get_step(request, eid):
-    """Retrieve a Step by id (supports ?expand=)."""
-    rows = _query("Step", eid)
+@app.route("/v1/collections/<eid>", methods=["GET"])
+def get_collection(request, eid):
+    """Retrieve a Collection by id (supports ?expand=)."""
+    rows = _query("Collection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'flowId': 'Flow'})
     return rec, 200
 
-@app.route("/v1/steps/<eid>", methods=["POST", "PATCH"])
-def update_step(request, eid):
-    """Update a Step."""
-    rows = _query("Step", eid)
+@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
+def update_collection(request, eid):
+    """Update a Collection."""
+    rows = _query("Collection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'appName', 'action', 'position'])
+    err = _reject_unknown(data, ['id', 'displayName', 'singularName', 'slug', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,64 +236,68 @@ def update_step(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Step", rec)
+    _persist("Collection", rec)
     return rec, 200
 
-@app.route("/v1/steps/<eid>", methods=["DELETE"])
-def delete_step(request, eid):
-    """Delete a Step."""
-    rows = _query("Step", eid)
+@app.route("/v1/collections/<eid>", methods=["DELETE"])
+def delete_collection(request, eid):
+    """Delete a Collection."""
+    rows = _query("Collection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.Step", "id": eid})
+    db.retract({"entity": f"webflow.Collection", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/collectionitems", methods=["POST"])
+def create_collection_item(request):
+    """Create a CollectionItem."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['appName', 'authType', 'active'])
+    err = _reject_unknown(data, ['id', 'cmsLocaleId', 'isArchived', 'isDraft', 'createdOn', 'lastUpdated', 'lastPublished'])
     if err:
         return err, 400
-    err = _require(data, ['appName', 'authType'])
+    err = _require(data, ['id', 'isArchived'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_con")}
-    rec["appName"] = data.get('appName')
-    rec["authType"] = data.get('authType')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("webflow_col")}
+    rec["id"] = data.get('id')
+    rec["cmsLocaleId"] = data.get('cmsLocaleId')
+    rec["isArchived"] = _as_bool(data.get('isArchived'))
+    rec["isDraft"] = _as_bool(data.get('isDraft'))
+    rec["createdOn"] = data.get('createdOn')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["lastPublished"] = data.get('lastPublished')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("CollectionItem", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/collectionitems", methods=["GET"])
+def list_collection_items(request):
+    """List CollectionItems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['appName', 'authType', 'active'])
+    rows = _query("CollectionItem")
+    rows = _apply_filters(rows, params, ['id', 'cmsLocaleId', 'isArchived', 'isDraft', 'createdOn', 'lastUpdated', 'lastPublished'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/collectionitems/<eid>", methods=["GET"])
+def get_collection_item(request, eid):
+    """Retrieve a CollectionItem by id (supports ?expand=)."""
+    rows = _query("CollectionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/collectionitems/<eid>", methods=["POST", "PATCH"])
+def update_collection_item(request, eid):
+    """Update a CollectionItem."""
+    rows = _query("CollectionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['appName', 'authType', 'active'])
+    err = _reject_unknown(data, ['id', 'cmsLocaleId', 'isArchived', 'isDraft', 'createdOn', 'lastUpdated', 'lastPublished'])
     if err:
         return err, 400
     rec = rows[0]
@@ -296,66 +305,72 @@ def update_connection(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("CollectionItem", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/collectionitems/<eid>", methods=["DELETE"])
+def delete_collection_item(request, eid):
+    """Delete a CollectionItem."""
+    rows = _query("CollectionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.Connection", "id": eid})
+    db.retract({"entity": f"webflow.CollectionItem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/runs", methods=["POST"])
-def create_run(request):
-    """Create a Run."""
+@app.route("/v1/pages", methods=["POST"])
+def create_page(request):
+    """Create a Page."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'status', 'durationMs', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'siteId', 'title', 'slug', 'archived', 'draft', 'publishedPath', 'parentId', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'durationMs'])
+    err = _require(data, ['id', 'title'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_run")}
-    rec["flowId"] = data.get('flowId')
-    rec["status"] = data.get('status')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["startedAt"] = data.get('startedAt')
+    rec = {"id": new_id("webflow_pag")}
+    rec["id"] = data.get('id')
+    rec["siteId"] = data.get('siteId')
+    rec["title"] = data.get('title')
+    rec["slug"] = data.get('slug')
+    rec["archived"] = _as_bool(data.get('archived'))
+    rec["draft"] = _as_bool(data.get('draft'))
+    rec["publishedPath"] = data.get('publishedPath')
+    rec["parentId"] = data.get('parentId')
+    rec["createdOn"] = data.get('createdOn')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Run", rec)
+    _persist("Page", rec)
     return rec, 201
 
-@app.route("/v1/runs", methods=["GET"])
-def list_runs(request):
-    """List Runs with filtering + cursor pagination."""
+@app.route("/v1/pages", methods=["GET"])
+def list_pages(request):
+    """List Pages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Run")
-    rows = _apply_filters(rows, params, ['flowId', 'status', 'durationMs', 'startedAt'])
+    rows = _query("Page")
+    rows = _apply_filters(rows, params, ['id', 'siteId', 'title', 'slug', 'archived', 'draft', 'publishedPath', 'parentId', 'createdOn', 'lastUpdated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/runs/<eid>", methods=["GET"])
-def get_run(request, eid):
-    """Retrieve a Run by id (supports ?expand=)."""
-    rows = _query("Run", eid)
+@app.route("/v1/pages/<eid>", methods=["GET"])
+def get_page(request, eid):
+    """Retrieve a Page by id (supports ?expand=)."""
+    rows = _query("Page", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'flowId': 'Flow'})
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site'})
     return rec, 200
 
-@app.route("/v1/runs/<eid>", methods=["POST", "PATCH"])
-def update_run(request, eid):
-    """Update a Run."""
-    rows = _query("Run", eid)
+@app.route("/v1/pages/<eid>", methods=["POST", "PATCH"])
+def update_page(request, eid):
+    """Update a Page."""
+    rows = _query("Page", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'status', 'durationMs', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'siteId', 'title', 'slug', 'archived', 'draft', 'publishedPath', 'parentId', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -363,63 +378,70 @@ def update_run(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Run", rec)
+    _persist("Page", rec)
     return rec, 200
 
-@app.route("/v1/runs/<eid>", methods=["DELETE"])
-def delete_run(request, eid):
-    """Delete a Run."""
-    rows = _query("Run", eid)
+@app.route("/v1/pages/<eid>", methods=["DELETE"])
+def delete_page(request, eid):
+    """Delete a Page."""
+    rows = _query("Page", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.Run", "id": eid})
+    db.retract({"entity": f"webflow.Page", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/apps", methods=["POST"])
-def create_app(request):
-    """Create a App."""
+@app.route("/v1/forms", methods=["POST"])
+def create_form(request):
+    """Create a Form."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'category'])
+    err = _reject_unknown(data, ['id', 'displayName', 'siteId', 'pageId', 'pageName', 'formElementId', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'category'])
+    err = _require(data, ['id', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_app")}
-    rec["name"] = data.get('name')
-    rec["category"] = data.get('category')
+    rec = {"id": new_id("webflow_for")}
+    rec["id"] = data.get('id')
+    rec["displayName"] = data.get('displayName')
+    rec["siteId"] = data.get('siteId')
+    rec["pageId"] = data.get('pageId')
+    rec["pageName"] = data.get('pageName')
+    rec["formElementId"] = data.get('formElementId')
+    rec["createdOn"] = data.get('createdOn')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("App", rec)
+    _persist("Form", rec)
     return rec, 201
 
-@app.route("/v1/apps", methods=["GET"])
-def list_apps(request):
-    """List Apps with filtering + cursor pagination."""
+@app.route("/v1/forms", methods=["GET"])
+def list_forms(request):
+    """List Forms with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("App")
-    rows = _apply_filters(rows, params, ['name', 'category'])
+    rows = _query("Form")
+    rows = _apply_filters(rows, params, ['id', 'displayName', 'siteId', 'pageId', 'pageName', 'formElementId', 'createdOn', 'lastUpdated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/apps/<eid>", methods=["GET"])
-def get_app(request, eid):
-    """Retrieve a App by id (supports ?expand=)."""
-    rows = _query("App", eid)
+@app.route("/v1/forms/<eid>", methods=["GET"])
+def get_form(request, eid):
+    """Retrieve a Form by id (supports ?expand=)."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site', 'pageId': 'Page'})
     return rec, 200
 
-@app.route("/v1/apps/<eid>", methods=["POST", "PATCH"])
-def update_app(request, eid):
-    """Update a App."""
-    rows = _query("App", eid)
+@app.route("/v1/forms/<eid>", methods=["POST", "PATCH"])
+def update_form(request, eid):
+    """Update a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'category'])
+    err = _reject_unknown(data, ['id', 'displayName', 'siteId', 'pageId', 'pageName', 'formElementId', 'createdOn', 'lastUpdated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -427,88 +449,93 @@ def update_app(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("App", rec)
+    _persist("Form", rec)
     return rec, 200
 
-@app.route("/v1/apps/<eid>", methods=["DELETE"])
-def delete_app(request, eid):
-    """Delete a App."""
-    rows = _query("App", eid)
+@app.route("/v1/forms/<eid>", methods=["DELETE"])
+def delete_form(request, eid):
+    """Delete a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.App", "id": eid})
+    db.retract({"entity": f"webflow.Form", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/fields", methods=["POST"])
+def create_field(request):
+    """Create a Field."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'displayName', 'slug', 'type', 'isRequired'])
     if err:
         return err, 400
-    err = _require(data, ['url', 'active'])
+    err = _require(data, ['id', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("webflow_web")}
-    rec["flowId"] = data.get('flowId')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('type') and data['type'] not in ['PlainText', 'RichText', 'Image', 'Link', 'Email', 'Phone', 'Number', 'DateTime', 'Switch', 'Color', 'Option', 'Reference', 'MultiReference', 'File', 'VideoLink']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['PlainText', 'RichText', 'Image', 'Link', 'Email', 'Phone', 'Number', 'DateTime', 'Switch', 'Color', 'Option', 'Reference', 'MultiReference', 'File', 'VideoLink']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webflow_fie")}
+    rec["id"] = data.get('id')
+    rec["displayName"] = data.get('displayName')
+    rec["slug"] = data.get('slug')
+    rec["type"] = data.get('type')
+    rec["isRequired"] = _as_bool(data.get('isRequired'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Field", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/fields", methods=["GET"])
+def list_fields(request):
+    """List Fields with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['flowId', 'url', 'active'])
+    rows = _query("Field")
+    rows = _apply_filters(rows, params, ['id', 'displayName', 'slug', 'type', 'isRequired'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/fields/<eid>", methods=["GET"])
+def get_field(request, eid):
+    """Retrieve a Field by id (supports ?expand=)."""
+    rows = _query("Field", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'flowId': 'Flow'})
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/fields/<eid>", methods=["POST", "PATCH"])
+def update_field(request, eid):
+    """Update a Field."""
+    rows = _query("Field", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['flowId', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'displayName', 'slug', 'type', 'isRequired'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['PlainText', 'RichText', 'Image', 'Link', 'Email', 'Phone', 'Number', 'DateTime', 'Switch', 'Color', 'Option', 'Reference', 'MultiReference', 'File', 'VideoLink']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['PlainText', 'RichText', 'Image', 'Link', 'Email', 'Phone', 'Number', 'DateTime', 'Switch', 'Color', 'Option', 'Reference', 'MultiReference', 'File', 'VideoLink']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Field", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/fields/<eid>", methods=["DELETE"])
+def delete_field(request, eid):
+    """Delete a Field."""
+    rows = _query("Field", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webflow.Webhook", "id": eid})
+    db.retract({"entity": f"webflow.Field", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "webflow-compat", "tier": "L4",
-            "entities": ['Flow', 'Step', 'Connection', 'Run', 'App', 'Webhook']}, 200
+            "entities": ['Site', 'Collection', 'CollectionItem', 'Page', 'Form', 'Field']}, 200
 
 
 if __name__ == "__main__":

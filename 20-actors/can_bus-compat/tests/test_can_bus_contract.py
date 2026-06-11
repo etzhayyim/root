@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "can_bus.kotoba")
-ENTITIES = ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']
-PLURALS = {'Vehicle': 'vehicles', 'Signal': 'signals', 'ChargeSession': 'chargesessions', 'Connector': 'connectors', 'Trip': 'trips', 'Command': 'commands'}
+ENTITIES = ['CanFrame', 'CanFdFrame', 'ErrorFrame', 'RemoteFrame', 'OverloadFrame']
+PLURALS = {'CanFrame': 'canframes', 'CanFdFrame': 'canfdframes', 'ErrorFrame': 'errorframes', 'RemoteFrame': 'remoteframes', 'OverloadFrame': 'overloadframes'}
 
 
 class CanBusContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class CanBusContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['errorFlag', 'errorType', 'format', 'frameType', 'nodeState']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

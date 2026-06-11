@@ -111,183 +111,196 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/ikeheaders", methods=["POST"])
+def create_ike_header(request):
+    """Create a IkeHeader."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['initiatorSpi', 'responderSpi', 'nextPayload', 'majorVersion', 'minorVersion', 'exchangeType', 'flags', 'messageId', 'totalLength'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['initiatorSpi', 'responderSpi'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('exchangeType') and data['exchangeType'] not in [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]:
+        return {"error": {"message": "invalid exchangeType; allowed: " + ", ".join([34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipsec_ike")}
+    rec["initiatorSpi"] = _as_int(data.get('initiatorSpi'))
+    rec["responderSpi"] = _as_int(data.get('responderSpi'))
+    rec["nextPayload"] = _as_int(data.get('nextPayload'))
+    rec["majorVersion"] = _as_int(data.get('majorVersion'))
+    rec["minorVersion"] = _as_int(data.get('minorVersion'))
+    rec["exchangeType"] = _as_int(data.get('exchangeType'))
+    rec["flags"] = _as_int(data.get('flags'))
+    rec["messageId"] = _as_int(data.get('messageId'))
+    rec["totalLength"] = _as_int(data.get('totalLength'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("IkeHeader", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/ikeheaders", methods=["GET"])
+def list_ike_headers(request):
+    """List IkeHeaders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("IkeHeader")
+    rows = _apply_filters(rows, params, ['initiatorSpi', 'responderSpi', 'nextPayload', 'majorVersion', 'minorVersion', 'exchangeType', 'flags', 'messageId', 'totalLength'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ikeheaders/<eid>", methods=["GET"])
+def get_ike_header(request, eid):
+    """Retrieve a IkeHeader by id (supports ?expand=)."""
+    rows = _query("IkeHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ikeheaders/<eid>", methods=["POST", "PATCH"])
+def update_ike_header(request, eid):
+    """Update a IkeHeader."""
+    rows = _query("IkeHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['initiatorSpi', 'responderSpi', 'nextPayload', 'majorVersion', 'minorVersion', 'exchangeType', 'flags', 'messageId', 'totalLength'])
     if err:
         return err, 400
+    if data.get('exchangeType') and data['exchangeType'] not in [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]:
+        return {"error": {"message": "invalid exchangeType; allowed: " + ", ".join([34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("IkeHeader", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ikeheaders/<eid>", methods=["DELETE"])
+def delete_ike_header(request, eid):
+    """Delete a IkeHeader."""
+    rows = _query("IkeHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Prefix", "id": eid})
+    db.retract({"entity": f"ipsec.IkeHeader", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/payloads", methods=["POST"])
+def create_payload(request):
+    """Create a Payload."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['nextPayload', 'critical', 'payloadLength', 'payloadType'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['nextPayload', 'critical'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
+    if data.get('payloadType') and data['payloadType'] not in [0, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]:
+        return {"error": {"message": "invalid payloadType; allowed: " + ", ".join([0, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipsec_pay")}
+    rec["nextPayload"] = _as_int(data.get('nextPayload'))
+    rec["critical"] = _as_bool(data.get('critical'))
+    rec["payloadLength"] = _as_int(data.get('payloadLength'))
+    rec["payloadType"] = _as_int(data.get('payloadType'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
+    _persist("Payload", rec)
     return rec, 201
 
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
+@app.route("/v1/payloads", methods=["GET"])
+def list_payloads(request):
+    """List Payloads with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
+    rows = _query("Payload")
+    rows = _apply_filters(rows, params, ['nextPayload', 'critical', 'payloadLength', 'payloadType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
+@app.route("/v1/payloads/<eid>", methods=["GET"])
+def get_payload(request, eid):
+    """Retrieve a Payload by id (supports ?expand=)."""
+    rows = _query("Payload", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/payloads/<eid>", methods=["POST", "PATCH"])
+def update_payload(request, eid):
+    """Update a Payload."""
+    rows = _query("Payload", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['nextPayload', 'critical', 'payloadLength', 'payloadType'])
     if err:
         return err, 400
+    if data.get('payloadType') and data['payloadType'] not in [0, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]:
+        return {"error": {"message": "invalid payloadType; allowed: " + ", ".join([0, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Route", rec)
+    _persist("Payload", rec)
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/payloads/<eid>", methods=["DELETE"])
+def delete_payload(request, eid):
+    """Delete a Payload."""
+    rows = _query("Payload", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Route", "id": eid})
+    db.retract({"entity": f"ipsec.Payload", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
+@app.route("/v1/securityassociations", methods=["POST"])
+def create_security_association(request):
+    """Create a SecurityAssociation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['payloadType', 'proposals'])
     if err:
         return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
+    err = _require(data, ['payloadType', 'proposals'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
+    rec = {"id": new_id("ipsec_sec")}
+    rec["payloadType"] = _as_int(data.get('payloadType'))
+    rec["proposals"] = _as_int(data.get('proposals'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("SecurityAssociation", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/securityassociations", methods=["GET"])
+def list_security_associations(request):
+    """List SecurityAssociations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("SecurityAssociation")
+    rows = _apply_filters(rows, params, ['payloadType', 'proposals'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/securityassociations/<eid>", methods=["GET"])
+def get_security_association(request, eid):
+    """Retrieve a SecurityAssociation by id (supports ?expand=)."""
+    rows = _query("SecurityAssociation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/securityassociations/<eid>", methods=["POST", "PATCH"])
+def update_security_association(request, eid):
+    """Update a SecurityAssociation."""
+    rows = _query("SecurityAssociation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['payloadType', 'proposals'])
     if err:
         return err, 400
     rec = rows[0]
@@ -295,220 +308,235 @@ def update_peer(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("SecurityAssociation", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/securityassociations/<eid>", methods=["DELETE"])
+def delete_security_association(request, eid):
+    """Delete a SecurityAssociation."""
+    rows = _query("SecurityAssociation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Peer", "id": eid})
+    db.retract({"entity": f"ipsec.SecurityAssociation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
+@app.route("/v1/proposals", methods=["POST"])
+def create_proposal(request):
+    """Create a Proposal."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['number', 'protocolId', 'spiSize', 'transformCount', 'spi'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'serial'])
+    err = _require(data, ['number', 'spiSize'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    if data.get('protocolId') and data['protocolId'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipsec_pro")}
+    rec["number"] = _as_int(data.get('number'))
+    rec["protocolId"] = _as_int(data.get('protocolId'))
+    rec["spiSize"] = _as_int(data.get('spiSize'))
+    rec["transformCount"] = _as_int(data.get('transformCount'))
+    rec["spi"] = data.get('spi')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("Proposal", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/proposals", methods=["GET"])
+def list_proposals(request):
+    """List Proposals with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("Proposal")
+    rows = _apply_filters(rows, params, ['number', 'protocolId', 'spiSize', 'transformCount', 'spi'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/proposals/<eid>", methods=["GET"])
+def get_proposal(request, eid):
+    """Retrieve a Proposal by id (supports ?expand=)."""
+    rows = _query("Proposal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/proposals/<eid>", methods=["POST", "PATCH"])
+def update_proposal(request, eid):
+    """Update a Proposal."""
+    rows = _query("Proposal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['number', 'protocolId', 'spiSize', 'transformCount', 'spi'])
     if err:
         return err, 400
+    if data.get('protocolId') and data['protocolId'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("Proposal", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/proposals/<eid>", methods=["DELETE"])
+def delete_proposal(request, eid):
+    """Delete a Proposal."""
+    rows = _query("Proposal", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Zone", "id": eid})
+    db.retract({"entity": f"ipsec.Proposal", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/transforms", methods=["POST"])
+def create_transform(request):
+    """Create a Transform."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'transformId', 'transformLength', 'attributes'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['type', 'transformLength'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    if data.get('type') and data['type'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipsec_tra")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["transformId"] = _as_int(data.get('transformId'))
+    rec["transformLength"] = _as_int(data.get('transformLength'))
+    rec["attributes"] = data.get('attributes')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("Transform", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/transforms", methods=["GET"])
+def list_transforms(request):
+    """List Transforms with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("Transform")
+    rows = _apply_filters(rows, params, ['type', 'transformId', 'transformLength', 'attributes'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/transforms/<eid>", methods=["GET"])
+def get_transform(request, eid):
+    """Retrieve a Transform by id (supports ?expand=)."""
+    rows = _query("Transform", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
+    rec = _expand(rec, request.query or {}, {'transformId': 'Transform'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/transforms/<eid>", methods=["POST", "PATCH"])
+def update_transform(request, eid):
+    """Update a Transform."""
+    rows = _query("Transform", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'transformId', 'transformLength', 'attributes'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("Transform", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/transforms/<eid>", methods=["DELETE"])
+def delete_transform(request, eid):
+    """Delete a Transform."""
+    rows = _query("Transform", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Record", "id": eid})
+    db.retract({"entity": f"ipsec.Transform", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
+@app.route("/v1/notifies", methods=["POST"])
+def create_notify(request):
+    """Create a Notify."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['protocolId', 'spiSize', 'notifyMessageType', 'spi', 'notificationData'])
     if err:
         return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
+    err = _require(data, ['spiSize', 'notifyMessageType'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipsec_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('protocolId') and data['protocolId'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipsec_not")}
+    rec["protocolId"] = _as_int(data.get('protocolId'))
+    rec["spiSize"] = _as_int(data.get('spiSize'))
+    rec["notifyMessageType"] = _as_int(data.get('notifyMessageType'))
+    rec["spi"] = data.get('spi')
+    rec["notificationData"] = data.get('notificationData')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
+    _persist("Notify", rec)
     return rec, 201
 
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
+@app.route("/v1/notifies", methods=["GET"])
+def list_notifies(request):
+    """List Notifies with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    rows = _query("Notify")
+    rows = _apply_filters(rows, params, ['protocolId', 'spiSize', 'notifyMessageType', 'spi', 'notificationData'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/notifies/<eid>", methods=["GET"])
+def get_notify(request, eid):
+    """Retrieve a Notify by id (supports ?expand=)."""
+    rows = _query("Notify", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/notifies/<eid>", methods=["POST", "PATCH"])
+def update_notify(request, eid):
+    """Update a Notify."""
+    rows = _query("Notify", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['protocolId', 'spiSize', 'notifyMessageType', 'spi', 'notificationData'])
     if err:
         return err, 400
+    if data.get('protocolId') and data['protocolId'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid protocolId; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
+    _persist("Notify", rec)
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/notifies/<eid>", methods=["DELETE"])
+def delete_notify(request, eid):
+    """Delete a Notify."""
+    rows = _query("Notify", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipsec.Tunnel", "id": eid})
+    db.retract({"entity": f"ipsec.Notify", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ipsec-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['IkeHeader', 'Payload', 'SecurityAssociation', 'Proposal', 'Transform', 'Notify']}, 200
 
 
 if __name__ == "__main__":

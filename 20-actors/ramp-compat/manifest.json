@@ -11,15 +11,135 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreihqh6ovaxw2y2qnvkmapzkiizcphfxzslo7gptr6y6673sjb2uwiy",
   "schema": "schema/ramp.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.ramp.com/openapi/developer-api.json",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Card",
+      "Transaction",
+      "User",
+      "Department",
+      "Reimbursement",
+      "Bill"
+    ],
+    "enums": {
+      "Card": {
+        "state": [
+          "ACTIVE",
+          "CHIP_LOCKED",
+          "SUSPENDED",
+          "TERMINATED",
+          "UNACTIVATED"
+        ]
+      },
+      "Transaction": {
+        "state": [
+          "ALL",
+          "CLEARED",
+          "COMPLETION",
+          "DECLINED",
+          "ERROR",
+          "PENDING",
+          "PENDING_INITIATION"
+        ]
+      },
+      "User": {
+        "role": [
+          "AUDITOR",
+          "BUSINESS_ADMIN",
+          "BUSINESS_BOOKKEEPER",
+          "BUSINESS_OWNER",
+          "BUSINESS_USER",
+          "GUEST_USER",
+          "IT_ADMIN",
+          "UNBUNDLED_ADMIN",
+          "UNBUNDLED_BOOKKEEPER",
+          "UNBUNDLED_OWNER",
+          "UNBUNDLED_USER"
+        ],
+        "status": [
+          "INVITE_EXPIRED",
+          "INVITE_PENDING",
+          "USER_ACTIVE",
+          "USER_DRAFT",
+          "USER_INACTIVE",
+          "USER_ONBOARDING",
+          "USER_SUSPENDED"
+        ]
+      },
+      "Reimbursement": {
+        "state": [
+          "APPROVED",
+          "AWAITING_EXPORT",
+          "AWAITING_PAYMENT",
+          "AWAITING_PUSH_PAYMENT",
+          "CANCELED",
+          "DELETED",
+          "DRAFT",
+          "EXPORTED",
+          "EXPORT_FAILED",
+          "EXPORT_INITIATED",
+          "EXPORT_MARKED_AS_FAILED",
+          "EXPORT_SUCCESSFUL",
+          "FAILED_REIMBURSEMENT",
+          "INIT",
+          "MANUALLY_REIMBURSED",
+          "MISSING_ACH",
+          "PENDING",
+          "PROCESSING",
+          "PUSH_PAYMENT_FAILED",
+          "PUSH_PAYMENT_INITIATED",
+          "REIMBURSED",
+          "REIMBURSED_VIA_PUSH",
+          "REJECTED"
+        ],
+        "direction": [
+          "BUSINESS_TO_USER",
+          "USER_TO_BUSINESS"
+        ],
+        "type": [
+          "MILEAGE",
+          "OUT_OF_POCKET",
+          "PAYBACK_FULL",
+          "PAYBACK_PARTIAL",
+          "PER_DIEM"
+        ]
+      },
+      "Bill": {
+        "status": [
+          "OPEN",
+          "PAID"
+        ],
+        "statusSummary": [
+          "APPROVAL_PENDING",
+          "APPROVAL_REJECTED",
+          "ARCHIVED",
+          "AWAITING_RELEASE",
+          "BLOCKED",
+          "HELD_BY_PROVIDER",
+          "ON_HOLD",
+          "PAYMENT_COMPLETED",
+          "PAYMENT_DETAILS_MISSING",
+          "PAYMENT_ERROR",
+          "PAYMENT_NOT_INSTRUCTED",
+          "PAYMENT_PROCESSING",
+          "PAYMENT_READY",
+          "PAYMENT_SCHEDULED",
+          "PENDING_VENDOR_APPROVAL",
+          "WAITING_FOR_TRANSACTION_MATCH",
+          "WAITING_FOR_VENDOR"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Customer",
-    "PaymentIntent",
-    "Charge",
-    "Refund",
-    "Payout",
-    "PaymentMethod"
+    "Card",
+    "Transaction",
+    "User",
+    "Department",
+    "Reimbursement",
+    "Bill"
   ],
   "adr": [
     "260607",
@@ -35,153 +155,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/customers",
-          "op": "create Customer"
+          "path": "/v1/cards",
+          "op": "create Card"
         },
         {
           "method": "GET",
-          "path": "/v1/customers",
-          "op": "list Customer"
+          "path": "/v1/cards",
+          "op": "list Card"
         },
         {
           "method": "GET",
-          "path": "/v1/customers/{id}",
-          "op": "get Customer"
+          "path": "/v1/cards/{id}",
+          "op": "get Card"
         },
         {
           "method": "PATCH",
-          "path": "/v1/customers/{id}",
-          "op": "update Customer"
+          "path": "/v1/cards/{id}",
+          "op": "update Card"
         },
         {
           "method": "DELETE",
-          "path": "/v1/customers/{id}",
-          "op": "delete Customer"
+          "path": "/v1/cards/{id}",
+          "op": "delete Card"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentintents",
-          "op": "create PaymentIntent"
+          "path": "/v1/transactions",
+          "op": "create Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentintents",
-          "op": "list PaymentIntent"
+          "path": "/v1/transactions",
+          "op": "list Transaction"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentintents/{id}",
-          "op": "get PaymentIntent"
+          "path": "/v1/transactions/{id}",
+          "op": "get Transaction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentintents/{id}",
-          "op": "update PaymentIntent"
+          "path": "/v1/transactions/{id}",
+          "op": "update Transaction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentintents/{id}",
-          "op": "delete PaymentIntent"
+          "path": "/v1/transactions/{id}",
+          "op": "delete Transaction"
         },
         {
           "method": "POST",
-          "path": "/v1/charges",
-          "op": "create Charge"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/charges",
-          "op": "list Charge"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/charges/{id}",
-          "op": "get Charge"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/charges/{id}",
-          "op": "update Charge"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/charges/{id}",
-          "op": "delete Charge"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/refunds",
-          "op": "create Refund"
+          "path": "/v1/departments",
+          "op": "create Department"
         },
         {
           "method": "GET",
-          "path": "/v1/refunds",
-          "op": "list Refund"
+          "path": "/v1/departments",
+          "op": "list Department"
         },
         {
           "method": "GET",
-          "path": "/v1/refunds/{id}",
-          "op": "get Refund"
+          "path": "/v1/departments/{id}",
+          "op": "get Department"
         },
         {
           "method": "PATCH",
-          "path": "/v1/refunds/{id}",
-          "op": "update Refund"
+          "path": "/v1/departments/{id}",
+          "op": "update Department"
         },
         {
           "method": "DELETE",
-          "path": "/v1/refunds/{id}",
-          "op": "delete Refund"
+          "path": "/v1/departments/{id}",
+          "op": "delete Department"
         },
         {
           "method": "POST",
-          "path": "/v1/payouts",
-          "op": "create Payout"
+          "path": "/v1/reimbursements",
+          "op": "create Reimbursement"
         },
         {
           "method": "GET",
-          "path": "/v1/payouts",
-          "op": "list Payout"
+          "path": "/v1/reimbursements",
+          "op": "list Reimbursement"
         },
         {
           "method": "GET",
-          "path": "/v1/payouts/{id}",
-          "op": "get Payout"
+          "path": "/v1/reimbursements/{id}",
+          "op": "get Reimbursement"
         },
         {
           "method": "PATCH",
-          "path": "/v1/payouts/{id}",
-          "op": "update Payout"
+          "path": "/v1/reimbursements/{id}",
+          "op": "update Reimbursement"
         },
         {
           "method": "DELETE",
-          "path": "/v1/payouts/{id}",
-          "op": "delete Payout"
+          "path": "/v1/reimbursements/{id}",
+          "op": "delete Reimbursement"
         },
         {
           "method": "POST",
-          "path": "/v1/paymentmethods",
-          "op": "create PaymentMethod"
+          "path": "/v1/bills",
+          "op": "create Bill"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentmethods",
-          "op": "list PaymentMethod"
+          "path": "/v1/bills",
+          "op": "list Bill"
         },
         {
           "method": "GET",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "get PaymentMethod"
+          "path": "/v1/bills/{id}",
+          "op": "get Bill"
         },
         {
           "method": "PATCH",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "update PaymentMethod"
+          "path": "/v1/bills/{id}",
+          "op": "update Bill"
         },
         {
           "method": "DELETE",
-          "path": "/v1/paymentmethods/{id}",
-          "op": "delete PaymentMethod"
+          "path": "/v1/bills/{id}",
+          "op": "delete Bill"
         }
       ],
       "features": {
@@ -247,41 +367,362 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_customer",
-          "description": "Create a Customer.",
+          "name": "create_card",
+          "description": "Create a Card.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "lastFour": {
+                "type": "string"
+              },
+              "cardholderName": {
+                "type": "string"
+              },
+              "cardholderID": {
+                "type": "string"
+              },
+              "isPhysical": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_cards",
+          "description": "List Cards.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_card",
+          "description": "Get a Card by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_card",
+          "description": "Update a Card.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "lastFour": {
+                "type": "string"
+              },
+              "cardholderName": {
+                "type": "string"
+              },
+              "cardholderID": {
+                "type": "string"
+              },
+              "isPhysical": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_card",
+          "description": "Delete a Card.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_transaction",
+          "description": "Create a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "currencyCode": {
+                "type": "string"
+              },
+              "cardID": {
+                "type": "string"
+              },
+              "merchantName": {
+                "type": "string"
+              },
+              "userTransactionTime": {
+                "type": "string"
+              },
+              "settlementDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_transactions",
+          "description": "List Transactions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_transaction",
+          "description": "Get a Transaction by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_transaction",
+          "description": "Update a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "currencyCode": {
+                "type": "string"
+              },
+              "cardID": {
+                "type": "string"
+              },
+              "merchantName": {
+                "type": "string"
+              },
+              "userTransactionTime": {
+                "type": "string"
+              },
+              "settlementDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_transaction",
+          "description": "Delete a Transaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
               "email": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "departmentID": {
+                "type": "string"
+              },
+              "isManager": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "departmentID": {
+                "type": "string"
+              },
+              "isManager": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_department",
+          "description": "Create a Department.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "integer"
               }
             },
             "required": [
-              "email",
+              "id",
               "name"
             ]
           }
         },
         {
-          "name": "list_customers",
-          "description": "List Customers.",
+          "name": "list_departments",
+          "description": "List Departments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_customer",
-          "description": "Get a Customer by id.",
+          "name": "get_department",
+          "description": "Get a Department by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +736,16 @@
           }
         },
         {
-          "name": "update_customer",
-          "description": "Update a Customer.",
+          "name": "update_department",
+          "description": "Update a Department.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "email": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +754,8 @@
           }
         },
         {
-          "name": "delete_customer",
-          "description": "Delete a Customer.",
+          "name": "delete_department",
+          "description": "Delete a Department.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,407 +769,53 @@
           }
         },
         {
-          "name": "create_payment_intent",
-          "description": "Create a PaymentIntent.",
+          "name": "create_reimbursement",
+          "description": "Create a Reimbursement.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "customerId": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
                 "type": "string"
               },
               "amount": {
-                "type": "integer"
+                "type": "number"
               },
               "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_payment_intents",
-          "description": "List PaymentIntents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payment_intent",
-          "description": "Get a PaymentIntent by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payment_intent",
-          "description": "Update a PaymentIntent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "customerId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payment_intent",
-          "description": "Delete a PaymentIntent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_charge",
-          "description": "Create a Charge.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customerId": {
-                "type": "string"
-              },
-              "paymentIntentId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_charges",
-          "description": "List Charges.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_charge",
-          "description": "Get a Charge by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_charge",
-          "description": "Update a Charge.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "customerId": {
-                "type": "string"
-              },
-              "paymentIntentId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_charge",
-          "description": "Delete a Charge.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_refund",
-          "description": "Create a Refund.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "chargeId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "reason": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "reason"
-            ]
-          }
-        },
-        {
-          "name": "list_refunds",
-          "description": "List Refunds.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_refund",
-          "description": "Get a Refund by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_refund",
-          "description": "Update a Refund.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "chargeId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "reason": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_refund",
-          "description": "Delete a Refund.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payout",
-          "description": "Create a Payout.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "arrivalDate": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_payouts",
-          "description": "List Payouts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payout",
-          "description": "Get a Payout by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payout",
-          "description": "Update a Payout.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "arrivalDate": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payout",
-          "description": "Delete a Payout.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payment_method",
-          "description": "Create a PaymentMethod.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customerId": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "last4": {
+              "userID": {
                 "type": "string"
               },
-              "brand": {
+              "direction": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "last4"
+              "id",
+              "state"
             ]
           }
         },
         {
-          "name": "list_payment_methods",
-          "description": "List PaymentMethods.",
+          "name": "list_reimbursements",
+          "description": "List Reimbursements.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_payment_method",
-          "description": "Get a PaymentMethod by id.",
+          "name": "get_reimbursement",
+          "description": "Get a Reimbursement by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -751,24 +829,33 @@
           }
         },
         {
-          "name": "update_payment_method",
-          "description": "Update a PaymentMethod.",
+          "name": "update_reimbursement",
+          "description": "Update a Reimbursement.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "customerId": {
+              "state": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "currency": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "last4": {
+              "userID": {
                 "type": "string"
               },
-              "brand": {
+              "direction": {
+                "type": "string"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -778,8 +865,119 @@
           }
         },
         {
-          "name": "delete_payment_method",
-          "description": "Delete a PaymentMethod.",
+          "name": "delete_reimbursement",
+          "description": "Delete a Reimbursement.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_bill",
+          "description": "Create a Bill.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "currencyCode": {
+                "type": "string"
+              },
+              "invoiceNumber": {
+                "type": "string"
+              },
+              "statusSummary": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "dueAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_bills",
+          "description": "List Bills.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_bill",
+          "description": "Get a Bill by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_bill",
+          "description": "Update a Bill.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "currencyCode": {
+                "type": "string"
+              },
+              "invoiceNumber": {
+                "type": "string"
+              },
+              "statusSummary": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "dueAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_bill",
+          "description": "Delete a Bill.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -11,15 +11,125 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
   "schema": "schema/gusto.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/Gusto/gusto-python-client/main/gusto_embedded/src/gusto_embedded/models",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Employee",
+      "Company",
+      "Compensation",
+      "Job",
+      "Contractor",
+      "Payroll"
+    ],
+    "enums": {
+      "Employee": {
+        "onboardingStatus": [
+          "onboarding_completed",
+          "admin_onboarding_incomplete",
+          "self_onboarding_pending_invite",
+          "self_onboarding_invited",
+          "self_onboarding_invited_started",
+          "self_onboarding_invited_overdue",
+          "self_onboarding_completed_by_employee",
+          "self_onboarding_awaiting_admin_review"
+        ],
+        "paymentMethod": [
+          "Direct Deposit",
+          "Check"
+        ],
+        "flsaStatus": [
+          "Exempt",
+          "Salaried Nonexempt",
+          "Nonexempt",
+          "Commission Only Exempt",
+          "Commission Only Nonexempt",
+          "Owner"
+        ]
+      },
+      "Company": {
+        "status": [
+          "Approved",
+          "Not Approved",
+          "Suspended"
+        ],
+        "entityType": [
+          "C-Corporation",
+          "S-Corporation",
+          "Sole proprietor",
+          "LLC",
+          "LLP",
+          "Limited partnership",
+          "Co-ownership",
+          "Association",
+          "Trusteeship",
+          "General partnership",
+          "Joint venture",
+          "Non-Profit"
+        ],
+        "tier": [
+          "simple",
+          "plus",
+          "premium",
+          "core",
+          "complete",
+          "concierge",
+          "contractor_only",
+          "basic"
+        ]
+      },
+      "Compensation": {
+        "paymentUnit": [
+          "Hour",
+          "Week",
+          "Month",
+          "Year",
+          "Paycheck"
+        ],
+        "flsaStatus": [
+          "Exempt",
+          "Salaried Nonexempt",
+          "Nonexempt",
+          "Commission Only Exempt",
+          "Commission Only Nonexempt",
+          "Owner"
+        ]
+      },
+      "Contractor": {
+        "wageType": [
+          "Fixed",
+          "Hourly"
+        ],
+        "contractorType": [
+          "Individual",
+          "Business"
+        ]
+      },
+      "Payroll": {
+        "offCycleReason": [
+          "Adhoc",
+          "Benefit reversal",
+          "Bonus",
+          "Correction",
+          "Dismissed employee",
+          "Hired employee",
+          "Wage correction",
+          "Tax reconciliation",
+          "Reversal",
+          "Disability insurance distribution",
+          "Transition from old pay schedule"
+        ]
+      }
+    }
+  },
   "entities": [
     "Employee",
-    "Candidate",
-    "JobReq",
-    "PayrollRun",
-    "TimeOff",
-    "Review"
+    "Company",
+    "Compensation",
+    "Job",
+    "Contractor",
+    "Payroll"
   ],
   "adr": [
     "260607",
@@ -60,128 +170,128 @@
         },
         {
           "method": "POST",
-          "path": "/v1/candidates",
-          "op": "create Candidate"
+          "path": "/v1/companies",
+          "op": "create Company"
         },
         {
           "method": "GET",
-          "path": "/v1/candidates",
-          "op": "list Candidate"
+          "path": "/v1/companies",
+          "op": "list Company"
         },
         {
           "method": "GET",
-          "path": "/v1/candidates/{id}",
-          "op": "get Candidate"
+          "path": "/v1/companies/{id}",
+          "op": "get Company"
         },
         {
           "method": "PATCH",
-          "path": "/v1/candidates/{id}",
-          "op": "update Candidate"
+          "path": "/v1/companies/{id}",
+          "op": "update Company"
         },
         {
           "method": "DELETE",
-          "path": "/v1/candidates/{id}",
-          "op": "delete Candidate"
+          "path": "/v1/companies/{id}",
+          "op": "delete Company"
         },
         {
           "method": "POST",
-          "path": "/v1/jobreqs",
-          "op": "create JobReq"
+          "path": "/v1/compensations",
+          "op": "create Compensation"
         },
         {
           "method": "GET",
-          "path": "/v1/jobreqs",
-          "op": "list JobReq"
+          "path": "/v1/compensations",
+          "op": "list Compensation"
         },
         {
           "method": "GET",
-          "path": "/v1/jobreqs/{id}",
-          "op": "get JobReq"
+          "path": "/v1/compensations/{id}",
+          "op": "get Compensation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/jobreqs/{id}",
-          "op": "update JobReq"
+          "path": "/v1/compensations/{id}",
+          "op": "update Compensation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/jobreqs/{id}",
-          "op": "delete JobReq"
+          "path": "/v1/compensations/{id}",
+          "op": "delete Compensation"
         },
         {
           "method": "POST",
-          "path": "/v1/payrollruns",
-          "op": "create PayrollRun"
+          "path": "/v1/jobs",
+          "op": "create Job"
         },
         {
           "method": "GET",
-          "path": "/v1/payrollruns",
-          "op": "list PayrollRun"
+          "path": "/v1/jobs",
+          "op": "list Job"
         },
         {
           "method": "GET",
-          "path": "/v1/payrollruns/{id}",
-          "op": "get PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "get Job"
         },
         {
           "method": "PATCH",
-          "path": "/v1/payrollruns/{id}",
-          "op": "update PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "update Job"
         },
         {
           "method": "DELETE",
-          "path": "/v1/payrollruns/{id}",
-          "op": "delete PayrollRun"
+          "path": "/v1/jobs/{id}",
+          "op": "delete Job"
         },
         {
           "method": "POST",
-          "path": "/v1/timeoffs",
-          "op": "create TimeOff"
+          "path": "/v1/contractors",
+          "op": "create Contractor"
         },
         {
           "method": "GET",
-          "path": "/v1/timeoffs",
-          "op": "list TimeOff"
+          "path": "/v1/contractors",
+          "op": "list Contractor"
         },
         {
           "method": "GET",
-          "path": "/v1/timeoffs/{id}",
-          "op": "get TimeOff"
+          "path": "/v1/contractors/{id}",
+          "op": "get Contractor"
         },
         {
           "method": "PATCH",
-          "path": "/v1/timeoffs/{id}",
-          "op": "update TimeOff"
+          "path": "/v1/contractors/{id}",
+          "op": "update Contractor"
         },
         {
           "method": "DELETE",
-          "path": "/v1/timeoffs/{id}",
-          "op": "delete TimeOff"
+          "path": "/v1/contractors/{id}",
+          "op": "delete Contractor"
         },
         {
           "method": "POST",
-          "path": "/v1/reviews",
-          "op": "create Review"
+          "path": "/v1/payrolls",
+          "op": "create Payroll"
         },
         {
           "method": "GET",
-          "path": "/v1/reviews",
-          "op": "list Review"
+          "path": "/v1/payrolls",
+          "op": "list Payroll"
         },
         {
           "method": "GET",
-          "path": "/v1/reviews/{id}",
-          "op": "get Review"
+          "path": "/v1/payrolls/{id}",
+          "op": "get Payroll"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reviews/{id}",
-          "op": "update Review"
+          "path": "/v1/payrolls/{id}",
+          "op": "update Payroll"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reviews/{id}",
-          "op": "delete Review"
+          "path": "/v1/payrolls/{id}",
+          "op": "delete Payroll"
         }
       ],
       "features": {
@@ -252,6 +362,9 @@
           "inputSchema": {
             "type": "object",
             "properties": {
+              "uuid": {
+                "type": "string"
+              },
               "firstName": {
                 "type": "string"
               },
@@ -261,16 +374,22 @@
               "email": {
                 "type": "string"
               },
-              "title": {
+              "onboardingStatus": {
                 "type": "string"
               },
-              "department": {
+              "paymentMethod": {
+                "type": "string"
+              },
+              "terminated": {
+                "type": "boolean"
+              },
+              "flsaStatus": {
                 "type": "string"
               }
             },
             "required": [
-              "firstName",
-              "lastName"
+              "uuid",
+              "firstName"
             ]
           }
         },
@@ -306,6 +425,9 @@
               "id": {
                 "type": "string"
               },
+              "uuid": {
+                "type": "string"
+              },
               "firstName": {
                 "type": "string"
               },
@@ -315,10 +437,16 @@
               "email": {
                 "type": "string"
               },
-              "title": {
+              "onboardingStatus": {
                 "type": "string"
               },
-              "department": {
+              "paymentMethod": {
+                "type": "string"
+              },
+              "terminated": {
+                "type": "boolean"
+              },
+              "flsaStatus": {
                 "type": "string"
               }
             },
@@ -343,8 +471,296 @@
           }
         },
         {
-          "name": "create_candidate",
-          "description": "Create a Candidate.",
+          "name": "create_company",
+          "description": "Create a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "entityType": {
+                "type": "string"
+              },
+              "tier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "uuid",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_companies",
+          "description": "List Companies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_company",
+          "description": "Get a Company by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_company",
+          "description": "Update a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "entityType": {
+                "type": "string"
+              },
+              "tier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_company",
+          "description": "Delete a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_compensation",
+          "description": "Create a Compensation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "rate": {
+                "type": "string"
+              },
+              "paymentUnit": {
+                "type": "string"
+              },
+              "flsaStatus": {
+                "type": "string"
+              },
+              "effectiveDate": {
+                "type": "string"
+              },
+              "adjustForMinimumWage": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "rate",
+              "paymentUnit"
+            ]
+          }
+        },
+        {
+          "name": "list_compensations",
+          "description": "List Compensations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_compensation",
+          "description": "Get a Compensation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_compensation",
+          "description": "Update a Compensation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "rate": {
+                "type": "string"
+              },
+              "paymentUnit": {
+                "type": "string"
+              },
+              "flsaStatus": {
+                "type": "string"
+              },
+              "effectiveDate": {
+                "type": "string"
+              },
+              "adjustForMinimumWage": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_compensation",
+          "description": "Delete a Compensation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_job",
+          "description": "Create a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "rate": {
+                "type": "string"
+              },
+              "paymentUnit": {
+                "type": "string"
+              },
+              "primary": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "uuid",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_jobs",
+          "description": "List Jobs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_job",
+          "description": "Get a Job by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_job",
+          "description": "Update a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "rate": {
+                "type": "string"
+              },
+              "paymentUnit": {
+                "type": "string"
+              },
+              "primary": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_job",
+          "description": "Delete a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_contractor",
+          "description": "Create a Contractor.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -354,11 +770,17 @@
               "lastName": {
                 "type": "string"
               },
-              "email": {
+              "businessName": {
                 "type": "string"
               },
-              "stage": {
+              "wageType": {
                 "type": "string"
+              },
+              "contractorType": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -368,16 +790,16 @@
           }
         },
         {
-          "name": "list_candidates",
-          "description": "List Candidates.",
+          "name": "list_contractors",
+          "description": "List Contractors.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_candidate",
-          "description": "Get a Candidate by id.",
+          "name": "get_contractor",
+          "description": "Get a Contractor by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -391,8 +813,8 @@
           }
         },
         {
-          "name": "update_candidate",
-          "description": "Update a Candidate.",
+          "name": "update_contractor",
+          "description": "Update a Contractor.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -405,11 +827,17 @@
               "lastName": {
                 "type": "string"
               },
-              "email": {
+              "businessName": {
                 "type": "string"
               },
-              "stage": {
+              "wageType": {
                 "type": "string"
+              },
+              "contractorType": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -418,8 +846,8 @@
           }
         },
         {
-          "name": "delete_candidate",
-          "description": "Delete a Candidate.",
+          "name": "delete_contractor",
+          "description": "Delete a Contractor.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -433,41 +861,41 @@
           }
         },
         {
-          "name": "create_job_req",
-          "description": "Create a JobReq.",
+          "name": "create_payroll",
+          "description": "Create a Payroll.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "title": {
+              "uuid": {
                 "type": "string"
               },
-              "department": {
-                "type": "string"
+              "processed": {
+                "type": "boolean"
               },
-              "status": {
-                "type": "string"
+              "offCycle": {
+                "type": "boolean"
               },
-              "openings": {
-                "type": "integer"
+              "offCycleReason": {
+                "type": "string"
               }
             },
             "required": [
-              "title",
-              "department"
+              "uuid",
+              "processed"
             ]
           }
         },
         {
-          "name": "list_job_reqs",
-          "description": "List JobReqs.",
+          "name": "list_payrolls",
+          "description": "List Payrolls.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_job_req",
-          "description": "Get a JobReq by id.",
+          "name": "get_payroll",
+          "description": "Get a Payroll by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -481,39 +909,24 @@
           }
         },
         {
-          "name": "update_job_req",
-          "description": "Update a JobReq.",
+          "name": "update_payroll",
+          "description": "Update a Payroll.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "title": {
+              "uuid": {
                 "type": "string"
               },
-              "department": {
-                "type": "string"
+              "processed": {
+                "type": "boolean"
               },
-              "status": {
-                "type": "string"
+              "offCycle": {
+                "type": "boolean"
               },
-              "openings": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_job_req",
-          "description": "Delete a JobReq.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "offCycleReason": {
                 "type": "string"
               }
             },
@@ -523,269 +936,8 @@
           }
         },
         {
-          "name": "create_payroll_run",
-          "description": "Create a PayrollRun.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "period": {
-                "type": "string"
-              },
-              "grossTotal": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "period",
-              "grossTotal"
-            ]
-          }
-        },
-        {
-          "name": "list_payroll_runs",
-          "description": "List PayrollRuns.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payroll_run",
-          "description": "Get a PayrollRun by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payroll_run",
-          "description": "Update a PayrollRun.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "grossTotal": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payroll_run",
-          "description": "Delete a PayrollRun.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_time_off",
-          "description": "Create a TimeOff.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "employeeId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "start": {
-                "type": "string"
-              },
-              "days": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "start"
-            ]
-          }
-        },
-        {
-          "name": "list_time_offs",
-          "description": "List TimeOffs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_time_off",
-          "description": "Get a TimeOff by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_time_off",
-          "description": "Update a TimeOff.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "employeeId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "start": {
-                "type": "string"
-              },
-              "days": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_time_off",
-          "description": "Delete a TimeOff.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_review",
-          "description": "Create a Review.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "employeeId": {
-                "type": "string"
-              },
-              "cycle": {
-                "type": "string"
-              },
-              "rating": {
-                "type": "number"
-              },
-              "reviewerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cycle",
-              "rating"
-            ]
-          }
-        },
-        {
-          "name": "list_reviews",
-          "description": "List Reviews.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_review",
-          "description": "Get a Review by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_review",
-          "description": "Update a Review.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "employeeId": {
-                "type": "string"
-              },
-              "cycle": {
-                "type": "string"
-              },
-              "rating": {
-                "type": "number"
-              },
-              "reviewerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_review",
-          "description": "Delete a Review.",
+          "name": "delete_payroll",
+          "description": "Delete a Payroll.",
           "inputSchema": {
             "type": "object",
             "properties": {

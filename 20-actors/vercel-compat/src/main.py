@@ -121,8 +121,8 @@ def create_deployment(request):
     err = _require(data, ['name', 'url'])
     if err:
         return err, 400
-    if data.get('readyState') and data['readyState'] not in ['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']:
-        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('readyState') and data['readyState'] not in ['BLOCKED', 'BUILDING', 'CANCELED', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BLOCKED', 'BUILDING', 'CANCELED', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY']), "type": "invalid_request_error"}}, 400
     if data.get('target') and data['target'] not in ['production', 'staging']:
         return {"error": {"message": "invalid target; allowed: " + ", ".join(['production', 'staging']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("vercel_dep")}
@@ -167,8 +167,8 @@ def update_deployment(request, eid):
     err = _reject_unknown(data, ['name', 'projectId', 'url', 'readyState', 'target', 'type'])
     if err:
         return err, 400
-    if data.get('readyState') and data['readyState'] not in ['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']:
-        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BUILDING', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY', 'CANCELED', 'BLOCKED', 'DELETED']), "type": "invalid_request_error"}}, 400
+    if data.get('readyState') and data['readyState'] not in ['BLOCKED', 'BUILDING', 'CANCELED', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['BLOCKED', 'BUILDING', 'CANCELED', 'ERROR', 'INITIALIZING', 'QUEUED', 'READY']), "type": "invalid_request_error"}}, 400
     if data.get('target') and data['target'] not in ['production', 'staging']:
         return {"error": {"message": "invalid target; allowed: " + ", ".join(['production', 'staging']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
@@ -329,16 +329,19 @@ def delete_domain(request, eid):
 def create_alias(request):
     """Create a Alias."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId'])
+    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId', 'redirectStatusCode'])
     if err:
         return err, 400
-    err = _require(data, ['alias'])
+    err = _require(data, ['alias', 'redirectStatusCode'])
     if err:
         return err, 400
+    if data.get('redirectStatusCode') and data['redirectStatusCode'] not in [301, 302, 307, 308]:
+        return {"error": {"message": "invalid redirectStatusCode; allowed: " + ", ".join([301, 302, 307, 308]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("vercel_ali")}
     rec["alias"] = data.get('alias')
     rec["deploymentId"] = data.get('deploymentId')
     rec["projectId"] = data.get('projectId')
+    rec["redirectStatusCode"] = _as_int(data.get('redirectStatusCode'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Alias", rec)
@@ -349,7 +352,7 @@ def list_aliases(request):
     """List Aliases with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Alias")
-    rows = _apply_filters(rows, params, ['alias', 'deploymentId', 'projectId'])
+    rows = _apply_filters(rows, params, ['alias', 'deploymentId', 'projectId', 'redirectStatusCode'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -371,9 +374,11 @@ def update_alias(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId'])
+    err = _reject_unknown(data, ['alias', 'deploymentId', 'projectId', 'redirectStatusCode'])
     if err:
         return err, 400
+    if data.get('redirectStatusCode') and data['redirectStatusCode'] not in [301, 302, 307, 308]:
+        return {"error": {"message": "invalid redirectStatusCode; allowed: " + ", ".join([301, 302, 307, 308]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

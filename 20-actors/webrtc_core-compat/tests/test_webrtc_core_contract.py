@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "webrtc_core.kotoba")
-ENTITIES = ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']
-PLURALS = {'Prefix': 'prefixes', 'Route': 'routes', 'Peer': 'peers', 'Zone': 'zones', 'Record': 'records', 'Tunnel': 'tunnels'}
+ENTITIES = ['RTCPeerConnection', 'RTCDataChannel', 'RTCSessionDescription', 'RTCIceCandidate', 'RTCRtpTransceiver']
+PLURALS = {'RTCPeerConnection': 'rtcpeerconnections', 'RTCDataChannel': 'rtcdatachannels', 'RTCSessionDescription': 'rtcsessiondescriptions', 'RTCIceCandidate': 'rtcicecandidates', 'RTCRtpTransceiver': 'rtcrtptransceivers'}
 
 
 class WebrtcCoreContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class WebrtcCoreContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['connectionState', 'currentDirection', 'direction', 'iceConnectionState', 'iceGatheringState', 'protocol', 'readyState', 'signalingState', 'tcpType', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

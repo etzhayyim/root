@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "redis.kotoba")
-ENTITIES = ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']
-PLURALS = {'Dataset': 'datasets', 'Query': 'queries', 'Dashboard': 'dashboards', 'Report': 'reports', 'Connection': 'connections', 'Metric': 'metrics'}
+ENTITIES = ['RespMessage', 'RedisCommand', 'RedisKey', 'RedisDataType', 'RespProtocolVersion']
+PLURALS = {'RespMessage': 'respmessages', 'RedisCommand': 'rediscommands', 'RedisKey': 'rediskeys', 'RedisDataType': 'redisdatatypes', 'RespProtocolVersion': 'respprotocolversions'}
 
 
 class RedisContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class RedisContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['dataType', 'firstByte']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

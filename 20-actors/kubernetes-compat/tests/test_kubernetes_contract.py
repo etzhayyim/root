@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "kubernetes.kotoba")
-ENTITIES = ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']
-PLURALS = {'Repository': 'repositories', 'Pipeline': 'pipelines', 'Build': 'builds', 'Artifact': 'artifacts', 'Deployment': 'deployments', 'Webhook': 'webhooks'}
+ENTITIES = ['Pod', 'Service', 'Deployment', 'Namespace', 'Node', 'PersistentVolume']
+PLURALS = {'Pod': 'pods', 'Service': 'services', 'Deployment': 'deployments', 'Namespace': 'namespaces', 'Node': 'nodes', 'PersistentVolume': 'persistentvolumes'}
 
 
 class KubernetesContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class KubernetesContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['phase', 'restartPolicy', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

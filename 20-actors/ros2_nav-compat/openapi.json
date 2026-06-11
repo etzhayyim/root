@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mobility / auto / EV actor (ros2_nav); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ros2_nav-compat",
-    "x-wasm-cid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+    "x-wasm-cid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+      "url": "ipfs://bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/vehicles": {
+    "/v1/goalstatuses": {
       "get": {
-        "summary": "List Vehicles",
+        "summary": "List GoalStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vehicle"
+                        "$ref": "#/components/schemas/GoalStatus"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vehicle",
+        "summary": "Create a GoalStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/GoalStatusCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/GoalStatus"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/vehicles/{id}": {
+    "/v1/goalstatuses/{id}": {
       "get": {
-        "summary": "Get a Vehicle",
+        "summary": "Get a GoalStatus",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/GoalStatus"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vehicle",
+        "summary": "Update a GoalStatus",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/GoalStatusCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/GoalStatus"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vehicle",
+        "summary": "Delete a GoalStatus",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/signals": {
+    "/v1/navsatfixes": {
       "get": {
-        "summary": "List Signals",
+        "summary": "List NavSatFixes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Signal"
+                        "$ref": "#/components/schemas/NavSatFix"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Signal",
+        "summary": "Create a NavSatFix",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/NavSatFixCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/NavSatFix"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/signals/{id}": {
+    "/v1/navsatfixes/{id}": {
       "get": {
-        "summary": "Get a Signal",
+        "summary": "Get a NavSatFix",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/NavSatFix"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Signal",
+        "summary": "Update a NavSatFix",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/NavSatFixCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/NavSatFix"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a NavSatFix",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/chargesessions": {
+    "/v1/batterystates": {
       "get": {
-        "summary": "List ChargeSessions",
+        "summary": "List BatteryStates",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ChargeSession"
+                        "$ref": "#/components/schemas/BatteryState"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ChargeSession",
+        "summary": "Create a BatteryState",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/BatteryStateCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/BatteryState"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/chargesessions/{id}": {
+    "/v1/batterystates/{id}": {
       "get": {
-        "summary": "Get a ChargeSession",
+        "summary": "Get a BatteryState",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/BatteryState"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ChargeSession",
+        "summary": "Update a BatteryState",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/BatteryStateCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/BatteryState"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ChargeSession",
+        "summary": "Delete a BatteryState",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/connectors": {
+    "/v1/odometries": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List Odometries",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/Odometry"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a Odometry",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/OdometryCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Odometry"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/odometries/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a Odometry",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Odometry"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a Odometry",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/OdometryCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Odometry"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/trips": {
-      "get": {
-        "summary": "List Trips",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Trip"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Trip",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/trips/{id}": {
-      "get": {
-        "summary": "Get a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/commands": {
-      "get": {
-        "summary": "List Commands",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Command"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Command",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/commands/{id}": {
-      "get": {
-        "summary": "Get a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a Odometry",
         "parameters": [
           {
             "name": "id",
@@ -1140,121 +770,30 @@
   },
   "components": {
     "schemas": {
-      "Vehicle": {
+      "GoalStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vin": {
+          "goalId": {
             "type": "string"
           },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
-          },
-          "createdAt": {
+          "stamp": {
             "type": "string",
             "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "VehicleCreate": {
-        "type": "object",
-        "properties": {
-          "vin": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "vin",
-          "model"
-        ]
-      },
-      "Signal": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SignalCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "value"
-        ]
-      },
-      "ChargeSession": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "connectorId": {
-            "type": "string"
-          },
-          "energyKwh": {
-            "type": "number"
           },
           "status": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1266,44 +805,69 @@
           }
         }
       },
-      "ChargeSessionCreate": {
+      "GoalStatusCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
+          "goalId": {
             "type": "string"
           },
-          "connectorId": {
+          "stamp": {
             "type": "string"
-          },
-          "energyKwh": {
-            "type": "number"
           },
           "status": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
           }
         },
         "required": [
-          "energyKwh",
+          "stamp",
           "status"
         ]
       },
-      "Connector": {
+      "NavSatFix": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "stationId": {
-            "type": "string"
+          "latitude": {
+            "type": "number"
           },
-          "standard": {
-            "type": "string"
+          "longitude": {
+            "type": "number"
           },
-          "powerKw": {
+          "altitude": {
             "type": "number"
           },
           "status": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ]
+          },
+          "service": {
+            "type": "integer"
+          },
+          "positionCovarianceType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1315,42 +879,96 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "NavSatFixCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
-            "type": "string"
+          "latitude": {
+            "type": "number"
           },
-          "standard": {
-            "type": "string"
+          "longitude": {
+            "type": "number"
           },
-          "powerKw": {
+          "altitude": {
             "type": "number"
           },
           "status": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ]
+          },
+          "service": {
+            "type": "integer"
+          },
+          "positionCovarianceType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
           }
         },
         "required": [
-          "standard",
-          "powerKw"
+          "latitude",
+          "longitude"
         ]
       },
-      "Trip": {
+      "BatteryState": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
+          "voltage": {
             "type": "number"
           },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
+          "temperature": {
+            "type": "number"
+          },
+          "current": {
+            "type": "number"
+          },
+          "charge": {
+            "type": "number"
+          },
+          "percentage": {
+            "type": "number"
+          },
+          "powerSupplyStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "powerSupplyHealth": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "powerSupplyTechnology": {
+            "type": "integer"
+          },
+          "present": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1362,38 +980,95 @@
           }
         }
       },
-      "TripCreate": {
+      "BatteryStateCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
+          "voltage": {
             "type": "number"
           },
-          "startedAt": {
-            "type": "string"
+          "temperature": {
+            "type": "number"
+          },
+          "current": {
+            "type": "number"
+          },
+          "charge": {
+            "type": "number"
+          },
+          "percentage": {
+            "type": "number"
+          },
+          "powerSupplyStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "powerSupplyHealth": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "powerSupplyTechnology": {
+            "type": "integer"
+          },
+          "present": {
+            "type": "boolean"
           }
         },
         "required": [
-          "distanceKm",
-          "startedAt"
+          "voltage",
+          "temperature"
         ]
       },
-      "Command": {
+      "Odometry": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
+          "childFrameId": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "poseX": {
+            "type": "number"
           },
-          "status": {
-            "type": "string"
+          "poseY": {
+            "type": "number"
+          },
+          "poseZ": {
+            "type": "number"
+          },
+          "twistLinearX": {
+            "type": "number"
+          },
+          "twistLinearY": {
+            "type": "number"
+          },
+          "twistLinearZ": {
+            "type": "number"
+          },
+          "twistAngularX": {
+            "type": "number"
+          },
+          "twistAngularY": {
+            "type": "number"
+          },
+          "twistAngularZ": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1405,22 +1080,43 @@
           }
         }
       },
-      "CommandCreate": {
+      "OdometryCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
+          "childFrameId": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "poseX": {
+            "type": "number"
           },
-          "status": {
-            "type": "string"
+          "poseY": {
+            "type": "number"
+          },
+          "poseZ": {
+            "type": "number"
+          },
+          "twistLinearX": {
+            "type": "number"
+          },
+          "twistLinearY": {
+            "type": "number"
+          },
+          "twistLinearZ": {
+            "type": "number"
+          },
+          "twistAngularX": {
+            "type": "number"
+          },
+          "twistAngularY": {
+            "type": "number"
+          },
+          "twistAngularZ": {
+            "type": "number"
           }
         },
         "required": [
-          "name",
-          "status"
+          "poseX",
+          "poseY"
         ]
       }
     }

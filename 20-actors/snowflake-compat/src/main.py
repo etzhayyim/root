@@ -111,383 +111,420 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/warehouses", methods=["POST"])
+def create_warehouse(request):
+    """Create a Warehouse."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['name', 'warehouseType', 'warehouseSize', 'scalingPolicy', 'autoSuspend', 'autoResume', 'state'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['name', 'warehouseType'])
     if err:
         return err, 400
+    if data.get('warehouseType') and data['warehouseType'] not in ['STANDARD', 'SNOWPARK-OPTIMIZED']:
+        return {"error": {"message": "invalid warehouseType; allowed: " + ", ".join(['STANDARD', 'SNOWPARK-OPTIMIZED']), "type": "invalid_request_error"}}, 400
+    if data.get('warehouseSize') and data['warehouseSize'] not in ['XSMALL', 'SMALL', 'MEDIUM', 'LARGE', 'XLARGE', 'XXLARGE', 'XXXLARGE', 'X4LARGE', 'X5LARGE', 'X6LARGE']:
+        return {"error": {"message": "invalid warehouseSize; allowed: " + ", ".join(['XSMALL', 'SMALL', 'MEDIUM', 'LARGE', 'XLARGE', 'XXLARGE', 'XXXLARGE', 'X4LARGE', 'X5LARGE', 'X6LARGE']), "type": "invalid_request_error"}}, 400
+    if data.get('scalingPolicy') and data['scalingPolicy'] not in ['STANDARD', 'ECONOMY']:
+        return {"error": {"message": "invalid scalingPolicy; allowed: " + ", ".join(['STANDARD', 'ECONOMY']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['STARTED', 'STARTING', 'DYNAMIC', 'SUSPENDED', 'RESIZING', 'RESUMING', 'SUSPENDING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STARTED', 'STARTING', 'DYNAMIC', 'SUSPENDED', 'RESIZING', 'RESUMING', 'SUSPENDING']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("snowflak_war")}
+    rec["name"] = data.get('name')
+    rec["warehouseType"] = data.get('warehouseType')
+    rec["warehouseSize"] = data.get('warehouseSize')
+    rec["scalingPolicy"] = data.get('scalingPolicy')
+    rec["autoSuspend"] = _as_int(data.get('autoSuspend'))
+    rec["autoResume"] = _as_bool(data.get('autoResume'))
+    rec["state"] = data.get('state')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Warehouse", rec)
+    return rec, 201
+
+@app.route("/v1/warehouses", methods=["GET"])
+def list_warehouses(request):
+    """List Warehouses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Warehouse")
+    rows = _apply_filters(rows, params, ['name', 'warehouseType', 'warehouseSize', 'scalingPolicy', 'autoSuspend', 'autoResume', 'state'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/warehouses/<eid>", methods=["GET"])
+def get_warehouse(request, eid):
+    """Retrieve a Warehouse by id (supports ?expand=)."""
+    rows = _query("Warehouse", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/warehouses/<eid>", methods=["POST", "PATCH"])
+def update_warehouse(request, eid):
+    """Update a Warehouse."""
+    rows = _query("Warehouse", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'warehouseType', 'warehouseSize', 'scalingPolicy', 'autoSuspend', 'autoResume', 'state'])
+    if err:
+        return err, 400
+    if data.get('warehouseType') and data['warehouseType'] not in ['STANDARD', 'SNOWPARK-OPTIMIZED']:
+        return {"error": {"message": "invalid warehouseType; allowed: " + ", ".join(['STANDARD', 'SNOWPARK-OPTIMIZED']), "type": "invalid_request_error"}}, 400
+    if data.get('warehouseSize') and data['warehouseSize'] not in ['XSMALL', 'SMALL', 'MEDIUM', 'LARGE', 'XLARGE', 'XXLARGE', 'XXXLARGE', 'X4LARGE', 'X5LARGE', 'X6LARGE']:
+        return {"error": {"message": "invalid warehouseSize; allowed: " + ", ".join(['XSMALL', 'SMALL', 'MEDIUM', 'LARGE', 'XLARGE', 'XXLARGE', 'XXXLARGE', 'X4LARGE', 'X5LARGE', 'X6LARGE']), "type": "invalid_request_error"}}, 400
+    if data.get('scalingPolicy') and data['scalingPolicy'] not in ['STANDARD', 'ECONOMY']:
+        return {"error": {"message": "invalid scalingPolicy; allowed: " + ", ".join(['STANDARD', 'ECONOMY']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['STARTED', 'STARTING', 'DYNAMIC', 'SUSPENDED', 'RESIZING', 'RESUMING', 'SUSPENDING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['STARTED', 'STARTING', 'DYNAMIC', 'SUSPENDED', 'RESIZING', 'RESUMING', 'SUSPENDING']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Warehouse", rec)
+    return rec, 200
+
+@app.route("/v1/warehouses/<eid>", methods=["DELETE"])
+def delete_warehouse(request, eid):
+    """Delete a Warehouse."""
+    rows = _query("Warehouse", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"snowflake.Warehouse", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/databases", methods=["POST"])
+def create_database(request):
+    """Create a Database."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'kind', 'owner', 'retentionTime', 'isDefault'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'kind'])
+    if err:
+        return err, 400
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("snowflak_dat")}
     rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["schemaRef"] = data.get('schemaRef')
-    rec["rowCount"] = _as_int(data.get('rowCount'))
+    rec["kind"] = data.get('kind')
+    rec["owner"] = data.get('owner')
+    rec["retentionTime"] = _as_int(data.get('retentionTime'))
+    rec["isDefault"] = _as_bool(data.get('isDefault'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Database", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/databases", methods=["GET"])
+def list_databases(request):
+    """List Databases with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'source', 'schemaRef', 'rowCount'])
+    rows = _query("Database")
+    rows = _apply_filters(rows, params, ['name', 'kind', 'owner', 'retentionTime', 'isDefault'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databases/<eid>", methods=["GET"])
+def get_database(request, eid):
+    """Retrieve a Database by id (supports ?expand=)."""
+    rows = _query("Database", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databases/<eid>", methods=["POST", "PATCH"])
+def update_database(request, eid):
+    """Update a Database."""
+    rows = _query("Database", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['name', 'kind', 'owner', 'retentionTime', 'isDefault'])
     if err:
         return err, 400
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Database", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/databases/<eid>", methods=["DELETE"])
+def delete_database(request, eid):
+    """Delete a Database."""
+    rows = _query("Database", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Dataset", "id": eid})
+    db.retract({"entity": f"snowflake.Database", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/queries", methods=["POST"])
-def create_query(request):
-    """Create a Query."""
+@app.route("/v1/schemas", methods=["POST"])
+def create_schema(request):
+    """Create a Schema."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'kind', 'databaseName', 'owner', 'managedAccess'])
     if err:
         return err, 400
-    err = _require(data, ['sql'])
+    err = _require(data, ['name', 'kind'])
     if err:
         return err, 400
-    rec = {"id": new_id("snowflak_que")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["sql"] = data.get('sql')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Query", rec)
-    return rec, 201
-
-@app.route("/v1/queries", methods=["GET"])
-def list_queries(request):
-    """List Queries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Query")
-    rows = _apply_filters(rows, params, ['datasetId', 'sql', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/queries/<eid>", methods=["GET"])
-def get_query(request, eid):
-    """Retrieve a Query by id (supports ?expand=)."""
-    rows = _query("Query", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/queries/<eid>", methods=["POST", "PATCH"])
-def update_query(request, eid):
-    """Update a Query."""
-    rows = _query("Query", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Query", rec)
-    return rec, 200
-
-@app.route("/v1/queries/<eid>", methods=["DELETE"])
-def delete_query(request, eid):
-    """Delete a Query."""
-    rows = _query("Query", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Query", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/dashboards", methods=["POST"])
-def create_dashboard(request):
-    """Create a Dashboard."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'layout'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("snowflak_das")}
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("snowflak_sch")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["layout"] = data.get('layout')
+    rec["kind"] = data.get('kind')
+    rec["databaseName"] = data.get('databaseName')
+    rec["owner"] = data.get('owner')
+    rec["managedAccess"] = _as_bool(data.get('managedAccess'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dashboard", rec)
+    _persist("Schema", rec)
     return rec, 201
 
-@app.route("/v1/dashboards", methods=["GET"])
-def list_dashboards(request):
-    """List Dashboards with filtering + cursor pagination."""
+@app.route("/v1/schemas", methods=["GET"])
+def list_schemas(request):
+    """List Schemas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dashboard")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'layout'])
+    rows = _query("Schema")
+    rows = _apply_filters(rows, params, ['name', 'kind', 'databaseName', 'owner', 'managedAccess'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["GET"])
-def get_dashboard(request, eid):
-    """Retrieve a Dashboard by id (supports ?expand=)."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/schemas/<eid>", methods=["GET"])
+def get_schema(request, eid):
+    """Retrieve a Schema by id (supports ?expand=)."""
+    rows = _query("Schema", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
-def update_dashboard(request, eid):
-    """Update a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/schemas/<eid>", methods=["POST", "PATCH"])
+def update_schema(request, eid):
+    """Update a Schema."""
+    rows = _query("Schema", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['name', 'kind', 'databaseName', 'owner', 'managedAccess'])
     if err:
         return err, 400
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dashboard", rec)
+    _persist("Schema", rec)
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
-def delete_dashboard(request, eid):
-    """Delete a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/schemas/<eid>", methods=["DELETE"])
+def delete_schema(request, eid):
+    """Delete a Schema."""
+    rows = _query("Schema", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Dashboard", "id": eid})
+    db.retract({"entity": f"snowflake.Schema", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/tables", methods=["POST"])
+def create_table(request):
+    """Create a Table."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'kind', 'databaseName', 'schemaName', 'rows'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'schedule'])
+    err = _require(data, ['name', 'kind'])
     if err:
         return err, 400
-    rec = {"id": new_id("snowflak_rep")}
-    rec["dashboardId"] = data.get('dashboardId')
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT', 'TEMPORARY']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT', 'TEMPORARY']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("snowflak_tab")}
     rec["name"] = data.get('name')
-    rec["schedule"] = data.get('schedule')
+    rec["kind"] = data.get('kind')
+    rec["databaseName"] = data.get('databaseName')
+    rec["schemaName"] = data.get('schemaName')
+    rec["rows"] = _as_int(data.get('rows'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("Table", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/tables", methods=["GET"])
+def list_tables(request):
+    """List Tables with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['dashboardId', 'name', 'schedule'])
+    rows = _query("Table")
+    rows = _apply_filters(rows, params, ['name', 'kind', 'databaseName', 'schemaName', 'rows'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/tables/<eid>", methods=["GET"])
+def get_table(request, eid):
+    """Retrieve a Table by id (supports ?expand=)."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'dashboardId': 'Dashboard'})
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/tables/<eid>", methods=["POST", "PATCH"])
+def update_table(request, eid):
+    """Update a Table."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['name', 'kind', 'databaseName', 'schemaName', 'rows'])
     if err:
         return err, 400
+    if data.get('kind') and data['kind'] not in ['PERMANENT', 'TRANSIENT', 'TEMPORARY']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['PERMANENT', 'TRANSIENT', 'TEMPORARY']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("Table", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/tables/<eid>", methods=["DELETE"])
+def delete_table(request, eid):
+    """Delete a Table."""
+    rows = _query("Table", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Report", "id": eid})
+    db.retract({"entity": f"snowflake.Table", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/tasks", methods=["POST"])
+def create_task(request):
+    """Create a Task."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'warehouse', 'state', 'owner'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['name', 'warehouse'])
     if err:
         return err, 400
-    rec = {"id": new_id("snowflak_con")}
+    if data.get('state') and data['state'] not in ['started', 'suspended']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['started', 'suspended']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("snowflak_tas")}
     rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["host"] = data.get('host')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["warehouse"] = data.get('warehouse')
+    rec["state"] = data.get('state')
+    rec["owner"] = data.get('owner')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("Task", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/tasks", methods=["GET"])
+def list_tasks(request):
+    """List Tasks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['name', 'type', 'host', 'active'])
+    rows = _query("Task")
+    rows = _apply_filters(rows, params, ['name', 'warehouse', 'state', 'owner'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/tasks/<eid>", methods=["GET"])
+def get_task(request, eid):
+    """Retrieve a Task by id (supports ?expand=)."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/tasks/<eid>", methods=["POST", "PATCH"])
+def update_task(request, eid):
+    """Update a Task."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['name', 'warehouse', 'state', 'owner'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['started', 'suspended']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['started', 'suspended']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("Task", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/tasks/<eid>", methods=["DELETE"])
+def delete_task(request, eid):
+    """Delete a Task."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Connection", "id": eid})
+    db.retract({"entity": f"snowflake.Task", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
+@app.route("/v1/roles", methods=["POST"])
+def create_role(request):
+    """Create a Role."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
+    err = _reject_unknown(data, ['name', 'owner', 'comment'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'expression'])
+    err = _require(data, ['name', 'owner'])
     if err:
         return err, 400
-    rec = {"id": new_id("snowflak_met")}
-    rec["datasetId"] = data.get('datasetId')
+    rec = {"id": new_id("snowflak_rol")}
     rec["name"] = data.get('name')
-    rec["expression"] = data.get('expression')
-    rec["unit"] = data.get('unit')
+    rec["owner"] = data.get('owner')
+    rec["comment"] = data.get('comment')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
+    _persist("Role", rec)
     return rec, 201
 
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
+@app.route("/v1/roles", methods=["GET"])
+def list_roles(request):
+    """List Roles with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['datasetId', 'name', 'expression', 'unit'])
+    rows = _query("Role")
+    rows = _apply_filters(rows, params, ['name', 'owner', 'comment'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
+@app.route("/v1/roles/<eid>", methods=["GET"])
+def get_role(request, eid):
+    """Retrieve a Role by id (supports ?expand=)."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/roles/<eid>", methods=["POST", "PATCH"])
+def update_role(request, eid):
+    """Update a Role."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
+    err = _reject_unknown(data, ['name', 'owner', 'comment'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +532,22 @@ def update_metric(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Metric", rec)
+    _persist("Role", rec)
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/roles/<eid>", methods=["DELETE"])
+def delete_role(request, eid):
+    """Delete a Role."""
+    rows = _query("Role", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"snowflake.Metric", "id": eid})
+    db.retract({"entity": f"snowflake.Role", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "snowflake-compat", "tier": "L4",
-            "entities": ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']}, 200
+            "entities": ['Warehouse', 'Database', 'Schema', 'Table', 'Task', 'Role']}, 200
 
 
 if __name__ == "__main__":

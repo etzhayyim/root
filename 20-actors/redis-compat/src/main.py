@@ -111,119 +111,124 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/respmessages", methods=["POST"])
+def create_resp_message(request):
+    """Create a RespMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['firstByte', 'respType', 'payload', 'elementCount', 'length'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['firstByte', 'respType'])
     if err:
         return err, 400
-    rec = {"id": new_id("redis_dat")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["schemaRef"] = data.get('schemaRef')
-    rec["rowCount"] = _as_int(data.get('rowCount'))
+    if data.get('firstByte') and data['firstByte'] not in ['+', '-', ':', '$', '*', '_', '#', ',', '(', '!', '=', '%', '|', '~', '>']:
+        return {"error": {"message": "invalid firstByte; allowed: " + ", ".join(['+', '-', ':', '$', '*', '_', '#', ',', '(', '!', '=', '%', '|', '~', '>']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("redis_res")}
+    rec["firstByte"] = data.get('firstByte')
+    rec["respType"] = data.get('respType')
+    rec["payload"] = data.get('payload')
+    rec["elementCount"] = _as_int(data.get('elementCount'))
+    rec["length"] = _as_int(data.get('length'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("RespMessage", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/respmessages", methods=["GET"])
+def list_resp_messages(request):
+    """List RespMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'source', 'schemaRef', 'rowCount'])
+    rows = _query("RespMessage")
+    rows = _apply_filters(rows, params, ['firstByte', 'respType', 'payload', 'elementCount', 'length'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/respmessages/<eid>", methods=["GET"])
+def get_resp_message(request, eid):
+    """Retrieve a RespMessage by id (supports ?expand=)."""
+    rows = _query("RespMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/respmessages/<eid>", methods=["POST", "PATCH"])
+def update_resp_message(request, eid):
+    """Update a RespMessage."""
+    rows = _query("RespMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'schemaRef', 'rowCount'])
+    err = _reject_unknown(data, ['firstByte', 'respType', 'payload', 'elementCount', 'length'])
     if err:
         return err, 400
+    if data.get('firstByte') and data['firstByte'] not in ['+', '-', ':', '$', '*', '_', '#', ',', '(', '!', '=', '%', '|', '~', '>']:
+        return {"error": {"message": "invalid firstByte; allowed: " + ", ".join(['+', '-', ':', '$', '*', '_', '#', ',', '(', '!', '=', '%', '|', '~', '>']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("RespMessage", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/respmessages/<eid>", methods=["DELETE"])
+def delete_resp_message(request, eid):
+    """Delete a RespMessage."""
+    rows = _query("RespMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Dataset", "id": eid})
+    db.retract({"entity": f"redis.RespMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/queries", methods=["POST"])
-def create_query(request):
-    """Create a Query."""
+@app.route("/v1/rediscommands", methods=["POST"])
+def create_redis_command(request):
+    """Create a RedisCommand."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['commandName', 'arity', 'flags', 'keyPosition'])
     if err:
         return err, 400
-    err = _require(data, ['sql'])
+    err = _require(data, ['commandName', 'arity'])
     if err:
         return err, 400
-    rec = {"id": new_id("redis_que")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["sql"] = data.get('sql')
-    rec["ownerId"] = data.get('ownerId')
+    rec = {"id": new_id("redis_red")}
+    rec["commandName"] = data.get('commandName')
+    rec["arity"] = _as_int(data.get('arity'))
+    rec["flags"] = data.get('flags')
+    rec["keyPosition"] = _as_int(data.get('keyPosition'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Query", rec)
+    _persist("RedisCommand", rec)
     return rec, 201
 
-@app.route("/v1/queries", methods=["GET"])
-def list_queries(request):
-    """List Queries with filtering + cursor pagination."""
+@app.route("/v1/rediscommands", methods=["GET"])
+def list_redis_commands(request):
+    """List RedisCommands with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Query")
-    rows = _apply_filters(rows, params, ['datasetId', 'sql', 'ownerId'])
+    rows = _query("RedisCommand")
+    rows = _apply_filters(rows, params, ['commandName', 'arity', 'flags', 'keyPosition'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/queries/<eid>", methods=["GET"])
-def get_query(request, eid):
-    """Retrieve a Query by id (supports ?expand=)."""
-    rows = _query("Query", eid)
+@app.route("/v1/rediscommands/<eid>", methods=["GET"])
+def get_redis_command(request, eid):
+    """Retrieve a RedisCommand by id (supports ?expand=)."""
+    rows = _query("RedisCommand", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["POST", "PATCH"])
-def update_query(request, eid):
-    """Update a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/rediscommands/<eid>", methods=["POST", "PATCH"])
+def update_redis_command(request, eid):
+    """Update a RedisCommand."""
+    rows = _query("RedisCommand", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'sql', 'ownerId'])
+    err = _reject_unknown(data, ['commandName', 'arity', 'flags', 'keyPosition'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,196 +236,202 @@ def update_query(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Query", rec)
+    _persist("RedisCommand", rec)
     return rec, 200
 
-@app.route("/v1/queries/<eid>", methods=["DELETE"])
-def delete_query(request, eid):
-    """Delete a Query."""
-    rows = _query("Query", eid)
+@app.route("/v1/rediscommands/<eid>", methods=["DELETE"])
+def delete_redis_command(request, eid):
+    """Delete a RedisCommand."""
+    rows = _query("RedisCommand", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Query", "id": eid})
+    db.retract({"entity": f"redis.RedisCommand", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/dashboards", methods=["POST"])
-def create_dashboard(request):
-    """Create a Dashboard."""
+@app.route("/v1/rediskeys", methods=["POST"])
+def create_redis_key(request):
+    """Create a RedisKey."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['keyName', 'dataType', 'ttl', 'encoding'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'layout'])
+    err = _require(data, ['keyName', 'dataType'])
     if err:
         return err, 400
-    rec = {"id": new_id("redis_das")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["layout"] = data.get('layout')
+    if data.get('dataType') and data['dataType'] not in ['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']:
+        return {"error": {"message": "invalid dataType; allowed: " + ", ".join(['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("redis_red")}
+    rec["keyName"] = data.get('keyName')
+    rec["dataType"] = data.get('dataType')
+    rec["ttl"] = _as_int(data.get('ttl'))
+    rec["encoding"] = data.get('encoding')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dashboard", rec)
+    _persist("RedisKey", rec)
     return rec, 201
 
-@app.route("/v1/dashboards", methods=["GET"])
-def list_dashboards(request):
-    """List Dashboards with filtering + cursor pagination."""
+@app.route("/v1/rediskeys", methods=["GET"])
+def list_redis_keys(request):
+    """List RedisKeys with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dashboard")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'layout'])
+    rows = _query("RedisKey")
+    rows = _apply_filters(rows, params, ['keyName', 'dataType', 'ttl', 'encoding'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["GET"])
-def get_dashboard(request, eid):
-    """Retrieve a Dashboard by id (supports ?expand=)."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/rediskeys/<eid>", methods=["GET"])
+def get_redis_key(request, eid):
+    """Retrieve a RedisKey by id (supports ?expand=)."""
+    rows = _query("RedisKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
-def update_dashboard(request, eid):
-    """Update a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/rediskeys/<eid>", methods=["POST", "PATCH"])
+def update_redis_key(request, eid):
+    """Update a RedisKey."""
+    rows = _query("RedisKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'layout'])
+    err = _reject_unknown(data, ['keyName', 'dataType', 'ttl', 'encoding'])
     if err:
         return err, 400
+    if data.get('dataType') and data['dataType'] not in ['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']:
+        return {"error": {"message": "invalid dataType; allowed: " + ", ".join(['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dashboard", rec)
+    _persist("RedisKey", rec)
     return rec, 200
 
-@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
-def delete_dashboard(request, eid):
-    """Delete a Dashboard."""
-    rows = _query("Dashboard", eid)
+@app.route("/v1/rediskeys/<eid>", methods=["DELETE"])
+def delete_redis_key(request, eid):
+    """Delete a RedisKey."""
+    rows = _query("RedisKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Dashboard", "id": eid})
+    db.retract({"entity": f"redis.RedisKey", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
+@app.route("/v1/redisdatatypes", methods=["POST"])
+def create_redis_data_type(request):
+    """Create a RedisDataType."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['dataType', 'encoding', 'isBinary'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'schedule'])
+    err = _require(data, ['dataType', 'encoding'])
     if err:
         return err, 400
-    rec = {"id": new_id("redis_rep")}
-    rec["dashboardId"] = data.get('dashboardId')
-    rec["name"] = data.get('name')
-    rec["schedule"] = data.get('schedule')
+    if data.get('dataType') and data['dataType'] not in ['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']:
+        return {"error": {"message": "invalid dataType; allowed: " + ", ".join(['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("redis_red")}
+    rec["dataType"] = data.get('dataType')
+    rec["encoding"] = data.get('encoding')
+    rec["isBinary"] = _as_bool(data.get('isBinary'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
+    _persist("RedisDataType", rec)
     return rec, 201
 
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
+@app.route("/v1/redisdatatypes", methods=["GET"])
+def list_redis_data_types(request):
+    """List RedisDataTypes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['dashboardId', 'name', 'schedule'])
+    rows = _query("RedisDataType")
+    rows = _apply_filters(rows, params, ['dataType', 'encoding', 'isBinary'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
+@app.route("/v1/redisdatatypes/<eid>", methods=["GET"])
+def get_redis_data_type(request, eid):
+    """Retrieve a RedisDataType by id (supports ?expand=)."""
+    rows = _query("RedisDataType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'dashboardId': 'Dashboard'})
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/redisdatatypes/<eid>", methods=["POST", "PATCH"])
+def update_redis_data_type(request, eid):
+    """Update a RedisDataType."""
+    rows = _query("RedisDataType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['dashboardId', 'name', 'schedule'])
+    err = _reject_unknown(data, ['dataType', 'encoding', 'isBinary'])
     if err:
         return err, 400
+    if data.get('dataType') and data['dataType'] not in ['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']:
+        return {"error": {"message": "invalid dataType; allowed: " + ", ".join(['string', 'list', 'set', 'zset', 'hash', 'stream', 'vectorset', 'none']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Report", rec)
+    _persist("RedisDataType", rec)
     return rec, 200
 
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
+@app.route("/v1/redisdatatypes/<eid>", methods=["DELETE"])
+def delete_redis_data_type(request, eid):
+    """Delete a RedisDataType."""
+    rows = _query("RedisDataType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Report", "id": eid})
+    db.retract({"entity": f"redis.RedisDataType", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connections", methods=["POST"])
-def create_connection(request):
-    """Create a Connection."""
+@app.route("/v1/respprotocolversions", methods=["POST"])
+def create_resp_protocol_version(request):
+    """Create a RespProtocolVersion."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['majorVersion', 'supportedSince'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['majorVersion', 'supportedSince'])
     if err:
         return err, 400
-    rec = {"id": new_id("redis_con")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["host"] = data.get('host')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("redis_res")}
+    rec["majorVersion"] = _as_int(data.get('majorVersion'))
+    rec["supportedSince"] = data.get('supportedSince')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connection", rec)
+    _persist("RespProtocolVersion", rec)
     return rec, 201
 
-@app.route("/v1/connections", methods=["GET"])
-def list_connections(request):
-    """List Connections with filtering + cursor pagination."""
+@app.route("/v1/respprotocolversions", methods=["GET"])
+def list_resp_protocol_versions(request):
+    """List RespProtocolVersions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connection")
-    rows = _apply_filters(rows, params, ['name', 'type', 'host', 'active'])
+    rows = _query("RespProtocolVersion")
+    rows = _apply_filters(rows, params, ['majorVersion', 'supportedSince'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connections/<eid>", methods=["GET"])
-def get_connection(request, eid):
-    """Retrieve a Connection by id (supports ?expand=)."""
-    rows = _query("Connection", eid)
+@app.route("/v1/respprotocolversions/<eid>", methods=["GET"])
+def get_resp_protocol_version(request, eid):
+    """Retrieve a RespProtocolVersion by id (supports ?expand=)."""
+    rows = _query("RespProtocolVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["POST", "PATCH"])
-def update_connection(request, eid):
-    """Update a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/respprotocolversions/<eid>", methods=["POST", "PATCH"])
+def update_resp_protocol_version(request, eid):
+    """Update a RespProtocolVersion."""
+    rows = _query("RespProtocolVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'host', 'active'])
+    err = _reject_unknown(data, ['majorVersion', 'supportedSince'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,89 +439,22 @@ def update_connection(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connection", rec)
+    _persist("RespProtocolVersion", rec)
     return rec, 200
 
-@app.route("/v1/connections/<eid>", methods=["DELETE"])
-def delete_connection(request, eid):
-    """Delete a Connection."""
-    rows = _query("Connection", eid)
+@app.route("/v1/respprotocolversions/<eid>", methods=["DELETE"])
+def delete_resp_protocol_version(request, eid):
+    """Delete a RespProtocolVersion."""
+    rows = _query("RespProtocolVersion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Connection", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'expression'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("redis_met")}
-    rec["datasetId"] = data.get('datasetId')
-    rec["name"] = data.get('name')
-    rec["expression"] = data.get('expression')
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['datasetId', 'name', 'expression', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['datasetId', 'name', 'expression', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"redis.Metric", "id": eid})
+    db.retract({"entity": f"redis.RespProtocolVersion", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "redis-compat", "tier": "L4",
-            "entities": ['Dataset', 'Query', 'Dashboard', 'Report', 'Connection', 'Metric']}, 200
+            "entities": ['RespMessage', 'RedisCommand', 'RedisKey', 'RedisDataType', 'RespProtocolVersion']}, 200
 
 
 if __name__ == "__main__":

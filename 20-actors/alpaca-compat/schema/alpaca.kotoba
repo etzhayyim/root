@@ -3,33 +3,14 @@
 
 namespace alpaca {
 
-    entity Account {
+    entity Asset {
         id: string @unique
-        holderId: string
-        currency: string
-        balance: float
+        symbol: string
+        assetClass: string
+        exchange: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Card {
-        id: string @unique
-        accountId: string
-        last4: string
-        network: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Transaction {
-        id: string @unique
-        accountId: string
-        amount: float
-        currency: string
-        type: string
-        status: string
+        tradable: boolean
+        fractionable: boolean
         createdAt: datetime
         updatedAt: datetime
     }
@@ -38,39 +19,47 @@ namespace alpaca {
         id: string @unique
         symbol: string
         side: string
-        quantity: float
-        price: float
+        type: string
         status: string
+        qty: string
+        timeInForce: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Wallet {
+    entity Position {
         id: string @unique
-        address: string
-        chain: string
-        balance: float
+        symbol: string
+        qty: string
+        side: string
+        avgEntryPrice: string
+        marketValue: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Ledger {
+    entity TradeAccount {
         id: string @unique
-        accountId: string
-        debit: float
-        credit: float
-        memo: string
+        accountNumber: string
+        status: string
+        equity: string
+        cash: string
+        buyingPower: string
+        patternDayTrader: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity TradeActivity {
+        id: string @unique
+        symbol: string
+        side: string
+        price: float
+        qty: float
+        type: string
+        orderId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "iso_8583.kotoba")
-ENTITIES = ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']
-PLURALS = {'Customer': 'customers', 'PaymentIntent': 'paymentintents', 'Charge': 'charges', 'Refund': 'refunds', 'Payout': 'payouts', 'PaymentMethod': 'paymentmethods'}
+ENTITIES = ['Message', 'ProcessingCode', 'DataElement', 'ResponseCode']
+PLURALS = {'Message': 'messages', 'ProcessingCode': 'processingcodes', 'DataElement': 'dataelements', 'ResponseCode': 'responsecodes'}
 
 
 class Iso8583Contract(unittest.TestCase):
@@ -62,6 +62,12 @@ class Iso8583Contract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['messageClass', 'messageFunction', 'messageOrigin', 'version']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

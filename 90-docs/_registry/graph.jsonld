@@ -14525,6 +14525,25 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606081748-kotoba-bounded-rsi-build-deploy-contract",
+      "type": "TechArticle",
+      "title": "ADR-2606081748: Kotoba bounded RSI build/deploy contract",
+      "status": "accepted",
+      "topic": "kotoba-bounded-rsi-build-deploy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-rsi-build-deploy-contract",
+        "murakumo-modal-training-artifact-loop",
+        "token-bounded-self-modification"
+      ],
+      "related": [
+        "doc:adr-2605232200",
+        "doc:adr-2605191346",
+        "doc:adr-2605182312"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606081800",
       "type": "TechArticle",
       "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
@@ -14621,6 +14640,21 @@
         "the keyless Tailscale-SSH access convention for fleet nodes"
       ],
       "related": "doc:2605201400",
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "type": "TechArticle",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": "doc:2605262130",
       "lastVerified": "2026-06-08"
     },
     {
@@ -15038,6 +15072,23 @@
       "related": [
         "doc:adr-2606101845-session-close-infra-robotics-r1-device-in-the-loop",
         "doc:adr-2606102000-session-close-ibuki-digest-live-run-robustness"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111011",
+      "type": "TechArticle",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "doc:adr-2606110955-session-close-pr-backlog-review-merge",
+        "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
       ],
       "lastVerified": "2026-06-11"
     },

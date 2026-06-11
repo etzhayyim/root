@@ -111,53 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/drones", methods=["POST"])
-def create_drone(request):
-    """Create a Drone."""
+@app.route("/v1/heartbeats", methods=["POST"])
+def create_heartbeat(request):
+    """Create a Heartbeat."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'batteryPct', 'status'])
+    err = _reject_unknown(data, ['type', 'autopilot', 'baseMode', 'customMode', 'systemStatus', 'mavlinkVersion'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'model'])
+    err = _require(data, ['type', 'autopilot'])
     if err:
         return err, 400
-    rec = {"id": new_id("px4autop_dro")}
-    rec["serial"] = data.get('serial')
-    rec["model"] = data.get('model')
-    rec["batteryPct"] = _as_float(data.get('batteryPct'))
-    rec["status"] = data.get('status')
+    if data.get('systemStatus') and data['systemStatus'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid systemStatus; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("px4autop_hea")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["autopilot"] = _as_int(data.get('autopilot'))
+    rec["baseMode"] = _as_int(data.get('baseMode'))
+    rec["customMode"] = _as_int(data.get('customMode'))
+    rec["systemStatus"] = _as_int(data.get('systemStatus'))
+    rec["mavlinkVersion"] = _as_int(data.get('mavlinkVersion'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Drone", rec)
+    _persist("Heartbeat", rec)
     return rec, 201
 
-@app.route("/v1/drones", methods=["GET"])
-def list_drones(request):
-    """List Drones with filtering + cursor pagination."""
+@app.route("/v1/heartbeats", methods=["GET"])
+def list_heartbeats(request):
+    """List Heartbeats with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Drone")
-    rows = _apply_filters(rows, params, ['serial', 'model', 'batteryPct', 'status'])
+    rows = _query("Heartbeat")
+    rows = _apply_filters(rows, params, ['type', 'autopilot', 'baseMode', 'customMode', 'systemStatus', 'mavlinkVersion'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/drones/<eid>", methods=["GET"])
-def get_drone(request, eid):
-    """Retrieve a Drone by id (supports ?expand=)."""
-    rows = _query("Drone", eid)
+@app.route("/v1/heartbeats/<eid>", methods=["GET"])
+def get_heartbeat(request, eid):
+    """Retrieve a Heartbeat by id (supports ?expand=)."""
+    rows = _query("Heartbeat", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/drones/<eid>", methods=["POST", "PATCH"])
-def update_drone(request, eid):
-    """Update a Drone."""
-    rows = _query("Drone", eid)
+@app.route("/v1/heartbeats/<eid>", methods=["POST", "PATCH"])
+def update_heartbeat(request, eid):
+    """Update a Heartbeat."""
+    rows = _query("Heartbeat", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'batteryPct', 'status'])
+    err = _reject_unknown(data, ['type', 'autopilot', 'baseMode', 'customMode', 'systemStatus', 'mavlinkVersion'])
+    if err:
+        return err, 400
+    if data.get('systemStatus') and data['systemStatus'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
+        return {"error": {"message": "invalid systemStatus; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Heartbeat", rec)
+    return rec, 200
+
+@app.route("/v1/heartbeats/<eid>", methods=["DELETE"])
+def delete_heartbeat(request, eid):
+    """Delete a Heartbeat."""
+    rows = _query("Heartbeat", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"px4_autopilot.Heartbeat", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/sysstatuses", methods=["POST"])
+def create_sys_status(request):
+    """Create a SysStatus."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['load', 'voltageBattery', 'currentBattery', 'batteryRemaining', 'dropRateComm', 'errorsComm'])
+    if err:
+        return err, 400
+    err = _require(data, ['load', 'voltageBattery'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("px4autop_sys")}
+    rec["load"] = _as_int(data.get('load'))
+    rec["voltageBattery"] = _as_int(data.get('voltageBattery'))
+    rec["currentBattery"] = _as_int(data.get('currentBattery'))
+    rec["batteryRemaining"] = _as_int(data.get('batteryRemaining'))
+    rec["dropRateComm"] = _as_int(data.get('dropRateComm'))
+    rec["errorsComm"] = _as_int(data.get('errorsComm'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SysStatus", rec)
+    return rec, 201
+
+@app.route("/v1/sysstatuses", methods=["GET"])
+def list_sys_statuses(request):
+    """List SysStatuses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SysStatus")
+    rows = _apply_filters(rows, params, ['load', 'voltageBattery', 'currentBattery', 'batteryRemaining', 'dropRateComm', 'errorsComm'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/sysstatuses/<eid>", methods=["GET"])
+def get_sys_status(request, eid):
+    """Retrieve a SysStatus by id (supports ?expand=)."""
+    rows = _query("SysStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/sysstatuses/<eid>", methods=["POST", "PATCH"])
+def update_sys_status(request, eid):
+    """Update a SysStatus."""
+    rows = _query("SysStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['load', 'voltageBattery', 'currentBattery', 'batteryRemaining', 'dropRateComm', 'errorsComm'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,355 +239,308 @@ def update_drone(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Drone", rec)
+    _persist("SysStatus", rec)
     return rec, 200
 
-@app.route("/v1/drones/<eid>", methods=["DELETE"])
-def delete_drone(request, eid):
-    """Delete a Drone."""
-    rows = _query("Drone", eid)
+@app.route("/v1/sysstatuses/<eid>", methods=["DELETE"])
+def delete_sys_status(request, eid):
+    """Delete a SysStatus."""
+    rows = _query("SysStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Drone", "id": eid})
+    db.retract({"entity": f"px4_autopilot.SysStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/missions", methods=["POST"])
-def create_mission(request):
-    """Create a Mission."""
+@app.route("/v1/gpsrawints", methods=["POST"])
+def create_gps_raw_int(request):
+    """Create a GpsRawInt."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'status'])
+    err = _reject_unknown(data, ['timeUsec', 'fixType', 'lat', 'lon', 'alt', 'vel', 'satellitesVisible'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'status'])
+    err = _require(data, ['timeUsec', 'fixType'])
     if err:
         return err, 400
+    rec = {"id": new_id("px4autop_gps")}
+    rec["timeUsec"] = _as_int(data.get('timeUsec'))
+    rec["fixType"] = _as_int(data.get('fixType'))
+    rec["lat"] = _as_int(data.get('lat'))
+    rec["lon"] = _as_int(data.get('lon'))
+    rec["alt"] = _as_int(data.get('alt'))
+    rec["vel"] = _as_int(data.get('vel'))
+    rec["satellitesVisible"] = _as_int(data.get('satellitesVisible'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("GpsRawInt", rec)
+    return rec, 201
+
+@app.route("/v1/gpsrawints", methods=["GET"])
+def list_gps_raw_ints(request):
+    """List GpsRawInts with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("GpsRawInt")
+    rows = _apply_filters(rows, params, ['timeUsec', 'fixType', 'lat', 'lon', 'alt', 'vel', 'satellitesVisible'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/gpsrawints/<eid>", methods=["GET"])
+def get_gps_raw_int(request, eid):
+    """Retrieve a GpsRawInt by id (supports ?expand=)."""
+    rows = _query("GpsRawInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/gpsrawints/<eid>", methods=["POST", "PATCH"])
+def update_gps_raw_int(request, eid):
+    """Update a GpsRawInt."""
+    rows = _query("GpsRawInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['timeUsec', 'fixType', 'lat', 'lon', 'alt', 'vel', 'satellitesVisible'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("GpsRawInt", rec)
+    return rec, 200
+
+@app.route("/v1/gpsrawints/<eid>", methods=["DELETE"])
+def delete_gps_raw_int(request, eid):
+    """Delete a GpsRawInt."""
+    rows = _query("GpsRawInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"px4_autopilot.GpsRawInt", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/attitudes", methods=["POST"])
+def create_attitude(request):
+    """Create a Attitude."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['timeBootMs', 'roll', 'pitch', 'yaw', 'rollspeed', 'pitchspeed', 'yawspeed'])
+    if err:
+        return err, 400
+    err = _require(data, ['timeBootMs', 'roll'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("px4autop_att")}
+    rec["timeBootMs"] = _as_int(data.get('timeBootMs'))
+    rec["roll"] = _as_float(data.get('roll'))
+    rec["pitch"] = _as_float(data.get('pitch'))
+    rec["yaw"] = _as_float(data.get('yaw'))
+    rec["rollspeed"] = _as_float(data.get('rollspeed'))
+    rec["pitchspeed"] = _as_float(data.get('pitchspeed'))
+    rec["yawspeed"] = _as_float(data.get('yawspeed'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Attitude", rec)
+    return rec, 201
+
+@app.route("/v1/attitudes", methods=["GET"])
+def list_attitudes(request):
+    """List Attitudes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Attitude")
+    rows = _apply_filters(rows, params, ['timeBootMs', 'roll', 'pitch', 'yaw', 'rollspeed', 'pitchspeed', 'yawspeed'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/attitudes/<eid>", methods=["GET"])
+def get_attitude(request, eid):
+    """Retrieve a Attitude by id (supports ?expand=)."""
+    rows = _query("Attitude", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/attitudes/<eid>", methods=["POST", "PATCH"])
+def update_attitude(request, eid):
+    """Update a Attitude."""
+    rows = _query("Attitude", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['timeBootMs', 'roll', 'pitch', 'yaw', 'rollspeed', 'pitchspeed', 'yawspeed'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Attitude", rec)
+    return rec, 200
+
+@app.route("/v1/attitudes/<eid>", methods=["DELETE"])
+def delete_attitude(request, eid):
+    """Delete a Attitude."""
+    rows = _query("Attitude", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"px4_autopilot.Attitude", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/globalpositionints", methods=["POST"])
+def create_global_position_int(request):
+    """Create a GlobalPositionInt."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['timeBootMs', 'lat', 'lon', 'alt', 'relativeAlt', 'vx', 'vy', 'vz', 'hdg'])
+    if err:
+        return err, 400
+    err = _require(data, ['timeBootMs', 'lat'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("px4autop_glo")}
+    rec["timeBootMs"] = _as_int(data.get('timeBootMs'))
+    rec["lat"] = _as_int(data.get('lat'))
+    rec["lon"] = _as_int(data.get('lon'))
+    rec["alt"] = _as_int(data.get('alt'))
+    rec["relativeAlt"] = _as_int(data.get('relativeAlt'))
+    rec["vx"] = _as_int(data.get('vx'))
+    rec["vy"] = _as_int(data.get('vy'))
+    rec["vz"] = _as_int(data.get('vz'))
+    rec["hdg"] = _as_int(data.get('hdg'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("GlobalPositionInt", rec)
+    return rec, 201
+
+@app.route("/v1/globalpositionints", methods=["GET"])
+def list_global_position_ints(request):
+    """List GlobalPositionInts with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("GlobalPositionInt")
+    rows = _apply_filters(rows, params, ['timeBootMs', 'lat', 'lon', 'alt', 'relativeAlt', 'vx', 'vy', 'vz', 'hdg'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/globalpositionints/<eid>", methods=["GET"])
+def get_global_position_int(request, eid):
+    """Retrieve a GlobalPositionInt by id (supports ?expand=)."""
+    rows = _query("GlobalPositionInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/globalpositionints/<eid>", methods=["POST", "PATCH"])
+def update_global_position_int(request, eid):
+    """Update a GlobalPositionInt."""
+    rows = _query("GlobalPositionInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['timeBootMs', 'lat', 'lon', 'alt', 'relativeAlt', 'vx', 'vy', 'vz', 'hdg'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("GlobalPositionInt", rec)
+    return rec, 200
+
+@app.route("/v1/globalpositionints/<eid>", methods=["DELETE"])
+def delete_global_position_int(request, eid):
+    """Delete a GlobalPositionInt."""
+    rows = _query("GlobalPositionInt", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"px4_autopilot.GlobalPositionInt", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/missionitems", methods=["POST"])
+def create_mission_item(request):
+    """Create a MissionItem."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['targetSystem', 'targetComponent', 'seq', 'frame', 'command', 'current', 'autocontinue', 'x', 'y', 'z', 'missionType'])
+    if err:
+        return err, 400
+    err = _require(data, ['targetSystem', 'targetComponent'])
+    if err:
+        return err, 400
+    if data.get('missionType') and data['missionType'] not in [0, 1, 2, 255]:
+        return {"error": {"message": "invalid missionType; allowed: " + ", ".join([0, 1, 2, 255]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("px4autop_mis")}
-    rec["droneId"] = data.get('droneId')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Mission", rec)
-    return rec, 201
-
-@app.route("/v1/missions", methods=["GET"])
-def list_missions(request):
-    """List Missions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Mission")
-    rows = _apply_filters(rows, params, ['droneId', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/missions/<eid>", methods=["GET"])
-def get_mission(request, eid):
-    """Retrieve a Mission by id (supports ?expand=)."""
-    rows = _query("Mission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
-    return rec, 200
-
-@app.route("/v1/missions/<eid>", methods=["POST", "PATCH"])
-def update_mission(request, eid):
-    """Update a Mission."""
-    rows = _query("Mission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Mission", rec)
-    return rec, 200
-
-@app.route("/v1/missions/<eid>", methods=["DELETE"])
-def delete_mission(request, eid):
-    """Delete a Mission."""
-    rows = _query("Mission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Mission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/waypoints", methods=["POST"])
-def create_waypoint(request):
-    """Create a Waypoint."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
-    if err:
-        return err, 400
-    err = _require(data, ['lat', 'lon'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("px4autop_way")}
-    rec["missionId"] = data.get('missionId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
+    rec["targetSystem"] = _as_int(data.get('targetSystem'))
+    rec["targetComponent"] = _as_int(data.get('targetComponent'))
     rec["seq"] = _as_int(data.get('seq'))
+    rec["frame"] = _as_int(data.get('frame'))
+    rec["command"] = _as_int(data.get('command'))
+    rec["current"] = _as_int(data.get('current'))
+    rec["autocontinue"] = _as_int(data.get('autocontinue'))
+    rec["x"] = _as_float(data.get('x'))
+    rec["y"] = _as_float(data.get('y'))
+    rec["z"] = _as_float(data.get('z'))
+    rec["missionType"] = _as_int(data.get('missionType'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Waypoint", rec)
+    _persist("MissionItem", rec)
     return rec, 201
 
-@app.route("/v1/waypoints", methods=["GET"])
-def list_waypoints(request):
-    """List Waypoints with filtering + cursor pagination."""
+@app.route("/v1/missionitems", methods=["GET"])
+def list_mission_items(request):
+    """List MissionItems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Waypoint")
-    rows = _apply_filters(rows, params, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
+    rows = _query("MissionItem")
+    rows = _apply_filters(rows, params, ['targetSystem', 'targetComponent', 'seq', 'frame', 'command', 'current', 'autocontinue', 'x', 'y', 'z', 'missionType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["GET"])
-def get_waypoint(request, eid):
-    """Retrieve a Waypoint by id (supports ?expand=)."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/missionitems/<eid>", methods=["GET"])
+def get_mission_item(request, eid):
+    """Retrieve a MissionItem by id (supports ?expand=)."""
+    rows = _query("MissionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'missionId': 'Mission'})
     return rec, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["POST", "PATCH"])
-def update_waypoint(request, eid):
-    """Update a Waypoint."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/missionitems/<eid>", methods=["POST", "PATCH"])
+def update_mission_item(request, eid):
+    """Update a MissionItem."""
+    rows = _query("MissionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['missionId', 'lat', 'lon', 'altitudeM', 'seq'])
+    err = _reject_unknown(data, ['targetSystem', 'targetComponent', 'seq', 'frame', 'command', 'current', 'autocontinue', 'x', 'y', 'z', 'missionType'])
     if err:
         return err, 400
+    if data.get('missionType') and data['missionType'] not in [0, 1, 2, 255]:
+        return {"error": {"message": "invalid missionType; allowed: " + ", ".join([0, 1, 2, 255]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Waypoint", rec)
+    _persist("MissionItem", rec)
     return rec, 200
 
-@app.route("/v1/waypoints/<eid>", methods=["DELETE"])
-def delete_waypoint(request, eid):
-    """Delete a Waypoint."""
-    rows = _query("Waypoint", eid)
+@app.route("/v1/missionitems/<eid>", methods=["DELETE"])
+def delete_mission_item(request, eid):
+    """Delete a MissionItem."""
+    rows = _query("MissionItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Waypoint", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/telemetries", methods=["POST"])
-def create_telemetry(request):
-    """Create a Telemetry."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['lat', 'lon'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("px4autop_tel")}
-    rec["droneId"] = data.get('droneId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
-    rec["recordedAt"] = data.get('recordedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Telemetry", rec)
-    return rec, 201
-
-@app.route("/v1/telemetries", methods=["GET"])
-def list_telemetries(request):
-    """List Telemetries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Telemetry")
-    rows = _apply_filters(rows, params, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["GET"])
-def get_telemetry(request, eid):
-    """Retrieve a Telemetry by id (supports ?expand=)."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["POST", "PATCH"])
-def update_telemetry(request, eid):
-    """Update a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'lat', 'lon', 'altitudeM', 'recordedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Telemetry", rec)
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["DELETE"])
-def delete_telemetry(request, eid):
-    """Delete a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Telemetry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payloads", methods=["POST"])
-def create_payload(request):
-    """Create a Payload."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'weightKg'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'weightKg'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("px4autop_pay")}
-    rec["droneId"] = data.get('droneId')
-    rec["type"] = data.get('type')
-    rec["weightKg"] = _as_float(data.get('weightKg'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Payload", rec)
-    return rec, 201
-
-@app.route("/v1/payloads", methods=["GET"])
-def list_payloads(request):
-    """List Payloads with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Payload")
-    rows = _apply_filters(rows, params, ['droneId', 'type', 'weightKg'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/payloads/<eid>", methods=["GET"])
-def get_payload(request, eid):
-    """Retrieve a Payload by id (supports ?expand=)."""
-    rows = _query("Payload", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'droneId': 'Drone'})
-    return rec, 200
-
-@app.route("/v1/payloads/<eid>", methods=["POST", "PATCH"])
-def update_payload(request, eid):
-    """Update a Payload."""
-    rows = _query("Payload", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['droneId', 'type', 'weightKg'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Payload", rec)
-    return rec, 200
-
-@app.route("/v1/payloads/<eid>", methods=["DELETE"])
-def delete_payload(request, eid):
-    """Delete a Payload."""
-    rows = _query("Payload", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Payload", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/swarms", methods=["POST"])
-def create_swarm(request):
-    """Create a Swarm."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'droneCount', 'leaderId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'droneCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("px4autop_swa")}
-    rec["name"] = data.get('name')
-    rec["droneCount"] = _as_int(data.get('droneCount'))
-    rec["leaderId"] = data.get('leaderId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Swarm", rec)
-    return rec, 201
-
-@app.route("/v1/swarms", methods=["GET"])
-def list_swarms(request):
-    """List Swarms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Swarm")
-    rows = _apply_filters(rows, params, ['name', 'droneCount', 'leaderId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/swarms/<eid>", methods=["GET"])
-def get_swarm(request, eid):
-    """Retrieve a Swarm by id (supports ?expand=)."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/swarms/<eid>", methods=["POST", "PATCH"])
-def update_swarm(request, eid):
-    """Update a Swarm."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'droneCount', 'leaderId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Swarm", rec)
-    return rec, 200
-
-@app.route("/v1/swarms/<eid>", methods=["DELETE"])
-def delete_swarm(request, eid):
-    """Delete a Swarm."""
-    rows = _query("Swarm", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"px4_autopilot.Swarm", "id": eid})
+    db.retract({"entity": f"px4_autopilot.MissionItem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "px4_autopilot-compat", "tier": "L4",
-            "entities": ['Drone', 'Mission', 'Waypoint', 'Telemetry', 'Payload', 'Swarm']}, 200
+            "entities": ['Heartbeat', 'SysStatus', 'GpsRawInt', 'Attitude', 'GlobalPositionInt', 'MissionItem']}, 200
 
 
 if __name__ == "__main__":

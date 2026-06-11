@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 966,
-    "L5": 34
+    "L4": 837,
+    "L5": 163
   },
   "actors": [
     {
@@ -233,10 +233,10 @@
     {
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
-      "wasmCid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+      "wasmCid": "bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "adyen clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -251,10 +251,10 @@
     {
       "handle": "aftership-compat",
       "did": "did:web:etzhayyim.com:actor:aftership-compat",
-      "wasmCid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+      "wasmCid": "bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "aftership clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -377,10 +377,10 @@
     {
       "handle": "ais_marine-compat",
       "did": "did:web:etzhayyim.com:actor:ais_marine-compat",
-      "wasmCid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+      "wasmCid": "bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ais_marine clean-room actor",
       "category": "space_ocean_earth",
       "capabilities": [
@@ -413,10 +413,10 @@
     {
       "handle": "algolia-compat",
       "did": "did:web:etzhayyim.com:actor:algolia-compat",
-      "wasmCid": "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+      "wasmCid": "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "algolia clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -470,7 +470,7 @@
       "wasmCid": "bafkreicemyenektbx6iomyjyspuhpzjkqatkuo3mwefx6c5pdykkfd44xq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "allscripts clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -485,10 +485,10 @@
     {
       "handle": "alpaca-compat",
       "did": "did:web:etzhayyim.com:actor:alpaca-compat",
-      "wasmCid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "wasmCid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "alpaca clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -1007,10 +1007,10 @@
     {
       "handle": "as2_protocol-compat",
       "did": "did:web:etzhayyim.com:actor:as2_protocol-compat",
-      "wasmCid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+      "wasmCid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "as2_protocol clean-room actor",
       "category": "deep_logistics_supply",
       "capabilities": [
@@ -1118,7 +1118,7 @@
       "wasmCid": "bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "athenahealth clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -1136,7 +1136,7 @@
       "wasmCid": "bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "atlassian clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -1226,7 +1226,7 @@
       "wasmCid": "bafkreig3iall74xf3oebjwbroylas3h2ukdpikhysml7xuoxx57av7r6ie",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "autodesk clean-room actor",
       "category": "aec_govtech",
       "capabilities": [
@@ -1547,10 +1547,10 @@
     {
       "handle": "bandwidth-compat",
       "did": "did:web:etzhayyim.com:actor:bandwidth-compat",
-      "wasmCid": "bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "wasmCid": "bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bandwidth clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -1622,7 +1622,7 @@
       "wasmCid": "bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "benchling clean-room actor",
       "category": "synbio",
       "capabilities": [
@@ -1640,7 +1640,7 @@
       "wasmCid": "bafkreihqeaxox62bkvbszi47ufasbi42cbjq2ybv25gzz33hrmiz26yasy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bentley clean-room actor",
       "category": "aec_govtech",
       "capabilities": [
@@ -1694,7 +1694,7 @@
       "wasmCid": "bafkreift6z6rerlwxh66ep4qaunshkyn5pzwr4b6zsvlc436ow7scj2bz4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bgp_routing clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -1709,10 +1709,10 @@
     {
       "handle": "bgp_rpki-compat",
       "did": "did:web:etzhayyim.com:actor:bgp_rpki-compat",
-      "wasmCid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+      "wasmCid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bgp_rpki clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -1766,7 +1766,7 @@
       "wasmCid": "bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bigcommerce clean-room actor",
       "category": "ecommerce",
       "capabilities": [
@@ -1838,7 +1838,7 @@
       "wasmCid": "bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "binance clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -1910,7 +1910,7 @@
       "wasmCid": "bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "bitbucket clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -2573,10 +2573,10 @@
     {
       "handle": "can_bus-compat",
       "did": "did:web:etzhayyim.com:actor:can_bus-compat",
-      "wasmCid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+      "wasmCid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "can_bus clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -2594,7 +2594,7 @@
       "wasmCid": "bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "canva clean-room actor",
       "category": "design_tools",
       "capabilities": [
@@ -2882,7 +2882,7 @@
       "wasmCid": "bafkreicq7cewxbcui72jl5qwvkc27uty23yzpfkc7joihffrtxh47p45tm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cerner clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -2900,7 +2900,7 @@
       "wasmCid": "bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cerner_ignite clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -3023,10 +3023,10 @@
     {
       "handle": "chembl-compat",
       "did": "did:web:etzhayyim.com:actor:chembl-compat",
-      "wasmCid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "wasmCid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "chembl clean-room actor",
       "category": "materials_bio_chemical",
       "capabilities": [
@@ -3095,10 +3095,10 @@
     {
       "handle": "circleci-compat",
       "did": "did:web:etzhayyim.com:actor:circleci-compat",
-      "wasmCid": "bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
+      "wasmCid": "bafkreihjjy5csbczgic3uyy5h2mftvrar6bsbljzvz2uuksp3f7ocqx4ve",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "circleci clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -3311,10 +3311,10 @@
     {
       "handle": "cloudinary-compat",
       "did": "did:web:etzhayyim.com:actor:cloudinary-compat",
-      "wasmCid": "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+      "wasmCid": "bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cloudinary clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -3401,10 +3401,10 @@
     {
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
-      "wasmCid": "bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
+      "wasmCid": "bafkreiftxbatyk7oacejdg6wuhfdornlex7747vcqygif3yol3ygwknq6i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cohere clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -3530,7 +3530,7 @@
       "wasmCid": "bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "commercetools clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -3602,7 +3602,7 @@
       "wasmCid": "bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "contentful clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -3998,7 +3998,7 @@
       "wasmCid": "bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "cve_nvd clean-room actor",
       "category": "cyber_threat_intel",
       "capabilities": [
@@ -4283,10 +4283,10 @@
     {
       "handle": "deel-compat",
       "did": "did:web:etzhayyim.com:actor:deel-compat",
-      "wasmCid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+      "wasmCid": "bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "deel clean-room actor",
       "category": "hrtech",
       "capabilities": [
@@ -4355,10 +4355,10 @@
     {
       "handle": "dicomweb-compat",
       "did": "did:web:etzhayyim.com:actor:dicomweb-compat",
-      "wasmCid": "bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+      "wasmCid": "bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dicomweb clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -4430,7 +4430,7 @@
       "wasmCid": "bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "digitalocean clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -4499,7 +4499,7 @@
     {
       "handle": "discord-compat",
       "did": "did:web:etzhayyim.com:actor:discord-compat",
-      "wasmCid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+      "wasmCid": "bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
       "tier": "L5",
@@ -4589,10 +4589,10 @@
     {
       "handle": "dns_root_zone-compat",
       "did": "did:web:etzhayyim.com:actor:dns_root_zone-compat",
-      "wasmCid": "bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+      "wasmCid": "bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "dns_root_zone clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -4607,10 +4607,10 @@
     {
       "handle": "docker-compat",
       "did": "did:web:etzhayyim.com:actor:docker-compat",
-      "wasmCid": "bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "wasmCid": "bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "docker clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -4625,10 +4625,10 @@
     {
       "handle": "docusign-compat",
       "did": "did:web:etzhayyim.com:actor:docusign-compat",
-      "wasmCid": "bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "wasmCid": "bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "docusign clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -4736,7 +4736,7 @@
       "wasmCid": "bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "drchrono clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -5006,7 +5006,7 @@
       "wasmCid": "bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "eclinicalworks clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -5147,10 +5147,10 @@
     {
       "handle": "eidas-compat",
       "did": "did:web:etzhayyim.com:actor:eidas-compat",
-      "wasmCid": "bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+      "wasmCid": "bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "eidas clean-room actor",
       "category": "uk_eu_egov",
       "capabilities": [
@@ -5186,7 +5186,7 @@
       "wasmCid": "bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "elastic clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -5240,7 +5240,7 @@
       "wasmCid": "bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "elevenlabs clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -5402,7 +5402,7 @@
       "wasmCid": "bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "epic-systems clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -5420,7 +5420,7 @@
       "wasmCid": "bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "epic_fhir clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -5777,10 +5777,10 @@
     {
       "handle": "fastly-compat",
       "did": "did:web:etzhayyim.com:actor:fastly-compat",
-      "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+      "wasmCid": "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fastly clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -6083,10 +6083,10 @@
     {
       "handle": "fivetran-compat",
       "did": "did:web:etzhayyim.com:actor:fivetran-compat",
-      "wasmCid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "wasmCid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "fivetran clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [
@@ -6590,7 +6590,7 @@
       "wasmCid": "bafkreidthlawcfjorq2a764yfh6igvm2k3uwj25uowlo7ylftzrmxg63ke",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gbfs clean-room actor",
       "category": "transit_smart_cities",
       "capabilities": [
@@ -7022,7 +7022,7 @@
       "wasmCid": "bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "grafana clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -7094,7 +7094,7 @@
       "wasmCid": "bafkreigsqzft63uvihvebhqzrrk2w2bnj2zzb4osu653hsmnczjhpcdoeu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gs1_epcis clean-room actor",
       "category": "deep_logistics_supply",
       "capabilities": [
@@ -7202,7 +7202,7 @@
       "wasmCid": "bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "gusto clean-room actor",
       "category": "hrtech",
       "capabilities": [
@@ -7364,7 +7364,7 @@
       "wasmCid": "bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "heroku clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -8246,7 +8246,7 @@
       "wasmCid": "bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "intercom clean-room actor",
       "category": "cx_survey",
       "capabilities": [
@@ -8336,7 +8336,7 @@
       "wasmCid": "bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ipsec clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -8354,7 +8354,7 @@
       "wasmCid": "bafkreihnffa4h4rin4arl7wp7szb3s5id7vdhbzboizgtiexlcs764z7xq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ipv6_routing clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -8477,10 +8477,10 @@
     {
       "handle": "iso_8583-compat",
       "did": "did:web:etzhayyim.com:actor:iso_8583-compat",
-      "wasmCid": "bafkreicvml64rgkqlpzx56sx6gag2hmlg6576afbunxy26txw6t2tpvqry",
+      "wasmCid": "bafkreidy3mtzo2iveh64modihcf3ac5nvmfg2wzp5uo7bx5jm66r2pmzjm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "iso_8583 clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -8621,10 +8621,10 @@
     {
       "handle": "jenkins-compat",
       "did": "did:web:etzhayyim.com:actor:jenkins-compat",
-      "wasmCid": "bafkreihsr7rh6dhnzoqjeg2otmufqrgh57c4tbzxafsrpzbmwlxm433fz4",
+      "wasmCid": "bafkreig42y3biwtawqubltmsra2mykfehix44eppjx7lp3nu2rqwmhiu3a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "jenkins clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -8819,10 +8819,10 @@
     {
       "handle": "kafka-compat",
       "did": "did:web:etzhayyim.com:actor:kafka-compat",
-      "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kafka clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [
@@ -9038,7 +9038,7 @@
       "wasmCid": "bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kong clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -9110,7 +9110,7 @@
       "wasmCid": "bafkreif5hmro634h4czwutwcp7uas2vgpknxtvh6jrhc4jhwxkbpnwno74",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "kubernetes clean-room actor",
       "category": "devops_ci",
       "capabilities": [
@@ -9236,7 +9236,7 @@
       "wasmCid": "bafkreigf4zm5jromrz2a3o747yxudc7xpc3i2wgo4khg4hs5gcctlnpu7e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "launchdarkly clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -9380,7 +9380,7 @@
       "wasmCid": "bafkreif3nq5rlp7a2ebjsyyawtp7dbf2v2q4f3llwgqt5lgrblxp4h527u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "line_api clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -9398,7 +9398,7 @@
       "wasmCid": "bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "linode clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -9560,7 +9560,7 @@
       "wasmCid": "bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "looker clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -9686,7 +9686,7 @@
       "wasmCid": "bafkreihggzcn3lv33e5gbmu7xhcirqnrhckymuk7zn65kjgcncugzhq2dq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "magento clean-room actor",
       "category": "ecommerce",
       "capabilities": [
@@ -9791,10 +9791,10 @@
     {
       "handle": "mambu-compat",
       "did": "did:web:etzhayyim.com:actor:mambu-compat",
-      "wasmCid": "bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+      "wasmCid": "bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mambu clean-room actor",
       "category": "core_banking_insurtech",
       "capabilities": [
@@ -9881,10 +9881,10 @@
     {
       "handle": "marqeta-compat",
       "did": "did:web:etzhayyim.com:actor:marqeta-compat",
-      "wasmCid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "wasmCid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "marqeta clean-room actor",
       "category": "fintech_web3",
       "capabilities": [
@@ -9956,7 +9956,7 @@
       "wasmCid": "bafkreihqfuuqikbf5h7ruvu7kwxtq3fh4kub6gsgjrnkdb2nw7hgqy2ggy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "materials_project clean-room actor",
       "category": "materials_bio_chemical",
       "capabilities": [
@@ -10028,7 +10028,7 @@
       "wasmCid": "bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mavlink_drones clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -10046,7 +10046,7 @@
       "wasmCid": "bafkreiexsug4b7zn4ndvaurbnys6p37eiqjr5x2ctxevivnlmhprcq6feu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mavlink_swarm clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
@@ -10136,7 +10136,7 @@
       "wasmCid": "bafkreigt3bzjxehmzljtlvnr6455uwwjoziqo6mkcven4cc4zox3i7s3zu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "meditech clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -10352,7 +10352,7 @@
       "wasmCid": "bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "miro clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -10385,10 +10385,10 @@
     {
       "handle": "mitre_attck-compat",
       "did": "did:web:etzhayyim.com:actor:mitre_attck-compat",
-      "wasmCid": "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+      "wasmCid": "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mitre_attck clean-room actor",
       "category": "cyber_threat_intel",
       "capabilities": [
@@ -10457,10 +10457,10 @@
     {
       "handle": "modbus_tcp-compat",
       "did": "did:web:etzhayyim.com:actor:modbus_tcp-compat",
-      "wasmCid": "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "wasmCid": "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "modbus_tcp clean-room actor",
       "category": "energy_grid_utilities",
       "capabilities": [
@@ -10478,7 +10478,7 @@
       "wasmCid": "bafkreibqv2wdd7zlmw2mjhes6f6w2l7tup5mpcacvidjz42kyfw6guaf24",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "monday clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -10514,7 +10514,7 @@
       "wasmCid": "bafkreif3sz5h3bgm4ubfzhlpqmjqyvopyuf5fqvjkmt57y74qw65lyajqe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mongodb clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -10529,10 +10529,10 @@
     {
       "handle": "monzo-compat",
       "did": "did:web:etzhayyim.com:actor:monzo-compat",
-      "wasmCid": "bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
+      "wasmCid": "bafkreihp4ja3v64wxi2itzdzip2ebdlyyqypgtvxatak2ivrq7hnb6x62a",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "monzo clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -10619,10 +10619,10 @@
     {
       "handle": "mpls-compat",
       "did": "did:web:etzhayyim.com:actor:mpls-compat",
-      "wasmCid": "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "wasmCid": "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mpls clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -10745,10 +10745,10 @@
     {
       "handle": "mux-compat",
       "did": "did:web:etzhayyim.com:actor:mux-compat",
-      "wasmCid": "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "wasmCid": "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "mux clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -11162,7 +11162,7 @@
       "wasmCid": "bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "netlify clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
@@ -11270,7 +11270,7 @@
       "wasmCid": "bafkreiheao3qlxt6dmrmfeetblrak5fu4qotbqextdwl23tlqlhsqq2tqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "nextgen clean-room actor",
       "category": "ehr_health",
       "capabilities": [
@@ -11537,10 +11537,10 @@
     {
       "handle": "ntp_time-compat",
       "did": "did:web:etzhayyim.com:actor:ntp_time-compat",
-      "wasmCid": "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+      "wasmCid": "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ntp_time clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -11774,7 +11774,7 @@
       "wasmCid": "bafkreif6sucsenrlr4lzzhz6jdfglqksfsuhvyzqcszd4rggowzlouddhy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "omop_cdm clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -11879,10 +11879,10 @@
     {
       "handle": "onnx_runtime-compat",
       "did": "did:web:etzhayyim.com:actor:onnx_runtime-compat",
-      "wasmCid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+      "wasmCid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "onnx_runtime clean-room actor",
       "category": "ai_ml_infra_chips",
       "capabilities": [
@@ -11900,7 +11900,7 @@
       "wasmCid": "bafkreibc3earfwuo227bwzsjsebwxw7v6wu2dws7spsd5weyalbrfuyvye",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "opc_ua clean-room actor",
       "category": "energy_grid_utilities",
       "capabilities": [
@@ -11933,10 +11933,10 @@
     {
       "handle": "openai-compat",
       "did": "did:web:etzhayyim.com:actor:openai-compat",
-      "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "wasmCid": "bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "openai clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -12023,10 +12023,10 @@
     {
       "handle": "opensea-compat",
       "did": "did:web:etzhayyim.com:actor:opensea-compat",
-      "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "wasmCid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "opensea clean-room actor",
       "category": "web3_rpc",
       "capabilities": [
@@ -12077,10 +12077,10 @@
     {
       "handle": "openxr-compat",
       "did": "did:web:etzhayyim.com:actor:openxr-compat",
-      "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "openxr clean-room actor",
       "category": "xr_spatial",
       "capabilities": [
@@ -12314,7 +12314,7 @@
       "wasmCid": "bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pagerduty clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -12419,10 +12419,10 @@
     {
       "handle": "patreon-compat",
       "did": "did:web:etzhayyim.com:actor:patreon-compat",
-      "wasmCid": "bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "wasmCid": "bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "patreon clean-room actor",
       "category": "event_npo_creator",
       "capabilities": [
@@ -12458,7 +12458,7 @@
       "wasmCid": "bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paypal clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -12476,7 +12476,7 @@
       "wasmCid": "bafkreicrintup4eeza5yxcnofsfkkxpufyyuthm2qs6reghp4t2lhkarzq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "paystack clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -12563,10 +12563,10 @@
     {
       "handle": "pinecone-compat",
       "did": "did:web:etzhayyim.com:actor:pinecone-compat",
-      "wasmCid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+      "wasmCid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pinecone clean-room actor",
       "category": "ai_ml",
       "capabilities": [
@@ -12872,7 +12872,7 @@
       "wasmCid": "bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "powerbi clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -13013,10 +13013,10 @@
     {
       "handle": "pulumi-compat",
       "did": "did:web:etzhayyim.com:actor:pulumi-compat",
-      "wasmCid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "wasmCid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "pulumi clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -13034,7 +13034,7 @@
       "wasmCid": "bafkreibqshvnnxlyw6e2tlourqcvzqivxhg6pzn7iijphaq3qpqyrkomay",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "px4_autopilot clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
@@ -13121,10 +13121,10 @@
     {
       "handle": "quic_http3-compat",
       "did": "did:web:etzhayyim.com:actor:quic_http3-compat",
-      "wasmCid": "bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "wasmCid": "bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "quic_http3 clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -13214,7 +13214,7 @@
       "wasmCid": "bafkreihqh6ovaxw2y2qnvkmapzkiizcphfxzslo7gptr6y6673sjb2uwiy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ramp clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -13301,10 +13301,10 @@
     {
       "handle": "razorpay-compat",
       "did": "did:web:etzhayyim.com:actor:razorpay-compat",
-      "wasmCid": "bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "wasmCid": "bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "razorpay clean-room actor",
       "category": "payments",
       "capabilities": [
@@ -13409,10 +13409,10 @@
     {
       "handle": "redis-compat",
       "did": "did:web:etzhayyim.com:actor:redis-compat",
-      "wasmCid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "wasmCid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "redis clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -13859,10 +13859,10 @@
     {
       "handle": "ros2_nav-compat",
       "did": "did:web:etzhayyim.com:actor:ros2_nav-compat",
-      "wasmCid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+      "wasmCid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ros2_nav clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -14312,7 +14312,7 @@
       "wasmCid": "bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "segment clean-room actor",
       "category": "martech",
       "capabilities": [
@@ -14345,10 +14345,10 @@
     {
       "handle": "sendbird-compat",
       "did": "did:web:etzhayyim.com:actor:sendbird-compat",
-      "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+      "wasmCid": "bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "sendbird clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -14510,7 +14510,7 @@
       "wasmCid": "bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "shippo clean-room actor",
       "category": "headless_ec_logistics",
       "capabilities": [
@@ -14834,7 +14834,7 @@
       "wasmCid": "bafkreifg7lifowfmqqfex4kpv623cl5oqqguzktwaty5xb7tla3yy6a3hq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "smart_on_fhir clean-room actor",
       "category": "healthcare_fhir_bio",
       "capabilities": [
@@ -14924,7 +14924,7 @@
       "wasmCid": "bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "snowflake clean-room actor",
       "category": "data_analytics",
       "capabilities": [
@@ -14975,10 +14975,10 @@
     {
       "handle": "sonarqube-compat",
       "did": "did:web:etzhayyim.com:actor:sonarqube-compat",
-      "wasmCid": "bafkreigexy34jsdlw5t33b64q6tamte72whh5fzipkemgoncxg46vyzfhq",
+      "wasmCid": "bafkreibnpp5tehuioav7goyq2lgwyapuxapvjvujylh2j36n6e74he4qrq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "sonarqube clean-room actor",
       "category": "devtools_apm",
       "capabilities": [
@@ -15137,10 +15137,10 @@
     {
       "handle": "ss7_sigtran-compat",
       "did": "did:web:etzhayyim.com:actor:ss7_sigtran-compat",
-      "wasmCid": "bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+      "wasmCid": "bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ss7_sigtran clean-room actor",
       "category": "telecom_satellite",
       "capabilities": [
@@ -15302,7 +15302,7 @@
       "wasmCid": "bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "supabase clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -15623,10 +15623,10 @@
     {
       "handle": "tcp_ip-compat",
       "did": "did:web:etzhayyim.com:actor:tcp_ip-compat",
-      "wasmCid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "wasmCid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "tcp_ip clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -15659,10 +15659,10 @@
     {
       "handle": "telegram_api-compat",
       "did": "did:web:etzhayyim.com:actor:telegram_api-compat",
-      "wasmCid": "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "wasmCid": "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "telegram_api clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -15698,7 +15698,7 @@
       "wasmCid": "bafkreia6faidx5a6gcbkdpgqjohlvspc3ewdqnyj6pavflj7lmapn6ugfa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "terraform clean-room actor",
       "category": "devsecops_serverless",
       "capabilities": [
@@ -15839,10 +15839,10 @@
     {
       "handle": "thegraph-compat",
       "did": "did:web:etzhayyim.com:actor:thegraph-compat",
-      "wasmCid": "bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "wasmCid": "bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "thegraph clean-room actor",
       "category": "web3_rpc",
       "capabilities": [
@@ -16055,10 +16055,10 @@
     {
       "handle": "trello-compat",
       "did": "did:web:etzhayyim.com:actor:trello-compat",
-      "wasmCid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+      "wasmCid": "bafkreigcbjl76pbrxuo4xeas4kjdjb3tzvk7jmwrs7cvkpl5zpckwjxefu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "trello clean-room actor",
       "category": "office_productivity",
       "capabilities": [
@@ -16343,10 +16343,10 @@
     {
       "handle": "typeform-compat",
       "did": "did:web:etzhayyim.com:actor:typeform-compat",
-      "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "wasmCid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "typeform clean-room actor",
       "category": "cx_survey",
       "capabilities": [
@@ -16415,10 +16415,10 @@
     {
       "handle": "un_locode-compat",
       "did": "did:web:etzhayyim.com:actor:un_locode-compat",
-      "wasmCid": "bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+      "wasmCid": "bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "un_locode clean-room actor",
       "category": "physical_benchmarks_classifications",
       "capabilities": [
@@ -16562,7 +16562,7 @@
       "wasmCid": "bafkreigpjw4pr66usr5anvteyifw7355mvi5x2immvumjyshyqt72kwfqm",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "universal_robots clean-room actor",
       "category": "manufacturing_plm_robotics",
       "capabilities": [
@@ -16832,7 +16832,7 @@
       "wasmCid": "bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vimeo clean-room actor",
       "category": "media_video_cms",
       "capabilities": [
@@ -16919,10 +16919,10 @@
     {
       "handle": "vonage-compat",
       "did": "did:web:etzhayyim.com:actor:vonage-compat",
-      "wasmCid": "bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "wasmCid": "bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "vonage clean-room actor",
       "category": "comms_social",
       "capabilities": [
@@ -17066,7 +17066,7 @@
       "wasmCid": "bafkreifvh6rtorgwik6i77ghzp7hw646i3tisp6rkdhfbermklzvuhccfu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "webflow clean-room actor",
       "category": "lowcode_ipaas",
       "capabilities": [
@@ -17081,10 +17081,10 @@
     {
       "handle": "webrtc_core-compat",
       "did": "did:web:etzhayyim.com:actor:webrtc_core-compat",
-      "wasmCid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "wasmCid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "webrtc_core clean-room actor",
       "category": "internet_routing",
       "capabilities": [
@@ -17300,7 +17300,7 @@
       "wasmCid": "bafkreie4vot77pv3nuqedtomq4pt4aqokdjyhawzqhptczowzii7jft7ly",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "woocommerce clean-room actor",
       "category": "ecommerce",
       "capabilities": [
@@ -17390,7 +17390,7 @@
       "wasmCid": "bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "worldbank clean-room actor",
       "category": "intl_orgs_central_banks",
       "capabilities": [
@@ -17462,7 +17462,7 @@
       "wasmCid": "bafkreie55iolfozdkdvxov3belu5wobtydprijjaem4cjngscxehnnx4la",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "x clean-room actor",
       "category": "comms_social",
       "capabilities": [

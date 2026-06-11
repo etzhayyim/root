@@ -11,15 +11,59 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
   "schema": "schema/powerbi.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://learn.microsoft.com/en-us/rest/api/power-bi",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Dataset",
+      "Report",
+      "Dashboard",
+      "Group",
+      "Tile",
+      "Gateway"
+    ],
+    "enums": {
+      "Dataset": {
+        "contentProviderType": [
+          "Excel",
+          "CSV",
+          "UsageMetricsUserReport",
+          "UsageMetricsUserDashboard",
+          "RealTimeInPushMode",
+          "RealTimeInPubNubMode",
+          "RealTimeInStreamingMode",
+          "PowerBIDesktop",
+          "PowerBIModelingService",
+          "PbixInImportMode",
+          "PbixInDirectQueryMode",
+          "PbixInCompositeMode",
+          "InImportMode",
+          "InDirectQueryMode",
+          "InCompositeMode"
+        ]
+      },
+      "Report": {
+        "reportType": [
+          "PaginatedReport",
+          "PowerBIReport"
+        ]
+      },
+      "Group": {
+        "defaultDatasetStorageFormat": [
+          "Small",
+          "Large"
+        ]
+      }
+    }
+  },
   "entities": [
     "Dataset",
-    "Query",
-    "Dashboard",
     "Report",
-    "Connection",
-    "Metric"
+    "Dashboard",
+    "Group",
+    "Tile",
+    "Gateway"
   ],
   "adr": [
     "260607",
@@ -60,28 +104,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/queries",
-          "op": "create Query"
+          "path": "/v1/reports",
+          "op": "create Report"
         },
         {
           "method": "GET",
-          "path": "/v1/queries",
-          "op": "list Query"
+          "path": "/v1/reports",
+          "op": "list Report"
         },
         {
           "method": "GET",
-          "path": "/v1/queries/{id}",
-          "op": "get Query"
+          "path": "/v1/reports/{id}",
+          "op": "get Report"
         },
         {
           "method": "PATCH",
-          "path": "/v1/queries/{id}",
-          "op": "update Query"
+          "path": "/v1/reports/{id}",
+          "op": "update Report"
         },
         {
           "method": "DELETE",
-          "path": "/v1/queries/{id}",
-          "op": "delete Query"
+          "path": "/v1/reports/{id}",
+          "op": "delete Report"
         },
         {
           "method": "POST",
@@ -110,78 +154,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/groups",
+          "op": "create Group"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/groups",
+          "op": "list Group"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
         },
         {
           "method": "POST",
-          "path": "/v1/connections",
-          "op": "create Connection"
+          "path": "/v1/tiles",
+          "op": "create Tile"
         },
         {
           "method": "GET",
-          "path": "/v1/connections",
-          "op": "list Connection"
+          "path": "/v1/tiles",
+          "op": "list Tile"
         },
         {
           "method": "GET",
-          "path": "/v1/connections/{id}",
-          "op": "get Connection"
+          "path": "/v1/tiles/{id}",
+          "op": "get Tile"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connections/{id}",
-          "op": "update Connection"
+          "path": "/v1/tiles/{id}",
+          "op": "update Tile"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connections/{id}",
-          "op": "delete Connection"
+          "path": "/v1/tiles/{id}",
+          "op": "delete Tile"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/gateways",
+          "op": "create Gateway"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/gateways",
+          "op": "list Gateway"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/gateways/{id}",
+          "op": "get Gateway"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/gateways/{id}",
+          "op": "update Gateway"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/gateways/{id}",
+          "op": "delete Gateway"
         }
       ],
       "features": {
@@ -255,19 +299,25 @@
               "name": {
                 "type": "string"
               },
-              "source": {
+              "description": {
                 "type": "string"
               },
-              "schemaRef": {
+              "contentProviderType": {
                 "type": "string"
               },
-              "rowCount": {
-                "type": "integer"
+              "targetStorageMode": {
+                "type": "string"
+              },
+              "isRefreshable": {
+                "type": "boolean"
+              },
+              "addRowsAPIEnabled": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "source"
+              "description"
             ]
           }
         },
@@ -306,14 +356,20 @@
               "name": {
                 "type": "string"
               },
-              "source": {
+              "description": {
                 "type": "string"
               },
-              "schemaRef": {
+              "contentProviderType": {
                 "type": "string"
               },
-              "rowCount": {
-                "type": "integer"
+              "targetStorageMode": {
+                "type": "string"
+              },
+              "isRefreshable": {
+                "type": "boolean"
+              },
+              "addRowsAPIEnabled": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -337,191 +393,30 @@
           }
         },
         {
-          "name": "create_query",
-          "description": "Create a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sql"
-            ]
-          }
-        },
-        {
-          "name": "list_queries",
-          "description": "List Queries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_query",
-          "description": "Get a Query by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_query",
-          "description": "Update a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_query",
-          "description": "Delete a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_dashboard",
-          "description": "Create a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "layout": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "layout"
-            ]
-          }
-        },
-        {
-          "name": "list_dashboards",
-          "description": "List Dashboards.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_dashboard",
-          "description": "Get a Dashboard by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_dashboard",
-          "description": "Update a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "layout": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dashboard",
-          "description": "Delete a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_report",
           "description": "Create a Report.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "dashboardId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "schedule": {
+              "description": {
                 "type": "string"
+              },
+              "reportType": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "isOwnedByMe": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "schedule"
+              "description"
             ]
           }
         },
@@ -557,14 +452,20 @@
               "id": {
                 "type": "string"
               },
-              "dashboardId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "schedule": {
+              "description": {
                 "type": "string"
+              },
+              "reportType": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "isOwnedByMe": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -588,8 +489,272 @@
           }
         },
         {
-          "name": "create_connection",
-          "description": "Create a Connection.",
+          "name": "create_dashboard",
+          "description": "Create a Dashboard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              },
+              "isReadOnly": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "displayName",
+              "isReadOnly"
+            ]
+          }
+        },
+        {
+          "name": "list_dashboards",
+          "description": "List Dashboards.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dashboard",
+          "description": "Get a Dashboard by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dashboard",
+          "description": "Update a Dashboard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "isReadOnly": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dashboard",
+          "description": "Delete a Dashboard.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_group",
+          "description": "Create a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "isReadOnly": {
+                "type": "boolean"
+              },
+              "isOnDedicatedCapacity": {
+                "type": "boolean"
+              },
+              "defaultDatasetStorageFormat": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "isReadOnly"
+            ]
+          }
+        },
+        {
+          "name": "list_groups",
+          "description": "List Groups.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_group",
+          "description": "Get a Group by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_group",
+          "description": "Update a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "isReadOnly": {
+                "type": "boolean"
+              },
+              "isOnDedicatedCapacity": {
+                "type": "boolean"
+              },
+              "defaultDatasetStorageFormat": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_group",
+          "description": "Delete a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tile",
+          "description": "Create a Tile.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "reportId": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "rowSpan": {
+                "type": "integer"
+              },
+              "colSpan": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "title",
+              "rowSpan"
+            ]
+          }
+        },
+        {
+          "name": "list_tiles",
+          "description": "List Tiles.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tile",
+          "description": "Get a Tile by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tile",
+          "description": "Update a Tile.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "reportId": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "rowSpan": {
+                "type": "integer"
+              },
+              "colSpan": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tile",
+          "description": "Delete a Tile.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_gateway",
+          "description": "Create a Gateway.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -599,11 +764,8 @@
               "type": {
                 "type": "string"
               },
-              "host": {
+              "gatewayStatus": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -613,16 +775,16 @@
           }
         },
         {
-          "name": "list_connections",
-          "description": "List Connections.",
+          "name": "list_gateways",
+          "description": "List Gateways.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connection",
-          "description": "Get a Connection by id.",
+          "name": "get_gateway",
+          "description": "Get a Gateway by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,8 +798,8 @@
           }
         },
         {
-          "name": "update_connection",
-          "description": "Update a Connection.",
+          "name": "update_gateway",
+          "description": "Update a Gateway.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -650,25 +812,7 @@
               "type": {
                 "type": "string"
               },
-              "host": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connection",
-          "description": "Delete a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "gatewayStatus": {
                 "type": "string"
               }
             },
@@ -678,83 +822,8 @@
           }
         },
         {
-          "name": "create_metric",
-          "description": "Create a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "expression"
-            ]
-          }
-        },
-        {
-          "name": "list_metrics",
-          "description": "List Metrics.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_metric",
-          "description": "Update a Metric.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expression": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_gateway",
+          "description": "Delete a Gateway.",
           "inputSchema": {
             "type": "object",
             "properties": {

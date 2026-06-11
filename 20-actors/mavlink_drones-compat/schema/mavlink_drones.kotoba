@@ -3,71 +3,86 @@
 
 namespace mavlink_drones {
 
-    entity Vehicle {
+    entity Heartbeat {
         id: string @unique
-        vin: string
-        model: string
-        state: string
-        odometerKm: float
+        type: integer
+        autopilot: integer
+        baseMode: integer
+        customMode: integer
+        systemStatus: integer
+        mavlinkVersion: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Signal {
+    entity SysStatus {
         id: string @unique
-        vehicleId: string
-        name: string
-        value: float
-        unit: string
+        load: integer
+        voltageBattery: integer
+        currentBattery: integer
+        batteryRemaining: integer
+        dropRateComm: integer
+        errorsComm: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ChargeSession {
+    entity GpsRawInt {
         id: string @unique
-        vehicleId: string
-        connectorId: string
-        energyKwh: float
-        status: string
+        timeUsec: integer
+        fixType: integer
+        lat: integer
+        lon: integer
+        alt: integer
+        vel: integer
+        satellitesVisible: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connector {
+    entity Attitude {
         id: string @unique
-        stationId: string
-        standard: string
-        powerKw: float
-        status: string
+        timeBootMs: integer
+        roll: float
+        pitch: float
+        yaw: float
+        rollspeed: float
+        pitchspeed: float
+        yawspeed: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Trip {
+    entity GlobalPositionInt {
         id: string @unique
-        vehicleId: string
-        distanceKm: float
-        startedAt: datetime
+        timeBootMs: integer
+        lat: integer
+        lon: integer
+        alt: integer
+        relativeAlt: integer
+        vx: integer
+        vy: integer
+        vz: integer
+        hdg: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Command {
+    entity MissionItem {
         id: string @unique
-        vehicleId: string
-        name: string
-        status: string
+        targetSystem: integer
+        targetComponent: integer
+        seq: integer
+        frame: integer
+        command: integer
+        current: integer
+        autocontinue: integer
+        x: float
+        y: float
+        z: float
+        missionType: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

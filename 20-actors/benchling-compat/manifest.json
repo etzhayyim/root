@@ -11,15 +11,37 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
   "schema": "schema/benchling.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://benchling.com/api/v2/openapi.yaml",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "CustomEntity",
+      "DnaSequence",
+      "Entry",
+      "Folder",
+      "Project",
+      "Request"
+    ],
+    "enums": {
+      "Request": {
+        "requestStatus": [
+          "REQUESTED",
+          "SCHEDULED",
+          "IN_PROGRESS",
+          "COMPLETED",
+          "CANCELLED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Strain",
-    "Construct",
-    "Sequence",
-    "Assay",
-    "Sample",
-    "Workflow"
+    "CustomEntity",
+    "DnaSequence",
+    "Entry",
+    "Folder",
+    "Project",
+    "Request"
   ],
   "adr": [
     "260607",
@@ -35,160 +57,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/strains",
-          "op": "create Strain"
+          "path": "/v1/customentities",
+          "op": "create CustomEntity"
         },
         {
           "method": "GET",
-          "path": "/v1/strains",
-          "op": "list Strain"
+          "path": "/v1/customentities",
+          "op": "list CustomEntity"
         },
         {
           "method": "GET",
-          "path": "/v1/strains/{id}",
-          "op": "get Strain"
+          "path": "/v1/customentities/{id}",
+          "op": "get CustomEntity"
         },
         {
           "method": "PATCH",
-          "path": "/v1/strains/{id}",
-          "op": "update Strain"
+          "path": "/v1/customentities/{id}",
+          "op": "update CustomEntity"
         },
         {
           "method": "DELETE",
-          "path": "/v1/strains/{id}",
-          "op": "delete Strain"
+          "path": "/v1/customentities/{id}",
+          "op": "delete CustomEntity"
         },
         {
           "method": "POST",
-          "path": "/v1/constructs",
-          "op": "create Construct"
+          "path": "/v1/dnasequences",
+          "op": "create DnaSequence"
         },
         {
           "method": "GET",
-          "path": "/v1/constructs",
-          "op": "list Construct"
+          "path": "/v1/dnasequences",
+          "op": "list DnaSequence"
         },
         {
           "method": "GET",
-          "path": "/v1/constructs/{id}",
-          "op": "get Construct"
+          "path": "/v1/dnasequences/{id}",
+          "op": "get DnaSequence"
         },
         {
           "method": "PATCH",
-          "path": "/v1/constructs/{id}",
-          "op": "update Construct"
+          "path": "/v1/dnasequences/{id}",
+          "op": "update DnaSequence"
         },
         {
           "method": "DELETE",
-          "path": "/v1/constructs/{id}",
-          "op": "delete Construct"
+          "path": "/v1/dnasequences/{id}",
+          "op": "delete DnaSequence"
         },
         {
           "method": "POST",
-          "path": "/v1/sequences",
-          "op": "create Sequence"
+          "path": "/v1/entries",
+          "op": "create Entry"
         },
         {
           "method": "GET",
-          "path": "/v1/sequences",
-          "op": "list Sequence"
+          "path": "/v1/entries",
+          "op": "list Entry"
         },
         {
           "method": "GET",
-          "path": "/v1/sequences/{id}",
-          "op": "get Sequence"
+          "path": "/v1/entries/{id}",
+          "op": "get Entry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/sequences/{id}",
-          "op": "update Sequence"
+          "path": "/v1/entries/{id}",
+          "op": "update Entry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/sequences/{id}",
-          "op": "delete Sequence"
+          "path": "/v1/entries/{id}",
+          "op": "delete Entry"
         },
         {
           "method": "POST",
-          "path": "/v1/assays",
-          "op": "create Assay"
+          "path": "/v1/folders",
+          "op": "create Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/assays",
-          "op": "list Assay"
+          "path": "/v1/folders",
+          "op": "list Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/assays/{id}",
-          "op": "get Assay"
+          "path": "/v1/folders/{id}",
+          "op": "get Folder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assays/{id}",
-          "op": "update Assay"
+          "path": "/v1/folders/{id}",
+          "op": "update Folder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assays/{id}",
-          "op": "delete Assay"
+          "path": "/v1/folders/{id}",
+          "op": "delete Folder"
         },
         {
           "method": "POST",
-          "path": "/v1/samples",
-          "op": "create Sample"
+          "path": "/v1/projects",
+          "op": "create Project"
         },
         {
           "method": "GET",
-          "path": "/v1/samples",
-          "op": "list Sample"
+          "path": "/v1/projects",
+          "op": "list Project"
         },
         {
           "method": "GET",
-          "path": "/v1/samples/{id}",
-          "op": "get Sample"
+          "path": "/v1/projects/{id}",
+          "op": "get Project"
         },
         {
           "method": "PATCH",
-          "path": "/v1/samples/{id}",
-          "op": "update Sample"
+          "path": "/v1/projects/{id}",
+          "op": "update Project"
         },
         {
           "method": "DELETE",
-          "path": "/v1/samples/{id}",
-          "op": "delete Sample"
+          "path": "/v1/projects/{id}",
+          "op": "delete Project"
         },
         {
           "method": "POST",
-          "path": "/v1/workflows",
-          "op": "create Workflow"
+          "path": "/v1/requests",
+          "op": "create Request"
         },
         {
           "method": "GET",
-          "path": "/v1/workflows",
-          "op": "list Workflow"
+          "path": "/v1/requests",
+          "op": "list Request"
         },
         {
           "method": "GET",
-          "path": "/v1/workflows/{id}",
-          "op": "get Workflow"
+          "path": "/v1/requests/{id}",
+          "op": "get Request"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workflows/{id}",
-          "op": "update Workflow"
+          "path": "/v1/requests/{id}",
+          "op": "update Request"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workflows/{id}",
-          "op": "delete Workflow"
+          "path": "/v1/requests/{id}",
+          "op": "delete Request"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,38 +269,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_strain",
-          "description": "Create a Strain.",
+          "name": "create_custom_entity",
+          "description": "Create a CustomEntity.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "apiURL": {
+                "type": "string"
+              },
+              "entityRegistryId": {
+                "type": "string"
+              },
+              "folderId": {
+                "type": "string"
+              },
+              "modifiedAt": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "organism": {
+              "registryId": {
                 "type": "string"
               },
-              "genotype": {
+              "url": {
+                "type": "string"
+              },
+              "webURL": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "organism"
+              "apiURL",
+              "modifiedAt"
             ]
           }
         },
         {
-          "name": "list_strains",
-          "description": "List Strains.",
+          "name": "list_custom_entities",
+          "description": "List CustomEntities.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_strain",
-          "description": "Get a Strain by id.",
+          "name": "get_custom_entity",
+          "description": "Get a CustomEntity by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +329,36 @@
           }
         },
         {
-          "name": "update_strain",
-          "description": "Update a Strain.",
+          "name": "update_custom_entity",
+          "description": "Update a CustomEntity.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "apiURL": {
+                "type": "string"
+              },
+              "entityRegistryId": {
+                "type": "string"
+              },
+              "folderId": {
+                "type": "string"
+              },
+              "modifiedAt": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "organism": {
+              "registryId": {
                 "type": "string"
               },
-              "genotype": {
+              "url": {
+                "type": "string"
+              },
+              "webURL": {
                 "type": "string"
               }
             },
@@ -316,8 +368,8 @@
           }
         },
         {
-          "name": "delete_strain",
-          "description": "Delete a Strain.",
+          "name": "delete_custom_entity",
+          "description": "Delete a CustomEntity.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,125 +383,62 @@
           }
         },
         {
-          "name": "create_construct",
-          "description": "Create a Construct.",
+          "name": "create_dna_sequence",
+          "description": "Create a DnaSequence.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "apiURL": {
                 "type": "string"
               },
-              "vector": {
+              "bases": {
                 "type": "string"
               },
-              "insertRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "vector"
-            ]
-          }
-        },
-        {
-          "name": "list_constructs",
-          "description": "List Constructs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_construct",
-          "description": "Get a Construct by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_construct",
-          "description": "Update a Construct.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "entityRegistryId": {
                 "type": "string"
               },
-              "name": {
+              "folderId": {
                 "type": "string"
               },
-              "vector": {
-                "type": "string"
-              },
-              "insertRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_construct",
-          "description": "Delete a Construct.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sequence",
-          "description": "Create a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "constructId": {
-                "type": "string"
+              "isCircular": {
+                "type": "boolean"
               },
               "length": {
                 "type": "integer"
               },
-              "checksum": {
+              "modifiedAt": {
                 "type": "string"
               },
-              "dataRef": {
+              "name": {
+                "type": "string"
+              },
+              "registryId": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "webURL": {
                 "type": "string"
               }
             },
             "required": [
-              "length",
-              "checksum"
+              "apiURL",
+              "bases"
             ]
           }
         },
         {
-          "name": "list_sequences",
-          "description": "List Sequences.",
+          "name": "list_dna_sequences",
+          "description": "List DnaSequences.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_sequence",
-          "description": "Get a Sequence by id.",
+          "name": "get_dna_sequence",
+          "description": "Get a DnaSequence by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -463,24 +452,45 @@
           }
         },
         {
-          "name": "update_sequence",
-          "description": "Update a Sequence.",
+          "name": "update_dna_sequence",
+          "description": "Update a DnaSequence.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "constructId": {
+              "apiURL": {
                 "type": "string"
+              },
+              "bases": {
+                "type": "string"
+              },
+              "entityRegistryId": {
+                "type": "string"
+              },
+              "folderId": {
+                "type": "string"
+              },
+              "isCircular": {
+                "type": "boolean"
               },
               "length": {
                 "type": "integer"
               },
-              "checksum": {
+              "modifiedAt": {
                 "type": "string"
               },
-              "dataRef": {
+              "name": {
+                "type": "string"
+              },
+              "registryId": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "webURL": {
                 "type": "string"
               }
             },
@@ -490,8 +500,8 @@
           }
         },
         {
-          "name": "delete_sequence",
-          "description": "Delete a Sequence.",
+          "name": "delete_dna_sequence",
+          "description": "Delete a DnaSequence.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -505,41 +515,50 @@
           }
         },
         {
-          "name": "create_assay",
-          "description": "Create a Assay.",
+          "name": "create_entry",
+          "description": "Create a Entry.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "strainId": {
+              "apiURL": {
                 "type": "string"
               },
-              "type": {
+              "displayId": {
                 "type": "string"
               },
-              "readout": {
+              "entryTemplateId": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
+              "folderId": {
+                "type": "string"
+              },
+              "modifiedAt": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "webURL": {
+                "type": "string"
               }
             },
             "required": [
-              "type",
-              "readout"
+              "apiURL",
+              "modifiedAt"
             ]
           }
         },
         {
-          "name": "list_assays",
-          "description": "List Assays.",
+          "name": "list_entries",
+          "description": "List Entries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_assay",
-          "description": "Get a Assay by id.",
+          "name": "get_entry",
+          "description": "Get a Entry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -553,39 +572,33 @@
           }
         },
         {
-          "name": "update_assay",
-          "description": "Update a Assay.",
+          "name": "update_entry",
+          "description": "Update a Entry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "strainId": {
+              "apiURL": {
                 "type": "string"
               },
-              "type": {
+              "displayId": {
                 "type": "string"
               },
-              "readout": {
+              "entryTemplateId": {
                 "type": "string"
               },
-              "value": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_assay",
-          "description": "Delete a Assay.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "folderId": {
+                "type": "string"
+              },
+              "modifiedAt": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "webURL": {
                 "type": "string"
               }
             },
@@ -595,41 +608,8 @@
           }
         },
         {
-          "name": "create_sample",
-          "description": "Create a Sample.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "strainId": {
-                "type": "string"
-              },
-              "barcode": {
-                "type": "string"
-              },
-              "volumeUl": {
-                "type": "number"
-              },
-              "location": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "barcode",
-              "volumeUl"
-            ]
-          }
-        },
-        {
-          "name": "list_samples",
-          "description": "List Samples.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sample",
-          "description": "Get a Sample by id.",
+          "name": "delete_entry",
+          "description": "Delete a Entry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,80 +623,37 @@
           }
         },
         {
-          "name": "update_sample",
-          "description": "Update a Sample.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "strainId": {
-                "type": "string"
-              },
-              "barcode": {
-                "type": "string"
-              },
-              "volumeUl": {
-                "type": "number"
-              },
-              "location": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sample",
-          "description": "Delete a Sample.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_workflow",
-          "description": "Create a Workflow.",
+          "name": "create_folder",
+          "description": "Create a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "protocolRef": {
+              "parentFolderId": {
                 "type": "string"
               },
-              "status": {
+              "projectId": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "status"
+              "name"
             ]
           }
         },
         {
-          "name": "list_workflows",
-          "description": "List Workflows.",
+          "name": "list_folders",
+          "description": "List Folders.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_workflow",
-          "description": "Get a Workflow by id.",
+          "name": "get_folder",
+          "description": "Get a Folder by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,8 +667,8 @@
           }
         },
         {
-          "name": "update_workflow",
-          "description": "Update a Workflow.",
+          "name": "update_folder",
+          "description": "Update a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -741,10 +678,10 @@
               "name": {
                 "type": "string"
               },
-              "protocolRef": {
+              "parentFolderId": {
                 "type": "string"
               },
-              "status": {
+              "projectId": {
                 "type": "string"
               }
             },
@@ -754,8 +691,181 @@
           }
         },
         {
-          "name": "delete_workflow",
-          "description": "Delete a Workflow.",
+          "name": "delete_folder",
+          "description": "Delete a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_project",
+          "description": "Create a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_projects",
+          "description": "List Projects.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_project",
+          "description": "Get a Project by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_project",
+          "description": "Update a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_project",
+          "description": "Delete a Project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_request",
+          "description": "Create a Request.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "apiURL": {
+                "type": "string"
+              },
+              "displayId": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "string"
+              },
+              "requestStatus": {
+                "type": "string"
+              },
+              "scheduledOn": {
+                "type": "string"
+              },
+              "webURL": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "apiURL",
+              "requestStatus"
+            ]
+          }
+        },
+        {
+          "name": "list_requests",
+          "description": "List Requests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_request",
+          "description": "Get a Request by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_request",
+          "description": "Update a Request.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "apiURL": {
+                "type": "string"
+              },
+              "displayId": {
+                "type": "string"
+              },
+              "projectId": {
+                "type": "string"
+              },
+              "requestStatus": {
+                "type": "string"
+              },
+              "scheduledOn": {
+                "type": "string"
+              },
+              "webURL": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_request",
+          "description": "Delete a Request.",
           "inputSchema": {
             "type": "object",
             "properties": {

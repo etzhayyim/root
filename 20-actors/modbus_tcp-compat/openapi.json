@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible energy / smart grid actor (modbus_tcp); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:modbus_tcp-compat",
-    "x-wasm-cid": "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+    "x-wasm-cid": "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "url": "ipfs://bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/meters": {
+    "/v1/mbapheaders": {
       "get": {
-        "summary": "List Meters",
+        "summary": "List MbapHeaders",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Meter"
+                        "$ref": "#/components/schemas/MbapHeader"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Meter",
+        "summary": "Create a MbapHeader",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MeterCreate"
+                "$ref": "#/components/schemas/MbapHeaderCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Meter"
+                  "$ref": "#/components/schemas/MbapHeader"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/meters/{id}": {
+    "/v1/mbapheaders/{id}": {
       "get": {
-        "summary": "Get a Meter",
+        "summary": "Get a MbapHeader",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Meter"
+                  "$ref": "#/components/schemas/MbapHeader"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Meter",
+        "summary": "Update a MbapHeader",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MeterCreate"
+                "$ref": "#/components/schemas/MbapHeaderCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Meter"
+                  "$ref": "#/components/schemas/MbapHeader"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Meter",
+        "summary": "Delete a MbapHeader",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/readings": {
+    "/v1/requests": {
       "get": {
-        "summary": "List Readings",
+        "summary": "List Requests",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Reading"
+                        "$ref": "#/components/schemas/Request"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Reading",
+        "summary": "Create a Request",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReadingCreate"
+                "$ref": "#/components/schemas/RequestCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reading"
+                  "$ref": "#/components/schemas/Request"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/readings/{id}": {
+    "/v1/requests/{id}": {
       "get": {
-        "summary": "Get a Reading",
+        "summary": "Get a Request",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reading"
+                  "$ref": "#/components/schemas/Request"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Reading",
+        "summary": "Update a Request",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReadingCreate"
+                "$ref": "#/components/schemas/RequestCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reading"
+                  "$ref": "#/components/schemas/Request"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Reading",
+        "summary": "Delete a Request",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/nodes": {
+    "/v1/responses": {
       "get": {
-        "summary": "List Nodes",
+        "summary": "List Responses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Node"
+                        "$ref": "#/components/schemas/Response"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Node",
+        "summary": "Create a Response",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NodeCreate"
+                "$ref": "#/components/schemas/ResponseCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Node"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/nodes/{id}": {
+    "/v1/responses/{id}": {
       "get": {
-        "summary": "Get a Node",
+        "summary": "Get a Response",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Node"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Node",
+        "summary": "Update a Response",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NodeCreate"
+                "$ref": "#/components/schemas/ResponseCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Node"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Node",
+        "summary": "Delete a Response",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/loadforecasts": {
+    "/v1/exceptionresponses": {
       "get": {
-        "summary": "List LoadForecasts",
+        "summary": "List ExceptionResponses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/LoadForecast"
+                        "$ref": "#/components/schemas/ExceptionResponse"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a LoadForecast",
+        "summary": "Create a ExceptionResponse",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoadForecastCreate"
+                "$ref": "#/components/schemas/ExceptionResponseCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoadForecast"
+                  "$ref": "#/components/schemas/ExceptionResponse"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/loadforecasts/{id}": {
+    "/v1/exceptionresponses/{id}": {
       "get": {
-        "summary": "Get a LoadForecast",
+        "summary": "Get a ExceptionResponse",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoadForecast"
+                  "$ref": "#/components/schemas/ExceptionResponse"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a LoadForecast",
+        "summary": "Update a ExceptionResponse",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoadForecastCreate"
+                "$ref": "#/components/schemas/ExceptionResponseCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoadForecast"
+                  "$ref": "#/components/schemas/ExceptionResponse"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a LoadForecast",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/marketbids": {
-      "get": {
-        "summary": "List MarketBids",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/MarketBid"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a MarketBid",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MarketBidCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MarketBid"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/marketbids/{id}": {
-      "get": {
-        "summary": "Get a MarketBid",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MarketBid"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a MarketBid",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MarketBidCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MarketBid"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a MarketBid",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tags": {
-      "get": {
-        "summary": "List Tags",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tag"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Tag",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TagCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tags/{id}": {
-      "get": {
-        "summary": "Get a Tag",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Tag",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TagCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Tag",
+        "summary": "Delete a ExceptionResponse",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +770,26 @@
   },
   "components": {
     "schemas": {
-      "Meter": {
+      "MbapHeader": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serial": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
           },
-          "location": {
-            "type": "string"
+          "length": {
+            "type": "integer"
+          },
+          "unitId": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1165,42 +801,76 @@
           }
         }
       },
-      "MeterCreate": {
+      "MbapHeaderCreate": {
         "type": "object",
         "properties": {
-          "serial": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
           },
-          "location": {
-            "type": "string"
+          "length": {
+            "type": "integer"
+          },
+          "unitId": {
+            "type": "integer"
           }
         },
         "required": [
-          "serial",
-          "type"
+          "length"
         ]
       },
-      "Reading": {
+      "Request": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "meterId": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "value": {
-            "type": "number"
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
           },
-          "unit": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "readAt": {
-            "type": "string",
-            "format": "date-time"
+          "functionCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              11,
+              12,
+              15,
+              16,
+              17,
+              20,
+              21,
+              22,
+              23,
+              24,
+              43
+            ]
+          },
+          "startingAddress": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1212,41 +882,74 @@
           }
         }
       },
-      "ReadingCreate": {
+      "RequestCreate": {
         "type": "object",
         "properties": {
-          "meterId": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "value": {
-            "type": "number"
+          "protocolId": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
           },
-          "unit": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "readAt": {
-            "type": "string"
+          "functionCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              11,
+              12,
+              15,
+              16,
+              17,
+              20,
+              21,
+              22,
+              23,
+              24,
+              43
+            ]
+          },
+          "startingAddress": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
           }
         },
         "required": [
-          "value",
-          "unit"
+          "functionCode",
+          "startingAddress"
         ]
       },
-      "Node": {
+      "Response": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "region": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "voltageKv": {
-            "type": "number"
+          "functionCode": {
+            "type": "integer"
+          },
+          "byteCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1258,38 +961,56 @@
           }
         }
       },
-      "NodeCreate": {
+      "ResponseCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "region": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "voltageKv": {
-            "type": "number"
+          "functionCode": {
+            "type": "integer"
+          },
+          "byteCount": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "region"
+          "functionCode",
+          "byteCount"
         ]
       },
-      "LoadForecast": {
+      "ExceptionResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "nodeId": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "period": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "megawatts": {
-            "type": "number"
+          "exceptionFunctionCode": {
+            "type": "integer"
+          },
+          "exceptionCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10,
+              11
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1301,120 +1022,37 @@
           }
         }
       },
-      "LoadForecastCreate": {
+      "ExceptionResponseCreate": {
         "type": "object",
         "properties": {
-          "nodeId": {
-            "type": "string"
+          "transactionId": {
+            "type": "integer"
           },
-          "period": {
-            "type": "string"
+          "unitId": {
+            "type": "integer"
           },
-          "megawatts": {
-            "type": "number"
+          "exceptionFunctionCode": {
+            "type": "integer"
+          },
+          "exceptionCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10,
+              11
+            ]
           }
         },
         "required": [
-          "period",
-          "megawatts"
-        ]
-      },
-      "MarketBid": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "nodeId": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "megawatts": {
-            "type": "number"
-          },
-          "interval": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MarketBidCreate": {
-        "type": "object",
-        "properties": {
-          "nodeId": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "megawatts": {
-            "type": "number"
-          },
-          "interval": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "price",
-          "megawatts"
-        ]
-      },
-      "Tag": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "nodeId": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "quality": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TagCreate": {
-        "type": "object",
-        "properties": {
-          "nodeId": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "quality": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "address",
-          "value"
+          "exceptionFunctionCode",
+          "exceptionCode"
         ]
       }
     }

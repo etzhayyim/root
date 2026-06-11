@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "adyen.kotoba")
-ENTITIES = ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']
-PLURALS = {'Customer': 'customers', 'PaymentIntent': 'paymentintents', 'Charge': 'charges', 'Refund': 'refunds', 'Payout': 'payouts', 'PaymentMethod': 'paymentmethods'}
+ENTITIES = ['Payment', 'Amount', 'ModificationResult', 'PaymentMethod', 'Notification']
+PLURALS = {'Payment': 'payments', 'Amount': 'amounts', 'ModificationResult': 'modificationresults', 'PaymentMethod': 'paymentmethods', 'Notification': 'notifications'}
 
 
 class AdyenContract(unittest.TestCase):

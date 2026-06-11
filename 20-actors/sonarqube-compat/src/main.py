@@ -111,386 +111,203 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/issues", methods=["POST"])
+def create_issue(request):
+    """Create a Issue."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['key', 'severity', 'status', 'type', 'resolution', 'component', 'line', 'message'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'environment'])
+    err = _require(data, ['key', 'severity'])
     if err:
         return err, 400
-    rec = {"id": new_id("sonarqub_ser")}
-    rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    err = _require(data, ['message', 'culprit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sonarqub_err")}
-    rec["serviceId"] = data.get('serviceId')
+    if data.get('severity') and data['severity'] not in ['BLOCKER', 'CRITICAL', 'MAJOR', 'MINOR', 'INFO']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['BLOCKER', 'CRITICAL', 'MAJOR', 'MINOR', 'INFO']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['BUG', 'VULNERABILITY', 'CODE_SMELL']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['BUG', 'VULNERABILITY', 'CODE_SMELL']), "type": "invalid_request_error"}}, 400
+    if data.get('resolution') and data['resolution'] not in ['FIXED', 'REMOVED', 'FALSE_POSITIVE', 'WONTFIX']:
+        return {"error": {"message": "invalid resolution; allowed: " + ", ".join(['FIXED', 'REMOVED', 'FALSE_POSITIVE', 'WONTFIX']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sonarqub_iss")}
+    rec["key"] = data.get('key')
+    rec["severity"] = data.get('severity')
+    rec["status"] = data.get('status')
+    rec["type"] = data.get('type')
+    rec["resolution"] = data.get('resolution')
+    rec["component"] = data.get('component')
+    rec["line"] = _as_int(data.get('line'))
     rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
+    _persist("Issue", rec)
     return rec, 201
 
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
+@app.route("/v1/issues", methods=["GET"])
+def list_issues(request):
+    """List Issues with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
+    rows = _query("Issue")
+    rows = _apply_filters(rows, params, ['key', 'severity', 'status', 'type', 'resolution', 'component', 'line', 'message'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
+@app.route("/v1/issues/<eid>", methods=["GET"])
+def get_issue(request, eid):
+    """Retrieve a Issue by id (supports ?expand=)."""
+    rows = _query("Issue", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
+@app.route("/v1/issues/<eid>", methods=["POST", "PATCH"])
+def update_issue(request, eid):
+    """Update a Issue."""
+    rows = _query("Issue", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
+    err = _reject_unknown(data, ['key', 'severity', 'status', 'type', 'resolution', 'component', 'line', 'message'])
     if err:
         return err, 400
+    if data.get('severity') and data['severity'] not in ['BLOCKER', 'CRITICAL', 'MAJOR', 'MINOR', 'INFO']:
+        return {"error": {"message": "invalid severity; allowed: " + ", ".join(['BLOCKER', 'CRITICAL', 'MAJOR', 'MINOR', 'INFO']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['BUG', 'VULNERABILITY', 'CODE_SMELL']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['BUG', 'VULNERABILITY', 'CODE_SMELL']), "type": "invalid_request_error"}}, 400
+    if data.get('resolution') and data['resolution'] not in ['FIXED', 'REMOVED', 'FALSE_POSITIVE', 'WONTFIX']:
+        return {"error": {"message": "invalid resolution; allowed: " + ", ".join(['FIXED', 'REMOVED', 'FALSE_POSITIVE', 'WONTFIX']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Error", rec)
+    _persist("Issue", rec)
     return rec, 200
 
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
+@app.route("/v1/issues/<eid>", methods=["DELETE"])
+def delete_issue(request, eid):
+    """Delete a Issue."""
+    rows = _query("Issue", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Error", "id": eid})
+    db.retract({"entity": f"sonarqube.Issue", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
+@app.route("/v1/hotspots", methods=["POST"])
+def create_hotspot(request):
+    """Create a Hotspot."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
+    err = _reject_unknown(data, ['key', 'status', 'message', 'component'])
     if err:
         return err, 400
-    err = _require(data, ['operation', 'durationMs'])
+    err = _require(data, ['key', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("sonarqub_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
+    if data.get('status') and data['status'] not in ['TO_REVIEW', 'FIXED', 'SAFE']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['TO_REVIEW', 'FIXED', 'SAFE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sonarqub_hot")}
+    rec["key"] = data.get('key')
     rec["status"] = data.get('status')
+    rec["message"] = data.get('message')
+    rec["component"] = data.get('component')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
+    _persist("Hotspot", rec)
     return rec, 201
 
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
+@app.route("/v1/hotspots", methods=["GET"])
+def list_hotspots(request):
+    """List Hotspots with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
+    rows = _query("Hotspot")
+    rows = _apply_filters(rows, params, ['key', 'status', 'message', 'component'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
+@app.route("/v1/hotspots/<eid>", methods=["GET"])
+def get_hotspot(request, eid):
+    """Retrieve a Hotspot by id (supports ?expand=)."""
+    rows = _query("Hotspot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/hotspots/<eid>", methods=["POST", "PATCH"])
+def update_hotspot(request, eid):
+    """Update a Hotspot."""
+    rows = _query("Hotspot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
+    err = _reject_unknown(data, ['key', 'status', 'message', 'component'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['TO_REVIEW', 'FIXED', 'SAFE']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['TO_REVIEW', 'FIXED', 'SAFE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trace", rec)
+    _persist("Hotspot", rec)
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/hotspots/<eid>", methods=["DELETE"])
+def delete_hotspot(request, eid):
+    """Delete a Hotspot."""
+    rows = _query("Hotspot", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Trace", "id": eid})
+    db.retract({"entity": f"sonarqube.Hotspot", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
+@app.route("/v1/qualitygates", methods=["POST"])
+def create_quality_gate(request):
+    """Create a QualityGate."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['status', 'ignoredConditions'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['status', 'ignoredConditions'])
     if err:
         return err, 400
-    rec = {"id": new_id("sonarqub_met")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Metric", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['condition', 'severity'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sonarqub_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
-    return rec, 201
-
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Alert", rec)
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Alert", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/incidents", methods=["POST"])
-def create_incident(request):
-    """Create a Incident."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sonarqub_inc")}
-    rec["title"] = data.get('title')
+    rec = {"id": new_id("sonarqub_qua")}
     rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec["ignoredConditions"] = _as_bool(data.get('ignoredConditions'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Incident", rec)
+    _persist("QualityGate", rec)
     return rec, 201
 
-@app.route("/v1/incidents", methods=["GET"])
-def list_incidents(request):
-    """List Incidents with filtering + cursor pagination."""
+@app.route("/v1/qualitygates", methods=["GET"])
+def list_quality_gates(request):
+    """List QualityGates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _query("QualityGate")
+    rows = _apply_filters(rows, params, ['status', 'ignoredConditions'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/incidents/<eid>", methods=["GET"])
-def get_incident(request, eid):
-    """Retrieve a Incident by id (supports ?expand=)."""
-    rows = _query("Incident", eid)
+@app.route("/v1/qualitygates/<eid>", methods=["GET"])
+def get_quality_gate(request, eid):
+    """Retrieve a QualityGate by id (supports ?expand=)."""
+    rows = _query("QualityGate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["POST", "PATCH"])
-def update_incident(request, eid):
-    """Update a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/qualitygates/<eid>", methods=["POST", "PATCH"])
+def update_quality_gate(request, eid):
+    """Update a QualityGate."""
+    rows = _query("QualityGate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['status', 'ignoredConditions'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +315,158 @@ def update_incident(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Incident", rec)
+    _persist("QualityGate", rec)
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["DELETE"])
-def delete_incident(request, eid):
-    """Delete a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/qualitygates/<eid>", methods=["DELETE"])
+def delete_quality_gate(request, eid):
+    """Delete a QualityGate."""
+    rows = _query("QualityGate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sonarqube.Incident", "id": eid})
+    db.retract({"entity": f"sonarqube.QualityGate", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/conditions", methods=["POST"])
+def create_condition(request):
+    """Create a Condition."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'metricKey', 'comparator', 'errorThreshold', 'actualValue'])
+    if err:
+        return err, 400
+    err = _require(data, ['status', 'metricKey'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['OK', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['OK', 'ERROR']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sonarqub_con")}
+    rec["status"] = data.get('status')
+    rec["metricKey"] = data.get('metricKey')
+    rec["comparator"] = data.get('comparator')
+    rec["errorThreshold"] = data.get('errorThreshold')
+    rec["actualValue"] = data.get('actualValue')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Condition", rec)
+    return rec, 201
+
+@app.route("/v1/conditions", methods=["GET"])
+def list_conditions(request):
+    """List Conditions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Condition")
+    rows = _apply_filters(rows, params, ['status', 'metricKey', 'comparator', 'errorThreshold', 'actualValue'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/conditions/<eid>", methods=["GET"])
+def get_condition(request, eid):
+    """Retrieve a Condition by id (supports ?expand=)."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/conditions/<eid>", methods=["POST", "PATCH"])
+def update_condition(request, eid):
+    """Update a Condition."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'metricKey', 'comparator', 'errorThreshold', 'actualValue'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['OK', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['OK', 'ERROR']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Condition", rec)
+    return rec, 200
+
+@app.route("/v1/conditions/<eid>", methods=["DELETE"])
+def delete_condition(request, eid):
+    """Delete a Condition."""
+    rows = _query("Condition", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sonarqube.Condition", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/measures", methods=["POST"])
+def create_measure(request):
+    """Create a Measure."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['metric', 'value', 'bestValue'])
+    if err:
+        return err, 400
+    err = _require(data, ['metric', 'value'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sonarqub_mea")}
+    rec["metric"] = data.get('metric')
+    rec["value"] = data.get('value')
+    rec["bestValue"] = _as_bool(data.get('bestValue'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Measure", rec)
+    return rec, 201
+
+@app.route("/v1/measures", methods=["GET"])
+def list_measures(request):
+    """List Measures with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Measure")
+    rows = _apply_filters(rows, params, ['metric', 'value', 'bestValue'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/measures/<eid>", methods=["GET"])
+def get_measure(request, eid):
+    """Retrieve a Measure by id (supports ?expand=)."""
+    rows = _query("Measure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/measures/<eid>", methods=["POST", "PATCH"])
+def update_measure(request, eid):
+    """Update a Measure."""
+    rows = _query("Measure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['metric', 'value', 'bestValue'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Measure", rec)
+    return rec, 200
+
+@app.route("/v1/measures/<eid>", methods=["DELETE"])
+def delete_measure(request, eid):
+    """Delete a Measure."""
+    rows = _query("Measure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sonarqube.Measure", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "sonarqube-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['Issue', 'Hotspot', 'QualityGate', 'Condition', 'Measure']}, 200
 
 
 if __name__ == "__main__":

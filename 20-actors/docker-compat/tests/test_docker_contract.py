@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "docker.kotoba")
-ENTITIES = ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']
-PLURALS = {'Repository': 'repositories', 'Pipeline': 'pipelines', 'Build': 'builds', 'Artifact': 'artifacts', 'Deployment': 'deployments', 'Webhook': 'webhooks'}
+ENTITIES = ['Container', 'Image', 'Network', 'Volume']
+PLURALS = {'Container': 'containers', 'Image': 'images', 'Network': 'networks', 'Volume': 'volumes'}
 
 
 class DockerContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class DockerContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['scope', 'state']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

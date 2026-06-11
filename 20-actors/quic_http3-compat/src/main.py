@@ -111,52 +111,262 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/quicpackets", methods=["POST"])
+def create_quic_packet(request):
+    """Create a QuicPacket."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['packetType', 'version', 'sourceConnectionId', 'destinationConnectionId', 'payloadLength', 'packetNumber'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['packetType', 'version'])
     if err:
         return err, 400
-    rec = {"id": new_id("quichttp_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('packetType') and data['packetType'] not in ['Initial', '0-RTT', 'Handshake', 'Retry', '1-RTT', 'VersionNegotiation']:
+        return {"error": {"message": "invalid packetType; allowed: " + ", ".join(['Initial', '0-RTT', 'Handshake', 'Retry', '1-RTT', 'VersionNegotiation']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("quichttp_qui")}
+    rec["packetType"] = data.get('packetType')
+    rec["version"] = _as_int(data.get('version'))
+    rec["sourceConnectionId"] = data.get('sourceConnectionId')
+    rec["destinationConnectionId"] = data.get('destinationConnectionId')
+    rec["payloadLength"] = _as_int(data.get('payloadLength'))
+    rec["packetNumber"] = _as_int(data.get('packetNumber'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("QuicPacket", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/quicpackets", methods=["GET"])
+def list_quic_packets(request):
+    """List QuicPackets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("QuicPacket")
+    rows = _apply_filters(rows, params, ['packetType', 'version', 'sourceConnectionId', 'destinationConnectionId', 'payloadLength', 'packetNumber'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/quicpackets/<eid>", methods=["GET"])
+def get_quic_packet(request, eid):
+    """Retrieve a QuicPacket by id (supports ?expand=)."""
+    rows = _query("QuicPacket", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/quicpackets/<eid>", methods=["POST", "PATCH"])
+def update_quic_packet(request, eid):
+    """Update a QuicPacket."""
+    rows = _query("QuicPacket", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['packetType', 'version', 'sourceConnectionId', 'destinationConnectionId', 'payloadLength', 'packetNumber'])
+    if err:
+        return err, 400
+    if data.get('packetType') and data['packetType'] not in ['Initial', '0-RTT', 'Handshake', 'Retry', '1-RTT', 'VersionNegotiation']:
+        return {"error": {"message": "invalid packetType; allowed: " + ", ".join(['Initial', '0-RTT', 'Handshake', 'Retry', '1-RTT', 'VersionNegotiation']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("QuicPacket", rec)
+    return rec, 200
+
+@app.route("/v1/quicpackets/<eid>", methods=["DELETE"])
+def delete_quic_packet(request, eid):
+    """Delete a QuicPacket."""
+    rows = _query("QuicPacket", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"quic_http3.QuicPacket", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/quicframes", methods=["POST"])
+def create_quic_frame(request):
+    """Create a QuicFrame."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['frameType', 'payload', 'streamId', 'offsetInStream'])
+    if err:
+        return err, 400
+    err = _require(data, ['frameType', 'payload'])
+    if err:
+        return err, 400
+    if data.get('frameType') and data['frameType'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30]:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("quichttp_qui")}
+    rec["frameType"] = _as_int(data.get('frameType'))
+    rec["payload"] = data.get('payload')
+    rec["streamId"] = _as_int(data.get('streamId'))
+    rec["offsetInStream"] = _as_int(data.get('offsetInStream'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("QuicFrame", rec)
+    return rec, 201
+
+@app.route("/v1/quicframes", methods=["GET"])
+def list_quic_frames(request):
+    """List QuicFrames with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("QuicFrame")
+    rows = _apply_filters(rows, params, ['frameType', 'payload', 'streamId', 'offsetInStream'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/quicframes/<eid>", methods=["GET"])
+def get_quic_frame(request, eid):
+    """Retrieve a QuicFrame by id (supports ?expand=)."""
+    rows = _query("QuicFrame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/quicframes/<eid>", methods=["POST", "PATCH"])
+def update_quic_frame(request, eid):
+    """Update a QuicFrame."""
+    rows = _query("QuicFrame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['frameType', 'payload', 'streamId', 'offsetInStream'])
+    if err:
+        return err, 400
+    if data.get('frameType') and data['frameType'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30]:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("QuicFrame", rec)
+    return rec, 200
+
+@app.route("/v1/quicframes/<eid>", methods=["DELETE"])
+def delete_quic_frame(request, eid):
+    """Delete a QuicFrame."""
+    rows = _query("QuicFrame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"quic_http3.QuicFrame", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/http3frames", methods=["POST"])
+def create_http3_frame(request):
+    """Create a Http3Frame."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['frameType', 'length', 'payload'])
+    if err:
+        return err, 400
+    err = _require(data, ['frameType', 'length'])
+    if err:
+        return err, 400
+    if data.get('frameType') and data['frameType'] not in [0, 1, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join([0, 1, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("quichttp_htt")}
+    rec["frameType"] = _as_int(data.get('frameType'))
+    rec["length"] = _as_int(data.get('length'))
+    rec["payload"] = data.get('payload')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Http3Frame", rec)
+    return rec, 201
+
+@app.route("/v1/http3frames", methods=["GET"])
+def list_http3_frames(request):
+    """List Http3Frames with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Http3Frame")
+    rows = _apply_filters(rows, params, ['frameType', 'length', 'payload'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/http3frames/<eid>", methods=["GET"])
+def get_http3_frame(request, eid):
+    """Retrieve a Http3Frame by id (supports ?expand=)."""
+    rows = _query("Http3Frame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/http3frames/<eid>", methods=["POST", "PATCH"])
+def update_http3_frame(request, eid):
+    """Update a Http3Frame."""
+    rows = _query("Http3Frame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['frameType', 'length', 'payload'])
+    if err:
+        return err, 400
+    if data.get('frameType') and data['frameType'] not in [0, 1, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid frameType; allowed: " + ", ".join([0, 1, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Http3Frame", rec)
+    return rec, 200
+
+@app.route("/v1/http3frames/<eid>", methods=["DELETE"])
+def delete_http3_frame(request, eid):
+    """Delete a Http3Frame."""
+    rows = _query("Http3Frame", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"quic_http3.Http3Frame", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/http3settingses", methods=["POST"])
+def create_http3_settings(request):
+    """Create a Http3Settings."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['identifier', 'value'])
+    if err:
+        return err, 400
+    err = _require(data, ['identifier', 'value'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("quichttp_htt")}
+    rec["identifier"] = _as_int(data.get('identifier'))
+    rec["value"] = _as_int(data.get('value'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Http3Settings", rec)
+    return rec, 201
+
+@app.route("/v1/http3settingses", methods=["GET"])
+def list_http3_settingses(request):
+    """List Http3Settingses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Http3Settings")
+    rows = _apply_filters(rows, params, ['identifier', 'value'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/http3settingses/<eid>", methods=["GET"])
+def get_http3_settings(request, eid):
+    """Retrieve a Http3Settings by id (supports ?expand=)."""
+    rows = _query("Http3Settings", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/http3settingses/<eid>", methods=["POST", "PATCH"])
+def update_http3_settings(request, eid):
+    """Update a Http3Settings."""
+    rows = _query("Http3Settings", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['identifier', 'value'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,130 +374,66 @@ def update_prefix(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("Http3Settings", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/http3settingses/<eid>", methods=["DELETE"])
+def delete_http3_settings(request, eid):
+    """Delete a Http3Settings."""
+    rows = _query("Http3Settings", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Prefix", "id": eid})
+    db.retract({"entity": f"quic_http3.Http3Settings", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/quicconnections", methods=["POST"])
+def create_quic_connection(request):
+    """Create a QuicConnection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['connectionId', 'version', 'state', 'createdAt', 'lastActivityAt'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['version', 'state'])
     if err:
         return err, 400
-    rec = {"id": new_id("quichttp_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
-    return rec, 201
-
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Route", rec)
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Route", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
-    if err:
-        return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("quichttp_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
+    rec = {"id": new_id("quichttp_qui")}
+    rec["connectionId"] = data.get('connectionId')
+    rec["version"] = _as_int(data.get('version'))
     rec["state"] = data.get('state')
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastActivityAt"] = data.get('lastActivityAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("QuicConnection", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/quicconnections", methods=["GET"])
+def list_quic_connections(request):
+    """List QuicConnections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("QuicConnection")
+    rows = _apply_filters(rows, params, ['connectionId', 'version', 'state', 'createdAt', 'lastActivityAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/quicconnections/<eid>", methods=["GET"])
+def get_quic_connection(request, eid):
+    """Retrieve a QuicConnection by id (supports ?expand=)."""
+    rows = _query("QuicConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/quicconnections/<eid>", methods=["POST", "PATCH"])
+def update_quic_connection(request, eid):
+    """Update a QuicConnection."""
+    rows = _query("QuicConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['connectionId', 'version', 'state', 'createdAt', 'lastActivityAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -295,220 +441,22 @@ def update_peer(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("QuicConnection", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/quicconnections/<eid>", methods=["DELETE"])
+def delete_quic_connection(request, eid):
+    """Delete a QuicConnection."""
+    rows = _query("QuicConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Peer", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'serial'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("quichttp_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
-    return rec, 201
-
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Zone", rec)
-    return rec, 200
-
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Zone", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("quichttp_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
-    return rec, 201
-
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
-    return rec, 200
-
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Record", rec)
-    return rec, 200
-
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Record", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("quichttp_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
-    return rec, 201
-
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"quic_http3.Tunnel", "id": eid})
+    db.retract({"entity": f"quic_http3.QuicConnection", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "quic_http3-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['QuicPacket', 'QuicFrame', 'Http3Frame', 'Http3Settings', 'QuicConnection']}, 200
 
 
 if __name__ == "__main__":

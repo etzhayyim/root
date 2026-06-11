@@ -1169,6 +1169,7 @@
               "accepted",
               "scheduled",
               "read",
+              "partially_delivered",
               "canceled"
             ]
           },
@@ -1217,6 +1218,7 @@
               "accepted",
               "scheduled",
               "read",
+              "partially_delivered",
               "canceled"
             ]
           },
@@ -1253,11 +1255,11 @@
               "queued",
               "ringing",
               "in-progress",
-              "canceled",
               "completed",
               "busy",
               "failed",
-              "no-answer"
+              "no-answer",
+              "canceled"
             ]
           },
           "durationSec": {
@@ -1288,11 +1290,11 @@
               "queued",
               "ringing",
               "in-progress",
-              "canceled",
               "completed",
               "busy",
               "failed",
-              "no-answer"
+              "no-answer",
+              "canceled"
             ]
           },
           "durationSec": {
@@ -1441,6 +1443,18 @@
           "contentRef": {
             "type": "string"
           },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in-progress",
+              "paused",
+              "stopped",
+              "processing",
+              "completed",
+              "absent",
+              "deleted"
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1462,6 +1476,18 @@
           },
           "contentRef": {
             "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in-progress",
+              "paused",
+              "stopped",
+              "processing",
+              "completed",
+              "absent",
+              "deleted"
+            ]
           }
         },
         "required": [

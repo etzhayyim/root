@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "ramp.kotoba")
-ENTITIES = ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']
-PLURALS = {'Customer': 'customers', 'PaymentIntent': 'paymentintents', 'Charge': 'charges', 'Refund': 'refunds', 'Payout': 'payouts', 'PaymentMethod': 'paymentmethods'}
+ENTITIES = ['Card', 'Transaction', 'User', 'Department', 'Reimbursement', 'Bill']
+PLURALS = {'Card': 'cards', 'Transaction': 'transactions', 'User': 'users', 'Department': 'departments', 'Reimbursement': 'reimbursements', 'Bill': 'bills'}
 
 
 class RampContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class RampContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['direction', 'role', 'state', 'status', 'statusSummary', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

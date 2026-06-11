@@ -111,86 +111,163 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/envelopes", methods=["POST"])
+def create_envelope(request):
+    """Create a Envelope."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['emailSubject', 'status', 'sentDateTime', 'completedDateTime', 'envelopeId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['emailSubject', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("docusign_wor")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    if data.get('status') and data['status'] not in ['completed', 'created', 'declined', 'delivered', 'sent', 'signed', 'voided']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['completed', 'created', 'declined', 'delivered', 'sent', 'signed', 'voided']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("docusign_env")}
+    rec["emailSubject"] = data.get('emailSubject')
+    rec["status"] = data.get('status')
+    rec["sentDateTime"] = data.get('sentDateTime')
+    rec["completedDateTime"] = data.get('completedDateTime')
+    rec["envelopeId"] = data.get('envelopeId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("Envelope", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/envelopes", methods=["GET"])
+def list_envelopes(request):
+    """List Envelopes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("Envelope")
+    rows = _apply_filters(rows, params, ['emailSubject', 'status', 'sentDateTime', 'completedDateTime', 'envelopeId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/envelopes/<eid>", methods=["GET"])
+def get_envelope(request, eid):
+    """Retrieve a Envelope by id (supports ?expand=)."""
+    rows = _query("Envelope", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'envelopeId': 'Envelope'})
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/envelopes/<eid>", methods=["POST", "PATCH"])
+def update_envelope(request, eid):
+    """Update a Envelope."""
+    rows = _query("Envelope", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['emailSubject', 'status', 'sentDateTime', 'completedDateTime', 'envelopeId'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['completed', 'created', 'declined', 'delivered', 'sent', 'signed', 'voided']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['completed', 'created', 'declined', 'delivered', 'sent', 'signed', 'voided']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("Envelope", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/envelopes/<eid>", methods=["DELETE"])
+def delete_envelope(request, eid):
+    """Delete a Envelope."""
+    rows = _query("Envelope", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docusign.Workspace", "id": eid})
+    db.retract({"entity": f"docusign.Envelope", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/signers", methods=["POST"])
+def create_signer(request):
+    """Create a Signer."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'status', 'signedDateTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['email', 'firstName'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'sent', 'delivered', 'signed', 'declined', 'completed', 'faxpending', 'autoresponded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'sent', 'delivered', 'signed', 'declined', 'completed', 'faxpending', 'autoresponded']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("docusign_sig")}
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["status"] = data.get('status')
+    rec["signedDateTime"] = data.get('signedDateTime')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Signer", rec)
+    return rec, 201
+
+@app.route("/v1/signers", methods=["GET"])
+def list_signers(request):
+    """List Signers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Signer")
+    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'status', 'signedDateTime'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/signers/<eid>", methods=["GET"])
+def get_signer(request, eid):
+    """Retrieve a Signer by id (supports ?expand=)."""
+    rows = _query("Signer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/signers/<eid>", methods=["POST", "PATCH"])
+def update_signer(request, eid):
+    """Update a Signer."""
+    rows = _query("Signer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'status', 'signedDateTime'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'sent', 'delivered', 'signed', 'declined', 'completed', 'faxpending', 'autoresponded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'sent', 'delivered', 'signed', 'declined', 'completed', 'faxpending', 'autoresponded']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Signer", rec)
+    return rec, 200
+
+@app.route("/v1/signers/<eid>", methods=["DELETE"])
+def delete_signer(request, eid):
+    """Delete a Signer."""
+    rows = _query("Signer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"docusign.Signer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/documents", methods=["POST"])
 def create_document(request):
     """Create a Document."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['documentId', 'name', 'order'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
+    err = _require(data, ['name', 'order'])
     if err:
         return err, 400
     rec = {"id": new_id("docusign_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
+    rec["documentId"] = data.get('documentId')
+    rec["name"] = data.get('name')
+    rec["order"] = _as_int(data.get('order'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Document", rec)
@@ -201,7 +278,7 @@ def list_documents(request):
     """List Documents with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    rows = _apply_filters(rows, params, ['documentId', 'name', 'order'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -213,7 +290,7 @@ def get_document(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
+    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
     return rec, 200
 
 @app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
@@ -223,7 +300,7 @@ def update_document(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['documentId', 'name', 'order'])
     if err:
         return err, 400
     rec = rows[0]
@@ -243,249 +320,119 @@ def delete_document(request, eid):
     db.retract({"entity": f"docusign.Document", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
+@app.route("/v1/signheretabs", methods=["POST"])
+def create_sign_here_tab(request):
+    """Create a SignHereTab."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['tabId', 'pageNumber', 'xPosition', 'yPosition'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['pageNumber', 'xPosition'])
     if err:
         return err, 400
-    rec = {"id": new_id("docusign_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
+    rec = {"id": new_id("docusign_sig")}
+    rec["tabId"] = data.get('tabId')
+    rec["pageNumber"] = data.get('pageNumber')
+    rec["xPosition"] = data.get('xPosition')
+    rec["yPosition"] = data.get('yPosition')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("SignHereTab", rec)
+    return rec, 201
+
+@app.route("/v1/signheretabs", methods=["GET"])
+def list_sign_here_tabs(request):
+    """List SignHereTabs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("SignHereTab")
+    rows = _apply_filters(rows, params, ['tabId', 'pageNumber', 'xPosition', 'yPosition'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/signheretabs/<eid>", methods=["GET"])
+def get_sign_here_tab(request, eid):
+    """Retrieve a SignHereTab by id (supports ?expand=)."""
+    rows = _query("SignHereTab", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/signheretabs/<eid>", methods=["POST", "PATCH"])
+def update_sign_here_tab(request, eid):
+    """Update a SignHereTab."""
+    rows = _query("SignHereTab", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['tabId', 'pageNumber', 'xPosition', 'yPosition'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("SignHereTab", rec)
+    return rec, 200
+
+@app.route("/v1/signheretabs/<eid>", methods=["DELETE"])
+def delete_sign_here_tab(request, eid):
+    """Delete a SignHereTab."""
+    rows = _query("SignHereTab", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"docusign.SignHereTab", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/envelopetemplates", methods=["POST"])
+def create_envelope_template(request):
+    """Create a EnvelopeTemplate."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['templateId', 'name', 'status', 'description'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'status'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("docusign_env")}
+    rec["templateId"] = data.get('templateId')
     rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
-    return rec, 201
-
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Folder", rec)
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docusign.Folder", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    err = _require(data, ['body'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docusign_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docusign.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docusign_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docusign.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'displayName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("docusign_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
     rec["status"] = data.get('status')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("EnvelopeTemplate", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/envelopetemplates", methods=["GET"])
+def list_envelope_templates(request):
+    """List EnvelopeTemplates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _query("EnvelopeTemplate")
+    rows = _apply_filters(rows, params, ['templateId', 'name', 'status', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/envelopetemplates/<eid>", methods=["GET"])
+def get_envelope_template(request, eid):
+    """Retrieve a EnvelopeTemplate by id (supports ?expand=)."""
+    rows = _query("EnvelopeTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/envelopetemplates/<eid>", methods=["POST", "PATCH"])
+def update_envelope_template(request, eid):
+    """Update a EnvelopeTemplate."""
+    rows = _query("EnvelopeTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['templateId', 'name', 'status', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +440,22 @@ def update_user(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("EnvelopeTemplate", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/envelopetemplates/<eid>", methods=["DELETE"])
+def delete_envelope_template(request, eid):
+    """Delete a EnvelopeTemplate."""
+    rows = _query("EnvelopeTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"docusign.User", "id": eid})
+    db.retract({"entity": f"docusign.EnvelopeTemplate", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "docusign-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['Envelope', 'Signer', 'Document', 'SignHereTab', 'EnvelopeTemplate']}, 200
 
 
 if __name__ == "__main__":

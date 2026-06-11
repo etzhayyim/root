@@ -3,74 +3,65 @@
 
 namespace monzo {
 
-    entity Customer {
+    entity Account {
         id: string @unique
-        email: string
-        name: string
-        phone: string
-        balance: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentIntent {
-        id: string @unique
-        customerId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Charge {
-        id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Refund {
-        id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
-        amount: integer
-        currency: string
-        arrivalDate: datetime
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentMethod {
-        id: string @unique
-        customerId: string
+        id: string
+        description: string
         type: string
-        last4: string
-        brand: string
+        created: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Balance {
+        id: string @unique
+        balance: integer
+        totalBalance: integer
+        currency: string
+        spendToday: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Transaction {
+        id: string @unique
+        id: string
+        amount: integer
+        currency: string
+        description: string
+        category: string
+        declineReason: string
+        isLoad: boolean
+        merchant: string
+        created: datetime
+        settled: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Pot {
+        id: string @unique
+        id: string
+        name: string
+        balance: integer
+        currency: string
+        deleted: boolean
+        created: datetime
+        updated: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Attachment {
+        id: string @unique
+        id: string
+        userId: string
+        externalId: string
+        fileUrl: string
+        fileType: string
+        created: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

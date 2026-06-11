@@ -111,382 +111,209 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/trackings", methods=["POST"])
+def create_tracking(request):
+    """Create a Tracking."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['id', 'trackingNumber', 'slug', 'tag', 'subtag', 'deliveryType', 'active', 'expectedDelivery', 'orderId', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['id', 'trackingNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("aftershi_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aftershi_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
-    return rec, 201
-
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Product", rec)
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.Product", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['carrier', 'tracking'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aftershi_shi")}
-    rec["orderId"] = data.get('orderId')
-    rec["carrier"] = data.get('carrier')
-    rec["tracking"] = data.get('tracking')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
-    return rec, 201
-
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['orderId', 'carrier', 'tracking', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Shipment", rec)
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.Shipment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/searchindexes", methods=["POST"])
-def create_search_index(request):
-    """Create a SearchIndex."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'recordCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aftershi_sea")}
-    rec["name"] = data.get('name')
-    rec["recordCount"] = _as_int(data.get('recordCount'))
-    rec["primaryKey"] = data.get('primaryKey')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("SearchIndex", rec)
-    return rec, 201
-
-@app.route("/v1/searchindexes", methods=["GET"])
-def list_search_indexes(request):
-    """List SearchIndexes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("SearchIndex")
-    rows = _apply_filters(rows, params, ['name', 'recordCount', 'primaryKey'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/searchindexes/<eid>", methods=["GET"])
-def get_search_index(request, eid):
-    """Retrieve a SearchIndex by id (supports ?expand=)."""
-    rows = _query("SearchIndex", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/searchindexes/<eid>", methods=["POST", "PATCH"])
-def update_search_index(request, eid):
-    """Update a SearchIndex."""
-    rows = _query("SearchIndex", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("SearchIndex", rec)
-    return rec, 200
-
-@app.route("/v1/searchindexes/<eid>", methods=["DELETE"])
-def delete_search_index(request, eid):
-    """Delete a SearchIndex."""
-    rows = _query("SearchIndex", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.SearchIndex", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aftershi_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
+    if data.get('tag') and data['tag'] not in ['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']:
+        return {"error": {"message": "invalid tag; allowed: " + ", ".join(['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']), "type": "invalid_request_error"}}, 400
+    if data.get('deliveryType') and data['deliveryType'] not in ['pickup_at_store', 'pickup_at_courier', 'door_to_door']:
+        return {"error": {"message": "invalid deliveryType; allowed: " + ", ".join(['pickup_at_store', 'pickup_at_courier', 'door_to_door']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aftershi_tra")}
+    rec["id"] = data.get('id')
+    rec["trackingNumber"] = data.get('trackingNumber')
+    rec["slug"] = data.get('slug')
+    rec["tag"] = data.get('tag')
+    rec["subtag"] = data.get('subtag')
+    rec["deliveryType"] = data.get('deliveryType')
     rec["active"] = _as_bool(data.get('active'))
+    rec["expectedDelivery"] = data.get('expectedDelivery')
+    rec["orderId"] = data.get('orderId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Tracking", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/trackings", methods=["GET"])
+def list_trackings(request):
+    """List Trackings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("Tracking")
+    rows = _apply_filters(rows, params, ['id', 'trackingNumber', 'slug', 'tag', 'subtag', 'deliveryType', 'active', 'expectedDelivery', 'orderId', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/trackings/<eid>", methods=["GET"])
+def get_tracking(request, eid):
+    """Retrieve a Tracking by id (supports ?expand=)."""
+    rows = _query("Tracking", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/trackings/<eid>", methods=["POST", "PATCH"])
+def update_tracking(request, eid):
+    """Update a Tracking."""
+    rows = _query("Tracking", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'trackingNumber', 'slug', 'tag', 'subtag', 'deliveryType', 'active', 'expectedDelivery', 'orderId', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('tag') and data['tag'] not in ['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']:
+        return {"error": {"message": "invalid tag; allowed: " + ", ".join(['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']), "type": "invalid_request_error"}}, 400
+    if data.get('deliveryType') and data['deliveryType'] not in ['pickup_at_store', 'pickup_at_courier', 'door_to_door']:
+        return {"error": {"message": "invalid deliveryType; allowed: " + ", ".join(['pickup_at_store', 'pickup_at_courier', 'door_to_door']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Tracking", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/trackings/<eid>", methods=["DELETE"])
+def delete_tracking(request, eid):
+    """Delete a Tracking."""
+    rows = _query("Tracking", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.Webhook", "id": eid})
+    db.retract({"entity": f"aftership.Tracking", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
+@app.route("/v1/checkpoints", methods=["POST"])
+def create_checkpoint(request):
+    """Create a Checkpoint."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['checkpointTime', 'slug', 'tag', 'subtag', 'message', 'location', 'city', 'countryIso3'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['checkpointTime', 'slug'])
     if err:
         return err, 400
-    rec = {"id": new_id("aftershi_ord")}
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
+    if data.get('tag') and data['tag'] not in ['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']:
+        return {"error": {"message": "invalid tag; allowed: " + ", ".join(['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aftershi_che")}
+    rec["checkpointTime"] = data.get('checkpointTime')
+    rec["slug"] = data.get('slug')
+    rec["tag"] = data.get('tag')
+    rec["subtag"] = data.get('subtag')
+    rec["message"] = data.get('message')
+    rec["location"] = data.get('location')
+    rec["city"] = data.get('city')
+    rec["countryIso3"] = data.get('countryIso3')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
+    _persist("Checkpoint", rec)
     return rec, 201
 
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
+@app.route("/v1/checkpoints", methods=["GET"])
+def list_checkpoints(request):
+    """List Checkpoints with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['number', 'total', 'currency', 'status'])
+    rows = _query("Checkpoint")
+    rows = _apply_filters(rows, params, ['checkpointTime', 'slug', 'tag', 'subtag', 'message', 'location', 'city', 'countryIso3'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
+@app.route("/v1/checkpoints/<eid>", methods=["GET"])
+def get_checkpoint(request, eid):
+    """Retrieve a Checkpoint by id (supports ?expand=)."""
+    rows = _query("Checkpoint", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/checkpoints/<eid>", methods=["POST", "PATCH"])
+def update_checkpoint(request, eid):
+    """Update a Checkpoint."""
+    rows = _query("Checkpoint", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['checkpointTime', 'slug', 'tag', 'subtag', 'message', 'location', 'city', 'countryIso3'])
+    if err:
+        return err, 400
+    if data.get('tag') and data['tag'] not in ['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']:
+        return {"error": {"message": "invalid tag; allowed: " + ", ".join(['Pending', 'InfoReceived', 'InTransit', 'OutForDelivery', 'AttemptFail', 'Delivered', 'AvailableForPickup', 'Exception', 'Expired']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Checkpoint", rec)
+    return rec, 200
+
+@app.route("/v1/checkpoints/<eid>", methods=["DELETE"])
+def delete_checkpoint(request, eid):
+    """Delete a Checkpoint."""
+    rows = _query("Checkpoint", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"aftership.Checkpoint", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/couriers", methods=["POST"])
+def create_courier(request):
+    """Create a Courier."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'phone', 'webUrl', 'defaultLanguage'])
+    if err:
+        return err, 400
+    err = _require(data, ['slug', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("aftershi_cou")}
+    rec["slug"] = data.get('slug')
+    rec["name"] = data.get('name')
+    rec["phone"] = data.get('phone')
+    rec["webUrl"] = data.get('webUrl')
+    rec["defaultLanguage"] = data.get('defaultLanguage')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Courier", rec)
+    return rec, 201
+
+@app.route("/v1/couriers", methods=["GET"])
+def list_couriers(request):
+    """List Couriers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Courier")
+    rows = _apply_filters(rows, params, ['slug', 'name', 'phone', 'webUrl', 'defaultLanguage'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/couriers/<eid>", methods=["GET"])
+def get_courier(request, eid):
+    """Retrieve a Courier by id (supports ?expand=)."""
+    rows = _query("Courier", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/couriers/<eid>", methods=["POST", "PATCH"])
+def update_courier(request, eid):
+    """Update a Courier."""
+    rows = _query("Courier", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['slug', 'name', 'phone', 'webUrl', 'defaultLanguage'])
     if err:
         return err, 400
     rec = rows[0]
@@ -494,22 +321,152 @@ def update_order(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Order", rec)
+    _persist("Courier", rec)
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/couriers/<eid>", methods=["DELETE"])
+def delete_courier(request, eid):
+    """Delete a Courier."""
+    rows = _query("Courier", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aftership.Order", "id": eid})
+    db.retract({"entity": f"aftership.Courier", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/notifications", methods=["POST"])
+def create_notification(request):
+    """Create a Notification."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['emails', 'smses'])
+    if err:
+        return err, 400
+    err = _require(data, ['emails', 'smses'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("aftershi_not")}
+    rec["emails"] = data.get('emails')
+    rec["smses"] = data.get('smses')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Notification", rec)
+    return rec, 201
+
+@app.route("/v1/notifications", methods=["GET"])
+def list_notifications(request):
+    """List Notifications with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Notification")
+    rows = _apply_filters(rows, params, ['emails', 'smses'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/notifications/<eid>", methods=["GET"])
+def get_notification(request, eid):
+    """Retrieve a Notification by id (supports ?expand=)."""
+    rows = _query("Notification", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/notifications/<eid>", methods=["POST", "PATCH"])
+def update_notification(request, eid):
+    """Update a Notification."""
+    rows = _query("Notification", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['emails', 'smses'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Notification", rec)
+    return rec, 200
+
+@app.route("/v1/notifications/<eid>", methods=["DELETE"])
+def delete_notification(request, eid):
+    """Delete a Notification."""
+    rows = _query("Notification", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"aftership.Notification", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/estimateddeliverydates", methods=["POST"])
+def create_estimated_delivery_date(request):
+    """Create a EstimatedDeliveryDate."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['estimatedDeliveryDate', 'confidenceScore', 'estimatedDeliveryDateMin', 'estimatedDeliveryDateMax'])
+    if err:
+        return err, 400
+    err = _require(data, ['estimatedDeliveryDate', 'confidenceScore'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("aftershi_est")}
+    rec["estimatedDeliveryDate"] = data.get('estimatedDeliveryDate')
+    rec["confidenceScore"] = _as_float(data.get('confidenceScore'))
+    rec["estimatedDeliveryDateMin"] = data.get('estimatedDeliveryDateMin')
+    rec["estimatedDeliveryDateMax"] = data.get('estimatedDeliveryDateMax')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("EstimatedDeliveryDate", rec)
+    return rec, 201
+
+@app.route("/v1/estimateddeliverydates", methods=["GET"])
+def list_estimated_delivery_dates(request):
+    """List EstimatedDeliveryDates with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("EstimatedDeliveryDate")
+    rows = _apply_filters(rows, params, ['estimatedDeliveryDate', 'confidenceScore', 'estimatedDeliveryDateMin', 'estimatedDeliveryDateMax'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/estimateddeliverydates/<eid>", methods=["GET"])
+def get_estimated_delivery_date(request, eid):
+    """Retrieve a EstimatedDeliveryDate by id (supports ?expand=)."""
+    rows = _query("EstimatedDeliveryDate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/estimateddeliverydates/<eid>", methods=["POST", "PATCH"])
+def update_estimated_delivery_date(request, eid):
+    """Update a EstimatedDeliveryDate."""
+    rows = _query("EstimatedDeliveryDate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['estimatedDeliveryDate', 'confidenceScore', 'estimatedDeliveryDateMin', 'estimatedDeliveryDateMax'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("EstimatedDeliveryDate", rec)
+    return rec, 200
+
+@app.route("/v1/estimateddeliverydates/<eid>", methods=["DELETE"])
+def delete_estimated_delivery_date(request, eid):
+    """Delete a EstimatedDeliveryDate."""
+    rows = _query("EstimatedDeliveryDate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"aftership.EstimatedDeliveryDate", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "aftership-compat", "tier": "L4",
-            "entities": ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']}, 200
+            "entities": ['Tracking', 'Checkpoint', 'Courier', 'Notification', 'EstimatedDeliveryDate']}, 200
 
 
 if __name__ == "__main__":

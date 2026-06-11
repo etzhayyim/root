@@ -111,317 +111,336 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/subscribers", methods=["POST"])
-def create_subscriber(request):
-    """Create a Subscriber."""
+@app.route("/v1/m3uamessages", methods=["POST"])
+def create_m3ua_message(request):
+    """Create a M3uaMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['imsi', 'msisdn', 'plan', 'status'])
+    err = _reject_unknown(data, ['version', 'reserved', 'messageClass', 'messageType', 'messageLength'])
     if err:
         return err, 400
-    err = _require(data, ['imsi', 'msisdn'])
+    err = _require(data, ['version', 'reserved'])
     if err:
         return err, 400
-    rec = {"id": new_id("ss7sigtr_sub")}
-    rec["imsi"] = data.get('imsi')
-    rec["msisdn"] = data.get('msisdn')
-    rec["plan"] = data.get('plan')
-    rec["status"] = data.get('status')
+    if data.get('messageClass') and data['messageClass'] not in [0, 1, 2, 3, 4, 9]:
+        return {"error": {"message": "invalid messageClass; allowed: " + ", ".join([0, 1, 2, 3, 4, 9]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ss7sigtr_m3u")}
+    rec["version"] = _as_int(data.get('version'))
+    rec["reserved"] = _as_int(data.get('reserved'))
+    rec["messageClass"] = _as_int(data.get('messageClass'))
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["messageLength"] = _as_int(data.get('messageLength'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Subscriber", rec)
+    _persist("M3uaMessage", rec)
     return rec, 201
 
-@app.route("/v1/subscribers", methods=["GET"])
-def list_subscribers(request):
-    """List Subscribers with filtering + cursor pagination."""
+@app.route("/v1/m3uamessages", methods=["GET"])
+def list_m3ua_messages(request):
+    """List M3uaMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Subscriber")
-    rows = _apply_filters(rows, params, ['imsi', 'msisdn', 'plan', 'status'])
+    rows = _query("M3uaMessage")
+    rows = _apply_filters(rows, params, ['version', 'reserved', 'messageClass', 'messageType', 'messageLength'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/subscribers/<eid>", methods=["GET"])
-def get_subscriber(request, eid):
-    """Retrieve a Subscriber by id (supports ?expand=)."""
-    rows = _query("Subscriber", eid)
+@app.route("/v1/m3uamessages/<eid>", methods=["GET"])
+def get_m3ua_message(request, eid):
+    """Retrieve a M3uaMessage by id (supports ?expand=)."""
+    rows = _query("M3uaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/subscribers/<eid>", methods=["POST", "PATCH"])
-def update_subscriber(request, eid):
-    """Update a Subscriber."""
-    rows = _query("Subscriber", eid)
+@app.route("/v1/m3uamessages/<eid>", methods=["POST", "PATCH"])
+def update_m3ua_message(request, eid):
+    """Update a M3uaMessage."""
+    rows = _query("M3uaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['imsi', 'msisdn', 'plan', 'status'])
+    err = _reject_unknown(data, ['version', 'reserved', 'messageClass', 'messageType', 'messageLength'])
     if err:
         return err, 400
+    if data.get('messageClass') and data['messageClass'] not in [0, 1, 2, 3, 4, 9]:
+        return {"error": {"message": "invalid messageClass; allowed: " + ", ".join([0, 1, 2, 3, 4, 9]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Subscriber", rec)
+    _persist("M3uaMessage", rec)
     return rec, 200
 
-@app.route("/v1/subscribers/<eid>", methods=["DELETE"])
-def delete_subscriber(request, eid):
-    """Delete a Subscriber."""
-    rows = _query("Subscriber", eid)
+@app.route("/v1/m3uamessages/<eid>", methods=["DELETE"])
+def delete_m3ua_message(request, eid):
+    """Delete a M3uaMessage."""
+    rows = _query("M3uaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.Subscriber", "id": eid})
+    db.retract({"entity": f"ss7_sigtran.M3uaMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/sessions", methods=["POST"])
-def create_session(request):
-    """Create a Session."""
+@app.route("/v1/suamessages", methods=["POST"])
+def create_sua_message(request):
+    """Create a SuaMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subscriberId', 'apn', 'startedAt', 'bytesUsed'])
+    err = _reject_unknown(data, ['version', 'messageClass', 'messageType', 'messageLength'])
     if err:
         return err, 400
-    err = _require(data, ['apn', 'startedAt'])
+    err = _require(data, ['version', 'messageClass'])
     if err:
         return err, 400
-    rec = {"id": new_id("ss7sigtr_ses")}
-    rec["subscriberId"] = data.get('subscriberId')
-    rec["apn"] = data.get('apn')
-    rec["startedAt"] = data.get('startedAt')
-    rec["bytesUsed"] = _as_int(data.get('bytesUsed'))
+    if data.get('messageClass') and data['messageClass'] not in [0, 2, 3, 4, 7, 8, 9]:
+        return {"error": {"message": "invalid messageClass; allowed: " + ", ".join([0, 2, 3, 4, 7, 8, 9]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ss7sigtr_sua")}
+    rec["version"] = _as_int(data.get('version'))
+    rec["messageClass"] = _as_int(data.get('messageClass'))
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["messageLength"] = _as_int(data.get('messageLength'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Session", rec)
+    _persist("SuaMessage", rec)
     return rec, 201
 
-@app.route("/v1/sessions", methods=["GET"])
-def list_sessions(request):
-    """List Sessions with filtering + cursor pagination."""
+@app.route("/v1/suamessages", methods=["GET"])
+def list_sua_messages(request):
+    """List SuaMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Session")
-    rows = _apply_filters(rows, params, ['subscriberId', 'apn', 'startedAt', 'bytesUsed'])
+    rows = _query("SuaMessage")
+    rows = _apply_filters(rows, params, ['version', 'messageClass', 'messageType', 'messageLength'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/sessions/<eid>", methods=["GET"])
-def get_session(request, eid):
-    """Retrieve a Session by id (supports ?expand=)."""
-    rows = _query("Session", eid)
+@app.route("/v1/suamessages/<eid>", methods=["GET"])
+def get_sua_message(request, eid):
+    """Retrieve a SuaMessage by id (supports ?expand=)."""
+    rows = _query("SuaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'subscriberId': 'Subscriber'})
     return rec, 200
 
-@app.route("/v1/sessions/<eid>", methods=["POST", "PATCH"])
-def update_session(request, eid):
-    """Update a Session."""
-    rows = _query("Session", eid)
+@app.route("/v1/suamessages/<eid>", methods=["POST", "PATCH"])
+def update_sua_message(request, eid):
+    """Update a SuaMessage."""
+    rows = _query("SuaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subscriberId', 'apn', 'startedAt', 'bytesUsed'])
+    err = _reject_unknown(data, ['version', 'messageClass', 'messageType', 'messageLength'])
     if err:
         return err, 400
+    if data.get('messageClass') and data['messageClass'] not in [0, 2, 3, 4, 7, 8, 9]:
+        return {"error": {"message": "invalid messageClass; allowed: " + ", ".join([0, 2, 3, 4, 7, 8, 9]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Session", rec)
+    _persist("SuaMessage", rec)
     return rec, 200
 
-@app.route("/v1/sessions/<eid>", methods=["DELETE"])
-def delete_session(request, eid):
-    """Delete a Session."""
-    rows = _query("Session", eid)
+@app.route("/v1/suamessages/<eid>", methods=["DELETE"])
+def delete_sua_message(request, eid):
+    """Delete a SuaMessage."""
+    rows = _query("SuaMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.Session", "id": eid})
+    db.retract({"entity": f"ss7_sigtran.SuaMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
+@app.route("/v1/protocoldatas", methods=["POST"])
+def create_protocol_data(request):
+    """Create a ProtocolData."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromAddr', 'toAddr', 'body', 'status'])
+    err = _reject_unknown(data, ['opc', 'dpc', 'si', 'ni', 'mp', 'sls'])
     if err:
         return err, 400
-    err = _require(data, ['fromAddr', 'toAddr'])
+    err = _require(data, ['opc', 'dpc'])
     if err:
         return err, 400
-    rec = {"id": new_id("ss7sigtr_mes")}
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["body"] = data.get('body')
-    rec["status"] = data.get('status')
+    if data.get('ni') and data['ni'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid ni; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ss7sigtr_pro")}
+    rec["opc"] = _as_int(data.get('opc'))
+    rec["dpc"] = _as_int(data.get('dpc'))
+    rec["si"] = _as_int(data.get('si'))
+    rec["ni"] = _as_int(data.get('ni'))
+    rec["mp"] = _as_int(data.get('mp'))
+    rec["sls"] = _as_int(data.get('sls'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
+    _persist("ProtocolData", rec)
     return rec, 201
 
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
+@app.route("/v1/protocoldatas", methods=["GET"])
+def list_protocol_datas(request):
+    """List ProtocolDatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['fromAddr', 'toAddr', 'body', 'status'])
+    rows = _query("ProtocolData")
+    rows = _apply_filters(rows, params, ['opc', 'dpc', 'si', 'ni', 'mp', 'sls'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
+@app.route("/v1/protocoldatas/<eid>", methods=["GET"])
+def get_protocol_data(request, eid):
+    """Retrieve a ProtocolData by id (supports ?expand=)."""
+    rows = _query("ProtocolData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/protocoldatas/<eid>", methods=["POST", "PATCH"])
+def update_protocol_data(request, eid):
+    """Update a ProtocolData."""
+    rows = _query("ProtocolData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fromAddr', 'toAddr', 'body', 'status'])
+    err = _reject_unknown(data, ['opc', 'dpc', 'si', 'ni', 'mp', 'sls'])
     if err:
         return err, 400
+    if data.get('ni') and data['ni'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid ni; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Message", rec)
+    _persist("ProtocolData", rec)
     return rec, 200
 
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
+@app.route("/v1/protocoldatas/<eid>", methods=["DELETE"])
+def delete_protocol_data(request, eid):
+    """Delete a ProtocolData."""
+    rows = _query("ProtocolData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.Message", "id": eid})
+    db.retract({"entity": f"ss7_sigtran.ProtocolData", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/numbers", methods=["POST"])
-def create_number(request):
-    """Create a Number."""
+@app.route("/v1/mtp3messages", methods=["POST"])
+def create_mtp3_message(request):
+    """Create a Mtp3Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['e164', 'type', 'assignedTo'])
+    err = _reject_unknown(data, ['serviceIndicator', 'networkIndicator', 'payload'])
     if err:
         return err, 400
-    err = _require(data, ['e164', 'type'])
+    err = _require(data, ['serviceIndicator', 'networkIndicator'])
     if err:
         return err, 400
-    rec = {"id": new_id("ss7sigtr_num")}
-    rec["e164"] = data.get('e164')
-    rec["type"] = data.get('type')
-    rec["assignedTo"] = data.get('assignedTo')
+    if data.get('networkIndicator') and data['networkIndicator'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid networkIndicator; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ss7sigtr_mtp")}
+    rec["serviceIndicator"] = _as_int(data.get('serviceIndicator'))
+    rec["networkIndicator"] = _as_int(data.get('networkIndicator'))
+    rec["payload"] = data.get('payload')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Number", rec)
+    _persist("Mtp3Message", rec)
     return rec, 201
 
-@app.route("/v1/numbers", methods=["GET"])
-def list_numbers(request):
-    """List Numbers with filtering + cursor pagination."""
+@app.route("/v1/mtp3messages", methods=["GET"])
+def list_mtp3_messages(request):
+    """List Mtp3Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Number")
-    rows = _apply_filters(rows, params, ['e164', 'type', 'assignedTo'])
+    rows = _query("Mtp3Message")
+    rows = _apply_filters(rows, params, ['serviceIndicator', 'networkIndicator', 'payload'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/numbers/<eid>", methods=["GET"])
-def get_number(request, eid):
-    """Retrieve a Number by id (supports ?expand=)."""
-    rows = _query("Number", eid)
+@app.route("/v1/mtp3messages/<eid>", methods=["GET"])
+def get_mtp3_message(request, eid):
+    """Retrieve a Mtp3Message by id (supports ?expand=)."""
+    rows = _query("Mtp3Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/numbers/<eid>", methods=["POST", "PATCH"])
-def update_number(request, eid):
-    """Update a Number."""
-    rows = _query("Number", eid)
+@app.route("/v1/mtp3messages/<eid>", methods=["POST", "PATCH"])
+def update_mtp3_message(request, eid):
+    """Update a Mtp3Message."""
+    rows = _query("Mtp3Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['e164', 'type', 'assignedTo'])
+    err = _reject_unknown(data, ['serviceIndicator', 'networkIndicator', 'payload'])
     if err:
         return err, 400
+    if data.get('networkIndicator') and data['networkIndicator'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid networkIndicator; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Number", rec)
+    _persist("Mtp3Message", rec)
     return rec, 200
 
-@app.route("/v1/numbers/<eid>", methods=["DELETE"])
-def delete_number(request, eid):
-    """Delete a Number."""
-    rows = _query("Number", eid)
+@app.route("/v1/mtp3messages/<eid>", methods=["DELETE"])
+def delete_mtp3_message(request, eid):
+    """Delete a Mtp3Message."""
+    rows = _query("Mtp3Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.Number", "id": eid})
+    db.retract({"entity": f"ss7_sigtran.Mtp3Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/terminals", methods=["POST"])
-def create_terminal(request):
-    """Create a Terminal."""
+@app.route("/v1/sccpmessages", methods=["POST"])
+def create_sccp_message(request):
+    """Create a SccpMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'satellite', 'signalDb', 'online'])
+    err = _reject_unknown(data, ['messageType', 'destinationPointCode', 'sourcePointCode', 'subsystemNumber', 'globalTitle'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'satellite'])
+    err = _require(data, ['messageType', 'destinationPointCode'])
     if err:
         return err, 400
-    rec = {"id": new_id("ss7sigtr_ter")}
-    rec["serial"] = data.get('serial')
-    rec["satellite"] = data.get('satellite')
-    rec["signalDb"] = _as_float(data.get('signalDb'))
-    rec["online"] = _as_bool(data.get('online'))
+    rec = {"id": new_id("ss7sigtr_scc")}
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["destinationPointCode"] = _as_int(data.get('destinationPointCode'))
+    rec["sourcePointCode"] = _as_int(data.get('sourcePointCode'))
+    rec["subsystemNumber"] = _as_int(data.get('subsystemNumber'))
+    rec["globalTitle"] = data.get('globalTitle')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Terminal", rec)
+    _persist("SccpMessage", rec)
     return rec, 201
 
-@app.route("/v1/terminals", methods=["GET"])
-def list_terminals(request):
-    """List Terminals with filtering + cursor pagination."""
+@app.route("/v1/sccpmessages", methods=["GET"])
+def list_sccp_messages(request):
+    """List SccpMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Terminal")
-    rows = _apply_filters(rows, params, ['serial', 'satellite', 'signalDb', 'online'])
+    rows = _query("SccpMessage")
+    rows = _apply_filters(rows, params, ['messageType', 'destinationPointCode', 'sourcePointCode', 'subsystemNumber', 'globalTitle'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/terminals/<eid>", methods=["GET"])
-def get_terminal(request, eid):
-    """Retrieve a Terminal by id (supports ?expand=)."""
-    rows = _query("Terminal", eid)
+@app.route("/v1/sccpmessages/<eid>", methods=["GET"])
+def get_sccp_message(request, eid):
+    """Retrieve a SccpMessage by id (supports ?expand=)."""
+    rows = _query("SccpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/terminals/<eid>", methods=["POST", "PATCH"])
-def update_terminal(request, eid):
-    """Update a Terminal."""
-    rows = _query("Terminal", eid)
+@app.route("/v1/sccpmessages/<eid>", methods=["POST", "PATCH"])
+def update_sccp_message(request, eid):
+    """Update a SccpMessage."""
+    rows = _query("SccpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'satellite', 'signalDb', 'online'])
+    err = _reject_unknown(data, ['messageType', 'destinationPointCode', 'sourcePointCode', 'subsystemNumber', 'globalTitle'])
     if err:
         return err, 400
     rec = rows[0]
@@ -429,89 +448,22 @@ def update_terminal(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Terminal", rec)
+    _persist("SccpMessage", rec)
     return rec, 200
 
-@app.route("/v1/terminals/<eid>", methods=["DELETE"])
-def delete_terminal(request, eid):
-    """Delete a Terminal."""
-    rows = _query("Terminal", eid)
+@app.route("/v1/sccpmessages/<eid>", methods=["DELETE"])
+def delete_sccp_message(request, eid):
+    """Delete a SccpMessage."""
+    rows = _query("SccpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.Terminal", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/usagerecords", methods=["POST"])
-def create_usage_record(request):
-    """Create a UsageRecord."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subscriberId', 'quantity', 'unit', 'ratedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['quantity', 'unit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ss7sigtr_usa")}
-    rec["subscriberId"] = data.get('subscriberId')
-    rec["quantity"] = _as_float(data.get('quantity'))
-    rec["unit"] = data.get('unit')
-    rec["ratedAt"] = data.get('ratedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("UsageRecord", rec)
-    return rec, 201
-
-@app.route("/v1/usagerecords", methods=["GET"])
-def list_usage_records(request):
-    """List UsageRecords with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("UsageRecord")
-    rows = _apply_filters(rows, params, ['subscriberId', 'quantity', 'unit', 'ratedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/usagerecords/<eid>", methods=["GET"])
-def get_usage_record(request, eid):
-    """Retrieve a UsageRecord by id (supports ?expand=)."""
-    rows = _query("UsageRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'subscriberId': 'Subscriber'})
-    return rec, 200
-
-@app.route("/v1/usagerecords/<eid>", methods=["POST", "PATCH"])
-def update_usage_record(request, eid):
-    """Update a UsageRecord."""
-    rows = _query("UsageRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subscriberId', 'quantity', 'unit', 'ratedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("UsageRecord", rec)
-    return rec, 200
-
-@app.route("/v1/usagerecords/<eid>", methods=["DELETE"])
-def delete_usage_record(request, eid):
-    """Delete a UsageRecord."""
-    rows = _query("UsageRecord", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ss7_sigtran.UsageRecord", "id": eid})
+    db.retract({"entity": f"ss7_sigtran.SccpMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ss7_sigtran-compat", "tier": "L4",
-            "entities": ['Subscriber', 'Session', 'Message', 'Number', 'Terminal', 'UsageRecord']}, 200
+            "entities": ['M3uaMessage', 'SuaMessage', 'ProtocolData', 'Mtp3Message', 'SccpMessage']}, 200
 
 
 if __name__ == "__main__":

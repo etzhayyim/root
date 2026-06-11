@@ -3,74 +3,94 @@
 
 namespace woocommerce {
 
-    entity Product {
-        id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
-        inventory: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Variant {
-        id: string @unique
-        productId: string
-        sku: string
-        price: float
-        optionValues: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Order {
         id: string @unique
-        customerId: string
+        id: integer
         number: string
-        total: float
-        currency: string
+        orderKey: string
         status: string
+        currency: string
+        total: float
+        totalTax: float
+        discountTotal: float
+        customerId: integer
+        dateCreated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity LineItem {
+    entity Product {
         id: string @unique
-        orderId: string
-        productId: string
-        quantity: integer
-        unitPrice: float
+        id: integer
+        name: string
+        slug: string
+        type: string
+        status: string
+        featured: boolean
+        catalogVisibility: string
+        sku: string
+        regularPrice: float
+        salePrice: float
+        onSale: boolean
+        stockQuantity: integer
+        stockStatus: string
+        virtual: boolean
+        downloadable: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Customer {
         id: string @unique
+        id: integer
         email: string
         firstName: string
         lastName: string
-        phone: string
+        username: string
+        role: string
+        isPayingCustomer: boolean
+        dateCreated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Collection {
+    entity Coupon {
         id: string @unique
-        title: string
-        handle: string
-        published: boolean
+        id: integer
+        code: string
+        amount: float
+        discountType: string
+        description: string
+        individualUse: boolean
+        freeShipping: boolean
+        minimumAmount: float
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ProductCategory {
+        id: string @unique
+        id: integer
+        name: string
+        slug: string
+        parent: integer
+        description: string
+        display: string
+        menuOrder: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Refund {
+        id: string @unique
+        id: integer
+        amount: float
+        reason: string
+        refundedBy: integer
+        refundedPayment: boolean
+        dateCreated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

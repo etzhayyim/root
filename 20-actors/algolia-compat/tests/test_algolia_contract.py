@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "algolia.kotoba")
-ENTITIES = ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']
-PLURALS = {'ContentEntry': 'contententries', 'Product': 'products', 'Shipment': 'shipments', 'SearchIndex': 'searchindexes', 'Webhook': 'webhooks', 'Order': 'orders'}
+ENTITIES = ['Index', 'ApiKey', 'Synonym', 'Rule', 'Task']
+PLURALS = {'Index': 'indexes', 'ApiKey': 'apikeys', 'Synonym': 'synonyms', 'Rule': 'rules', 'Task': 'tasks'}
 
 
 class AlgoliaContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class AlgoliaContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['status', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "hl7_fhir.kotoba")
-ENTITIES = ['Patient', 'Observation', 'Condition', 'DiagnosticReport', 'Sequence', 'Specimen']
-PLURALS = {'Patient': 'patients', 'Observation': 'observations', 'Condition': 'conditions', 'DiagnosticReport': 'diagnosticreports', 'Sequence': 'sequences', 'Specimen': 'specimens'}
+ENTITIES = ['Patient', 'Observation', 'Encounter', 'MedicationRequest', 'AllergyIntolerance', 'Condition']
+PLURALS = {'Patient': 'patients', 'Observation': 'observations', 'Encounter': 'encounters', 'MedicationRequest': 'medicationrequests', 'AllergyIntolerance': 'allergyintolerances', 'Condition': 'conditions'}
 
 
 class Hl7FhirContract(unittest.TestCase):
@@ -65,7 +65,7 @@ class Hl7FhirContract(unittest.TestCase):
 
     def test_verified_enums_enforced(self):
         """L5: discovered enums from official docs are enforced."""
-        for field in ['clinicalStatus', 'status']:
+        for field in ['clinicalStatus', 'gender', 'status']:
             self.assertIn(f"invalid {field}; allowed:", self.src,
                           f"verified enum for {field} not enforced")
 

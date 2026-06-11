@@ -11,15 +11,52 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
   "schema": "schema/canva.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/canva-sdks/canva-connect-api-starter-kit/blob/main/openapi/spec.yml",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Design",
+      "Asset",
+      "Folder",
+      "BrandTemplate",
+      "ExportJob",
+      "User"
+    ],
+    "enums": {
+      "Asset": {
+        "type": [
+          "image",
+          "video"
+        ]
+      },
+      "ExportJob": {
+        "status": [
+          "in_progress",
+          "success",
+          "failed"
+        ],
+        "format": [
+          "pdf",
+          "jpg",
+          "png",
+          "gif",
+          "pptx",
+          "mp4",
+          "svg",
+          "html_bundle",
+          "html_standalone"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "File",
-    "Frame",
-    "Component",
-    "Comment",
-    "Export"
+    "Design",
+    "Asset",
+    "Folder",
+    "BrandTemplate",
+    "ExportJob",
+    "User"
   ],
   "adr": [
     "260607",
@@ -35,153 +72,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/designs",
+          "op": "create Design"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/designs",
+          "op": "list Design"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/designs/{id}",
+          "op": "get Design"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/designs/{id}",
+          "op": "update Design"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
+          "path": "/v1/designs/{id}",
+          "op": "delete Design"
         },
         {
           "method": "POST",
-          "path": "/v1/files",
-          "op": "create File"
+          "path": "/v1/assets",
+          "op": "create Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/files",
-          "op": "list File"
+          "path": "/v1/assets",
+          "op": "list Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/files/{id}",
-          "op": "get File"
+          "path": "/v1/assets/{id}",
+          "op": "get Asset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/files/{id}",
-          "op": "update File"
+          "path": "/v1/assets/{id}",
+          "op": "update Asset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/files/{id}",
-          "op": "delete File"
+          "path": "/v1/assets/{id}",
+          "op": "delete Asset"
         },
         {
           "method": "POST",
-          "path": "/v1/frames",
-          "op": "create Frame"
+          "path": "/v1/folders",
+          "op": "create Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/frames",
-          "op": "list Frame"
+          "path": "/v1/folders",
+          "op": "list Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/frames/{id}",
-          "op": "get Frame"
+          "path": "/v1/folders/{id}",
+          "op": "get Folder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/frames/{id}",
-          "op": "update Frame"
+          "path": "/v1/folders/{id}",
+          "op": "update Folder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/frames/{id}",
-          "op": "delete Frame"
+          "path": "/v1/folders/{id}",
+          "op": "delete Folder"
         },
         {
           "method": "POST",
-          "path": "/v1/components",
-          "op": "create Component"
+          "path": "/v1/brandtemplates",
+          "op": "create BrandTemplate"
         },
         {
           "method": "GET",
-          "path": "/v1/components",
-          "op": "list Component"
+          "path": "/v1/brandtemplates",
+          "op": "list BrandTemplate"
         },
         {
           "method": "GET",
-          "path": "/v1/components/{id}",
-          "op": "get Component"
+          "path": "/v1/brandtemplates/{id}",
+          "op": "get BrandTemplate"
         },
         {
           "method": "PATCH",
-          "path": "/v1/components/{id}",
-          "op": "update Component"
+          "path": "/v1/brandtemplates/{id}",
+          "op": "update BrandTemplate"
         },
         {
           "method": "DELETE",
-          "path": "/v1/components/{id}",
-          "op": "delete Component"
+          "path": "/v1/brandtemplates/{id}",
+          "op": "delete BrandTemplate"
         },
         {
           "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
+          "path": "/v1/exportjobs",
+          "op": "create ExportJob"
         },
         {
           "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
+          "path": "/v1/exportjobs",
+          "op": "list ExportJob"
         },
         {
           "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
+          "path": "/v1/exportjobs/{id}",
+          "op": "get ExportJob"
         },
         {
           "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
+          "path": "/v1/exportjobs/{id}",
+          "op": "update ExportJob"
         },
         {
           "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
+          "path": "/v1/exportjobs/{id}",
+          "op": "delete ExportJob"
         },
         {
           "method": "POST",
-          "path": "/v1/exports",
-          "op": "create Export"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/exports",
-          "op": "list Export"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/exports/{id}",
-          "op": "get Export"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/exports/{id}",
-          "op": "update Export"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/exports/{id}",
-          "op": "delete Export"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         }
       ],
       "features": {
@@ -247,37 +284,137 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_design",
+          "description": "Create a Design.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
                 "type": "string"
               },
-              "ownerId": {
+              "title": {
                 "type": "string"
               },
-              "teamId": {
+              "pageCount": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "list_designs",
+          "description": "List Designs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_design",
+          "description": "Get a Design by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
             "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_design",
+          "description": "Update a Design.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "pageCount": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_design",
+          "description": "Delete a Design.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_asset",
+          "description": "Create a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
               "name"
             ]
           }
         },
         {
-          "name": "list_projects",
-          "description": "List Projects.",
+          "name": "list_assets",
+          "description": "List Assets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_project",
-          "description": "Get a Project by id.",
+          "name": "get_asset",
+          "description": "Get a Asset by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -291,8 +428,8 @@
           }
         },
         {
-          "name": "update_project",
-          "description": "Update a Project.",
+          "name": "update_asset",
+          "description": "Update a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -302,100 +439,13 @@
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "type": {
                 "type": "string"
               },
-              "teamId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_project",
-          "description": "Delete a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_file",
-          "description": "Create a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "version": {
+              "createdAt": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "version"
-            ]
-          }
-        },
-        {
-          "name": "list_files",
-          "description": "List Files.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_file",
-          "description": "Get a File by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_file",
-          "description": "Update a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              },
-              "version": {
+              "updatedAt": {
                 "type": "integer"
               }
             },
@@ -405,8 +455,8 @@
           }
         },
         {
-          "name": "delete_file",
-          "description": "Delete a File.",
+          "name": "delete_asset",
+          "description": "Delete a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -420,41 +470,41 @@
           }
         },
         {
-          "name": "create_frame",
-          "description": "Create a Frame.",
+          "name": "create_folder",
+          "description": "Create a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "fileId": {
+              "id": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "width": {
-                "type": "number"
+              "createdAt": {
+                "type": "integer"
               },
-              "height": {
-                "type": "number"
+              "updatedAt": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "width"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_frames",
-          "description": "List Frames.",
+          "name": "list_folders",
+          "description": "List Folders.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_frame",
-          "description": "Get a Frame by id.",
+          "name": "get_folder",
+          "description": "Get a Folder by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -468,25 +518,22 @@
           }
         },
         {
-          "name": "update_frame",
-          "description": "Update a Frame.",
+          "name": "update_folder",
+          "description": "Update a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "fileId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "width": {
-                "type": "number"
+              "createdAt": {
+                "type": "integer"
               },
-              "height": {
-                "type": "number"
+              "updatedAt": {
+                "type": "integer"
               }
             },
             "required": [
@@ -495,8 +542,8 @@
           }
         },
         {
-          "name": "delete_frame",
-          "description": "Delete a Frame.",
+          "name": "delete_folder",
+          "description": "Delete a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -510,38 +557,44 @@
           }
         },
         {
-          "name": "create_component",
-          "description": "Create a Component.",
+          "name": "create_brand_template",
+          "description": "Create a BrandTemplate.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "fileId": {
+              "id": {
                 "type": "string"
               },
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "description": {
+              "viewUrl": {
                 "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "description"
+              "id",
+              "title"
             ]
           }
         },
         {
-          "name": "list_components",
-          "description": "List Components.",
+          "name": "list_brand_templates",
+          "description": "List BrandTemplates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_component",
-          "description": "Get a Component by id.",
+          "name": "get_brand_template",
+          "description": "Get a BrandTemplate by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -555,22 +608,25 @@
           }
         },
         {
-          "name": "update_component",
-          "description": "Update a Component.",
+          "name": "update_brand_template",
+          "description": "Update a BrandTemplate.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "fileId": {
+              "title": {
                 "type": "string"
               },
-              "name": {
+              "viewUrl": {
                 "type": "string"
               },
-              "description": {
-                "type": "string"
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
               }
             },
             "required": [
@@ -579,56 +635,8 @@
           }
         },
         {
-          "name": "delete_component",
-          "description": "Delete a Component.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "resolved": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "body",
-              "resolved"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
+          "name": "delete_brand_template",
+          "description": "Delete a BrandTemplate.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -642,83 +650,38 @@
           }
         },
         {
-          "name": "update_comment",
-          "description": "Update a Comment.",
+          "name": "create_export_job",
+          "description": "Create a ExportJob.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "fileId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "resolved": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_export",
-          "description": "Create a Export.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fileId": {
+              "status": {
                 "type": "string"
               },
               "format": {
                 "type": "string"
-              },
-              "scale": {
-                "type": "number"
-              },
-              "contentRef": {
-                "type": "string"
               }
             },
             "required": [
-              "format",
-              "scale"
+              "id",
+              "status"
             ]
           }
         },
         {
-          "name": "list_exports",
-          "description": "List Exports.",
+          "name": "list_export_jobs",
+          "description": "List ExportJobs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_export",
-          "description": "Get a Export by id.",
+          "name": "get_export_job",
+          "description": "Get a ExportJob by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -732,24 +695,33 @@
           }
         },
         {
-          "name": "update_export",
-          "description": "Update a Export.",
+          "name": "update_export_job",
+          "description": "Update a ExportJob.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "fileId": {
+              "status": {
                 "type": "string"
               },
               "format": {
                 "type": "string"
-              },
-              "scale": {
-                "type": "number"
-              },
-              "contentRef": {
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_export_job",
+          "description": "Delete a ExportJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -759,8 +731,68 @@
           }
         },
         {
-          "name": "delete_export",
-          "description": "Delete a Export.",
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "displayName"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
           "inputSchema": {
             "type": "object",
             "properties": {

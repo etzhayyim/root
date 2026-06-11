@@ -121,8 +121,8 @@ def create_message(request):
     err = _require(data, ['fromNumber', 'toNumber'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'partially_delivered', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'partially_delivered', 'canceled']), "type": "invalid_request_error"}}, 400
     if data.get('direction') and data['direction'] not in ['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']:
         return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_mes")}
@@ -165,8 +165,8 @@ def update_message(request, eid):
     err = _reject_unknown(data, ['fromNumber', 'toNumber', 'body', 'status', 'direction'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'canceled']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'partially_delivered', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'sending', 'sent', 'failed', 'delivered', 'undelivered', 'receiving', 'received', 'accepted', 'scheduled', 'read', 'partially_delivered', 'canceled']), "type": "invalid_request_error"}}, 400
     if data.get('direction') and data['direction'] not in ['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']:
         return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound-api', 'outbound-call', 'outbound-reply']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
@@ -196,8 +196,8 @@ def create_call(request):
     err = _require(data, ['fromNumber', 'toNumber'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'completed', 'busy', 'failed', 'no-answer', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'completed', 'busy', 'failed', 'no-answer', 'canceled']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_cal")}
     rec["fromNumber"] = data.get('fromNumber')
     rec["toNumber"] = data.get('toNumber')
@@ -237,8 +237,8 @@ def update_call(request, eid):
     err = _reject_unknown(data, ['fromNumber', 'toNumber', 'status', 'durationSec'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'canceled', 'completed', 'busy', 'failed', 'no-answer']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['queued', 'ringing', 'in-progress', 'completed', 'busy', 'failed', 'no-answer', 'canceled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['queued', 'ringing', 'in-progress', 'completed', 'busy', 'failed', 'no-answer', 'canceled']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -398,16 +398,19 @@ def delete_verification(request, eid):
 def create_recording(request):
     """Create a Recording."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['callSid', 'durationSec', 'contentRef'])
+    err = _reject_unknown(data, ['callSid', 'durationSec', 'contentRef', 'status'])
     if err:
         return err, 400
     err = _require(data, ['callSid', 'durationSec'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['in-progress', 'paused', 'stopped', 'processing', 'completed', 'absent', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['in-progress', 'paused', 'stopped', 'processing', 'completed', 'absent', 'deleted']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("twilio_rec")}
     rec["callSid"] = data.get('callSid')
     rec["durationSec"] = _as_int(data.get('durationSec'))
     rec["contentRef"] = data.get('contentRef')
+    rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Recording", rec)
@@ -418,7 +421,7 @@ def list_recordings(request):
     """List Recordings with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Recording")
-    rows = _apply_filters(rows, params, ['callSid', 'durationSec', 'contentRef'])
+    rows = _apply_filters(rows, params, ['callSid', 'durationSec', 'contentRef', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -439,9 +442,11 @@ def update_recording(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['callSid', 'durationSec', 'contentRef'])
+    err = _reject_unknown(data, ['callSid', 'durationSec', 'contentRef', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['in-progress', 'paused', 'stopped', 'processing', 'completed', 'absent', 'deleted']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['in-progress', 'paused', 'stopped', 'processing', 'completed', 'absent', 'deleted']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

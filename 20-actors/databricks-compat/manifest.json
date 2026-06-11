@@ -23,6 +23,18 @@
       "ObjectInfo"
     ],
     "enums": {
+      "Cluster": {
+        "state": [
+          "PENDING",
+          "RUNNING",
+          "RESTARTING",
+          "RESIZING",
+          "TERMINATING",
+          "TERMINATED",
+          "ERROR",
+          "UNKNOWN"
+        ]
+      },
       "Run": {
         "state": [
           "PENDING",
@@ -35,6 +47,14 @@
         "warehouseType": [
           "CLASSIC",
           "SERVERLESS"
+        ],
+        "state": [
+          "STARTING",
+          "RUNNING",
+          "STOPPING",
+          "STOPPED",
+          "DELETING",
+          "DELETED"
         ]
       },
       "ObjectInfo": {

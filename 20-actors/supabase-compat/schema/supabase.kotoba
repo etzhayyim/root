@@ -3,72 +3,79 @@
 
 namespace supabase {
 
-    entity Service {
+    entity Project {
         id: string @unique
+        id: string
+        ref: string
+        organizationSlug: string
         name: string
-        runtime: string
         region: string
         status: string
         createdAt: datetime
+        createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity Organization {
         id: string @unique
-        serviceId: string
-        version: string
+        id: string
+        slug: string
+        name: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity EdgeFunction {
+        id: string @unique
+        id: string
+        slug: string
+        name: string
         status: string
-        deployedAt: datetime
+        version: integer
+        verifyJwt: boolean
+        entrypointPath: string
+        createdAt: integer
+        updatedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Secret {
+    entity ApiKey {
         id: string @unique
+        id: string
+        type: string
         name: string
-        scope: string
-        rotatedAt: datetime
+        description: string
+        prefix: string
+        insertedAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ApiProxy {
+    entity Branch {
         id: string @unique
+        id: string
         name: string
-        basePath: string
-        target: string
-        active: boolean
+        projectRef: string
+        parentProjectRef: string
+        isDefault: boolean
+        persistent: boolean
+        status: string
+        previewProjectStatus: string
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Database {
+    entity Backup {
         id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Function {
-        id: string @unique
-        serviceId: string
-        name: string
-        memoryMb: integer
-        timeoutMs: integer
+        id: integer
+        status: string
+        isPhysicalBackup: boolean
+        insertedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

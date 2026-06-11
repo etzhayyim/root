@@ -111,387 +111,130 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/employees", methods=["POST"])
-def create_employee(request):
-    """Create a Employee."""
+@app.route("/v1/contracts", methods=["POST"])
+def create_contract(request):
+    """Create a Contract."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
+    err = _reject_unknown(data, ['id', 'contractId', 'type', 'status', 'teamId', 'country', 'currency', 'externalId'])
     if err:
         return err, 400
-    err = _require(data, ['firstName', 'lastName'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("deel_emp")}
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Employee", rec)
-    return rec, 201
-
-@app.route("/v1/employees", methods=["GET"])
-def list_employees(request):
-    """List Employees with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Employee")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'title', 'department'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/employees/<eid>", methods=["GET"])
-def get_employee(request, eid):
-    """Retrieve a Employee by id (supports ?expand=)."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/employees/<eid>", methods=["POST", "PATCH"])
-def update_employee(request, eid):
-    """Update a Employee."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Employee", rec)
-    return rec, 200
-
-@app.route("/v1/employees/<eid>", methods=["DELETE"])
-def delete_employee(request, eid):
-    """Delete a Employee."""
-    rows = _query("Employee", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.Employee", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/candidates", methods=["POST"])
-def create_candidate(request):
-    """Create a Candidate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
-    if err:
-        return err, 400
-    err = _require(data, ['firstName', 'lastName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("deel_can")}
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["stage"] = data.get('stage')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Candidate", rec)
-    return rec, 201
-
-@app.route("/v1/candidates", methods=["GET"])
-def list_candidates(request):
-    """List Candidates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Candidate")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'stage'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/candidates/<eid>", methods=["GET"])
-def get_candidate(request, eid):
-    """Retrieve a Candidate by id (supports ?expand=)."""
-    rows = _query("Candidate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/candidates/<eid>", methods=["POST", "PATCH"])
-def update_candidate(request, eid):
-    """Update a Candidate."""
-    rows = _query("Candidate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Candidate", rec)
-    return rec, 200
-
-@app.route("/v1/candidates/<eid>", methods=["DELETE"])
-def delete_candidate(request, eid):
-    """Delete a Candidate."""
-    rows = _query("Candidate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.Candidate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/jobreqs", methods=["POST"])
-def create_job_req(request):
-    """Create a JobReq."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'department'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("deel_job")}
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
-    rec["status"] = data.get('status')
-    rec["openings"] = _as_int(data.get('openings'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("JobReq", rec)
-    return rec, 201
-
-@app.route("/v1/jobreqs", methods=["GET"])
-def list_job_reqs(request):
-    """List JobReqs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("JobReq")
-    rows = _apply_filters(rows, params, ['title', 'department', 'status', 'openings'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["GET"])
-def get_job_req(request, eid):
-    """Retrieve a JobReq by id (supports ?expand=)."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["POST", "PATCH"])
-def update_job_req(request, eid):
-    """Update a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("JobReq", rec)
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["DELETE"])
-def delete_job_req(request, eid):
-    """Delete a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.JobReq", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payrollruns", methods=["POST"])
-def create_payroll_run(request):
-    """Create a PayrollRun."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['period', 'grossTotal'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("deel_pay")}
-    rec["period"] = data.get('period')
-    rec["grossTotal"] = _as_float(data.get('grossTotal'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PayrollRun", rec)
-    return rec, 201
-
-@app.route("/v1/payrollruns", methods=["GET"])
-def list_payroll_runs(request):
-    """List PayrollRuns with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PayrollRun")
-    rows = _apply_filters(rows, params, ['period', 'grossTotal', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/payrollruns/<eid>", methods=["GET"])
-def get_payroll_run(request, eid):
-    """Retrieve a PayrollRun by id (supports ?expand=)."""
-    rows = _query("PayrollRun", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/payrollruns/<eid>", methods=["POST", "PATCH"])
-def update_payroll_run(request, eid):
-    """Update a PayrollRun."""
-    rows = _query("PayrollRun", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PayrollRun", rec)
-    return rec, 200
-
-@app.route("/v1/payrollruns/<eid>", methods=["DELETE"])
-def delete_payroll_run(request, eid):
-    """Delete a PayrollRun."""
-    rows = _query("PayrollRun", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.PayrollRun", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/timeoffs", methods=["POST"])
-def create_time_off(request):
-    """Create a TimeOff."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'start'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("deel_tim")}
-    rec["employeeId"] = data.get('employeeId')
+    if data.get('type') and data['type'] not in ['ongoing_time_based', 'milestones', 'payg_tasks', 'time_based', 'pay_as_you_go_time_based', 'eor']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ongoing_time_based', 'milestones', 'payg_tasks', 'time_based', 'pay_as_you_go_time_based', 'eor']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("deel_con")}
+    rec["id"] = data.get('id')
+    rec["contractId"] = data.get('contractId')
     rec["type"] = data.get('type')
-    rec["start"] = data.get('start')
-    rec["days"] = _as_float(data.get('days'))
     rec["status"] = data.get('status')
+    rec["teamId"] = data.get('teamId')
+    rec["country"] = data.get('country')
+    rec["currency"] = data.get('currency')
+    rec["externalId"] = data.get('externalId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("TimeOff", rec)
+    _persist("Contract", rec)
     return rec, 201
 
-@app.route("/v1/timeoffs", methods=["GET"])
-def list_time_offs(request):
-    """List TimeOffs with filtering + cursor pagination."""
+@app.route("/v1/contracts", methods=["GET"])
+def list_contracts(request):
+    """List Contracts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("TimeOff")
-    rows = _apply_filters(rows, params, ['employeeId', 'type', 'start', 'days', 'status'])
+    rows = _query("Contract")
+    rows = _apply_filters(rows, params, ['id', 'contractId', 'type', 'status', 'teamId', 'country', 'currency', 'externalId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["GET"])
-def get_time_off(request, eid):
-    """Retrieve a TimeOff by id (supports ?expand=)."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/contracts/<eid>", methods=["GET"])
+def get_contract(request, eid):
+    """Retrieve a Contract by id (supports ?expand=)."""
+    rows = _query("Contract", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
+    rec = _expand(rec, request.query or {}, {'contractId': 'Contract'})
     return rec, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["POST", "PATCH"])
-def update_time_off(request, eid):
-    """Update a TimeOff."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
+def update_contract(request, eid):
+    """Update a Contract."""
+    rows = _query("Contract", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
+    err = _reject_unknown(data, ['id', 'contractId', 'type', 'status', 'teamId', 'country', 'currency', 'externalId'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ongoing_time_based', 'milestones', 'payg_tasks', 'time_based', 'pay_as_you_go_time_based', 'eor']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ongoing_time_based', 'milestones', 'payg_tasks', 'time_based', 'pay_as_you_go_time_based', 'eor']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("TimeOff", rec)
+    _persist("Contract", rec)
     return rec, 200
 
-@app.route("/v1/timeoffs/<eid>", methods=["DELETE"])
-def delete_time_off(request, eid):
-    """Delete a TimeOff."""
-    rows = _query("TimeOff", eid)
+@app.route("/v1/contracts/<eid>", methods=["DELETE"])
+def delete_contract(request, eid):
+    """Delete a Contract."""
+    rows = _query("Contract", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.TimeOff", "id": eid})
+    db.retract({"entity": f"deel.Contract", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reviews", methods=["POST"])
-def create_review(request):
-    """Create a Review."""
+@app.route("/v1/workers", methods=["POST"])
+def create_worker(request):
+    """Create a Worker."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    err = _reject_unknown(data, ['profileId', 'name', 'firstName', 'lastName', 'email', 'country'])
     if err:
         return err, 400
-    err = _require(data, ['cycle', 'rating'])
+    err = _require(data, ['name', 'firstName'])
     if err:
         return err, 400
-    rec = {"id": new_id("deel_rev")}
-    rec["employeeId"] = data.get('employeeId')
-    rec["cycle"] = data.get('cycle')
-    rec["rating"] = _as_float(data.get('rating'))
-    rec["reviewerId"] = data.get('reviewerId')
+    rec = {"id": new_id("deel_wor")}
+    rec["profileId"] = data.get('profileId')
+    rec["name"] = data.get('name')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["email"] = data.get('email')
+    rec["country"] = data.get('country')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Review", rec)
+    _persist("Worker", rec)
     return rec, 201
 
-@app.route("/v1/reviews", methods=["GET"])
-def list_reviews(request):
-    """List Reviews with filtering + cursor pagination."""
+@app.route("/v1/workers", methods=["GET"])
+def list_workers(request):
+    """List Workers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Review")
-    rows = _apply_filters(rows, params, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    rows = _query("Worker")
+    rows = _apply_filters(rows, params, ['profileId', 'name', 'firstName', 'lastName', 'email', 'country'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/reviews/<eid>", methods=["GET"])
-def get_review(request, eid):
-    """Retrieve a Review by id (supports ?expand=)."""
-    rows = _query("Review", eid)
+@app.route("/v1/workers/<eid>", methods=["GET"])
+def get_worker(request, eid):
+    """Retrieve a Worker by id (supports ?expand=)."""
+    rows = _query("Worker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
     return rec, 200
 
-@app.route("/v1/reviews/<eid>", methods=["POST", "PATCH"])
-def update_review(request, eid):
-    """Update a Review."""
-    rows = _query("Review", eid)
+@app.route("/v1/workers/<eid>", methods=["POST", "PATCH"])
+def update_worker(request, eid):
+    """Update a Worker."""
+    rows = _query("Worker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
+    err = _reject_unknown(data, ['profileId', 'name', 'firstName', 'lastName', 'email', 'country'])
     if err:
         return err, 400
     rec = rows[0]
@@ -499,22 +242,242 @@ def update_review(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Review", rec)
+    _persist("Worker", rec)
     return rec, 200
 
-@app.route("/v1/reviews/<eid>", methods=["DELETE"])
-def delete_review(request, eid):
-    """Delete a Review."""
-    rows = _query("Review", eid)
+@app.route("/v1/workers/<eid>", methods=["DELETE"])
+def delete_worker(request, eid):
+    """Delete a Worker."""
+    rows = _query("Worker", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"deel.Review", "id": eid})
+    db.retract({"entity": f"deel.Worker", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/milestones", methods=["POST"])
+def create_milestone(request):
+    """Create a Milestone."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'title', 'amount', 'status', 'contractId', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'title'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("deel_mil")}
+    rec["id"] = data.get('id')
+    rec["title"] = data.get('title')
+    rec["amount"] = _as_float(data.get('amount'))
+    rec["status"] = data.get('status')
+    rec["contractId"] = data.get('contractId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Milestone", rec)
+    return rec, 201
+
+@app.route("/v1/milestones", methods=["GET"])
+def list_milestones(request):
+    """List Milestones with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Milestone")
+    rows = _apply_filters(rows, params, ['id', 'title', 'amount', 'status', 'contractId', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/milestones/<eid>", methods=["GET"])
+def get_milestone(request, eid):
+    """Retrieve a Milestone by id (supports ?expand=)."""
+    rows = _query("Milestone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'contractId': 'Contract'})
+    return rec, 200
+
+@app.route("/v1/milestones/<eid>", methods=["POST", "PATCH"])
+def update_milestone(request, eid):
+    """Update a Milestone."""
+    rows = _query("Milestone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'title', 'amount', 'status', 'contractId', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Milestone", rec)
+    return rec, 200
+
+@app.route("/v1/milestones/<eid>", methods=["DELETE"])
+def delete_milestone(request, eid):
+    """Delete a Milestone."""
+    rows = _query("Milestone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"deel.Milestone", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/timesheets", methods=["POST"])
+def create_timesheet(request):
+    """Create a Timesheet."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'contractId', 'date', 'hours', 'description', 'status', 'reporterId'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'date'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'approved', 'rejected', 'queued_for_payment']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'approved', 'rejected', 'queued_for_payment']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("deel_tim")}
+    rec["id"] = data.get('id')
+    rec["contractId"] = data.get('contractId')
+    rec["date"] = data.get('date')
+    rec["hours"] = _as_float(data.get('hours'))
+    rec["description"] = data.get('description')
+    rec["status"] = data.get('status')
+    rec["reporterId"] = data.get('reporterId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Timesheet", rec)
+    return rec, 201
+
+@app.route("/v1/timesheets", methods=["GET"])
+def list_timesheets(request):
+    """List Timesheets with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Timesheet")
+    rows = _apply_filters(rows, params, ['id', 'contractId', 'date', 'hours', 'description', 'status', 'reporterId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/timesheets/<eid>", methods=["GET"])
+def get_timesheet(request, eid):
+    """Retrieve a Timesheet by id (supports ?expand=)."""
+    rows = _query("Timesheet", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'contractId': 'Contract'})
+    return rec, 200
+
+@app.route("/v1/timesheets/<eid>", methods=["POST", "PATCH"])
+def update_timesheet(request, eid):
+    """Update a Timesheet."""
+    rows = _query("Timesheet", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'contractId', 'date', 'hours', 'description', 'status', 'reporterId'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'approved', 'rejected', 'queued_for_payment']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'approved', 'rejected', 'queued_for_payment']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Timesheet", rec)
+    return rec, 200
+
+@app.route("/v1/timesheets/<eid>", methods=["DELETE"])
+def delete_timesheet(request, eid):
+    """Delete a Timesheet."""
+    rows = _query("Timesheet", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"deel.Timesheet", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/payments", methods=["POST"])
+def create_payment(request):
+    """Create a Payment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['paymentId', 'dateFrom', 'dateTo', 'status', 'currency', 'entityType'])
+    if err:
+        return err, 400
+    err = _require(data, ['dateFrom', 'dateTo'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['paid', 'processing']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['paid', 'processing']), "type": "invalid_request_error"}}, 400
+    if data.get('entityType') and data['entityType'] not in ['individual', 'company']:
+        return {"error": {"message": "invalid entityType; allowed: " + ", ".join(['individual', 'company']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("deel_pay")}
+    rec["paymentId"] = data.get('paymentId')
+    rec["dateFrom"] = data.get('dateFrom')
+    rec["dateTo"] = data.get('dateTo')
+    rec["status"] = data.get('status')
+    rec["currency"] = data.get('currency')
+    rec["entityType"] = data.get('entityType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Payment", rec)
+    return rec, 201
+
+@app.route("/v1/payments", methods=["GET"])
+def list_payments(request):
+    """List Payments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Payment")
+    rows = _apply_filters(rows, params, ['paymentId', 'dateFrom', 'dateTo', 'status', 'currency', 'entityType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/payments/<eid>", methods=["GET"])
+def get_payment(request, eid):
+    """Retrieve a Payment by id (supports ?expand=)."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'paymentId': 'Payment'})
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["POST", "PATCH"])
+def update_payment(request, eid):
+    """Update a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['paymentId', 'dateFrom', 'dateTo', 'status', 'currency', 'entityType'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['paid', 'processing']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['paid', 'processing']), "type": "invalid_request_error"}}, 400
+    if data.get('entityType') and data['entityType'] not in ['individual', 'company']:
+        return {"error": {"message": "invalid entityType; allowed: " + ", ".join(['individual', 'company']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Payment", rec)
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["DELETE"])
+def delete_payment(request, eid):
+    """Delete a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"deel.Payment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "deel-compat", "tier": "L4",
-            "entities": ['Employee', 'Candidate', 'JobReq', 'PayrollRun', 'TimeOff', 'Review']}, 200
+            "entities": ['Contract', 'Worker', 'Milestone', 'Timesheet', 'Payment']}, 200
 
 
 if __name__ == "__main__":

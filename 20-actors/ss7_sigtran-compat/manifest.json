@@ -5,21 +5,69 @@
   "kind": "compat",
   "title": "ss7_sigtran clean-room actor",
   "description": "Clean-room, API-compatible telecom / satellite actor (ss7_sigtran); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+  "wasmCid": "bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+  "ipfs": "ipfs://bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
   "schema": "schema/ss7_sigtran.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc4666",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "M3uaMessage",
+      "SuaMessage",
+      "ProtocolData",
+      "Mtp3Message",
+      "SccpMessage"
+    ],
+    "enums": {
+      "M3uaMessage": {
+        "messageClass": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          9
+        ]
+      },
+      "SuaMessage": {
+        "messageClass": [
+          0,
+          2,
+          3,
+          4,
+          7,
+          8,
+          9
+        ]
+      },
+      "ProtocolData": {
+        "ni": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "Mtp3Message": {
+        "networkIndicator": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  },
   "entities": [
-    "Subscriber",
-    "Session",
-    "Message",
-    "Number",
-    "Terminal",
-    "UsageRecord"
+    "M3uaMessage",
+    "SuaMessage",
+    "ProtocolData",
+    "Mtp3Message",
+    "SccpMessage"
   ],
   "adr": [
     "260607",
@@ -31,157 +79,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/subscribers",
-          "op": "create Subscriber"
+          "path": "/v1/m3uamessages",
+          "op": "create M3uaMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/subscribers",
-          "op": "list Subscriber"
+          "path": "/v1/m3uamessages",
+          "op": "list M3uaMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/subscribers/{id}",
-          "op": "get Subscriber"
+          "path": "/v1/m3uamessages/{id}",
+          "op": "get M3uaMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/subscribers/{id}",
-          "op": "update Subscriber"
+          "path": "/v1/m3uamessages/{id}",
+          "op": "update M3uaMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/subscribers/{id}",
-          "op": "delete Subscriber"
+          "path": "/v1/m3uamessages/{id}",
+          "op": "delete M3uaMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/sessions",
-          "op": "create Session"
+          "path": "/v1/suamessages",
+          "op": "create SuaMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/sessions",
-          "op": "list Session"
+          "path": "/v1/suamessages",
+          "op": "list SuaMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/sessions/{id}",
-          "op": "get Session"
+          "path": "/v1/suamessages/{id}",
+          "op": "get SuaMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/sessions/{id}",
-          "op": "update Session"
+          "path": "/v1/suamessages/{id}",
+          "op": "update SuaMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/sessions/{id}",
-          "op": "delete Session"
+          "path": "/v1/suamessages/{id}",
+          "op": "delete SuaMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/protocoldatas",
+          "op": "create ProtocolData"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/protocoldatas",
+          "op": "list ProtocolData"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/protocoldatas/{id}",
+          "op": "get ProtocolData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/protocoldatas/{id}",
+          "op": "update ProtocolData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/protocoldatas/{id}",
+          "op": "delete ProtocolData"
         },
         {
           "method": "POST",
-          "path": "/v1/numbers",
-          "op": "create Number"
+          "path": "/v1/mtp3messages",
+          "op": "create Mtp3Message"
         },
         {
           "method": "GET",
-          "path": "/v1/numbers",
-          "op": "list Number"
+          "path": "/v1/mtp3messages",
+          "op": "list Mtp3Message"
         },
         {
           "method": "GET",
-          "path": "/v1/numbers/{id}",
-          "op": "get Number"
+          "path": "/v1/mtp3messages/{id}",
+          "op": "get Mtp3Message"
         },
         {
           "method": "PATCH",
-          "path": "/v1/numbers/{id}",
-          "op": "update Number"
+          "path": "/v1/mtp3messages/{id}",
+          "op": "update Mtp3Message"
         },
         {
           "method": "DELETE",
-          "path": "/v1/numbers/{id}",
-          "op": "delete Number"
+          "path": "/v1/mtp3messages/{id}",
+          "op": "delete Mtp3Message"
         },
         {
           "method": "POST",
-          "path": "/v1/terminals",
-          "op": "create Terminal"
+          "path": "/v1/sccpmessages",
+          "op": "create SccpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/terminals",
-          "op": "list Terminal"
+          "path": "/v1/sccpmessages",
+          "op": "list SccpMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/terminals/{id}",
-          "op": "get Terminal"
+          "path": "/v1/sccpmessages/{id}",
+          "op": "get SccpMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/terminals/{id}",
-          "op": "update Terminal"
+          "path": "/v1/sccpmessages/{id}",
+          "op": "update SccpMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/terminals/{id}",
-          "op": "delete Terminal"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/usagerecords",
-          "op": "create UsageRecord"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/usagerecords",
-          "op": "list UsageRecord"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/usagerecords/{id}",
-          "op": "get UsageRecord"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/usagerecords/{id}",
-          "op": "update UsageRecord"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/usagerecords/{id}",
-          "op": "delete UsageRecord"
+          "path": "/v1/sccpmessages/{id}",
+          "op": "delete SccpMessage"
         }
       ],
       "features": {
@@ -244,134 +267,47 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_subscriber",
-          "description": "Create a Subscriber.",
+          "name": "create_m3ua_message",
+          "description": "Create a M3uaMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "imsi": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "msisdn": {
-                "type": "string"
+              "reserved": {
+                "type": "integer"
               },
-              "plan": {
-                "type": "string"
+              "messageClass": {
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "imsi",
-              "msisdn"
-            ]
-          }
-        },
-        {
-          "name": "list_subscribers",
-          "description": "List Subscribers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_subscriber",
-          "description": "Get a Subscriber by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_subscriber",
-          "description": "Update a Subscriber.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "imsi": {
-                "type": "string"
-              },
-              "msisdn": {
-                "type": "string"
-              },
-              "plan": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_subscriber",
-          "description": "Delete a Subscriber.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_session",
-          "description": "Create a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "subscriberId": {
-                "type": "string"
-              },
-              "apn": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              },
-              "bytesUsed": {
+              "messageLength": {
                 "type": "integer"
               }
             },
             "required": [
-              "apn",
-              "startedAt"
+              "version",
+              "reserved"
             ]
           }
         },
         {
-          "name": "list_sessions",
-          "description": "List Sessions.",
+          "name": "list_m3ua_messages",
+          "description": "List M3uaMessages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_session",
-          "description": "Get a Session by id.",
+          "name": "get_m3ua_message",
+          "description": "Get a M3uaMessage by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +321,27 @@
           }
         },
         {
-          "name": "update_session",
-          "description": "Update a Session.",
+          "name": "update_m3ua_message",
+          "description": "Update a M3uaMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "subscriberId": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "apn": {
-                "type": "string"
+              "reserved": {
+                "type": "integer"
               },
-              "startedAt": {
-                "type": "string"
+              "messageClass": {
+                "type": "integer"
               },
-              "bytesUsed": {
+              "messageType": {
+                "type": "integer"
+              },
+              "messageLength": {
                 "type": "integer"
               }
             },
@@ -412,8 +351,8 @@
           }
         },
         {
-          "name": "delete_session",
-          "description": "Delete a Session.",
+          "name": "delete_m3ua_message",
+          "description": "Delete a M3uaMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,41 +366,41 @@
           }
         },
         {
-          "name": "create_message",
-          "description": "Create a Message.",
+          "name": "create_sua_message",
+          "description": "Create a SuaMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "fromAddr": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "toAddr": {
-                "type": "string"
+              "messageClass": {
+                "type": "integer"
               },
-              "body": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "messageLength": {
+                "type": "integer"
               }
             },
             "required": [
-              "fromAddr",
-              "toAddr"
+              "version",
+              "messageClass"
             ]
           }
         },
         {
-          "name": "list_messages",
-          "description": "List Messages.",
+          "name": "list_sua_messages",
+          "description": "List SuaMessages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_message",
-          "description": "Get a Message by id.",
+          "name": "get_sua_message",
+          "description": "Get a SuaMessage by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +414,39 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
+          "name": "update_sua_message",
+          "description": "Update a SuaMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "fromAddr": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "toAddr": {
-                "type": "string"
+              "messageClass": {
+                "type": "integer"
               },
-              "body": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "status": {
+              "messageLength": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_sua_message",
+          "description": "Delete a SuaMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -502,53 +456,47 @@
           }
         },
         {
-          "name": "delete_message",
-          "description": "Delete a Message.",
+          "name": "create_protocol_data",
+          "description": "Create a ProtocolData.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "opc": {
+                "type": "integer"
+              },
+              "dpc": {
+                "type": "integer"
+              },
+              "si": {
+                "type": "integer"
+              },
+              "ni": {
+                "type": "integer"
+              },
+              "mp": {
+                "type": "integer"
+              },
+              "sls": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "opc",
+              "dpc"
             ]
           }
         },
         {
-          "name": "create_number",
-          "description": "Create a Number.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "e164": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "assignedTo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "e164",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_numbers",
-          "description": "List Numbers.",
+          "name": "list_protocol_datas",
+          "description": "List ProtocolDatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_number",
-          "description": "Get a Number by id.",
+          "name": "get_protocol_data",
+          "description": "Get a ProtocolData by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -562,21 +510,45 @@
           }
         },
         {
-          "name": "update_number",
-          "description": "Update a Number.",
+          "name": "update_protocol_data",
+          "description": "Update a ProtocolData.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "e164": {
-                "type": "string"
+              "opc": {
+                "type": "integer"
               },
-              "type": {
-                "type": "string"
+              "dpc": {
+                "type": "integer"
               },
-              "assignedTo": {
+              "si": {
+                "type": "integer"
+              },
+              "ni": {
+                "type": "integer"
+              },
+              "mp": {
+                "type": "integer"
+              },
+              "sls": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_protocol_data",
+          "description": "Delete a ProtocolData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -586,56 +558,38 @@
           }
         },
         {
-          "name": "delete_number",
-          "description": "Delete a Number.",
+          "name": "create_mtp3_message",
+          "description": "Create a Mtp3Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "serviceIndicator": {
+                "type": "integer"
+              },
+              "networkIndicator": {
+                "type": "integer"
+              },
+              "payload": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "serviceIndicator",
+              "networkIndicator"
             ]
           }
         },
         {
-          "name": "create_terminal",
-          "description": "Create a Terminal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serial": {
-                "type": "string"
-              },
-              "satellite": {
-                "type": "string"
-              },
-              "signalDb": {
-                "type": "number"
-              },
-              "online": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "serial",
-              "satellite"
-            ]
-          }
-        },
-        {
-          "name": "list_terminals",
-          "description": "List Terminals.",
+          "name": "list_mtp3_messages",
+          "description": "List Mtp3Messages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_terminal",
-          "description": "Get a Terminal by id.",
+          "name": "get_mtp3_message",
+          "description": "Get a Mtp3Message by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -649,25 +603,22 @@
           }
         },
         {
-          "name": "update_terminal",
-          "description": "Update a Terminal.",
+          "name": "update_mtp3_message",
+          "description": "Update a Mtp3Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "serial": {
+              "serviceIndicator": {
+                "type": "integer"
+              },
+              "networkIndicator": {
+                "type": "integer"
+              },
+              "payload": {
                 "type": "string"
-              },
-              "satellite": {
-                "type": "string"
-              },
-              "signalDb": {
-                "type": "number"
-              },
-              "online": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -676,8 +627,8 @@
           }
         },
         {
-          "name": "delete_terminal",
-          "description": "Delete a Terminal.",
+          "name": "delete_mtp3_message",
+          "description": "Delete a Mtp3Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,41 +642,44 @@
           }
         },
         {
-          "name": "create_usage_record",
-          "description": "Create a UsageRecord.",
+          "name": "create_sccp_message",
+          "description": "Create a SccpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "subscriberId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "quantity": {
-                "type": "number"
+              "destinationPointCode": {
+                "type": "integer"
               },
-              "unit": {
-                "type": "string"
+              "sourcePointCode": {
+                "type": "integer"
               },
-              "ratedAt": {
+              "subsystemNumber": {
+                "type": "integer"
+              },
+              "globalTitle": {
                 "type": "string"
               }
             },
             "required": [
-              "quantity",
-              "unit"
+              "messageType",
+              "destinationPointCode"
             ]
           }
         },
         {
-          "name": "list_usage_records",
-          "description": "List UsageRecords.",
+          "name": "list_sccp_messages",
+          "description": "List SccpMessages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_usage_record",
-          "description": "Get a UsageRecord by id.",
+          "name": "get_sccp_message",
+          "description": "Get a SccpMessage by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +693,27 @@
           }
         },
         {
-          "name": "update_usage_record",
-          "description": "Update a UsageRecord.",
+          "name": "update_sccp_message",
+          "description": "Update a SccpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "subscriberId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "quantity": {
-                "type": "number"
+              "destinationPointCode": {
+                "type": "integer"
               },
-              "unit": {
-                "type": "string"
+              "sourcePointCode": {
+                "type": "integer"
               },
-              "ratedAt": {
+              "subsystemNumber": {
+                "type": "integer"
+              },
+              "globalTitle": {
                 "type": "string"
               }
             },
@@ -766,8 +723,8 @@
           }
         },
         {
-          "name": "delete_usage_record",
-          "description": "Delete a UsageRecord.",
+          "name": "delete_sccp_message",
+          "description": "Delete a SccpMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {

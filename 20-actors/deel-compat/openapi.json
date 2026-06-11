@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible HR technology actor (deel); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:deel-compat",
-    "x-wasm-cid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+    "x-wasm-cid": "bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+      "url": "ipfs://bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/employees": {
+    "/v1/contracts": {
       "get": {
-        "summary": "List Employees",
+        "summary": "List Contracts",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Employee"
+                        "$ref": "#/components/schemas/Contract"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Employee",
+        "summary": "Create a Contract",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmployeeCreate"
+                "$ref": "#/components/schemas/ContractCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Employee"
+                  "$ref": "#/components/schemas/Contract"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/employees/{id}": {
+    "/v1/contracts/{id}": {
       "get": {
-        "summary": "Get a Employee",
+        "summary": "Get a Contract",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Employee"
+                  "$ref": "#/components/schemas/Contract"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Employee",
+        "summary": "Update a Contract",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmployeeCreate"
+                "$ref": "#/components/schemas/ContractCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Employee"
+                  "$ref": "#/components/schemas/Contract"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Employee",
+        "summary": "Delete a Contract",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/candidates": {
+    "/v1/workers": {
       "get": {
-        "summary": "List Candidates",
+        "summary": "List Workers",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Candidate"
+                        "$ref": "#/components/schemas/Worker"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Candidate",
+        "summary": "Create a Worker",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CandidateCreate"
+                "$ref": "#/components/schemas/WorkerCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Candidate"
+                  "$ref": "#/components/schemas/Worker"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/candidates/{id}": {
+    "/v1/workers/{id}": {
       "get": {
-        "summary": "Get a Candidate",
+        "summary": "Get a Worker",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Candidate"
+                  "$ref": "#/components/schemas/Worker"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Candidate",
+        "summary": "Update a Worker",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CandidateCreate"
+                "$ref": "#/components/schemas/WorkerCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Candidate"
+                  "$ref": "#/components/schemas/Worker"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Candidate",
+        "summary": "Delete a Worker",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/jobreqs": {
+    "/v1/milestones": {
       "get": {
-        "summary": "List JobReqs",
+        "summary": "List Milestones",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/JobReq"
+                        "$ref": "#/components/schemas/Milestone"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a JobReq",
+        "summary": "Create a Milestone",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/JobReqCreate"
+                "$ref": "#/components/schemas/MilestoneCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Milestone"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/jobreqs/{id}": {
+    "/v1/milestones/{id}": {
       "get": {
-        "summary": "Get a JobReq",
+        "summary": "Get a Milestone",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Milestone"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a JobReq",
+        "summary": "Update a Milestone",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/JobReqCreate"
+                "$ref": "#/components/schemas/MilestoneCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobReq"
+                  "$ref": "#/components/schemas/Milestone"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a JobReq",
+        "summary": "Delete a Milestone",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/payrollruns": {
+    "/v1/timesheets": {
       "get": {
-        "summary": "List PayrollRuns",
+        "summary": "List Timesheets",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PayrollRun"
+                        "$ref": "#/components/schemas/Timesheet"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a PayrollRun",
+        "summary": "Create a Timesheet",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayrollRunCreate"
+                "$ref": "#/components/schemas/TimesheetCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Timesheet"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/payrollruns/{id}": {
+    "/v1/timesheets/{id}": {
       "get": {
-        "summary": "Get a PayrollRun",
+        "summary": "Get a Timesheet",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Timesheet"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PayrollRun",
+        "summary": "Update a Timesheet",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PayrollRunCreate"
+                "$ref": "#/components/schemas/TimesheetCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollRun"
+                  "$ref": "#/components/schemas/Timesheet"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PayrollRun",
+        "summary": "Delete a Timesheet",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/timeoffs": {
+    "/v1/payments": {
       "get": {
-        "summary": "List TimeOffs",
+        "summary": "List Payments",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/TimeOff"
+                        "$ref": "#/components/schemas/Payment"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a TimeOff",
+        "summary": "Create a Payment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TimeOffCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/timeoffs/{id}": {
+    "/v1/payments/{id}": {
       "get": {
-        "summary": "Get a TimeOff",
+        "summary": "Get a Payment",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a TimeOff",
+        "summary": "Update a Payment",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TimeOffCreate"
+                "$ref": "#/components/schemas/PaymentCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TimeOff"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a TimeOff",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/reviews": {
-      "get": {
-        "summary": "List Reviews",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Review"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Review",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Review"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/reviews/{id}": {
-      "get": {
-        "summary": "Get a Review",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Review"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Review",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReviewCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Review"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Review",
+        "summary": "Delete a Payment",
         "parameters": [
           {
             "name": "id",
@@ -1140,175 +955,39 @@
   },
   "components": {
     "schemas": {
-      "Employee": {
+      "Contract": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "firstName": {
+          "contractId": {
             "type": "string"
           },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          },
-          "createdAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EmployeeCreate": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName"
-        ]
-      },
-      "Candidate": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "stage": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CandidateCreate": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "stage": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName"
-        ]
-      },
-      "JobReq": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
+            "enum": [
+              "ongoing_time_based",
+              "milestones",
+              "payg_tasks",
+              "time_based",
+              "pay_as_you_go_time_based",
+              "eor"
+            ]
           },
           "status": {
             "type": "string"
           },
-          "openings": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "JobReqCreate": {
-        "type": "object",
-        "properties": {
-          "title": {
+          "teamId": {
             "type": "string"
           },
-          "department": {
+          "country": {
             "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "openings": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "title",
-          "department"
-        ]
-      },
-      "PayrollRun": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "grossTotal": {
-            "type": "number"
           },
           "currency": {
             "type": "string"
           },
-          "status": {
+          "externalId": {
             "type": "string"
           },
           "createdAt": {
@@ -1321,47 +1000,69 @@
           }
         }
       },
-      "PayrollRunCreate": {
+      "ContractCreate": {
         "type": "object",
         "properties": {
-          "period": {
+          "id": {
             "type": "string"
           },
-          "grossTotal": {
-            "type": "number"
+          "contractId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ongoing_time_based",
+              "milestones",
+              "payg_tasks",
+              "time_based",
+              "pay_as_you_go_time_based",
+              "eor"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "teamId": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
           },
           "currency": {
             "type": "string"
           },
-          "status": {
+          "externalId": {
             "type": "string"
           }
         },
         "required": [
-          "period",
-          "grossTotal"
+          "id",
+          "type"
         ]
       },
-      "TimeOff": {
+      "Worker": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "employeeId": {
+          "profileId": {
             "type": "string"
           },
-          "type": {
+          "name": {
             "type": "string"
           },
-          "start": {
-            "type": "string",
-            "format": "date-time"
+          "firstName": {
+            "type": "string"
           },
-          "days": {
-            "type": "number"
+          "lastName": {
+            "type": "string"
           },
-          "status": {
+          "email": {
+            "type": "string"
+          },
+          "country": {
             "type": "string"
           },
           "createdAt": {
@@ -1374,46 +1075,49 @@
           }
         }
       },
-      "TimeOffCreate": {
+      "WorkerCreate": {
         "type": "object",
         "properties": {
-          "employeeId": {
+          "profileId": {
             "type": "string"
           },
-          "type": {
+          "name": {
             "type": "string"
           },
-          "start": {
+          "firstName": {
             "type": "string"
           },
-          "days": {
-            "type": "number"
+          "lastName": {
+            "type": "string"
           },
-          "status": {
+          "email": {
+            "type": "string"
+          },
+          "country": {
             "type": "string"
           }
         },
         "required": [
-          "type",
-          "start"
+          "name",
+          "firstName"
         ]
       },
-      "Review": {
+      "Milestone": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "employeeId": {
+          "title": {
             "type": "string"
           },
-          "cycle": {
-            "type": "string"
-          },
-          "rating": {
+          "amount": {
             "type": "number"
           },
-          "reviewerId": {
+          "status": {
+            "type": "string"
+          },
+          "contractId": {
             "type": "string"
           },
           "createdAt": {
@@ -1426,25 +1130,187 @@
           }
         }
       },
-      "ReviewCreate": {
+      "MilestoneCreate": {
         "type": "object",
         "properties": {
-          "employeeId": {
+          "id": {
             "type": "string"
           },
-          "cycle": {
+          "title": {
             "type": "string"
           },
-          "rating": {
+          "amount": {
             "type": "number"
           },
-          "reviewerId": {
+          "status": {
+            "type": "string"
+          },
+          "contractId": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "string"
           }
         },
         "required": [
-          "cycle",
-          "rating"
+          "id",
+          "title"
+        ]
+      },
+      "Timesheet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "contractId": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "hours": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected",
+              "queued_for_payment"
+            ]
+          },
+          "reporterId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TimesheetCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "contractId": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected",
+              "queued_for_payment"
+            ]
+          },
+          "reporterId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "date"
+        ]
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateTo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "paid",
+              "processing"
+            ]
+          },
+          "currency": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "company"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaymentCreate": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "string"
+          },
+          "dateTo": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "paid",
+              "processing"
+            ]
+          },
+          "currency": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "company"
+            ]
+          }
+        },
+        "required": [
+          "dateFrom",
+          "dateTo"
         ]
       }
     }

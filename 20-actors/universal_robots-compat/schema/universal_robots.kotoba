@@ -3,69 +3,62 @@
 
 namespace universal_robots {
 
-    entity Part {
+    entity RtdeRobotState {
         id: string @unique
-        partNumber: string
-        name: string
-        revision: string
-        material: string
+        timestamp: float
+        robot_mode: integer
+        robot_status_bits: integer
+        safety_mode: integer
+        safety_status_bits: integer
+        actual_main_voltage: float
+        actual_robot_voltage: float
+        actual_robot_current: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity BOM {
+    entity RtdeExecutionState {
         id: string @unique
-        parentPartId: string
-        childPartId: string
-        quantity: integer
+        runtime_state: integer
+        actual_execution_time: float
+        speed_scaling: float
+        target_speed_fraction: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ChangeOrder {
+    entity RtdeToolState {
         id: string @unique
-        partId: string
-        number: string
-        status: string
+        tool_mode: integer
+        tool_output_voltage: integer
+        tool_output_current: float
+        tool_temperature: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity WorkOrder {
+    entity DashboardRobotState {
         id: string @unique
-        partId: string
-        quantity: integer
-        status: string
+        robotmode: string
+        safetystatus: string
+        running: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Robot {
+    entity DashboardProgram {
         id: string @unique
-        model: string
-        cellId: string
-        status: string
-        payloadKg: float
+        programName: string
+        state: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Program {
+    entity DashboardInstallation {
         id: string @unique
-        robotId: string
-        name: string
-        cycleTimeMs: integer
+        installationName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

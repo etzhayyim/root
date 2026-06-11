@@ -111,153 +111,28 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendbird_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
-    return rec, 201
-
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Channel", rec)
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendbird.Channel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendbird_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendbird.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['userId', 'nickname', 'profileUrl', 'accessToken', 'isActive', 'role', 'createdAt', 'lastSeenAt', 'isOnline'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['nickname', 'profileUrl'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['operator', '']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['operator', '']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("sendbird_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec["userId"] = data.get('userId')
+    rec["nickname"] = data.get('nickname')
+    rec["profileUrl"] = data.get('profileUrl')
+    rec["accessToken"] = data.get('accessToken')
+    rec["isActive"] = _as_bool(data.get('isActive'))
+    rec["role"] = data.get('role')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["lastSeenAt"] = _as_int(data.get('lastSeenAt'))
+    rec["isOnline"] = _as_bool(data.get('isOnline'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -268,7 +143,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _apply_filters(rows, params, ['userId', 'nickname', 'profileUrl', 'accessToken', 'isActive', 'role', 'createdAt', 'lastSeenAt', 'isOnline'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -280,6 +155,7 @@ def get_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'userId': 'User'})
     return rec, 200
 
 @app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
@@ -289,9 +165,11 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['userId', 'nickname', 'profileUrl', 'accessToken', 'isActive', 'role', 'createdAt', 'lastSeenAt', 'isOnline'])
     if err:
         return err, 400
+    if data.get('role') and data['role'] not in ['operator', '']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['operator', '']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -309,52 +187,129 @@ def delete_user(request, eid):
     db.retract({"entity": f"sendbird.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
+@app.route("/v1/messages", methods=["POST"])
+def create_message(request):
+    """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['messageId', 'type', 'customType', 'message', 'channelUrl', 'createdAt', 'updatedAt', 'isRemoved'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
+    err = _require(data, ['type', 'customType'])
     if err:
         return err, 400
-    rec = {"id": new_id("sendbird_roo")}
+    if data.get('type') and data['type'] not in ['MESG', 'FILE', 'ADMM']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['MESG', 'FILE', 'ADMM']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("sendbird_mes")}
+    rec["messageId"] = _as_int(data.get('messageId'))
+    rec["type"] = data.get('type')
+    rec["customType"] = data.get('customType')
+    rec["message"] = data.get('message')
+    rec["channelUrl"] = data.get('channelUrl')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
+    rec["isRemoved"] = _as_bool(data.get('isRemoved'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Message", rec)
+    return rec, 201
+
+@app.route("/v1/messages", methods=["GET"])
+def list_messages(request):
+    """List Messages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Message")
+    rows = _apply_filters(rows, params, ['messageId', 'type', 'customType', 'message', 'channelUrl', 'createdAt', 'updatedAt', 'isRemoved'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/messages/<eid>", methods=["GET"])
+def get_message(request, eid):
+    """Retrieve a Message by id (supports ?expand=)."""
+    rows = _query("Message", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'messageId': 'Message'})
+    return rec, 200
+
+@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
+def update_message(request, eid):
+    """Update a Message."""
+    rows = _query("Message", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageId', 'type', 'customType', 'message', 'channelUrl', 'createdAt', 'updatedAt', 'isRemoved'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['MESG', 'FILE', 'ADMM']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['MESG', 'FILE', 'ADMM']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Message", rec)
+    return rec, 200
+
+@app.route("/v1/messages/<eid>", methods=["DELETE"])
+def delete_message(request, eid):
+    """Delete a Message."""
+    rows = _query("Message", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"sendbird.Message", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/groupchannels", methods=["POST"])
+def create_group_channel(request):
+    """Create a GroupChannel."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['channelUrl', 'name', 'memberCount', 'isDistinct', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['channelUrl', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("sendbird_gro")}
+    rec["channelUrl"] = data.get('channelUrl')
     rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
+    rec["memberCount"] = _as_int(data.get('memberCount'))
+    rec["isDistinct"] = _as_bool(data.get('isDistinct'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
+    _persist("GroupChannel", rec)
     return rec, 201
 
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
+@app.route("/v1/groupchannels", methods=["GET"])
+def list_group_channels(request):
+    """List GroupChannels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
+    rows = _query("GroupChannel")
+    rows = _apply_filters(rows, params, ['channelUrl', 'name', 'memberCount', 'isDistinct', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
+@app.route("/v1/groupchannels/<eid>", methods=["GET"])
+def get_group_channel(request, eid):
+    """Retrieve a GroupChannel by id (supports ?expand=)."""
+    rows = _query("GroupChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/groupchannels/<eid>", methods=["POST", "PATCH"])
+def update_group_channel(request, eid):
+    """Update a GroupChannel."""
+    rows = _query("GroupChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['channelUrl', 'name', 'memberCount', 'isDistinct', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,65 +317,65 @@ def update_room(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Room", rec)
+    _persist("GroupChannel", rec)
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/groupchannels/<eid>", methods=["DELETE"])
+def delete_group_channel(request, eid):
+    """Delete a GroupChannel."""
+    rows = _query("GroupChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendbird.Room", "id": eid})
+    db.retract({"entity": f"sendbird.GroupChannel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
+@app.route("/v1/openchannels", methods=["POST"])
+def create_open_channel(request):
+    """Create a OpenChannel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['channelUrl', 'name', 'participantCount', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'bitrate'])
+    err = _require(data, ['channelUrl', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("sendbird_str")}
-    rec["roomId"] = data.get('roomId')
-    rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
+    rec = {"id": new_id("sendbird_ope")}
+    rec["channelUrl"] = data.get('channelUrl')
+    rec["name"] = data.get('name')
+    rec["participantCount"] = _as_int(data.get('participantCount'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
+    _persist("OpenChannel", rec)
     return rec, 201
 
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
+@app.route("/v1/openchannels", methods=["GET"])
+def list_open_channels(request):
+    """List OpenChannels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
+    rows = _query("OpenChannel")
+    rows = _apply_filters(rows, params, ['channelUrl', 'name', 'participantCount', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
+@app.route("/v1/openchannels/<eid>", methods=["GET"])
+def get_open_channel(request, eid):
+    """Retrieve a OpenChannel by id (supports ?expand=)."""
+    rows = _query("OpenChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/openchannels/<eid>", methods=["POST", "PATCH"])
+def update_open_channel(request, eid):
+    """Update a OpenChannel."""
+    rows = _query("OpenChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['channelUrl', 'name', 'participantCount', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,87 +383,22 @@ def update_stream(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stream", rec)
+    _persist("OpenChannel", rec)
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/openchannels/<eid>", methods=["DELETE"])
+def delete_open_channel(request, eid):
+    """Delete a OpenChannel."""
+    rows = _query("OpenChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendbird.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("sendbird_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"sendbird.Webhook", "id": eid})
+    db.retract({"entity": f"sendbird.OpenChannel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "sendbird-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['User', 'Message', 'GroupChannel', 'OpenChannel']}, 200
 
 
 if __name__ == "__main__":

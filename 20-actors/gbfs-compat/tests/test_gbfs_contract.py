@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "gbfs.kotoba")
-ENTITIES = ['Stop', 'Route', 'Trip', 'Vehicle', 'ServiceAlert', 'Fare']
-PLURALS = {'Stop': 'stops', 'Route': 'routes', 'Trip': 'trips', 'Vehicle': 'vehicles', 'ServiceAlert': 'servicealerts', 'Fare': 'fares'}
+ENTITIES = ['SystemInformation', 'VehicleType', 'Station', 'StationStatus', 'Vehicle', 'Region']
+PLURALS = {'SystemInformation': 'systeminformations', 'VehicleType': 'vehicletypes', 'Station': 'stations', 'StationStatus': 'stationstatuses', 'Vehicle': 'vehicles', 'Region': 'regions'}
 
 
 class GbfsContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class GbfsContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['formFactor', 'parkingType', 'propulsionType', 'returnConstraint']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

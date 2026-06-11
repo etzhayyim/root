@@ -221,34 +221,32 @@
       "handle": "adyen-compat",
       "platform": "adyen",
       "bytes": 2119,
-      "wasmCid": "bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
+      "wasmCid": "bafkreieutibcsicaftwucezcyua6lrtk4h47k6jn7w2yfou2jm6g6o66qa",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Payment",
+        "Amount",
+        "ModificationResult",
+        "PaymentMethod",
+        "Notification"
       ]
     },
     {
       "handle": "aftership-compat",
       "platform": "aftership",
       "bytes": 2123,
-      "wasmCid": "bafkreie4jlvgs7ovpmqiifqh2ewgnru55iaznfghihtr4gsiiqmeatnkim",
+      "wasmCid": "bafkreibympf452g3krruallceo6fhg5gtk6ohdgm76cf6u66qbghwxsz7y",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Tracking",
+        "Checkpoint",
+        "Courier",
+        "Notification",
+        "EstimatedDeliveryDate"
       ]
     },
     {
@@ -357,17 +355,16 @@
       "handle": "ais_marine-compat",
       "platform": "ais_marine",
       "bytes": 2124,
-      "wasmCid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+      "wasmCid": "bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Object",
-        "Position",
-        "Observation",
-        "Scene",
-        "Float",
-        "Station"
+        "Message",
+        "PositionReport",
+        "BaseStationReport",
+        "StaticVoyageData",
+        "AidToNavigationReport"
       ]
     },
     {
@@ -391,17 +388,16 @@
       "handle": "algolia-compat",
       "platform": "algolia",
       "bytes": 2121,
-      "wasmCid": "bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
+      "wasmCid": "bafkreifnroy7pbdnnjst7skkvtozhaeeep754btqn7352h4swx53gik5t4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Index",
+        "ApiKey",
+        "Synonym",
+        "Rule",
+        "Task"
       ]
     },
     {
@@ -448,28 +444,27 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
       "handle": "alpaca-compat",
       "platform": "alpaca",
       "bytes": 2120,
-      "wasmCid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+      "wasmCid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
+        "Asset",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Position",
+        "TradeAccount",
+        "TradeActivity"
       ]
     },
     {
@@ -953,17 +948,14 @@
       "handle": "as2_protocol-compat",
       "platform": "as2_protocol",
       "bytes": 2126,
-      "wasmCid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+      "wasmCid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "TradeItem",
-        "Event",
-        "Document",
-        "Container",
-        "Party",
-        "Shipment"
+        "As2Message",
+        "Mdn",
+        "DispositionNotification"
       ]
     },
     {
@@ -1077,12 +1069,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Project",
+        "IssueType",
+        "Status",
+        "StatusCategory",
+        "User",
+        "Comment"
       ]
     },
     {
@@ -1464,17 +1456,15 @@
       "handle": "bandwidth-compat",
       "platform": "bandwidth",
       "bytes": 2123,
-      "wasmCid": "bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
+      "wasmCid": "bafkreiaj2bywijhppzf27phhzr42dppuhflmzmp2s5a6g6dra35wqsxjxa",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Call",
+        "Conference",
+        "Recording"
       ]
     },
     {
@@ -1605,29 +1595,27 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Message",
+        "OpenMessage",
+        "UpdateMessage",
+        "NotificationMessage",
+        "PathAttribute",
+        "KeepaliveMessage"
       ]
     },
     {
       "handle": "bgp_rpki-compat",
       "platform": "bgp_rpki",
       "bytes": 2122,
-      "wasmCid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+      "wasmCid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "RouteOriginAuthorization",
+        "ValidationResult",
+        "RpkiToRouterPdu",
+        "PrefixPdu"
       ]
     },
     {
@@ -1674,11 +1662,11 @@
       "tier": "browser-local",
       "entities": [
         "Product",
-        "Variant",
         "Order",
-        "LineItem",
         "Customer",
-        "Collection"
+        "Category",
+        "Brand",
+        "Cart"
       ]
     },
     {
@@ -1741,12 +1729,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Card",
-        "Transaction",
         "Order",
-        "Wallet",
-        "Ledger"
+        "Trade",
+        "Balance",
+        "Account",
+        "Ticker",
+        "Kline"
       ]
     },
     {
@@ -1809,12 +1797,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "PullRequest",
         "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Workspace",
+        "Project",
+        "Issue",
+        "Commit"
       ]
     },
     {
@@ -2433,17 +2421,16 @@
       "handle": "can_bus-compat",
       "platform": "can_bus",
       "bytes": 2121,
-      "wasmCid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+      "wasmCid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "CanFrame",
+        "CanFdFrame",
+        "ErrorFrame",
+        "RemoteFrame",
+        "OverloadFrame"
       ]
     },
     {
@@ -2455,12 +2442,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "File",
-        "Frame",
-        "Component",
-        "Comment",
-        "Export"
+        "Design",
+        "Asset",
+        "Folder",
+        "BrandTemplate",
+        "ExportJob",
+        "User"
       ]
     },
     {
@@ -2746,10 +2733,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -2858,17 +2845,16 @@
       "handle": "chembl-compat",
       "platform": "chembl",
       "bytes": 2120,
-      "wasmCid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+      "wasmCid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Substance",
-        "Compound",
-        "Structure",
-        "Material",
-        "Standard",
-        "Property"
+        "Molecule",
+        "Assay",
+        "Target",
+        "Activity",
+        "Document"
       ]
     },
     {
@@ -2926,17 +2912,16 @@
       "handle": "circleci-compat",
       "platform": "circleci",
       "bytes": 2122,
-      "wasmCid": "bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
+      "wasmCid": "bafkreihjjy5csbczgic3uyy5h2mftvrar6bsbljzvz2uuksp3f7ocqx4ve",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
         "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Workflow",
+        "Job",
+        "Project",
+        "User"
       ]
     },
     {
@@ -3130,17 +3115,16 @@
       "handle": "cloudinary-compat",
       "platform": "cloudinary",
       "bytes": 2124,
-      "wasmCid": "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+      "wasmCid": "bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Asset",
-        "Rendition",
-        "Channel",
-        "Playlist",
-        "ContentEntry",
-        "Experiment"
+        "Resource",
+        "Folder",
+        "Transformation",
+        "UploadPreset",
+        "Tag"
       ]
     },
     {
@@ -3215,17 +3199,14 @@
       "handle": "cohere-compat",
       "platform": "cohere",
       "bytes": 2120,
-      "wasmCid": "bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
+      "wasmCid": "bafkreiftxbatyk7oacejdg6wuhfdornlex7747vcqygif3yol3ygwknq6i",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
         "Dataset",
-        "File"
+        "DatasetPart",
+        "Model"
       ]
     },
     {
@@ -3339,12 +3320,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
+        "Order",
+        "Cart",
+        "Payment",
         "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Customer",
+        "Transaction"
       ]
     },
     {
@@ -3407,12 +3388,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
-        "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Entry",
+        "Asset",
+        "ContentType",
+        "Space",
+        "Environment",
+        "Locale"
       ]
     },
     {
@@ -3781,12 +3762,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Vulnerability",
-        "ThreatActor",
-        "Campaign",
-        "Host",
-        "Technique"
+        "CveItem",
+        "CvssV3Metric",
+        "CvssV3Vector",
+        "Reference",
+        "Weakness",
+        "CveMetrics"
       ]
     },
     {
@@ -4047,17 +4028,16 @@
       "handle": "deel-compat",
       "platform": "deel",
       "bytes": 2118,
-      "wasmCid": "bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
+      "wasmCid": "bafkreihbfefyy2hpjvebamus25os573zeonkzadt3io26cn2de4ovtwivy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Employee",
-        "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Contract",
+        "Worker",
+        "Milestone",
+        "Timesheet",
+        "Payment"
       ]
     },
     {
@@ -4115,17 +4095,16 @@
       "handle": "dicomweb-compat",
       "platform": "dicomweb",
       "bytes": 2122,
-      "wasmCid": "bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
+      "wasmCid": "bafkreiajc6duouto33gflfjovv4j3b2jodsswmdce24wh6xrl44qbhrqxi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Study",
+        "Series",
+        "Instance",
         "Patient",
-        "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "QidoQuery"
       ]
     },
     {
@@ -4188,12 +4167,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
+        "Droplet",
         "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "DatabaseCluster",
+        "LoadBalancer",
+        "KubernetesCluster",
+        "Image"
       ]
     },
     {
@@ -4251,17 +4230,16 @@
       "handle": "discord-compat",
       "platform": "discord",
       "bytes": 2121,
-      "wasmCid": "bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
+      "wasmCid": "bafkreibalw2pkh2nzcvyy55xgxfhh4rsdrf6vvu4t4xbllo43yrke7jvh4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Channel",
+        "Guild",
         "Message",
         "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Role"
       ]
     },
     {
@@ -4336,51 +4314,46 @@
       "handle": "dns_root_zone-compat",
       "platform": "dns_root_zone",
       "bytes": 2127,
-      "wasmCid": "bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+      "wasmCid": "bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Header",
+        "Question",
+        "ResourceRecord",
+        "OptRecord"
       ]
     },
     {
       "handle": "docker-compat",
       "platform": "docker",
       "bytes": 2120,
-      "wasmCid": "bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
+      "wasmCid": "bafkreibrglytkq324ezeamsdswizhld6iyivtwdy465rmtncvwtvg6ix5u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Container",
+        "Image",
+        "Network",
+        "Volume"
       ]
     },
     {
       "handle": "docusign-compat",
       "platform": "docusign",
       "bytes": 2122,
-      "wasmCid": "bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
+      "wasmCid": "bafkreiar3ckvrianixzuzvu5gkajjnsdht4xbwyxuelal6m453glsmyty4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
+        "Envelope",
+        "Signer",
         "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "SignHereTab",
+        "EnvelopeTemplate"
       ]
     },
     {
@@ -4732,11 +4705,11 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -4862,17 +4835,15 @@
       "handle": "eidas-compat",
       "platform": "eidas",
       "bytes": 2119,
-      "wasmCid": "bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
+      "wasmCid": "bafkreidfqgax5trw3itiypsnphpfcrvzbmhxdt3e7zddkdctznjw7fd4mm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Filing",
-        "Citizen",
-        "Service",
-        "Application",
-        "Dataset",
-        "Identity"
+        "AuthenticationAssertion",
+        "EidasAttribute",
+        "TrustService",
+        "Subject"
       ]
     },
     {
@@ -4901,12 +4872,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "ClusterHealth",
+        "Index",
+        "Shard",
+        "Node",
+        "Alias",
+        "Document"
       ]
     },
     {
@@ -4952,12 +4923,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Voice",
+        "Sample",
+        "HistoryItem",
         "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
-        "Dataset",
-        "File"
+        "Subscription",
+        "Project"
       ]
     },
     {
@@ -5124,10 +5095,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -5457,17 +5428,16 @@
       "handle": "fastly-compat",
       "platform": "fastly",
       "bytes": 2120,
-      "wasmCid": "bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
+      "wasmCid": "bafkreiaanqj2nol6y7rtneyjocw5xq4ikojfqzfvsfuwyjxkpsw6z3wgqm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Asset",
-        "Rendition",
-        "Channel",
-        "Playlist",
-        "ContentEntry",
-        "Experiment"
+        "Service",
+        "Version",
+        "Backend",
+        "Domain",
+        "Dictionary"
       ]
     },
     {
@@ -5746,17 +5716,16 @@
       "handle": "fivetran-compat",
       "platform": "fivetran",
       "bytes": 2122,
-      "wasmCid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+      "wasmCid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Destination",
+        "Group",
+        "User",
+        "Transformation"
       ]
     },
     {
@@ -6227,12 +6196,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Stop",
-        "Route",
-        "Trip",
+        "SystemInformation",
+        "VehicleType",
+        "Station",
+        "StationStatus",
         "Vehicle",
-        "ServiceAlert",
-        "Fare"
+        "Region"
       ]
     },
     {
@@ -6636,12 +6605,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Dashboard",
+        "DataSource",
+        "Folder",
+        "AlertRule",
+        "User",
+        "Organization"
       ]
     },
     {
@@ -6704,12 +6673,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "TradeItem",
-        "Event",
-        "Document",
-        "Container",
-        "Party",
-        "Shipment"
+        "EPCISEvent",
+        "ObjectEvent",
+        "AggregationEvent",
+        "TransactionEvent",
+        "TransformationEvent",
+        "AssociationEvent"
       ]
     },
     {
@@ -6755,12 +6724,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Stop",
+        "Agency",
         "Route",
         "Trip",
-        "Vehicle",
-        "ServiceAlert",
-        "Fare"
+        "Stop",
+        "StopTime",
+        "Transfer"
       ]
     },
     {
@@ -6807,11 +6776,11 @@
       "tier": "browser-local",
       "entities": [
         "Employee",
-        "Candidate",
-        "JobReq",
-        "PayrollRun",
-        "TimeOff",
-        "Review"
+        "Company",
+        "Compensation",
+        "Job",
+        "Contractor",
+        "Payroll"
       ]
     },
     {
@@ -6959,12 +6928,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "App",
+        "Dyno",
+        "Release",
+        "Addon",
+        "Build",
+        "Formation"
       ]
     },
     {
@@ -7029,10 +6998,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -7792,12 +7761,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Ticket",
-        "Survey",
-        "Response",
-        "Account",
+        "Contact",
         "Conversation",
-        "Contact"
+        "Company",
+        "Admin",
+        "Article",
+        "Tag"
       ]
     },
     {
@@ -7877,12 +7846,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "IkeHeader",
+        "Payload",
+        "SecurityAssociation",
+        "Proposal",
+        "Transform",
+        "Notify"
       ]
     },
     {
@@ -7894,12 +7863,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Ipv6Header",
+        "Icmpv6Message",
+        "DestinationUnreachable",
+        "TimeExceeded",
+        "ParameterProblem",
+        "NdpMessage"
       ]
     },
     {
@@ -8008,17 +7977,15 @@
       "handle": "iso_8583-compat",
       "platform": "iso_8583",
       "bytes": 2122,
-      "wasmCid": "bafkreicvml64rgkqlpzx56sx6gag2hmlg6576afbunxy26txw6t2tpvqry",
+      "wasmCid": "bafkreidy3mtzo2iveh64modihcf3ac5nvmfg2wzp5uo7bx5jm66r2pmzjm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Message",
+        "ProcessingCode",
+        "DataElement",
+        "ResponseCode"
       ]
     },
     {
@@ -8144,17 +8111,16 @@
       "handle": "jenkins-compat",
       "platform": "jenkins",
       "bytes": 2121,
-      "wasmCid": "bafkreihsr7rh6dhnzoqjeg2otmufqrgh57c4tbzxafsrpzbmwlxm433fz4",
+      "wasmCid": "bafkreig42y3biwtawqubltmsra2mykfehix44eppjx7lp3nu2rqwmhiu3a",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
         "Build",
-        "Artifact",
-        "Deployment",
-        "Webhook"
+        "Job",
+        "QueueItem",
+        "Computer",
+        "View"
       ]
     },
     {
@@ -8331,17 +8297,16 @@
       "handle": "kafka-compat",
       "platform": "kafka",
       "bytes": 2119,
-      "wasmCid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "wasmCid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Topic",
+        "Partition",
+        "AclBinding",
+        "ConsumerGroup",
+        "FetchRequest"
       ]
     },
     {
@@ -8541,11 +8506,11 @@
       "tier": "browser-local",
       "entities": [
         "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Route",
+        "Consumer",
+        "Plugin",
+        "Upstream",
+        "Target"
       ]
     },
     {
@@ -8608,12 +8573,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Repository",
-        "Pipeline",
-        "Build",
-        "Artifact",
+        "Pod",
+        "Service",
         "Deployment",
-        "Webhook"
+        "Namespace",
+        "Node",
+        "PersistentVolume"
       ]
     },
     {
@@ -8727,12 +8692,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "FeatureFlag",
+        "Project",
+        "Environment",
+        "Segment",
+        "Member",
+        "Webhook"
       ]
     },
     {
@@ -8863,12 +8828,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Source",
+        "Event",
+        "Profile",
+        "SentMessage",
+        "NarrowcastProgress"
       ]
     },
     {
@@ -8880,12 +8845,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
+        "Instance",
         "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Domain",
+        "NodeBalancer",
+        "LKECluster",
+        "Image"
       ]
     },
     {
@@ -9033,12 +8998,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
+        "Look",
         "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Query",
+        "User",
+        "Folder",
+        "ScheduledPlan"
       ]
     },
     {
@@ -9152,12 +9117,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Product",
-        "Variant",
         "Order",
-        "LineItem",
+        "Product",
         "Customer",
-        "Collection"
+        "Category",
+        "Invoice",
+        "Shipment"
       ]
     },
     {
@@ -9249,17 +9214,16 @@
       "handle": "mambu-compat",
       "platform": "mambu",
       "bytes": 2119,
-      "wasmCid": "bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+      "wasmCid": "bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Loan",
-        "Policy",
-        "Claim",
-        "Transaction",
-        "Customer"
+        "LoanAccount",
+        "DepositAccount",
+        "Client",
+        "Group",
+        "LoanTransaction"
       ]
     },
     {
@@ -9334,17 +9298,16 @@
       "handle": "marqeta-compat",
       "platform": "marqeta",
       "bytes": 2121,
-      "wasmCid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+      "wasmCid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
         "Card",
+        "CardProduct",
+        "User",
         "Transaction",
-        "Order",
-        "Wallet",
-        "Ledger"
+        "FundingSource"
       ]
     },
     {
@@ -9475,12 +9438,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -9492,12 +9455,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -9578,11 +9541,11 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -9810,17 +9773,16 @@
       "handle": "mitre_attck-compat",
       "platform": "mitre_attck",
       "bytes": 2125,
-      "wasmCid": "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+      "wasmCid": "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Vulnerability",
-        "ThreatActor",
-        "Campaign",
-        "Host",
-        "Technique"
+        "Technique",
+        "Tactic",
+        "Software",
+        "Group",
+        "Mitigation"
       ]
     },
     {
@@ -9878,17 +9840,15 @@
       "handle": "modbus_tcp-compat",
       "platform": "modbus_tcp",
       "bytes": 2124,
-      "wasmCid": "bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
+      "wasmCid": "bafkreicm5cgwhb4kqaisazf4s6rxzjifhyx42mn57jyxqlz267d2l4dspu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Meter",
-        "Reading",
-        "Node",
-        "LoadForecast",
-        "MarketBid",
-        "Tag"
+        "MbapHeader",
+        "Request",
+        "Response",
+        "ExceptionResponse"
       ]
     },
     {
@@ -9900,12 +9860,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Board",
+        "Item",
+        "Column",
+        "Group",
+        "User",
+        "Update"
       ]
     },
     {
@@ -9934,29 +9894,28 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Cluster",
+        "DatabaseUser",
+        "Project",
+        "Backup",
+        "Organization",
+        "NetworkPeering"
       ]
     },
     {
       "handle": "monzo-compat",
       "platform": "monzo",
       "bytes": 2119,
-      "wasmCid": "bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
+      "wasmCid": "bafkreihp4ja3v64wxi2itzdzip2ebdlyyqypgtvxatak2ivrq7hnb6x62a",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Account",
+        "Balance",
+        "Transaction",
+        "Pot",
+        "Attachment"
       ]
     },
     {
@@ -10031,17 +9990,16 @@
       "handle": "mpls-compat",
       "platform": "mpls",
       "bytes": 2118,
-      "wasmCid": "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+      "wasmCid": "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "LabelStackEntry",
+        "MplsHeader",
+        "ReservedLabel",
+        "NhlfeOperation",
+        "MplsForwardingState"
       ]
     },
     {
@@ -10150,17 +10108,16 @@
       "handle": "mux-compat",
       "platform": "mux",
       "bytes": 2117,
-      "wasmCid": "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+      "wasmCid": "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Asset",
+        "PlaybackId",
+        "Track",
+        "Upload",
+        "LiveStream"
       ]
     },
     {
@@ -10546,12 +10503,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "Site",
+        "Deploy",
+        "Build",
+        "DnsZone",
+        "Hook",
+        "Form"
       ]
     },
     {
@@ -10649,11 +10606,11 @@
       "tier": "browser-local",
       "entities": [
         "Patient",
-        "Encounter",
         "Observation",
-        "Medication",
-        "Practitioner",
-        "Appointment"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -10897,17 +10854,14 @@
       "handle": "ntp_time-compat",
       "platform": "ntp_time",
       "bytes": 2122,
-      "wasmCid": "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+      "wasmCid": "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "Packet",
+        "Header",
+        "KissCode"
       ]
     },
     {
@@ -11123,12 +11077,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Patient",
-        "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Person",
+        "Concept",
+        "ConditionOccurrence",
+        "DrugExposure",
+        "VisitOccurrence",
+        "Observation"
       ]
     },
     {
@@ -11220,17 +11174,16 @@
       "handle": "onnx_runtime-compat",
       "platform": "onnx_runtime",
       "bytes": 2126,
-      "wasmCid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+      "wasmCid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Device",
-        "Kernel",
-        "MemoryAlloc",
-        "InferenceJob",
-        "Engine",
-        "Utilization"
+        "ModelProto",
+        "GraphProto",
+        "NodeProto",
+        "TensorProto",
+        "AttributeProto"
       ]
     },
     {
@@ -11242,12 +11195,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Meter",
-        "Reading",
         "Node",
-        "LoadForecast",
-        "MarketBid",
-        "Tag"
+        "ReferenceDescription",
+        "ReadValueId",
+        "MonitoredItem",
+        "CreateSubscriptionRequest",
+        "ReadRequest"
       ]
     },
     {
@@ -11271,18 +11224,17 @@
       "handle": "openai-compat",
       "platform": "openai",
       "bytes": 2120,
-      "wasmCid": "bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
+      "wasmCid": "bafkreicpmcxfk4hyjyo3vcfwaf4cfzxo6roxl2542zlljxiin66olnrlmy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Model",
-        "ChatCompletion",
-        "Embedding",
         "FineTuningJob",
+        "Batch",
         "File",
-        "Assistant",
-        "Thread"
+        "Embedding",
+        "ChatCompletion"
       ]
     },
     {
@@ -11357,17 +11309,16 @@
       "handle": "opensea-compat",
       "platform": "opensea",
       "bytes": 2121,
-      "wasmCid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "wasmCid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "Nft",
+        "Collection",
+        "Listing",
+        "Offer",
+        "Account"
       ]
     },
     {
@@ -11408,17 +11359,16 @@
       "handle": "openxr-compat",
       "platform": "openxr",
       "bytes": 2120,
-      "wasmCid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "wasmCid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Anchor",
-        "Scene",
-        "Mesh",
+        "Instance",
+        "System",
         "Session",
-        "Asset",
-        "Device"
+        "ViewConfiguration",
+        "Swapchain"
       ]
     },
     {
@@ -11634,12 +11584,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Incident",
         "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "EscalationPolicy",
+        "User",
+        "Schedule",
+        "Team"
       ]
     },
     {
@@ -11731,17 +11681,16 @@
       "handle": "patreon-compat",
       "platform": "patreon",
       "bytes": 2121,
-      "wasmCid": "bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "wasmCid": "bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Event",
-        "Ticket",
-        "Attendee",
-        "Donor",
-        "Donation",
-        "Membership"
+        "User",
+        "Member",
+        "Campaign",
+        "Tier",
+        "Benefit"
       ]
     },
     {
@@ -11770,12 +11719,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
+        "Order",
+        "Authorization",
+        "Capture",
         "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Plan",
+        "Subscription"
       ]
     },
     {
@@ -11867,17 +11816,15 @@
       "handle": "pinecone-compat",
       "platform": "pinecone",
       "bytes": 2122,
-      "wasmCid": "bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
+      "wasmCid": "bafkreigjmwfgeu2j6amiqp7z66kea63xqrsghngsup4o3yhdszv2pcmihu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
-        "Dataset",
-        "File"
+        "Index",
+        "Collection",
+        "Vector",
+        "Namespace"
       ]
     },
     {
@@ -11957,12 +11904,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Item",
         "Account",
+        "AccountBalance",
         "Transaction",
+        "Item",
         "Institution",
-        "Identity",
-        "Liability"
+        "Holding"
       ]
     },
     {
@@ -12162,11 +12109,11 @@
       "tier": "browser-local",
       "entities": [
         "Dataset",
-        "Query",
-        "Dashboard",
         "Report",
-        "Connection",
-        "Metric"
+        "Dashboard",
+        "Group",
+        "Tile",
+        "Gateway"
       ]
     },
     {
@@ -12292,17 +12239,16 @@
       "handle": "pulumi-compat",
       "platform": "pulumi",
       "bytes": 2120,
-      "wasmCid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "wasmCid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
+        "Update",
+        "Stack",
+        "Policy",
         "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Organization"
       ]
     },
     {
@@ -12314,12 +12260,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Drone",
-        "Mission",
-        "Waypoint",
-        "Telemetry",
-        "Payload",
-        "Swarm"
+        "Heartbeat",
+        "SysStatus",
+        "GpsRawInt",
+        "Attitude",
+        "GlobalPositionInt",
+        "MissionItem"
       ]
     },
     {
@@ -12394,17 +12340,16 @@
       "handle": "quic_http3-compat",
       "platform": "quic_http3",
       "bytes": 2124,
-      "wasmCid": "bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
+      "wasmCid": "bafkreiaatjclnv2fy336f6xkda3dojln5srz4nsb4yt5t5pmv3yqw5fw64",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "QuicPacket",
+        "QuicFrame",
+        "Http3Frame",
+        "Http3Settings",
+        "QuicConnection"
       ]
     },
     {
@@ -12484,12 +12429,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
-        "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Card",
+        "Transaction",
+        "User",
+        "Department",
+        "Reimbursement",
+        "Bill"
       ]
     },
     {
@@ -12564,17 +12509,16 @@
       "handle": "razorpay-compat",
       "platform": "razorpay",
       "bytes": 2122,
-      "wasmCid": "bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
+      "wasmCid": "bafkreih6texjj4ksexuwbd4zyxutfcmdwoiln36tb3gxxkobe2szkd635e",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Customer",
-        "PaymentIntent",
-        "Charge",
+        "Payment",
+        "Order",
         "Refund",
-        "Payout",
-        "PaymentMethod"
+        "Customer",
+        "Settlement"
       ]
     },
     {
@@ -12666,17 +12610,16 @@
       "handle": "redis-compat",
       "platform": "redis",
       "bytes": 2119,
-      "wasmCid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "wasmCid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "RespMessage",
+        "RedisCommand",
+        "RedisKey",
+        "RedisDataType",
+        "RespProtocolVersion"
       ]
     },
     {
@@ -13091,17 +13034,15 @@
       "handle": "ros2_nav-compat",
       "platform": "ros2_nav",
       "bytes": 2122,
-      "wasmCid": "bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
+      "wasmCid": "bafkreihwlplb2nkk2wezf2v6nflzbuabdrsimvgsvkxzj6itfvswinrvre",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "GoalStatus",
+        "NavSatFix",
+        "BatteryState",
+        "Odometry"
       ]
     },
     {
@@ -13522,12 +13463,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "TrackEvent",
+        "IdentifyEvent",
+        "PageEvent",
+        "GroupEvent",
+        "Source",
+        "Destination"
       ]
     },
     {
@@ -13551,17 +13492,15 @@
       "handle": "sendbird-compat",
       "platform": "sendbird",
       "bytes": 2122,
-      "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+      "wasmCid": "bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Message",
+        "GroupChannel",
+        "OpenChannel"
       ]
     },
     {
@@ -13709,12 +13648,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "ContentEntry",
-        "Product",
+        "Address",
+        "Parcel",
         "Shipment",
-        "SearchIndex",
-        "Webhook",
-        "Order"
+        "Rate",
+        "Transaction",
+        "TrackingStatus"
       ]
     },
     {
@@ -14018,10 +13957,10 @@
       "entities": [
         "Patient",
         "Observation",
-        "Condition",
-        "DiagnosticReport",
-        "Sequence",
-        "Specimen"
+        "Encounter",
+        "MedicationRequest",
+        "AllergyIntolerance",
+        "Condition"
       ]
     },
     {
@@ -14101,12 +14040,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Dataset",
-        "Query",
-        "Dashboard",
-        "Report",
-        "Connection",
-        "Metric"
+        "Warehouse",
+        "Database",
+        "Schema",
+        "Table",
+        "Task",
+        "Role"
       ]
     },
     {
@@ -14147,17 +14086,16 @@
       "handle": "sonarqube-compat",
       "platform": "sonarqube",
       "bytes": 2123,
-      "wasmCid": "bafkreigexy34jsdlw5t33b64q6tamte72whh5fzipkemgoncxg46vyzfhq",
+      "wasmCid": "bafkreibnpp5tehuioav7goyq2lgwyapuxapvjvujylh2j36n6e74he4qrq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Error",
-        "Trace",
-        "Metric",
-        "Alert",
-        "Incident"
+        "Issue",
+        "Hotspot",
+        "QualityGate",
+        "Condition",
+        "Measure"
       ]
     },
     {
@@ -14300,17 +14238,16 @@
       "handle": "ss7_sigtran-compat",
       "platform": "ss7_sigtran",
       "bytes": 2125,
-      "wasmCid": "bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+      "wasmCid": "bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Subscriber",
-        "Session",
-        "Message",
-        "Number",
-        "Terminal",
-        "UsageRecord"
+        "M3uaMessage",
+        "SuaMessage",
+        "ProtocolData",
+        "Mtp3Message",
+        "SccpMessage"
       ]
     },
     {
@@ -14460,12 +14397,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Project",
+        "Organization",
+        "EdgeFunction",
+        "ApiKey",
+        "Branch",
+        "Backup"
       ]
     },
     {
@@ -14761,17 +14698,15 @@
       "handle": "tcp_ip-compat",
       "platform": "tcp_ip",
       "bytes": 2120,
-      "wasmCid": "bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
+      "wasmCid": "bafkreighwiwqsfrfugqsvuqu2pyqd3agz6pzzbg2m36jyyihvdltu2mvsi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "TcpSegment",
+        "TcpConnection",
+        "IpPacket",
+        "IcmpMessage"
       ]
     },
     {
@@ -14795,17 +14730,15 @@
       "handle": "telegram_api-compat",
       "platform": "telegram_api",
       "bytes": 2126,
-      "wasmCid": "bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
+      "wasmCid": "bafkreick2mkgb5lf5da5r3bnknujos3ugfcb3x6djkrxxvy4rkhl5s7rwy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
-        "Message",
         "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Chat",
+        "Message",
+        "ChatMember"
       ]
     },
     {
@@ -14834,12 +14767,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Service",
-        "Deployment",
-        "Secret",
-        "ApiProxy",
-        "Database",
-        "Function"
+        "Run",
+        "Plan",
+        "Apply",
+        "Workspace",
+        "StateVersion",
+        "ConfigurationVersion"
       ]
     },
     {
@@ -14965,17 +14898,16 @@
       "handle": "thegraph-compat",
       "platform": "thegraph",
       "bytes": 2122,
-      "wasmCid": "bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
+      "wasmCid": "bafkreih4i2f2urx66j6jyjdqn33hblfqs7fuc36hiljx7vnz46eec26syu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "Subgraph",
+        "SubgraphDeployment",
+        "Indexer",
+        "Allocation",
+        "PublishedSubgraph"
       ]
     },
     {
@@ -15169,17 +15101,16 @@
       "handle": "trello-compat",
       "platform": "trello",
       "bytes": 2120,
-      "wasmCid": "bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
+      "wasmCid": "bafkreigcbjl76pbrxuo4xeas4kjdjb3tzvk7jmwrs7cvkpl5zpckwjxefu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Card",
+        "Board",
+        "List",
+        "Member",
+        "Label"
       ]
     },
     {
@@ -15441,17 +15372,16 @@
       "handle": "typeform-compat",
       "platform": "typeform",
       "bytes": 2122,
-      "wasmCid": "bafkreicxperilnbw45gohp4s7jvwxgra4hy35gsuqyhgya5zrdpiyvbn2u",
+      "wasmCid": "bafkreidznc4onc66uzwejl6xajwvyqvnuwgto7ytpl6nrnexlj4hsjnltm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Ticket",
-        "Survey",
+        "Form",
+        "Field",
         "Response",
-        "Account",
-        "Conversation",
-        "Contact"
+        "Answer",
+        "Webhook"
       ]
     },
     {
@@ -15509,17 +15439,14 @@
       "handle": "un_locode-compat",
       "platform": "un_locode",
       "bytes": 2123,
-      "wasmCid": "bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+      "wasmCid": "bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Code",
-        "Unit",
-        "Reference",
-        "Mapping",
         "Location",
-        "Epoch"
+        "FunctionClassifier",
+        "StatusCode"
       ]
     },
     {
@@ -15984,17 +15911,16 @@
       "handle": "vonage-compat",
       "platform": "vonage",
       "bytes": 2120,
-      "wasmCid": "bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+      "wasmCid": "bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Channel",
+        "Call",
         "Message",
-        "User",
-        "Room",
-        "Stream",
-        "Webhook"
+        "Number",
+        "Verification",
+        "Application"
       ]
     },
     {
@@ -16125,29 +16051,28 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Flow",
-        "Step",
-        "Connection",
-        "Run",
-        "App",
-        "Webhook"
+        "Site",
+        "Collection",
+        "CollectionItem",
+        "Page",
+        "Form",
+        "Field"
       ]
     },
     {
       "handle": "webrtc_core-compat",
       "platform": "webrtc_core",
       "bytes": 2125,
-      "wasmCid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+      "wasmCid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Prefix",
-        "Route",
-        "Peer",
-        "Zone",
-        "Record",
-        "Tunnel"
+        "RTCPeerConnection",
+        "RTCDataChannel",
+        "RTCSessionDescription",
+        "RTCIceCandidate",
+        "RTCRtpTransceiver"
       ]
     },
     {
@@ -16346,12 +16271,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Product",
-        "Variant",
         "Order",
-        "LineItem",
+        "Product",
         "Customer",
-        "Collection"
+        "Coupon",
+        "ProductCategory",
+        "Refund"
       ]
     },
     {
@@ -16431,12 +16356,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Observation",
         "Country",
-        "Series",
-        "Report",
-        "ExchangeRate"
+        "Indicator",
+        "Source",
+        "IncomeLevel",
+        "LendingType",
+        "Topic"
       ]
     },
     {

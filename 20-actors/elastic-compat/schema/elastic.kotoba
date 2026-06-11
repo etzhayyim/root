@@ -3,72 +3,87 @@
 
 namespace elastic {
 
-    entity Service {
+    entity ClusterHealth {
+        id: string @unique
+        clusterName: string
+        status: string
+        numberOfNodes: integer
+        numberOfDataNodes: integer
+        activePrimaryShards: integer
+        activeShards: integer
+        relocatingShards: integer
+        initializingShards: integer
+        unassignedShards: integer
+        timedOut: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Index {
         id: string @unique
         name: string
-        environment: string
-        language: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Error {
-        id: string @unique
-        serviceId: string
-        message: string
-        culprit: string
-        count: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trace {
-        id: string @unique
-        serviceId: string
-        operation: string
-        durationMs: integer
+        health: string
         status: string
+        uuid: string
+        numberOfShards: integer
+        numberOfReplicas: integer
+        docsCount: integer
+        docsDeleted: integer
+        storeSize: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity Shard {
         id: string @unique
-        serviceId: string
+        index: string
+        shardNumber: integer
+        primaryOrReplica: string
+        state: string
+        docsCount: integer
+        nodeName: string
+        nodeId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Node {
+        id: string @unique
+        id: string
+        ip: string
+        port: integer
         name: string
-        value: float
-        unit: string
+        version: string
+        heapPercent: integer
+        ramPercent: integer
+        diskUsedPercent: integer
+        master: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Alert {
+    entity Alias {
         id: string @unique
-        serviceId: string
-        condition: string
-        severity: string
-        active: boolean
+        alias: string
+        index: string
+        routingIndex: string
+        routingSearch: string
+        isWriteIndex: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Incident {
+    entity Document {
         id: string @unique
-        title: string
-        status: string
-        severity: string
-        startedAt: datetime
+        index: string
+        id: string
+        version: integer
+        seqNo: integer
+        primaryTerm: integer
+        found: boolean
+        routing: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

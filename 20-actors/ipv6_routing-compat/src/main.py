@@ -111,118 +111,124 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/ipv6headers", methods=["POST"])
+def create_ipv6_header(request):
+    """Create a Ipv6Header."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['version', 'trafficClass', 'flowLabel', 'payloadLength', 'nextHeader', 'hopLimit'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['version', 'trafficClass'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('version') and data['version'] not in [6]:
+        return {"error": {"message": "invalid version; allowed: " + ", ".join([6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipv6rout_ipv")}
+    rec["version"] = _as_int(data.get('version'))
+    rec["trafficClass"] = _as_int(data.get('trafficClass'))
+    rec["flowLabel"] = _as_int(data.get('flowLabel'))
+    rec["payloadLength"] = _as_int(data.get('payloadLength'))
+    rec["nextHeader"] = _as_int(data.get('nextHeader'))
+    rec["hopLimit"] = _as_int(data.get('hopLimit'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("Ipv6Header", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/ipv6headers", methods=["GET"])
+def list_ipv6_headers(request):
+    """List Ipv6Headers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("Ipv6Header")
+    rows = _apply_filters(rows, params, ['version', 'trafficClass', 'flowLabel', 'payloadLength', 'nextHeader', 'hopLimit'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ipv6headers/<eid>", methods=["GET"])
+def get_ipv6_header(request, eid):
+    """Retrieve a Ipv6Header by id (supports ?expand=)."""
+    rows = _query("Ipv6Header", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ipv6headers/<eid>", methods=["POST", "PATCH"])
+def update_ipv6_header(request, eid):
+    """Update a Ipv6Header."""
+    rows = _query("Ipv6Header", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['version', 'trafficClass', 'flowLabel', 'payloadLength', 'nextHeader', 'hopLimit'])
     if err:
         return err, 400
+    if data.get('version') and data['version'] not in [6]:
+        return {"error": {"message": "invalid version; allowed: " + ", ".join([6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("Ipv6Header", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/ipv6headers/<eid>", methods=["DELETE"])
+def delete_ipv6_header(request, eid):
+    """Delete a Ipv6Header."""
+    rows = _query("Ipv6Header", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Prefix", "id": eid})
+    db.retract({"entity": f"ipv6_routing.Ipv6Header", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/icmpv6messages", methods=["POST"])
+def create_icmpv6_message(request):
+    """Create a Icmpv6Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
+    rec = {"id": new_id("ipv6rout_icm")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["checksum"] = _as_int(data.get('checksum'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
+    _persist("Icmpv6Message", rec)
     return rec, 201
 
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
+@app.route("/v1/icmpv6messages", methods=["GET"])
+def list_icmpv6_messages(request):
+    """List Icmpv6Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
+    rows = _query("Icmpv6Message")
+    rows = _apply_filters(rows, params, ['type', 'code', 'checksum'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
+@app.route("/v1/icmpv6messages/<eid>", methods=["GET"])
+def get_icmpv6_message(request, eid):
+    """Retrieve a Icmpv6Message by id (supports ?expand=)."""
+    rows = _query("Icmpv6Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/icmpv6messages/<eid>", methods=["POST", "PATCH"])
+def update_icmpv6_message(request, eid):
+    """Update a Icmpv6Message."""
+    rows = _query("Icmpv6Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,262 +236,271 @@ def update_route(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Route", rec)
+    _persist("Icmpv6Message", rec)
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/icmpv6messages/<eid>", methods=["DELETE"])
+def delete_icmpv6_message(request, eid):
+    """Delete a Icmpv6Message."""
+    rows = _query("Icmpv6Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Route", "id": eid})
+    db.retract({"entity": f"ipv6_routing.Icmpv6Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
+@app.route("/v1/destinationunreachables", methods=["POST"])
+def create_destination_unreachable(request):
+    """Create a DestinationUnreachable."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
+    if data.get('code') and data['code'] not in [0, 1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipv6rout_des")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["checksum"] = _as_int(data.get('checksum'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("DestinationUnreachable", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/destinationunreachables", methods=["GET"])
+def list_destination_unreachables(request):
+    """List DestinationUnreachables with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("DestinationUnreachable")
+    rows = _apply_filters(rows, params, ['type', 'code', 'checksum'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/destinationunreachables/<eid>", methods=["GET"])
+def get_destination_unreachable(request, eid):
+    """Retrieve a DestinationUnreachable by id (supports ?expand=)."""
+    rows = _query("DestinationUnreachable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/destinationunreachables/<eid>", methods=["POST", "PATCH"])
+def update_destination_unreachable(request, eid):
+    """Update a DestinationUnreachable."""
+    rows = _query("DestinationUnreachable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
+    if data.get('code') and data['code'] not in [0, 1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("DestinationUnreachable", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/destinationunreachables/<eid>", methods=["DELETE"])
+def delete_destination_unreachable(request, eid):
+    """Delete a DestinationUnreachable."""
+    rows = _query("DestinationUnreachable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Peer", "id": eid})
+    db.retract({"entity": f"ipv6_routing.DestinationUnreachable", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
+@app.route("/v1/timeexceededs", methods=["POST"])
+def create_time_exceeded(request):
+    """Create a TimeExceeded."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'serial'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    if data.get('code') and data['code'] not in [0, 1]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipv6rout_tim")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["checksum"] = _as_int(data.get('checksum'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("TimeExceeded", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/timeexceededs", methods=["GET"])
+def list_time_exceededs(request):
+    """List TimeExceededs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("TimeExceeded")
+    rows = _apply_filters(rows, params, ['type', 'code', 'checksum'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/timeexceededs/<eid>", methods=["GET"])
+def get_time_exceeded(request, eid):
+    """Retrieve a TimeExceeded by id (supports ?expand=)."""
+    rows = _query("TimeExceeded", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/timeexceededs/<eid>", methods=["POST", "PATCH"])
+def update_time_exceeded(request, eid):
+    """Update a TimeExceeded."""
+    rows = _query("TimeExceeded", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum'])
     if err:
         return err, 400
+    if data.get('code') and data['code'] not in [0, 1]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("TimeExceeded", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/timeexceededs/<eid>", methods=["DELETE"])
+def delete_time_exceeded(request, eid):
+    """Delete a TimeExceeded."""
+    rows = _query("TimeExceeded", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Zone", "id": eid})
+    db.retract({"entity": f"ipv6_routing.TimeExceeded", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/parameterproblems", methods=["POST"])
+def create_parameter_problem(request):
+    """Create a ParameterProblem."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'code', 'pointer'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    if data.get('code') and data['code'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ipv6rout_par")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["pointer"] = _as_int(data.get('pointer'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("ParameterProblem", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/parameterproblems", methods=["GET"])
+def list_parameter_problems(request):
+    """List ParameterProblems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("ParameterProblem")
+    rows = _apply_filters(rows, params, ['type', 'code', 'pointer'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/parameterproblems/<eid>", methods=["GET"])
+def get_parameter_problem(request, eid):
+    """Retrieve a ParameterProblem by id (supports ?expand=)."""
+    rows = _query("ParameterProblem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/parameterproblems/<eid>", methods=["POST", "PATCH"])
+def update_parameter_problem(request, eid):
+    """Update a ParameterProblem."""
+    rows = _query("ParameterProblem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'code', 'pointer'])
     if err:
         return err, 400
+    if data.get('code') and data['code'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid code; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("ParameterProblem", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/parameterproblems/<eid>", methods=["DELETE"])
+def delete_parameter_problem(request, eid):
+    """Delete a ParameterProblem."""
+    rows = _query("ParameterProblem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Record", "id": eid})
+    db.retract({"entity": f"ipv6_routing.ParameterProblem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
+@app.route("/v1/ndpmessages", methods=["POST"])
+def create_ndp_message(request):
+    """Create a NdpMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['type', 'code', 'targetAddress'])
     if err:
         return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("ipv6rout_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("ipv6rout_ndp")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["targetAddress"] = data.get('targetAddress')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
+    _persist("NdpMessage", rec)
     return rec, 201
 
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
+@app.route("/v1/ndpmessages", methods=["GET"])
+def list_ndp_messages(request):
+    """List NdpMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    rows = _query("NdpMessage")
+    rows = _apply_filters(rows, params, ['type', 'code', 'targetAddress'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/ndpmessages/<eid>", methods=["GET"])
+def get_ndp_message(request, eid):
+    """Retrieve a NdpMessage by id (supports ?expand=)."""
+    rows = _query("NdpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/ndpmessages/<eid>", methods=["POST", "PATCH"])
+def update_ndp_message(request, eid):
+    """Update a NdpMessage."""
+    rows = _query("NdpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['type', 'code', 'targetAddress'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +508,22 @@ def update_tunnel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
+    _persist("NdpMessage", rec)
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/ndpmessages/<eid>", methods=["DELETE"])
+def delete_ndp_message(request, eid):
+    """Delete a NdpMessage."""
+    rows = _query("NdpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ipv6_routing.Tunnel", "id": eid})
+    db.retract({"entity": f"ipv6_routing.NdpMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ipv6_routing-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['Ipv6Header', 'Icmpv6Message', 'DestinationUnreachable', 'TimeExceeded', 'ParameterProblem', 'NdpMessage']}, 200
 
 
 if __name__ == "__main__":

@@ -3,72 +3,63 @@
 
 namespace circleci {
 
-    entity Repository {
-        id: string @unique
-        name: string
-        owner: string
-        defaultBranch: string
-        private: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Pipeline {
         id: string @unique
-        repoId: string
-        name: string
-        trigger: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Build {
-        id: string @unique
-        pipelineId: string
+        id: string
         number: integer
-        status: string
-        commitSha: string
-        durationMs: integer
+        state: string
+        projectSlug: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Artifact {
+    entity Workflow {
         id: string @unique
-        buildId: string
+        id: string
+        pipelineId: string
         name: string
-        sizeBytes: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Deployment {
-        id: string @unique
-        buildId: string
-        environment: string
         status: string
+        startedBy: string
+        createdAt: datetime
+        stoppedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Job {
         id: string @unique
-        repoId: string
-        url: string
-        event: string
-        active: boolean
+        id: string
+        jobNumber: integer
+        name: string
+        status: string
+        duration: integer
+        workflowId: string
+        createdAt: datetime
+        stoppedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Project {
+        id: string @unique
+        id: string
+        slug: string
+        name: string
+        externalUrl: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        id: string
+        login: string
+        name: string
+        avatarUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

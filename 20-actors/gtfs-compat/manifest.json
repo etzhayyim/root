@@ -13,55 +13,109 @@
   "schema": "schema/gtfs.kotoba",
   "tier": "L5",
   "verified": {
-    "source": "https://gtfs.org/documentation/schedule/reference/",
-    "verifiedAt": "2026-06-08",
+    "source": "https://gtfs.org/schedule/reference/",
+    "verifiedAt": "2026-06-10",
     "resources": [
-      "Stop",
+      "Agency",
       "Route",
       "Trip",
-      "Fare",
-      "Vehicle",
-      "ServiceAlert"
+      "Stop",
+      "StopTime",
+      "Transfer"
     ],
     "enums": {
-      "ServiceAlert": {
-        "cause": [
-          "UNKNOWN_CAUSE",
-          "OTHER_CAUSE",
-          "TECHNICAL_PROBLEM",
-          "STRIKE",
-          "DEMONSTRATION",
-          "ACCIDENT",
-          "HOLIDAY",
-          "WEATHER",
-          "MAINTENANCE",
-          "CONSTRUCTION",
-          "POLICE_ACTIVITY",
-          "MEDICAL_EMERGENCY"
+      "Route": {
+        "routeType": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          11,
+          12
         ],
-        "effect": [
-          "NO_SERVICE",
-          "REDUCED_SERVICE",
-          "SIGNIFICANT_DELAYS",
-          "DETOUR",
-          "ADDITIONAL_SERVICE",
-          "MODIFIED_SERVICE",
-          "OTHER_EFFECT",
-          "UNKNOWN_EFFECT",
-          "STOP_MOVED",
-          "NO_EFFECT",
-          "ACCESSIBILITY_ISSUE"
+        "continuousPickup": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "continuousDropOff": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "Trip": {
+        "directionId": [
+          0,
+          1
+        ],
+        "wheelchairAccessible": [
+          0,
+          1,
+          2
+        ],
+        "bikesAllowed": [
+          0,
+          1,
+          2
+        ]
+      },
+      "Stop": {
+        "locationType": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "wheelchairBoarding": [
+          0,
+          1,
+          2
+        ]
+      },
+      "StopTime": {
+        "pickupType": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "dropOffType": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "timepoint": [
+          0,
+          1
+        ]
+      },
+      "Transfer": {
+        "transferType": [
+          0,
+          1,
+          2,
+          3,
+          4
         ]
       }
     }
   },
   "entities": [
-    "Stop",
+    "Agency",
     "Route",
     "Trip",
-    "Vehicle",
-    "ServiceAlert",
-    "Fare"
+    "Stop",
+    "StopTime",
+    "Transfer"
   ],
   "adr": [
     "260607",
@@ -77,28 +131,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/stops",
-          "op": "create Stop"
+          "path": "/v1/agencies",
+          "op": "create Agency"
         },
         {
           "method": "GET",
-          "path": "/v1/stops",
-          "op": "list Stop"
+          "path": "/v1/agencies",
+          "op": "list Agency"
         },
         {
           "method": "GET",
-          "path": "/v1/stops/{id}",
-          "op": "get Stop"
+          "path": "/v1/agencies/{id}",
+          "op": "get Agency"
         },
         {
           "method": "PATCH",
-          "path": "/v1/stops/{id}",
-          "op": "update Stop"
+          "path": "/v1/agencies/{id}",
+          "op": "update Agency"
         },
         {
           "method": "DELETE",
-          "path": "/v1/stops/{id}",
-          "op": "delete Stop"
+          "path": "/v1/agencies/{id}",
+          "op": "delete Agency"
         },
         {
           "method": "POST",
@@ -152,78 +206,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/stops",
+          "op": "create Stop"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/stops",
+          "op": "list Stop"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/stops/{id}",
+          "op": "get Stop"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/stops/{id}",
+          "op": "update Stop"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/stops/{id}",
+          "op": "delete Stop"
         },
         {
           "method": "POST",
-          "path": "/v1/servicealerts",
-          "op": "create ServiceAlert"
+          "path": "/v1/stoptimes",
+          "op": "create StopTime"
         },
         {
           "method": "GET",
-          "path": "/v1/servicealerts",
-          "op": "list ServiceAlert"
+          "path": "/v1/stoptimes",
+          "op": "list StopTime"
         },
         {
           "method": "GET",
-          "path": "/v1/servicealerts/{id}",
-          "op": "get ServiceAlert"
+          "path": "/v1/stoptimes/{id}",
+          "op": "get StopTime"
         },
         {
           "method": "PATCH",
-          "path": "/v1/servicealerts/{id}",
-          "op": "update ServiceAlert"
+          "path": "/v1/stoptimes/{id}",
+          "op": "update StopTime"
         },
         {
           "method": "DELETE",
-          "path": "/v1/servicealerts/{id}",
-          "op": "delete ServiceAlert"
+          "path": "/v1/stoptimes/{id}",
+          "op": "delete StopTime"
         },
         {
           "method": "POST",
-          "path": "/v1/fares",
-          "op": "create Fare"
+          "path": "/v1/transfers",
+          "op": "create Transfer"
         },
         {
           "method": "GET",
-          "path": "/v1/fares",
-          "op": "list Fare"
+          "path": "/v1/transfers",
+          "op": "list Transfer"
         },
         {
           "method": "GET",
-          "path": "/v1/fares/{id}",
-          "op": "get Fare"
+          "path": "/v1/transfers/{id}",
+          "op": "get Transfer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/fares/{id}",
-          "op": "update Fare"
+          "path": "/v1/transfers/{id}",
+          "op": "update Transfer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/fares/{id}",
-          "op": "delete Fare"
+          "path": "/v1/transfers/{id}",
+          "op": "delete Transfer"
         }
       ],
       "features": {
@@ -289,41 +343,50 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_stop",
-          "description": "Create a Stop.",
+          "name": "create_agency",
+          "description": "Create a Agency.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "code": {
+              "agencyId": {
                 "type": "string"
               },
-              "name": {
+              "agencyName": {
                 "type": "string"
               },
-              "lat": {
-                "type": "number"
+              "agencyUrl": {
+                "type": "string"
               },
-              "lon": {
-                "type": "number"
+              "agencyTimezone": {
+                "type": "string"
+              },
+              "agencyLang": {
+                "type": "string"
+              },
+              "agencyPhone": {
+                "type": "string"
+              },
+              "agencyEmail": {
+                "type": "string"
               }
             },
             "required": [
-              "code",
-              "name"
+              "agencyName",
+              "agencyUrl"
             ]
           }
         },
         {
-          "name": "list_stops",
-          "description": "List Stops.",
+          "name": "list_agencies",
+          "description": "List Agencies.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stop",
-          "description": "Get a Stop by id.",
+          "name": "get_agency",
+          "description": "Get a Agency by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,25 +400,34 @@
           }
         },
         {
-          "name": "update_stop",
-          "description": "Update a Stop.",
+          "name": "update_agency",
+          "description": "Update a Agency.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "code": {
+              "agencyId": {
                 "type": "string"
               },
-              "name": {
+              "agencyName": {
                 "type": "string"
               },
-              "lat": {
-                "type": "number"
+              "agencyUrl": {
+                "type": "string"
               },
-              "lon": {
-                "type": "number"
+              "agencyTimezone": {
+                "type": "string"
+              },
+              "agencyLang": {
+                "type": "string"
+              },
+              "agencyPhone": {
+                "type": "string"
+              },
+              "agencyEmail": {
+                "type": "string"
               }
             },
             "required": [
@@ -364,8 +436,8 @@
           }
         },
         {
-          "name": "delete_stop",
-          "description": "Delete a Stop.",
+          "name": "delete_agency",
+          "description": "Delete a Agency.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -384,19 +456,40 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "shortName": {
+              "routeId": {
                 "type": "string"
               },
-              "longName": {
+              "agencyId": {
                 "type": "string"
               },
-              "mode": {
+              "routeShortName": {
                 "type": "string"
+              },
+              "routeLongName": {
+                "type": "string"
+              },
+              "routeDesc": {
+                "type": "string"
+              },
+              "routeType": {
+                "type": "integer"
+              },
+              "routeColor": {
+                "type": "string"
+              },
+              "routeSortOrder": {
+                "type": "integer"
+              },
+              "continuousPickup": {
+                "type": "integer"
+              },
+              "continuousDropOff": {
+                "type": "integer"
               }
             },
             "required": [
-              "shortName",
-              "longName"
+              "routeShortName",
+              "routeLongName"
             ]
           }
         },
@@ -432,14 +525,35 @@
               "id": {
                 "type": "string"
               },
-              "shortName": {
+              "routeId": {
                 "type": "string"
               },
-              "longName": {
+              "agencyId": {
                 "type": "string"
               },
-              "mode": {
+              "routeShortName": {
                 "type": "string"
+              },
+              "routeLongName": {
+                "type": "string"
+              },
+              "routeDesc": {
+                "type": "string"
+              },
+              "routeType": {
+                "type": "integer"
+              },
+              "routeColor": {
+                "type": "string"
+              },
+              "routeSortOrder": {
+                "type": "integer"
+              },
+              "continuousPickup": {
+                "type": "integer"
+              },
+              "continuousDropOff": {
+                "type": "integer"
               }
             },
             "required": [
@@ -471,15 +585,34 @@
               "routeId": {
                 "type": "string"
               },
-              "headsign": {
-                "type": "string"
-              },
               "serviceId": {
                 "type": "string"
+              },
+              "tripId": {
+                "type": "string"
+              },
+              "tripHeadsign": {
+                "type": "string"
+              },
+              "directionId": {
+                "type": "integer"
+              },
+              "blockId": {
+                "type": "string"
+              },
+              "shapeId": {
+                "type": "string"
+              },
+              "wheelchairAccessible": {
+                "type": "integer"
+              },
+              "bikesAllowed": {
+                "type": "integer"
               }
             },
             "required": [
-              "headsign"
+              "tripHeadsign",
+              "wheelchairAccessible"
             ]
           }
         },
@@ -518,11 +651,29 @@
               "routeId": {
                 "type": "string"
               },
-              "headsign": {
-                "type": "string"
-              },
               "serviceId": {
                 "type": "string"
+              },
+              "tripId": {
+                "type": "string"
+              },
+              "tripHeadsign": {
+                "type": "string"
+              },
+              "directionId": {
+                "type": "integer"
+              },
+              "blockId": {
+                "type": "string"
+              },
+              "shapeId": {
+                "type": "string"
+              },
+              "wheelchairAccessible": {
+                "type": "integer"
+              },
+              "bikesAllowed": {
+                "type": "integer"
               }
             },
             "required": [
@@ -546,41 +697,59 @@
           }
         },
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_stop",
+          "description": "Create a Stop.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "routeId": {
+              "stopId": {
                 "type": "string"
               },
-              "label": {
+              "stopCode": {
                 "type": "string"
               },
-              "lat": {
+              "stopName": {
+                "type": "string"
+              },
+              "stopDesc": {
+                "type": "string"
+              },
+              "stopLat": {
                 "type": "number"
               },
-              "lon": {
+              "stopLon": {
                 "type": "number"
+              },
+              "zoneId": {
+                "type": "string"
+              },
+              "locationType": {
+                "type": "integer"
+              },
+              "parentStation": {
+                "type": "string"
+              },
+              "wheelchairBoarding": {
+                "type": "integer"
               }
             },
             "required": [
-              "label",
-              "lat"
+              "stopCode",
+              "stopName"
             ]
           }
         },
         {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
+          "name": "list_stops",
+          "description": "List Stops.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
+          "name": "get_stop",
+          "description": "Get a Stop by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -594,25 +763,43 @@
           }
         },
         {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
+          "name": "update_stop",
+          "description": "Update a Stop.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "routeId": {
+              "stopId": {
                 "type": "string"
               },
-              "label": {
+              "stopCode": {
                 "type": "string"
               },
-              "lat": {
+              "stopName": {
+                "type": "string"
+              },
+              "stopDesc": {
+                "type": "string"
+              },
+              "stopLat": {
                 "type": "number"
               },
-              "lon": {
+              "stopLon": {
                 "type": "number"
+              },
+              "zoneId": {
+                "type": "string"
+              },
+              "locationType": {
+                "type": "integer"
+              },
+              "parentStation": {
+                "type": "string"
+              },
+              "wheelchairBoarding": {
+                "type": "integer"
               }
             },
             "required": [
@@ -621,8 +808,8 @@
           }
         },
         {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
+          "name": "delete_stop",
+          "description": "Delete a Stop.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,38 +823,56 @@
           }
         },
         {
-          "name": "create_service_alert",
-          "description": "Create a ServiceAlert.",
+          "name": "create_stop_time",
+          "description": "Create a StopTime.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "routeId": {
+              "tripId": {
                 "type": "string"
               },
-              "cause": {
+              "arrivalTime": {
                 "type": "string"
               },
-              "effect": {
+              "departureTime": {
                 "type": "string"
+              },
+              "stopId": {
+                "type": "string"
+              },
+              "stopSequence": {
+                "type": "integer"
+              },
+              "pickupType": {
+                "type": "integer"
+              },
+              "dropOffType": {
+                "type": "integer"
+              },
+              "timepoint": {
+                "type": "integer"
+              },
+              "shapeDistTraveled": {
+                "type": "number"
               }
             },
             "required": [
-              "cause",
-              "effect"
+              "arrivalTime",
+              "departureTime"
             ]
           }
         },
         {
-          "name": "list_service_alerts",
-          "description": "List ServiceAlerts.",
+          "name": "list_stop_times",
+          "description": "List StopTimes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service_alert",
-          "description": "Get a ServiceAlert by id.",
+          "name": "get_stop_time",
+          "description": "Get a StopTime by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -681,77 +886,98 @@
           }
         },
         {
-          "name": "update_service_alert",
-          "description": "Update a ServiceAlert.",
+          "name": "update_stop_time",
+          "description": "Update a StopTime.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "routeId": {
+              "tripId": {
                 "type": "string"
               },
-              "cause": {
+              "arrivalTime": {
                 "type": "string"
               },
-              "effect": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service_alert",
-          "description": "Delete a ServiceAlert.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_fare",
-          "description": "Create a Fare.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "routeId": {
+              "departureTime": {
                 "type": "string"
               },
-              "price": {
+              "stopId": {
+                "type": "string"
+              },
+              "stopSequence": {
+                "type": "integer"
+              },
+              "pickupType": {
+                "type": "integer"
+              },
+              "dropOffType": {
+                "type": "integer"
+              },
+              "timepoint": {
+                "type": "integer"
+              },
+              "shapeDistTraveled": {
                 "type": "number"
-              },
-              "currency": {
-                "type": "string"
               }
             },
             "required": [
-              "price",
-              "currency"
+              "id"
             ]
           }
         },
         {
-          "name": "list_fares",
-          "description": "List Fares.",
+          "name": "delete_stop_time",
+          "description": "Delete a StopTime.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_transfer",
+          "description": "Create a Transfer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fromStopId": {
+                "type": "string"
+              },
+              "toStopId": {
+                "type": "string"
+              },
+              "transferType": {
+                "type": "integer"
+              },
+              "minTransferTime": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "transferType",
+              "minTransferTime"
+            ]
+          }
+        },
+        {
+          "name": "list_transfers",
+          "description": "List Transfers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_fare",
-          "description": "Get a Fare by id.",
+          "name": "get_transfer",
+          "description": "Get a Transfer by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -765,22 +991,25 @@
           }
         },
         {
-          "name": "update_fare",
-          "description": "Update a Fare.",
+          "name": "update_transfer",
+          "description": "Update a Transfer.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "routeId": {
+              "fromStopId": {
                 "type": "string"
               },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
+              "toStopId": {
                 "type": "string"
+              },
+              "transferType": {
+                "type": "integer"
+              },
+              "minTransferTime": {
+                "type": "integer"
               }
             },
             "required": [
@@ -789,8 +1018,8 @@
           }
         },
         {
-          "name": "delete_fare",
-          "description": "Delete a Fare.",
+          "name": "delete_transfer",
+          "description": "Delete a Transfer.",
           "inputSchema": {
             "type": "object",
             "properties": {

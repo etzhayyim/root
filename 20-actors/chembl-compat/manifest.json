@@ -5,21 +5,67 @@
   "kind": "compat",
   "title": "chembl clean-room actor",
   "description": "Clean-room, API-compatible materials / bio / chemical actor (chembl); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+  "wasmCid": "bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
+  "ipfs": "ipfs://bafkreierpvv43twftkr4fev6rzlewwh3qjzwvgdevmynyhi36vogcij7im",
   "schema": "schema/chembl.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.ebi.ac.uk/chembl/api/data",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Molecule",
+      "Assay",
+      "Target",
+      "Activity",
+      "Document"
+    ],
+    "enums": {
+      "Molecule": {
+        "moleculeType": [
+          "Small molecule",
+          "Protein",
+          "Antibody",
+          "Oligonucleotide",
+          "Oligosaccharide",
+          "Enzyme",
+          "Cell",
+          "Unknown"
+        ]
+      },
+      "Target": {
+        "targetType": [
+          "CELL-LINE",
+          "CHIMERIC PROTEIN",
+          "MACROMOLECULE",
+          "NUCLEIC-ACID",
+          "OLIGOSACCHARIDE",
+          "ORGANISM",
+          "PROTEIN COMPLEX",
+          "PROTEIN COMPLEX GROUP",
+          "PROTEIN FAMILY",
+          "PROTEIN-PROTEIN INTERACTION",
+          "SELECTIVITY GROUP",
+          "SINGLE PROTEIN",
+          "TISSUE"
+        ]
+      },
+      "Document": {
+        "docType": [
+          "DATASET",
+          "PUBLICATION"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Substance",
-    "Compound",
-    "Structure",
-    "Material",
-    "Standard",
-    "Property"
+    "Molecule",
+    "Assay",
+    "Target",
+    "Activity",
+    "Document"
   ],
   "adr": [
     "260607",
@@ -31,157 +77,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/substances",
-          "op": "create Substance"
+          "path": "/v1/molecules",
+          "op": "create Molecule"
         },
         {
           "method": "GET",
-          "path": "/v1/substances",
-          "op": "list Substance"
+          "path": "/v1/molecules",
+          "op": "list Molecule"
         },
         {
           "method": "GET",
-          "path": "/v1/substances/{id}",
-          "op": "get Substance"
+          "path": "/v1/molecules/{id}",
+          "op": "get Molecule"
         },
         {
           "method": "PATCH",
-          "path": "/v1/substances/{id}",
-          "op": "update Substance"
+          "path": "/v1/molecules/{id}",
+          "op": "update Molecule"
         },
         {
           "method": "DELETE",
-          "path": "/v1/substances/{id}",
-          "op": "delete Substance"
+          "path": "/v1/molecules/{id}",
+          "op": "delete Molecule"
         },
         {
           "method": "POST",
-          "path": "/v1/compounds",
-          "op": "create Compound"
+          "path": "/v1/assays",
+          "op": "create Assay"
         },
         {
           "method": "GET",
-          "path": "/v1/compounds",
-          "op": "list Compound"
+          "path": "/v1/assays",
+          "op": "list Assay"
         },
         {
           "method": "GET",
-          "path": "/v1/compounds/{id}",
-          "op": "get Compound"
+          "path": "/v1/assays/{id}",
+          "op": "get Assay"
         },
         {
           "method": "PATCH",
-          "path": "/v1/compounds/{id}",
-          "op": "update Compound"
+          "path": "/v1/assays/{id}",
+          "op": "update Assay"
         },
         {
           "method": "DELETE",
-          "path": "/v1/compounds/{id}",
-          "op": "delete Compound"
+          "path": "/v1/assays/{id}",
+          "op": "delete Assay"
         },
         {
           "method": "POST",
-          "path": "/v1/structures",
-          "op": "create Structure"
+          "path": "/v1/targets",
+          "op": "create Target"
         },
         {
           "method": "GET",
-          "path": "/v1/structures",
-          "op": "list Structure"
+          "path": "/v1/targets",
+          "op": "list Target"
         },
         {
           "method": "GET",
-          "path": "/v1/structures/{id}",
-          "op": "get Structure"
+          "path": "/v1/targets/{id}",
+          "op": "get Target"
         },
         {
           "method": "PATCH",
-          "path": "/v1/structures/{id}",
-          "op": "update Structure"
+          "path": "/v1/targets/{id}",
+          "op": "update Target"
         },
         {
           "method": "DELETE",
-          "path": "/v1/structures/{id}",
-          "op": "delete Structure"
+          "path": "/v1/targets/{id}",
+          "op": "delete Target"
         },
         {
           "method": "POST",
-          "path": "/v1/materials",
-          "op": "create Material"
+          "path": "/v1/activities",
+          "op": "create Activity"
         },
         {
           "method": "GET",
-          "path": "/v1/materials",
-          "op": "list Material"
+          "path": "/v1/activities",
+          "op": "list Activity"
         },
         {
           "method": "GET",
-          "path": "/v1/materials/{id}",
-          "op": "get Material"
+          "path": "/v1/activities/{id}",
+          "op": "get Activity"
         },
         {
           "method": "PATCH",
-          "path": "/v1/materials/{id}",
-          "op": "update Material"
+          "path": "/v1/activities/{id}",
+          "op": "update Activity"
         },
         {
           "method": "DELETE",
-          "path": "/v1/materials/{id}",
-          "op": "delete Material"
+          "path": "/v1/activities/{id}",
+          "op": "delete Activity"
         },
         {
           "method": "POST",
-          "path": "/v1/standards",
-          "op": "create Standard"
+          "path": "/v1/documents",
+          "op": "create Document"
         },
         {
           "method": "GET",
-          "path": "/v1/standards",
-          "op": "list Standard"
+          "path": "/v1/documents",
+          "op": "list Document"
         },
         {
           "method": "GET",
-          "path": "/v1/standards/{id}",
-          "op": "get Standard"
+          "path": "/v1/documents/{id}",
+          "op": "get Document"
         },
         {
           "method": "PATCH",
-          "path": "/v1/standards/{id}",
-          "op": "update Standard"
+          "path": "/v1/documents/{id}",
+          "op": "update Document"
         },
         {
           "method": "DELETE",
-          "path": "/v1/standards/{id}",
-          "op": "delete Standard"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/properties",
-          "op": "create Property"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/properties",
-          "op": "list Property"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/properties/{id}",
-          "op": "get Property"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/properties/{id}",
-          "op": "update Property"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/properties/{id}",
-          "op": "delete Property"
+          "path": "/v1/documents/{id}",
+          "op": "delete Document"
         }
       ],
       "features": {
@@ -244,44 +265,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_substance",
-          "description": "Create a Substance.",
+          "name": "create_molecule",
+          "description": "Create a Molecule.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "casNumber": {
+              "chemblId": {
                 "type": "string"
               },
-              "name": {
+              "prefName": {
                 "type": "string"
               },
-              "formula": {
+              "moleculeType": {
                 "type": "string"
               },
-              "molarMass": {
-                "type": "number"
+              "blackBoxWarning": {
+                "type": "integer"
+              },
+              "therapeuticFlag": {
+                "type": "boolean"
+              },
+              "firstApproval": {
+                "type": "integer"
               }
             },
             "required": [
-              "casNumber",
-              "name"
+              "prefName",
+              "moleculeType"
             ]
           }
         },
         {
-          "name": "list_substances",
-          "description": "List Substances.",
+          "name": "list_molecules",
+          "description": "List Molecules.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_substance",
-          "description": "Get a Substance by id.",
+          "name": "get_molecule",
+          "description": "Get a Molecule by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +322,31 @@
           }
         },
         {
-          "name": "update_substance",
-          "description": "Update a Substance.",
+          "name": "update_molecule",
+          "description": "Update a Molecule.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "casNumber": {
+              "chemblId": {
                 "type": "string"
               },
-              "name": {
+              "prefName": {
                 "type": "string"
               },
-              "formula": {
+              "moleculeType": {
                 "type": "string"
               },
-              "molarMass": {
-                "type": "number"
+              "blackBoxWarning": {
+                "type": "integer"
+              },
+              "therapeuticFlag": {
+                "type": "boolean"
+              },
+              "firstApproval": {
+                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +355,8 @@
           }
         },
         {
-          "name": "delete_substance",
-          "description": "Delete a Substance.",
+          "name": "delete_molecule",
+          "description": "Delete a Molecule.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,38 +370,47 @@
           }
         },
         {
-          "name": "create_compound",
-          "description": "Create a Compound.",
+          "name": "create_assay",
+          "description": "Create a Assay.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "inchiKey": {
+              "chemblId": {
                 "type": "string"
               },
-              "smiles": {
+              "assayType": {
                 "type": "string"
               },
-              "name": {
+              "description": {
+                "type": "string"
+              },
+              "confidenceScore": {
+                "type": "integer"
+              },
+              "targetChemblId": {
+                "type": "string"
+              },
+              "documentChemblId": {
                 "type": "string"
               }
             },
             "required": [
-              "inchiKey",
-              "smiles"
+              "assayType",
+              "description"
             ]
           }
         },
         {
-          "name": "list_compounds",
-          "description": "List Compounds.",
+          "name": "list_assays",
+          "description": "List Assays.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_compound",
-          "description": "Get a Compound by id.",
+          "name": "get_assay",
+          "description": "Get a Assay by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,21 +424,30 @@
           }
         },
         {
-          "name": "update_compound",
-          "description": "Update a Compound.",
+          "name": "update_assay",
+          "description": "Update a Assay.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "inchiKey": {
+              "chemblId": {
                 "type": "string"
               },
-              "smiles": {
+              "assayType": {
                 "type": "string"
               },
-              "name": {
+              "description": {
+                "type": "string"
+              },
+              "confidenceScore": {
+                "type": "integer"
+              },
+              "targetChemblId": {
+                "type": "string"
+              },
+              "documentChemblId": {
                 "type": "string"
               }
             },
@@ -406,8 +457,8 @@
           }
         },
         {
-          "name": "delete_compound",
-          "description": "Delete a Compound.",
+          "name": "delete_assay",
+          "description": "Delete a Assay.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -421,41 +472,245 @@
           }
         },
         {
-          "name": "create_structure",
-          "description": "Create a Structure.",
+          "name": "create_target",
+          "description": "Create a Target.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "pdbId": {
+              "chemblId": {
+                "type": "string"
+              },
+              "prefName": {
+                "type": "string"
+              },
+              "targetType": {
+                "type": "string"
+              },
+              "organism": {
+                "type": "string"
+              },
+              "speciesGroupFlag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "prefName",
+              "targetType"
+            ]
+          }
+        },
+        {
+          "name": "list_targets",
+          "description": "List Targets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_target",
+          "description": "Get a Target by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_target",
+          "description": "Update a Target.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "chemblId": {
+                "type": "string"
+              },
+              "prefName": {
+                "type": "string"
+              },
+              "targetType": {
+                "type": "string"
+              },
+              "organism": {
+                "type": "string"
+              },
+              "speciesGroupFlag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_target",
+          "description": "Delete a Target.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_activity",
+          "description": "Create a Activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "activityId": {
+                "type": "integer"
+              },
+              "moleculeChemblId": {
+                "type": "string"
+              },
+              "assayChemblId": {
+                "type": "string"
+              },
+              "standardValue": {
+                "type": "string"
+              },
+              "standardType": {
+                "type": "string"
+              },
+              "documentYear": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "standardValue",
+              "standardType"
+            ]
+          }
+        },
+        {
+          "name": "list_activities",
+          "description": "List Activities.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_activity",
+          "description": "Get a Activity by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_activity",
+          "description": "Update a Activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "activityId": {
+                "type": "integer"
+              },
+              "moleculeChemblId": {
+                "type": "string"
+              },
+              "assayChemblId": {
+                "type": "string"
+              },
+              "standardValue": {
+                "type": "string"
+              },
+              "standardType": {
+                "type": "string"
+              },
+              "documentYear": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_activity",
+          "description": "Delete a Activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_document",
+          "description": "Create a Document.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "chemblId": {
                 "type": "string"
               },
               "title": {
                 "type": "string"
               },
-              "method": {
+              "docType": {
                 "type": "string"
               },
-              "resolution": {
-                "type": "number"
+              "year": {
+                "type": "integer"
+              },
+              "pubmedId": {
+                "type": "integer"
+              },
+              "doi": {
+                "type": "string"
               }
             },
             "required": [
               "title",
-              "method"
+              "docType"
             ]
           }
         },
         {
-          "name": "list_structures",
-          "description": "List Structures.",
+          "name": "list_documents",
+          "description": "List Documents.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_structure",
-          "description": "Get a Structure by id.",
+          "name": "get_document",
+          "description": "Get a Document by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -469,39 +724,30 @@
           }
         },
         {
-          "name": "update_structure",
-          "description": "Update a Structure.",
+          "name": "update_document",
+          "description": "Update a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "pdbId": {
+              "chemblId": {
                 "type": "string"
               },
               "title": {
                 "type": "string"
               },
-              "method": {
+              "docType": {
                 "type": "string"
               },
-              "resolution": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_structure",
-          "description": "Delete a Structure.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "year": {
+                "type": "integer"
+              },
+              "pubmedId": {
+                "type": "integer"
+              },
+              "doi": {
                 "type": "string"
               }
             },
@@ -511,251 +757,8 @@
           }
         },
         {
-          "name": "create_material",
-          "description": "Create a Material.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "materialId": {
-                "type": "string"
-              },
-              "formula": {
-                "type": "string"
-              },
-              "bandGap": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "formula",
-              "bandGap"
-            ]
-          }
-        },
-        {
-          "name": "list_materials",
-          "description": "List Materials.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_material",
-          "description": "Get a Material by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_material",
-          "description": "Update a Material.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "materialId": {
-                "type": "string"
-              },
-              "formula": {
-                "type": "string"
-              },
-              "bandGap": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_material",
-          "description": "Delete a Material.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_standard",
-          "description": "Create a Standard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "designation": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "organization": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "designation",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_standards",
-          "description": "List Standards.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_standard",
-          "description": "Get a Standard by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_standard",
-          "description": "Update a Standard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "designation": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "organization": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_standard",
-          "description": "Delete a Standard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_property",
-          "description": "Create a Property.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "substanceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_properties",
-          "description": "List Properties.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_property",
-          "description": "Get a Property by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_property",
-          "description": "Update a Property.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "substanceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_property",
-          "description": "Delete a Property.",
+          "name": "delete_document",
+          "description": "Delete a Document.",
           "inputSchema": {
             "type": "object",
             "properties": {

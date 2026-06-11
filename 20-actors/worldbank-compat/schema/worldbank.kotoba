@@ -3,70 +3,67 @@
 
 namespace worldbank {
 
-    entity Indicator {
-        id: string @unique
-        code: string
-        name: string
-        unit: string
-        source: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Observation {
-        id: string @unique
-        indicatorId: string
-        country: string
-        period: string
-        value: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Country {
         id: string @unique
-        iso3: string
+        id: string
+        iso2Code: string
         name: string
-        region: string
+        capitalCity: string
+        incomeLevelId: string
+        lendingTypeId: string
+        regionId: string
+        longitude: string
+        latitude: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Series {
+    entity Indicator {
         id: string @unique
-        indicatorId: string
-        frequency: string
-        startPeriod: string
+        id: string
+        name: string
+        unit: string
+        sourceId: string
+        sourceNote: string
+        sourceOrganization: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity Source {
         id: string @unique
-        title: string
-        publishedAt: datetime
-        contentRef: string
+        id: string
+        name: string
+        code: string
+        lastUpdated: string
+        dataAvailability: boolean
+        concepts: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ExchangeRate {
+    entity IncomeLevel {
         id: string @unique
-        base: string
-        quote: string
-        rate: float
-        asOf: datetime
+        id: string
+        name: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity LendingType {
+        id: string @unique
+        id: string
+        name: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Topic {
+        id: string @unique
+        id: string
+        name: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

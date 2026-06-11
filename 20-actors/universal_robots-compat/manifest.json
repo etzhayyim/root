@@ -11,15 +11,60 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreigpjw4pr66usr5anvteyifw7355mvi5x2immvumjyshyqt72kwfqm",
   "schema": "schema/universal_robots.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.universal-robots.com/articles/ur/interface-communication/real-time-data-exchange-rtde-guide/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "RtdeRobotState",
+      "RtdeExecutionState",
+      "RtdeToolState",
+      "DashboardRobotState",
+      "DashboardProgram",
+      "DashboardInstallation"
+    ],
+    "enums": {
+      "DashboardRobotState": {
+        "robotmode": [
+          "NO_CONTROLLER",
+          "DISCONNECTED",
+          "CONFIRM_SAFETY",
+          "BOOTING",
+          "POWER_OFF",
+          "POWER_ON",
+          "IDLE",
+          "BACKDRIVE",
+          "RUNNING",
+          "UPDATING_FIRMWARE"
+        ],
+        "safetystatus": [
+          "NORMAL",
+          "REDUCED",
+          "PROTECTIVE_STOP",
+          "RECOVERY",
+          "SAFEGUARD_STOP",
+          "SYSTEM_EMERGENCY_STOP",
+          "ROBOT_EMERGENCY_STOP",
+          "VIOLATION",
+          "FAULT"
+        ]
+      },
+      "DashboardProgram": {
+        "state": [
+          "STOPPED",
+          "PLAYING",
+          "PAUSED"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Part",
-    "BOM",
-    "ChangeOrder",
-    "WorkOrder",
-    "Robot",
-    "Program"
+    "RtdeRobotState",
+    "RtdeExecutionState",
+    "RtdeToolState",
+    "DashboardRobotState",
+    "DashboardProgram",
+    "DashboardInstallation"
   ],
   "adr": [
     "260607",
@@ -35,160 +80,160 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/parts",
-          "op": "create Part"
+          "path": "/v1/rtderobotstates",
+          "op": "create RtdeRobotState"
         },
         {
           "method": "GET",
-          "path": "/v1/parts",
-          "op": "list Part"
+          "path": "/v1/rtderobotstates",
+          "op": "list RtdeRobotState"
         },
         {
           "method": "GET",
-          "path": "/v1/parts/{id}",
-          "op": "get Part"
+          "path": "/v1/rtderobotstates/{id}",
+          "op": "get RtdeRobotState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/parts/{id}",
-          "op": "update Part"
+          "path": "/v1/rtderobotstates/{id}",
+          "op": "update RtdeRobotState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/parts/{id}",
-          "op": "delete Part"
+          "path": "/v1/rtderobotstates/{id}",
+          "op": "delete RtdeRobotState"
         },
         {
           "method": "POST",
-          "path": "/v1/boms",
-          "op": "create BOM"
+          "path": "/v1/rtdeexecutionstates",
+          "op": "create RtdeExecutionState"
         },
         {
           "method": "GET",
-          "path": "/v1/boms",
-          "op": "list BOM"
+          "path": "/v1/rtdeexecutionstates",
+          "op": "list RtdeExecutionState"
         },
         {
           "method": "GET",
-          "path": "/v1/boms/{id}",
-          "op": "get BOM"
+          "path": "/v1/rtdeexecutionstates/{id}",
+          "op": "get RtdeExecutionState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/boms/{id}",
-          "op": "update BOM"
+          "path": "/v1/rtdeexecutionstates/{id}",
+          "op": "update RtdeExecutionState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/boms/{id}",
-          "op": "delete BOM"
+          "path": "/v1/rtdeexecutionstates/{id}",
+          "op": "delete RtdeExecutionState"
         },
         {
           "method": "POST",
-          "path": "/v1/changeorders",
-          "op": "create ChangeOrder"
+          "path": "/v1/rtdetoolstates",
+          "op": "create RtdeToolState"
         },
         {
           "method": "GET",
-          "path": "/v1/changeorders",
-          "op": "list ChangeOrder"
+          "path": "/v1/rtdetoolstates",
+          "op": "list RtdeToolState"
         },
         {
           "method": "GET",
-          "path": "/v1/changeorders/{id}",
-          "op": "get ChangeOrder"
+          "path": "/v1/rtdetoolstates/{id}",
+          "op": "get RtdeToolState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/changeorders/{id}",
-          "op": "update ChangeOrder"
+          "path": "/v1/rtdetoolstates/{id}",
+          "op": "update RtdeToolState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/changeorders/{id}",
-          "op": "delete ChangeOrder"
+          "path": "/v1/rtdetoolstates/{id}",
+          "op": "delete RtdeToolState"
         },
         {
           "method": "POST",
-          "path": "/v1/workorders",
-          "op": "create WorkOrder"
+          "path": "/v1/dashboardrobotstates",
+          "op": "create DashboardRobotState"
         },
         {
           "method": "GET",
-          "path": "/v1/workorders",
-          "op": "list WorkOrder"
+          "path": "/v1/dashboardrobotstates",
+          "op": "list DashboardRobotState"
         },
         {
           "method": "GET",
-          "path": "/v1/workorders/{id}",
-          "op": "get WorkOrder"
+          "path": "/v1/dashboardrobotstates/{id}",
+          "op": "get DashboardRobotState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workorders/{id}",
-          "op": "update WorkOrder"
+          "path": "/v1/dashboardrobotstates/{id}",
+          "op": "update DashboardRobotState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workorders/{id}",
-          "op": "delete WorkOrder"
+          "path": "/v1/dashboardrobotstates/{id}",
+          "op": "delete DashboardRobotState"
         },
         {
           "method": "POST",
-          "path": "/v1/robots",
-          "op": "create Robot"
+          "path": "/v1/dashboardprograms",
+          "op": "create DashboardProgram"
         },
         {
           "method": "GET",
-          "path": "/v1/robots",
-          "op": "list Robot"
+          "path": "/v1/dashboardprograms",
+          "op": "list DashboardProgram"
         },
         {
           "method": "GET",
-          "path": "/v1/robots/{id}",
-          "op": "get Robot"
+          "path": "/v1/dashboardprograms/{id}",
+          "op": "get DashboardProgram"
         },
         {
           "method": "PATCH",
-          "path": "/v1/robots/{id}",
-          "op": "update Robot"
+          "path": "/v1/dashboardprograms/{id}",
+          "op": "update DashboardProgram"
         },
         {
           "method": "DELETE",
-          "path": "/v1/robots/{id}",
-          "op": "delete Robot"
+          "path": "/v1/dashboardprograms/{id}",
+          "op": "delete DashboardProgram"
         },
         {
           "method": "POST",
-          "path": "/v1/programs",
-          "op": "create Program"
+          "path": "/v1/dashboardinstallations",
+          "op": "create DashboardInstallation"
         },
         {
           "method": "GET",
-          "path": "/v1/programs",
-          "op": "list Program"
+          "path": "/v1/dashboardinstallations",
+          "op": "list DashboardInstallation"
         },
         {
           "method": "GET",
-          "path": "/v1/programs/{id}",
-          "op": "get Program"
+          "path": "/v1/dashboardinstallations/{id}",
+          "op": "get DashboardInstallation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/programs/{id}",
-          "op": "update Program"
+          "path": "/v1/dashboardinstallations/{id}",
+          "op": "update DashboardInstallation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/programs/{id}",
-          "op": "delete Program"
+          "path": "/v1/dashboardinstallations/{id}",
+          "op": "delete DashboardInstallation"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,382 +292,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_part",
-          "description": "Create a Part.",
+          "name": "create_rtde_robot_state",
+          "description": "Create a RtdeRobotState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "partNumber": {
-                "type": "string"
+              "timestamp": {
+                "type": "number"
               },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "string"
-              },
-              "material": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "partNumber",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_parts",
-          "description": "List Parts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_part",
-          "description": "Get a Part by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_part",
-          "description": "Update a Part.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "partNumber": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "string"
-              },
-              "material": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_part",
-          "description": "Delete a Part.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_b_o_m",
-          "description": "Create a BOM.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "parentPartId": {
-                "type": "string"
-              },
-              "childPartId": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "quantity"
-            ]
-          }
-        },
-        {
-          "name": "list_b_o_ms",
-          "description": "List BOMs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_b_o_m",
-          "description": "Get a BOM by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_b_o_m",
-          "description": "Update a BOM.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "parentPartId": {
-                "type": "string"
-              },
-              "childPartId": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_b_o_m",
-          "description": "Delete a BOM.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_change_order",
-          "description": "Create a ChangeOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "partId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_change_orders",
-          "description": "List ChangeOrders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_change_order",
-          "description": "Get a ChangeOrder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_change_order",
-          "description": "Update a ChangeOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "partId": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_change_order",
-          "description": "Delete a ChangeOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_work_order",
-          "description": "Create a WorkOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "partId": {
-                "type": "string"
-              },
-              "quantity": {
+              "robot_mode": {
                 "type": "integer"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "quantity",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_work_orders",
-          "description": "List WorkOrders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_work_order",
-          "description": "Get a WorkOrder by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_work_order",
-          "description": "Update a WorkOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "partId": {
-                "type": "string"
-              },
-              "quantity": {
+              "robot_status_bits": {
                 "type": "integer"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_work_order",
-          "description": "Delete a WorkOrder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_robot",
-          "description": "Create a Robot.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "model": {
-                "type": "string"
+              "safety_mode": {
+                "type": "integer"
               },
-              "cellId": {
-                "type": "string"
+              "safety_status_bits": {
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "actual_main_voltage": {
+                "type": "number"
               },
-              "payloadKg": {
+              "actual_robot_voltage": {
+                "type": "number"
+              },
+              "actual_robot_current": {
                 "type": "number"
               }
             },
             "required": [
-              "model",
-              "status"
+              "timestamp",
+              "robot_mode"
             ]
           }
         },
         {
-          "name": "list_robots",
-          "description": "List Robots.",
+          "name": "list_rtde_robot_states",
+          "description": "List RtdeRobotStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_robot",
-          "description": "Get a Robot by id.",
+          "name": "get_rtde_robot_state",
+          "description": "Get a RtdeRobotState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,24 +352,36 @@
           }
         },
         {
-          "name": "update_robot",
-          "description": "Update a Robot.",
+          "name": "update_rtde_robot_state",
+          "description": "Update a RtdeRobotState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "model": {
-                "type": "string"
+              "timestamp": {
+                "type": "number"
               },
-              "cellId": {
-                "type": "string"
+              "robot_mode": {
+                "type": "integer"
               },
-              "status": {
-                "type": "string"
+              "robot_status_bits": {
+                "type": "integer"
               },
-              "payloadKg": {
+              "safety_mode": {
+                "type": "integer"
+              },
+              "safety_status_bits": {
+                "type": "integer"
+              },
+              "actual_main_voltage": {
+                "type": "number"
+              },
+              "actual_robot_voltage": {
+                "type": "number"
+              },
+              "actual_robot_current": {
                 "type": "number"
               }
             },
@@ -663,8 +391,8 @@
           }
         },
         {
-          "name": "delete_robot",
-          "description": "Delete a Robot.",
+          "name": "delete_rtde_robot_state",
+          "description": "Delete a RtdeRobotState.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -678,38 +406,41 @@
           }
         },
         {
-          "name": "create_program",
-          "description": "Create a Program.",
+          "name": "create_rtde_execution_state",
+          "description": "Create a RtdeExecutionState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "robotId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "cycleTimeMs": {
+              "runtime_state": {
                 "type": "integer"
+              },
+              "actual_execution_time": {
+                "type": "number"
+              },
+              "speed_scaling": {
+                "type": "number"
+              },
+              "target_speed_fraction": {
+                "type": "number"
               }
             },
             "required": [
-              "name",
-              "cycleTimeMs"
+              "runtime_state",
+              "actual_execution_time"
             ]
           }
         },
         {
-          "name": "list_programs",
-          "description": "List Programs.",
+          "name": "list_rtde_execution_states",
+          "description": "List RtdeExecutionStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_program",
-          "description": "Get a Program by id.",
+          "name": "get_rtde_execution_state",
+          "description": "Get a RtdeExecutionState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -723,22 +454,25 @@
           }
         },
         {
-          "name": "update_program",
-          "description": "Update a Program.",
+          "name": "update_rtde_execution_state",
+          "description": "Update a RtdeExecutionState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "robotId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "cycleTimeMs": {
+              "runtime_state": {
                 "type": "integer"
+              },
+              "actual_execution_time": {
+                "type": "number"
+              },
+              "speed_scaling": {
+                "type": "number"
+              },
+              "target_speed_fraction": {
+                "type": "number"
               }
             },
             "required": [
@@ -747,8 +481,331 @@
           }
         },
         {
-          "name": "delete_program",
-          "description": "Delete a Program.",
+          "name": "delete_rtde_execution_state",
+          "description": "Delete a RtdeExecutionState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_rtde_tool_state",
+          "description": "Create a RtdeToolState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "tool_mode": {
+                "type": "integer"
+              },
+              "tool_output_voltage": {
+                "type": "integer"
+              },
+              "tool_output_current": {
+                "type": "number"
+              },
+              "tool_temperature": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "tool_mode",
+              "tool_output_voltage"
+            ]
+          }
+        },
+        {
+          "name": "list_rtde_tool_states",
+          "description": "List RtdeToolStates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_rtde_tool_state",
+          "description": "Get a RtdeToolState by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_rtde_tool_state",
+          "description": "Update a RtdeToolState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "tool_mode": {
+                "type": "integer"
+              },
+              "tool_output_voltage": {
+                "type": "integer"
+              },
+              "tool_output_current": {
+                "type": "number"
+              },
+              "tool_temperature": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_rtde_tool_state",
+          "description": "Delete a RtdeToolState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dashboard_robot_state",
+          "description": "Create a DashboardRobotState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "robotmode": {
+                "type": "string"
+              },
+              "safetystatus": {
+                "type": "string"
+              },
+              "running": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "robotmode",
+              "safetystatus"
+            ]
+          }
+        },
+        {
+          "name": "list_dashboard_robot_states",
+          "description": "List DashboardRobotStates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dashboard_robot_state",
+          "description": "Get a DashboardRobotState by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dashboard_robot_state",
+          "description": "Update a DashboardRobotState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "robotmode": {
+                "type": "string"
+              },
+              "safetystatus": {
+                "type": "string"
+              },
+              "running": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dashboard_robot_state",
+          "description": "Delete a DashboardRobotState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dashboard_program",
+          "description": "Create a DashboardProgram.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "programName": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "programName",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_dashboard_programs",
+          "description": "List DashboardPrograms.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dashboard_program",
+          "description": "Get a DashboardProgram by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dashboard_program",
+          "description": "Update a DashboardProgram.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "programName": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dashboard_program",
+          "description": "Delete a DashboardProgram.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dashboard_installation",
+          "description": "Create a DashboardInstallation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "installationName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "installationName"
+            ]
+          }
+        },
+        {
+          "name": "list_dashboard_installations",
+          "description": "List DashboardInstallations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dashboard_installation",
+          "description": "Get a DashboardInstallation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dashboard_installation",
+          "description": "Update a DashboardInstallation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "installationName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dashboard_installation",
+          "description": "Delete a DashboardInstallation.",
           "inputSchema": {
             "type": "object",
             "properties": {

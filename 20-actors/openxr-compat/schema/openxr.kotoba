@@ -3,69 +3,65 @@
 
 namespace openxr {
 
-    entity Anchor {
+    entity Instance {
         id: string @unique
-        sceneId: string
-        x: float
-        y: float
-        z: float
-        persistent: boolean
+        applicationName: string
+        applicationVersion: integer
+        engineName: string
+        engineVersion: integer
+        apiVersion: integer
+        enabledExtensionCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Scene {
+    entity System {
         id: string @unique
-        name: string
-        deviceId: string
-        meshRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Mesh {
-        id: string @unique
-        sceneId: string
-        vertexCount: integer
-        contentRef: string
+        systemId: integer
+        formFactor: integer
+        systemName: string
+        vendorId: integer
+        maxSwapchainImageWidth: integer
+        maxSwapchainImageHeight: integer
+        orientationTracking: boolean
+        positionTracking: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Session {
         id: string @unique
-        deviceId: string
-        appId: string
-        startedAt: datetime
+        systemId: integer
+        createFlags: integer
+        state: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Asset {
+    entity ViewConfiguration {
         id: string @unique
-        sceneId: string
-        type: string
-        contentRef: string
+        viewConfigurationType: integer
+        recommendedImageRectWidth: integer
+        recommendedImageRectHeight: integer
+        recommendedSwapchainSampleCount: integer
+        environmentBlendMode: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Device {
+    entity Swapchain {
         id: string @unique
-        model: string
-        platform: string
-        trackingMode: string
+        createFlags: integer
+        usageFlags: integer
+        format: integer
+        sampleCount: integer
+        width: integer
+        height: integer
+        faceCount: integer
+        arraySize: integer
+        mipCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

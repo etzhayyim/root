@@ -25,14 +25,13 @@
     "enums": {
       "Deployment": {
         "readyState": [
+          "BLOCKED",
           "BUILDING",
+          "CANCELED",
           "ERROR",
           "INITIALIZING",
           "QUEUED",
-          "READY",
-          "CANCELED",
-          "BLOCKED",
-          "DELETED"
+          "READY"
         ],
         "target": [
           "production",
@@ -44,6 +43,14 @@
           "zeit.world",
           "external",
           "na"
+        ]
+      },
+      "Alias": {
+        "redirectStatusCode": [
+          301,
+          302,
+          307,
+          308
         ]
       }
     }
@@ -557,10 +564,14 @@
               },
               "projectId": {
                 "type": "string"
+              },
+              "redirectStatusCode": {
+                "type": "integer"
               }
             },
             "required": [
-              "alias"
+              "alias",
+              "redirectStatusCode"
             ]
           }
         },
@@ -604,6 +615,9 @@
               },
               "projectId": {
                 "type": "string"
+              },
+              "redirectStatusCode": {
+                "type": "integer"
               }
             },
             "required": [

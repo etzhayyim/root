@@ -11,15 +11,45 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibrglqzum3ldogxotquxlknsi7y72rfmrnpwdxjhl6wobxfe4sa3a",
   "schema": "schema/intercom.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.15/api.intercom.io.yaml",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Contact",
+      "Conversation",
+      "Company",
+      "Admin",
+      "Article",
+      "Tag"
+    ],
+    "enums": {
+      "Conversation": {
+        "state": [
+          "open",
+          "closed",
+          "snoozed"
+        ],
+        "priority": [
+          "priority",
+          "not_priority"
+        ]
+      },
+      "Article": {
+        "state": [
+          "published",
+          "draft"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Ticket",
-    "Survey",
-    "Response",
-    "Account",
+    "Contact",
     "Conversation",
-    "Contact"
+    "Company",
+    "Admin",
+    "Article",
+    "Tag"
   ],
   "adr": [
     "260607",
@@ -35,103 +65,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/tickets",
-          "op": "create Ticket"
+          "path": "/v1/contacts",
+          "op": "create Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/tickets",
-          "op": "list Ticket"
+          "path": "/v1/contacts",
+          "op": "list Contact"
         },
         {
           "method": "GET",
-          "path": "/v1/tickets/{id}",
-          "op": "get Ticket"
+          "path": "/v1/contacts/{id}",
+          "op": "get Contact"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tickets/{id}",
-          "op": "update Ticket"
+          "path": "/v1/contacts/{id}",
+          "op": "update Contact"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tickets/{id}",
-          "op": "delete Ticket"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/surveys",
-          "op": "create Survey"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/surveys",
-          "op": "list Survey"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/surveys/{id}",
-          "op": "get Survey"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/surveys/{id}",
-          "op": "update Survey"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/surveys/{id}",
-          "op": "delete Survey"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/responses",
-          "op": "create Response"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/responses",
-          "op": "list Response"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/responses/{id}",
-          "op": "get Response"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/responses/{id}",
-          "op": "update Response"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/responses/{id}",
-          "op": "delete Response"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/contacts/{id}",
+          "op": "delete Contact"
         },
         {
           "method": "POST",
@@ -160,28 +115,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/contacts",
-          "op": "create Contact"
+          "path": "/v1/companies",
+          "op": "create Company"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts",
-          "op": "list Contact"
+          "path": "/v1/companies",
+          "op": "list Company"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts/{id}",
-          "op": "get Contact"
+          "path": "/v1/companies/{id}",
+          "op": "get Company"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contacts/{id}",
-          "op": "update Contact"
+          "path": "/v1/companies/{id}",
+          "op": "update Company"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contacts/{id}",
-          "op": "delete Contact"
+          "path": "/v1/companies/{id}",
+          "op": "delete Company"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/admins",
+          "op": "create Admin"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/admins",
+          "op": "list Admin"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/admins/{id}",
+          "op": "get Admin"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/admins/{id}",
+          "op": "update Admin"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/admins/{id}",
+          "op": "delete Admin"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/articles",
+          "op": "create Article"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/articles",
+          "op": "list Article"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/articles/{id}",
+          "op": "get Article"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/articles/{id}",
+          "op": "update Article"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/articles/{id}",
+          "op": "delete Article"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/tags",
+          "op": "create Tag"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tags",
+          "op": "list Tag"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tags/{id}",
+          "op": "get Tag"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/tags/{id}",
+          "op": "update Tag"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/tags/{id}",
+          "op": "delete Tag"
         }
       ],
       "features": {
@@ -247,438 +277,6 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_ticket",
-          "description": "Create a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "subject": {
-                "type": "string"
-              },
-              "requesterId": {
-                "type": "string"
-              },
-              "priority": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "subject",
-              "priority"
-            ]
-          }
-        },
-        {
-          "name": "list_tickets",
-          "description": "List Tickets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_ticket",
-          "description": "Get a Ticket by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_ticket",
-          "description": "Update a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "subject": {
-                "type": "string"
-              },
-              "requesterId": {
-                "type": "string"
-              },
-              "priority": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_ticket",
-          "description": "Delete a Ticket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_survey",
-          "description": "Create a Survey.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_surveys",
-          "description": "List Surveys.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_survey",
-          "description": "Get a Survey by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_survey",
-          "description": "Update a Survey.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_survey",
-          "description": "Delete a Survey.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_response",
-          "description": "Create a Response.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "surveyId": {
-                "type": "string"
-              },
-              "respondentId": {
-                "type": "string"
-              },
-              "score": {
-                "type": "integer"
-              },
-              "submittedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "score",
-              "submittedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_responses",
-          "description": "List Responses.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_response",
-          "description": "Get a Response by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_response",
-          "description": "Update a Response.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "surveyId": {
-                "type": "string"
-              },
-              "respondentId": {
-                "type": "string"
-              },
-              "score": {
-                "type": "integer"
-              },
-              "submittedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_response",
-          "description": "Delete a Response.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "healthScore": {
-                "type": "number"
-              },
-              "arr": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "healthScore"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "healthScore": {
-                "type": "number"
-              },
-              "arr": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_conversation",
-          "description": "Create a Conversation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "sentiment": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "channel",
-              "sentiment"
-            ]
-          }
-        },
-        {
-          "name": "list_conversations",
-          "description": "List Conversations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_conversation",
-          "description": "Get a Conversation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_conversation",
-          "description": "Update a Conversation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "channel": {
-                "type": "string"
-              },
-              "sentiment": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_conversation",
-          "description": "Delete a Conversation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_contact",
           "description": "Create a Contact.",
           "inputSchema": {
@@ -687,16 +285,25 @@
               "email": {
                 "type": "string"
               },
-              "firstName": {
+              "phone": {
                 "type": "string"
               },
-              "lastName": {
+              "name": {
                 "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "signedUpAt": {
+                "type": "integer"
               }
             },
             "required": [
               "email",
-              "firstName"
+              "phone"
             ]
           }
         },
@@ -735,11 +342,20 @@
               "email": {
                 "type": "string"
               },
-              "firstName": {
+              "phone": {
                 "type": "string"
               },
-              "lastName": {
+              "name": {
                 "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "signedUpAt": {
+                "type": "integer"
               }
             },
             "required": [
@@ -750,6 +366,462 @@
         {
           "name": "delete_contact",
           "description": "Delete a Contact.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_conversation",
+          "description": "Create a Conversation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "open": {
+                "type": "boolean"
+              },
+              "read": {
+                "type": "boolean"
+              },
+              "adminAssigneeId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "state",
+              "priority"
+            ]
+          }
+        },
+        {
+          "name": "list_conversations",
+          "description": "List Conversations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_conversation",
+          "description": "Get a Conversation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_conversation",
+          "description": "Update a Conversation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "open": {
+                "type": "boolean"
+              },
+              "read": {
+                "type": "boolean"
+              },
+              "adminAssigneeId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_conversation",
+          "description": "Delete a Conversation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_company",
+          "description": "Create a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "industry": {
+                "type": "string"
+              },
+              "monthlySpend": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "companyId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "industry"
+            ]
+          }
+        },
+        {
+          "name": "list_companies",
+          "description": "List Companies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_company",
+          "description": "Get a Company by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_company",
+          "description": "Update a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "industry": {
+                "type": "string"
+              },
+              "monthlySpend": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "companyId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_company",
+          "description": "Delete a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_admin",
+          "description": "Create a Admin.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "awayModeEnabled": {
+                "type": "boolean"
+              },
+              "hasInboxSeat": {
+                "type": "boolean"
+              },
+              "jobTitle": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "email"
+            ]
+          }
+        },
+        {
+          "name": "list_admins",
+          "description": "List Admins.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_admin",
+          "description": "Get a Admin by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_admin",
+          "description": "Update a Admin.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "awayModeEnabled": {
+                "type": "boolean"
+              },
+              "hasInboxSeat": {
+                "type": "boolean"
+              },
+              "jobTitle": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_admin",
+          "description": "Delete a Admin.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_article",
+          "description": "Create a Article.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "authorId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "title",
+              "body"
+            ]
+          }
+        },
+        {
+          "name": "list_articles",
+          "description": "List Articles.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_article",
+          "description": "Get a Article by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_article",
+          "description": "Update a Article.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "authorId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_article",
+          "description": "Delete a Article.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tag",
+          "description": "Create a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "appliedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "appliedAt"
+            ]
+          }
+        },
+        {
+          "name": "list_tags",
+          "description": "List Tags.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tag",
+          "description": "Get a Tag by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tag",
+          "description": "Update a Tag.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "appliedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tag",
+          "description": "Delete a Tag.",
           "inputSchema": {
             "type": "object",
             "properties": {

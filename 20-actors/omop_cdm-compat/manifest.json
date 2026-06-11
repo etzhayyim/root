@@ -11,15 +11,38 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif6sucsenrlr4lzzhz6jdfglqksfsuhvyzqcszd4rggowzlouddhy",
   "schema": "schema/omop_cdm.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://ohdsi.github.io/CommonDataModel/cdm54.html",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Person",
+      "Concept",
+      "ConditionOccurrence",
+      "DrugExposure",
+      "VisitOccurrence",
+      "Observation"
+    ],
+    "enums": {
+      "Concept": {
+        "standardConcept": [
+          "S",
+          "C"
+        ],
+        "invalidReason": [
+          "D",
+          "U"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Patient",
-    "Observation",
-    "Condition",
-    "DiagnosticReport",
-    "Sequence",
-    "Specimen"
+    "Person",
+    "Concept",
+    "ConditionOccurrence",
+    "DrugExposure",
+    "VisitOccurrence",
+    "Observation"
   ],
   "adr": [
     "260607",
@@ -35,28 +58,128 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/patients",
-          "op": "create Patient"
+          "path": "/v1/persons",
+          "op": "create Person"
         },
         {
           "method": "GET",
-          "path": "/v1/patients",
-          "op": "list Patient"
+          "path": "/v1/persons",
+          "op": "list Person"
         },
         {
           "method": "GET",
-          "path": "/v1/patients/{id}",
-          "op": "get Patient"
+          "path": "/v1/persons/{id}",
+          "op": "get Person"
         },
         {
           "method": "PATCH",
-          "path": "/v1/patients/{id}",
-          "op": "update Patient"
+          "path": "/v1/persons/{id}",
+          "op": "update Person"
         },
         {
           "method": "DELETE",
-          "path": "/v1/patients/{id}",
-          "op": "delete Patient"
+          "path": "/v1/persons/{id}",
+          "op": "delete Person"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/concepts",
+          "op": "create Concept"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/concepts",
+          "op": "list Concept"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/concepts/{id}",
+          "op": "get Concept"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/concepts/{id}",
+          "op": "update Concept"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/concepts/{id}",
+          "op": "delete Concept"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/conditionoccurrences",
+          "op": "create ConditionOccurrence"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/conditionoccurrences",
+          "op": "list ConditionOccurrence"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/conditionoccurrences/{id}",
+          "op": "get ConditionOccurrence"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/conditionoccurrences/{id}",
+          "op": "update ConditionOccurrence"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/conditionoccurrences/{id}",
+          "op": "delete ConditionOccurrence"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/drugexposures",
+          "op": "create DrugExposure"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/drugexposures",
+          "op": "list DrugExposure"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/drugexposures/{id}",
+          "op": "get DrugExposure"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/drugexposures/{id}",
+          "op": "update DrugExposure"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/drugexposures/{id}",
+          "op": "delete DrugExposure"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/visitoccurrences",
+          "op": "create VisitOccurrence"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/visitoccurrences",
+          "op": "list VisitOccurrence"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/visitoccurrences/{id}",
+          "op": "get VisitOccurrence"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/visitoccurrences/{id}",
+          "op": "update VisitOccurrence"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/visitoccurrences/{id}",
+          "op": "delete VisitOccurrence"
         },
         {
           "method": "POST",
@@ -82,106 +205,6 @@
           "method": "DELETE",
           "path": "/v1/observations/{id}",
           "op": "delete Observation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/conditions",
-          "op": "create Condition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/conditions",
-          "op": "list Condition"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/conditions/{id}",
-          "op": "get Condition"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/conditions/{id}",
-          "op": "update Condition"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/conditions/{id}",
-          "op": "delete Condition"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/diagnosticreports",
-          "op": "create DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports",
-          "op": "list DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "get DiagnosticReport"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "update DiagnosticReport"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "delete DiagnosticReport"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/sequences",
-          "op": "create Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences",
-          "op": "list Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences/{id}",
-          "op": "get Sequence"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/sequences/{id}",
-          "op": "update Sequence"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/sequences/{id}",
-          "op": "delete Sequence"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/specimens",
-          "op": "create Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens",
-          "op": "list Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens/{id}",
-          "op": "get Specimen"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/specimens/{id}",
-          "op": "update Specimen"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/specimens/{id}",
-          "op": "delete Specimen"
         }
       ],
       "features": {
@@ -247,41 +270,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_patient",
-          "description": "Create a Patient.",
+          "name": "create_person",
+          "description": "Create a Person.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "identifier": {
+              "personId": {
+                "type": "integer"
+              },
+              "genderConceptId": {
+                "type": "integer"
+              },
+              "yearOfBirth": {
+                "type": "integer"
+              },
+              "monthOfBirth": {
+                "type": "integer"
+              },
+              "dayOfBirth": {
+                "type": "integer"
+              },
+              "birthDatetime": {
                 "type": "string"
               },
-              "givenName": {
-                "type": "string"
+              "raceConceptId": {
+                "type": "integer"
               },
-              "familyName": {
-                "type": "string"
-              },
-              "birthDate": {
-                "type": "string"
+              "ethnicityConceptId": {
+                "type": "integer"
               }
             },
             "required": [
-              "identifier",
-              "givenName"
+              "yearOfBirth",
+              "monthOfBirth"
             ]
           }
         },
         {
-          "name": "list_patients",
-          "description": "List Patients.",
+          "name": "list_persons",
+          "description": "List Persons.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_patient",
-          "description": "Get a Patient by id.",
+          "name": "get_person",
+          "description": "Get a Person by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +330,51 @@
           }
         },
         {
-          "name": "update_patient",
-          "description": "Update a Patient.",
+          "name": "update_person",
+          "description": "Update a Person.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "identifier": {
+              "personId": {
+                "type": "integer"
+              },
+              "genderConceptId": {
+                "type": "integer"
+              },
+              "yearOfBirth": {
+                "type": "integer"
+              },
+              "monthOfBirth": {
+                "type": "integer"
+              },
+              "dayOfBirth": {
+                "type": "integer"
+              },
+              "birthDatetime": {
                 "type": "string"
               },
-              "givenName": {
-                "type": "string"
+              "raceConceptId": {
+                "type": "integer"
               },
-              "familyName": {
-                "type": "string"
-              },
-              "birthDate": {
+              "ethnicityConceptId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_person",
+          "description": "Delete a Person.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -322,8 +384,425 @@
           }
         },
         {
-          "name": "delete_patient",
-          "description": "Delete a Patient.",
+          "name": "create_concept",
+          "description": "Create a Concept.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "conceptId": {
+                "type": "integer"
+              },
+              "conceptName": {
+                "type": "string"
+              },
+              "domainId": {
+                "type": "string"
+              },
+              "vocabularyId": {
+                "type": "string"
+              },
+              "conceptClassId": {
+                "type": "string"
+              },
+              "standardConcept": {
+                "type": "string"
+              },
+              "conceptCode": {
+                "type": "string"
+              },
+              "validStartDate": {
+                "type": "string"
+              },
+              "validEndDate": {
+                "type": "string"
+              },
+              "invalidReason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "conceptName",
+              "standardConcept"
+            ]
+          }
+        },
+        {
+          "name": "list_concepts",
+          "description": "List Concepts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_concept",
+          "description": "Get a Concept by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_concept",
+          "description": "Update a Concept.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "conceptId": {
+                "type": "integer"
+              },
+              "conceptName": {
+                "type": "string"
+              },
+              "domainId": {
+                "type": "string"
+              },
+              "vocabularyId": {
+                "type": "string"
+              },
+              "conceptClassId": {
+                "type": "string"
+              },
+              "standardConcept": {
+                "type": "string"
+              },
+              "conceptCode": {
+                "type": "string"
+              },
+              "validStartDate": {
+                "type": "string"
+              },
+              "validEndDate": {
+                "type": "string"
+              },
+              "invalidReason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_concept",
+          "description": "Delete a Concept.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_condition_occurrence",
+          "description": "Create a ConditionOccurrence.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "conditionOccurrenceId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "conditionConceptId": {
+                "type": "integer"
+              },
+              "conditionStartDate": {
+                "type": "string"
+              },
+              "conditionEndDate": {
+                "type": "string"
+              },
+              "visitOccurrenceId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "conditionStartDate",
+              "conditionEndDate"
+            ]
+          }
+        },
+        {
+          "name": "list_condition_occurrences",
+          "description": "List ConditionOccurrences.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_condition_occurrence",
+          "description": "Get a ConditionOccurrence by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_condition_occurrence",
+          "description": "Update a ConditionOccurrence.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "conditionOccurrenceId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "conditionConceptId": {
+                "type": "integer"
+              },
+              "conditionStartDate": {
+                "type": "string"
+              },
+              "conditionEndDate": {
+                "type": "string"
+              },
+              "visitOccurrenceId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_condition_occurrence",
+          "description": "Delete a ConditionOccurrence.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_drug_exposure",
+          "description": "Create a DrugExposure.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "drugExposureId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "drugConceptId": {
+                "type": "integer"
+              },
+              "drugExposureStartDate": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number"
+              },
+              "daysSupply": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "drugExposureStartDate",
+              "quantity"
+            ]
+          }
+        },
+        {
+          "name": "list_drug_exposures",
+          "description": "List DrugExposures.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_drug_exposure",
+          "description": "Get a DrugExposure by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_drug_exposure",
+          "description": "Update a DrugExposure.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "drugExposureId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "drugConceptId": {
+                "type": "integer"
+              },
+              "drugExposureStartDate": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number"
+              },
+              "daysSupply": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_drug_exposure",
+          "description": "Delete a DrugExposure.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_visit_occurrence",
+          "description": "Create a VisitOccurrence.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "visitOccurrenceId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "visitConceptId": {
+                "type": "integer"
+              },
+              "visitStartDate": {
+                "type": "string"
+              },
+              "visitEndDate": {
+                "type": "string"
+              },
+              "providerId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "visitStartDate",
+              "visitEndDate"
+            ]
+          }
+        },
+        {
+          "name": "list_visit_occurrences",
+          "description": "List VisitOccurrences.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_visit_occurrence",
+          "description": "Get a VisitOccurrence by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_visit_occurrence",
+          "description": "Update a VisitOccurrence.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "visitOccurrenceId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "visitConceptId": {
+                "type": "integer"
+              },
+              "visitStartDate": {
+                "type": "string"
+              },
+              "visitEndDate": {
+                "type": "string"
+              },
+              "providerId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_visit_occurrence",
+          "description": "Delete a VisitOccurrence.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -342,22 +821,28 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "observationId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "observationConceptId": {
+                "type": "integer"
+              },
+              "observationDate": {
                 "type": "string"
               },
-              "code": {
-                "type": "string"
+              "valueAsNumber": {
+                "type": "number"
               },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
+              "valueAsString": {
                 "type": "string"
               }
             },
             "required": [
-              "code",
-              "value"
+              "observationDate",
+              "valueAsNumber"
             ]
           }
         },
@@ -393,16 +878,22 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "observationId": {
+                "type": "integer"
+              },
+              "personId": {
+                "type": "integer"
+              },
+              "observationConceptId": {
+                "type": "integer"
+              },
+              "observationDate": {
                 "type": "string"
               },
-              "code": {
-                "type": "string"
+              "valueAsNumber": {
+                "type": "number"
               },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
+              "valueAsString": {
                 "type": "string"
               }
             },
@@ -414,348 +905,6 @@
         {
           "name": "delete_observation",
           "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_condition",
-          "description": "Create a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "clinicalStatus": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "clinicalStatus"
-            ]
-          }
-        },
-        {
-          "name": "list_conditions",
-          "description": "List Conditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_condition",
-          "description": "Get a Condition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_condition",
-          "description": "Update a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "clinicalStatus": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_condition",
-          "description": "Delete a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_diagnostic_report",
-          "description": "Create a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_diagnostic_reports",
-          "description": "List DiagnosticReports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_diagnostic_report",
-          "description": "Get a DiagnosticReport by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_diagnostic_report",
-          "description": "Update a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_diagnostic_report",
-          "description": "Delete a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sequence",
-          "description": "Create a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "accession",
-              "referenceGenome"
-            ]
-          }
-        },
-        {
-          "name": "list_sequences",
-          "description": "List Sequences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sequence",
-          "description": "Get a Sequence by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sequence",
-          "description": "Update a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sequence",
-          "description": "Delete a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_specimen",
-          "description": "Create a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "collectedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_specimens",
-          "description": "List Specimens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_specimen",
-          "description": "Get a Specimen by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_specimen",
-          "description": "Update a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_specimen",
-          "description": "Delete a Specimen.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible web3 / blockchain RPC actor (opensea); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:opensea-compat",
-    "x-wasm-cid": "bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+    "x-wasm-cid": "bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
+      "url": "ipfs://bafkreicngmo727jthfbpvz2bnvvh5jrqioei4hbbr6qbiz64zma7v75rtq",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/blocks": {
+    "/v1/nfts": {
       "get": {
-        "summary": "List Blocks",
+        "summary": "List Nfts",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Block"
+                        "$ref": "#/components/schemas/Nft"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Block",
+        "summary": "Create a Nft",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BlockCreate"
+                "$ref": "#/components/schemas/NftCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Block"
+                  "$ref": "#/components/schemas/Nft"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/blocks/{id}": {
+    "/v1/nfts/{id}": {
       "get": {
-        "summary": "Get a Block",
+        "summary": "Get a Nft",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Block"
+                  "$ref": "#/components/schemas/Nft"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Block",
+        "summary": "Update a Nft",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BlockCreate"
+                "$ref": "#/components/schemas/NftCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Block"
+                  "$ref": "#/components/schemas/Nft"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Block",
+        "summary": "Delete a Nft",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/transactions": {
+    "/v1/collections": {
       "get": {
-        "summary": "List Transactions",
+        "summary": "List Collections",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Transaction"
+                        "$ref": "#/components/schemas/Collection"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Transaction",
+        "summary": "Create a Collection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/transactions/{id}": {
+    "/v1/collections/{id}": {
       "get": {
-        "summary": "Get a Transaction",
+        "summary": "Get a Collection",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Transaction",
+        "summary": "Update a Collection",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransactionCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Transaction",
+        "summary": "Delete a Collection",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/contracts": {
+    "/v1/listings": {
       "get": {
-        "summary": "List Contracts",
+        "summary": "List Listings",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Contract"
+                        "$ref": "#/components/schemas/Listing"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Contract",
+        "summary": "Create a Listing",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContractCreate"
+                "$ref": "#/components/schemas/ListingCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contract"
+                  "$ref": "#/components/schemas/Listing"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/contracts/{id}": {
+    "/v1/listings/{id}": {
       "get": {
-        "summary": "Get a Contract",
+        "summary": "Get a Listing",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contract"
+                  "$ref": "#/components/schemas/Listing"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Contract",
+        "summary": "Update a Listing",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContractCreate"
+                "$ref": "#/components/schemas/ListingCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contract"
+                  "$ref": "#/components/schemas/Listing"
                 }
               }
             }
@@ -551,7 +551,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Contract",
+        "summary": "Delete a Listing",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/offers": {
+      "get": {
+        "summary": "List Offers",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Offer"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Offer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Offer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/offers/{id}": {
+      "get": {
+        "summary": "Get a Offer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Offer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Offer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Offer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Offer",
         "parameters": [
           {
             "name": "id",
@@ -757,376 +942,6 @@
         }
       }
     },
-    "/v1/events": {
-      "get": {
-        "summary": "List Events",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Event"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Event",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EventCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/events/{id}": {
-      "get": {
-        "summary": "Get a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EventCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tokens": {
-      "get": {
-        "summary": "List Tokens",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Token"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Token",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TokenCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Token"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tokens/{id}": {
-      "get": {
-        "summary": "Get a Token",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Token"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Token",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TokenCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Token"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Token",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
     "/healthz": {
       "get": {
         "summary": "Health probe",
@@ -1140,76 +955,144 @@
   },
   "components": {
     "schemas": {
-      "Block": {
+      "Nft": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "number": {
-            "type": "integer"
-          },
-          "hash": {
+          "identifier": {
             "type": "string"
           },
-          "chain": {
+          "collection": {
             "type": "string"
           },
-          "minedAt": {
+          "contract": {
+            "type": "string"
+          },
+          "tokenStandard": {
+            "type": "string",
+            "enum": [
+              "erc721",
+              "erc1155",
+              "erc20"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "openseaUrl": {
+            "type": "string"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "isNsfw": {
+            "type": "boolean"
+          },
+          "updatedAt": {
             "type": "string",
             "format": "date-time"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
-      "BlockCreate": {
+      "NftCreate": {
         "type": "object",
         "properties": {
-          "number": {
-            "type": "integer"
-          },
-          "hash": {
+          "identifier": {
             "type": "string"
           },
-          "chain": {
+          "collection": {
             "type": "string"
           },
-          "minedAt": {
+          "contract": {
+            "type": "string"
+          },
+          "tokenStandard": {
+            "type": "string",
+            "enum": [
+              "erc721",
+              "erc1155",
+              "erc20"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "openseaUrl": {
+            "type": "string"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "isNsfw": {
+            "type": "boolean"
+          },
+          "updatedAt": {
             "type": "string"
           }
         },
         "required": [
-          "number",
-          "hash"
+          "identifier",
+          "collection"
         ]
       },
-      "Transaction": {
+      "Collection": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "hash": {
+          "collection": {
             "type": "string"
           },
-          "fromAddr": {
+          "name": {
             "type": "string"
           },
-          "toAddr": {
+          "description": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "status": {
+          "imageUrl": {
             "type": "string"
+          },
+          "safelistStatus": {
+            "type": "string",
+            "enum": [
+              "not_requested",
+              "requested",
+              "approved",
+              "verified",
+              "disabled_top_trending"
+            ]
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "isNsfw": {
+            "type": "boolean"
+          },
+          "totalSupply": {
+            "type": "integer"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1221,44 +1104,82 @@
           }
         }
       },
-      "TransactionCreate": {
+      "CollectionCreate": {
         "type": "object",
         "properties": {
-          "hash": {
+          "collection": {
             "type": "string"
           },
-          "fromAddr": {
+          "name": {
             "type": "string"
           },
-          "toAddr": {
+          "description": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
+          "imageUrl": {
+            "type": "string"
           },
-          "status": {
+          "safelistStatus": {
+            "type": "string",
+            "enum": [
+              "not_requested",
+              "requested",
+              "approved",
+              "verified",
+              "disabled_top_trending"
+            ]
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "isNsfw": {
+            "type": "boolean"
+          },
+          "totalSupply": {
+            "type": "integer"
+          },
+          "createdDate": {
             "type": "string"
           }
         },
         "required": [
-          "hash",
-          "fromAddr"
+          "collection",
+          "name"
         ]
       },
-      "Contract": {
+      "Listing": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "address": {
+          "orderHash": {
             "type": "string"
           },
           "chain": {
             "type": "string"
           },
-          "abiRef": {
+          "protocolAddress": {
             "type": "string"
+          },
+          "remainingQuantity": {
+            "type": "integer"
+          },
+          "orderCreatedAt": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "FULFILLED",
+              "EXPIRED",
+              "CANCELLED"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1270,21 +1191,115 @@
           }
         }
       },
-      "ContractCreate": {
+      "ListingCreate": {
         "type": "object",
         "properties": {
-          "address": {
+          "orderHash": {
             "type": "string"
           },
           "chain": {
             "type": "string"
           },
-          "abiRef": {
+          "protocolAddress": {
             "type": "string"
+          },
+          "remainingQuantity": {
+            "type": "integer"
+          },
+          "orderCreatedAt": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "FULFILLED",
+              "EXPIRED",
+              "CANCELLED"
+            ]
           }
         },
         "required": [
-          "address",
+          "orderHash",
+          "chain"
+        ]
+      },
+      "Offer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orderHash": {
+            "type": "string"
+          },
+          "chain": {
+            "type": "string"
+          },
+          "protocolAddress": {
+            "type": "string"
+          },
+          "remainingQuantity": {
+            "type": "integer"
+          },
+          "orderCreatedAt": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "FULFILLED",
+              "EXPIRED",
+              "CANCELLED"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OfferCreate": {
+        "type": "object",
+        "properties": {
+          "orderHash": {
+            "type": "string"
+          },
+          "chain": {
+            "type": "string"
+          },
+          "protocolAddress": {
+            "type": "string"
+          },
+          "remainingQuantity": {
+            "type": "integer"
+          },
+          "orderCreatedAt": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "FULFILLED",
+              "EXPIRED",
+              "CANCELLED"
+            ]
+          }
+        },
+        "required": [
+          "orderHash",
           "chain"
         ]
       },
@@ -1297,14 +1312,18 @@
           "address": {
             "type": "string"
           },
-          "chain": {
+          "username": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "bio": {
+            "type": "string"
           },
-          "nonce": {
-            "type": "integer"
+          "website": {
+            "type": "string"
+          },
+          "joinedDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1322,117 +1341,22 @@
           "address": {
             "type": "string"
           },
-          "chain": {
+          "username": {
             "type": "string"
           },
-          "balance": {
-            "type": "number"
+          "bio": {
+            "type": "string"
           },
-          "nonce": {
-            "type": "integer"
+          "website": {
+            "type": "string"
+          },
+          "joinedDate": {
+            "type": "string"
           }
         },
         "required": [
           "address",
-          "chain"
-        ]
-      },
-      "Event": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "contractAddr": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "blockNumber": {
-            "type": "integer"
-          },
-          "dataRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EventCreate": {
-        "type": "object",
-        "properties": {
-          "contractAddr": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "blockNumber": {
-            "type": "integer"
-          },
-          "dataRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "contractAddr",
-          "name"
-        ]
-      },
-      "Token": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "contractAddr": {
-            "type": "string"
-          },
-          "symbol": {
-            "type": "string"
-          },
-          "decimals": {
-            "type": "integer"
-          },
-          "standard": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TokenCreate": {
-        "type": "object",
-        "properties": {
-          "contractAddr": {
-            "type": "string"
-          },
-          "symbol": {
-            "type": "string"
-          },
-          "decimals": {
-            "type": "integer"
-          },
-          "standard": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "contractAddr",
-          "symbol"
+          "username"
         ]
       }
     }

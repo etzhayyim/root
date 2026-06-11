@@ -111,251 +111,59 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/indexes", methods=["POST"])
+def create_index(request):
+    """Create a Index."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['name', 'entries', 'dataSize', 'fileSize', 'lastBuildTimeS', 'numberOfPendingTasks', 'pendingTask', 'virtual', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['name', 'entries'])
     if err:
         return err, 400
-    rec = {"id": new_id("algolia_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("algolia_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
-    return rec, 201
-
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Product", rec)
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.Product", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['carrier', 'tracking'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("algolia_shi")}
-    rec["orderId"] = data.get('orderId')
-    rec["carrier"] = data.get('carrier')
-    rec["tracking"] = data.get('tracking')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
-    return rec, 201
-
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['orderId', 'carrier', 'tracking', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Shipment", rec)
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.Shipment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/searchindexes", methods=["POST"])
-def create_search_index(request):
-    """Create a SearchIndex."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'recordCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("algolia_sea")}
+    rec = {"id": new_id("algolia_ind")}
     rec["name"] = data.get('name')
-    rec["recordCount"] = _as_int(data.get('recordCount'))
-    rec["primaryKey"] = data.get('primaryKey')
+    rec["entries"] = _as_int(data.get('entries'))
+    rec["dataSize"] = _as_int(data.get('dataSize'))
+    rec["fileSize"] = _as_int(data.get('fileSize'))
+    rec["lastBuildTimeS"] = _as_int(data.get('lastBuildTimeS'))
+    rec["numberOfPendingTasks"] = _as_int(data.get('numberOfPendingTasks'))
+    rec["pendingTask"] = _as_bool(data.get('pendingTask'))
+    rec["virtual"] = _as_bool(data.get('virtual'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("SearchIndex", rec)
+    _persist("Index", rec)
     return rec, 201
 
-@app.route("/v1/searchindexes", methods=["GET"])
-def list_search_indexes(request):
-    """List SearchIndexes with filtering + cursor pagination."""
+@app.route("/v1/indexes", methods=["GET"])
+def list_indexes(request):
+    """List Indexes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("SearchIndex")
-    rows = _apply_filters(rows, params, ['name', 'recordCount', 'primaryKey'])
+    rows = _query("Index")
+    rows = _apply_filters(rows, params, ['name', 'entries', 'dataSize', 'fileSize', 'lastBuildTimeS', 'numberOfPendingTasks', 'pendingTask', 'virtual', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["GET"])
-def get_search_index(request, eid):
-    """Retrieve a SearchIndex by id (supports ?expand=)."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/indexes/<eid>", methods=["GET"])
+def get_index(request, eid):
+    """Retrieve a Index by id (supports ?expand=)."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["POST", "PATCH"])
-def update_search_index(request, eid):
-    """Update a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/indexes/<eid>", methods=["POST", "PATCH"])
+def update_index(request, eid):
+    """Update a Index."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
+    err = _reject_unknown(data, ['name', 'entries', 'dataSize', 'fileSize', 'lastBuildTimeS', 'numberOfPendingTasks', 'pendingTask', 'virtual', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -363,64 +171,66 @@ def update_search_index(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("SearchIndex", rec)
+    _persist("Index", rec)
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["DELETE"])
-def delete_search_index(request, eid):
-    """Delete a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/indexes/<eid>", methods=["DELETE"])
+def delete_index(request, eid):
+    """Delete a Index."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.SearchIndex", "id": eid})
+    db.retract({"entity": f"algolia.Index", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/apikeys", methods=["POST"])
+def create_api_key(request):
+    """Create a ApiKey."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['value', 'description', 'maxHitsPerQuery', 'maxQueriesPerIPPerHour', 'validity'])
     if err:
         return err, 400
-    err = _require(data, ['event', 'url'])
+    err = _require(data, ['value', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("algolia_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("algolia_api")}
+    rec["value"] = data.get('value')
+    rec["description"] = data.get('description')
+    rec["maxHitsPerQuery"] = _as_int(data.get('maxHitsPerQuery'))
+    rec["maxQueriesPerIPPerHour"] = _as_int(data.get('maxQueriesPerIPPerHour'))
+    rec["validity"] = _as_int(data.get('validity'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("ApiKey", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/apikeys", methods=["GET"])
+def list_api_keys(request):
+    """List ApiKeys with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("ApiKey")
+    rows = _apply_filters(rows, params, ['value', 'description', 'maxHitsPerQuery', 'maxQueriesPerIPPerHour', 'validity'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/apikeys/<eid>", methods=["GET"])
+def get_api_key(request, eid):
+    """Retrieve a ApiKey by id (supports ?expand=)."""
+    rows = _query("ApiKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/apikeys/<eid>", methods=["POST", "PATCH"])
+def update_api_key(request, eid):
+    """Update a ApiKey."""
+    rows = _query("ApiKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['value', 'description', 'maxHitsPerQuery', 'maxQueriesPerIPPerHour', 'validity'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,88 +238,227 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("ApiKey", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/apikeys/<eid>", methods=["DELETE"])
+def delete_api_key(request, eid):
+    """Delete a ApiKey."""
+    rows = _query("ApiKey", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.Webhook", "id": eid})
+    db.retract({"entity": f"algolia.ApiKey", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
+@app.route("/v1/synonyms", methods=["POST"])
+def create_synonym(request):
+    """Create a Synonym."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['objectID', 'type', 'input', 'word', 'placeholder', 'replacements'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['objectID', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("algolia_ord")}
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    if data.get('type') and data['type'] not in ['synonym', 'onewaysynonym', 'altcorrection1', 'altcorrection2', 'placeholder']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['synonym', 'onewaysynonym', 'altcorrection1', 'altcorrection2', 'placeholder']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("algolia_syn")}
+    rec["objectID"] = data.get('objectID')
+    rec["type"] = data.get('type')
+    rec["input"] = data.get('input')
+    rec["word"] = data.get('word')
+    rec["placeholder"] = data.get('placeholder')
+    rec["replacements"] = data.get('replacements')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Synonym", rec)
+    return rec, 201
+
+@app.route("/v1/synonyms", methods=["GET"])
+def list_synonyms(request):
+    """List Synonyms with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Synonym")
+    rows = _apply_filters(rows, params, ['objectID', 'type', 'input', 'word', 'placeholder', 'replacements'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/synonyms/<eid>", methods=["GET"])
+def get_synonym(request, eid):
+    """Retrieve a Synonym by id (supports ?expand=)."""
+    rows = _query("Synonym", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/synonyms/<eid>", methods=["POST", "PATCH"])
+def update_synonym(request, eid):
+    """Update a Synonym."""
+    rows = _query("Synonym", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['objectID', 'type', 'input', 'word', 'placeholder', 'replacements'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['synonym', 'onewaysynonym', 'altcorrection1', 'altcorrection2', 'placeholder']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['synonym', 'onewaysynonym', 'altcorrection1', 'altcorrection2', 'placeholder']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Synonym", rec)
+    return rec, 200
+
+@app.route("/v1/synonyms/<eid>", methods=["DELETE"])
+def delete_synonym(request, eid):
+    """Delete a Synonym."""
+    rows = _query("Synonym", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"algolia.Synonym", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/rules", methods=["POST"])
+def create_rule(request):
+    """Create a Rule."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['objectID', 'description', 'enabled'])
+    if err:
+        return err, 400
+    err = _require(data, ['objectID', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("algolia_rul")}
+    rec["objectID"] = data.get('objectID')
+    rec["description"] = data.get('description')
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Rule", rec)
+    return rec, 201
+
+@app.route("/v1/rules", methods=["GET"])
+def list_rules(request):
+    """List Rules with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Rule")
+    rows = _apply_filters(rows, params, ['objectID', 'description', 'enabled'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/rules/<eid>", methods=["GET"])
+def get_rule(request, eid):
+    """Retrieve a Rule by id (supports ?expand=)."""
+    rows = _query("Rule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/rules/<eid>", methods=["POST", "PATCH"])
+def update_rule(request, eid):
+    """Update a Rule."""
+    rows = _query("Rule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['objectID', 'description', 'enabled'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Rule", rec)
+    return rec, 200
+
+@app.route("/v1/rules/<eid>", methods=["DELETE"])
+def delete_rule(request, eid):
+    """Delete a Rule."""
+    rows = _query("Rule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"algolia.Rule", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tasks", methods=["POST"])
+def create_task(request):
+    """Create a Task."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['taskID', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['taskID', 'status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['published', 'notPublished']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['published', 'notPublished']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("algolia_tas")}
+    rec["taskID"] = _as_int(data.get('taskID'))
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
+    _persist("Task", rec)
     return rec, 201
 
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
+@app.route("/v1/tasks", methods=["GET"])
+def list_tasks(request):
+    """List Tasks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['number', 'total', 'currency', 'status'])
+    rows = _query("Task")
+    rows = _apply_filters(rows, params, ['taskID', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
+@app.route("/v1/tasks/<eid>", methods=["GET"])
+def get_task(request, eid):
+    """Retrieve a Task by id (supports ?expand=)."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/tasks/<eid>", methods=["POST", "PATCH"])
+def update_task(request, eid):
+    """Update a Task."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['taskID', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['published', 'notPublished']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['published', 'notPublished']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Order", rec)
+    _persist("Task", rec)
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/tasks/<eid>", methods=["DELETE"])
+def delete_task(request, eid):
+    """Delete a Task."""
+    rows = _query("Task", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"algolia.Order", "id": eid})
+    db.retract({"entity": f"algolia.Task", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "algolia-compat", "tier": "L4",
-            "entities": ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']}, 200
+            "entities": ['Index', 'ApiKey', 'Synonym', 'Rule', 'Task']}, 200
 
 
 if __name__ == "__main__":

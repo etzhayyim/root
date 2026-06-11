@@ -3,72 +3,71 @@
 
 namespace launchdarkly {
 
-    entity Service {
+    entity FeatureFlag {
         id: string @unique
+        key: string
         name: string
-        environment: string
-        language: string
+        kind: string
+        description: string
+        temporary: boolean
+        archived: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Error {
+    entity Project {
         id: string @unique
-        serviceId: string
-        message: string
-        culprit: string
-        count: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trace {
-        id: string @unique
-        serviceId: string
-        operation: string
-        durationMs: integer
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Metric {
-        id: string @unique
-        serviceId: string
+        id: string
+        key: string
         name: string
-        value: float
-        unit: string
+        includeInSnippetByDefault: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Alert {
+    entity Environment {
         id: string @unique
-        serviceId: string
-        condition: string
-        severity: string
-        active: boolean
+        id: string
+        key: string
+        name: string
+        apiKey: string
+        mobileKey: string
+        color: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Incident {
+    entity Segment {
         id: string @unique
-        title: string
-        status: string
-        severity: string
-        startedAt: datetime
+        key: string
+        name: string
+        environmentKey: string
+        description: string
+        deleted: boolean
+        creationDate: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Member {
+        id: string @unique
+        id: string
+        email: string
+        firstName: string
+        lastName: string
+        role: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Webhook {
+        id: string @unique
+        id: string
+        name: string
+        url: string
+        on: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

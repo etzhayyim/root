@@ -3,69 +3,62 @@
 
 namespace bandwidth {
 
-    entity Channel {
-        id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Message {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        id: string
+        owner: string
+        applicationId: string
+        time: datetime
+        segmentCount: integer
+        direction: string
+        toNumber: string
+        fromNumber: string
+        text: string
+        tag: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity Call {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
+        callId: string
+        accountId: string
+        applicationId: string
+        toNumber: string
+        fromNumber: string
+        state: string
+        direction: string
+        createdTime: datetime
+        startTime: datetime
+        endTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Room {
+    entity Conference {
         id: string @unique
+        id: string
         name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
         status: string
-        bitrate: integer
+        redirectUrl: string
+        createdTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Webhook {
+    entity Recording {
         id: string @unique
-        event: string
-        url: string
-        active: boolean
+        recordingId: string
+        applicationId: string
+        accountId: string
+        name: string
+        status: string
+        fileFormat: string
+        startTime: datetime
+        endTime: datetime
+        duration: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

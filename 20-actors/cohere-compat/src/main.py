@@ -111,287 +111,26 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'family'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cohere_mod")}
-    rec["name"] = data.get('name')
-    rec["family"] = data.get('family')
-    rec["contextWindow"] = _as_int(data.get('contextWindow'))
-    rec["modality"] = data.get('modality')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
-    return rec, 201
-
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'family', 'contextWindow', 'modality'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Model", rec)
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cohere.Model", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/completions", methods=["POST"])
-def create_completion(request):
-    """Create a Completion."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
-    if err:
-        return err, 400
-    err = _require(data, ['prompt', 'output'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cohere_com")}
-    rec["modelId"] = data.get('modelId')
-    rec["prompt"] = data.get('prompt')
-    rec["output"] = data.get('output')
-    rec["tokens"] = _as_int(data.get('tokens'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Completion", rec)
-    return rec, 201
-
-@app.route("/v1/completions", methods=["GET"])
-def list_completions(request):
-    """List Completions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Completion")
-    rows = _apply_filters(rows, params, ['modelId', 'prompt', 'output', 'tokens'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/completions/<eid>", methods=["GET"])
-def get_completion(request, eid):
-    """Retrieve a Completion by id (supports ?expand=)."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["POST", "PATCH"])
-def update_completion(request, eid):
-    """Update a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Completion", rec)
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["DELETE"])
-def delete_completion(request, eid):
-    """Delete a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cohere.Completion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/embeddings", methods=["POST"])
-def create_embedding(request):
-    """Create a Embedding."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['input', 'dimensions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cohere_emb")}
-    rec["modelId"] = data.get('modelId')
-    rec["input"] = data.get('input')
-    rec["dimensions"] = _as_int(data.get('dimensions'))
-    rec["vectorRef"] = data.get('vectorRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Embedding", rec)
-    return rec, 201
-
-@app.route("/v1/embeddings", methods=["GET"])
-def list_embeddings(request):
-    """List Embeddings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Embedding")
-    rows = _apply_filters(rows, params, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["GET"])
-def get_embedding(request, eid):
-    """Retrieve a Embedding by id (supports ?expand=)."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["POST", "PATCH"])
-def update_embedding(request, eid):
-    """Update a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Embedding", rec)
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["DELETE"])
-def delete_embedding(request, eid):
-    """Delete a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cohere.Embedding", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/finetunes", methods=["POST"])
-def create_fine_tune(request):
-    """Create a FineTune."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'epochs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cohere_fin")}
-    rec["baseModelId"] = data.get('baseModelId')
-    rec["datasetId"] = data.get('datasetId')
-    rec["status"] = data.get('status')
-    rec["epochs"] = _as_int(data.get('epochs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("FineTune", rec)
-    return rec, 201
-
-@app.route("/v1/finetunes", methods=["GET"])
-def list_fine_tunes(request):
-    """List FineTunes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("FineTune")
-    rows = _apply_filters(rows, params, ['baseModelId', 'datasetId', 'status', 'epochs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/finetunes/<eid>", methods=["GET"])
-def get_fine_tune(request, eid):
-    """Retrieve a FineTune by id (supports ?expand=)."""
-    rows = _query("FineTune", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
-    return rec, 200
-
-@app.route("/v1/finetunes/<eid>", methods=["POST", "PATCH"])
-def update_fine_tune(request, eid):
-    """Update a FineTune."""
-    rows = _query("FineTune", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("FineTune", rec)
-    return rec, 200
-
-@app.route("/v1/finetunes/<eid>", methods=["DELETE"])
-def delete_fine_tune(request, eid):
-    """Delete a FineTune."""
-    rows = _query("FineTune", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cohere.FineTune", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/datasets", methods=["POST"])
 def create_dataset(request):
     """Create a Dataset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'validationStatus', 'datasetType', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'rows'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('validationStatus') and data['validationStatus'] not in ['unknown', 'queued', 'processing', 'failed', 'validated', 'skipped']:
+        return {"error": {"message": "invalid validationStatus; allowed: " + ", ".join(['unknown', 'queued', 'processing', 'failed', 'validated', 'skipped']), "type": "invalid_request_error"}}, 400
+    if data.get('datasetType') and data['datasetType'] not in ['embed-input', 'embed-result', 'cluster-result', 'cluster-outliers', 'reranker-finetune-input', 'single-label-classification-finetune-input', 'chat-finetune-input', 'multi-label-classification-finetune-input', 'batch-chat-input', 'batch-openai-chat-input', 'batch-embed-v2-input', 'batch-chat-v2-input']:
+        return {"error": {"message": "invalid datasetType; allowed: " + ", ".join(['embed-input', 'embed-result', 'cluster-result', 'cluster-outliers', 'reranker-finetune-input', 'single-label-classification-finetune-input', 'chat-finetune-input', 'multi-label-classification-finetune-input', 'batch-chat-input', 'batch-openai-chat-input', 'batch-embed-v2-input', 'batch-chat-v2-input']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("cohere_dat")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["validationStatus"] = data.get('validationStatus')
+    rec["datasetType"] = data.get('datasetType')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Dataset", rec)
@@ -402,7 +141,7 @@ def list_datasets(request):
     """List Datasets with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'rows', 'contentRef'])
+    rows = _apply_filters(rows, params, ['id', 'name', 'validationStatus', 'datasetType', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -423,9 +162,13 @@ def update_dataset(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'validationStatus', 'datasetType', 'createdAt'])
     if err:
         return err, 400
+    if data.get('validationStatus') and data['validationStatus'] not in ['unknown', 'queued', 'processing', 'failed', 'validated', 'skipped']:
+        return {"error": {"message": "invalid validationStatus; allowed: " + ", ".join(['unknown', 'queued', 'processing', 'failed', 'validated', 'skipped']), "type": "invalid_request_error"}}, 400
+    if data.get('datasetType') and data['datasetType'] not in ['embed-input', 'embed-result', 'cluster-result', 'cluster-outliers', 'reranker-finetune-input', 'single-label-classification-finetune-input', 'chat-finetune-input', 'multi-label-classification-finetune-input', 'batch-chat-input', 'batch-openai-chat-input', 'batch-embed-v2-input', 'batch-chat-v2-input']:
+        return {"error": {"message": "invalid datasetType; allowed: " + ", ".join(['embed-input', 'embed-result', 'cluster-result', 'cluster-outliers', 'reranker-finetune-input', 'single-label-classification-finetune-input', 'chat-finetune-input', 'multi-label-classification-finetune-input', 'batch-chat-input', 'batch-openai-chat-input', 'batch-embed-v2-input', 'batch-chat-v2-input']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -443,53 +186,53 @@ def delete_dataset(request, eid):
     db.retract({"entity": f"cohere.Dataset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/files", methods=["POST"])
-def create_file(request):
-    """Create a File."""
+@app.route("/v1/datasetparts", methods=["POST"])
+def create_dataset_part(request):
+    """Create a DatasetPart."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'sizeBytes', 'numRows'])
     if err:
         return err, 400
-    err = _require(data, ['purpose', 'filename'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("cohere_fil")}
-    rec["purpose"] = data.get('purpose')
-    rec["filename"] = data.get('filename')
+    rec = {"id": new_id("cohere_dat")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
     rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["numRows"] = _as_int(data.get('numRows'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("File", rec)
+    _persist("DatasetPart", rec)
     return rec, 201
 
-@app.route("/v1/files", methods=["GET"])
-def list_files(request):
-    """List Files with filtering + cursor pagination."""
+@app.route("/v1/datasetparts", methods=["GET"])
+def list_dataset_parts(request):
+    """List DatasetParts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("File")
-    rows = _apply_filters(rows, params, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
+    rows = _query("DatasetPart")
+    rows = _apply_filters(rows, params, ['id', 'name', 'sizeBytes', 'numRows'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/files/<eid>", methods=["GET"])
-def get_file(request, eid):
-    """Retrieve a File by id (supports ?expand=)."""
-    rows = _query("File", eid)
+@app.route("/v1/datasetparts/<eid>", methods=["GET"])
+def get_dataset_part(request, eid):
+    """Retrieve a DatasetPart by id (supports ?expand=)."""
+    rows = _query("DatasetPart", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
-def update_file(request, eid):
-    """Update a File."""
-    rows = _query("File", eid)
+@app.route("/v1/datasetparts/<eid>", methods=["POST", "PATCH"])
+def update_dataset_part(request, eid):
+    """Update a DatasetPart."""
+    rows = _query("DatasetPart", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'sizeBytes', 'numRows'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +240,88 @@ def update_file(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("File", rec)
+    _persist("DatasetPart", rec)
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["DELETE"])
-def delete_file(request, eid):
-    """Delete a File."""
-    rows = _query("File", eid)
+@app.route("/v1/datasetparts/<eid>", methods=["DELETE"])
+def delete_dataset_part(request, eid):
+    """Delete a DatasetPart."""
+    rows = _query("DatasetPart", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cohere.File", "id": eid})
+    db.retract({"entity": f"cohere.DatasetPart", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/models", methods=["POST"])
+def create_model(request):
+    """Create a Model."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'isDeprecated', 'contextLength', 'finetuned'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'isDeprecated'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("cohere_mod")}
+    rec["name"] = data.get('name')
+    rec["isDeprecated"] = _as_bool(data.get('isDeprecated'))
+    rec["contextLength"] = _as_int(data.get('contextLength'))
+    rec["finetuned"] = _as_bool(data.get('finetuned'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Model", rec)
+    return rec, 201
+
+@app.route("/v1/models", methods=["GET"])
+def list_models(request):
+    """List Models with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Model")
+    rows = _apply_filters(rows, params, ['name', 'isDeprecated', 'contextLength', 'finetuned'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/models/<eid>", methods=["GET"])
+def get_model(request, eid):
+    """Retrieve a Model by id (supports ?expand=)."""
+    rows = _query("Model", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
+def update_model(request, eid):
+    """Update a Model."""
+    rows = _query("Model", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'isDeprecated', 'contextLength', 'finetuned'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Model", rec)
+    return rec, 200
+
+@app.route("/v1/models/<eid>", methods=["DELETE"])
+def delete_model(request, eid):
+    """Delete a Model."""
+    rows = _query("Model", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"cohere.Model", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "cohere-compat", "tier": "L4",
-            "entities": ['Model', 'Completion', 'Embedding', 'FineTune', 'Dataset', 'File']}, 200
+            "entities": ['Dataset', 'DatasetPart', 'Model']}, 200
 
 
 if __name__ == "__main__":

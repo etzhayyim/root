@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible modern data stack actor (kafka); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:kafka-compat",
-    "x-wasm-cid": "bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+    "x-wasm-cid": "bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
+      "url": "ipfs://bafkreic43pkfd6smzp6qsysk3jx7tcfyobdpaohgzgxji6so2qmwt56pkm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/connectors": {
+    "/v1/topics": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List Topics",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/Topic"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a Topic",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/TopicCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Topic"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/topics/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a Topic",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Topic"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a Topic",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/TopicCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Topic"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
+        "summary": "Delete a Topic",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/syncs": {
+    "/v1/partitions": {
       "get": {
-        "summary": "List Syncs",
+        "summary": "List Partitions",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Sync"
+                        "$ref": "#/components/schemas/Partition"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Sync",
+        "summary": "Create a Partition",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/PartitionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Partition"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/syncs/{id}": {
+    "/v1/partitions/{id}": {
       "get": {
-        "summary": "Get a Sync",
+        "summary": "Get a Partition",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Partition"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Sync",
+        "summary": "Update a Partition",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/PartitionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/Partition"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Sync",
+        "summary": "Delete a Partition",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/models": {
+    "/v1/aclbindings": {
       "get": {
-        "summary": "List Models",
+        "summary": "List AclBindings",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/AclBinding"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a AclBinding",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/AclBindingCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AclBinding"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/aclbindings/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a AclBinding",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AclBinding"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a AclBinding",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/AclBindingCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AclBinding"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
+        "summary": "Delete a AclBinding",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/streams": {
+    "/v1/consumergroups": {
       "get": {
-        "summary": "List Streams",
+        "summary": "List ConsumerGroups",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Stream"
+                        "$ref": "#/components/schemas/ConsumerGroup"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Stream",
+        "summary": "Create a ConsumerGroup",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/ConsumerGroupCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/ConsumerGroup"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/streams/{id}": {
+    "/v1/consumergroups/{id}": {
       "get": {
-        "summary": "Get a Stream",
+        "summary": "Get a ConsumerGroup",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/ConsumerGroup"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Stream",
+        "summary": "Update a ConsumerGroup",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/ConsumerGroupCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/ConsumerGroup"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Stream",
+        "summary": "Delete a ConsumerGroup",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/schemas": {
+    "/v1/fetchrequests": {
       "get": {
-        "summary": "List Schemas",
+        "summary": "List FetchRequests",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Schema"
+                        "$ref": "#/components/schemas/FetchRequest"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Schema",
+        "summary": "Create a FetchRequest",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/FetchRequestCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/FetchRequest"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/schemas/{id}": {
+    "/v1/fetchrequests/{id}": {
       "get": {
-        "summary": "Get a Schema",
+        "summary": "Get a FetchRequest",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/FetchRequest"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Schema",
+        "summary": "Update a FetchRequest",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/FetchRequestCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/FetchRequest"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Schema",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tests": {
-      "get": {
-        "summary": "List Tests",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Test"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Test",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tests/{id}": {
-      "get": {
-        "summary": "Get a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Test",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Test",
+        "summary": "Delete a FetchRequest",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,7 @@
   },
   "components": {
     "schemas": {
-      "Connector": {
+      "Topic": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,240 +964,18 @@
           "name": {
             "type": "string"
           },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ConnectorCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "source"
-        ]
-      },
-      "Sync": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "connectorId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "rows": {
+          "numPartitions": {
             "type": "integer"
           },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SyncCreate": {
-        "type": "object",
-        "properties": {
-          "connectorId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "rows": {
+          "replicationFactor": {
             "type": "integer"
           },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status",
-          "rows"
-        ]
-      },
-      "Model": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ModelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "materialization"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "partitions"
-        ]
-      },
-      "Schema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SchemaCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "database"
-        ]
-      },
-      "Test": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelName": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "passed": {
+          "isInternal": {
             "type": "boolean"
           },
+          "minInsyncReplicas": {
+            "type": "integer"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1393,22 +986,268 @@
           }
         }
       },
-      "TestCreate": {
+      "TopicCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "name": {
             "type": "string"
           },
-          "type": {
-            "type": "string"
+          "numPartitions": {
+            "type": "integer"
           },
-          "passed": {
+          "replicationFactor": {
+            "type": "integer"
+          },
+          "isInternal": {
             "type": "boolean"
+          },
+          "minInsyncReplicas": {
+            "type": "integer"
           }
         },
         "required": [
-          "modelName",
-          "type"
+          "name",
+          "numPartitions"
+        ]
+      },
+      "Partition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "partitionIndex": {
+            "type": "integer"
+          },
+          "leader": {
+            "type": "integer"
+          },
+          "replicas": {
+            "type": "string"
+          },
+          "isr": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PartitionCreate": {
+        "type": "object",
+        "properties": {
+          "topicName": {
+            "type": "string"
+          },
+          "partitionIndex": {
+            "type": "integer"
+          },
+          "leader": {
+            "type": "integer"
+          },
+          "replicas": {
+            "type": "string"
+          },
+          "isr": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "topicName",
+          "partitionIndex"
+        ]
+      },
+      "AclBinding": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "resourceName": {
+            "type": "string"
+          },
+          "principal": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "permissionType": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "ANY",
+              "DENY",
+              "ALLOW"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AclBindingCreate": {
+        "type": "object",
+        "properties": {
+          "resourceType": {
+            "type": "string"
+          },
+          "resourceName": {
+            "type": "string"
+          },
+          "principal": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "permissionType": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "ANY",
+              "DENY",
+              "ALLOW"
+            ]
+          }
+        },
+        "required": [
+          "resourceType",
+          "resourceName"
+        ]
+      },
+      "ConsumerGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "protocolType": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "generationId": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ConsumerGroupCreate": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string"
+          },
+          "protocolType": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "generationId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "protocolType",
+          "state"
+        ]
+      },
+      "FetchRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "partitionIndex": {
+            "type": "integer"
+          },
+          "fetchOffset": {
+            "type": "integer"
+          },
+          "maxBytes": {
+            "type": "integer"
+          },
+          "isolationLevel": {
+            "type": "string",
+            "enum": [
+              "READ_UNCOMMITTED",
+              "READ_COMMITTED"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FetchRequestCreate": {
+        "type": "object",
+        "properties": {
+          "topicName": {
+            "type": "string"
+          },
+          "partitionIndex": {
+            "type": "integer"
+          },
+          "fetchOffset": {
+            "type": "integer"
+          },
+          "maxBytes": {
+            "type": "integer"
+          },
+          "isolationLevel": {
+            "type": "string",
+            "enum": [
+              "READ_UNCOMMITTED",
+              "READ_COMMITTED"
+            ]
+          }
+        },
+        "required": [
+          "topicName",
+          "partitionIndex"
         ]
       }
     }

@@ -111,118 +111,345 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/tradeitems", methods=["POST"])
-def create_trade_item(request):
-    """Create a TradeItem."""
+@app.route("/v1/epcisevents", methods=["POST"])
+def create_e_p_c_i_s_event(request):
+    """Create a EPCISEvent."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gtin', 'description', 'brand'])
+    err = _reject_unknown(data, ['eventId', 'eventType', 'eventTime', 'recordTime', 'eventTimeZoneOffset', 'certificationInfo'])
     if err:
         return err, 400
-    err = _require(data, ['gtin', 'description'])
+    err = _require(data, ['eventType', 'eventTime'])
+    if err:
+        return err, 400
+    if data.get('eventType') and data['eventType'] not in ['ObjectEvent', 'AggregationEvent', 'TransactionEvent', 'TransformationEvent', 'AssociationEvent']:
+        return {"error": {"message": "invalid eventType; allowed: " + ", ".join(['ObjectEvent', 'AggregationEvent', 'TransactionEvent', 'TransformationEvent', 'AssociationEvent']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gs1epcis_epc")}
+    rec["eventId"] = data.get('eventId')
+    rec["eventType"] = data.get('eventType')
+    rec["eventTime"] = data.get('eventTime')
+    rec["recordTime"] = data.get('recordTime')
+    rec["eventTimeZoneOffset"] = data.get('eventTimeZoneOffset')
+    rec["certificationInfo"] = data.get('certificationInfo')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("EPCISEvent", rec)
+    return rec, 201
+
+@app.route("/v1/epcisevents", methods=["GET"])
+def list_e_p_c_i_s_events(request):
+    """List EPCISEvents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("EPCISEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'eventType', 'eventTime', 'recordTime', 'eventTimeZoneOffset', 'certificationInfo'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/epcisevents/<eid>", methods=["GET"])
+def get_e_p_c_i_s_event(request, eid):
+    """Retrieve a EPCISEvent by id (supports ?expand=)."""
+    rows = _query("EPCISEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/epcisevents/<eid>", methods=["POST", "PATCH"])
+def update_e_p_c_i_s_event(request, eid):
+    """Update a EPCISEvent."""
+    rows = _query("EPCISEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'eventType', 'eventTime', 'recordTime', 'eventTimeZoneOffset', 'certificationInfo'])
+    if err:
+        return err, 400
+    if data.get('eventType') and data['eventType'] not in ['ObjectEvent', 'AggregationEvent', 'TransactionEvent', 'TransformationEvent', 'AssociationEvent']:
+        return {"error": {"message": "invalid eventType; allowed: " + ", ".join(['ObjectEvent', 'AggregationEvent', 'TransactionEvent', 'TransformationEvent', 'AssociationEvent']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("EPCISEvent", rec)
+    return rec, 200
+
+@app.route("/v1/epcisevents/<eid>", methods=["DELETE"])
+def delete_e_p_c_i_s_event(request, eid):
+    """Delete a EPCISEvent."""
+    rows = _query("EPCISEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gs1_epcis.EPCISEvent", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/objectevents", methods=["POST"])
+def create_object_event(request):
+    """Create a ObjectEvent."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'action', 'bizStep', 'disposition', 'readPoint', 'bizLocation', 'eventTime', 'recordTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['action', 'bizStep'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gs1epcis_obj")}
+    rec["eventId"] = data.get('eventId')
+    rec["action"] = data.get('action')
+    rec["bizStep"] = data.get('bizStep')
+    rec["disposition"] = data.get('disposition')
+    rec["readPoint"] = data.get('readPoint')
+    rec["bizLocation"] = data.get('bizLocation')
+    rec["eventTime"] = data.get('eventTime')
+    rec["recordTime"] = data.get('recordTime')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ObjectEvent", rec)
+    return rec, 201
+
+@app.route("/v1/objectevents", methods=["GET"])
+def list_object_events(request):
+    """List ObjectEvents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ObjectEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'action', 'bizStep', 'disposition', 'readPoint', 'bizLocation', 'eventTime', 'recordTime'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/objectevents/<eid>", methods=["GET"])
+def get_object_event(request, eid):
+    """Retrieve a ObjectEvent by id (supports ?expand=)."""
+    rows = _query("ObjectEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/objectevents/<eid>", methods=["POST", "PATCH"])
+def update_object_event(request, eid):
+    """Update a ObjectEvent."""
+    rows = _query("ObjectEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'action', 'bizStep', 'disposition', 'readPoint', 'bizLocation', 'eventTime', 'recordTime'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ObjectEvent", rec)
+    return rec, 200
+
+@app.route("/v1/objectevents/<eid>", methods=["DELETE"])
+def delete_object_event(request, eid):
+    """Delete a ObjectEvent."""
+    rows = _query("ObjectEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gs1_epcis.ObjectEvent", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/aggregationevents", methods=["POST"])
+def create_aggregation_event(request):
+    """Create a AggregationEvent."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['parentID', 'action'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gs1epcis_agg")}
+    rec["eventId"] = data.get('eventId')
+    rec["parentID"] = data.get('parentID')
+    rec["action"] = data.get('action')
+    rec["bizStep"] = data.get('bizStep')
+    rec["disposition"] = data.get('disposition')
+    rec["readPoint"] = data.get('readPoint')
+    rec["eventTime"] = data.get('eventTime')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AggregationEvent", rec)
+    return rec, 201
+
+@app.route("/v1/aggregationevents", methods=["GET"])
+def list_aggregation_events(request):
+    """List AggregationEvents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AggregationEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'parentID', 'action', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aggregationevents/<eid>", methods=["GET"])
+def get_aggregation_event(request, eid):
+    """Retrieve a AggregationEvent by id (supports ?expand=)."""
+    rows = _query("AggregationEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/aggregationevents/<eid>", methods=["POST", "PATCH"])
+def update_aggregation_event(request, eid):
+    """Update a AggregationEvent."""
+    rows = _query("AggregationEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AggregationEvent", rec)
+    return rec, 200
+
+@app.route("/v1/aggregationevents/<eid>", methods=["DELETE"])
+def delete_aggregation_event(request, eid):
+    """Delete a AggregationEvent."""
+    rows = _query("AggregationEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gs1_epcis.AggregationEvent", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/transactionevents", methods=["POST"])
+def create_transaction_event(request):
+    """Create a TransactionEvent."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['parentID', 'action'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gs1epcis_tra")}
+    rec["eventId"] = data.get('eventId')
+    rec["parentID"] = data.get('parentID')
+    rec["action"] = data.get('action')
+    rec["bizStep"] = data.get('bizStep')
+    rec["eventTime"] = data.get('eventTime')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("TransactionEvent", rec)
+    return rec, 201
+
+@app.route("/v1/transactionevents", methods=["GET"])
+def list_transaction_events(request):
+    """List TransactionEvents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("TransactionEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/transactionevents/<eid>", methods=["GET"])
+def get_transaction_event(request, eid):
+    """Retrieve a TransactionEvent by id (supports ?expand=)."""
+    rows = _query("TransactionEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/transactionevents/<eid>", methods=["POST", "PATCH"])
+def update_transaction_event(request, eid):
+    """Update a TransactionEvent."""
+    rows = _query("TransactionEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
+    if err:
+        return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("TransactionEvent", rec)
+    return rec, 200
+
+@app.route("/v1/transactionevents/<eid>", methods=["DELETE"])
+def delete_transaction_event(request, eid):
+    """Delete a TransactionEvent."""
+    rows = _query("TransactionEvent", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gs1_epcis.TransactionEvent", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/transformationevents", methods=["POST"])
+def create_transformation_event(request):
+    """Create a TransformationEvent."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['eventId', 'transformationID', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
+    if err:
+        return err, 400
+    err = _require(data, ['transformationID', 'bizStep'])
     if err:
         return err, 400
     rec = {"id": new_id("gs1epcis_tra")}
-    rec["gtin"] = data.get('gtin')
-    rec["description"] = data.get('description')
-    rec["brand"] = data.get('brand')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("TradeItem", rec)
-    return rec, 201
-
-@app.route("/v1/tradeitems", methods=["GET"])
-def list_trade_items(request):
-    """List TradeItems with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("TradeItem")
-    rows = _apply_filters(rows, params, ['gtin', 'description', 'brand'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tradeitems/<eid>", methods=["GET"])
-def get_trade_item(request, eid):
-    """Retrieve a TradeItem by id (supports ?expand=)."""
-    rows = _query("TradeItem", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tradeitems/<eid>", methods=["POST", "PATCH"])
-def update_trade_item(request, eid):
-    """Update a TradeItem."""
-    rows = _query("TradeItem", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gtin', 'description', 'brand'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("TradeItem", rec)
-    return rec, 200
-
-@app.route("/v1/tradeitems/<eid>", methods=["DELETE"])
-def delete_trade_item(request, eid):
-    """Delete a TradeItem."""
-    rows = _query("TradeItem", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.TradeItem", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['bizStep', 'disposition'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gs1epcis_eve")}
-    rec["itemId"] = data.get('itemId')
+    rec["eventId"] = data.get('eventId')
+    rec["transformationID"] = data.get('transformationID')
     rec["bizStep"] = data.get('bizStep')
     rec["disposition"] = data.get('disposition')
-    rec["recordedAt"] = data.get('recordedAt')
+    rec["readPoint"] = data.get('readPoint')
+    rec["eventTime"] = data.get('eventTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
+    _persist("TransformationEvent", rec)
     return rec, 201
 
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
+@app.route("/v1/transformationevents", methods=["GET"])
+def list_transformation_events(request):
+    """List TransformationEvents with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
+    rows = _query("TransformationEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'transformationID', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
+@app.route("/v1/transformationevents/<eid>", methods=["GET"])
+def get_transformation_event(request, eid):
+    """Retrieve a TransformationEvent by id (supports ?expand=)."""
+    rows = _query("TransformationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/transformationevents/<eid>", methods=["POST", "PATCH"])
+def update_transformation_event(request, eid):
+    """Update a TransformationEvent."""
+    rows = _query("TransformationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
+    err = _reject_unknown(data, ['eventId', 'transformationID', 'bizStep', 'disposition', 'readPoint', 'eventTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,285 +457,93 @@ def update_event(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Event", rec)
+    _persist("TransformationEvent", rec)
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/transformationevents/<eid>", methods=["DELETE"])
+def delete_transformation_event(request, eid):
+    """Delete a TransformationEvent."""
+    rows = _query("TransformationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.Event", "id": eid})
+    db.retract({"entity": f"gs1_epcis.TransformationEvent", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/associationevents", methods=["POST"])
+def create_association_event(request):
+    """Create a AssociationEvent."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'senderId', 'receiverId', 'status'])
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'status'])
+    err = _require(data, ['parentID', 'action'])
     if err:
         return err, 400
-    rec = {"id": new_id("gs1epcis_doc")}
-    rec["type"] = data.get('type')
-    rec["senderId"] = data.get('senderId')
-    rec["receiverId"] = data.get('receiverId')
-    rec["status"] = data.get('status')
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gs1epcis_ass")}
+    rec["eventId"] = data.get('eventId')
+    rec["parentID"] = data.get('parentID')
+    rec["action"] = data.get('action')
+    rec["bizStep"] = data.get('bizStep')
+    rec["eventTime"] = data.get('eventTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
+    _persist("AssociationEvent", rec)
     return rec, 201
 
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
+@app.route("/v1/associationevents", methods=["GET"])
+def list_association_events(request):
+    """List AssociationEvents with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['type', 'senderId', 'receiverId', 'status'])
+    rows = _query("AssociationEvent")
+    rows = _apply_filters(rows, params, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
+@app.route("/v1/associationevents/<eid>", methods=["GET"])
+def get_association_event(request, eid):
+    """Retrieve a AssociationEvent by id (supports ?expand=)."""
+    rows = _query("AssociationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/associationevents/<eid>", methods=["POST", "PATCH"])
+def update_association_event(request, eid):
+    """Update a AssociationEvent."""
+    rows = _query("AssociationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'senderId', 'receiverId', 'status'])
+    err = _reject_unknown(data, ['eventId', 'parentID', 'action', 'bizStep', 'eventTime'])
     if err:
         return err, 400
+    if data.get('action') and data['action'] not in ['ADD', 'OBSERVE', 'DELETE']:
+        return {"error": {"message": "invalid action; allowed: " + ", ".join(['ADD', 'OBSERVE', 'DELETE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Document", rec)
+    _persist("AssociationEvent", rec)
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/associationevents/<eid>", methods=["DELETE"])
+def delete_association_event(request, eid):
+    """Delete a AssociationEvent."""
+    rows = _query("AssociationEvent", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.Document", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/containers", methods=["POST"])
-def create_container(request):
-    """Create a Container."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bicCode', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['bicCode', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gs1epcis_con")}
-    rec["bicCode"] = data.get('bicCode')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Container", rec)
-    return rec, 201
-
-@app.route("/v1/containers", methods=["GET"])
-def list_containers(request):
-    """List Containers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Container")
-    rows = _apply_filters(rows, params, ['bicCode', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/containers/<eid>", methods=["GET"])
-def get_container(request, eid):
-    """Retrieve a Container by id (supports ?expand=)."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/containers/<eid>", methods=["POST", "PATCH"])
-def update_container(request, eid):
-    """Update a Container."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bicCode', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Container", rec)
-    return rec, 200
-
-@app.route("/v1/containers/<eid>", methods=["DELETE"])
-def delete_container(request, eid):
-    """Delete a Container."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.Container", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/parties", methods=["POST"])
-def create_party(request):
-    """Create a Party."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gln', 'name', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['gln', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gs1epcis_par")}
-    rec["gln"] = data.get('gln')
-    rec["name"] = data.get('name')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Party", rec)
-    return rec, 201
-
-@app.route("/v1/parties", methods=["GET"])
-def list_parties(request):
-    """List Parties with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Party")
-    rows = _apply_filters(rows, params, ['gln', 'name', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/parties/<eid>", methods=["GET"])
-def get_party(request, eid):
-    """Retrieve a Party by id (supports ?expand=)."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/parties/<eid>", methods=["POST", "PATCH"])
-def update_party(request, eid):
-    """Update a Party."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gln', 'name', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Party", rec)
-    return rec, 200
-
-@app.route("/v1/parties/<eid>", methods=["DELETE"])
-def delete_party(request, eid):
-    """Delete a Party."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.Party", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'origin', 'destination', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['origin', 'destination'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gs1epcis_shi")}
-    rec["documentId"] = data.get('documentId')
-    rec["origin"] = data.get('origin')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
-    return rec, 201
-
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['documentId', 'origin', 'destination', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'origin', 'destination', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Shipment", rec)
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gs1_epcis.Shipment", "id": eid})
+    db.retract({"entity": f"gs1_epcis.AssociationEvent", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "gs1_epcis-compat", "tier": "L4",
-            "entities": ['TradeItem', 'Event', 'Document', 'Container', 'Party', 'Shipment']}, 200
+            "entities": ['EPCISEvent', 'ObjectEvent', 'AggregationEvent', 'TransactionEvent', 'TransformationEvent', 'AssociationEvent']}, 200
 
 
 if __name__ == "__main__":

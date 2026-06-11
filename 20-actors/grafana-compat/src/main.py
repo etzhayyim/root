@@ -111,253 +111,196 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/dashboards", methods=["POST"])
+def create_dashboard(request):
+    """Create a Dashboard."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['id', 'uid', 'title', 'schemaVersion', 'version', 'editable', 'timezone'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'environment'])
+    err = _require(data, ['id', 'uid'])
     if err:
         return err, 400
-    rec = {"id": new_id("grafana_ser")}
+    rec = {"id": new_id("grafana_das")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["uid"] = data.get('uid')
+    rec["title"] = data.get('title')
+    rec["schemaVersion"] = _as_int(data.get('schemaVersion'))
+    rec["version"] = _as_int(data.get('version'))
+    rec["editable"] = _as_bool(data.get('editable'))
+    rec["timezone"] = data.get('timezone')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Dashboard", rec)
+    return rec, 201
+
+@app.route("/v1/dashboards", methods=["GET"])
+def list_dashboards(request):
+    """List Dashboards with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Dashboard")
+    rows = _apply_filters(rows, params, ['id', 'uid', 'title', 'schemaVersion', 'version', 'editable', 'timezone'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/dashboards/<eid>", methods=["GET"])
+def get_dashboard(request, eid):
+    """Retrieve a Dashboard by id (supports ?expand=)."""
+    rows = _query("Dashboard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/dashboards/<eid>", methods=["POST", "PATCH"])
+def update_dashboard(request, eid):
+    """Update a Dashboard."""
+    rows = _query("Dashboard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'uid', 'title', 'schemaVersion', 'version', 'editable', 'timezone'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Dashboard", rec)
+    return rec, 200
+
+@app.route("/v1/dashboards/<eid>", methods=["DELETE"])
+def delete_dashboard(request, eid):
+    """Delete a Dashboard."""
+    rows = _query("Dashboard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"grafana.Dashboard", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/datasources", methods=["POST"])
+def create_data_source(request):
+    """Create a DataSource."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'uid', 'name', 'type', 'access', 'url', 'isDefault'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'uid'])
+    if err:
+        return err, 400
+    if data.get('access') and data['access'] not in ['proxy', 'direct']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['proxy', 'direct']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("grafana_dat")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["uid"] = data.get('uid')
     rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
+    rec["type"] = data.get('type')
+    rec["access"] = data.get('access')
+    rec["url"] = data.get('url')
+    rec["isDefault"] = _as_bool(data.get('isDefault'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
+    _persist("DataSource", rec)
     return rec, 201
 
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
+@app.route("/v1/datasources", methods=["GET"])
+def list_data_sources(request):
+    """List DataSources with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
+    rows = _query("DataSource")
+    rows = _apply_filters(rows, params, ['id', 'uid', 'name', 'type', 'access', 'url', 'isDefault'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
+@app.route("/v1/datasources/<eid>", methods=["GET"])
+def get_data_source(request, eid):
+    """Retrieve a DataSource by id (supports ?expand=)."""
+    rows = _query("DataSource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/datasources/<eid>", methods=["POST", "PATCH"])
+def update_data_source(request, eid):
+    """Update a DataSource."""
+    rows = _query("DataSource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['id', 'uid', 'name', 'type', 'access', 'url', 'isDefault'])
     if err:
         return err, 400
+    if data.get('access') and data['access'] not in ['proxy', 'direct']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['proxy', 'direct']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Service", rec)
+    _persist("DataSource", rec)
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/datasources/<eid>", methods=["DELETE"])
+def delete_data_source(request, eid):
+    """Delete a DataSource."""
+    rows = _query("DataSource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Service", "id": eid})
+    db.retract({"entity": f"grafana.DataSource", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
+@app.route("/v1/folders", methods=["POST"])
+def create_folder(request):
+    """Create a Folder."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
+    err = _reject_unknown(data, ['uid', 'name', 'title', 'resourceVersion', 'creationTimestamp'])
     if err:
         return err, 400
-    err = _require(data, ['message', 'culprit'])
+    err = _require(data, ['uid', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("grafana_err")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
-    return rec, 201
-
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Error", rec)
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Error", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['operation', 'durationMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("grafana_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
-    return rec, 201
-
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Trace", rec)
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Trace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("grafana_met")}
-    rec["serviceId"] = data.get('serviceId')
+    rec = {"id": new_id("grafana_fol")}
+    rec["uid"] = data.get('uid')
     rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    rec["title"] = data.get('title')
+    rec["resourceVersion"] = data.get('resourceVersion')
+    rec["creationTimestamp"] = data.get('creationTimestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
+    _persist("Folder", rec)
     return rec, 201
 
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
+@app.route("/v1/folders", methods=["GET"])
+def list_folders(request):
+    """List Folders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
+    rows = _query("Folder")
+    rows = _apply_filters(rows, params, ['uid', 'name', 'title', 'resourceVersion', 'creationTimestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
+@app.route("/v1/folders/<eid>", methods=["GET"])
+def get_folder(request, eid):
+    """Retrieve a Folder by id (supports ?expand=)."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
+def update_folder(request, eid):
+    """Update a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['uid', 'name', 'title', 'resourceVersion', 'creationTimestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -365,66 +308,67 @@ def update_metric(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Metric", rec)
+    _persist("Folder", rec)
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/folders/<eid>", methods=["DELETE"])
+def delete_folder(request, eid):
+    """Delete a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Metric", "id": eid})
+    db.retract({"entity": f"grafana.Folder", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
+@app.route("/v1/alertrules", methods=["POST"])
+def create_alert_rule(request):
+    """Create a AlertRule."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['uid', 'title', 'condition', 'noDataState', 'execErrState', 'isPaused'])
     if err:
         return err, 400
-    err = _require(data, ['condition', 'severity'])
+    err = _require(data, ['uid', 'title'])
     if err:
         return err, 400
     rec = {"id": new_id("grafana_ale")}
-    rec["serviceId"] = data.get('serviceId')
+    rec["uid"] = data.get('uid')
+    rec["title"] = data.get('title')
     rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["noDataState"] = data.get('noDataState')
+    rec["execErrState"] = data.get('execErrState')
+    rec["isPaused"] = _as_bool(data.get('isPaused'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
+    _persist("AlertRule", rec)
     return rec, 201
 
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
+@app.route("/v1/alertrules", methods=["GET"])
+def list_alert_rules(request):
+    """List AlertRules with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
+    rows = _query("AlertRule")
+    rows = _apply_filters(rows, params, ['uid', 'title', 'condition', 'noDataState', 'execErrState', 'isPaused'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
+@app.route("/v1/alertrules/<eid>", methods=["GET"])
+def get_alert_rule(request, eid):
+    """Retrieve a AlertRule by id (supports ?expand=)."""
+    rows = _query("AlertRule", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/alertrules/<eid>", methods=["POST", "PATCH"])
+def update_alert_rule(request, eid):
+    """Update a AlertRule."""
+    rows = _query("AlertRule", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['uid', 'title', 'condition', 'noDataState', 'execErrState', 'isPaused'])
     if err:
         return err, 400
     rec = rows[0]
@@ -432,65 +376,67 @@ def update_alert(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Alert", rec)
+    _persist("AlertRule", rec)
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/alertrules/<eid>", methods=["DELETE"])
+def delete_alert_rule(request, eid):
+    """Delete a AlertRule."""
+    rows = _query("AlertRule", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Alert", "id": eid})
+    db.retract({"entity": f"grafana.AlertRule", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/incidents", methods=["POST"])
-def create_incident(request):
-    """Create a Incident."""
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'email', 'name', 'login', 'isGrafanaAdmin', 'isDisabled'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'status'])
+    err = _require(data, ['id', 'email'])
     if err:
         return err, 400
-    rec = {"id": new_id("grafana_inc")}
-    rec["title"] = data.get('title')
-    rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec = {"id": new_id("grafana_use")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["email"] = data.get('email')
+    rec["name"] = data.get('name')
+    rec["login"] = data.get('login')
+    rec["isGrafanaAdmin"] = _as_bool(data.get('isGrafanaAdmin'))
+    rec["isDisabled"] = _as_bool(data.get('isDisabled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Incident", rec)
+    _persist("User", rec)
     return rec, 201
 
-@app.route("/v1/incidents", methods=["GET"])
-def list_incidents(request):
-    """List Incidents with filtering + cursor pagination."""
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['id', 'email', 'name', 'login', 'isGrafanaAdmin', 'isDisabled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/incidents/<eid>", methods=["GET"])
-def get_incident(request, eid):
-    """Retrieve a Incident by id (supports ?expand=)."""
-    rows = _query("Incident", eid)
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["POST", "PATCH"])
-def update_incident(request, eid):
-    """Update a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'email', 'name', 'login', 'isGrafanaAdmin', 'isDisabled'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +444,87 @@ def update_incident(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Incident", rec)
+    _persist("User", rec)
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["DELETE"])
-def delete_incident(request, eid):
-    """Delete a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"grafana.Incident", "id": eid})
+    db.retract({"entity": f"grafana.User", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/organizations", methods=["POST"])
+def create_organization(request):
+    """Create a Organization."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'address'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("grafana_org")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["name"] = data.get('name')
+    rec["address"] = data.get('address')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Organization", rec)
+    return rec, 201
+
+@app.route("/v1/organizations", methods=["GET"])
+def list_organizations(request):
+    """List Organizations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Organization")
+    rows = _apply_filters(rows, params, ['id', 'name', 'address'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/organizations/<eid>", methods=["GET"])
+def get_organization(request, eid):
+    """Retrieve a Organization by id (supports ?expand=)."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/organizations/<eid>", methods=["POST", "PATCH"])
+def update_organization(request, eid):
+    """Update a Organization."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'address'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Organization", rec)
+    return rec, 200
+
+@app.route("/v1/organizations/<eid>", methods=["DELETE"])
+def delete_organization(request, eid):
+    """Delete a Organization."""
+    rows = _query("Organization", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"grafana.Organization", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "grafana-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['Dashboard', 'DataSource', 'Folder', 'AlertRule', 'User', 'Organization']}, 200
 
 
 if __name__ == "__main__":

@@ -111,121 +111,291 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/loanaccounts", methods=["POST"])
+def create_loan_account(request):
+    """Create a LoanAccount."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'type', 'balance', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'encodedKey', 'accountState', 'accountSubState', 'accountHolderType', 'accountHolderKey', 'loanAmount', 'loanName', 'daysInArrears', 'creationDate', 'approvedDate', 'closedDate'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'balance'])
+    err = _require(data, ['id', 'encodedKey'])
     if err:
         return err, 400
-    rec = {"id": new_id("mambu_acc")}
-    rec["holderId"] = data.get('holderId')
-    rec["type"] = data.get('type')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['holderId', 'type', 'balance', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'type', 'balance', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/loans", methods=["POST"])
-def create_loan(request):
-    """Create a Loan."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['borrowerId', 'principal', 'rate', 'termMonths', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['principal', 'rate'])
-    if err:
-        return err, 400
+    if data.get('accountState') and data['accountState'] not in ['PARTIAL_APPLICATION', 'PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'CLOSED_REJECTED']:
+        return {"error": {"message": "invalid accountState; allowed: " + ", ".join(['PARTIAL_APPLICATION', 'PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'CLOSED_REJECTED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountSubState') and data['accountSubState'] not in ['PARTIALLY_DISBURSED', 'LOCKED', 'LOCKED_CAPPING', 'REFINANCED', 'RESCHEDULED', 'WITHDRAWN', 'REPAID', 'REJECTED', 'WRITTEN_OFF', 'TERMINATED']:
+        return {"error": {"message": "invalid accountSubState; allowed: " + ", ".join(['PARTIALLY_DISBURSED', 'LOCKED', 'LOCKED_CAPPING', 'REFINANCED', 'RESCHEDULED', 'WITHDRAWN', 'REPAID', 'REJECTED', 'WRITTEN_OFF', 'TERMINATED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountHolderType') and data['accountHolderType'] not in ['CLIENT', 'GROUP']:
+        return {"error": {"message": "invalid accountHolderType; allowed: " + ", ".join(['CLIENT', 'GROUP']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("mambu_loa")}
-    rec["borrowerId"] = data.get('borrowerId')
-    rec["principal"] = _as_float(data.get('principal'))
-    rec["rate"] = _as_float(data.get('rate'))
-    rec["termMonths"] = _as_int(data.get('termMonths'))
-    rec["status"] = data.get('status')
+    rec["id"] = data.get('id')
+    rec["encodedKey"] = data.get('encodedKey')
+    rec["accountState"] = data.get('accountState')
+    rec["accountSubState"] = data.get('accountSubState')
+    rec["accountHolderType"] = data.get('accountHolderType')
+    rec["accountHolderKey"] = data.get('accountHolderKey')
+    rec["loanAmount"] = _as_float(data.get('loanAmount'))
+    rec["loanName"] = data.get('loanName')
+    rec["daysInArrears"] = _as_int(data.get('daysInArrears'))
+    rec["creationDate"] = data.get('creationDate')
+    rec["approvedDate"] = data.get('approvedDate')
+    rec["closedDate"] = data.get('closedDate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Loan", rec)
+    _persist("LoanAccount", rec)
     return rec, 201
 
-@app.route("/v1/loans", methods=["GET"])
-def list_loans(request):
-    """List Loans with filtering + cursor pagination."""
+@app.route("/v1/loanaccounts", methods=["GET"])
+def list_loan_accounts(request):
+    """List LoanAccounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Loan")
-    rows = _apply_filters(rows, params, ['borrowerId', 'principal', 'rate', 'termMonths', 'status'])
+    rows = _query("LoanAccount")
+    rows = _apply_filters(rows, params, ['id', 'encodedKey', 'accountState', 'accountSubState', 'accountHolderType', 'accountHolderKey', 'loanAmount', 'loanName', 'daysInArrears', 'creationDate', 'approvedDate', 'closedDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/loans/<eid>", methods=["GET"])
-def get_loan(request, eid):
-    """Retrieve a Loan by id (supports ?expand=)."""
-    rows = _query("Loan", eid)
+@app.route("/v1/loanaccounts/<eid>", methods=["GET"])
+def get_loan_account(request, eid):
+    """Retrieve a LoanAccount by id (supports ?expand=)."""
+    rows = _query("LoanAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/loans/<eid>", methods=["POST", "PATCH"])
-def update_loan(request, eid):
-    """Update a Loan."""
-    rows = _query("Loan", eid)
+@app.route("/v1/loanaccounts/<eid>", methods=["POST", "PATCH"])
+def update_loan_account(request, eid):
+    """Update a LoanAccount."""
+    rows = _query("LoanAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['borrowerId', 'principal', 'rate', 'termMonths', 'status'])
+    err = _reject_unknown(data, ['id', 'encodedKey', 'accountState', 'accountSubState', 'accountHolderType', 'accountHolderKey', 'loanAmount', 'loanName', 'daysInArrears', 'creationDate', 'approvedDate', 'closedDate'])
+    if err:
+        return err, 400
+    if data.get('accountState') and data['accountState'] not in ['PARTIAL_APPLICATION', 'PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'CLOSED_REJECTED']:
+        return {"error": {"message": "invalid accountState; allowed: " + ", ".join(['PARTIAL_APPLICATION', 'PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'CLOSED_REJECTED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountSubState') and data['accountSubState'] not in ['PARTIALLY_DISBURSED', 'LOCKED', 'LOCKED_CAPPING', 'REFINANCED', 'RESCHEDULED', 'WITHDRAWN', 'REPAID', 'REJECTED', 'WRITTEN_OFF', 'TERMINATED']:
+        return {"error": {"message": "invalid accountSubState; allowed: " + ", ".join(['PARTIALLY_DISBURSED', 'LOCKED', 'LOCKED_CAPPING', 'REFINANCED', 'RESCHEDULED', 'WITHDRAWN', 'REPAID', 'REJECTED', 'WRITTEN_OFF', 'TERMINATED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountHolderType') and data['accountHolderType'] not in ['CLIENT', 'GROUP']:
+        return {"error": {"message": "invalid accountHolderType; allowed: " + ", ".join(['CLIENT', 'GROUP']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("LoanAccount", rec)
+    return rec, 200
+
+@app.route("/v1/loanaccounts/<eid>", methods=["DELETE"])
+def delete_loan_account(request, eid):
+    """Delete a LoanAccount."""
+    rows = _query("LoanAccount", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mambu.LoanAccount", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/depositaccounts", methods=["POST"])
+def create_deposit_account(request):
+    """Create a DepositAccount."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'accountState', 'accountHolderType', 'accountHolderKey', 'creationDate', 'approvedDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'encodedKey'])
+    if err:
+        return err, 400
+    if data.get('accountState') and data['accountState'] not in ['PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'MATURED', 'LOCKED', 'DORMANT', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'WITHDRAWN', 'CLOSED_REJECTED']:
+        return {"error": {"message": "invalid accountState; allowed: " + ", ".join(['PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'MATURED', 'LOCKED', 'DORMANT', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'WITHDRAWN', 'CLOSED_REJECTED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountHolderType') and data['accountHolderType'] not in ['CLIENT', 'GROUP']:
+        return {"error": {"message": "invalid accountHolderType; allowed: " + ", ".join(['CLIENT', 'GROUP']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mambu_dep")}
+    rec["id"] = data.get('id')
+    rec["encodedKey"] = data.get('encodedKey')
+    rec["accountState"] = data.get('accountState')
+    rec["accountHolderType"] = data.get('accountHolderType')
+    rec["accountHolderKey"] = data.get('accountHolderKey')
+    rec["creationDate"] = data.get('creationDate')
+    rec["approvedDate"] = data.get('approvedDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("DepositAccount", rec)
+    return rec, 201
+
+@app.route("/v1/depositaccounts", methods=["GET"])
+def list_deposit_accounts(request):
+    """List DepositAccounts with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("DepositAccount")
+    rows = _apply_filters(rows, params, ['id', 'encodedKey', 'accountState', 'accountHolderType', 'accountHolderKey', 'creationDate', 'approvedDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/depositaccounts/<eid>", methods=["GET"])
+def get_deposit_account(request, eid):
+    """Retrieve a DepositAccount by id (supports ?expand=)."""
+    rows = _query("DepositAccount", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/depositaccounts/<eid>", methods=["POST", "PATCH"])
+def update_deposit_account(request, eid):
+    """Update a DepositAccount."""
+    rows = _query("DepositAccount", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'accountState', 'accountHolderType', 'accountHolderKey', 'creationDate', 'approvedDate'])
+    if err:
+        return err, 400
+    if data.get('accountState') and data['accountState'] not in ['PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'MATURED', 'LOCKED', 'DORMANT', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'WITHDRAWN', 'CLOSED_REJECTED']:
+        return {"error": {"message": "invalid accountState; allowed: " + ", ".join(['PENDING_APPROVAL', 'APPROVED', 'ACTIVE', 'ACTIVE_IN_ARREARS', 'MATURED', 'LOCKED', 'DORMANT', 'CLOSED', 'CLOSED_WRITTEN_OFF', 'WITHDRAWN', 'CLOSED_REJECTED']), "type": "invalid_request_error"}}, 400
+    if data.get('accountHolderType') and data['accountHolderType'] not in ['CLIENT', 'GROUP']:
+        return {"error": {"message": "invalid accountHolderType; allowed: " + ", ".join(['CLIENT', 'GROUP']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("DepositAccount", rec)
+    return rec, 200
+
+@app.route("/v1/depositaccounts/<eid>", methods=["DELETE"])
+def delete_deposit_account(request, eid):
+    """Delete a DepositAccount."""
+    rows = _query("DepositAccount", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mambu.DepositAccount", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/clients", methods=["POST"])
+def create_client(request):
+    """Create a Client."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'state', 'firstName', 'lastName', 'emailAddress', 'mobilePhone', 'creationDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'encodedKey'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['PENDING_APPROVAL', 'INACTIVE', 'ACTIVE', 'EXITED', 'BLACKLISTED', 'REJECTED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PENDING_APPROVAL', 'INACTIVE', 'ACTIVE', 'EXITED', 'BLACKLISTED', 'REJECTED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mambu_cli")}
+    rec["id"] = data.get('id')
+    rec["encodedKey"] = data.get('encodedKey')
+    rec["state"] = data.get('state')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["emailAddress"] = data.get('emailAddress')
+    rec["mobilePhone"] = data.get('mobilePhone')
+    rec["creationDate"] = data.get('creationDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Client", rec)
+    return rec, 201
+
+@app.route("/v1/clients", methods=["GET"])
+def list_clients(request):
+    """List Clients with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Client")
+    rows = _apply_filters(rows, params, ['id', 'encodedKey', 'state', 'firstName', 'lastName', 'emailAddress', 'mobilePhone', 'creationDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/clients/<eid>", methods=["GET"])
+def get_client(request, eid):
+    """Retrieve a Client by id (supports ?expand=)."""
+    rows = _query("Client", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/clients/<eid>", methods=["POST", "PATCH"])
+def update_client(request, eid):
+    """Update a Client."""
+    rows = _query("Client", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'state', 'firstName', 'lastName', 'emailAddress', 'mobilePhone', 'creationDate'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['PENDING_APPROVAL', 'INACTIVE', 'ACTIVE', 'EXITED', 'BLACKLISTED', 'REJECTED']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PENDING_APPROVAL', 'INACTIVE', 'ACTIVE', 'EXITED', 'BLACKLISTED', 'REJECTED']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Client", rec)
+    return rec, 200
+
+@app.route("/v1/clients/<eid>", methods=["DELETE"])
+def delete_client(request, eid):
+    """Delete a Client."""
+    rows = _query("Client", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"mambu.Client", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'groupName', 'assignedBranchKey', 'creationDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'encodedKey'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("mambu_gro")}
+    rec["id"] = data.get('id')
+    rec["encodedKey"] = data.get('encodedKey')
+    rec["groupName"] = data.get('groupName')
+    rec["assignedBranchKey"] = data.get('assignedBranchKey')
+    rec["creationDate"] = data.get('creationDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Group", rec)
+    return rec, 201
+
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['id', 'encodedKey', 'groupName', 'assignedBranchKey', 'creationDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'encodedKey', 'groupName', 'assignedBranchKey', 'creationDate'])
     if err:
         return err, 400
     rec = rows[0]
@@ -233,288 +403,96 @@ def update_loan(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Loan", rec)
+    _persist("Group", rec)
     return rec, 200
 
-@app.route("/v1/loans/<eid>", methods=["DELETE"])
-def delete_loan(request, eid):
-    """Delete a Loan."""
-    rows = _query("Loan", eid)
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Loan", "id": eid})
+    db.retract({"entity": f"mambu.Group", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/policies", methods=["POST"])
-def create_policy(request):
-    """Create a Policy."""
+@app.route("/v1/loantransactions", methods=["POST"])
+def create_loan_transaction(request):
+    """Create a LoanTransaction."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'type', 'premium', 'coverage', 'status'])
+    err = _reject_unknown(data, ['id', 'encodedKey', 'type', 'amount', 'notes', 'creationDate', 'bookingDate', 'valueDate'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'premium'])
+    err = _require(data, ['id', 'encodedKey'])
     if err:
         return err, 400
-    rec = {"id": new_id("mambu_pol")}
-    rec["holderId"] = data.get('holderId')
+    if data.get('type') and data['type'] not in ['IMPORT', 'DISBURSEMENT', 'DISBURSEMENT_ADJUSTMENT', 'WRITE_OFF', 'WRITE_OFF_ADJUSTMENT', 'REPAYMENT', 'ADVANCE_REPAYMENT', 'PAYMENT_MADE', 'WITHDRAWAL_REDRAW', 'WITHDRAWAL_REDRAW_ADJUSTMENT', 'FEE_APPLIED', 'FEE_CHARGED', 'FEE_CAPITALISED', 'SCHEDULE_FIX_APPLIED', 'FEES_DUE_REDUCED', 'FEE_REFUND', 'FEE_REFUND_ADJUSTMENT', 'FEE_ADJUSTMENT', 'PENALTY_APPLIED', 'PENALTY_ADJUSTMENT', 'PENALTIES_DUE_REDUCED', 'REPAYMENT_ADJUSTMENT', 'ADVANCE_REPAYMENT_ADJUSTMENT', 'FEE_CAPITALISED_ADJUSTMENT', 'PAYMENT_MADE_ADJUSTMENT', 'INTEREST_RATE_CHANGED', 'FEE_RATE_CHANGED', 'TAX_RATE_CHANGED', 'PENALTY_RATE_CHANGED', 'INTEREST_APPLIED', 'IBF_INTEREST_APPLIED', 'IBF_INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_DUE_REDUCED', 'PENALTY_REDUCTION_ADJUSTMENT', 'FEE_REDUCTION_ADJUSTMENT', 'INTEREST_REDUCTION_ADJUSTMENT', 'DEFERRED_INTEREST_APPLIED', 'DEFERRED_INTEREST_APPLIED_ADJUSTMENT', 'DEFERRED_INTEREST_PAID', 'DEFERRED_INTEREST_PAID_ADJUSTMENT', 'INTEREST_LOCKED', 'FEE_LOCKED', 'PENALTY_LOCKED', 'INTEREST_UNLOCKED', 'FEE_UNLOCKED', 'PENALTY_UNLOCKED', 'REDRAW_TRANSFER', 'REDRAW_REPAYMENT', 'REDRAW_TRANSFER_ADJUSTMENT', 'REDRAW_REPAYMENT_ADJUSTMENT', 'TRANSFER', 'TRANSFER_ADJUSTMENT', 'BRANCH_CHANGED', 'TERMS_CHANGED', 'CARD_TRANSACTION_REVERSAL', 'CARD_TRANSACTION_REVERSAL_ADJUSTMENT', 'DUE_DATE_CHANGED', 'DUE_DATE_CHANGED_ADJUSTMENT', 'ACCOUNT_TERMINATED', 'ACCOUNT_TERMINATED_ADJUSTMENT', 'REFUND', 'REFUND_ADJUSTMENT', 'REDUCE_BALANCE', 'REDUCE_BALANCE_ADJUSTMENT', 'PRINCIPAL_OVERPAYMENT', 'PRINCIPAL_OVERPAYMENT_ADJUSTMENT', 'CREDIT_BALANCE_DEPOSIT', 'CREDIT_BALANCE_DEPOSIT_ADJUSTMENT', 'CREDIT_BALANCE_WITHDRAWAL', 'CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['IMPORT', 'DISBURSEMENT', 'DISBURSEMENT_ADJUSTMENT', 'WRITE_OFF', 'WRITE_OFF_ADJUSTMENT', 'REPAYMENT', 'ADVANCE_REPAYMENT', 'PAYMENT_MADE', 'WITHDRAWAL_REDRAW', 'WITHDRAWAL_REDRAW_ADJUSTMENT', 'FEE_APPLIED', 'FEE_CHARGED', 'FEE_CAPITALISED', 'SCHEDULE_FIX_APPLIED', 'FEES_DUE_REDUCED', 'FEE_REFUND', 'FEE_REFUND_ADJUSTMENT', 'FEE_ADJUSTMENT', 'PENALTY_APPLIED', 'PENALTY_ADJUSTMENT', 'PENALTIES_DUE_REDUCED', 'REPAYMENT_ADJUSTMENT', 'ADVANCE_REPAYMENT_ADJUSTMENT', 'FEE_CAPITALISED_ADJUSTMENT', 'PAYMENT_MADE_ADJUSTMENT', 'INTEREST_RATE_CHANGED', 'FEE_RATE_CHANGED', 'TAX_RATE_CHANGED', 'PENALTY_RATE_CHANGED', 'INTEREST_APPLIED', 'IBF_INTEREST_APPLIED', 'IBF_INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_DUE_REDUCED', 'PENALTY_REDUCTION_ADJUSTMENT', 'FEE_REDUCTION_ADJUSTMENT', 'INTEREST_REDUCTION_ADJUSTMENT', 'DEFERRED_INTEREST_APPLIED', 'DEFERRED_INTEREST_APPLIED_ADJUSTMENT', 'DEFERRED_INTEREST_PAID', 'DEFERRED_INTEREST_PAID_ADJUSTMENT', 'INTEREST_LOCKED', 'FEE_LOCKED', 'PENALTY_LOCKED', 'INTEREST_UNLOCKED', 'FEE_UNLOCKED', 'PENALTY_UNLOCKED', 'REDRAW_TRANSFER', 'REDRAW_REPAYMENT', 'REDRAW_TRANSFER_ADJUSTMENT', 'REDRAW_REPAYMENT_ADJUSTMENT', 'TRANSFER', 'TRANSFER_ADJUSTMENT', 'BRANCH_CHANGED', 'TERMS_CHANGED', 'CARD_TRANSACTION_REVERSAL', 'CARD_TRANSACTION_REVERSAL_ADJUSTMENT', 'DUE_DATE_CHANGED', 'DUE_DATE_CHANGED_ADJUSTMENT', 'ACCOUNT_TERMINATED', 'ACCOUNT_TERMINATED_ADJUSTMENT', 'REFUND', 'REFUND_ADJUSTMENT', 'REDUCE_BALANCE', 'REDUCE_BALANCE_ADJUSTMENT', 'PRINCIPAL_OVERPAYMENT', 'PRINCIPAL_OVERPAYMENT_ADJUSTMENT', 'CREDIT_BALANCE_DEPOSIT', 'CREDIT_BALANCE_DEPOSIT_ADJUSTMENT', 'CREDIT_BALANCE_WITHDRAWAL', 'CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mambu_loa")}
+    rec["id"] = data.get('id')
+    rec["encodedKey"] = data.get('encodedKey')
     rec["type"] = data.get('type')
-    rec["premium"] = _as_float(data.get('premium'))
-    rec["coverage"] = _as_float(data.get('coverage'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Policy", rec)
-    return rec, 201
-
-@app.route("/v1/policies", methods=["GET"])
-def list_policies(request):
-    """List Policies with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Policy")
-    rows = _apply_filters(rows, params, ['holderId', 'type', 'premium', 'coverage', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/policies/<eid>", methods=["GET"])
-def get_policy(request, eid):
-    """Retrieve a Policy by id (supports ?expand=)."""
-    rows = _query("Policy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/policies/<eid>", methods=["POST", "PATCH"])
-def update_policy(request, eid):
-    """Update a Policy."""
-    rows = _query("Policy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'type', 'premium', 'coverage', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Policy", rec)
-    return rec, 200
-
-@app.route("/v1/policies/<eid>", methods=["DELETE"])
-def delete_policy(request, eid):
-    """Delete a Policy."""
-    rows = _query("Policy", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Policy", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/claims", methods=["POST"])
-def create_claim(request):
-    """Create a Claim."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['policyId', 'amount', 'status', 'filedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mambu_cla")}
-    rec["policyId"] = data.get('policyId')
     rec["amount"] = _as_float(data.get('amount'))
-    rec["status"] = data.get('status')
-    rec["filedAt"] = data.get('filedAt')
+    rec["notes"] = data.get('notes')
+    rec["creationDate"] = data.get('creationDate')
+    rec["bookingDate"] = data.get('bookingDate')
+    rec["valueDate"] = data.get('valueDate')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Claim", rec)
+    _persist("LoanTransaction", rec)
     return rec, 201
 
-@app.route("/v1/claims", methods=["GET"])
-def list_claims(request):
-    """List Claims with filtering + cursor pagination."""
+@app.route("/v1/loantransactions", methods=["GET"])
+def list_loan_transactions(request):
+    """List LoanTransactions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Claim")
-    rows = _apply_filters(rows, params, ['policyId', 'amount', 'status', 'filedAt'])
+    rows = _query("LoanTransaction")
+    rows = _apply_filters(rows, params, ['id', 'encodedKey', 'type', 'amount', 'notes', 'creationDate', 'bookingDate', 'valueDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/claims/<eid>", methods=["GET"])
-def get_claim(request, eid):
-    """Retrieve a Claim by id (supports ?expand=)."""
-    rows = _query("Claim", eid)
+@app.route("/v1/loantransactions/<eid>", methods=["GET"])
+def get_loan_transaction(request, eid):
+    """Retrieve a LoanTransaction by id (supports ?expand=)."""
+    rows = _query("LoanTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'policyId': 'Policy'})
     return rec, 200
 
-@app.route("/v1/claims/<eid>", methods=["POST", "PATCH"])
-def update_claim(request, eid):
-    """Update a Claim."""
-    rows = _query("Claim", eid)
+@app.route("/v1/loantransactions/<eid>", methods=["POST", "PATCH"])
+def update_loan_transaction(request, eid):
+    """Update a LoanTransaction."""
+    rows = _query("LoanTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['policyId', 'amount', 'status', 'filedAt'])
+    err = _reject_unknown(data, ['id', 'encodedKey', 'type', 'amount', 'notes', 'creationDate', 'bookingDate', 'valueDate'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['IMPORT', 'DISBURSEMENT', 'DISBURSEMENT_ADJUSTMENT', 'WRITE_OFF', 'WRITE_OFF_ADJUSTMENT', 'REPAYMENT', 'ADVANCE_REPAYMENT', 'PAYMENT_MADE', 'WITHDRAWAL_REDRAW', 'WITHDRAWAL_REDRAW_ADJUSTMENT', 'FEE_APPLIED', 'FEE_CHARGED', 'FEE_CAPITALISED', 'SCHEDULE_FIX_APPLIED', 'FEES_DUE_REDUCED', 'FEE_REFUND', 'FEE_REFUND_ADJUSTMENT', 'FEE_ADJUSTMENT', 'PENALTY_APPLIED', 'PENALTY_ADJUSTMENT', 'PENALTIES_DUE_REDUCED', 'REPAYMENT_ADJUSTMENT', 'ADVANCE_REPAYMENT_ADJUSTMENT', 'FEE_CAPITALISED_ADJUSTMENT', 'PAYMENT_MADE_ADJUSTMENT', 'INTEREST_RATE_CHANGED', 'FEE_RATE_CHANGED', 'TAX_RATE_CHANGED', 'PENALTY_RATE_CHANGED', 'INTEREST_APPLIED', 'IBF_INTEREST_APPLIED', 'IBF_INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_DUE_REDUCED', 'PENALTY_REDUCTION_ADJUSTMENT', 'FEE_REDUCTION_ADJUSTMENT', 'INTEREST_REDUCTION_ADJUSTMENT', 'DEFERRED_INTEREST_APPLIED', 'DEFERRED_INTEREST_APPLIED_ADJUSTMENT', 'DEFERRED_INTEREST_PAID', 'DEFERRED_INTEREST_PAID_ADJUSTMENT', 'INTEREST_LOCKED', 'FEE_LOCKED', 'PENALTY_LOCKED', 'INTEREST_UNLOCKED', 'FEE_UNLOCKED', 'PENALTY_UNLOCKED', 'REDRAW_TRANSFER', 'REDRAW_REPAYMENT', 'REDRAW_TRANSFER_ADJUSTMENT', 'REDRAW_REPAYMENT_ADJUSTMENT', 'TRANSFER', 'TRANSFER_ADJUSTMENT', 'BRANCH_CHANGED', 'TERMS_CHANGED', 'CARD_TRANSACTION_REVERSAL', 'CARD_TRANSACTION_REVERSAL_ADJUSTMENT', 'DUE_DATE_CHANGED', 'DUE_DATE_CHANGED_ADJUSTMENT', 'ACCOUNT_TERMINATED', 'ACCOUNT_TERMINATED_ADJUSTMENT', 'REFUND', 'REFUND_ADJUSTMENT', 'REDUCE_BALANCE', 'REDUCE_BALANCE_ADJUSTMENT', 'PRINCIPAL_OVERPAYMENT', 'PRINCIPAL_OVERPAYMENT_ADJUSTMENT', 'CREDIT_BALANCE_DEPOSIT', 'CREDIT_BALANCE_DEPOSIT_ADJUSTMENT', 'CREDIT_BALANCE_WITHDRAWAL', 'CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['IMPORT', 'DISBURSEMENT', 'DISBURSEMENT_ADJUSTMENT', 'WRITE_OFF', 'WRITE_OFF_ADJUSTMENT', 'REPAYMENT', 'ADVANCE_REPAYMENT', 'PAYMENT_MADE', 'WITHDRAWAL_REDRAW', 'WITHDRAWAL_REDRAW_ADJUSTMENT', 'FEE_APPLIED', 'FEE_CHARGED', 'FEE_CAPITALISED', 'SCHEDULE_FIX_APPLIED', 'FEES_DUE_REDUCED', 'FEE_REFUND', 'FEE_REFUND_ADJUSTMENT', 'FEE_ADJUSTMENT', 'PENALTY_APPLIED', 'PENALTY_ADJUSTMENT', 'PENALTIES_DUE_REDUCED', 'REPAYMENT_ADJUSTMENT', 'ADVANCE_REPAYMENT_ADJUSTMENT', 'FEE_CAPITALISED_ADJUSTMENT', 'PAYMENT_MADE_ADJUSTMENT', 'INTEREST_RATE_CHANGED', 'FEE_RATE_CHANGED', 'TAX_RATE_CHANGED', 'PENALTY_RATE_CHANGED', 'INTEREST_APPLIED', 'IBF_INTEREST_APPLIED', 'IBF_INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_APPLIED_ADJUSTMENT', 'INTEREST_DUE_REDUCED', 'PENALTY_REDUCTION_ADJUSTMENT', 'FEE_REDUCTION_ADJUSTMENT', 'INTEREST_REDUCTION_ADJUSTMENT', 'DEFERRED_INTEREST_APPLIED', 'DEFERRED_INTEREST_APPLIED_ADJUSTMENT', 'DEFERRED_INTEREST_PAID', 'DEFERRED_INTEREST_PAID_ADJUSTMENT', 'INTEREST_LOCKED', 'FEE_LOCKED', 'PENALTY_LOCKED', 'INTEREST_UNLOCKED', 'FEE_UNLOCKED', 'PENALTY_UNLOCKED', 'REDRAW_TRANSFER', 'REDRAW_REPAYMENT', 'REDRAW_TRANSFER_ADJUSTMENT', 'REDRAW_REPAYMENT_ADJUSTMENT', 'TRANSFER', 'TRANSFER_ADJUSTMENT', 'BRANCH_CHANGED', 'TERMS_CHANGED', 'CARD_TRANSACTION_REVERSAL', 'CARD_TRANSACTION_REVERSAL_ADJUSTMENT', 'DUE_DATE_CHANGED', 'DUE_DATE_CHANGED_ADJUSTMENT', 'ACCOUNT_TERMINATED', 'ACCOUNT_TERMINATED_ADJUSTMENT', 'REFUND', 'REFUND_ADJUSTMENT', 'REDUCE_BALANCE', 'REDUCE_BALANCE_ADJUSTMENT', 'PRINCIPAL_OVERPAYMENT', 'PRINCIPAL_OVERPAYMENT_ADJUSTMENT', 'CREDIT_BALANCE_DEPOSIT', 'CREDIT_BALANCE_DEPOSIT_ADJUSTMENT', 'CREDIT_BALANCE_WITHDRAWAL', 'CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED', 'PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Claim", rec)
+    _persist("LoanTransaction", rec)
     return rec, 200
 
-@app.route("/v1/claims/<eid>", methods=["DELETE"])
-def delete_claim(request, eid):
-    """Delete a Claim."""
-    rows = _query("Claim", eid)
+@app.route("/v1/loantransactions/<eid>", methods=["DELETE"])
+def delete_loan_transaction(request, eid):
+    """Delete a LoanTransaction."""
+    rows = _query("LoanTransaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Claim", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'type', 'postedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mambu_tra")}
-    rec["accountId"] = data.get('accountId')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["type"] = data.get('type')
-    rec["postedAt"] = data.get('postedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['accountId', 'amount', 'type', 'postedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'type', 'postedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/customers", methods=["POST"])
-def create_customer(request):
-    """Create a Customer."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'taxId', 'kycStatus'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'kycStatus'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mambu_cus")}
-    rec["name"] = data.get('name')
-    rec["taxId"] = data.get('taxId')
-    rec["kycStatus"] = data.get('kycStatus')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Customer", rec)
-    return rec, 201
-
-@app.route("/v1/customers", methods=["GET"])
-def list_customers(request):
-    """List Customers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['name', 'taxId', 'kycStatus'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/customers/<eid>", methods=["GET"])
-def get_customer(request, eid):
-    """Retrieve a Customer by id (supports ?expand=)."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/customers/<eid>", methods=["POST", "PATCH"])
-def update_customer(request, eid):
-    """Update a Customer."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'taxId', 'kycStatus'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Customer", rec)
-    return rec, 200
-
-@app.route("/v1/customers/<eid>", methods=["DELETE"])
-def delete_customer(request, eid):
-    """Delete a Customer."""
-    rows = _query("Customer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mambu.Customer", "id": eid})
+    db.retract({"entity": f"mambu.LoanTransaction", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mambu-compat", "tier": "L4",
-            "entities": ['Account', 'Loan', 'Policy', 'Claim', 'Transaction', 'Customer']}, 200
+            "entities": ['LoanAccount', 'DepositAccount', 'Client', 'Group', 'LoanTransaction']}, 200
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreidxoepgun3rftxe43fzln5wkqsa4fjnlyvqdqyeliglkg3qdrfice",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/instances": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Instances",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Instance"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Instance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/instances/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Instance",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Instance",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -181,192 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/computeinstances": {
-      "get": {
-        "summary": "List ComputeInstances",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ComputeInstance",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/computeinstances/{id}": {
-      "get": {
-        "summary": "Get a ComputeInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ComputeInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a Instance",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/domains": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List Domains",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/Domain"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a Domain",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DomainCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/domains/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a Domain",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a Domain",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DomainCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/Domain"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
+        "summary": "Delete a Domain",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/networks": {
+    "/v1/nodebalancers": {
       "get": {
-        "summary": "List Networks",
+        "summary": "List NodeBalancers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Network"
+                        "$ref": "#/components/schemas/NodeBalancer"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Network",
+        "summary": "Create a NodeBalancer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/NodeBalancerCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/NodeBalancer"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/networks/{id}": {
+    "/v1/nodebalancers/{id}": {
       "get": {
-        "summary": "Get a Network",
+        "summary": "Get a NodeBalancer",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/NodeBalancer"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Network",
+        "summary": "Update a NodeBalancer",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/NodeBalancerCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/NodeBalancer"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Network",
+        "summary": "Delete a NodeBalancer",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/iamroles": {
+    "/v1/lkeclusters": {
       "get": {
-        "summary": "List IamRoles",
+        "summary": "List LKEClusters",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/IamRole"
+                        "$ref": "#/components/schemas/LKECluster"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a IamRole",
+        "summary": "Create a LKECluster",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/LKEClusterCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LKECluster"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/iamroles/{id}": {
+    "/v1/lkeclusters/{id}": {
       "get": {
-        "summary": "Get a IamRole",
+        "summary": "Get a LKECluster",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LKECluster"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a IamRole",
+        "summary": "Update a LKECluster",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/LKEClusterCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/LKECluster"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a LKECluster",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/images": {
+      "get": {
+        "summary": "List Images",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Image",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/images/{id}": {
+      "get": {
+        "summary": "Get a Image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Image",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +1140,50 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Instance": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "label": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "offline",
+              "booting",
+              "busy",
+              "rebooting",
+              "shutting_down",
+              "provisioning",
+              "deleting",
+              "migrating",
+              "rebuilding",
+              "cloning",
+              "restoring",
+              "stopped",
+              "billing_suspension"
+            ]
           },
           "region": {
             "type": "string"
           },
-          "billingId": {
+          "type": {
             "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1165,96 +1195,93 @@
           }
         }
       },
-      "ProjectCreate": {
+      "InstanceCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
             "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "offline",
+              "booting",
+              "busy",
+              "rebooting",
+              "shutting_down",
+              "provisioning",
+              "deleting",
+              "migrating",
+              "rebuilding",
+              "cloning",
+              "restoring",
+              "stopped",
+              "billing_suspension"
+            ]
           },
           "region": {
             "type": "string"
           },
-          "billingId": {
+          "type": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "updated": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "machineType"
+          "id",
+          "label"
         ]
       },
       "Volume": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
             "type": "integer"
           },
-          "type": {
+          "label": {
             "type": "string"
           },
-          "attachedTo": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "active",
+              "resizing",
+              "key_rotating"
+            ]
+          },
+          "size": {
+            "type": "integer"
+          },
+          "region": {
             "type": "string"
+          },
+          "encryption": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1269,42 +1296,314 @@
       "VolumeCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
+          "id": {
             "type": "integer"
           },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "active",
+              "resizing",
+              "key_rotating"
+            ]
+          },
+          "size": {
+            "type": "integer"
+          },
+          "region": {
+            "type": "string"
+          },
+          "encryption": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ]
+          },
+          "created": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      },
+      "Domain": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "domain": {
+            "type": "string"
+          },
           "type": {
+            "type": "string",
+            "enum": [
+              "master",
+              "slave"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "disabled",
+              "active"
+            ]
+          },
+          "soaEmail": {
             "type": "string"
           },
-          "attachedTo": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DomainCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "master",
+              "slave"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "disabled",
+              "active"
+            ]
+          },
+          "soaEmail": {
+            "type": "string"
+          },
+          "created": {
             "type": "string"
           }
         },
         "required": [
-          "sizeGb",
-          "type"
+          "id",
+          "domain"
         ]
       },
-      "Bucket": {
+      "NodeBalancer": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "label": {
             "type": "string"
           },
-          "projectId": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "common",
+              "premium"
+            ]
+          },
+          "region": {
             "type": "string"
           },
-          "name": {
+          "ipv4": {
+            "type": "string"
+          },
+          "ipv6": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NodeBalancerCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "common",
+              "premium"
+            ]
+          },
+          "region": {
+            "type": "string"
+          },
+          "ipv4": {
+            "type": "string"
+          },
+          "ipv6": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      },
+      "LKECluster": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
             "type": "string"
           },
           "region": {
             "type": "string"
           },
-          "public": {
+          "k8sVersion": {
+            "type": "string"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "enterprise"
+            ]
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LKEClusterCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "k8sVersion": {
+            "type": "string"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "enterprise"
+            ]
+          },
+          "created": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "creating",
+              "pending_upload"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "automatic",
+              "shared"
+            ]
+          },
+          "size": {
+            "type": "integer"
+          },
+          "isPublic": {
             "type": "boolean"
           },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1315,111 +1614,47 @@
           }
         }
       },
-      "BucketCreate": {
+      "ImageCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
-          "name": {
+          "label": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "creating",
+              "pending_upload"
+            ]
           },
-          "public": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "automatic",
+              "shared"
+            ]
+          },
+          "size": {
+            "type": "integer"
+          },
+          "isPublic": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "Network": {
-        "type": "object",
-        "properties": {
-          "id": {
+          },
+          "created": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NetworkCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
+          "updated": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "policy"
+          "id",
+          "label"
         ]
       }
     }

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "mitre_attck.kotoba")
-ENTITIES = ['Indicator', 'Vulnerability', 'ThreatActor', 'Campaign', 'Host', 'Technique']
-PLURALS = {'Indicator': 'indicators', 'Vulnerability': 'vulnerabilities', 'ThreatActor': 'threatactors', 'Campaign': 'campaigns', 'Host': 'hosts', 'Technique': 'techniques'}
+ENTITIES = ['Technique', 'Tactic', 'Software', 'Group', 'Mitigation']
+PLURALS = {'Technique': 'techniques', 'Tactic': 'tactics', 'Software': 'softwares', 'Group': 'groups', 'Mitigation': 'mitigations'}
 
 
 class MitreAttckContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class MitreAttckContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

@@ -111,53 +111,214 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/orders", methods=["POST"])
+def create_order(request):
+    """Create a Order."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['id', 'version', 'orderNumber', 'customerId', 'customerEmail', 'orderState', 'paymentState', 'shipmentState', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['id', 'version'])
     if err:
         return err, 400
-    rec = {"id": new_id("commerce_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
+    if data.get('orderState') and data['orderState'] not in ['Open', 'Confirmed', 'Complete', 'Cancelled']:
+        return {"error": {"message": "invalid orderState; allowed: " + ", ".join(['Open', 'Confirmed', 'Complete', 'Cancelled']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentState') and data['paymentState'] not in ['BalanceDue', 'Failed', 'Pending', 'CreditOwed', 'Paid']:
+        return {"error": {"message": "invalid paymentState; allowed: " + ", ".join(['BalanceDue', 'Failed', 'Pending', 'CreditOwed', 'Paid']), "type": "invalid_request_error"}}, 400
+    if data.get('shipmentState') and data['shipmentState'] not in ['Shipped', 'Delivered', 'Ready', 'Pending', 'Delayed', 'Partial', 'Backorder', 'Canceled']:
+        return {"error": {"message": "invalid shipmentState; allowed: " + ", ".join(['Shipped', 'Delivered', 'Ready', 'Pending', 'Delayed', 'Partial', 'Backorder', 'Canceled']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commerce_ord")}
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["orderNumber"] = data.get('orderNumber')
+    rec["customerId"] = data.get('customerId')
+    rec["customerEmail"] = data.get('customerEmail')
+    rec["orderState"] = data.get('orderState')
+    rec["paymentState"] = data.get('paymentState')
+    rec["shipmentState"] = data.get('shipmentState')
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastModifiedAt"] = data.get('lastModifiedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
+    _persist("Order", rec)
     return rec, 201
 
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
+@app.route("/v1/orders", methods=["GET"])
+def list_orders(request):
+    """List Orders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
+    rows = _query("Order")
+    rows = _apply_filters(rows, params, ['id', 'version', 'orderNumber', 'customerId', 'customerEmail', 'orderState', 'paymentState', 'shipmentState', 'createdAt', 'lastModifiedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/orders/<eid>", methods=["GET"])
+def get_order(request, eid):
+    """Retrieve a Order by id (supports ?expand=)."""
+    rows = _query("Order", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
     return rec, 200
 
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
+def update_order(request, eid):
+    """Update a Order."""
+    rows = _query("Order", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['id', 'version', 'orderNumber', 'customerId', 'customerEmail', 'orderState', 'paymentState', 'shipmentState', 'createdAt', 'lastModifiedAt'])
+    if err:
+        return err, 400
+    if data.get('orderState') and data['orderState'] not in ['Open', 'Confirmed', 'Complete', 'Cancelled']:
+        return {"error": {"message": "invalid orderState; allowed: " + ", ".join(['Open', 'Confirmed', 'Complete', 'Cancelled']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentState') and data['paymentState'] not in ['BalanceDue', 'Failed', 'Pending', 'CreditOwed', 'Paid']:
+        return {"error": {"message": "invalid paymentState; allowed: " + ", ".join(['BalanceDue', 'Failed', 'Pending', 'CreditOwed', 'Paid']), "type": "invalid_request_error"}}, 400
+    if data.get('shipmentState') and data['shipmentState'] not in ['Shipped', 'Delivered', 'Ready', 'Pending', 'Delayed', 'Partial', 'Backorder', 'Canceled']:
+        return {"error": {"message": "invalid shipmentState; allowed: " + ", ".join(['Shipped', 'Delivered', 'Ready', 'Pending', 'Delayed', 'Partial', 'Backorder', 'Canceled']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Order", rec)
+    return rec, 200
+
+@app.route("/v1/orders/<eid>", methods=["DELETE"])
+def delete_order(request, eid):
+    """Delete a Order."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"commercetools.Order", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/carts", methods=["POST"])
+def create_cart(request):
+    """Create a Cart."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'customerId', 'cartState', 'createdAt', 'lastModifiedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'version'])
+    if err:
+        return err, 400
+    if data.get('cartState') and data['cartState'] not in ['Active', 'Merged', 'Ordered', 'Frozen']:
+        return {"error": {"message": "invalid cartState; allowed: " + ", ".join(['Active', 'Merged', 'Ordered', 'Frozen']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commerce_car")}
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["customerId"] = data.get('customerId')
+    rec["cartState"] = data.get('cartState')
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastModifiedAt"] = data.get('lastModifiedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Cart", rec)
+    return rec, 201
+
+@app.route("/v1/carts", methods=["GET"])
+def list_carts(request):
+    """List Carts with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Cart")
+    rows = _apply_filters(rows, params, ['id', 'version', 'customerId', 'cartState', 'createdAt', 'lastModifiedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/carts/<eid>", methods=["GET"])
+def get_cart(request, eid):
+    """Retrieve a Cart by id (supports ?expand=)."""
+    rows = _query("Cart", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
+    return rec, 200
+
+@app.route("/v1/carts/<eid>", methods=["POST", "PATCH"])
+def update_cart(request, eid):
+    """Update a Cart."""
+    rows = _query("Cart", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'customerId', 'cartState', 'createdAt', 'lastModifiedAt'])
+    if err:
+        return err, 400
+    if data.get('cartState') and data['cartState'] not in ['Active', 'Merged', 'Ordered', 'Frozen']:
+        return {"error": {"message": "invalid cartState; allowed: " + ", ".join(['Active', 'Merged', 'Ordered', 'Frozen']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Cart", rec)
+    return rec, 200
+
+@app.route("/v1/carts/<eid>", methods=["DELETE"])
+def delete_cart(request, eid):
+    """Delete a Cart."""
+    rows = _query("Cart", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"commercetools.Cart", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/payments", methods=["POST"])
+def create_payment(request):
+    """Create a Payment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'key', 'customerId', 'createdAt', 'lastModifiedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'version'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("commerce_pay")}
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["key"] = data.get('key')
+    rec["customerId"] = data.get('customerId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastModifiedAt"] = data.get('lastModifiedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Payment", rec)
+    return rec, 201
+
+@app.route("/v1/payments", methods=["GET"])
+def list_payments(request):
+    """List Payments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Payment")
+    rows = _apply_filters(rows, params, ['id', 'version', 'key', 'customerId', 'createdAt', 'lastModifiedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/payments/<eid>", methods=["GET"])
+def get_payment(request, eid):
+    """Retrieve a Payment by id (supports ?expand=)."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["POST", "PATCH"])
+def update_payment(request, eid):
+    """Update a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'key', 'customerId', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,33 +326,37 @@ def update_content_entry(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
+    _persist("Payment", rec)
     return rec, 200
 
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/payments/<eid>", methods=["DELETE"])
+def delete_payment(request, eid):
+    """Delete a Payment."""
+    rows = _query("Payment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"commercetools.ContentEntry", "id": eid})
+    db.retract({"entity": f"commercetools.Payment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/products", methods=["POST"])
 def create_product(request):
     """Create a Product."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
+    err = _reject_unknown(data, ['id', 'version', 'key', 'priceMode', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
-    err = _require(data, ['sku', 'title'])
+    err = _require(data, ['id', 'version'])
     if err:
         return err, 400
+    if data.get('priceMode') and data['priceMode'] not in ['Embedded', 'Standalone']:
+        return {"error": {"message": "invalid priceMode; allowed: " + ", ".join(['Embedded', 'Standalone']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("commerce_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["key"] = data.get('key')
+    rec["priceMode"] = data.get('priceMode')
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastModifiedAt"] = data.get('lastModifiedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Product", rec)
@@ -202,7 +367,7 @@ def list_products(request):
     """List Products with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency'])
+    rows = _apply_filters(rows, params, ['id', 'version', 'key', 'priceMode', 'createdAt', 'lastModifiedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -223,9 +388,11 @@ def update_product(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
+    err = _reject_unknown(data, ['id', 'version', 'key', 'priceMode', 'createdAt', 'lastModifiedAt'])
     if err:
         return err, 400
+    if data.get('priceMode') and data['priceMode'] not in ['Embedded', 'Standalone']:
+        return {"error": {"message": "invalid priceMode; allowed: " + ", ".join(['Embedded', 'Standalone']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -243,54 +410,57 @@ def delete_product(request, eid):
     db.retract({"entity": f"commercetools.Product", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
+@app.route("/v1/customers", methods=["POST"])
+def create_customer(request):
+    """Create a Customer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
+    err = _reject_unknown(data, ['id', 'version', 'key', 'email', 'firstName', 'lastName', 'isEmailVerified', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['carrier', 'tracking'])
+    err = _require(data, ['id', 'version'])
     if err:
         return err, 400
-    rec = {"id": new_id("commerce_shi")}
-    rec["orderId"] = data.get('orderId')
-    rec["carrier"] = data.get('carrier')
-    rec["tracking"] = data.get('tracking')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("commerce_cus")}
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["key"] = data.get('key')
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["isEmailVerified"] = _as_bool(data.get('isEmailVerified'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
+    _persist("Customer", rec)
     return rec, 201
 
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
+@app.route("/v1/customers", methods=["GET"])
+def list_customers(request):
+    """List Customers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['orderId', 'carrier', 'tracking', 'status'])
+    rows = _query("Customer")
+    rows = _apply_filters(rows, params, ['id', 'version', 'key', 'email', 'firstName', 'lastName', 'isEmailVerified', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
+@app.route("/v1/customers/<eid>", methods=["GET"])
+def get_customer(request, eid):
+    """Retrieve a Customer by id (supports ?expand=)."""
+    rows = _query("Customer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
     return rec, 200
 
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
+@app.route("/v1/customers/<eid>", methods=["POST", "PATCH"])
+def update_customer(request, eid):
+    """Update a Customer."""
+    rows = _query("Customer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
+    err = _reject_unknown(data, ['id', 'version', 'key', 'email', 'firstName', 'lastName', 'isEmailVerified', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,218 +468,97 @@ def update_shipment(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Shipment", rec)
+    _persist("Customer", rec)
     return rec, 200
 
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
+@app.route("/v1/customers/<eid>", methods=["DELETE"])
+def delete_customer(request, eid):
+    """Delete a Customer."""
+    rows = _query("Customer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"commercetools.Shipment", "id": eid})
+    db.retract({"entity": f"commercetools.Customer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/searchindexes", methods=["POST"])
-def create_search_index(request):
-    """Create a SearchIndex."""
+@app.route("/v1/transactions", methods=["POST"])
+def create_transaction(request):
+    """Create a Transaction."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
+    err = _reject_unknown(data, ['id', 'timestamp', 'type', 'state', 'interactionId'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'recordCount'])
+    err = _require(data, ['id', 'timestamp'])
     if err:
         return err, 400
-    rec = {"id": new_id("commerce_sea")}
-    rec["name"] = data.get('name')
-    rec["recordCount"] = _as_int(data.get('recordCount'))
-    rec["primaryKey"] = data.get('primaryKey')
+    if data.get('type') and data['type'] not in ['Authorization', 'CancelAuthorization', 'Charge', 'Refund', 'Chargeback']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Authorization', 'CancelAuthorization', 'Charge', 'Refund', 'Chargeback']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['Initial', 'Pending', 'Success', 'Failure']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['Initial', 'Pending', 'Success', 'Failure']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commerce_tra")}
+    rec["id"] = data.get('id')
+    rec["timestamp"] = data.get('timestamp')
+    rec["type"] = data.get('type')
+    rec["state"] = data.get('state')
+    rec["interactionId"] = data.get('interactionId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("SearchIndex", rec)
+    _persist("Transaction", rec)
     return rec, 201
 
-@app.route("/v1/searchindexes", methods=["GET"])
-def list_search_indexes(request):
-    """List SearchIndexes with filtering + cursor pagination."""
+@app.route("/v1/transactions", methods=["GET"])
+def list_transactions(request):
+    """List Transactions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("SearchIndex")
-    rows = _apply_filters(rows, params, ['name', 'recordCount', 'primaryKey'])
+    rows = _query("Transaction")
+    rows = _apply_filters(rows, params, ['id', 'timestamp', 'type', 'state', 'interactionId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["GET"])
-def get_search_index(request, eid):
-    """Retrieve a SearchIndex by id (supports ?expand=)."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/transactions/<eid>", methods=["GET"])
+def get_transaction(request, eid):
+    """Retrieve a Transaction by id (supports ?expand=)."""
+    rows = _query("Transaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["POST", "PATCH"])
-def update_search_index(request, eid):
-    """Update a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
+def update_transaction(request, eid):
+    """Update a Transaction."""
+    rows = _query("Transaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
+    err = _reject_unknown(data, ['id', 'timestamp', 'type', 'state', 'interactionId'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['Authorization', 'CancelAuthorization', 'Charge', 'Refund', 'Chargeback']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Authorization', 'CancelAuthorization', 'Charge', 'Refund', 'Chargeback']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['Initial', 'Pending', 'Success', 'Failure']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['Initial', 'Pending', 'Success', 'Failure']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("SearchIndex", rec)
+    _persist("Transaction", rec)
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["DELETE"])
-def delete_search_index(request, eid):
-    """Delete a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/transactions/<eid>", methods=["DELETE"])
+def delete_transaction(request, eid):
+    """Delete a Transaction."""
+    rows = _query("Transaction", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"commercetools.SearchIndex", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("commerce_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"commercetools.Webhook", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['number', 'total'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("commerce_ord")}
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
-    return rec, 201
-
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['number', 'total', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Order", rec)
-    return rec, 200
-
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"commercetools.Order", "id": eid})
+    db.retract({"entity": f"commercetools.Transaction", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "commercetools-compat", "tier": "L4",
-            "entities": ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']}, 200
+            "entities": ['Order', 'Cart', 'Payment', 'Product', 'Customer', 'Transaction']}, 200
 
 
 if __name__ == "__main__":

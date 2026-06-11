@@ -5,21 +5,150 @@
   "kind": "compat",
   "title": "ais_marine clean-room actor",
   "description": "Clean-room, API-compatible space / ocean / earth physics actor (ais_marine); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+  "wasmCid": "bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaurouzqkvzc2wdnrwbm3xtcds6za42vpgnmtrdpejan7n7ekctfi",
+  "ipfs": "ipfs://bafkreid2xjpudgotp7vx2zor6zjc2i4c72gsm3kv6mw2wnx5b2kr2cgbhe",
   "schema": "schema/ais_marine.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://gpsd.gitlab.io/gpsd/AIVDM.html",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Message",
+      "PositionReport",
+      "BaseStationReport",
+      "StaticVoyageData",
+      "AidToNavigationReport"
+    ],
+    "enums": {
+      "Message": {
+        "messageType": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27
+        ]
+      },
+      "PositionReport": {
+        "navigationStatus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "maneuverIndicator": [
+          0,
+          1,
+          2
+        ]
+      },
+      "BaseStationReport": {
+        "typeOfEpfd": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          15
+        ]
+      },
+      "AidToNavigationReport": {
+        "typeOfAid": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "typeOfEpfd": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          15
+        ]
+      }
+    }
+  },
   "entities": [
-    "Object",
-    "Position",
-    "Observation",
-    "Scene",
-    "Float",
-    "Station"
+    "Message",
+    "PositionReport",
+    "BaseStationReport",
+    "StaticVoyageData",
+    "AidToNavigationReport"
   ],
   "adr": [
     "260607",
@@ -31,157 +160,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/objects",
-          "op": "create Object"
+          "path": "/v1/messages",
+          "op": "create Message"
         },
         {
           "method": "GET",
-          "path": "/v1/objects",
-          "op": "list Object"
+          "path": "/v1/messages",
+          "op": "list Message"
         },
         {
           "method": "GET",
-          "path": "/v1/objects/{id}",
-          "op": "get Object"
+          "path": "/v1/messages/{id}",
+          "op": "get Message"
         },
         {
           "method": "PATCH",
-          "path": "/v1/objects/{id}",
-          "op": "update Object"
+          "path": "/v1/messages/{id}",
+          "op": "update Message"
         },
         {
           "method": "DELETE",
-          "path": "/v1/objects/{id}",
-          "op": "delete Object"
+          "path": "/v1/messages/{id}",
+          "op": "delete Message"
         },
         {
           "method": "POST",
-          "path": "/v1/positions",
-          "op": "create Position"
+          "path": "/v1/positionreports",
+          "op": "create PositionReport"
         },
         {
           "method": "GET",
-          "path": "/v1/positions",
-          "op": "list Position"
+          "path": "/v1/positionreports",
+          "op": "list PositionReport"
         },
         {
           "method": "GET",
-          "path": "/v1/positions/{id}",
-          "op": "get Position"
+          "path": "/v1/positionreports/{id}",
+          "op": "get PositionReport"
         },
         {
           "method": "PATCH",
-          "path": "/v1/positions/{id}",
-          "op": "update Position"
+          "path": "/v1/positionreports/{id}",
+          "op": "update PositionReport"
         },
         {
           "method": "DELETE",
-          "path": "/v1/positions/{id}",
-          "op": "delete Position"
+          "path": "/v1/positionreports/{id}",
+          "op": "delete PositionReport"
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/basestationreports",
+          "op": "create BaseStationReport"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/basestationreports",
+          "op": "list BaseStationReport"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/basestationreports/{id}",
+          "op": "get BaseStationReport"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/basestationreports/{id}",
+          "op": "update BaseStationReport"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
+          "path": "/v1/basestationreports/{id}",
+          "op": "delete BaseStationReport"
         },
         {
           "method": "POST",
-          "path": "/v1/scenes",
-          "op": "create Scene"
+          "path": "/v1/staticvoyagedatas",
+          "op": "create StaticVoyageData"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes",
-          "op": "list Scene"
+          "path": "/v1/staticvoyagedatas",
+          "op": "list StaticVoyageData"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes/{id}",
-          "op": "get Scene"
+          "path": "/v1/staticvoyagedatas/{id}",
+          "op": "get StaticVoyageData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/scenes/{id}",
-          "op": "update Scene"
+          "path": "/v1/staticvoyagedatas/{id}",
+          "op": "update StaticVoyageData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/scenes/{id}",
-          "op": "delete Scene"
+          "path": "/v1/staticvoyagedatas/{id}",
+          "op": "delete StaticVoyageData"
         },
         {
           "method": "POST",
-          "path": "/v1/floats",
-          "op": "create Float"
+          "path": "/v1/aidtonavigationreports",
+          "op": "create AidToNavigationReport"
         },
         {
           "method": "GET",
-          "path": "/v1/floats",
-          "op": "list Float"
+          "path": "/v1/aidtonavigationreports",
+          "op": "list AidToNavigationReport"
         },
         {
           "method": "GET",
-          "path": "/v1/floats/{id}",
-          "op": "get Float"
+          "path": "/v1/aidtonavigationreports/{id}",
+          "op": "get AidToNavigationReport"
         },
         {
           "method": "PATCH",
-          "path": "/v1/floats/{id}",
-          "op": "update Float"
+          "path": "/v1/aidtonavigationreports/{id}",
+          "op": "update AidToNavigationReport"
         },
         {
           "method": "DELETE",
-          "path": "/v1/floats/{id}",
-          "op": "delete Float"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/stations",
-          "op": "create Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations",
-          "op": "list Station"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/stations/{id}",
-          "op": "get Station"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/stations/{id}",
-          "op": "update Station"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/stations/{id}",
-          "op": "delete Station"
+          "path": "/v1/aidtonavigationreports/{id}",
+          "op": "delete AidToNavigationReport"
         }
       ],
       "features": {
@@ -244,41 +348,41 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_object",
-          "description": "Create a Object.",
+          "name": "create_message",
+          "description": "Create a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "designator": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "type": {
-                "type": "string"
+              "repeatIndicator": {
+                "type": "integer"
               },
-              "source": {
-                "type": "string"
+              "mmsi": {
+                "type": "integer"
               }
             },
             "required": [
-              "designator",
-              "type"
+              "messageType",
+              "repeatIndicator"
             ]
           }
         },
         {
-          "name": "list_objects",
-          "description": "List Objects.",
+          "name": "list_messages",
+          "description": "List Messages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_object",
-          "description": "Get a Object by id.",
+          "name": "get_message",
+          "description": "Get a Message by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +396,36 @@
           }
         },
         {
-          "name": "update_object",
-          "description": "Update a Object.",
+          "name": "update_message",
+          "description": "Update a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "designator": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "type": {
-                "type": "string"
+              "repeatIndicator": {
+                "type": "integer"
               },
-              "source": {
+              "mmsi": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_message",
+          "description": "Delete a Message.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -316,59 +435,59 @@
           }
         },
         {
-          "name": "delete_object",
-          "description": "Delete a Object.",
+          "name": "create_position_report",
+          "description": "Create a PositionReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
+              },
+              "mmsi": {
+                "type": "integer"
+              },
+              "navigationStatus": {
+                "type": "integer"
+              },
+              "rateOfTurn": {
+                "type": "number"
+              },
+              "speedOverGround": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "courseOverGround": {
+                "type": "number"
+              },
+              "trueHeading": {
+                "type": "integer"
+              },
+              "maneuverIndicator": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "messageType",
+              "mmsi"
             ]
           }
         },
         {
-          "name": "create_position",
-          "description": "Create a Position.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "objectId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "altitudeM": {
-                "type": "number"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_positions",
-          "description": "List Positions.",
+          "name": "list_position_reports",
+          "description": "List PositionReports.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_position",
-          "description": "Get a Position by id.",
+          "name": "get_position_report",
+          "description": "Get a PositionReport by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -382,27 +501,57 @@
           }
         },
         {
-          "name": "update_position",
-          "description": "Update a Position.",
+          "name": "update_position_report",
+          "description": "Update a PositionReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "objectId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "lat": {
+              "mmsi": {
+                "type": "integer"
+              },
+              "navigationStatus": {
+                "type": "integer"
+              },
+              "rateOfTurn": {
                 "type": "number"
               },
-              "lon": {
+              "speedOverGround": {
                 "type": "number"
               },
-              "altitudeM": {
+              "longitude": {
                 "type": "number"
               },
-              "asOf": {
+              "latitude": {
+                "type": "number"
+              },
+              "courseOverGround": {
+                "type": "number"
+              },
+              "trueHeading": {
+                "type": "integer"
+              },
+              "maneuverIndicator": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_position_report",
+          "description": "Delete a PositionReport.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -412,56 +561,44 @@
           }
         },
         {
-          "name": "delete_position",
-          "description": "Delete a Position.",
+          "name": "create_base_station_report",
+          "description": "Create a BaseStationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "objectId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "parameter": {
-                "type": "string"
+              "mmsi": {
+                "type": "integer"
               },
-              "value": {
+              "longitude": {
                 "type": "number"
               },
-              "observedAt": {
-                "type": "string"
+              "latitude": {
+                "type": "number"
+              },
+              "typeOfEpfd": {
+                "type": "integer"
               }
             },
             "required": [
-              "parameter",
-              "value"
+              "messageType",
+              "mmsi"
             ]
           }
         },
         {
-          "name": "list_observations",
-          "description": "List Observations.",
+          "name": "list_base_station_reports",
+          "description": "List BaseStationReports.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
+          "name": "get_base_station_report",
+          "description": "Get a BaseStationReport by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,25 +612,28 @@
           }
         },
         {
-          "name": "update_observation",
-          "description": "Update a Observation.",
+          "name": "update_base_station_report",
+          "description": "Update a BaseStationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "objectId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "parameter": {
-                "type": "string"
+              "mmsi": {
+                "type": "integer"
               },
-              "value": {
+              "longitude": {
                 "type": "number"
               },
-              "observedAt": {
-                "type": "string"
+              "latitude": {
+                "type": "number"
+              },
+              "typeOfEpfd": {
+                "type": "integer"
               }
             },
             "required": [
@@ -502,8 +642,8 @@
           }
         },
         {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
+          "name": "delete_base_station_report",
+          "description": "Delete a BaseStationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -517,41 +657,53 @@
           }
         },
         {
-          "name": "create_scene",
-          "description": "Create a Scene.",
+          "name": "create_static_voyage_data",
+          "description": "Create a StaticVoyageData.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "satellite": {
+              "messageType": {
+                "type": "integer"
+              },
+              "mmsi": {
+                "type": "integer"
+              },
+              "imoNumber": {
+                "type": "integer"
+              },
+              "callSign": {
                 "type": "string"
               },
-              "sceneId": {
+              "vesselName": {
                 "type": "string"
               },
-              "cloudCover": {
+              "shipType": {
+                "type": "integer"
+              },
+              "draught": {
                 "type": "number"
               },
-              "capturedAt": {
+              "destination": {
                 "type": "string"
               }
             },
             "required": [
-              "satellite",
-              "cloudCover"
+              "messageType",
+              "mmsi"
             ]
           }
         },
         {
-          "name": "list_scenes",
-          "description": "List Scenes.",
+          "name": "list_static_voyage_datas",
+          "description": "List StaticVoyageDatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_scene",
-          "description": "Get a Scene by id.",
+          "name": "get_static_voyage_data",
+          "description": "Get a StaticVoyageData by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,24 +717,36 @@
           }
         },
         {
-          "name": "update_scene",
-          "description": "Update a Scene.",
+          "name": "update_static_voyage_data",
+          "description": "Update a StaticVoyageData.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "satellite": {
+              "messageType": {
+                "type": "integer"
+              },
+              "mmsi": {
+                "type": "integer"
+              },
+              "imoNumber": {
+                "type": "integer"
+              },
+              "callSign": {
                 "type": "string"
               },
-              "sceneId": {
+              "vesselName": {
                 "type": "string"
               },
-              "cloudCover": {
+              "shipType": {
+                "type": "integer"
+              },
+              "draught": {
                 "type": "number"
               },
-              "capturedAt": {
+              "destination": {
                 "type": "string"
               }
             },
@@ -592,56 +756,8 @@
           }
         },
         {
-          "name": "delete_scene",
-          "description": "Delete a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_float",
-          "description": "Create a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "wmoId": {
-                "type": "string"
-              },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "parkDepthM": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "lat",
-              "lon"
-            ]
-          }
-        },
-        {
-          "name": "list_floats",
-          "description": "List Floats.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_float",
-          "description": "Get a Float by id.",
+          "name": "delete_static_voyage_data",
+          "description": "Delete a StaticVoyageData.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -655,80 +771,50 @@
           }
         },
         {
-          "name": "update_float",
-          "description": "Update a Float.",
+          "name": "create_aid_to_navigation_report",
+          "description": "Create a AidToNavigationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
               },
-              "wmoId": {
-                "type": "string"
+              "mmsi": {
+                "type": "integer"
               },
-              "lat": {
-                "type": "number"
-              },
-              "lon": {
-                "type": "number"
-              },
-              "parkDepthM": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_float",
-          "description": "Delete a Float.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_station",
-          "description": "Create a Station.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
+              "typeOfAid": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "network": {
-                "type": "string"
+              "longitude": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "typeOfEpfd": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "network"
+              "messageType",
+              "mmsi"
             ]
           }
         },
         {
-          "name": "list_stations",
-          "description": "List Stations.",
+          "name": "list_aid_to_navigation_reports",
+          "description": "List AidToNavigationReports.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_station",
-          "description": "Get a Station by id.",
+          "name": "get_aid_to_navigation_report",
+          "description": "Get a AidToNavigationReport by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -742,22 +828,34 @@
           }
         },
         {
-          "name": "update_station",
-          "description": "Update a Station.",
+          "name": "update_aid_to_navigation_report",
+          "description": "Update a AidToNavigationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "stationId": {
-                "type": "string"
+              "messageType": {
+                "type": "integer"
+              },
+              "mmsi": {
+                "type": "integer"
+              },
+              "typeOfAid": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "network": {
-                "type": "string"
+              "longitude": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "typeOfEpfd": {
+                "type": "integer"
               }
             },
             "required": [
@@ -766,8 +864,8 @@
           }
         },
         {
-          "name": "delete_station",
-          "description": "Delete a Station.",
+          "name": "delete_aid_to_navigation_report",
+          "description": "Delete a AidToNavigationReport.",
           "inputSchema": {
             "type": "object",
             "properties": {

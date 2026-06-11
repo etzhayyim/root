@@ -3,22 +3,26 @@
 
 namespace plaid {
 
-    entity Item {
+    entity Account {
         id: string @unique
-        institutionId: string
-        status: string
-        consentExpiresAt: datetime
+        accountId: string
+        name: string
+        officialName: string
+        mask: string
+        type: string
+        subtype: string
+        verificationStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Account {
+    entity AccountBalance {
         id: string @unique
-        itemId: string
-        name: string
-        type: string
-        subtype: string
-        currentBalance: float
+        available: float
+        current: float
+        limit: float
+        isoCurrencyCode: string
+        lastUpdatedDatetime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
@@ -26,49 +30,53 @@ namespace plaid {
     entity Transaction {
         id: string @unique
         accountId: string
+        transactionId: string
         amount: float
-        currency: string
-        category: string
         date: datetime
+        pending: boolean
+        name: string
+        merchantName: string
+        isoCurrencyCode: string
+        paymentChannel: string
+        checkNumber: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Item {
+        id: string @unique
+        itemId: string
+        institutionId: string
+        institutionName: string
+        webhook: string
+        authMethod: string
+        oauth: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Institution {
         id: string @unique
+        institutionId: string
         name: string
-        country: string
-        products: string
+        url: string
+        oauth: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Identity {
+    entity Holding {
         id: string @unique
         accountId: string
-        ownerName: string
-        email: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Liability {
-        id: string @unique
-        accountId: string
-        type: string
-        balance: float
-        apr: float
+        securityId: string
+        symbol: string
+        name: string
+        quantity: float
+        institutionValue: float
+        costBasis: float
+        currencyCode: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

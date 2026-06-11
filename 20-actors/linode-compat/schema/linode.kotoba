@@ -3,71 +3,85 @@
 
 namespace linode {
 
-    entity Project {
+    entity Instance {
         id: string @unique
-        name: string
+        id: integer
+        label: string
+        status: string
         region: string
-        billingId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ComputeInstance {
-        id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
+        type: string
+        image: string
+        created: datetime
+        updated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Volume {
         id: string @unique
-        projectId: string
-        sizeGb: integer
+        id: integer
+        label: string
+        status: string
+        size: integer
+        region: string
+        encryption: string
+        created: datetime
+        updated: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Domain {
+        id: string @unique
+        id: integer
+        domain: string
         type: string
-        attachedTo: string
+        status: string
+        soaEmail: string
+        created: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Bucket {
+    entity NodeBalancer {
         id: string @unique
-        projectId: string
-        name: string
+        id: integer
+        label: string
+        type: string
         region: string
-        public: boolean
+        ipv4: string
+        ipv6: string
+        created: datetime
+        updated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Network {
+    entity LKECluster {
         id: string @unique
-        projectId: string
-        cidr: string
+        id: integer
+        label: string
         region: string
+        k8sVersion: string
+        tier: string
+        created: datetime
+        updated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity IamRole {
+    entity Image {
         id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        id: string
+        label: string
+        status: string
+        type: string
+        size: integer
+        isPublic: boolean
+        created: datetime
+        updated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

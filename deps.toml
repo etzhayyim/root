@@ -1756,6 +1756,30 @@ baseline_score = "2/8 (25%) on gemma4:e4b 2026-05-25"
 remaining_work = "Populate 42 more prompts + graders (send + subgraph + tool + error + streaming categories not yet seeded); each gap-deepen prompt costs ~30-60 LoC grader"
 
 [[modules]]
+path = "20-actors"
+kind = "clean-room-actor-corpus"
+version = "0.1.0"
+status = "1000-registered-L4-baseline-163-L5-verified-16pct"
+description = "Clean-room actor corpus (ADR-260607): 1000 `20-actors/<platform>-compat/` interop actors, each with deps.toml + README + schema/<platform>.kotoba + src/main.py + manifest.json + tests + openapi.json. Maturity ladder L1 (scaffold) → L3 (domain CRUD) → L4 (pagination/filtering/relation-expand/strict-validation + contract test) → L5 (reconciled field-for-field against the platform's OFFICIAL API docs/SDK, enums enforced in runtime + OpenAPI 3.1 + provenance ledger). Corpus-wide state 2026-06-10: 100% ≥ L4 (837 L4 / 163 L5 = 16.3% of corpus), all 1000 registered at etzhayyim.com (did:web:etzhayyim.com:actor:<h> + actors-v1 graph) and browser-runnable as content-addressed kotoba-wasm on IPFS. L5 = 158 actors with enforced closed-enum fields (691 enforced enum fields corpus-wide, surfaced per-actor as l5Verified/verifiedEnumFields on every capability index). Verification seams worked in order: commercial SaaS official docs/OpenAPI/SDKs → normative standards (FHIR R4 family ×5, GS1 EPCIS, ISO 8583, GTFS/GBFS, MAVLink family ×3, Modbus, BGP/RPKI, DNS, IPsec, WebRTC, QUIC/HTTP3, TCP/IP, SS7, AIS, AS2, CVE/ATT&CK, eIDAS, DICOMweb, UN/LOCODE, OMOP, IPv6/MPLS, CAN bus, OPC UA, RESP) → open-source-spec repos (onnx.proto3, ros2 .msg, apache/kafka Java enums, Khronos xr.xml). Honestly DEFERRED (never fabricated): bamboohr/calendly/servicenow/checkout/kraken/miro/brex (gated SaaS docs) + fixprotocol/sepa_ct/naics_codes (official spec 404/403/paywalled) + gnss_rtk (NMEA paywalled; refused training-data enum) + linux_syscalls (domain has no provably-closed small enums). Enum-enforcement discipline: closed-at-version only; version-growing sets (MAV_TYPE, ONNX dataType, Kafka AclOperation), bitmasks (NavSatStatus.service, OpenXR flags), open registries (DNS rrType, IANA tables), and extension-bearing enums (XrViewConfigurationType) are recorded as gaps, never enforced. Capability surfaces (api/supplychain/socialpost/mcp) indexed corpus-wide under 00-contracts/schemas/cleanroom-*-index.json; verify_cleanroom_system.py PASS 0/0 invariant held across every iteration."
+adr = ["260607", "2606014500", "2606014600", "2606036000"]
+ssot = [
+  "00-contracts/schemas/cleanroom-l5-verification.json",     # L5 provenance ledger (per-field source + enums + gaps)
+  "00-contracts/schemas/cleanroom-actors.index.json",        # registration index + tierCounts
+  "00-contracts/schemas/cleanroom-built-actors.json",        # per-actor built WASM CIDs
+  "00-contracts/schemas/cleanroom-actors-seed.kotoba.edn",   # actors-v1 graph seed EDN
+]
+tooling = [
+  "70-tools/deepen_actors.py",            # category-driven generator + PLATFORM_OVERRIDES (L5 faithful models)
+  "70-tools/promote_l4.py",               # L4 generator + runtime enum enforcement from L5 ledger
+  "70-tools/register_cleanroom_actors.py",# etzhayyim.com registration (DID + manifest verified block)
+  "70-tools/build_capability_indexes.py", # api/supplychain/socialpost/mcp corpus indexes + per-actor OpenAPI
+  "70-tools/gen_rust_actor.py",           # per-actor Rust→raw-WASM (content-addressed CIDv1)
+  "70-tools/verify_cleanroom_system.py",  # integrity gate (tier ∈ {L3,L4,L5}, PASS 0/0 invariant)
+]
+runtime = "60-apps/cleanroom-browser-runtime (kotoba-wasm JS reference runtime + componentize-py + Rust raw-WASM)"
+tier_counts = "L4 837 / L5 163 (158 with enforced enums, 691 enum fields); deferred 12"
+
+[[modules]]
 path = "50-infra/silicon"
 kind = "first-party-silicon-rtl-cad"
 version = "0.1.0-phase1-scaffold"
@@ -7116,6 +7140,65 @@ sibling_modules = [
 ]
 
 
+# ─── sonae (備え) civilian PRE-disaster foresight + preparedness + early-warning substrate R0 (ADR-2606091200) ──
+
+[[adrs]]
+id = "2606091200"
+title = "sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Closes the BEFORE half of the disaster cycle left open by kazaori (ADR-2605263200), whose lifecycle is reactive (declaration on/after event → assessment → supply → review). sonae adds prevention / mitigation / preparedness / early-warning: open-feed hazard watch (USGS / PHIVOLCS / JMA / GDACS / Copernicus EMS / WMO GTS) → per-community-site risk assessment → official-warning RELAY (relay-only, authoritativeSource cited) → preparedness planning + stockpile pre-positioning (mizuho / mitsuho) → drills → imminence-signal handoff to kazaori. Motivating case: 2026-06-08 Mw 7.8 offshore Sarangani (Mindanao) earthquake + tsunami (≥37 dead, ~800k households power-out, ~10k families evacuated; PHIVOLCS tsunami warning; JMA Okinawa advisory). 任意団体 internal substrate at did:web:sonae.etzhayyim.com (20-actors/sonae/). Etymology: 備え = preparedness (備えあれば憂いなし); what stands ready before 風折 kazaori (the wind-broken branch). Triad 備え sonae (before) → 風折 kazaori (during) → silenKazaoriReview/死出守 shidemori (after). Standards reference (NOT membership): Sendai Framework for DRR 2015-2030 / Sphere Standards / UN OCHA / WMO+IOC Tsunami Warning System / GDACS. **Constitutional discipline**: (1) Civilian-only G5+N1 (force authorization separate per ADR-2605192315) / (2) NO false authority G8 (the DEFINING gate — sonae MUST NOT originate official seismic/tsunami/typhoon warnings; earlyWarningRelay is relayOnly const true + authoritativeSource required; fabricating an authoritative alert is forbidden at the schema level) / (3) NO unilateral disaster declaration G10 (only kazaori Council Lv6+ ≥4/7 may declare; sonae signals/recommends) / (4) NOT response N3 (clean phase boundary to kazaori) / (5) NO commercial disaster-prediction software G4 (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia PROHIBITED per Charter Rider §2(e)+§2(c); OPEN gov feeds only) / (6) NO surveillance G6 (open geophysical/met feeds + opt-in self-report only; no individual tracking / no person-profiling / no household risk-scoring) / (7) Murakumo-only inference G7 / (8) Community-scale only G3 (NOT national early-warning replacement). 6 cells under 40-engine/kotoba/crates/kotoba-kotodama/cells/sonae_*/ (R0 path-reserved): hazard_watch / risk_assessment / early_warning_relay / preparedness_plan / drill_attestation / handoff_trigger. 6 Lexicons under com.etzhayyim.sonae.*: hazardSignalRecord (G6 openDataOnlyAttested const true + G4 sourceFeed open-gov-feed enum) + siteRiskProfile (G3 communityScaleAttested const true; aggregate-only no individual data) + earlyWarningRelay (G8 STRUCTURAL: relayOnly const true + authoritativeSource required) + preparednessPlan (cross-actor mizuho/mitsuho/tatekata/hagukumi via $ref; opt-in registry) + drillAttestation (G6 participantsOptIn const true; satisfies kazaori R1 drill gate) + sonaeReadinessReview (G9 Sendai+Sphere alignment + falseAuthorityIncidents audit). 12 gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/sonae"
+kind = "tier-b-non-profit-civilian-pre-disaster-foresight-preparedness-early-warning-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-lexicons-warning-source-registry-seed-cells-path-reserved"
+description = "sonae (備え — preparedness; 備えあれば憂いなし) actor scaffold. Manifest + README + CLAUDE.md + MATURITY.md ledger at R0. 6 Pregel cells path-reserved under 40-engine/kotoba/crates/kotoba-kotodama/cells/sonae_*/ (cell modules created at R1 post-Council ratification + open-feed baseline + Sendai self-assessment + ≥1 community drill; all import-time RuntimeError until activated). 6 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/sonae/. R0 data asset: registry/warning-sources.seed.json — allowlist of 20 AUTHORITATIVE official warning issuers across 16 jurisdictions (PHIVOLCS / PAGASA / JMA / PTWC / NOAA-NWS / USGS / BMKG / GDACS / Copernicus EMS / IMD / GeoNet+NEMA / BOM+JATWC / SHOA / SASMEX / AFAD / INGV / CWA / IOC-ITIC / NOA / INCOIS), all isAuthoritativeIssuer=true + verificationStatus=unverified-seed (G14), the relay-only allowlist for earlyWarningRelay (G8). BEFORE-phase substrate: response (during) is kazaori (N3 clean boundary). Constitutional discipline enforced (G8 no-false-authority relayOnly / G10 no-unilateral-declaration / N3 not-response / G4 open-gov-feeds-only / G6 no-surveillance / G3 community-scale / G7 Murakumo-only). Coverage: 20 fail-closed invariant tests green (70-tools/scripts/audit/test_sonae_lexicon_invariants.py 10 + test_sonae_warning_sources_seed.py 10), incl. G8 cross-lexicon check that earlyWarningRelay.authoritativeSource enum is realized by the registry. manifest-lexicon-drift audit: sonae drift 0."
+adr = ["2606091200", "2605263200", "2605263100", "2605261100", "2605261030", "2605261015", "2605215000", "2605192315", "2605192300", "2605192245", "2605192200", "2605192145", "2605192100", "2605181100"]
+sibling_actors = [
+  "kazaori (DOWNSTREAM handoff — disaster response actor; sonae feeds preparednessPlan + disasterImminenceSignal; sonae drillAttestation satisfies kazaori R1 drill gate)",
+  "mizuho (water-stockpile pre-positioning targets sized from siteRiskProfile)",
+  "mitsuho (food-reserve pre-positioning targets)",
+  "tatekata (building-stock exposure + safe-site pre-designation)",
+  "hagukumi (vulnerable-population OPT-IN pre-registry — children/elderly/chronic-care)",
+  "hikari (grid/lifeline resilience input)",
+  "watatsuna (submarine-cable / comms-continuity resilience input)",
+  "kawaraban (warning-relay channel — member notification + actor-to-actor wire)",
+  "toritate (preparedness Public Fund disbursement + transparent accounting)",
+  "chigiri (declaration-handoff procedural attestation)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/com/etzhayyim/sonae",
+]
+lexicons = "00-contracts/lexicons/com/etzhayyim/sonae"
+form = "任意団体 internal civilian pre-disaster substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+civilian_only_invariant = true
+no_false_authority_relay_only = true
+no_unilateral_disaster_declaration = true
+not_response_phase_boundary = true
+no_commercial_disaster_prediction_software = true
+no_surveillance = true
+community_scale_only = true
+murakumo_only_inference = true
+sendai_sphere_reference_not_membership = true
+standards_reference = ["Sendai Framework for DRR 2015-2030", "Sphere Standards", "UN OCHA", "WMO+IOC Tsunami Warning System", "GDACS"]
+phase_gate = "R1 activation requires Council Lv6+ ≥3 ratify of ADR-2606091200 + open-feed baseline (USGS/PHIVOLCS/JMA/GDACS/Copernicus) attested on file + Sendai Framework 4-priority self-assessment committed + ≥1 community-pilot drill executed (drillAttestation; also feeds kazaori R1 drill gate) + downstream kazaori handoff contract reviewed (G10 declaration stays with kazaori Council)"
+charter_rider_risk = "MEDIUM (high-temptation domain for false-authority alerting + surveillance + commercial prediction software; G8 relayOnly const true + G4 open-gov-feeds-only + G6 no-individual-data const-field structural enforcement is the constitutional discipline; sonaeReadinessReview falseAuthorityIncidents audit counter targets 0)"
+
+[[modules]]
+path = "00-contracts/lexicons/com/etzhayyim/sonae"
+kind = "sonae-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-6-lexicon-skeleton-schemas-+-README"
+description = "6 Lexicon JSONs for sonae actor per ADR-2606091200. Const-field structural enforcement throughout: earlyWarningRelay.relayOnly=true (G8 — sonae never originates an official warning) + earlyWarningRelay.authoritativeSource required (G8 attribution) + hazardSignalRecord.openDataOnlyAttested=true (G6) + hazardSignalRecord.sourceFeed enum restricted to open gov feeds (G4) + siteRiskProfile.communityScaleAttested=true (G3) + drillAttestation.participantsOptIn=true (G6). G6 STRUCTURAL anti-surveillance: siteRiskProfile carries AGGREGATE opt-in counts only, no individual-level fields. Cross-actor coupling via $ref (siteRiskProfileRef / tatekataAssessmentRef / stockpileTarget.crossActor). The handoff_trigger cell emits a disasterImminenceSignal payload to kazaori.emergency_declaration (recommend-only; G10 keeps declaration with kazaori — not a sonae-owned record)."
+adr = ["2606091200", "2605263200", "2605192315", "2605192200", "2605181100", "2605261000"]
+sibling_modules = [
+  "20-actors/sonae",
+  "00-contracts/lexicons/com/etzhayyim/kazaori",
+]
+
+
 # ─── musubi (結) covenant ceremony substrate R0 (ADR-2605263400) ──
 
 [[modules]]
@@ -10255,9 +10338,9 @@ adr = ["2606072100", "2606072300", "2605260000", "2605181100", "2605231525", "26
 id = "2606082100"
 title = "Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence"
 status = "proposed"
-status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
+status_note = "Session-close ADR for the 2026-06-08 persistence/economic-security gap review. Chooses the Charter-clean incentive model for third-party data persistence: non-yielding bonded pinning, slash-to-commons through TitheRouter/Public Fund, social-capital-denominated retainers, moyai-family social-capital reuse, and kotoba read+verify-only observation. It closes the design gap without creating live staking resources, Kubernetes resources, external-payment paths, or a yield-bearing/security-like token. Follow-ups: Social Capital ledger predicates, MishmarBondEscrow, witness challenge scheduler, and mKOTO retainer settlement."
 path = "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md"
-adr = ["2606082100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
+adr = ["2606082100", "2605262130", "2606062100", "2605231400", "2605282100", "2604261717", "2605192100", "2605192200", "2605192130", "2605192145", "2605172100", "2605172300", "0075", "2605240001", "2605231525"]
 
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
@@ -10499,6 +10582,14 @@ status = "accepted"
 status_note = "Process record of the 2026-06-11 review-and-merge sweep of the open-PR backlog on etzhayyim/root (7 open at start + #1593 opened mid-sweep). Merged to main (squash): #1590 meeting-recorder getMinutes XRPC, #1589 yoro prod kotoba-sw verify script, #1593 ibuki revocable-CACAO-leash delegation (+16 tests), and after hand-resolving conflicts #1498 (deps.toml union of appended milestone/adr blocks), #1493 (supply-chain NOTICE rename/content), #1568 (CLAUDE.md table — kept the PR's infra-robotics row AND main's newer ibuki row, not a side-pick), #1548 (adr README index union, re-merged once after main moved). Merged to feat/hydrogen-electrolysis-cfe-session-close (the PR's own base, NOT main): #1535 cleanroom L5 — the conflict was a genuine SET-UNION not a side-pick (head added 13 specialized actors, base had independently added 8 others, 142 common → 163 L5; tierCounts reconciled L5 163 / L4 837; per-actor index tiers verified 0-drift vs the ledger). All 90-docs/_registry sidecars REGENERATED (not hand-edited) so the freshness hooks pass. Result: 0 open PRs, every merge with 0 failing CI checks. HONEST: the 163-L5 union lives on the hydrogen branch — main's cleanroom index is still at 34 L5; landing that branch to main (and re-resolving the ledger) is the tracked follow-up. No code added this session, only merge commits + this record; zero invariant amendments."
 path = "90-docs/adr/2606110955-session-close-pr-backlog-review-merge.md"
 adr = ["2606110955", "2606101845", "2606102000"]
+
+[[adrs]]
+id = "2606111011"
+title = "session close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)"
+status = "accepted"
+status_note = "Executes the tracked follow-up from ADR-2606110955: bring the long-lived feat/hydrogen-electrolysis-cfe-session-close branch (163-L5 cleanroom union + hydrogen/CFE work) back onto main. The branch was 64 ahead / 163 behind (657 files diff). main was merged INTO the branch and 14 conflicts hand-resolved before opening the branch→main PR: 8 scholarly *-compat/manifest.json kept the branch's L5 'verified' provenance block (main had null); 40-engine/kotoba submodule kept the branch ptr 92461b7346 (newer + real/fetchable; main's 98f9d2b3fd unresolvable on the kotoba remote); cleanroom-l5-verification.json kept the branch's 163 L5 (strict superset of main's 42; index auto-merged to L5 163 / L4 837, 0-drift vs the ledger); CLAUDE.md kanjō row took MAIN's newer R0+R1-live-EDGAR version; deps.toml 3 regions took MAIN's additive/newer blocks (niyaku/uchiwake/ibuki/rasen incl. this ADR family + rasen GO-pathway) — no NEW duplicate ADR ids (merged 13 == main's 13, all pre-existing); registry sidecars REGENERATED (924 entries). All pre-commit hooks green on the merge commit. Once the branch→main PR merges, main's cleanroom corpus reaches 163 L5 / 837 L4 (up from 42). No code authored, only merge resolution + this record; zero invariant amendments. Tracked follow-ups: merge the PR, de-dup the 13 pre-existing duplicate ADR ids, re-home the cleanroom L5 line onto main to stop ledger divergence."
+path = "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md"
+adr = ["2606111011", "2606110955", "2606082300"]
 
 [[modules]]
 path = "20-actors/ibuki"

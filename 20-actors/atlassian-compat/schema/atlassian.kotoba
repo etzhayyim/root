@@ -3,72 +3,64 @@
 
 namespace atlassian {
 
-    entity Repository {
+    entity Project {
+        id: string @unique
+        key: string
+        name: string
+        projectTypeKey: string
+        style: string
+        archived: boolean
+        simplified: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity IssueType {
         id: string @unique
         name: string
-        owner: string
-        defaultBranch: string
-        private: boolean
+        description: string
+        subtask: boolean
+        hierarchyLevel: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Pipeline {
+    entity Status {
         id: string @unique
-        repoId: string
         name: string
-        trigger: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Build {
+    entity StatusCategory {
         id: string @unique
-        pipelineId: string
-        number: integer
-        status: string
-        commitSha: string
-        durationMs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Artifact {
-        id: string @unique
-        buildId: string
+        key: string
         name: string
-        sizeBytes: integer
-        contentRef: string
+        colorName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Deployment {
+    entity User {
         id: string @unique
-        buildId: string
-        environment: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        repoId: string
-        url: string
-        event: string
+        accountId: string
+        accountType: string
+        displayName: string
+        emailAddress: string
         active: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-}
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
+    entity Comment {
         id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
+        body: string
+        created: datetime
+        updated: datetime
+        jsdPublic: boolean
+        createdAt: datetime
+        updatedAt: datetime
     }
+
+}

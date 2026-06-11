@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible telecom / satellite actor (ss7_sigtran); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:ss7_sigtran-compat",
-    "x-wasm-cid": "bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+    "x-wasm-cid": "bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicg3i6b6sgpvoncbummtktjbriofcpb6jlf7kvtaxhbirilx2vflq",
+      "url": "ipfs://bafkreihvzquaf5ifruoif3zps34qt37y37wads7eakzo3e2jlgg54fvpqe",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/subscribers": {
+    "/v1/m3uamessages": {
       "get": {
-        "summary": "List Subscribers",
+        "summary": "List M3uaMessages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Subscriber"
+                        "$ref": "#/components/schemas/M3uaMessage"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Subscriber",
+        "summary": "Create a M3uaMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriberCreate"
+                "$ref": "#/components/schemas/M3uaMessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Subscriber"
+                  "$ref": "#/components/schemas/M3uaMessage"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/subscribers/{id}": {
+    "/v1/m3uamessages/{id}": {
       "get": {
-        "summary": "Get a Subscriber",
+        "summary": "Get a M3uaMessage",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Subscriber"
+                  "$ref": "#/components/schemas/M3uaMessage"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Subscriber",
+        "summary": "Update a M3uaMessage",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriberCreate"
+                "$ref": "#/components/schemas/M3uaMessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Subscriber"
+                  "$ref": "#/components/schemas/M3uaMessage"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Subscriber",
+        "summary": "Delete a M3uaMessage",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/sessions": {
+    "/v1/suamessages": {
       "get": {
-        "summary": "List Sessions",
+        "summary": "List SuaMessages",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Session"
+                        "$ref": "#/components/schemas/SuaMessage"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Session",
+        "summary": "Create a SuaMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SessionCreate"
+                "$ref": "#/components/schemas/SuaMessageCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/SuaMessage"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/sessions/{id}": {
+    "/v1/suamessages/{id}": {
       "get": {
-        "summary": "Get a Session",
+        "summary": "Get a SuaMessage",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/SuaMessage"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Session",
+        "summary": "Update a SuaMessage",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SessionCreate"
+                "$ref": "#/components/schemas/SuaMessageCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/SuaMessage"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Session",
+        "summary": "Delete a SuaMessage",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/messages": {
+    "/v1/protocoldatas": {
       "get": {
-        "summary": "List Messages",
+        "summary": "List ProtocolDatas",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/ProtocolData"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Message",
+        "summary": "Create a ProtocolData",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/ProtocolDataCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ProtocolData"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/messages/{id}": {
+    "/v1/protocoldatas/{id}": {
       "get": {
-        "summary": "Get a Message",
+        "summary": "Get a ProtocolData",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ProtocolData"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Message",
+        "summary": "Update a ProtocolData",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/ProtocolDataCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/ProtocolData"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Message",
+        "summary": "Delete a ProtocolData",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/numbers": {
+    "/v1/mtp3messages": {
       "get": {
-        "summary": "List Numbers",
+        "summary": "List Mtp3Messages",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Number"
+                        "$ref": "#/components/schemas/Mtp3Message"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Number",
+        "summary": "Create a Mtp3Message",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NumberCreate"
+                "$ref": "#/components/schemas/Mtp3MessageCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Number"
+                  "$ref": "#/components/schemas/Mtp3Message"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/numbers/{id}": {
+    "/v1/mtp3messages/{id}": {
       "get": {
-        "summary": "Get a Number",
+        "summary": "Get a Mtp3Message",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Number"
+                  "$ref": "#/components/schemas/Mtp3Message"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Number",
+        "summary": "Update a Mtp3Message",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NumberCreate"
+                "$ref": "#/components/schemas/Mtp3MessageCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Number"
+                  "$ref": "#/components/schemas/Mtp3Message"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Number",
+        "summary": "Delete a Mtp3Message",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/terminals": {
+    "/v1/sccpmessages": {
       "get": {
-        "summary": "List Terminals",
+        "summary": "List SccpMessages",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Terminal"
+                        "$ref": "#/components/schemas/SccpMessage"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Terminal",
+        "summary": "Create a SccpMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TerminalCreate"
+                "$ref": "#/components/schemas/SccpMessageCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Terminal"
+                  "$ref": "#/components/schemas/SccpMessage"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/terminals/{id}": {
+    "/v1/sccpmessages/{id}": {
       "get": {
-        "summary": "Get a Terminal",
+        "summary": "Get a SccpMessage",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Terminal"
+                  "$ref": "#/components/schemas/SccpMessage"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Terminal",
+        "summary": "Update a SccpMessage",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TerminalCreate"
+                "$ref": "#/components/schemas/SccpMessageCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Terminal"
+                  "$ref": "#/components/schemas/SccpMessage"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Terminal",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/usagerecords": {
-      "get": {
-        "summary": "List UsageRecords",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/UsageRecord"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a UsageRecord",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsageRecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsageRecord"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/usagerecords/{id}": {
-      "get": {
-        "summary": "Get a UsageRecord",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsageRecord"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a UsageRecord",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsageRecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsageRecord"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a UsageRecord",
+        "summary": "Delete a SccpMessage",
         "parameters": [
           {
             "name": "id",
@@ -1140,72 +955,33 @@
   },
   "components": {
     "schemas": {
-      "Subscriber": {
+      "M3uaMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "imsi": {
-            "type": "string"
+          "version": {
+            "type": "integer"
           },
-          "msisdn": {
-            "type": "string"
+          "reserved": {
+            "type": "integer"
           },
-          "plan": {
-            "type": "string"
+          "messageClass": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              9
+            ]
           },
-          "status": {
-            "type": "string"
+          "messageType": {
+            "type": "integer"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SubscriberCreate": {
-        "type": "object",
-        "properties": {
-          "imsi": {
-            "type": "string"
-          },
-          "msisdn": {
-            "type": "string"
-          },
-          "plan": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "imsi",
-          "msisdn"
-        ]
-      },
-      "Session": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "subscriberId": {
-            "type": "string"
-          },
-          "apn": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "bytesUsed": {
+          "messageLength": {
             "type": "integer"
           },
           "createdAt": {
@@ -1218,43 +994,197 @@
           }
         }
       },
-      "SessionCreate": {
+      "M3uaMessageCreate": {
         "type": "object",
         "properties": {
-          "subscriberId": {
-            "type": "string"
+          "version": {
+            "type": "integer"
           },
-          "apn": {
-            "type": "string"
+          "reserved": {
+            "type": "integer"
           },
-          "startedAt": {
-            "type": "string"
+          "messageClass": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              9
+            ]
           },
-          "bytesUsed": {
+          "messageType": {
+            "type": "integer"
+          },
+          "messageLength": {
             "type": "integer"
           }
         },
         "required": [
-          "apn",
-          "startedAt"
+          "version",
+          "reserved"
         ]
       },
-      "Message": {
+      "SuaMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "fromAddr": {
+          "version": {
+            "type": "integer"
+          },
+          "messageClass": {
+            "type": "integer",
+            "enum": [
+              0,
+              2,
+              3,
+              4,
+              7,
+              8,
+              9
+            ]
+          },
+          "messageType": {
+            "type": "integer"
+          },
+          "messageLength": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SuaMessageCreate": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer"
+          },
+          "messageClass": {
+            "type": "integer",
+            "enum": [
+              0,
+              2,
+              3,
+              4,
+              7,
+              8,
+              9
+            ]
+          },
+          "messageType": {
+            "type": "integer"
+          },
+          "messageLength": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "messageClass"
+        ]
+      },
+      "ProtocolData": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "toAddr": {
+          "opc": {
+            "type": "integer"
+          },
+          "dpc": {
+            "type": "integer"
+          },
+          "si": {
+            "type": "integer"
+          },
+          "ni": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "mp": {
+            "type": "integer"
+          },
+          "sls": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProtocolDataCreate": {
+        "type": "object",
+        "properties": {
+          "opc": {
+            "type": "integer"
+          },
+          "dpc": {
+            "type": "integer"
+          },
+          "si": {
+            "type": "integer"
+          },
+          "ni": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "mp": {
+            "type": "integer"
+          },
+          "sls": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "opc",
+          "dpc"
+        ]
+      },
+      "Mtp3Message": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "body": {
-            "type": "string"
+          "serviceIndicator": {
+            "type": "integer"
           },
-          "status": {
+          "networkIndicator": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "payload": {
             "type": "string"
           },
           "createdAt": {
@@ -1267,40 +1197,49 @@
           }
         }
       },
-      "MessageCreate": {
+      "Mtp3MessageCreate": {
         "type": "object",
         "properties": {
-          "fromAddr": {
-            "type": "string"
+          "serviceIndicator": {
+            "type": "integer"
           },
-          "toAddr": {
-            "type": "string"
+          "networkIndicator": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
           },
-          "body": {
-            "type": "string"
-          },
-          "status": {
+          "payload": {
             "type": "string"
           }
         },
         "required": [
-          "fromAddr",
-          "toAddr"
+          "serviceIndicator",
+          "networkIndicator"
         ]
       },
-      "Number": {
+      "SccpMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "e164": {
-            "type": "string"
+          "messageType": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "destinationPointCode": {
+            "type": "integer"
           },
-          "assignedTo": {
+          "sourcePointCode": {
+            "type": "integer"
+          },
+          "subsystemNumber": {
+            "type": "integer"
+          },
+          "globalTitle": {
             "type": "string"
           },
           "createdAt": {
@@ -1313,121 +1252,28 @@
           }
         }
       },
-      "NumberCreate": {
+      "SccpMessageCreate": {
         "type": "object",
         "properties": {
-          "e164": {
-            "type": "string"
+          "messageType": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "destinationPointCode": {
+            "type": "integer"
           },
-          "assignedTo": {
+          "sourcePointCode": {
+            "type": "integer"
+          },
+          "subsystemNumber": {
+            "type": "integer"
+          },
+          "globalTitle": {
             "type": "string"
           }
         },
         "required": [
-          "e164",
-          "type"
-        ]
-      },
-      "Terminal": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serial": {
-            "type": "string"
-          },
-          "satellite": {
-            "type": "string"
-          },
-          "signalDb": {
-            "type": "number"
-          },
-          "online": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TerminalCreate": {
-        "type": "object",
-        "properties": {
-          "serial": {
-            "type": "string"
-          },
-          "satellite": {
-            "type": "string"
-          },
-          "signalDb": {
-            "type": "number"
-          },
-          "online": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "serial",
-          "satellite"
-        ]
-      },
-      "UsageRecord": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "subscriberId": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "ratedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "UsageRecordCreate": {
-        "type": "object",
-        "properties": {
-          "subscriberId": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "ratedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "quantity",
-          "unit"
+          "messageType",
+          "destinationPointCode"
         ]
       }
     }

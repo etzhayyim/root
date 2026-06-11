@@ -35,12 +35,12 @@
     }
   },
   "entities": [
-    "Item",
     "Account",
+    "AccountBalance",
     "Transaction",
+    "Item",
     "Institution",
-    "Identity",
-    "Liability"
+    "Holding"
   ],
   "adr": [
     "260607",
@@ -54,31 +54,6 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/items",
-          "op": "create Item"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/items",
-          "op": "list Item"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/items/{id}",
-          "op": "get Item"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/items/{id}",
-          "op": "update Item"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/items/{id}",
-          "op": "delete Item"
-        },
         {
           "method": "POST",
           "path": "/v1/accounts",
@@ -103,6 +78,31 @@
           "method": "DELETE",
           "path": "/v1/accounts/{id}",
           "op": "delete Account"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/accountbalances",
+          "op": "create AccountBalance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/accountbalances",
+          "op": "list AccountBalance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/accountbalances/{id}",
+          "op": "get AccountBalance"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/accountbalances/{id}",
+          "op": "update AccountBalance"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/accountbalances/{id}",
+          "op": "delete AccountBalance"
         },
         {
           "method": "POST",
@@ -131,6 +131,31 @@
         },
         {
           "method": "POST",
+          "path": "/v1/items",
+          "op": "create Item"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/items",
+          "op": "list Item"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/items/{id}",
+          "op": "get Item"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/items/{id}",
+          "op": "update Item"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/items/{id}",
+          "op": "delete Item"
+        },
+        {
+          "method": "POST",
           "path": "/v1/institutions",
           "op": "create Institution"
         },
@@ -156,53 +181,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/identities",
-          "op": "create Identity"
+          "path": "/v1/holdings",
+          "op": "create Holding"
         },
         {
           "method": "GET",
-          "path": "/v1/identities",
-          "op": "list Identity"
+          "path": "/v1/holdings",
+          "op": "list Holding"
         },
         {
           "method": "GET",
-          "path": "/v1/identities/{id}",
-          "op": "get Identity"
+          "path": "/v1/holdings/{id}",
+          "op": "get Holding"
         },
         {
           "method": "PATCH",
-          "path": "/v1/identities/{id}",
-          "op": "update Identity"
+          "path": "/v1/holdings/{id}",
+          "op": "update Holding"
         },
         {
           "method": "DELETE",
-          "path": "/v1/identities/{id}",
-          "op": "delete Identity"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/liabilities",
-          "op": "create Liability"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/liabilities",
-          "op": "list Liability"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/liabilities/{id}",
-          "op": "get Liability"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/liabilities/{id}",
-          "op": "update Liability"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/liabilities/{id}",
-          "op": "delete Liability"
+          "path": "/v1/holdings/{id}",
+          "op": "delete Holding"
         }
       ],
       "features": {
@@ -268,99 +268,21 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_item",
-          "description": "Create a Item.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "institutionId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "consentExpiresAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status",
-              "consentExpiresAt"
-            ]
-          }
-        },
-        {
-          "name": "list_items",
-          "description": "List Items.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_item",
-          "description": "Get a Item by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_item",
-          "description": "Update a Item.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "institutionId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "consentExpiresAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_item",
-          "description": "Delete a Item.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_account",
           "description": "Create a Account.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "itemId": {
+              "accountId": {
                 "type": "string"
               },
               "name": {
+                "type": "string"
+              },
+              "officialName": {
+                "type": "string"
+              },
+              "mask": {
                 "type": "string"
               },
               "type": {
@@ -369,13 +291,13 @@
               "subtype": {
                 "type": "string"
               },
-              "currentBalance": {
-                "type": "number"
+              "verificationStatus": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "type"
+              "officialName"
             ]
           }
         },
@@ -411,10 +333,16 @@
               "id": {
                 "type": "string"
               },
-              "itemId": {
+              "accountId": {
                 "type": "string"
               },
               "name": {
+                "type": "string"
+              },
+              "officialName": {
+                "type": "string"
+              },
+              "mask": {
                 "type": "string"
               },
               "type": {
@@ -423,8 +351,8 @@
               "subtype": {
                 "type": "string"
               },
-              "currentBalance": {
-                "type": "number"
+              "verificationStatus": {
+                "type": "string"
               }
             },
             "required": [
@@ -448,6 +376,102 @@
           }
         },
         {
+          "name": "create_account_balance",
+          "description": "Create a AccountBalance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "number"
+              },
+              "current": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "isoCurrencyCode": {
+                "type": "string"
+              },
+              "lastUpdatedDatetime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "available",
+              "current"
+            ]
+          }
+        },
+        {
+          "name": "list_account_balances",
+          "description": "List AccountBalances.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_account_balance",
+          "description": "Get a AccountBalance by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_account_balance",
+          "description": "Update a AccountBalance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "available": {
+                "type": "number"
+              },
+              "current": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "isoCurrencyCode": {
+                "type": "string"
+              },
+              "lastUpdatedDatetime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_account_balance",
+          "description": "Delete a AccountBalance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_transaction",
           "description": "Create a Transaction.",
           "inputSchema": {
@@ -456,22 +480,37 @@
               "accountId": {
                 "type": "string"
               },
+              "transactionId": {
+                "type": "string"
+              },
               "amount": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
-              "category": {
-                "type": "string"
-              },
               "date": {
+                "type": "string"
+              },
+              "pending": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "merchantName": {
+                "type": "string"
+              },
+              "isoCurrencyCode": {
+                "type": "string"
+              },
+              "paymentChannel": {
+                "type": "string"
+              },
+              "checkNumber": {
                 "type": "string"
               }
             },
             "required": [
               "amount",
-              "currency"
+              "date"
             ]
           }
         },
@@ -510,16 +549,31 @@
               "accountId": {
                 "type": "string"
               },
+              "transactionId": {
+                "type": "string"
+              },
               "amount": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
-              "category": {
-                "type": "string"
-              },
               "date": {
+                "type": "string"
+              },
+              "pending": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "merchantName": {
+                "type": "string"
+              },
+              "isoCurrencyCode": {
+                "type": "string"
+              },
+              "paymentChannel": {
+                "type": "string"
+              },
+              "checkNumber": {
                 "type": "string"
               }
             },
@@ -544,24 +598,129 @@
           }
         },
         {
+          "name": "create_item",
+          "description": "Create a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "itemId": {
+                "type": "string"
+              },
+              "institutionId": {
+                "type": "string"
+              },
+              "institutionName": {
+                "type": "string"
+              },
+              "webhook": {
+                "type": "string"
+              },
+              "authMethod": {
+                "type": "string"
+              },
+              "oauth": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "institutionName",
+              "webhook"
+            ]
+          }
+        },
+        {
+          "name": "list_items",
+          "description": "List Items.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_item",
+          "description": "Get a Item by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_item",
+          "description": "Update a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "itemId": {
+                "type": "string"
+              },
+              "institutionId": {
+                "type": "string"
+              },
+              "institutionName": {
+                "type": "string"
+              },
+              "webhook": {
+                "type": "string"
+              },
+              "authMethod": {
+                "type": "string"
+              },
+              "oauth": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_item",
+          "description": "Delete a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_institution",
           "description": "Create a Institution.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "institutionId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "country": {
+              "url": {
                 "type": "string"
               },
-              "products": {
-                "type": "string"
+              "oauth": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "country"
+              "url"
             ]
           }
         },
@@ -597,14 +756,17 @@
               "id": {
                 "type": "string"
               },
+              "institutionId": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "country": {
+              "url": {
                 "type": "string"
               },
-              "products": {
-                "type": "string"
+              "oauth": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -628,38 +790,53 @@
           }
         },
         {
-          "name": "create_identity",
-          "description": "Create a Identity.",
+          "name": "create_holding",
+          "description": "Create a Holding.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "accountId": {
                 "type": "string"
               },
-              "ownerName": {
+              "securityId": {
                 "type": "string"
               },
-              "email": {
+              "symbol": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number"
+              },
+              "institutionValue": {
+                "type": "number"
+              },
+              "costBasis": {
+                "type": "number"
+              },
+              "currencyCode": {
                 "type": "string"
               }
             },
             "required": [
-              "ownerName",
-              "email"
+              "symbol",
+              "name"
             ]
           }
         },
         {
-          "name": "list_identities",
-          "description": "List Identities.",
+          "name": "list_holdings",
+          "description": "List Holdings.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_identity",
-          "description": "Get a Identity by id.",
+          "name": "get_holding",
+          "description": "Get a Holding by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,95 +850,8 @@
           }
         },
         {
-          "name": "update_identity",
-          "description": "Update a Identity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "ownerName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_identity",
-          "description": "Delete a Identity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_liability",
-          "description": "Create a Liability.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "apr": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "type",
-              "balance"
-            ]
-          }
-        },
-        {
-          "name": "list_liabilities",
-          "description": "List Liabilities.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_liability",
-          "description": "Get a Liability by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_liability",
-          "description": "Update a Liability.",
+          "name": "update_holding",
+          "description": "Update a Holding.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -771,14 +861,26 @@
               "accountId": {
                 "type": "string"
               },
-              "type": {
+              "securityId": {
                 "type": "string"
               },
-              "balance": {
+              "symbol": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "quantity": {
                 "type": "number"
               },
-              "apr": {
+              "institutionValue": {
                 "type": "number"
+              },
+              "costBasis": {
+                "type": "number"
+              },
+              "currencyCode": {
+                "type": "string"
               }
             },
             "required": [
@@ -787,8 +889,8 @@
           }
         },
         {
-          "name": "delete_liability",
-          "description": "Delete a Liability.",
+          "name": "delete_holding",
+          "description": "Delete a Holding.",
           "inputSchema": {
             "type": "object",
             "properties": {

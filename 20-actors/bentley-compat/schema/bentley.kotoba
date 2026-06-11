@@ -3,71 +3,85 @@
 
 namespace bentley {
 
-    entity Project {
+    entity iModel {
         id: string @unique
         name: string
-        jurisdiction: string
-        status: string
+        description: string
+        iTwinId: string
+        state: string
+        createdDateTime: datetime
+        dataCenterLocation: string
+        initialized: boolean
+        displayName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Permit {
+    entity iTwin {
         id: string @unique
-        projectId: string
+        subClass: string
         type: string
+        status: string
+        displayName: string
         number: string
-        status: string
+        iTwinAccountId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Drawing {
+    entity Changeset {
         id: string @unique
-        projectId: string
+        index: integer
+        displayName: string
+        description: string
+        parentId: string
+        pushDateTime: datetime
+        creatorId: string
+        briefcaseId: integer
+        changesetGroupId: string
+        fileSize: integer
+        state: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity NamedVersion {
+        id: string @unique
+        displayName: string
+        changesetId: string
+        changesetIndex: integer
         name: string
-        revision: string
-        contentRef: string
+        description: string
+        createdDateTime: datetime
+        state: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Inspection {
+    entity Connection {
         id: string @unique
-        permitId: string
-        type: string
-        result: string
-        inspectedAt: datetime
+        displayName: string
+        description: string
+        iModelId: string
+        iTwinId: string
+        connectorName: string
+        authenticationType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Asset {
+    entity Job {
         id: string @unique
-        name: string
-        type: string
-        location: string
-        condition: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ServiceRequest {
-        id: string @unique
-        citizenId: string
-        category: string
         status: string
+        progress: integer
+        createdDateTime: datetime
+        lastModifiedDateTime: datetime
+        iModelId: string
+        iTwinId: string
+        testId: string
+        changesetId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

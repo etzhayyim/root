@@ -11,15 +11,108 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
   "schema": "schema/ipsec.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc7296",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "IkeHeader",
+      "Payload",
+      "SecurityAssociation",
+      "Proposal",
+      "Transform",
+      "Notify"
+    ],
+    "enums": {
+      "IkeHeader": {
+        "exchangeType": [
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44
+        ]
+      },
+      "Payload": {
+        "payloadType": [
+          0,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54
+        ]
+      },
+      "Proposal": {
+        "protocolId": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "Transform": {
+        "type": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      "Notify": {
+        "protocolId": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "IkeHeader",
+    "Payload",
+    "SecurityAssociation",
+    "Proposal",
+    "Transform",
+    "Notify"
   ],
   "adr": [
     "260607",
@@ -35,153 +128,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/ikeheaders",
+          "op": "create IkeHeader"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/ikeheaders",
+          "op": "list IkeHeader"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/ikeheaders/{id}",
+          "op": "get IkeHeader"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/ikeheaders/{id}",
+          "op": "update IkeHeader"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/ikeheaders/{id}",
+          "op": "delete IkeHeader"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/payloads",
+          "op": "create Payload"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/payloads",
+          "op": "list Payload"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/payloads/{id}",
+          "op": "get Payload"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/payloads/{id}",
+          "op": "update Payload"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/payloads/{id}",
+          "op": "delete Payload"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/securityassociations",
+          "op": "create SecurityAssociation"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/securityassociations",
+          "op": "list SecurityAssociation"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/securityassociations/{id}",
+          "op": "get SecurityAssociation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/securityassociations/{id}",
+          "op": "update SecurityAssociation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/securityassociations/{id}",
+          "op": "delete SecurityAssociation"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/proposals",
+          "op": "create Proposal"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/proposals",
+          "op": "list Proposal"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/proposals/{id}",
+          "op": "get Proposal"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/proposals/{id}",
+          "op": "update Proposal"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
+          "path": "/v1/proposals/{id}",
+          "op": "delete Proposal"
         },
         {
           "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
+          "path": "/v1/transforms",
+          "op": "create Transform"
         },
         {
           "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
+          "path": "/v1/transforms",
+          "op": "list Transform"
         },
         {
           "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
+          "path": "/v1/transforms/{id}",
+          "op": "get Transform"
         },
         {
           "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
+          "path": "/v1/transforms/{id}",
+          "op": "update Transform"
         },
         {
           "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
+          "path": "/v1/transforms/{id}",
+          "op": "delete Transform"
         },
         {
           "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
+          "path": "/v1/notifies",
+          "op": "create Notify"
         },
         {
           "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
+          "path": "/v1/notifies",
+          "op": "list Notify"
         },
         {
           "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
+          "path": "/v1/notifies/{id}",
+          "op": "get Notify"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
+          "path": "/v1/notifies/{id}",
+          "op": "update Notify"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/notifies/{id}",
+          "op": "delete Notify"
         }
       ],
       "features": {
@@ -247,290 +340,56 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_ike_header",
+          "description": "Create a IkeHeader.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "originAsn"
-            ]
-          }
-        },
-        {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "initiatorSpi": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "responderSpi": {
+                "type": "integer"
+              },
+              "nextPayload": {
+                "type": "integer"
+              },
+              "majorVersion": {
+                "type": "integer"
+              },
+              "minorVersion": {
+                "type": "integer"
+              },
+              "exchangeType": {
+                "type": "integer"
+              },
+              "flags": {
+                "type": "integer"
+              },
+              "messageId": {
+                "type": "integer"
+              },
+              "totalLength": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "initiatorSpi",
+              "responderSpi"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_ike_headers",
+          "description": "List IkeHeaders.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_ike_header",
+          "description": "Get a IkeHeader by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +403,39 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_ike_header",
+          "description": "Update a IkeHeader.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "initiatorSpi": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "responderSpi": {
+                "type": "integer"
+              },
+              "nextPayload": {
+                "type": "integer"
+              },
+              "majorVersion": {
+                "type": "integer"
+              },
+              "minorVersion": {
+                "type": "integer"
+              },
+              "exchangeType": {
+                "type": "integer"
+              },
+              "flags": {
+                "type": "integer"
+              },
+              "messageId": {
+                "type": "integer"
+              },
+              "totalLength": {
                 "type": "integer"
               }
             },
@@ -568,8 +445,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_ike_header",
+          "description": "Delete a IkeHeader.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,41 +460,398 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_payload",
+          "description": "Create a Payload.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "nextPayload": {
+                "type": "integer"
+              },
+              "critical": {
+                "type": "boolean"
+              },
+              "payloadLength": {
+                "type": "integer"
+              },
+              "payloadType": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "nextPayload",
+              "critical"
+            ]
+          }
+        },
+        {
+          "name": "list_payloads",
+          "description": "List Payloads.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_payload",
+          "description": "Get a Payload by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_payload",
+          "description": "Update a Payload.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
-              "name": {
+              "nextPayload": {
+                "type": "integer"
+              },
+              "critical": {
+                "type": "boolean"
+              },
+              "payloadLength": {
+                "type": "integer"
+              },
+              "payloadType": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_payload",
+          "description": "Delete a Payload.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_security_association",
+          "description": "Create a SecurityAssociation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "payloadType": {
+                "type": "integer"
+              },
+              "proposals": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "payloadType",
+              "proposals"
+            ]
+          }
+        },
+        {
+          "name": "list_security_associations",
+          "description": "List SecurityAssociations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_security_association",
+          "description": "Get a SecurityAssociation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_security_association",
+          "description": "Update a SecurityAssociation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "payloadType": {
+                "type": "integer"
+              },
+              "proposals": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_security_association",
+          "description": "Delete a SecurityAssociation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_proposal",
+          "description": "Create a Proposal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "integer"
+              },
+              "protocolId": {
+                "type": "integer"
+              },
+              "spiSize": {
+                "type": "integer"
+              },
+              "transformCount": {
+                "type": "integer"
+              },
+              "spi": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "number",
+              "spiSize"
+            ]
+          }
+        },
+        {
+          "name": "list_proposals",
+          "description": "List Proposals.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_proposal",
+          "description": "Get a Proposal by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_proposal",
+          "description": "Update a Proposal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "integer"
+              },
+              "protocolId": {
+                "type": "integer"
+              },
+              "spiSize": {
+                "type": "integer"
+              },
+              "transformCount": {
+                "type": "integer"
+              },
+              "spi": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_proposal",
+          "description": "Delete a Proposal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_transform",
+          "description": "Create a Transform.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "integer"
+              },
+              "transformId": {
+                "type": "integer"
+              },
+              "transformLength": {
+                "type": "integer"
+              },
+              "attributes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "transformLength"
+            ]
+          }
+        },
+        {
+          "name": "list_transforms",
+          "description": "List Transforms.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_transform",
+          "description": "Get a Transform by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_transform",
+          "description": "Update a Transform.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "value": {
+              "transformId": {
+                "type": "integer"
+              },
+              "transformLength": {
+                "type": "integer"
+              },
+              "attributes": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "type"
+              "id"
             ]
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
+          "name": "delete_transform",
+          "description": "Delete a Transform.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_notify",
+          "description": "Create a Notify.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "protocolId": {
+                "type": "integer"
+              },
+              "spiSize": {
+                "type": "integer"
+              },
+              "notifyMessageType": {
+                "type": "integer"
+              },
+              "spi": {
+                "type": "string"
+              },
+              "notificationData": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spiSize",
+              "notifyMessageType"
+            ]
+          }
+        },
+        {
+          "name": "list_notifies",
+          "description": "List Notifies.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "get_notify",
+          "description": "Get a Notify by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,24 +865,27 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "update_notify",
+          "description": "Update a Notify.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "zoneId": {
+              "protocolId": {
+                "type": "integer"
+              },
+              "spiSize": {
+                "type": "integer"
+              },
+              "notifyMessageType": {
+                "type": "integer"
+              },
+              "spi": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
+              "notificationData": {
                 "type": "string"
               }
             },
@@ -658,98 +895,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "localAddr",
-              "remoteAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_notify",
+          "description": "Delete a Notify.",
           "inputSchema": {
             "type": "object",
             "properties": {

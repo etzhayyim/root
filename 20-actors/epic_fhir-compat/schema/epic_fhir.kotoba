@@ -5,68 +5,69 @@ namespace epic_fhir {
 
     entity Patient {
         id: string @unique
-        identifier: string
-        givenName: string
-        familyName: string
-        birthDate: datetime
+        id: string
+        resourceType: string
+        gender: string
+        birthDate: string
+        active: boolean
+        deceasedBoolean: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Observation {
         id: string @unique
-        patientId: string
-        code: string
-        value: string
-        unit: string
+        id: string
+        resourceType: string
+        status: string
+        effectiveDateTime: datetime
+        valueString: string
+        issued: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Encounter {
+        id: string @unique
+        id: string
+        resourceType: string
+        status: string
+        serviceType: string
+        period: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity MedicationRequest {
+        id: string @unique
+        id: string
+        resourceType: string
+        status: string
+        intent: string
+        authoredOn: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AllergyIntolerance {
+        id: string @unique
+        id: string
+        resourceType: string
+        clinicalStatus: string
+        criticality: string
+        recordedDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Condition {
         id: string @unique
-        patientId: string
-        code: string
+        id: string
+        resourceType: string
         clinicalStatus: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity DiagnosticReport {
-        id: string @unique
-        patientId: string
-        code: string
-        status: string
-        issuedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Sequence {
-        id: string @unique
-        patientId: string
-        accession: string
-        referenceGenome: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Specimen {
-        id: string @unique
-        patientId: string
-        type: string
-        collectedAt: datetime
+        recordedDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -5,21 +5,55 @@
   "kind": "compat",
   "title": "dns_root_zone clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (dns_root_zone); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+  "wasmCid": "bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
+  "ipfs": "ipfs://bafkreieksbastwgbhskrcv6l4crilrzzeb26rhuasxhlpcetpf66zcf7iy",
   "schema": "schema/dns_root_zone.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc1035",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Header",
+      "Question",
+      "ResourceRecord",
+      "OptRecord"
+    ],
+    "enums": {
+      "Header": {
+        "opcode": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
+      },
+      "Question": {
+        "qclass": [
+          1,
+          3,
+          4,
+          255
+        ]
+      },
+      "ResourceRecord": {
+        "class_": [
+          1,
+          3,
+          4,
+          255
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "Header",
+    "Question",
+    "ResourceRecord",
+    "OptRecord"
   ],
   "adr": [
     "260607",
@@ -31,157 +65,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/headers",
+          "op": "create Header"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/headers",
+          "op": "list Header"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/headers/{id}",
+          "op": "get Header"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/headers/{id}",
+          "op": "update Header"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/headers/{id}",
+          "op": "delete Header"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/questions",
+          "op": "create Question"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/questions",
+          "op": "list Question"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/questions/{id}",
+          "op": "get Question"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/questions/{id}",
+          "op": "update Question"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/questions/{id}",
+          "op": "delete Question"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/resourcerecords",
+          "op": "create ResourceRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/resourcerecords",
+          "op": "list ResourceRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/resourcerecords/{id}",
+          "op": "get ResourceRecord"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/resourcerecords/{id}",
+          "op": "update ResourceRecord"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/resourcerecords/{id}",
+          "op": "delete ResourceRecord"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/optrecords",
+          "op": "create OptRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/optrecords",
+          "op": "list OptRecord"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/optrecords/{id}",
+          "op": "get OptRecord"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/optrecords/{id}",
+          "op": "update OptRecord"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/optrecords/{id}",
+          "op": "delete OptRecord"
         }
       ],
       "features": {
@@ -244,293 +228,68 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "originAsn"
-            ]
-          }
-        },
-        {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
+          "name": "create_header",
+          "description": "Create a Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "qr": {
+                "type": "boolean"
+              },
+              "opcode": {
+                "type": "integer"
+              },
+              "aa": {
+                "type": "boolean"
+              },
+              "tc": {
+                "type": "boolean"
+              },
+              "rd": {
+                "type": "boolean"
+              },
+              "ra": {
+                "type": "boolean"
+              },
+              "rcode": {
+                "type": "integer"
+              },
+              "qdcount": {
+                "type": "integer"
+              },
+              "ancount": {
+                "type": "integer"
+              },
+              "nscount": {
+                "type": "integer"
+              },
+              "arcount": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "id",
+              "qr"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_headers",
+          "description": "List Headers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_header",
+          "description": "Get a Header by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +303,45 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_header",
+          "description": "Update a Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "qr": {
+                "type": "boolean"
+              },
+              "opcode": {
+                "type": "integer"
+              },
+              "aa": {
+                "type": "boolean"
+              },
+              "tc": {
+                "type": "boolean"
+              },
+              "rd": {
+                "type": "boolean"
+              },
+              "ra": {
+                "type": "boolean"
+              },
+              "rcode": {
+                "type": "integer"
+              },
+              "qdcount": {
+                "type": "integer"
+              },
+              "ancount": {
+                "type": "integer"
+              },
+              "nscount": {
+                "type": "integer"
+              },
+              "arcount": {
                 "type": "integer"
               }
             },
@@ -568,8 +351,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_header",
+          "description": "Delete a Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,21 +366,111 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_question",
+          "description": "Create a Question.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "qname": {
                 "type": "string"
               },
+              "qtype": {
+                "type": "integer"
+              },
+              "qclass": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "qname",
+              "qtype"
+            ]
+          }
+        },
+        {
+          "name": "list_questions",
+          "description": "List Questions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_question",
+          "description": "Get a Question by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_question",
+          "description": "Update a Question.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "qname": {
+                "type": "string"
+              },
+              "qtype": {
+                "type": "integer"
+              },
+              "qclass": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_question",
+          "description": "Delete a Question.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_resource_record",
+          "description": "Create a ResourceRecord.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "name": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "value": {
+              "class_": {
+                "type": "integer"
+              },
+              "ttl": {
+                "type": "integer"
+              },
+              "rdlength": {
+                "type": "integer"
+              },
+              "rdata": {
                 "type": "string"
               }
             },
@@ -608,16 +481,16 @@
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
+          "name": "list_resource_records",
+          "description": "List ResourceRecords.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "get_resource_record",
+          "description": "Get a ResourceRecord by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,24 +504,30 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "update_resource_record",
+          "description": "Update a ResourceRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "zoneId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
               "type": {
-                "type": "string"
+                "type": "integer"
               },
-              "value": {
+              "class_": {
+                "type": "integer"
+              },
+              "ttl": {
+                "type": "integer"
+              },
+              "rdlength": {
+                "type": "integer"
+              },
+              "rdata": {
                 "type": "string"
               }
             },
@@ -658,8 +537,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
+          "name": "delete_resource_record",
+          "description": "Delete a ResourceRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,41 +552,41 @@
           }
         },
         {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
+          "name": "create_opt_record",
+          "description": "Create a OptRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "localAddr": {
-                "type": "string"
+              "extendedRcode": {
+                "type": "integer"
               },
-              "remoteAddr": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "protocol": {
-                "type": "string"
+              "flags": {
+                "type": "integer"
               },
-              "active": {
-                "type": "boolean"
+              "rdlength": {
+                "type": "integer"
               }
             },
             "required": [
-              "localAddr",
-              "remoteAddr"
+              "extendedRcode",
+              "version"
             ]
           }
         },
         {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
+          "name": "list_opt_records",
+          "description": "List OptRecords.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
+          "name": "get_opt_record",
+          "description": "Get a OptRecord by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -721,25 +600,25 @@
           }
         },
         {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
+          "name": "update_opt_record",
+          "description": "Update a OptRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "localAddr": {
-                "type": "string"
+              "extendedRcode": {
+                "type": "integer"
               },
-              "remoteAddr": {
-                "type": "string"
+              "version": {
+                "type": "integer"
               },
-              "protocol": {
-                "type": "string"
+              "flags": {
+                "type": "integer"
               },
-              "active": {
-                "type": "boolean"
+              "rdlength": {
+                "type": "integer"
               }
             },
             "required": [
@@ -748,8 +627,8 @@
           }
         },
         {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_opt_record",
+          "description": "Delete a OptRecord.",
           "inputSchema": {
             "type": "object",
             "properties": {

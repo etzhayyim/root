@@ -5,21 +5,87 @@
   "kind": "compat",
   "title": "mux clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (mux); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+  "wasmCid": "bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
+  "ipfs": "ipfs://bafkreibe5ex665hi4hnzsdy77eds63xco7nw5qp4p5y4htcfw3f7y2gpfy",
   "schema": "schema/mux.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.mux.com/docs/api-reference",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Asset",
+      "PlaybackId",
+      "Track",
+      "Upload",
+      "LiveStream"
+    ],
+    "enums": {
+      "Asset": {
+        "status": [
+          "preparing",
+          "ready",
+          "errored"
+        ],
+        "resolutionTier": [
+          "audio-only",
+          "720p",
+          "1080p",
+          "1440p",
+          "2160p"
+        ],
+        "videoQuality": [
+          "basic",
+          "plus",
+          "premium"
+        ]
+      },
+      "PlaybackId": {
+        "policy": [
+          "public",
+          "signed",
+          "drm"
+        ]
+      },
+      "Track": {
+        "type": [
+          "video",
+          "audio",
+          "text"
+        ],
+        "status": [
+          "preparing",
+          "ready",
+          "errored",
+          "deleted"
+        ]
+      },
+      "Upload": {
+        "status": [
+          "waiting",
+          "asset_created",
+          "errored",
+          "cancelled",
+          "timed_out"
+        ]
+      },
+      "LiveStream": {
+        "status": [
+          "active",
+          "idle",
+          "disabled"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
-    "Message",
-    "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Asset",
+    "PlaybackId",
+    "Track",
+    "Upload",
+    "LiveStream"
   ],
   "adr": [
     "260607",
@@ -31,157 +97,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/assets",
+          "op": "create Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/assets",
+          "op": "list Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/assets/{id}",
+          "op": "get Asset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/assets/{id}",
+          "op": "update Asset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/assets/{id}",
+          "op": "delete Asset"
         },
         {
           "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
+          "path": "/v1/playbackids",
+          "op": "create PlaybackId"
         },
         {
           "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
+          "path": "/v1/playbackids",
+          "op": "list PlaybackId"
         },
         {
           "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
+          "path": "/v1/playbackids/{id}",
+          "op": "get PlaybackId"
         },
         {
           "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
+          "path": "/v1/playbackids/{id}",
+          "op": "update PlaybackId"
         },
         {
           "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
+          "path": "/v1/playbackids/{id}",
+          "op": "delete PlaybackId"
         },
         {
           "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
+          "path": "/v1/tracks",
+          "op": "create Track"
         },
         {
           "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
+          "path": "/v1/tracks",
+          "op": "list Track"
         },
         {
           "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
+          "path": "/v1/tracks/{id}",
+          "op": "get Track"
         },
         {
           "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
+          "path": "/v1/tracks/{id}",
+          "op": "update Track"
         },
         {
           "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/tracks/{id}",
+          "op": "delete Track"
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/uploads",
+          "op": "create Upload"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/uploads",
+          "op": "list Upload"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/uploads/{id}",
+          "op": "get Upload"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/uploads/{id}",
+          "op": "update Upload"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
+          "path": "/v1/uploads/{id}",
+          "op": "delete Upload"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/livestreams",
+          "op": "create LiveStream"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/livestreams",
+          "op": "list LiveStream"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/livestreams/{id}",
+          "op": "get LiveStream"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/livestreams/{id}",
+          "op": "update LiveStream"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/livestreams/{id}",
+          "op": "delete LiveStream"
         }
       ],
       "features": {
@@ -244,44 +285,239 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_asset",
+          "description": "Create a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "resolutionTier": {
+                "type": "string"
+              },
+              "videoQuality": {
+                "type": "string"
+              },
+              "aspectRatio": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_assets",
+          "description": "List Assets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_asset",
+          "description": "Get a Asset by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_asset",
+          "description": "Update a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "resolutionTier": {
+                "type": "string"
+              },
+              "videoQuality": {
+                "type": "string"
+              },
+              "aspectRatio": {
+                "type": "string"
+              },
+              "test": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_asset",
+          "description": "Delete a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_playback_id",
+          "description": "Create a PlaybackId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "policy": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "policy"
+            ]
+          }
+        },
+        {
+          "name": "list_playback_ids",
+          "description": "List PlaybackIds.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_playback_id",
+          "description": "Get a PlaybackId by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_playback_id",
+          "description": "Update a PlaybackId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "policy": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_playback_id",
+          "description": "Delete a PlaybackId.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_track",
+          "description": "Create a Track.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "topic": {
+              "duration": {
+                "type": "number"
+              },
+              "maxWidth": {
+                "type": "integer"
+              },
+              "maxHeight": {
+                "type": "integer"
+              },
+              "status": {
                 "type": "string"
               },
-              "memberCount": {
-                "type": "integer"
+              "primary": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
+              "id",
               "type"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_tracks",
+          "description": "List Tracks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_track",
+          "description": "Get a Track by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,282 +531,30 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_track",
+          "description": "Update a Track.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "name": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "topic": {
-                "type": "string"
+              "duration": {
+                "type": "number"
               },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body",
-              "sentAt"
-            ]
-          }
-        },
-        {
-          "name": "list_messages",
-          "description": "List Messages.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_message",
-          "description": "Get a Message by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_message",
-          "description": "Update a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_user",
-          "description": "Create a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "handle": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "handle",
-              "displayName"
-            ]
-          }
-        },
-        {
-          "name": "list_users",
-          "description": "List Users.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_user",
-          "description": "Get a User by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_user",
-          "description": "Update a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "handle": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_user",
-          "description": "Delete a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_room",
-          "description": "Create a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "maxParticipants": {
+              "maxWidth": {
                 "type": "integer"
               },
-              "recording": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "maxParticipants"
-            ]
-          }
-        },
-        {
-          "name": "list_rooms",
-          "description": "List Rooms.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_room",
-          "description": "Get a Room by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_room",
-          "description": "Update a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "maxParticipants": {
+              "maxHeight": {
                 "type": "integer"
               },
-              "recording": {
+              "status": {
+                "type": "string"
+              },
+              "primary": {
                 "type": "boolean"
               }
             },
@@ -580,8 +564,8 @@
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
+          "name": "delete_track",
+          "description": "Delete a Track.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +579,41 @@
           }
         },
         {
-          "name": "create_stream",
-          "description": "Create a Stream.",
+          "name": "create_upload",
+          "description": "Create a Upload.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "roomId": {
+              "id": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "bitrate": {
+              "timeout": {
                 "type": "integer"
+              },
+              "test": {
+                "type": "boolean"
               }
             },
             "required": [
-              "status",
-              "bitrate"
+              "id",
+              "status"
             ]
           }
         },
         {
-          "name": "list_streams",
-          "description": "List Streams.",
+          "name": "list_uploads",
+          "description": "List Uploads.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
+          "name": "get_upload",
+          "description": "Get a Upload by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,22 +627,22 @@
           }
         },
         {
-          "name": "update_stream",
-          "description": "Update a Stream.",
+          "name": "update_upload",
+          "description": "Update a Upload.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "roomId": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "bitrate": {
+              "timeout": {
                 "type": "integer"
+              },
+              "test": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -664,8 +651,8 @@
           }
         },
         {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
+          "name": "delete_upload",
+          "description": "Delete a Upload.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -679,38 +666,38 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_live_stream",
+          "description": "Create a LiveStream.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "event": {
+              "id": {
                 "type": "string"
               },
-              "url": {
+              "status": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "latencyMode": {
+                "type": "string"
               }
             },
             "required": [
-              "event",
-              "url"
+              "id",
+              "status"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_live_streams",
+          "description": "List LiveStreams.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_live_stream",
+          "description": "Get a LiveStream by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +711,19 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_live_stream",
+          "description": "Update a LiveStream.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "event": {
+              "status": {
                 "type": "string"
               },
-              "url": {
+              "latencyMode": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -748,8 +732,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_live_stream",
+          "description": "Delete a LiveStream.",
           "inputSchema": {
             "type": "object",
             "properties": {

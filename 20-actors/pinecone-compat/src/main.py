@@ -111,254 +111,214 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
+@app.route("/v1/indexes", methods=["POST"])
+def create_index(request):
+    """Create a Index."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
+    err = _reject_unknown(data, ['name', 'dimension', 'metric', 'host', 'state', 'deletionProtection', 'vectorType', 'cloud', 'ready'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'family'])
+    err = _require(data, ['name', 'dimension'])
     if err:
         return err, 400
-    rec = {"id": new_id("pinecone_mod")}
+    if data.get('metric') and data['metric'] not in ['cosine', 'euclidean', 'dotproduct']:
+        return {"error": {"message": "invalid metric; allowed: " + ", ".join(['cosine', 'euclidean', 'dotproduct']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['Initializing', 'InitializationFailed', 'ScalingUp', 'ScalingDown', 'ScalingUpPodSize', 'ScalingDownPodSize', 'Terminating', 'Ready', 'Disabled']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['Initializing', 'InitializationFailed', 'ScalingUp', 'ScalingDown', 'ScalingUpPodSize', 'ScalingDownPodSize', 'Terminating', 'Ready', 'Disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('deletionProtection') and data['deletionProtection'] not in ['enabled', 'disabled']:
+        return {"error": {"message": "invalid deletionProtection; allowed: " + ", ".join(['enabled', 'disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('vectorType') and data['vectorType'] not in ['dense', 'sparse']:
+        return {"error": {"message": "invalid vectorType; allowed: " + ", ".join(['dense', 'sparse']), "type": "invalid_request_error"}}, 400
+    if data.get('cloud') and data['cloud'] not in ['aws', 'gcp', 'azure']:
+        return {"error": {"message": "invalid cloud; allowed: " + ", ".join(['aws', 'gcp', 'azure']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pinecone_ind")}
     rec["name"] = data.get('name')
-    rec["family"] = data.get('family')
-    rec["contextWindow"] = _as_int(data.get('contextWindow'))
-    rec["modality"] = data.get('modality')
+    rec["dimension"] = _as_int(data.get('dimension'))
+    rec["metric"] = data.get('metric')
+    rec["host"] = data.get('host')
+    rec["state"] = data.get('state')
+    rec["deletionProtection"] = data.get('deletionProtection')
+    rec["vectorType"] = data.get('vectorType')
+    rec["cloud"] = data.get('cloud')
+    rec["ready"] = _as_bool(data.get('ready'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
+    _persist("Index", rec)
     return rec, 201
 
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
+@app.route("/v1/indexes", methods=["GET"])
+def list_indexes(request):
+    """List Indexes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'family', 'contextWindow', 'modality'])
+    rows = _query("Index")
+    rows = _apply_filters(rows, params, ['name', 'dimension', 'metric', 'host', 'state', 'deletionProtection', 'vectorType', 'cloud', 'ready'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
+@app.route("/v1/indexes/<eid>", methods=["GET"])
+def get_index(request, eid):
+    """Retrieve a Index by id (supports ?expand=)."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
+@app.route("/v1/indexes/<eid>", methods=["POST", "PATCH"])
+def update_index(request, eid):
+    """Update a Index."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
+    err = _reject_unknown(data, ['name', 'dimension', 'metric', 'host', 'state', 'deletionProtection', 'vectorType', 'cloud', 'ready'])
     if err:
         return err, 400
+    if data.get('metric') and data['metric'] not in ['cosine', 'euclidean', 'dotproduct']:
+        return {"error": {"message": "invalid metric; allowed: " + ", ".join(['cosine', 'euclidean', 'dotproduct']), "type": "invalid_request_error"}}, 400
+    if data.get('state') and data['state'] not in ['Initializing', 'InitializationFailed', 'ScalingUp', 'ScalingDown', 'ScalingUpPodSize', 'ScalingDownPodSize', 'Terminating', 'Ready', 'Disabled']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['Initializing', 'InitializationFailed', 'ScalingUp', 'ScalingDown', 'ScalingUpPodSize', 'ScalingDownPodSize', 'Terminating', 'Ready', 'Disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('deletionProtection') and data['deletionProtection'] not in ['enabled', 'disabled']:
+        return {"error": {"message": "invalid deletionProtection; allowed: " + ", ".join(['enabled', 'disabled']), "type": "invalid_request_error"}}, 400
+    if data.get('vectorType') and data['vectorType'] not in ['dense', 'sparse']:
+        return {"error": {"message": "invalid vectorType; allowed: " + ", ".join(['dense', 'sparse']), "type": "invalid_request_error"}}, 400
+    if data.get('cloud') and data['cloud'] not in ['aws', 'gcp', 'azure']:
+        return {"error": {"message": "invalid cloud; allowed: " + ", ".join(['aws', 'gcp', 'azure']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Model", rec)
+    _persist("Index", rec)
     return rec, 200
 
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
+@app.route("/v1/indexes/<eid>", methods=["DELETE"])
+def delete_index(request, eid):
+    """Delete a Index."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.Model", "id": eid})
+    db.retract({"entity": f"pinecone.Index", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/completions", methods=["POST"])
-def create_completion(request):
-    """Create a Completion."""
+@app.route("/v1/collections", methods=["POST"])
+def create_collection(request):
+    """Create a Collection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
+    err = _reject_unknown(data, ['name', 'dimension', 'status', 'vectorCount', 'size', 'environment'])
     if err:
         return err, 400
-    err = _require(data, ['prompt', 'output'])
+    err = _require(data, ['name', 'dimension'])
     if err:
         return err, 400
-    rec = {"id": new_id("pinecone_com")}
-    rec["modelId"] = data.get('modelId')
-    rec["prompt"] = data.get('prompt')
-    rec["output"] = data.get('output')
-    rec["tokens"] = _as_int(data.get('tokens'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Completion", rec)
-    return rec, 201
-
-@app.route("/v1/completions", methods=["GET"])
-def list_completions(request):
-    """List Completions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Completion")
-    rows = _apply_filters(rows, params, ['modelId', 'prompt', 'output', 'tokens'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/completions/<eid>", methods=["GET"])
-def get_completion(request, eid):
-    """Retrieve a Completion by id (supports ?expand=)."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["POST", "PATCH"])
-def update_completion(request, eid):
-    """Update a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Completion", rec)
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["DELETE"])
-def delete_completion(request, eid):
-    """Delete a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.Completion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/embeddings", methods=["POST"])
-def create_embedding(request):
-    """Create a Embedding."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['input', 'dimensions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pinecone_emb")}
-    rec["modelId"] = data.get('modelId')
-    rec["input"] = data.get('input')
-    rec["dimensions"] = _as_int(data.get('dimensions'))
-    rec["vectorRef"] = data.get('vectorRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Embedding", rec)
-    return rec, 201
-
-@app.route("/v1/embeddings", methods=["GET"])
-def list_embeddings(request):
-    """List Embeddings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Embedding")
-    rows = _apply_filters(rows, params, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["GET"])
-def get_embedding(request, eid):
-    """Retrieve a Embedding by id (supports ?expand=)."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["POST", "PATCH"])
-def update_embedding(request, eid):
-    """Update a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Embedding", rec)
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["DELETE"])
-def delete_embedding(request, eid):
-    """Delete a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.Embedding", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/finetunes", methods=["POST"])
-def create_fine_tune(request):
-    """Create a FineTune."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'epochs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pinecone_fin")}
-    rec["baseModelId"] = data.get('baseModelId')
-    rec["datasetId"] = data.get('datasetId')
+    if data.get('status') and data['status'] not in ['Initializing', 'Ready', 'Terminating']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Initializing', 'Ready', 'Terminating']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pinecone_col")}
+    rec["name"] = data.get('name')
+    rec["dimension"] = _as_int(data.get('dimension'))
     rec["status"] = data.get('status')
-    rec["epochs"] = _as_int(data.get('epochs'))
+    rec["vectorCount"] = _as_int(data.get('vectorCount'))
+    rec["size"] = _as_int(data.get('size'))
+    rec["environment"] = data.get('environment')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("FineTune", rec)
+    _persist("Collection", rec)
     return rec, 201
 
-@app.route("/v1/finetunes", methods=["GET"])
-def list_fine_tunes(request):
-    """List FineTunes with filtering + cursor pagination."""
+@app.route("/v1/collections", methods=["GET"])
+def list_collections(request):
+    """List Collections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("FineTune")
-    rows = _apply_filters(rows, params, ['baseModelId', 'datasetId', 'status', 'epochs'])
+    rows = _query("Collection")
+    rows = _apply_filters(rows, params, ['name', 'dimension', 'status', 'vectorCount', 'size', 'environment'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["GET"])
-def get_fine_tune(request, eid):
-    """Retrieve a FineTune by id (supports ?expand=)."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/collections/<eid>", methods=["GET"])
+def get_collection(request, eid):
+    """Retrieve a Collection by id (supports ?expand=)."""
+    rows = _query("Collection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["POST", "PATCH"])
-def update_fine_tune(request, eid):
-    """Update a FineTune."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
+def update_collection(request, eid):
+    """Update a Collection."""
+    rows = _query("Collection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
+    err = _reject_unknown(data, ['name', 'dimension', 'status', 'vectorCount', 'size', 'environment'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['Initializing', 'Ready', 'Terminating']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Initializing', 'Ready', 'Terminating']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Collection", rec)
+    return rec, 200
+
+@app.route("/v1/collections/<eid>", methods=["DELETE"])
+def delete_collection(request, eid):
+    """Delete a Collection."""
+    rows = _query("Collection", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pinecone.Collection", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/vectors", methods=["POST"])
+def create_vector(request):
+    """Create a Vector."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'namespace'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'namespace'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("pinecone_vec")}
+    rec["id"] = data.get('id')
+    rec["namespace"] = data.get('namespace')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Vector", rec)
+    return rec, 201
+
+@app.route("/v1/vectors", methods=["GET"])
+def list_vectors(request):
+    """List Vectors with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Vector")
+    rows = _apply_filters(rows, params, ['id', 'namespace'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/vectors/<eid>", methods=["GET"])
+def get_vector(request, eid):
+    """Retrieve a Vector by id (supports ?expand=)."""
+    rows = _query("Vector", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/vectors/<eid>", methods=["POST", "PATCH"])
+def update_vector(request, eid):
+    """Update a Vector."""
+    rows = _query("Vector", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'namespace'])
     if err:
         return err, 400
     rec = rows[0]
@@ -366,64 +326,63 @@ def update_fine_tune(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("FineTune", rec)
+    _persist("Vector", rec)
     return rec, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["DELETE"])
-def delete_fine_tune(request, eid):
-    """Delete a FineTune."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/vectors/<eid>", methods=["DELETE"])
+def delete_vector(request, eid):
+    """Delete a Vector."""
+    rows = _query("Vector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.FineTune", "id": eid})
+    db.retract({"entity": f"pinecone.Vector", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/namespaces", methods=["POST"])
+def create_namespace(request):
+    """Create a Namespace."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['name', 'recordCount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'rows'])
+    err = _require(data, ['name', 'recordCount'])
     if err:
         return err, 400
-    rec = {"id": new_id("pinecone_dat")}
+    rec = {"id": new_id("pinecone_nam")}
     rec["name"] = data.get('name')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["recordCount"] = _as_int(data.get('recordCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Namespace", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/namespaces", methods=["GET"])
+def list_namespaces(request):
+    """List Namespaces with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'rows', 'contentRef'])
+    rows = _query("Namespace")
+    rows = _apply_filters(rows, params, ['name', 'recordCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/namespaces/<eid>", methods=["GET"])
+def get_namespace(request, eid):
+    """Retrieve a Namespace by id (supports ?expand=)."""
+    rows = _query("Namespace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/namespaces/<eid>", methods=["POST", "PATCH"])
+def update_namespace(request, eid):
+    """Update a Namespace."""
+    rows = _query("Namespace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['name', 'recordCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -431,88 +390,22 @@ def update_dataset(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Namespace", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/namespaces/<eid>", methods=["DELETE"])
+def delete_namespace(request, eid):
+    """Delete a Namespace."""
+    rows = _query("Namespace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.Dataset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/files", methods=["POST"])
-def create_file(request):
-    """Create a File."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['purpose', 'filename'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pinecone_fil")}
-    rec["purpose"] = data.get('purpose')
-    rec["filename"] = data.get('filename')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("File", rec)
-    return rec, 201
-
-@app.route("/v1/files", methods=["GET"])
-def list_files(request):
-    """List Files with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("File")
-    rows = _apply_filters(rows, params, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/files/<eid>", methods=["GET"])
-def get_file(request, eid):
-    """Retrieve a File by id (supports ?expand=)."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
-def update_file(request, eid):
-    """Update a File."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("File", rec)
-    return rec, 200
-
-@app.route("/v1/files/<eid>", methods=["DELETE"])
-def delete_file(request, eid):
-    """Delete a File."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pinecone.File", "id": eid})
+    db.retract({"entity": f"pinecone.Namespace", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "pinecone-compat", "tier": "L4",
-            "entities": ['Model', 'Completion', 'Embedding', 'FineTune', 'Dataset', 'File']}, 200
+            "entities": ['Index', 'Collection', 'Vector', 'Namespace']}, 200
 
 
 if __name__ == "__main__":

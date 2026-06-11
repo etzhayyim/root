@@ -3,69 +3,49 @@
 
 namespace telegram_api {
 
-    entity Channel {
+    entity User {
         id: string @unique
-        name: string
+        id: integer
+        isBot: boolean
+        firstName: string
+        lastName: string
+        username: string
+        languageCode: string
+        isPremium: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Chat {
+        id: string @unique
+        id: integer
         type: string
-        topic: string
-        memberCount: integer
+        title: string
+        username: string
+        firstName: string
+        lastName: string
+        isForum: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Message {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        messageId: integer
+        date: integer
+        text: string
+        chatId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity ChatMember {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Room {
-        id: string @unique
-        name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
         status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
+        isAnonymous: boolean
+        customTitle: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

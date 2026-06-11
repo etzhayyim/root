@@ -26,6 +26,12 @@
           "ended",
           "completed",
           "processing"
+        ],
+        "type": [
+          1,
+          2,
+          3,
+          8
         ]
       }
     }

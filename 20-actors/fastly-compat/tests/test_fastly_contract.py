@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "fastly.kotoba")
-ENTITIES = ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']
-PLURALS = {'Asset': 'assets', 'Rendition': 'renditions', 'Channel': 'channels', 'Playlist': 'playlists', 'ContentEntry': 'contententries', 'Experiment': 'experiments'}
+ENTITIES = ['Service', 'Version', 'Backend', 'Domain', 'Dictionary']
+PLURALS = {'Service': 'services', 'Version': 'versions', 'Backend': 'backends', 'Domain': 'domains', 'Dictionary': 'dictionaries'}
 
 
 class FastlyContract(unittest.TestCase):

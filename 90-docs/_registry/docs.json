@@ -22821,6 +22821,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606081748-kotoba-bounded-rsi-build-deploy-contract.md",
+      "id": "adr-2606081748-kotoba-bounded-rsi-build-deploy-contract",
+      "title": "ADR-2606081748: Kotoba bounded RSI build/deploy contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-bounded-rsi-build-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-rsi-build-deploy-contract",
+        "murakumo-modal-training-artifact-loop",
+        "token-bounded-self-modification"
+      ],
+      "related": [
+        "adr-2605232200",
+        "adr-2605191346",
+        "adr-2605182312"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+        "adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606081800-uchiwake-world-product-bom-gtin-kg.md",
       "id": "adr-2606081800",
       "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
@@ -22991,6 +23019,32 @@
         "2605191346",
         "2605215000",
         "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba.md",
+      "id": "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritative_for": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": [
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606074500",
+        "2606074000"
       ],
       "last_verified": "2026-06-08",
       "amends": [],
@@ -23666,6 +23720,31 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md",
+      "id": "adr-2606111011",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "adr-2606110955-session-close-pr-backlog-review-merge",
+        "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606110955 (the follow-up this executes)"
+      ],
       "last_verified": "2026-06-11",
       "amends": [],
       "amended_by": []

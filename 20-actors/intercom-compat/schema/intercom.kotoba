@@ -3,69 +3,67 @@
 
 namespace intercom {
 
-    entity Ticket {
+    entity Contact {
         id: string @unique
-        subject: string
-        requesterId: string
-        priority: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Survey {
-        id: string @unique
-        title: string
-        type: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Response {
-        id: string @unique
-        surveyId: string
-        respondentId: string
-        score: integer
-        submittedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Account {
-        id: string @unique
+        email: string
+        phone: string
         name: string
-        healthScore: float
-        arr: float
+        role: string
+        createdAt: integer
+        signedUpAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Conversation {
         id: string @unique
-        accountId: string
-        channel: string
-        sentiment: float
+        state: string
+        priority: string
+        open: boolean
+        read: boolean
+        adminAssigneeId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Contact {
+    entity Company {
         id: string @unique
+        name: string
+        industry: string
+        monthlySpend: integer
+        size: integer
+        companyId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Admin {
+        id: string @unique
+        name: string
         email: string
-        firstName: string
-        lastName: string
+        awayModeEnabled: boolean
+        hasInboxSeat: boolean
+        jobTitle: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Article {
+        id: string @unique
+        title: string
+        body: string
+        state: string
+        authorId: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tag {
+        id: string @unique
+        name: string
+        appliedAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

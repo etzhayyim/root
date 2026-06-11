@@ -24,6 +24,28 @@
       "Event"
     ],
     "enums": {
+      "Campaign": {
+        "status": [
+          "Adding Recipients",
+          "Cancelled",
+          "Cancelled: Account Disabled",
+          "Cancelled: Billing Limit",
+          "Cancelled: Internal Error",
+          "Cancelled: Misconfigured",
+          "Cancelled: No Recipients",
+          "Cancelled: Smart Sending",
+          "Draft",
+          "Preparing to schedule",
+          "Preparing to send",
+          "Queued without Recipients",
+          "Scheduled",
+          "Sending",
+          "Sending Segments",
+          "Sent",
+          "Unknown",
+          "Variations Sent"
+        ]
+      },
       "Flow": {
         "status": [
           "draft",

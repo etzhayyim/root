@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "kafka.kotoba")
-ENTITIES = ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']
-PLURALS = {'Connector': 'connectors', 'Sync': 'syncs', 'Model': 'models', 'Stream': 'streams', 'Schema': 'schemas', 'Test': 'tests'}
+ENTITIES = ['Topic', 'Partition', 'AclBinding', 'ConsumerGroup', 'FetchRequest']
+PLURALS = {'Topic': 'topics', 'Partition': 'partitions', 'AclBinding': 'aclbindings', 'ConsumerGroup': 'consumergroups', 'FetchRequest': 'fetchrequests'}
 
 
 class KafkaContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class KafkaContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['isolationLevel', 'permissionType']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

@@ -3,70 +3,52 @@
 
 namespace redis {
 
-    entity Dataset {
+    entity RespMessage {
         id: string @unique
-        name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
+        firstByte: string
+        respType: string
+        payload: string
+        elementCount: integer
+        length: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Query {
+    entity RedisCommand {
         id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
+        commandName: string
+        arity: integer
+        flags: string
+        keyPosition: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dashboard {
+    entity RedisKey {
         id: string @unique
-        name: string
-        ownerId: string
-        layout: string
+        keyName: string
+        dataType: string
+        ttl: integer
+        encoding: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity RedisDataType {
         id: string @unique
-        dashboardId: string
-        name: string
-        schedule: string
+        dataType: string
+        encoding: string
+        isBinary: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity RespProtocolVersion {
         id: string @unique
-        name: string
-        type: string
-        host: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Metric {
-        id: string @unique
-        datasetId: string
-        name: string
-        expression: string
-        unit: string
+        majorVersion: integer
+        supportedSince: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

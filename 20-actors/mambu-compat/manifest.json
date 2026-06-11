@@ -5,21 +5,166 @@
   "kind": "compat",
   "title": "mambu clean-room actor",
   "description": "Clean-room, API-compatible core banking / InsurTech actor (mambu); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+  "wasmCid": "bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifi6n7er6svdiuuspan4fyk3dnumd6gokuxashsulvntoaecxv3eu",
+  "ipfs": "ipfs://bafkreihywg2dv7gqwdlga75s7xfsp5qwcyy23u6r7llo75rh2oofw6cgva",
   "schema": "schema/mambu.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://api.mambu.com (OpenAPI v2)",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "LoanAccount",
+      "DepositAccount",
+      "Client",
+      "Group",
+      "LoanTransaction"
+    ],
+    "enums": {
+      "LoanAccount": {
+        "accountState": [
+          "PARTIAL_APPLICATION",
+          "PENDING_APPROVAL",
+          "APPROVED",
+          "ACTIVE",
+          "ACTIVE_IN_ARREARS",
+          "CLOSED",
+          "CLOSED_WRITTEN_OFF",
+          "CLOSED_REJECTED"
+        ],
+        "accountSubState": [
+          "PARTIALLY_DISBURSED",
+          "LOCKED",
+          "LOCKED_CAPPING",
+          "REFINANCED",
+          "RESCHEDULED",
+          "WITHDRAWN",
+          "REPAID",
+          "REJECTED",
+          "WRITTEN_OFF",
+          "TERMINATED"
+        ],
+        "accountHolderType": [
+          "CLIENT",
+          "GROUP"
+        ]
+      },
+      "DepositAccount": {
+        "accountState": [
+          "PENDING_APPROVAL",
+          "APPROVED",
+          "ACTIVE",
+          "ACTIVE_IN_ARREARS",
+          "MATURED",
+          "LOCKED",
+          "DORMANT",
+          "CLOSED",
+          "CLOSED_WRITTEN_OFF",
+          "WITHDRAWN",
+          "CLOSED_REJECTED"
+        ],
+        "accountHolderType": [
+          "CLIENT",
+          "GROUP"
+        ]
+      },
+      "Client": {
+        "state": [
+          "PENDING_APPROVAL",
+          "INACTIVE",
+          "ACTIVE",
+          "EXITED",
+          "BLACKLISTED",
+          "REJECTED"
+        ]
+      },
+      "LoanTransaction": {
+        "type": [
+          "IMPORT",
+          "DISBURSEMENT",
+          "DISBURSEMENT_ADJUSTMENT",
+          "WRITE_OFF",
+          "WRITE_OFF_ADJUSTMENT",
+          "REPAYMENT",
+          "ADVANCE_REPAYMENT",
+          "PAYMENT_MADE",
+          "WITHDRAWAL_REDRAW",
+          "WITHDRAWAL_REDRAW_ADJUSTMENT",
+          "FEE_APPLIED",
+          "FEE_CHARGED",
+          "FEE_CAPITALISED",
+          "SCHEDULE_FIX_APPLIED",
+          "FEES_DUE_REDUCED",
+          "FEE_REFUND",
+          "FEE_REFUND_ADJUSTMENT",
+          "FEE_ADJUSTMENT",
+          "PENALTY_APPLIED",
+          "PENALTY_ADJUSTMENT",
+          "PENALTIES_DUE_REDUCED",
+          "REPAYMENT_ADJUSTMENT",
+          "ADVANCE_REPAYMENT_ADJUSTMENT",
+          "FEE_CAPITALISED_ADJUSTMENT",
+          "PAYMENT_MADE_ADJUSTMENT",
+          "INTEREST_RATE_CHANGED",
+          "FEE_RATE_CHANGED",
+          "TAX_RATE_CHANGED",
+          "PENALTY_RATE_CHANGED",
+          "INTEREST_APPLIED",
+          "IBF_INTEREST_APPLIED",
+          "IBF_INTEREST_APPLIED_ADJUSTMENT",
+          "INTEREST_APPLIED_ADJUSTMENT",
+          "INTEREST_DUE_REDUCED",
+          "PENALTY_REDUCTION_ADJUSTMENT",
+          "FEE_REDUCTION_ADJUSTMENT",
+          "INTEREST_REDUCTION_ADJUSTMENT",
+          "DEFERRED_INTEREST_APPLIED",
+          "DEFERRED_INTEREST_APPLIED_ADJUSTMENT",
+          "DEFERRED_INTEREST_PAID",
+          "DEFERRED_INTEREST_PAID_ADJUSTMENT",
+          "INTEREST_LOCKED",
+          "FEE_LOCKED",
+          "PENALTY_LOCKED",
+          "INTEREST_UNLOCKED",
+          "FEE_UNLOCKED",
+          "PENALTY_UNLOCKED",
+          "REDRAW_TRANSFER",
+          "REDRAW_REPAYMENT",
+          "REDRAW_TRANSFER_ADJUSTMENT",
+          "REDRAW_REPAYMENT_ADJUSTMENT",
+          "TRANSFER",
+          "TRANSFER_ADJUSTMENT",
+          "BRANCH_CHANGED",
+          "TERMS_CHANGED",
+          "CARD_TRANSACTION_REVERSAL",
+          "CARD_TRANSACTION_REVERSAL_ADJUSTMENT",
+          "DUE_DATE_CHANGED",
+          "DUE_DATE_CHANGED_ADJUSTMENT",
+          "ACCOUNT_TERMINATED",
+          "ACCOUNT_TERMINATED_ADJUSTMENT",
+          "REFUND",
+          "REFUND_ADJUSTMENT",
+          "REDUCE_BALANCE",
+          "REDUCE_BALANCE_ADJUSTMENT",
+          "PRINCIPAL_OVERPAYMENT",
+          "PRINCIPAL_OVERPAYMENT_ADJUSTMENT",
+          "CREDIT_BALANCE_DEPOSIT",
+          "CREDIT_BALANCE_DEPOSIT_ADJUSTMENT",
+          "CREDIT_BALANCE_WITHDRAWAL",
+          "CREDIT_BALANCE_WITHDRAWAL_ADJUSTMENT",
+          "PAYMENT_HOLIDAYS_INTEREST_CAPITALISED",
+          "PAYMENT_HOLIDAYS_INTEREST_CAPITALISED_ADJUSTMENT"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Account",
-    "Loan",
-    "Policy",
-    "Claim",
-    "Transaction",
-    "Customer"
+    "LoanAccount",
+    "DepositAccount",
+    "Client",
+    "Group",
+    "LoanTransaction"
   ],
   "adr": [
     "260607",
@@ -31,157 +176,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/loanaccounts",
+          "op": "create LoanAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/loanaccounts",
+          "op": "list LoanAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/loanaccounts/{id}",
+          "op": "get LoanAccount"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/loanaccounts/{id}",
+          "op": "update LoanAccount"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/loanaccounts/{id}",
+          "op": "delete LoanAccount"
         },
         {
           "method": "POST",
-          "path": "/v1/loans",
-          "op": "create Loan"
+          "path": "/v1/depositaccounts",
+          "op": "create DepositAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/loans",
-          "op": "list Loan"
+          "path": "/v1/depositaccounts",
+          "op": "list DepositAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/loans/{id}",
-          "op": "get Loan"
+          "path": "/v1/depositaccounts/{id}",
+          "op": "get DepositAccount"
         },
         {
           "method": "PATCH",
-          "path": "/v1/loans/{id}",
-          "op": "update Loan"
+          "path": "/v1/depositaccounts/{id}",
+          "op": "update DepositAccount"
         },
         {
           "method": "DELETE",
-          "path": "/v1/loans/{id}",
-          "op": "delete Loan"
+          "path": "/v1/depositaccounts/{id}",
+          "op": "delete DepositAccount"
         },
         {
           "method": "POST",
-          "path": "/v1/policies",
-          "op": "create Policy"
+          "path": "/v1/clients",
+          "op": "create Client"
         },
         {
           "method": "GET",
-          "path": "/v1/policies",
-          "op": "list Policy"
+          "path": "/v1/clients",
+          "op": "list Client"
         },
         {
           "method": "GET",
-          "path": "/v1/policies/{id}",
-          "op": "get Policy"
+          "path": "/v1/clients/{id}",
+          "op": "get Client"
         },
         {
           "method": "PATCH",
-          "path": "/v1/policies/{id}",
-          "op": "update Policy"
+          "path": "/v1/clients/{id}",
+          "op": "update Client"
         },
         {
           "method": "DELETE",
-          "path": "/v1/policies/{id}",
-          "op": "delete Policy"
+          "path": "/v1/clients/{id}",
+          "op": "delete Client"
         },
         {
           "method": "POST",
-          "path": "/v1/claims",
-          "op": "create Claim"
+          "path": "/v1/groups",
+          "op": "create Group"
         },
         {
           "method": "GET",
-          "path": "/v1/claims",
-          "op": "list Claim"
+          "path": "/v1/groups",
+          "op": "list Group"
         },
         {
           "method": "GET",
-          "path": "/v1/claims/{id}",
-          "op": "get Claim"
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
         },
         {
           "method": "PATCH",
-          "path": "/v1/claims/{id}",
-          "op": "update Claim"
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
         },
         {
           "method": "DELETE",
-          "path": "/v1/claims/{id}",
-          "op": "delete Claim"
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/loantransactions",
+          "op": "create LoanTransaction"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/loantransactions",
+          "op": "list LoanTransaction"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/loantransactions/{id}",
+          "op": "get LoanTransaction"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/loantransactions/{id}",
+          "op": "update LoanTransaction"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/customers",
-          "op": "create Customer"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/customers",
-          "op": "list Customer"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/customers/{id}",
-          "op": "get Customer"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/customers/{id}",
-          "op": "update Customer"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/customers/{id}",
-          "op": "delete Customer"
+          "path": "/v1/loantransactions/{id}",
+          "op": "delete LoanTransaction"
         }
       ],
       "features": {
@@ -244,143 +364,68 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "holderId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "balance"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "create_loan_account",
+          "description": "Create a LoanAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "holderId": {
+              "encodedKey": {
                 "type": "string"
               },
-              "type": {
+              "accountState": {
                 "type": "string"
               },
-              "balance": {
+              "accountSubState": {
+                "type": "string"
+              },
+              "accountHolderType": {
+                "type": "string"
+              },
+              "accountHolderKey": {
+                "type": "string"
+              },
+              "loanAmount": {
                 "type": "number"
               },
-              "currency": {
+              "loanName": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_loan",
-          "description": "Create a Loan.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "borrowerId": {
-                "type": "string"
-              },
-              "principal": {
-                "type": "number"
-              },
-              "rate": {
-                "type": "number"
-              },
-              "termMonths": {
+              "daysInArrears": {
                 "type": "integer"
               },
-              "status": {
+              "creationDate": {
+                "type": "string"
+              },
+              "approvedDate": {
+                "type": "string"
+              },
+              "closedDate": {
                 "type": "string"
               }
             },
             "required": [
-              "principal",
-              "rate"
+              "id",
+              "encodedKey"
             ]
           }
         },
         {
-          "name": "list_loans",
-          "description": "List Loans.",
+          "name": "list_loan_accounts",
+          "description": "List LoanAccounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_loan",
-          "description": "Get a Loan by id.",
+          "name": "get_loan_account",
+          "description": "Get a LoanAccount by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -394,27 +439,45 @@
           }
         },
         {
-          "name": "update_loan",
-          "description": "Update a Loan.",
+          "name": "update_loan_account",
+          "description": "Update a LoanAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "borrowerId": {
+              "encodedKey": {
                 "type": "string"
               },
-              "principal": {
+              "accountState": {
+                "type": "string"
+              },
+              "accountSubState": {
+                "type": "string"
+              },
+              "accountHolderType": {
+                "type": "string"
+              },
+              "accountHolderKey": {
+                "type": "string"
+              },
+              "loanAmount": {
                 "type": "number"
               },
-              "rate": {
-                "type": "number"
+              "loanName": {
+                "type": "string"
               },
-              "termMonths": {
+              "daysInArrears": {
                 "type": "integer"
               },
-              "status": {
+              "creationDate": {
+                "type": "string"
+              },
+              "approvedDate": {
+                "type": "string"
+              },
+              "closedDate": {
                 "type": "string"
               }
             },
@@ -424,8 +487,8 @@
           }
         },
         {
-          "name": "delete_loan",
-          "description": "Delete a Loan.",
+          "name": "delete_loan_account",
+          "description": "Delete a LoanAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -439,44 +502,50 @@
           }
         },
         {
-          "name": "create_policy",
-          "description": "Create a Policy.",
+          "name": "create_deposit_account",
+          "description": "Create a DepositAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "holderId": {
+              "id": {
                 "type": "string"
               },
-              "type": {
+              "encodedKey": {
                 "type": "string"
               },
-              "premium": {
-                "type": "number"
+              "accountState": {
+                "type": "string"
               },
-              "coverage": {
-                "type": "number"
+              "accountHolderType": {
+                "type": "string"
               },
-              "status": {
+              "accountHolderKey": {
+                "type": "string"
+              },
+              "creationDate": {
+                "type": "string"
+              },
+              "approvedDate": {
                 "type": "string"
               }
             },
             "required": [
-              "type",
-              "premium"
+              "id",
+              "encodedKey"
             ]
           }
         },
         {
-          "name": "list_policies",
-          "description": "List Policies.",
+          "name": "list_deposit_accounts",
+          "description": "List DepositAccounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_policy",
-          "description": "Get a Policy by id.",
+          "name": "get_deposit_account",
+          "description": "Get a DepositAccount by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -490,27 +559,30 @@
           }
         },
         {
-          "name": "update_policy",
-          "description": "Update a Policy.",
+          "name": "update_deposit_account",
+          "description": "Update a DepositAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "holderId": {
+              "encodedKey": {
                 "type": "string"
               },
-              "type": {
+              "accountState": {
                 "type": "string"
               },
-              "premium": {
-                "type": "number"
+              "accountHolderType": {
+                "type": "string"
               },
-              "coverage": {
-                "type": "number"
+              "accountHolderKey": {
+                "type": "string"
               },
-              "status": {
+              "creationDate": {
+                "type": "string"
+              },
+              "approvedDate": {
                 "type": "string"
               }
             },
@@ -520,8 +592,8 @@
           }
         },
         {
-          "name": "delete_policy",
-          "description": "Delete a Policy.",
+          "name": "delete_deposit_account",
+          "description": "Delete a DepositAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -535,41 +607,53 @@
           }
         },
         {
-          "name": "create_claim",
-          "description": "Create a Claim.",
+          "name": "create_client",
+          "description": "Create a Client.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "policyId": {
+              "id": {
                 "type": "string"
               },
-              "amount": {
-                "type": "number"
-              },
-              "status": {
+              "encodedKey": {
                 "type": "string"
               },
-              "filedAt": {
+              "state": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "emailAddress": {
+                "type": "string"
+              },
+              "mobilePhone": {
+                "type": "string"
+              },
+              "creationDate": {
                 "type": "string"
               }
             },
             "required": [
-              "amount",
-              "status"
+              "id",
+              "encodedKey"
             ]
           }
         },
         {
-          "name": "list_claims",
-          "description": "List Claims.",
+          "name": "list_clients",
+          "description": "List Clients.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_claim",
-          "description": "Get a Claim by id.",
+          "name": "get_client",
+          "description": "Get a Client by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,24 +667,33 @@
           }
         },
         {
-          "name": "update_claim",
-          "description": "Update a Claim.",
+          "name": "update_client",
+          "description": "Update a Client.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "policyId": {
+              "encodedKey": {
                 "type": "string"
               },
-              "amount": {
-                "type": "number"
-              },
-              "status": {
+              "state": {
                 "type": "string"
               },
-              "filedAt": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "emailAddress": {
+                "type": "string"
+              },
+              "mobilePhone": {
+                "type": "string"
+              },
+              "creationDate": {
                 "type": "string"
               }
             },
@@ -610,8 +703,8 @@
           }
         },
         {
-          "name": "delete_claim",
-          "description": "Delete a Claim.",
+          "name": "delete_client",
+          "description": "Delete a Client.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -625,41 +718,44 @@
           }
         },
         {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
+          "name": "create_group",
+          "description": "Create a Group.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
+              "id": {
                 "type": "string"
               },
-              "amount": {
-                "type": "number"
-              },
-              "type": {
+              "encodedKey": {
                 "type": "string"
               },
-              "postedAt": {
+              "groupName": {
+                "type": "string"
+              },
+              "assignedBranchKey": {
+                "type": "string"
+              },
+              "creationDate": {
                 "type": "string"
               }
             },
             "required": [
-              "amount",
-              "type"
+              "id",
+              "encodedKey"
             ]
           }
         },
         {
-          "name": "list_transactions",
-          "description": "List Transactions.",
+          "name": "list_groups",
+          "description": "List Groups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
+          "name": "get_group",
+          "description": "Get a Group by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,80 +769,95 @@
           }
         },
         {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
+          "name": "update_group",
+          "description": "Update a Group.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "accountId": {
+              "encodedKey": {
+                "type": "string"
+              },
+              "groupName": {
+                "type": "string"
+              },
+              "assignedBranchKey": {
+                "type": "string"
+              },
+              "creationDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_group",
+          "description": "Delete a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_loan_transaction",
+          "description": "Create a LoanTransaction.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "encodedKey": {
+                "type": "string"
+              },
+              "type": {
                 "type": "string"
               },
               "amount": {
                 "type": "number"
               },
-              "type": {
+              "notes": {
                 "type": "string"
               },
-              "postedAt": {
+              "creationDate": {
+                "type": "string"
+              },
+              "bookingDate": {
+                "type": "string"
+              },
+              "valueDate": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "id",
+              "encodedKey"
             ]
           }
         },
         {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_customer",
-          "description": "Create a Customer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "taxId": {
-                "type": "string"
-              },
-              "kycStatus": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "kycStatus"
-            ]
-          }
-        },
-        {
-          "name": "list_customers",
-          "description": "List Customers.",
+          "name": "list_loan_transactions",
+          "description": "List LoanTransactions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_customer",
-          "description": "Get a Customer by id.",
+          "name": "get_loan_transaction",
+          "description": "Get a LoanTransaction by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -760,21 +871,33 @@
           }
         },
         {
-          "name": "update_customer",
-          "description": "Update a Customer.",
+          "name": "update_loan_transaction",
+          "description": "Update a LoanTransaction.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "encodedKey": {
                 "type": "string"
               },
-              "taxId": {
+              "type": {
                 "type": "string"
               },
-              "kycStatus": {
+              "amount": {
+                "type": "number"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "creationDate": {
+                "type": "string"
+              },
+              "bookingDate": {
+                "type": "string"
+              },
+              "valueDate": {
                 "type": "string"
               }
             },
@@ -784,8 +907,8 @@
           }
         },
         {
-          "name": "delete_customer",
-          "description": "Delete a Customer.",
+          "name": "delete_loan_transaction",
+          "description": "Delete a LoanTransaction.",
           "inputSchema": {
             "type": "object",
             "properties": {

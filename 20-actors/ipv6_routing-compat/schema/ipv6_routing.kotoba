@@ -3,69 +3,61 @@
 
 namespace ipv6_routing {
 
-    entity Prefix {
+    entity Ipv6Header {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        version: integer
+        trafficClass: integer
+        flowLabel: integer
+        payloadLength: integer
+        nextHeader: integer
+        hopLimit: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity Icmpv6Message {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        type: integer
+        code: integer
+        checksum: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity DestinationUnreachable {
         id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
+        type: integer
+        code: integer
+        checksum: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Zone {
+    entity TimeExceeded {
         id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
+        type: integer
+        code: integer
+        checksum: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Record {
+    entity ParameterProblem {
         id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
+        type: integer
+        code: integer
+        pointer: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Tunnel {
+    entity NdpMessage {
         id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        type: integer
+        code: integer
+        targetAddress: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

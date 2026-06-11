@@ -111,186 +111,59 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'startsAt', 'venue', 'capacity'])
+    err = _reject_unknown(data, ['id', 'about', 'fullName', 'firstName', 'lastName', 'email', 'isCreator', 'isEmailVerified', 'likeCount', 'created'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'startsAt'])
+    err = _require(data, ['id', 'about'])
     if err:
         return err, 400
-    rec = {"id": new_id("patreon_eve")}
-    rec["name"] = data.get('name')
-    rec["startsAt"] = data.get('startsAt')
-    rec["venue"] = data.get('venue')
-    rec["capacity"] = _as_int(data.get('capacity'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['name', 'startsAt', 'venue', 'capacity'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'startsAt', 'venue', 'capacity'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tickets", methods=["POST"])
-def create_ticket(request):
-    """Create a Ticket."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['eventId', 'type', 'price', 'sold'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'price'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("patreon_tic")}
-    rec["eventId"] = data.get('eventId')
-    rec["type"] = data.get('type')
-    rec["price"] = _as_float(data.get('price'))
-    rec["sold"] = _as_int(data.get('sold'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Ticket", rec)
-    return rec, 201
-
-@app.route("/v1/tickets", methods=["GET"])
-def list_tickets(request):
-    """List Tickets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Ticket")
-    rows = _apply_filters(rows, params, ['eventId', 'type', 'price', 'sold'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tickets/<eid>", methods=["GET"])
-def get_ticket(request, eid):
-    """Retrieve a Ticket by id (supports ?expand=)."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'eventId': 'Event'})
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["POST", "PATCH"])
-def update_ticket(request, eid):
-    """Update a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['eventId', 'type', 'price', 'sold'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Ticket", rec)
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["DELETE"])
-def delete_ticket(request, eid):
-    """Delete a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Ticket", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/attendees", methods=["POST"])
-def create_attendee(request):
-    """Create a Attendee."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['eventId', 'email', 'checkedIn'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'checkedIn'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("patreon_att")}
-    rec["eventId"] = data.get('eventId')
+    rec = {"id": new_id("patreon_use")}
+    rec["id"] = data.get('id')
+    rec["about"] = data.get('about')
+    rec["fullName"] = data.get('fullName')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
     rec["email"] = data.get('email')
-    rec["checkedIn"] = _as_bool(data.get('checkedIn'))
+    rec["isCreator"] = _as_bool(data.get('isCreator'))
+    rec["isEmailVerified"] = _as_bool(data.get('isEmailVerified'))
+    rec["likeCount"] = _as_int(data.get('likeCount'))
+    rec["created"] = data.get('created')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Attendee", rec)
+    _persist("User", rec)
     return rec, 201
 
-@app.route("/v1/attendees", methods=["GET"])
-def list_attendees(request):
-    """List Attendees with filtering + cursor pagination."""
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Attendee")
-    rows = _apply_filters(rows, params, ['eventId', 'email', 'checkedIn'])
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['id', 'about', 'fullName', 'firstName', 'lastName', 'email', 'isCreator', 'isEmailVerified', 'likeCount', 'created'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/attendees/<eid>", methods=["GET"])
-def get_attendee(request, eid):
-    """Retrieve a Attendee by id (supports ?expand=)."""
-    rows = _query("Attendee", eid)
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'eventId': 'Event'})
     return rec, 200
 
-@app.route("/v1/attendees/<eid>", methods=["POST", "PATCH"])
-def update_attendee(request, eid):
-    """Update a Attendee."""
-    rows = _query("Attendee", eid)
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['eventId', 'email', 'checkedIn'])
+    err = _reject_unknown(data, ['id', 'about', 'fullName', 'firstName', 'lastName', 'email', 'isCreator', 'isEmailVerified', 'likeCount', 'created'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,196 +171,154 @@ def update_attendee(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Attendee", rec)
+    _persist("User", rec)
     return rec, 200
 
-@app.route("/v1/attendees/<eid>", methods=["DELETE"])
-def delete_attendee(request, eid):
-    """Delete a Attendee."""
-    rows = _query("Attendee", eid)
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Attendee", "id": eid})
+    db.retract({"entity": f"patreon.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/donors", methods=["POST"])
-def create_donor(request):
-    """Create a Donor."""
+@app.route("/v1/members", methods=["POST"])
+def create_member(request):
+    """Create a Member."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'lifetimeValue'])
+    err = _reject_unknown(data, ['id', 'patronStatus', 'lastChargeStatus', 'fullName', 'email', 'currentlyEntitledAmountCents', 'campaignLifetimeSupportCents', 'willPayAmountCents', 'isFollower', 'isFreeTrial', 'lastChargeDate', 'nextChargeDate', 'pledgeRelationshipStart'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'name'])
+    err = _require(data, ['id', 'patronStatus'])
     if err:
         return err, 400
-    rec = {"id": new_id("patreon_don")}
-    rec["email"] = data.get('email')
-    rec["name"] = data.get('name')
-    rec["lifetimeValue"] = _as_float(data.get('lifetimeValue'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Donor", rec)
-    return rec, 201
-
-@app.route("/v1/donors", methods=["GET"])
-def list_donors(request):
-    """List Donors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Donor")
-    rows = _apply_filters(rows, params, ['email', 'name', 'lifetimeValue'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/donors/<eid>", methods=["GET"])
-def get_donor(request, eid):
-    """Retrieve a Donor by id (supports ?expand=)."""
-    rows = _query("Donor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/donors/<eid>", methods=["POST", "PATCH"])
-def update_donor(request, eid):
-    """Update a Donor."""
-    rows = _query("Donor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'lifetimeValue'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Donor", rec)
-    return rec, 200
-
-@app.route("/v1/donors/<eid>", methods=["DELETE"])
-def delete_donor(request, eid):
-    """Delete a Donor."""
-    rows = _query("Donor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Donor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/donations", methods=["POST"])
-def create_donation(request):
-    """Create a Donation."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['donorId', 'amount', 'currency', 'recurring'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("patreon_don")}
-    rec["donorId"] = data.get('donorId')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["recurring"] = _as_bool(data.get('recurring'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Donation", rec)
-    return rec, 201
-
-@app.route("/v1/donations", methods=["GET"])
-def list_donations(request):
-    """List Donations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Donation")
-    rows = _apply_filters(rows, params, ['donorId', 'amount', 'currency', 'recurring'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/donations/<eid>", methods=["GET"])
-def get_donation(request, eid):
-    """Retrieve a Donation by id (supports ?expand=)."""
-    rows = _query("Donation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'donorId': 'Donor'})
-    return rec, 200
-
-@app.route("/v1/donations/<eid>", methods=["POST", "PATCH"])
-def update_donation(request, eid):
-    """Update a Donation."""
-    rows = _query("Donation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['donorId', 'amount', 'currency', 'recurring'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Donation", rec)
-    return rec, 200
-
-@app.route("/v1/donations/<eid>", methods=["DELETE"])
-def delete_donation(request, eid):
-    """Delete a Donation."""
-    rows = _query("Donation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Donation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/memberships", methods=["POST"])
-def create_membership(request):
-    """Create a Membership."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['memberId', 'tier', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['tier', 'status'])
-    if err:
-        return err, 400
+    if data.get('patronStatus') and data['patronStatus'] not in ['active_patron', 'declined_patron', 'former_patron']:
+        return {"error": {"message": "invalid patronStatus; allowed: " + ", ".join(['active_patron', 'declined_patron', 'former_patron']), "type": "invalid_request_error"}}, 400
+    if data.get('lastChargeStatus') and data['lastChargeStatus'] not in ['Paid', 'Declined', 'Deleted', 'Pending', 'Refunded', 'Fraud', 'Refunded by Patreon', 'Other', 'Partially Refunded', 'Free Trial', 'Refund Pending', 'Refund Declined']:
+        return {"error": {"message": "invalid lastChargeStatus; allowed: " + ", ".join(['Paid', 'Declined', 'Deleted', 'Pending', 'Refunded', 'Fraud', 'Refunded by Patreon', 'Other', 'Partially Refunded', 'Free Trial', 'Refund Pending', 'Refund Declined']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("patreon_mem")}
-    rec["memberId"] = data.get('memberId')
-    rec["tier"] = data.get('tier')
-    rec["status"] = data.get('status')
+    rec["id"] = data.get('id')
+    rec["patronStatus"] = data.get('patronStatus')
+    rec["lastChargeStatus"] = data.get('lastChargeStatus')
+    rec["fullName"] = data.get('fullName')
+    rec["email"] = data.get('email')
+    rec["currentlyEntitledAmountCents"] = _as_int(data.get('currentlyEntitledAmountCents'))
+    rec["campaignLifetimeSupportCents"] = _as_int(data.get('campaignLifetimeSupportCents'))
+    rec["willPayAmountCents"] = _as_int(data.get('willPayAmountCents'))
+    rec["isFollower"] = _as_bool(data.get('isFollower'))
+    rec["isFreeTrial"] = _as_bool(data.get('isFreeTrial'))
+    rec["lastChargeDate"] = data.get('lastChargeDate')
+    rec["nextChargeDate"] = data.get('nextChargeDate')
+    rec["pledgeRelationshipStart"] = data.get('pledgeRelationshipStart')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Membership", rec)
+    _persist("Member", rec)
     return rec, 201
 
-@app.route("/v1/memberships", methods=["GET"])
-def list_memberships(request):
-    """List Memberships with filtering + cursor pagination."""
+@app.route("/v1/members", methods=["GET"])
+def list_members(request):
+    """List Members with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Membership")
-    rows = _apply_filters(rows, params, ['memberId', 'tier', 'status'])
+    rows = _query("Member")
+    rows = _apply_filters(rows, params, ['id', 'patronStatus', 'lastChargeStatus', 'fullName', 'email', 'currentlyEntitledAmountCents', 'campaignLifetimeSupportCents', 'willPayAmountCents', 'isFollower', 'isFreeTrial', 'lastChargeDate', 'nextChargeDate', 'pledgeRelationshipStart'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/memberships/<eid>", methods=["GET"])
-def get_membership(request, eid):
-    """Retrieve a Membership by id (supports ?expand=)."""
-    rows = _query("Membership", eid)
+@app.route("/v1/members/<eid>", methods=["GET"])
+def get_member(request, eid):
+    """Retrieve a Member by id (supports ?expand=)."""
+    rows = _query("Member", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/memberships/<eid>", methods=["POST", "PATCH"])
-def update_membership(request, eid):
-    """Update a Membership."""
-    rows = _query("Membership", eid)
+@app.route("/v1/members/<eid>", methods=["POST", "PATCH"])
+def update_member(request, eid):
+    """Update a Member."""
+    rows = _query("Member", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['memberId', 'tier', 'status'])
+    err = _reject_unknown(data, ['id', 'patronStatus', 'lastChargeStatus', 'fullName', 'email', 'currentlyEntitledAmountCents', 'campaignLifetimeSupportCents', 'willPayAmountCents', 'isFollower', 'isFreeTrial', 'lastChargeDate', 'nextChargeDate', 'pledgeRelationshipStart'])
+    if err:
+        return err, 400
+    if data.get('patronStatus') and data['patronStatus'] not in ['active_patron', 'declined_patron', 'former_patron']:
+        return {"error": {"message": "invalid patronStatus; allowed: " + ", ".join(['active_patron', 'declined_patron', 'former_patron']), "type": "invalid_request_error"}}, 400
+    if data.get('lastChargeStatus') and data['lastChargeStatus'] not in ['Paid', 'Declined', 'Deleted', 'Pending', 'Refunded', 'Fraud', 'Refunded by Patreon', 'Other', 'Partially Refunded', 'Free Trial', 'Refund Pending', 'Refund Declined']:
+        return {"error": {"message": "invalid lastChargeStatus; allowed: " + ", ".join(['Paid', 'Declined', 'Deleted', 'Pending', 'Refunded', 'Fraud', 'Refunded by Patreon', 'Other', 'Partially Refunded', 'Free Trial', 'Refund Pending', 'Refund Declined']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Member", rec)
+    return rec, 200
+
+@app.route("/v1/members/<eid>", methods=["DELETE"])
+def delete_member(request, eid):
+    """Delete a Member."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"patreon.Member", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/campaigns", methods=["POST"])
+def create_campaign(request):
+    """Create a Campaign."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'creationName', 'currency', 'name', 'patronCount', 'payPerName', 'isMonthly', 'isNsfw', 'createdAt', 'publishedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'creationName'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("patreon_cam")}
+    rec["id"] = data.get('id')
+    rec["creationName"] = data.get('creationName')
+    rec["currency"] = data.get('currency')
+    rec["name"] = data.get('name')
+    rec["patronCount"] = _as_int(data.get('patronCount'))
+    rec["payPerName"] = data.get('payPerName')
+    rec["isMonthly"] = _as_bool(data.get('isMonthly'))
+    rec["isNsfw"] = _as_bool(data.get('isNsfw'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["publishedAt"] = data.get('publishedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Campaign", rec)
+    return rec, 201
+
+@app.route("/v1/campaigns", methods=["GET"])
+def list_campaigns(request):
+    """List Campaigns with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Campaign")
+    rows = _apply_filters(rows, params, ['id', 'creationName', 'currency', 'name', 'patronCount', 'payPerName', 'isMonthly', 'isNsfw', 'createdAt', 'publishedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/campaigns/<eid>", methods=["GET"])
+def get_campaign(request, eid):
+    """Retrieve a Campaign by id (supports ?expand=)."""
+    rows = _query("Campaign", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/campaigns/<eid>", methods=["POST", "PATCH"])
+def update_campaign(request, eid):
+    """Update a Campaign."""
+    rows = _query("Campaign", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'creationName', 'currency', 'name', 'patronCount', 'payPerName', 'isMonthly', 'isNsfw', 'createdAt', 'publishedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +326,162 @@ def update_membership(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Membership", rec)
+    _persist("Campaign", rec)
     return rec, 200
 
-@app.route("/v1/memberships/<eid>", methods=["DELETE"])
-def delete_membership(request, eid):
-    """Delete a Membership."""
-    rows = _query("Membership", eid)
+@app.route("/v1/campaigns/<eid>", methods=["DELETE"])
+def delete_campaign(request, eid):
+    """Delete a Campaign."""
+    rows = _query("Campaign", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"patreon.Membership", "id": eid})
+    db.retract({"entity": f"patreon.Campaign", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tiers", methods=["POST"])
+def create_tier(request):
+    """Create a Tier."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amountCents', 'description', 'patronCount', 'published', 'requiresShipping', 'title', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amountCents'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("patreon_tie")}
+    rec["id"] = data.get('id')
+    rec["amountCents"] = _as_int(data.get('amountCents'))
+    rec["description"] = data.get('description')
+    rec["patronCount"] = _as_int(data.get('patronCount'))
+    rec["published"] = _as_bool(data.get('published'))
+    rec["requiresShipping"] = _as_bool(data.get('requiresShipping'))
+    rec["title"] = data.get('title')
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Tier", rec)
+    return rec, 201
+
+@app.route("/v1/tiers", methods=["GET"])
+def list_tiers(request):
+    """List Tiers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Tier")
+    rows = _apply_filters(rows, params, ['id', 'amountCents', 'description', 'patronCount', 'published', 'requiresShipping', 'title', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tiers/<eid>", methods=["GET"])
+def get_tier(request, eid):
+    """Retrieve a Tier by id (supports ?expand=)."""
+    rows = _query("Tier", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/tiers/<eid>", methods=["POST", "PATCH"])
+def update_tier(request, eid):
+    """Update a Tier."""
+    rows = _query("Tier", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amountCents', 'description', 'patronCount', 'published', 'requiresShipping', 'title', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Tier", rec)
+    return rec, 200
+
+@app.route("/v1/tiers/<eid>", methods=["DELETE"])
+def delete_tier(request, eid):
+    """Delete a Tier."""
+    rows = _query("Tier", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"patreon.Tier", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/benefits", methods=["POST"])
+def create_benefit(request):
+    """Create a Benefit."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'benefitType', 'description', 'isDeleted', 'isPublished', 'title', 'tiersCount', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'benefitType'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("patreon_ben")}
+    rec["id"] = data.get('id')
+    rec["benefitType"] = data.get('benefitType')
+    rec["description"] = data.get('description')
+    rec["isDeleted"] = _as_bool(data.get('isDeleted'))
+    rec["isPublished"] = _as_bool(data.get('isPublished'))
+    rec["title"] = data.get('title')
+    rec["tiersCount"] = _as_int(data.get('tiersCount'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Benefit", rec)
+    return rec, 201
+
+@app.route("/v1/benefits", methods=["GET"])
+def list_benefits(request):
+    """List Benefits with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Benefit")
+    rows = _apply_filters(rows, params, ['id', 'benefitType', 'description', 'isDeleted', 'isPublished', 'title', 'tiersCount', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/benefits/<eid>", methods=["GET"])
+def get_benefit(request, eid):
+    """Retrieve a Benefit by id (supports ?expand=)."""
+    rows = _query("Benefit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/benefits/<eid>", methods=["POST", "PATCH"])
+def update_benefit(request, eid):
+    """Update a Benefit."""
+    rows = _query("Benefit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'benefitType', 'description', 'isDeleted', 'isPublished', 'title', 'tiersCount', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Benefit", rec)
+    return rec, 200
+
+@app.route("/v1/benefits/<eid>", methods=["DELETE"])
+def delete_benefit(request, eid):
+    """Delete a Benefit."""
+    rows = _query("Benefit", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"patreon.Benefit", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "patreon-compat", "tier": "L4",
-            "entities": ['Event', 'Ticket', 'Attendee', 'Donor', 'Donation', 'Membership']}, 200
+            "entities": ['User', 'Member', 'Campaign', 'Tier', 'Benefit']}, 200
 
 
 if __name__ == "__main__":

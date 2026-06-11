@@ -111,253 +111,125 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/featureflags", methods=["POST"])
+def create_feature_flag(request):
+    """Create a FeatureFlag."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['key', 'name', 'kind', 'description', 'temporary', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'environment'])
+    err = _require(data, ['key', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("launchda_ser")}
+    if data.get('kind') and data['kind'] not in ['boolean', 'multivariate']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['boolean', 'multivariate']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("launchda_fea")}
+    rec["key"] = data.get('key')
     rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
+    rec["kind"] = data.get('kind')
+    rec["description"] = data.get('description')
+    rec["temporary"] = _as_bool(data.get('temporary'))
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
+    _persist("FeatureFlag", rec)
     return rec, 201
 
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
+@app.route("/v1/featureflags", methods=["GET"])
+def list_feature_flags(request):
+    """List FeatureFlags with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
+    rows = _query("FeatureFlag")
+    rows = _apply_filters(rows, params, ['key', 'name', 'kind', 'description', 'temporary', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
+@app.route("/v1/featureflags/<eid>", methods=["GET"])
+def get_feature_flag(request, eid):
+    """Retrieve a FeatureFlag by id (supports ?expand=)."""
+    rows = _query("FeatureFlag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/featureflags/<eid>", methods=["POST", "PATCH"])
+def update_feature_flag(request, eid):
+    """Update a FeatureFlag."""
+    rows = _query("FeatureFlag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['key', 'name', 'kind', 'description', 'temporary', 'archived'])
     if err:
         return err, 400
+    if data.get('kind') and data['kind'] not in ['boolean', 'multivariate']:
+        return {"error": {"message": "invalid kind; allowed: " + ", ".join(['boolean', 'multivariate']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Service", rec)
+    _persist("FeatureFlag", rec)
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/featureflags/<eid>", methods=["DELETE"])
+def delete_feature_flag(request, eid):
+    """Delete a FeatureFlag."""
+    rows = _query("FeatureFlag", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Service", "id": eid})
+    db.retract({"entity": f"launchdarkly.FeatureFlag", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
+    err = _reject_unknown(data, ['id', 'key', 'name', 'includeInSnippetByDefault'])
     if err:
         return err, 400
-    err = _require(data, ['message', 'culprit'])
+    err = _require(data, ['id', 'key'])
     if err:
         return err, 400
-    rec = {"id": new_id("launchda_err")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
-    return rec, 201
-
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Error", rec)
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Error", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['operation', 'durationMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("launchda_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
-    return rec, 201
-
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Trace", rec)
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Trace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("launchda_met")}
-    rec["serviceId"] = data.get('serviceId')
+    rec = {"id": new_id("launchda_pro")}
+    rec["id"] = data.get('id')
+    rec["key"] = data.get('key')
     rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    rec["includeInSnippetByDefault"] = _as_bool(data.get('includeInSnippetByDefault'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['id', 'key', 'name', 'includeInSnippetByDefault'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['id', 'key', 'name', 'includeInSnippetByDefault'])
     if err:
         return err, 400
     rec = rows[0]
@@ -365,66 +237,67 @@ def update_metric(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Metric", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Metric", "id": eid})
+    db.retract({"entity": f"launchdarkly.Project", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
+@app.route("/v1/environments", methods=["POST"])
+def create_environment(request):
+    """Create a Environment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['id', 'key', 'name', 'apiKey', 'mobileKey', 'color'])
     if err:
         return err, 400
-    err = _require(data, ['condition', 'severity'])
+    err = _require(data, ['id', 'key'])
     if err:
         return err, 400
-    rec = {"id": new_id("launchda_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("launchda_env")}
+    rec["id"] = data.get('id')
+    rec["key"] = data.get('key')
+    rec["name"] = data.get('name')
+    rec["apiKey"] = data.get('apiKey')
+    rec["mobileKey"] = data.get('mobileKey')
+    rec["color"] = data.get('color')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
+    _persist("Environment", rec)
     return rec, 201
 
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
+@app.route("/v1/environments", methods=["GET"])
+def list_environments(request):
+    """List Environments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
+    rows = _query("Environment")
+    rows = _apply_filters(rows, params, ['id', 'key', 'name', 'apiKey', 'mobileKey', 'color'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
+@app.route("/v1/environments/<eid>", methods=["GET"])
+def get_environment(request, eid):
+    """Retrieve a Environment by id (supports ?expand=)."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/environments/<eid>", methods=["POST", "PATCH"])
+def update_environment(request, eid):
+    """Update a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
+    err = _reject_unknown(data, ['id', 'key', 'name', 'apiKey', 'mobileKey', 'color'])
     if err:
         return err, 400
     rec = rows[0]
@@ -432,65 +305,67 @@ def update_alert(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Alert", rec)
+    _persist("Environment", rec)
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/environments/<eid>", methods=["DELETE"])
+def delete_environment(request, eid):
+    """Delete a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Alert", "id": eid})
+    db.retract({"entity": f"launchdarkly.Environment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/incidents", methods=["POST"])
-def create_incident(request):
-    """Create a Incident."""
+@app.route("/v1/segments", methods=["POST"])
+def create_segment(request):
+    """Create a Segment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['key', 'name', 'environmentKey', 'description', 'deleted', 'creationDate'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'status'])
+    err = _require(data, ['key', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("launchda_inc")}
-    rec["title"] = data.get('title')
-    rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec = {"id": new_id("launchda_seg")}
+    rec["key"] = data.get('key')
+    rec["name"] = data.get('name')
+    rec["environmentKey"] = data.get('environmentKey')
+    rec["description"] = data.get('description')
+    rec["deleted"] = _as_bool(data.get('deleted'))
+    rec["creationDate"] = _as_int(data.get('creationDate'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Incident", rec)
+    _persist("Segment", rec)
     return rec, 201
 
-@app.route("/v1/incidents", methods=["GET"])
-def list_incidents(request):
-    """List Incidents with filtering + cursor pagination."""
+@app.route("/v1/segments", methods=["GET"])
+def list_segments(request):
+    """List Segments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _query("Segment")
+    rows = _apply_filters(rows, params, ['key', 'name', 'environmentKey', 'description', 'deleted', 'creationDate'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/incidents/<eid>", methods=["GET"])
-def get_incident(request, eid):
-    """Retrieve a Incident by id (supports ?expand=)."""
-    rows = _query("Incident", eid)
+@app.route("/v1/segments/<eid>", methods=["GET"])
+def get_segment(request, eid):
+    """Retrieve a Segment by id (supports ?expand=)."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["POST", "PATCH"])
-def update_incident(request, eid):
-    """Update a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/segments/<eid>", methods=["POST", "PATCH"])
+def update_segment(request, eid):
+    """Update a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['key', 'name', 'environmentKey', 'description', 'deleted', 'creationDate'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +373,159 @@ def update_incident(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Incident", rec)
+    _persist("Segment", rec)
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["DELETE"])
-def delete_incident(request, eid):
-    """Delete a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/segments/<eid>", methods=["DELETE"])
+def delete_segment(request, eid):
+    """Delete a Segment."""
+    rows = _query("Segment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"launchdarkly.Incident", "id": eid})
+    db.retract({"entity": f"launchdarkly.Segment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/members", methods=["POST"])
+def create_member(request):
+    """Create a Member."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'email', 'firstName', 'lastName', 'role'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'email'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['reader', 'writer', 'admin', 'no_access']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['reader', 'writer', 'admin', 'no_access']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("launchda_mem")}
+    rec["id"] = data.get('id')
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["role"] = data.get('role')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Member", rec)
+    return rec, 201
+
+@app.route("/v1/members", methods=["GET"])
+def list_members(request):
+    """List Members with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Member")
+    rows = _apply_filters(rows, params, ['id', 'email', 'firstName', 'lastName', 'role'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/members/<eid>", methods=["GET"])
+def get_member(request, eid):
+    """Retrieve a Member by id (supports ?expand=)."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/members/<eid>", methods=["POST", "PATCH"])
+def update_member(request, eid):
+    """Update a Member."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'email', 'firstName', 'lastName', 'role'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['reader', 'writer', 'admin', 'no_access']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['reader', 'writer', 'admin', 'no_access']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Member", rec)
+    return rec, 200
+
+@app.route("/v1/members/<eid>", methods=["DELETE"])
+def delete_member(request, eid):
+    """Delete a Member."""
+    rows = _query("Member", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"launchdarkly.Member", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/webhooks", methods=["POST"])
+def create_webhook(request):
+    """Create a Webhook."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'url', 'on'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("launchda_web")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
+    rec["url"] = data.get('url')
+    rec["on"] = _as_bool(data.get('on'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Webhook", rec)
+    return rec, 201
+
+@app.route("/v1/webhooks", methods=["GET"])
+def list_webhooks(request):
+    """List Webhooks with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Webhook")
+    rows = _apply_filters(rows, params, ['id', 'name', 'url', 'on'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/webhooks/<eid>", methods=["GET"])
+def get_webhook(request, eid):
+    """Retrieve a Webhook by id (supports ?expand=)."""
+    rows = _query("Webhook", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
+def update_webhook(request, eid):
+    """Update a Webhook."""
+    rows = _query("Webhook", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'url', 'on'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Webhook", rec)
+    return rec, 200
+
+@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
+def delete_webhook(request, eid):
+    """Delete a Webhook."""
+    rows = _query("Webhook", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"launchdarkly.Webhook", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "launchdarkly-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['FeatureFlag', 'Project', 'Environment', 'Segment', 'Member', 'Webhook']}, 200
 
 
 if __name__ == "__main__":

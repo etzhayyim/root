@@ -5,21 +5,43 @@
   "kind": "compat",
   "title": "sendbird clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (sendbird); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+  "wasmCid": "bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
+  "ipfs": "ipfs://bafkreic4aoe356hrfa5gfwyujeggv53fngh35u6you2aco7teasniqvnq4",
   "schema": "schema/sendbird.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://sendbird.com/docs/chat/platform-api/v3",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "User",
+      "Message",
+      "GroupChannel",
+      "OpenChannel"
+    ],
+    "enums": {
+      "User": {
+        "role": [
+          "operator",
+          ""
+        ]
+      },
+      "Message": {
+        "type": [
+          "MESG",
+          "FILE",
+          "ADMM"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
-    "Message",
     "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Message",
+    "GroupChannel",
+    "OpenChannel"
   ],
   "adr": [
     "260607",
@@ -31,32 +53,32 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
@@ -85,103 +107,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
+          "path": "/v1/groupchannels",
+          "op": "create GroupChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
+          "path": "/v1/groupchannels",
+          "op": "list GroupChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
+          "path": "/v1/groupchannels/{id}",
+          "op": "get GroupChannel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
+          "path": "/v1/groupchannels/{id}",
+          "op": "update GroupChannel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/groupchannels/{id}",
+          "op": "delete GroupChannel"
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/openchannels",
+          "op": "create OpenChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/openchannels",
+          "op": "list OpenChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/openchannels/{id}",
+          "op": "get OpenChannel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/openchannels/{id}",
+          "op": "update OpenChannel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/openchannels/{id}",
+          "op": "delete OpenChannel"
         }
       ],
       "features": {
@@ -244,207 +216,45 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
-        {
-          "name": "create_channel",
-          "description": "Create a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_channels",
-          "description": "List Channels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_channel",
-          "description": "Update a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "topic": {
-                "type": "string"
-              },
-              "memberCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body",
-              "sentAt"
-            ]
-          }
-        },
-        {
-          "name": "list_messages",
-          "description": "List Messages.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_message",
-          "description": "Get a Message by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_message",
-          "description": "Update a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "channelId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "sentAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_user",
           "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "userId": {
                 "type": "string"
               },
-              "displayName": {
+              "nickname": {
                 "type": "string"
               },
-              "verified": {
+              "profileUrl": {
+                "type": "string"
+              },
+              "accessToken": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "lastSeenAt": {
+                "type": "integer"
+              },
+              "isOnline": {
                 "type": "boolean"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "nickname",
+              "profileUrl"
             ]
           }
         },
@@ -480,13 +290,31 @@
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "userId": {
                 "type": "string"
               },
-              "displayName": {
+              "nickname": {
                 "type": "string"
               },
-              "verified": {
+              "profileUrl": {
+                "type": "string"
+              },
+              "accessToken": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "lastSeenAt": {
+                "type": "integer"
+              },
+              "isOnline": {
                 "type": "boolean"
               }
             },
@@ -511,38 +339,158 @@
           }
         },
         {
-          "name": "create_room",
-          "description": "Create a Room.",
+          "name": "create_message",
+          "description": "Create a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "messageId": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "customType": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "channelUrl": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              },
+              "isRemoved": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "type",
+              "customType"
+            ]
+          }
+        },
+        {
+          "name": "list_messages",
+          "description": "List Messages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_message",
+          "description": "Get a Message by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_message",
+          "description": "Update a Message.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "messageId": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "customType": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "channelUrl": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              },
+              "isRemoved": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_message",
+          "description": "Delete a Message.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_group_channel",
+          "description": "Create a GroupChannel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "channelUrl": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "memberCount": {
                 "type": "integer"
               },
-              "recording": {
+              "isDistinct": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "maxParticipants"
+              "channelUrl",
+              "name"
             ]
           }
         },
         {
-          "name": "list_rooms",
-          "description": "List Rooms.",
+          "name": "list_group_channels",
+          "description": "List GroupChannels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_room",
-          "description": "Get a Room by id.",
+          "name": "get_group_channel",
+          "description": "Get a GroupChannel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,22 +504,28 @@
           }
         },
         {
-          "name": "update_room",
-          "description": "Update a Room.",
+          "name": "update_group_channel",
+          "description": "Update a GroupChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "channelUrl": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
+              "memberCount": {
                 "type": "integer"
               },
-              "recording": {
+              "isDistinct": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "integer"
               }
             },
             "required": [
@@ -580,8 +534,8 @@
           }
         },
         {
-          "name": "delete_room",
-          "description": "Delete a Room.",
+          "name": "delete_group_channel",
+          "description": "Delete a GroupChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,38 +549,41 @@
           }
         },
         {
-          "name": "create_stream",
-          "description": "Create a Stream.",
+          "name": "create_open_channel",
+          "description": "Create a OpenChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "roomId": {
+              "channelUrl": {
                 "type": "string"
               },
-              "status": {
+              "name": {
                 "type": "string"
               },
-              "bitrate": {
+              "participantCount": {
+                "type": "integer"
+              },
+              "createdAt": {
                 "type": "integer"
               }
             },
             "required": [
-              "status",
-              "bitrate"
+              "channelUrl",
+              "name"
             ]
           }
         },
         {
-          "name": "list_streams",
-          "description": "List Streams.",
+          "name": "list_open_channels",
+          "description": "List OpenChannels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
+          "name": "get_open_channel",
+          "description": "Get a OpenChannel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,21 +597,24 @@
           }
         },
         {
-          "name": "update_stream",
-          "description": "Update a Stream.",
+          "name": "update_open_channel",
+          "description": "Update a OpenChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "roomId": {
+              "channelUrl": {
                 "type": "string"
               },
-              "status": {
+              "name": {
                 "type": "string"
               },
-              "bitrate": {
+              "participantCount": {
+                "type": "integer"
+              },
+              "createdAt": {
                 "type": "integer"
               }
             },
@@ -664,92 +624,8 @@
           }
         },
         {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_open_channel",
+          "description": "Delete a OpenChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {

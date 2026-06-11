@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreidbe2at2yd53oqvisi36hpxfko3mxcgbg32di3zlmsccksdlm2dgi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/repositories": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Repositories",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Repository"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Repository",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepositoryCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/repositories/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Repository",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Repository",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepositoryCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Repository"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Repository",
+        "summary": "Delete a Project",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/pipelines": {
+    "/v1/issuetypes": {
       "get": {
-        "summary": "List Pipelines",
+        "summary": "List IssueTypes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Pipeline"
+                        "$ref": "#/components/schemas/IssueType"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Pipeline",
+        "summary": "Create a IssueType",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/IssueTypeCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/IssueType"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/pipelines/{id}": {
+    "/v1/issuetypes/{id}": {
       "get": {
-        "summary": "Get a Pipeline",
+        "summary": "Get a IssueType",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/IssueType"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Pipeline",
+        "summary": "Update a IssueType",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/IssueTypeCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/IssueType"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Pipeline",
+        "summary": "Delete a IssueType",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/builds": {
+    "/v1/statuses": {
       "get": {
-        "summary": "List Builds",
+        "summary": "List Statuses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Build"
+                        "$ref": "#/components/schemas/Status"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Build",
+        "summary": "Create a Status",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/StatusCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Status"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/builds/{id}": {
+    "/v1/statuses/{id}": {
       "get": {
-        "summary": "Get a Build",
+        "summary": "Get a Status",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Status"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Build",
+        "summary": "Update a Status",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BuildCreate"
+                "$ref": "#/components/schemas/StatusCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "$ref": "#/components/schemas/Status"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Build",
+        "summary": "Delete a Status",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/artifacts": {
+    "/v1/statuscategories": {
       "get": {
-        "summary": "List Artifacts",
+        "summary": "List StatusCategories",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Artifact"
+                        "$ref": "#/components/schemas/StatusCategory"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Artifact",
+        "summary": "Create a StatusCategory",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/StatusCategoryCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/StatusCategory"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/artifacts/{id}": {
+    "/v1/statuscategories/{id}": {
       "get": {
-        "summary": "Get a Artifact",
+        "summary": "Get a StatusCategory",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/StatusCategory"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Artifact",
+        "summary": "Update a StatusCategory",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ArtifactCreate"
+                "$ref": "#/components/schemas/StatusCategoryCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Artifact"
+                  "$ref": "#/components/schemas/StatusCategory"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Artifact",
+        "summary": "Delete a StatusCategory",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/users": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/webhooks": {
+    "/v1/comments": {
       "get": {
-        "summary": "List Webhooks",
+        "summary": "List Comments",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Webhook"
+                        "$ref": "#/components/schemas/Comment"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Webhook",
+        "summary": "Create a Comment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/CommentCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/webhooks/{id}": {
+    "/v1/comments/{id}": {
       "get": {
-        "summary": "Get a Webhook",
+        "summary": "Get a Comment",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Webhook",
+        "summary": "Update a Comment",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/CommentCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Comment",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +1140,37 @@
   },
   "components": {
     "schemas": {
-      "Repository": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "key": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "owner": {
-            "type": "string"
+          "projectTypeKey": {
+            "type": "string",
+            "enum": [
+              "software",
+              "service_desk",
+              "business"
+            ]
           },
-          "defaultBranch": {
-            "type": "string"
+          "style": {
+            "type": "string",
+            "enum": [
+              "classic",
+              "next-gen"
+            ]
           },
-          "private": {
+          "archived": {
+            "type": "boolean"
+          },
+          "simplified": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1168,41 +1183,59 @@
           }
         }
       },
-      "RepositoryCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
+          "key": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "owner": {
-            "type": "string"
+          "projectTypeKey": {
+            "type": "string",
+            "enum": [
+              "software",
+              "service_desk",
+              "business"
+            ]
           },
-          "defaultBranch": {
-            "type": "string"
+          "style": {
+            "type": "string",
+            "enum": [
+              "classic",
+              "next-gen"
+            ]
           },
-          "private": {
+          "archived": {
+            "type": "boolean"
+          },
+          "simplified": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "owner"
+          "key",
+          "name"
         ]
       },
-      "Pipeline": {
+      "IssueType": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "repoId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "trigger": {
+          "description": {
             "type": "string"
+          },
+          "subtask": {
+            "type": "boolean"
+          },
+          "hierarchyLevel": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1214,95 +1247,37 @@
           }
         }
       },
-      "PipelineCreate": {
+      "IssueTypeCreate": {
         "type": "object",
         "properties": {
-          "repoId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "trigger": {
+          "description": {
             "type": "string"
+          },
+          "subtask": {
+            "type": "boolean"
+          },
+          "hierarchyLevel": {
+            "type": "integer"
           }
         },
         "required": [
           "name",
-          "trigger"
+          "description"
         ]
       },
-      "Build": {
+      "Status": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "pipelineId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "commitSha": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "BuildCreate": {
-        "type": "object",
-        "properties": {
-          "pipelineId": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "commitSha": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "number",
-          "status"
-        ]
-      },
-      "Artifact": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "buildId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1315,40 +1290,34 @@
           }
         }
       },
-      "ArtifactCreate": {
+      "StatusCreate": {
         "type": "object",
         "properties": {
-          "buildId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "description": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "sizeBytes"
+          "description"
         ]
       },
-      "Deployment": {
+      "StatusCategory": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "buildId": {
+          "key": {
             "type": "string"
           },
-          "environment": {
+          "name": {
             "type": "string"
           },
-          "status": {
+          "colorName": {
             "type": "string"
           },
           "createdAt": {
@@ -1361,37 +1330,46 @@
           }
         }
       },
-      "DeploymentCreate": {
+      "StatusCategoryCreate": {
         "type": "object",
         "properties": {
-          "buildId": {
+          "key": {
             "type": "string"
           },
-          "environment": {
+          "name": {
             "type": "string"
           },
-          "status": {
+          "colorName": {
             "type": "string"
           }
         },
         "required": [
-          "environment",
-          "status"
+          "key",
+          "name"
         ]
       },
-      "Webhook": {
+      "User": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "repoId": {
+          "accountId": {
             "type": "string"
           },
-          "url": {
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "atlassian",
+              "app",
+              "customer",
+              "unknown"
+            ]
+          },
+          "displayName": {
             "type": "string"
           },
-          "event": {
+          "emailAddress": {
             "type": "string"
           },
           "active": {
@@ -1407,16 +1385,25 @@
           }
         }
       },
-      "WebhookCreate": {
+      "UserCreate": {
         "type": "object",
         "properties": {
-          "repoId": {
+          "accountId": {
             "type": "string"
           },
-          "url": {
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "atlassian",
+              "app",
+              "customer",
+              "unknown"
+            ]
+          },
+          "displayName": {
             "type": "string"
           },
-          "event": {
+          "emailAddress": {
             "type": "string"
           },
           "active": {
@@ -1424,8 +1411,59 @@
           }
         },
         "required": [
-          "url",
-          "event"
+          "accountType",
+          "displayName"
+        ]
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "jsdPublic": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CommentCreate": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          },
+          "jsdPublic": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "body",
+          "created"
         ]
       }
     }

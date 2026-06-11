@@ -111,223 +111,107 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/assets", methods=["POST"])
+def create_asset(request):
+    """Create a Asset."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'currency', 'balance', 'status'])
+    err = _reject_unknown(data, ['symbol', 'assetClass', 'exchange', 'status', 'tradable', 'fractionable'])
     if err:
         return err, 400
-    err = _require(data, ['currency', 'balance'])
+    err = _require(data, ['symbol', 'assetClass'])
     if err:
         return err, 400
-    rec = {"id": new_id("alpaca_acc")}
-    rec["holderId"] = data.get('holderId')
-    rec["currency"] = data.get('currency')
-    rec["balance"] = _as_float(data.get('balance'))
+    if data.get('assetClass') and data['assetClass'] not in ['us_equity', 'us_option', 'crypto', 'crypto_perp']:
+        return {"error": {"message": "invalid assetClass; allowed: " + ", ".join(['us_equity', 'us_option', 'crypto', 'crypto_perp']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['active', 'inactive']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'inactive']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alpaca_ass")}
+    rec["symbol"] = data.get('symbol')
+    rec["assetClass"] = data.get('assetClass')
+    rec["exchange"] = data.get('exchange')
     rec["status"] = data.get('status')
+    rec["tradable"] = _as_bool(data.get('tradable'))
+    rec["fractionable"] = _as_bool(data.get('fractionable'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
+    _persist("Asset", rec)
     return rec, 201
 
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
+@app.route("/v1/assets", methods=["GET"])
+def list_assets(request):
+    """List Assets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['holderId', 'currency', 'balance', 'status'])
+    rows = _query("Asset")
+    rows = _apply_filters(rows, params, ['symbol', 'assetClass', 'exchange', 'status', 'tradable', 'fractionable'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
+@app.route("/v1/assets/<eid>", methods=["GET"])
+def get_asset(request, eid):
+    """Retrieve a Asset by id (supports ?expand=)."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
+def update_asset(request, eid):
+    """Update a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'currency', 'balance', 'status'])
+    err = _reject_unknown(data, ['symbol', 'assetClass', 'exchange', 'status', 'tradable', 'fractionable'])
     if err:
         return err, 400
+    if data.get('assetClass') and data['assetClass'] not in ['us_equity', 'us_option', 'crypto', 'crypto_perp']:
+        return {"error": {"message": "invalid assetClass; allowed: " + ", ".join(['us_equity', 'us_option', 'crypto', 'crypto_perp']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['active', 'inactive']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'inactive']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Account", rec)
+    _persist("Asset", rec)
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/assets/<eid>", methods=["DELETE"])
+def delete_asset(request, eid):
+    """Delete a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alpaca.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/cards", methods=["POST"])
-def create_card(request):
-    """Create a Card."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'last4', 'network', 'state'])
-    if err:
-        return err, 400
-    err = _require(data, ['last4', 'network'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alpaca_car")}
-    rec["accountId"] = data.get('accountId')
-    rec["last4"] = data.get('last4')
-    rec["network"] = data.get('network')
-    rec["state"] = data.get('state')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Card", rec)
-    return rec, 201
-
-@app.route("/v1/cards", methods=["GET"])
-def list_cards(request):
-    """List Cards with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Card")
-    rows = _apply_filters(rows, params, ['accountId', 'last4', 'network', 'state'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/cards/<eid>", methods=["GET"])
-def get_card(request, eid):
-    """Retrieve a Card by id (supports ?expand=)."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/cards/<eid>", methods=["POST", "PATCH"])
-def update_card(request, eid):
-    """Update a Card."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'last4', 'network', 'state'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Card", rec)
-    return rec, 200
-
-@app.route("/v1/cards/<eid>", methods=["DELETE"])
-def delete_card(request, eid):
-    """Delete a Card."""
-    rows = _query("Card", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alpaca.Card", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alpaca_tra")}
-    rec["accountId"] = data.get('accountId')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['accountId', 'amount', 'currency', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alpaca.Transaction", "id": eid})
+    db.retract({"entity": f"alpaca.Asset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/orders", methods=["POST"])
 def create_order(request):
     """Create a Order."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'side', 'quantity', 'price', 'status'])
+    err = _reject_unknown(data, ['symbol', 'side', 'type', 'status', 'qty', 'timeInForce'])
     if err:
         return err, 400
     err = _require(data, ['symbol', 'side'])
     if err:
         return err, 400
+    if data.get('side') and data['side'] not in ['buy', 'sell']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['buy', 'sell']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['market', 'limit', 'stop', 'stop_limit', 'trailing_stop']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['market', 'limit', 'stop', 'stop_limit', 'trailing_stop']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['new', 'partially_filled', 'filled', 'done_for_day', 'canceled', 'expired', 'replaced', 'pending_cancel', 'pending_replace', 'pending_review', 'accepted', 'pending_new', 'accepted_for_bidding', 'stopped', 'rejected', 'suspended', 'calculated', 'held']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['new', 'partially_filled', 'filled', 'done_for_day', 'canceled', 'expired', 'replaced', 'pending_cancel', 'pending_replace', 'pending_review', 'accepted', 'pending_new', 'accepted_for_bidding', 'stopped', 'rejected', 'suspended', 'calculated', 'held']), "type": "invalid_request_error"}}, 400
+    if data.get('timeInForce') and data['timeInForce'] not in ['day', 'gtc', 'opg', 'cls', 'ioc', 'fok']:
+        return {"error": {"message": "invalid timeInForce; allowed: " + ", ".join(['day', 'gtc', 'opg', 'cls', 'ioc', 'fok']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("alpaca_ord")}
     rec["symbol"] = data.get('symbol')
     rec["side"] = data.get('side')
-    rec["quantity"] = _as_float(data.get('quantity'))
-    rec["price"] = _as_float(data.get('price'))
+    rec["type"] = data.get('type')
     rec["status"] = data.get('status')
+    rec["qty"] = data.get('qty')
+    rec["timeInForce"] = data.get('timeInForce')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Order", rec)
@@ -338,7 +222,7 @@ def list_orders(request):
     """List Orders with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Order")
-    rows = _apply_filters(rows, params, ['symbol', 'side', 'quantity', 'price', 'status'])
+    rows = _apply_filters(rows, params, ['symbol', 'side', 'type', 'status', 'qty', 'timeInForce'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -359,9 +243,17 @@ def update_order(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['symbol', 'side', 'quantity', 'price', 'status'])
+    err = _reject_unknown(data, ['symbol', 'side', 'type', 'status', 'qty', 'timeInForce'])
     if err:
         return err, 400
+    if data.get('side') and data['side'] not in ['buy', 'sell']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['buy', 'sell']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['market', 'limit', 'stop', 'stop_limit', 'trailing_stop']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['market', 'limit', 'stop', 'stop_limit', 'trailing_stop']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['new', 'partially_filled', 'filled', 'done_for_day', 'canceled', 'expired', 'replaced', 'pending_cancel', 'pending_replace', 'pending_review', 'accepted', 'pending_new', 'accepted_for_bidding', 'stopped', 'rejected', 'suspended', 'calculated', 'held']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['new', 'partially_filled', 'filled', 'done_for_day', 'canceled', 'expired', 'replaced', 'pending_cancel', 'pending_replace', 'pending_review', 'accepted', 'pending_new', 'accepted_for_bidding', 'stopped', 'rejected', 'suspended', 'calculated', 'held']), "type": "invalid_request_error"}}, 400
+    if data.get('timeInForce') and data['timeInForce'] not in ['day', 'gtc', 'opg', 'cls', 'ioc', 'fok']:
+        return {"error": {"message": "invalid timeInForce; allowed: " + ", ".join(['day', 'gtc', 'opg', 'cls', 'ioc', 'fok']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -379,142 +271,226 @@ def delete_order(request, eid):
     db.retract({"entity": f"alpaca.Order", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/wallets", methods=["POST"])
-def create_wallet(request):
-    """Create a Wallet."""
+@app.route("/v1/positions", methods=["POST"])
+def create_position(request):
+    """Create a Position."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance'])
+    err = _reject_unknown(data, ['symbol', 'qty', 'side', 'avgEntryPrice', 'marketValue'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['symbol', 'qty'])
     if err:
         return err, 400
-    rec = {"id": new_id("alpaca_wal")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
+    if data.get('side') and data['side'] not in ['long', 'short']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['long', 'short']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alpaca_pos")}
+    rec["symbol"] = data.get('symbol')
+    rec["qty"] = data.get('qty')
+    rec["side"] = data.get('side')
+    rec["avgEntryPrice"] = data.get('avgEntryPrice')
+    rec["marketValue"] = data.get('marketValue')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Wallet", rec)
+    _persist("Position", rec)
     return rec, 201
 
-@app.route("/v1/wallets", methods=["GET"])
-def list_wallets(request):
-    """List Wallets with filtering + cursor pagination."""
+@app.route("/v1/positions", methods=["GET"])
+def list_positions(request):
+    """List Positions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Wallet")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance'])
+    rows = _query("Position")
+    rows = _apply_filters(rows, params, ['symbol', 'qty', 'side', 'avgEntryPrice', 'marketValue'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/wallets/<eid>", methods=["GET"])
-def get_wallet(request, eid):
-    """Retrieve a Wallet by id (supports ?expand=)."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/positions/<eid>", methods=["GET"])
+def get_position(request, eid):
+    """Retrieve a Position by id (supports ?expand=)."""
+    rows = _query("Position", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/wallets/<eid>", methods=["POST", "PATCH"])
-def update_wallet(request, eid):
-    """Update a Wallet."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/positions/<eid>", methods=["POST", "PATCH"])
+def update_position(request, eid):
+    """Update a Position."""
+    rows = _query("Position", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance'])
+    err = _reject_unknown(data, ['symbol', 'qty', 'side', 'avgEntryPrice', 'marketValue'])
     if err:
         return err, 400
+    if data.get('side') and data['side'] not in ['long', 'short']:
+        return {"error": {"message": "invalid side; allowed: " + ", ".join(['long', 'short']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Wallet", rec)
+    _persist("Position", rec)
     return rec, 200
 
-@app.route("/v1/wallets/<eid>", methods=["DELETE"])
-def delete_wallet(request, eid):
-    """Delete a Wallet."""
-    rows = _query("Wallet", eid)
+@app.route("/v1/positions/<eid>", methods=["DELETE"])
+def delete_position(request, eid):
+    """Delete a Position."""
+    rows = _query("Position", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alpaca.Wallet", "id": eid})
+    db.retract({"entity": f"alpaca.Position", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/ledgers", methods=["POST"])
-def create_ledger(request):
-    """Create a Ledger."""
+@app.route("/v1/tradeaccounts", methods=["POST"])
+def create_trade_account(request):
+    """Create a TradeAccount."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo'])
+    err = _reject_unknown(data, ['accountNumber', 'status', 'equity', 'cash', 'buyingPower', 'patternDayTrader'])
     if err:
         return err, 400
-    err = _require(data, ['debit', 'credit'])
+    err = _require(data, ['accountNumber', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("alpaca_led")}
-    rec["accountId"] = data.get('accountId')
-    rec["debit"] = _as_float(data.get('debit'))
-    rec["credit"] = _as_float(data.get('credit'))
-    rec["memo"] = data.get('memo')
+    if data.get('status') and data['status'] not in ['ACCOUNT_CLOSED', 'ACCOUNT_UPDATED', 'ACTION_REQUIRED', 'ACTIVE', 'AML_REVIEW', 'APPROVAL_PENDING', 'APPROVED', 'DISABLED', 'DISABLE_PENDING', 'EDITED', 'INACTIVE', 'KYC_SUBMITTED', 'LIMITED', 'ONBOARDING', 'PAPER_ONLY', 'REAPPROVAL_PENDING', 'REJECTED', 'RESUBMITTED', 'SIGNED_UP', 'SUBMISSION_FAILED', 'SUBMITTED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACCOUNT_CLOSED', 'ACCOUNT_UPDATED', 'ACTION_REQUIRED', 'ACTIVE', 'AML_REVIEW', 'APPROVAL_PENDING', 'APPROVED', 'DISABLED', 'DISABLE_PENDING', 'EDITED', 'INACTIVE', 'KYC_SUBMITTED', 'LIMITED', 'ONBOARDING', 'PAPER_ONLY', 'REAPPROVAL_PENDING', 'REJECTED', 'RESUBMITTED', 'SIGNED_UP', 'SUBMISSION_FAILED', 'SUBMITTED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alpaca_tra")}
+    rec["accountNumber"] = data.get('accountNumber')
+    rec["status"] = data.get('status')
+    rec["equity"] = data.get('equity')
+    rec["cash"] = data.get('cash')
+    rec["buyingPower"] = data.get('buyingPower')
+    rec["patternDayTrader"] = _as_bool(data.get('patternDayTrader'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Ledger", rec)
+    _persist("TradeAccount", rec)
     return rec, 201
 
-@app.route("/v1/ledgers", methods=["GET"])
-def list_ledgers(request):
-    """List Ledgers with filtering + cursor pagination."""
+@app.route("/v1/tradeaccounts", methods=["GET"])
+def list_trade_accounts(request):
+    """List TradeAccounts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Ledger")
-    rows = _apply_filters(rows, params, ['accountId', 'debit', 'credit', 'memo'])
+    rows = _query("TradeAccount")
+    rows = _apply_filters(rows, params, ['accountNumber', 'status', 'equity', 'cash', 'buyingPower', 'patternDayTrader'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/ledgers/<eid>", methods=["GET"])
-def get_ledger(request, eid):
-    """Retrieve a Ledger by id (supports ?expand=)."""
-    rows = _query("Ledger", eid)
+@app.route("/v1/tradeaccounts/<eid>", methods=["GET"])
+def get_trade_account(request, eid):
+    """Retrieve a TradeAccount by id (supports ?expand=)."""
+    rows = _query("TradeAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
-@app.route("/v1/ledgers/<eid>", methods=["POST", "PATCH"])
-def update_ledger(request, eid):
-    """Update a Ledger."""
-    rows = _query("Ledger", eid)
+@app.route("/v1/tradeaccounts/<eid>", methods=["POST", "PATCH"])
+def update_trade_account(request, eid):
+    """Update a TradeAccount."""
+    rows = _query("TradeAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'debit', 'credit', 'memo'])
+    err = _reject_unknown(data, ['accountNumber', 'status', 'equity', 'cash', 'buyingPower', 'patternDayTrader'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['ACCOUNT_CLOSED', 'ACCOUNT_UPDATED', 'ACTION_REQUIRED', 'ACTIVE', 'AML_REVIEW', 'APPROVAL_PENDING', 'APPROVED', 'DISABLED', 'DISABLE_PENDING', 'EDITED', 'INACTIVE', 'KYC_SUBMITTED', 'LIMITED', 'ONBOARDING', 'PAPER_ONLY', 'REAPPROVAL_PENDING', 'REJECTED', 'RESUBMITTED', 'SIGNED_UP', 'SUBMISSION_FAILED', 'SUBMITTED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['ACCOUNT_CLOSED', 'ACCOUNT_UPDATED', 'ACTION_REQUIRED', 'ACTIVE', 'AML_REVIEW', 'APPROVAL_PENDING', 'APPROVED', 'DISABLED', 'DISABLE_PENDING', 'EDITED', 'INACTIVE', 'KYC_SUBMITTED', 'LIMITED', 'ONBOARDING', 'PAPER_ONLY', 'REAPPROVAL_PENDING', 'REJECTED', 'RESUBMITTED', 'SIGNED_UP', 'SUBMISSION_FAILED', 'SUBMITTED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Ledger", rec)
+    _persist("TradeAccount", rec)
     return rec, 200
 
-@app.route("/v1/ledgers/<eid>", methods=["DELETE"])
-def delete_ledger(request, eid):
-    """Delete a Ledger."""
-    rows = _query("Ledger", eid)
+@app.route("/v1/tradeaccounts/<eid>", methods=["DELETE"])
+def delete_trade_account(request, eid):
+    """Delete a TradeAccount."""
+    rows = _query("TradeAccount", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alpaca.Ledger", "id": eid})
+    db.retract({"entity": f"alpaca.TradeAccount", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tradeactivities", methods=["POST"])
+def create_trade_activity(request):
+    """Create a TradeActivity."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['symbol', 'side', 'price', 'qty', 'type', 'orderId'])
+    if err:
+        return err, 400
+    err = _require(data, ['symbol', 'side'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['partial_fill', 'fill']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['partial_fill', 'fill']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alpaca_tra")}
+    rec["symbol"] = data.get('symbol')
+    rec["side"] = data.get('side')
+    rec["price"] = _as_float(data.get('price'))
+    rec["qty"] = _as_float(data.get('qty'))
+    rec["type"] = data.get('type')
+    rec["orderId"] = data.get('orderId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("TradeActivity", rec)
+    return rec, 201
+
+@app.route("/v1/tradeactivities", methods=["GET"])
+def list_trade_activities(request):
+    """List TradeActivities with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("TradeActivity")
+    rows = _apply_filters(rows, params, ['symbol', 'side', 'price', 'qty', 'type', 'orderId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tradeactivities/<eid>", methods=["GET"])
+def get_trade_activity(request, eid):
+    """Retrieve a TradeActivity by id (supports ?expand=)."""
+    rows = _query("TradeActivity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/tradeactivities/<eid>", methods=["POST", "PATCH"])
+def update_trade_activity(request, eid):
+    """Update a TradeActivity."""
+    rows = _query("TradeActivity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['symbol', 'side', 'price', 'qty', 'type', 'orderId'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['partial_fill', 'fill']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['partial_fill', 'fill']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("TradeActivity", rec)
+    return rec, 200
+
+@app.route("/v1/tradeactivities/<eid>", methods=["DELETE"])
+def delete_trade_activity(request, eid):
+    """Delete a TradeActivity."""
+    rows = _query("TradeActivity", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"alpaca.TradeActivity", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "alpaca-compat", "tier": "L4",
-            "entities": ['Account', 'Card', 'Transaction', 'Order', 'Wallet', 'Ledger']}, 200
+            "entities": ['Asset', 'Order', 'Position', 'TradeAccount', 'TradeActivity']}, 200
 
 
 if __name__ == "__main__":

@@ -111,53 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
+@app.route("/v1/services", methods=["POST"])
+def create_service(request):
+    """Create a Service."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'type', 'customerId', 'comment', 'paused', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'type'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("fastly_ass")}
-    rec["title"] = data.get('title')
+    rec = {"id": new_id("fastly_ser")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
     rec["type"] = data.get('type')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["customerId"] = data.get('customerId')
+    rec["comment"] = data.get('comment')
+    rec["paused"] = _as_bool(data.get('paused'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
+    _persist("Service", rec)
     return rec, 201
 
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
+@app.route("/v1/services", methods=["GET"])
+def list_services(request):
+    """List Services with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['title', 'type', 'durationMs', 'contentRef'])
+    rows = _query("Service")
+    rows = _apply_filters(rows, params, ['id', 'name', 'type', 'customerId', 'comment', 'paused', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
+@app.route("/v1/services/<eid>", methods=["GET"])
+def get_service(request, eid):
+    """Retrieve a Service by id (supports ?expand=)."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
+@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
+def update_service(request, eid):
+    """Update a Service."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'name', 'type', 'customerId', 'comment', 'paused', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,66 +169,71 @@ def update_asset(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Asset", rec)
+    _persist("Service", rec)
     return rec, 200
 
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
+@app.route("/v1/services/<eid>", methods=["DELETE"])
+def delete_service(request, eid):
+    """Delete a Service."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.Asset", "id": eid})
+    db.retract({"entity": f"fastly.Service", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/renditions", methods=["POST"])
-def create_rendition(request):
-    """Create a Rendition."""
+@app.route("/v1/versions", methods=["POST"])
+def create_version(request):
+    """Create a Version."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'serviceId', 'number', 'active', 'locked', 'deployed', 'staging', 'comment', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['format', 'bitrate'])
+    err = _require(data, ['id', 'number'])
     if err:
         return err, 400
-    rec = {"id": new_id("fastly_ren")}
-    rec["assetId"] = data.get('assetId')
-    rec["format"] = data.get('format')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["contentRef"] = data.get('contentRef')
+    rec = {"id": new_id("fastly_ver")}
+    rec["id"] = data.get('id')
+    rec["serviceId"] = data.get('serviceId')
+    rec["number"] = _as_int(data.get('number'))
+    rec["active"] = _as_bool(data.get('active'))
+    rec["locked"] = _as_bool(data.get('locked'))
+    rec["deployed"] = _as_bool(data.get('deployed'))
+    rec["staging"] = _as_bool(data.get('staging'))
+    rec["comment"] = data.get('comment')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Rendition", rec)
+    _persist("Version", rec)
     return rec, 201
 
-@app.route("/v1/renditions", methods=["GET"])
-def list_renditions(request):
-    """List Renditions with filtering + cursor pagination."""
+@app.route("/v1/versions", methods=["GET"])
+def list_versions(request):
+    """List Versions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Rendition")
-    rows = _apply_filters(rows, params, ['assetId', 'format', 'bitrate', 'contentRef'])
+    rows = _query("Version")
+    rows = _apply_filters(rows, params, ['id', 'serviceId', 'number', 'active', 'locked', 'deployed', 'staging', 'comment', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/renditions/<eid>", methods=["GET"])
-def get_rendition(request, eid):
-    """Retrieve a Rendition by id (supports ?expand=)."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/versions/<eid>", methods=["GET"])
+def get_version(request, eid):
+    """Retrieve a Version by id (supports ?expand=)."""
+    rows = _query("Version", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'assetId': 'Asset'})
+    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/renditions/<eid>", methods=["POST", "PATCH"])
-def update_rendition(request, eid):
-    """Update a Rendition."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/versions/<eid>", methods=["POST", "PATCH"])
+def update_version(request, eid):
+    """Update a Version."""
+    rows = _query("Version", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'serviceId', 'number', 'active', 'locked', 'deployed', 'staging', 'comment', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,64 +241,137 @@ def update_rendition(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Rendition", rec)
+    _persist("Version", rec)
     return rec, 200
 
-@app.route("/v1/renditions/<eid>", methods=["DELETE"])
-def delete_rendition(request, eid):
-    """Delete a Rendition."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/versions/<eid>", methods=["DELETE"])
+def delete_version(request, eid):
+    """Delete a Version."""
+    rows = _query("Version", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.Rendition", "id": eid})
+    db.retract({"entity": f"fastly.Version", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
+@app.route("/v1/backends", methods=["POST"])
+def create_backend(request):
+    """Create a Backend."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'serviceId', 'versionNumber', 'hostname', 'port', 'comment'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'description'])
+    err = _require(data, ['name', 'versionNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("fastly_cha")}
+    rec = {"id": new_id("fastly_bac")}
     rec["name"] = data.get('name')
+    rec["serviceId"] = data.get('serviceId')
+    rec["versionNumber"] = _as_int(data.get('versionNumber'))
+    rec["hostname"] = data.get('hostname')
+    rec["port"] = _as_int(data.get('port'))
+    rec["comment"] = data.get('comment')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Backend", rec)
+    return rec, 201
+
+@app.route("/v1/backends", methods=["GET"])
+def list_backends(request):
+    """List Backends with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Backend")
+    rows = _apply_filters(rows, params, ['name', 'serviceId', 'versionNumber', 'hostname', 'port', 'comment'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/backends/<eid>", methods=["GET"])
+def get_backend(request, eid):
+    """Retrieve a Backend by id (supports ?expand=)."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
+    return rec, 200
+
+@app.route("/v1/backends/<eid>", methods=["POST", "PATCH"])
+def update_backend(request, eid):
+    """Update a Backend."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'serviceId', 'versionNumber', 'hostname', 'port', 'comment'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Backend", rec)
+    return rec, 200
+
+@app.route("/v1/backends/<eid>", methods=["DELETE"])
+def delete_backend(request, eid):
+    """Delete a Backend."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"fastly.Backend", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/domains", methods=["POST"])
+def create_domain(request):
+    """Create a Domain."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'serviceId', 'fqdn', 'description', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'fqdn'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("fastly_dom")}
+    rec["id"] = data.get('id')
+    rec["serviceId"] = data.get('serviceId')
+    rec["fqdn"] = data.get('fqdn')
     rec["description"] = data.get('description')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("Domain", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/domains", methods=["GET"])
+def list_domains(request):
+    """List Domains with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'description', 'public'])
+    rows = _query("Domain")
+    rows = _apply_filters(rows, params, ['id', 'serviceId', 'fqdn', 'description', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/domains/<eid>", methods=["GET"])
+def get_domain(request, eid):
+    """Retrieve a Domain by id (supports ?expand=)."""
+    rows = _query("Domain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/domains/<eid>", methods=["POST", "PATCH"])
+def update_domain(request, eid):
+    """Update a Domain."""
+    rows = _query("Domain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['id', 'serviceId', 'fqdn', 'description', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,196 +379,68 @@ def update_channel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("Domain", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/domains/<eid>", methods=["DELETE"])
+def delete_domain(request, eid):
+    """Delete a Domain."""
+    rows = _query("Domain", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.Channel", "id": eid})
+    db.retract({"entity": f"fastly.Domain", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/playlists", methods=["POST"])
-def create_playlist(request):
-    """Create a Playlist."""
+@app.route("/v1/dictionaries", methods=["POST"])
+def create_dictionary(request):
+    """Create a Dictionary."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['name', 'serviceId', 'versionNumber', 'description', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'itemCount'])
+    err = _require(data, ['name', 'versionNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("fastly_pla")}
-    rec["channelId"] = data.get('channelId')
-    rec["title"] = data.get('title')
-    rec["itemCount"] = _as_int(data.get('itemCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Playlist", rec)
-    return rec, 201
-
-@app.route("/v1/playlists", methods=["GET"])
-def list_playlists(request):
-    """List Playlists with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Playlist")
-    rows = _apply_filters(rows, params, ['channelId', 'title', 'itemCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/playlists/<eid>", methods=["GET"])
-def get_playlist(request, eid):
-    """Retrieve a Playlist by id (supports ?expand=)."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/playlists/<eid>", methods=["POST", "PATCH"])
-def update_playlist(request, eid):
-    """Update a Playlist."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Playlist", rec)
-    return rec, 200
-
-@app.route("/v1/playlists/<eid>", methods=["DELETE"])
-def delete_playlist(request, eid):
-    """Delete a Playlist."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.Playlist", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    err = _require(data, ['modelName', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fastly_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/experiments", methods=["POST"])
-def create_experiment(request):
-    """Create a Experiment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'variant'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fastly_exp")}
+    rec = {"id": new_id("fastly_dic")}
     rec["name"] = data.get('name')
-    rec["variant"] = data.get('variant')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
+    rec["serviceId"] = data.get('serviceId')
+    rec["versionNumber"] = _as_int(data.get('versionNumber'))
+    rec["description"] = data.get('description')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Experiment", rec)
+    _persist("Dictionary", rec)
     return rec, 201
 
-@app.route("/v1/experiments", methods=["GET"])
-def list_experiments(request):
-    """List Experiments with filtering + cursor pagination."""
+@app.route("/v1/dictionaries", methods=["GET"])
+def list_dictionaries(request):
+    """List Dictionaries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Experiment")
-    rows = _apply_filters(rows, params, ['name', 'variant', 'conversionRate'])
+    rows = _query("Dictionary")
+    rows = _apply_filters(rows, params, ['name', 'serviceId', 'versionNumber', 'description', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/experiments/<eid>", methods=["GET"])
-def get_experiment(request, eid):
-    """Retrieve a Experiment by id (supports ?expand=)."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/dictionaries/<eid>", methods=["GET"])
+def get_dictionary(request, eid):
+    """Retrieve a Dictionary by id (supports ?expand=)."""
+    rows = _query("Dictionary", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["POST", "PATCH"])
-def update_experiment(request, eid):
-    """Update a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/dictionaries/<eid>", methods=["POST", "PATCH"])
+def update_dictionary(request, eid):
+    """Update a Dictionary."""
+    rows = _query("Dictionary", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'serviceId', 'versionNumber', 'description', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -494,22 +448,22 @@ def update_experiment(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Experiment", rec)
+    _persist("Dictionary", rec)
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["DELETE"])
-def delete_experiment(request, eid):
-    """Delete a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/dictionaries/<eid>", methods=["DELETE"])
+def delete_dictionary(request, eid):
+    """Delete a Dictionary."""
+    rows = _query("Dictionary", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fastly.Experiment", "id": eid})
+    db.retract({"entity": f"fastly.Dictionary", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "fastly-compat", "tier": "L4",
-            "entities": ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']}, 200
+            "entities": ['Service', 'Version', 'Backend', 'Domain', 'Dictionary']}, 200
 
 
 if __name__ == "__main__":

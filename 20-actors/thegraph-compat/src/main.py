@@ -111,317 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/blocks", methods=["POST"])
-def create_block(request):
-    """Create a Block."""
+@app.route("/v1/subgraphs", methods=["POST"])
+def create_subgraph(request):
+    """Create a Subgraph."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['id', 'name', 'displayName', 'description', 'sourceCodeUrl', 'imageUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("thegraph_blo")}
-    rec["number"] = _as_int(data.get('number'))
-    rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Block", rec)
-    return rec, 201
-
-@app.route("/v1/blocks", methods=["GET"])
-def list_blocks(request):
-    """List Blocks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/blocks/<eid>", methods=["GET"])
-def get_block(request, eid):
-    """Retrieve a Block by id (supports ?expand=)."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
-def update_block(request, eid):
-    """Update a Block."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Block", rec)
-    return rec, 200
-
-@app.route("/v1/blocks/<eid>", methods=["DELETE"])
-def delete_block(request, eid):
-    """Delete a Block."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Block", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("thegraph_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("thegraph_con")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
-    return rec, 201
-
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contract", rec)
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Contract", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("thegraph_acc")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("thegraph_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
+    rec = {"id": new_id("thegraph_sub")}
+    rec["id"] = _as_int(data.get('id'))
     rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
+    rec["displayName"] = data.get('displayName')
+    rec["description"] = data.get('description')
+    rec["sourceCodeUrl"] = data.get('sourceCodeUrl')
+    rec["imageUrl"] = data.get('imageUrl')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
+    _persist("Subgraph", rec)
     return rec, 201
 
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
+@app.route("/v1/subgraphs", methods=["GET"])
+def list_subgraphs(request):
+    """List Subgraphs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
+    rows = _query("Subgraph")
+    rows = _apply_filters(rows, params, ['id', 'name', 'displayName', 'description', 'sourceCodeUrl', 'imageUrl', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
+@app.route("/v1/subgraphs/<eid>", methods=["GET"])
+def get_subgraph(request, eid):
+    """Retrieve a Subgraph by id (supports ?expand=)."""
+    rows = _query("Subgraph", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/subgraphs/<eid>", methods=["POST", "PATCH"])
+def update_subgraph(request, eid):
+    """Update a Subgraph."""
+    rows = _query("Subgraph", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
+    err = _reject_unknown(data, ['id', 'name', 'displayName', 'description', 'sourceCodeUrl', 'imageUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -429,65 +169,69 @@ def update_event(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Event", rec)
+    _persist("Subgraph", rec)
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/subgraphs/<eid>", methods=["DELETE"])
+def delete_subgraph(request, eid):
+    """Delete a Subgraph."""
+    rows = _query("Subgraph", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Event", "id": eid})
+    db.retract({"entity": f"thegraph.Subgraph", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
+@app.route("/v1/subgraphdeployments", methods=["POST"])
+def create_subgraph_deployment(request):
+    """Create a SubgraphDeployment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
+    err = _reject_unknown(data, ['id', 'ipfsHash', 'createdAt', 'stakedTokens', 'signalledTokens', 'queryFeesAmount', 'activeSubgraphCount', 'transferredToL2'])
     if err:
         return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
+    err = _require(data, ['id', 'ipfsHash'])
     if err:
         return err, 400
-    rec = {"id": new_id("thegraph_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
-    rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
+    rec = {"id": new_id("thegraph_sub")}
+    rec["id"] = data.get('id')
+    rec["ipfsHash"] = data.get('ipfsHash')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["stakedTokens"] = _as_int(data.get('stakedTokens'))
+    rec["signalledTokens"] = _as_int(data.get('signalledTokens'))
+    rec["queryFeesAmount"] = _as_int(data.get('queryFeesAmount'))
+    rec["activeSubgraphCount"] = _as_int(data.get('activeSubgraphCount'))
+    rec["transferredToL2"] = _as_bool(data.get('transferredToL2'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
+    _persist("SubgraphDeployment", rec)
     return rec, 201
 
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
+@app.route("/v1/subgraphdeployments", methods=["GET"])
+def list_subgraph_deployments(request):
+    """List SubgraphDeployments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
+    rows = _query("SubgraphDeployment")
+    rows = _apply_filters(rows, params, ['id', 'ipfsHash', 'createdAt', 'stakedTokens', 'signalledTokens', 'queryFeesAmount', 'activeSubgraphCount', 'transferredToL2'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
+@app.route("/v1/subgraphdeployments/<eid>", methods=["GET"])
+def get_subgraph_deployment(request, eid):
+    """Retrieve a SubgraphDeployment by id (supports ?expand=)."""
+    rows = _query("SubgraphDeployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
+@app.route("/v1/subgraphdeployments/<eid>", methods=["POST", "PATCH"])
+def update_subgraph_deployment(request, eid):
+    """Update a SubgraphDeployment."""
+    rows = _query("SubgraphDeployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
+    err = _reject_unknown(data, ['id', 'ipfsHash', 'createdAt', 'stakedTokens', 'signalledTokens', 'queryFeesAmount', 'activeSubgraphCount', 'transferredToL2'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +239,231 @@ def update_token(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Token", rec)
+    _persist("SubgraphDeployment", rec)
     return rec, 200
 
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
+@app.route("/v1/subgraphdeployments/<eid>", methods=["DELETE"])
+def delete_subgraph_deployment(request, eid):
+    """Delete a SubgraphDeployment."""
+    rows = _query("SubgraphDeployment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"thegraph.Token", "id": eid})
+    db.retract({"entity": f"thegraph.SubgraphDeployment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/indexers", methods=["POST"])
+def create_indexer(request):
+    """Create a Indexer."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'createdAt', 'stakedTokens', 'allocatedTokens', 'queryFeesCollected', 'delegatedTokens', 'isLegacy'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'createdAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("thegraph_ind")}
+    rec["id"] = data.get('id')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["stakedTokens"] = _as_int(data.get('stakedTokens'))
+    rec["allocatedTokens"] = _as_int(data.get('allocatedTokens'))
+    rec["queryFeesCollected"] = _as_int(data.get('queryFeesCollected'))
+    rec["delegatedTokens"] = _as_int(data.get('delegatedTokens'))
+    rec["isLegacy"] = _as_bool(data.get('isLegacy'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Indexer", rec)
+    return rec, 201
+
+@app.route("/v1/indexers", methods=["GET"])
+def list_indexers(request):
+    """List Indexers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Indexer")
+    rows = _apply_filters(rows, params, ['id', 'createdAt', 'stakedTokens', 'allocatedTokens', 'queryFeesCollected', 'delegatedTokens', 'isLegacy'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/indexers/<eid>", methods=["GET"])
+def get_indexer(request, eid):
+    """Retrieve a Indexer by id (supports ?expand=)."""
+    rows = _query("Indexer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/indexers/<eid>", methods=["POST", "PATCH"])
+def update_indexer(request, eid):
+    """Update a Indexer."""
+    rows = _query("Indexer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'createdAt', 'stakedTokens', 'allocatedTokens', 'queryFeesCollected', 'delegatedTokens', 'isLegacy'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Indexer", rec)
+    return rec, 200
+
+@app.route("/v1/indexers/<eid>", methods=["DELETE"])
+def delete_indexer(request, eid):
+    """Delete a Indexer."""
+    rows = _query("Indexer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"thegraph.Indexer", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/allocations", methods=["POST"])
+def create_allocation(request):
+    """Create a Allocation."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'allocatedTokens', 'createdAtEpoch', 'closedAtEpoch', 'queryFeesCollected', 'status', 'isLegacy'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'allocatedTokens'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['Null', 'Active', 'Closed', 'Finalized', 'Claimed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Null', 'Active', 'Closed', 'Finalized', 'Claimed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("thegraph_all")}
+    rec["id"] = data.get('id')
+    rec["allocatedTokens"] = _as_int(data.get('allocatedTokens'))
+    rec["createdAtEpoch"] = _as_int(data.get('createdAtEpoch'))
+    rec["closedAtEpoch"] = _as_int(data.get('closedAtEpoch'))
+    rec["queryFeesCollected"] = _as_int(data.get('queryFeesCollected'))
+    rec["status"] = data.get('status')
+    rec["isLegacy"] = _as_bool(data.get('isLegacy'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Allocation", rec)
+    return rec, 201
+
+@app.route("/v1/allocations", methods=["GET"])
+def list_allocations(request):
+    """List Allocations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Allocation")
+    rows = _apply_filters(rows, params, ['id', 'allocatedTokens', 'createdAtEpoch', 'closedAtEpoch', 'queryFeesCollected', 'status', 'isLegacy'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/allocations/<eid>", methods=["GET"])
+def get_allocation(request, eid):
+    """Retrieve a Allocation by id (supports ?expand=)."""
+    rows = _query("Allocation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/allocations/<eid>", methods=["POST", "PATCH"])
+def update_allocation(request, eid):
+    """Update a Allocation."""
+    rows = _query("Allocation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'allocatedTokens', 'createdAtEpoch', 'closedAtEpoch', 'queryFeesCollected', 'status', 'isLegacy'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['Null', 'Active', 'Closed', 'Finalized', 'Claimed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Null', 'Active', 'Closed', 'Finalized', 'Claimed']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Allocation", rec)
+    return rec, 200
+
+@app.route("/v1/allocations/<eid>", methods=["DELETE"])
+def delete_allocation(request, eid):
+    """Delete a Allocation."""
+    rows = _query("Allocation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"thegraph.Allocation", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/publishedsubgraphs", methods=["POST"])
+def create_published_subgraph(request):
+    """Create a PublishedSubgraph."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'networkCaip2Id', 'networkSubgraphId', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'createdAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("thegraph_pub")}
+    rec["id"] = data.get('id')
+    rec["networkCaip2Id"] = data.get('networkCaip2Id')
+    rec["networkSubgraphId"] = data.get('networkSubgraphId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("PublishedSubgraph", rec)
+    return rec, 201
+
+@app.route("/v1/publishedsubgraphs", methods=["GET"])
+def list_published_subgraphs(request):
+    """List PublishedSubgraphs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("PublishedSubgraph")
+    rows = _apply_filters(rows, params, ['id', 'networkCaip2Id', 'networkSubgraphId', 'createdAt', 'updatedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/publishedsubgraphs/<eid>", methods=["GET"])
+def get_published_subgraph(request, eid):
+    """Retrieve a PublishedSubgraph by id (supports ?expand=)."""
+    rows = _query("PublishedSubgraph", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/publishedsubgraphs/<eid>", methods=["POST", "PATCH"])
+def update_published_subgraph(request, eid):
+    """Update a PublishedSubgraph."""
+    rows = _query("PublishedSubgraph", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'networkCaip2Id', 'networkSubgraphId', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("PublishedSubgraph", rec)
+    return rec, 200
+
+@app.route("/v1/publishedsubgraphs/<eid>", methods=["DELETE"])
+def delete_published_subgraph(request, eid):
+    """Delete a PublishedSubgraph."""
+    rows = _query("PublishedSubgraph", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"thegraph.PublishedSubgraph", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "thegraph-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['Subgraph', 'SubgraphDeployment', 'Indexer', 'Allocation', 'PublishedSubgraph']}, 200
 
 
 if __name__ == "__main__":

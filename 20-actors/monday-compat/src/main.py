@@ -111,185 +111,269 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/boards", methods=["POST"])
+def create_board(request):
+    """Create a Board."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'description', 'state', 'boardKind', 'itemsCount'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("monday_wor")}
+    if data.get('state') and data['state'] not in ['active', 'all', 'archived', 'deleted']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'all', 'archived', 'deleted']), "type": "invalid_request_error"}}, 400
+    if data.get('boardKind') and data['boardKind'] not in ['public', 'private', 'share']:
+        return {"error": {"message": "invalid boardKind; allowed: " + ", ".join(['public', 'private', 'share']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("monday_boa")}
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    rec["description"] = data.get('description')
+    rec["state"] = data.get('state')
+    rec["boardKind"] = data.get('boardKind')
+    rec["itemsCount"] = _as_int(data.get('itemsCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("Board", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/boards", methods=["GET"])
+def list_boards(request):
+    """List Boards with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("Board")
+    rows = _apply_filters(rows, params, ['name', 'description', 'state', 'boardKind', 'itemsCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/boards/<eid>", methods=["GET"])
+def get_board(request, eid):
+    """Retrieve a Board by id (supports ?expand=)."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/boards/<eid>", methods=["POST", "PATCH"])
+def update_board(request, eid):
+    """Update a Board."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['name', 'description', 'state', 'boardKind', 'itemsCount'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['active', 'all', 'archived', 'deleted']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'all', 'archived', 'deleted']), "type": "invalid_request_error"}}, 400
+    if data.get('boardKind') and data['boardKind'] not in ['public', 'private', 'share']:
+        return {"error": {"message": "invalid boardKind; allowed: " + ", ".join(['public', 'private', 'share']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("Board", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/boards/<eid>", methods=["DELETE"])
+def delete_board(request, eid):
+    """Delete a Board."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monday.Workspace", "id": eid})
+    db.retract({"entity": f"monday.Board", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/items", methods=["POST"])
+def create_item(request):
+    """Create a Item."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['name', 'email', 'creatorId', 'state'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
+    err = _require(data, ['name', 'email'])
     if err:
         return err, 400
-    rec = {"id": new_id("monday_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
+    if data.get('state') and data['state'] not in ['active', 'all', 'archived', 'deleted']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'all', 'archived', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("monday_ite")}
+    rec["name"] = data.get('name')
+    rec["email"] = data.get('email')
+    rec["creatorId"] = data.get('creatorId')
+    rec["state"] = data.get('state')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Item", rec)
+    return rec, 201
+
+@app.route("/v1/items", methods=["GET"])
+def list_items(request):
+    """List Items with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Item")
+    rows = _apply_filters(rows, params, ['name', 'email', 'creatorId', 'state'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/items/<eid>", methods=["GET"])
+def get_item(request, eid):
+    """Retrieve a Item by id (supports ?expand=)."""
+    rows = _query("Item", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/items/<eid>", methods=["POST", "PATCH"])
+def update_item(request, eid):
+    """Update a Item."""
+    rows = _query("Item", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'email', 'creatorId', 'state'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['active', 'all', 'archived', 'deleted']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['active', 'all', 'archived', 'deleted']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Item", rec)
+    return rec, 200
+
+@app.route("/v1/items/<eid>", methods=["DELETE"])
+def delete_item(request, eid):
+    """Delete a Item."""
+    rows = _query("Item", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monday.Item", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/columns", methods=["POST"])
+def create_column(request):
+    """Create a Column."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'description', 'type', 'archived', 'width'])
+    if err:
+        return err, 400
+    err = _require(data, ['title', 'description'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['auto_number', 'board_relation', 'button', 'checkbox', 'color_picker', 'country', 'creation_log', 'date', 'dependency', 'doc', 'dropdown', 'email', 'file', 'formula', 'group', 'hour', 'integration', 'item_assignees', 'item_id', 'last_updated', 'link', 'location', 'long_text', 'mirror', 'name', 'numbers', 'people', 'person', 'phone', 'progress', 'rating', 'status', 'subtasks', 'tags', 'team', 'text', 'time_tracking', 'timeline', 'unsupported', 'vote', 'week', 'world_clock']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['auto_number', 'board_relation', 'button', 'checkbox', 'color_picker', 'country', 'creation_log', 'date', 'dependency', 'doc', 'dropdown', 'email', 'file', 'formula', 'group', 'hour', 'integration', 'item_assignees', 'item_id', 'last_updated', 'link', 'location', 'long_text', 'mirror', 'name', 'numbers', 'people', 'person', 'phone', 'progress', 'rating', 'status', 'subtasks', 'tags', 'team', 'text', 'time_tracking', 'timeline', 'unsupported', 'vote', 'week', 'world_clock']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("monday_col")}
     rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
+    rec["description"] = data.get('description')
+    rec["type"] = data.get('type')
+    rec["archived"] = _as_bool(data.get('archived'))
+    rec["width"] = _as_int(data.get('width'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
+    _persist("Column", rec)
     return rec, 201
 
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
+@app.route("/v1/columns", methods=["GET"])
+def list_columns(request):
+    """List Columns with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    rows = _query("Column")
+    rows = _apply_filters(rows, params, ['title', 'description', 'type', 'archived', 'width'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
+@app.route("/v1/columns/<eid>", methods=["GET"])
+def get_column(request, eid):
+    """Retrieve a Column by id (supports ?expand=)."""
+    rows = _query("Column", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/columns/<eid>", methods=["POST", "PATCH"])
+def update_column(request, eid):
+    """Update a Column."""
+    rows = _query("Column", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['title', 'description', 'type', 'archived', 'width'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['auto_number', 'board_relation', 'button', 'checkbox', 'color_picker', 'country', 'creation_log', 'date', 'dependency', 'doc', 'dropdown', 'email', 'file', 'formula', 'group', 'hour', 'integration', 'item_assignees', 'item_id', 'last_updated', 'link', 'location', 'long_text', 'mirror', 'name', 'numbers', 'people', 'person', 'phone', 'progress', 'rating', 'status', 'subtasks', 'tags', 'team', 'text', 'time_tracking', 'timeline', 'unsupported', 'vote', 'week', 'world_clock']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['auto_number', 'board_relation', 'button', 'checkbox', 'color_picker', 'country', 'creation_log', 'date', 'dependency', 'doc', 'dropdown', 'email', 'file', 'formula', 'group', 'hour', 'integration', 'item_assignees', 'item_id', 'last_updated', 'link', 'location', 'long_text', 'mirror', 'name', 'numbers', 'people', 'person', 'phone', 'progress', 'rating', 'status', 'subtasks', 'tags', 'team', 'text', 'time_tracking', 'timeline', 'unsupported', 'vote', 'week', 'world_clock']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Document", rec)
+    _persist("Column", rec)
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/columns/<eid>", methods=["DELETE"])
+def delete_column(request, eid):
+    """Delete a Column."""
+    rows = _query("Column", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monday.Document", "id": eid})
+    db.retract({"entity": f"monday.Column", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['title', 'color', 'position', 'archived'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['title', 'color'])
     if err:
         return err, 400
-    rec = {"id": new_id("monday_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
+    rec = {"id": new_id("monday_gro")}
+    rec["title"] = data.get('title')
+    rec["color"] = data.get('color')
+    rec["position"] = data.get('position')
+    rec["archived"] = _as_bool(data.get('archived'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
+    _persist("Group", rec)
     return rec, 201
 
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['title', 'color', 'position', 'archived'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['title', 'color', 'position', 'archived'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,163 +381,35 @@ def update_folder(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Folder", rec)
+    _persist("Group", rec)
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monday.Folder", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    err = _require(data, ['body'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monday_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monday.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("monday_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"monday.Permission", "id": eid})
+    db.retract({"entity": f"monday.Group", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['name', 'email', 'enabled', 'isAdmin', 'isGuest', 'countryCode'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'displayName'])
+    err = _require(data, ['name', 'email'])
     if err:
         return err, 400
     rec = {"id": new_id("monday_use")}
+    rec["name"] = data.get('name')
     rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
-    rec["status"] = data.get('status')
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["isAdmin"] = _as_bool(data.get('isAdmin'))
+    rec["isGuest"] = _as_bool(data.get('isGuest'))
+    rec["countryCode"] = data.get('countryCode')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -464,7 +420,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _apply_filters(rows, params, ['name', 'email', 'enabled', 'isAdmin', 'isGuest', 'countryCode'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -485,7 +441,7 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['name', 'email', 'enabled', 'isAdmin', 'isGuest', 'countryCode'])
     if err:
         return err, 400
     rec = rows[0]
@@ -505,10 +461,77 @@ def delete_user(request, eid):
     db.retract({"entity": f"monday.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/updates", methods=["POST"])
+def create_update(request):
+    """Create a Update."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['body', 'textBody', 'creatorId', 'itemId'])
+    if err:
+        return err, 400
+    err = _require(data, ['body', 'textBody'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("monday_upd")}
+    rec["body"] = data.get('body')
+    rec["textBody"] = data.get('textBody')
+    rec["creatorId"] = data.get('creatorId')
+    rec["itemId"] = data.get('itemId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Update", rec)
+    return rec, 201
+
+@app.route("/v1/updates", methods=["GET"])
+def list_updates(request):
+    """List Updates with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Update")
+    rows = _apply_filters(rows, params, ['body', 'textBody', 'creatorId', 'itemId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/updates/<eid>", methods=["GET"])
+def get_update(request, eid):
+    """Retrieve a Update by id (supports ?expand=)."""
+    rows = _query("Update", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'itemId': 'Item'})
+    return rec, 200
+
+@app.route("/v1/updates/<eid>", methods=["POST", "PATCH"])
+def update_update(request, eid):
+    """Update a Update."""
+    rows = _query("Update", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['body', 'textBody', 'creatorId', 'itemId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Update", rec)
+    return rec, 200
+
+@app.route("/v1/updates/<eid>", methods=["DELETE"])
+def delete_update(request, eid):
+    """Delete a Update."""
+    rows = _query("Update", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"monday.Update", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "monday-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['Board', 'Item', 'Column', 'Group', 'User', 'Update']}, 200
 
 
 if __name__ == "__main__":

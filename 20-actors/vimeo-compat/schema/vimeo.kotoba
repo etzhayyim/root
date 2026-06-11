@@ -3,22 +3,20 @@
 
 namespace vimeo {
 
-    entity Asset {
+    entity Video {
         id: string @unique
-        title: string
-        type: string
-        durationMs: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Rendition {
-        id: string @unique
-        assetId: string
-        format: string
-        bitrate: integer
-        contentRef: string
+        name: string
+        description: string
+        duration: float
+        width: integer
+        height: integer
+        language: string
+        license: string
+        status: string
+        link: string
+        releaseTime: datetime
+        resourceKey: string
+        uri: string
         createdAt: datetime
         updatedAt: datetime
     }
@@ -27,46 +25,70 @@ namespace vimeo {
         id: string @unique
         name: string
         description: string
-        public: boolean
+        link: string
+        resourceKey: string
+        uri: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Playlist {
-        id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
+    entity Album {
         id: string @unique
         name: string
-        variant: string
-        conversionRate: float
+        description: string
+        duration: float
+        layout: string
+        sort: string
+        theme: string
+        brandColor: string
+        allowDownloads: boolean
+        allowShare: boolean
+        allowContinuousPlay: boolean
+        reviewMode: boolean
+        hideNav: boolean
+        link: string
+        url: string
+        resourceKey: string
+        uri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        name: string
+        bio: string
+        email: string
+        location: string
+        account: string
+        link: string
+        resourceKey: string
+        uri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Group {
+        id: string @unique
+        name: string
+        description: string
+        link: string
+        resourceKey: string
+        uri: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Category {
+        id: string @unique
+        name: string
+        topLevel: boolean
+        lastVideoFeaturedTime: datetime
+        link: string
+        resourceKey: string
+        uri: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

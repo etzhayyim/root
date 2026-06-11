@@ -152,10 +152,19 @@ def build():
         tier = m.get("tier", "L3")
         caps = m.get("capabilities", {})
 
+        # L5 verification depth: number of (entity,field) pairs with an enforced,
+        # official-source-verified enum (from the L5 provenance ledger). Surfaced on
+        # every capability surface so consumers can see which actors carry verified
+        # runtime constraints, not just generated scaffolds.
+        _em = l5_enums.get(handle, {})
+        verified_enum_fields = sum(len(fields) for fields in _em.values())
+        l5_verified = bool(_em)
+
         mcp_servers.append({
             "handle": handle, "did": did, "tier": tier,
             "endpoint": f"ipfs://{cid}", "transport": "ipfs+kotoba-wasm",
             "toolCount": caps.get("mcp", {}).get("toolCount", 0),
+            "l5Verified": l5_verified, "verifiedEnumFields": verified_enum_fields,
             "manifest": f"20-actors/{actor}/manifest.json#/capabilities/mcp",
         })
         api = caps.get("api", {})
@@ -164,6 +173,7 @@ def build():
             "basePath": "/v1", "endpointCount": api.get("endpointCount", 0),
             "ipfs": f"ipfs://{cid}", "health": "/healthz",
             "features": api.get("features", {}),
+            "l5Verified": l5_verified, "verifiedEnumFields": verified_enum_fields,
             "openapi": f"20-actors/{actor}/openapi.json" if tier in ("L4", "L5") else None,
         })
         sp = caps.get("socialpost", {})
@@ -172,6 +182,7 @@ def build():
             "lexicon": sp.get("lexicon", "app.bsky.feed.post"),
             "source": sp.get("source", ""), "mode": sp.get("mode", "dry-run"),
             "gate": sp.get("gate", "G8"),
+            "l5Verified": l5_verified, "verifiedEnumFields": verified_enum_fields,
         })
         comps = caps.get("supplychain", {}).get("sbomData", {}).get("components", [])
         actor_sbom.append({"handle": handle, "components": [c["name"] for c in comps]})
@@ -190,18 +201,25 @@ def build():
                 f.write("\n")
             openapi_written += 1
 
+    l5_actor_count = sum(1 for h in l5_enums if l5_enums[h])
+    total_verified_enum_fields = sum(len(f) for em in l5_enums.values() for f in em.values())
     _w("cleanroom-mcp-index.json", {
         "schemaVersion": "1.0", "kind": "mcp-server-registry",
         "transport": "ipfs+kotoba-wasm", "adr": ["260607", "2606014500"],
         "count": len(mcp_servers),
         "totalTools": sum(s["toolCount"] for s in mcp_servers),
+        "l5VerifiedActors": l5_actor_count,
+        "totalVerifiedEnumFields": total_verified_enum_fields,
         "servers": mcp_servers,
     })
     _w("cleanroom-openapi-index.json", {
         "schemaVersion": "1.0", "kind": "openapi-registry",
         "adr": ["260607", "2606014500"], "count": len(openapis),
         "totalEndpoints": sum(a["endpointCount"] for a in openapis),
-        "l4SpecsAvailable": openapi_written, "apis": openapis,
+        "l4SpecsAvailable": openapi_written,
+        "l5VerifiedActors": l5_actor_count,
+        "totalVerifiedEnumFields": total_verified_enum_fields,
+        "apis": openapis,
     })
     _w("cleanroom-supplychain-index.json", {
         "schemaVersion": "1.0", "kind": "supplychain-sbom-index",
@@ -212,7 +230,10 @@ def build():
     _w("cleanroom-socialpost-index.json", {
         "schemaVersion": "1.0", "kind": "socialpost-feed-registry",
         "lexicon": "app.bsky.feed.post", "gate": "G8 (outward posting gated)",
-        "adr": ["260607"], "count": len(social_feeds), "feeds": social_feeds,
+        "adr": ["260607"], "count": len(social_feeds),
+        "l5VerifiedActors": l5_actor_count,
+        "totalVerifiedEnumFields": total_verified_enum_fields,
+        "feeds": social_feeds,
     })
     print(f"Built capability indexes for {len(mcp_servers)} actors:")
     print(f"  mcp servers: {len(mcp_servers)} ({sum(s['toolCount'] for s in mcp_servers)} tools)")

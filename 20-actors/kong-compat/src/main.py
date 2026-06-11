@@ -115,17 +115,26 @@ def _expand(rec, params, refs):
 def create_service(request):
     """Create a Service."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['id', 'name', 'protocol', 'host', 'port', 'path', 'retries', 'enabled', 'connectTimeout', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'runtime'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
+    if data.get('protocol') and data['protocol'] not in ['http', 'https', 'grpc', 'grpcs', 'tcp', 'tls', 'udp']:
+        return {"error": {"message": "invalid protocol; allowed: " + ", ".join(['http', 'https', 'grpc', 'grpcs', 'tcp', 'tls', 'udp']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("kong_ser")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["runtime"] = data.get('runtime')
-    rec["region"] = data.get('region')
-    rec["status"] = data.get('status')
+    rec["protocol"] = data.get('protocol')
+    rec["host"] = data.get('host')
+    rec["port"] = _as_int(data.get('port'))
+    rec["path"] = data.get('path')
+    rec["retries"] = _as_int(data.get('retries'))
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["connectTimeout"] = _as_int(data.get('connectTimeout'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Service", rec)
@@ -136,7 +145,7 @@ def list_services(request):
     """List Services with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'runtime', 'region', 'status'])
+    rows = _apply_filters(rows, params, ['id', 'name', 'protocol', 'host', 'port', 'path', 'retries', 'enabled', 'connectTimeout', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,9 +166,11 @@ def update_service(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'region', 'status'])
+    err = _reject_unknown(data, ['id', 'name', 'protocol', 'host', 'port', 'path', 'retries', 'enabled', 'connectTimeout', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('protocol') and data['protocol'] not in ['http', 'https', 'grpc', 'grpcs', 'tcp', 'tls', 'udp']:
+        return {"error": {"message": "invalid protocol; allowed: " + ", ".join(['http', 'https', 'grpc', 'grpcs', 'tcp', 'tls', 'udp']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,54 +188,129 @@ def delete_service(request, eid):
     db.retract({"entity": f"kong.Service", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
+@app.route("/v1/routes", methods=["POST"])
+def create_route(request):
+    """Create a Route."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
+    err = _reject_unknown(data, ['id', 'name', 'service', 'stripPath', 'preserveHost', 'priority', 'pathHandling', 'httpsRedirectStatusCode', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['version', 'status'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("kong_dep")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["version"] = data.get('version')
-    rec["status"] = data.get('status')
-    rec["deployedAt"] = data.get('deployedAt')
+    if data.get('pathHandling') and data['pathHandling'] not in ['v0', 'v1']:
+        return {"error": {"message": "invalid pathHandling; allowed: " + ", ".join(['v0', 'v1']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kong_rou")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
+    rec["service"] = data.get('service')
+    rec["stripPath"] = _as_bool(data.get('stripPath'))
+    rec["preserveHost"] = _as_bool(data.get('preserveHost'))
+    rec["priority"] = _as_int(data.get('priority'))
+    rec["pathHandling"] = data.get('pathHandling')
+    rec["httpsRedirectStatusCode"] = _as_int(data.get('httpsRedirectStatusCode'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
+    _persist("Route", rec)
     return rec, 201
 
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
+@app.route("/v1/routes", methods=["GET"])
+def list_routes(request):
+    """List Routes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['serviceId', 'version', 'status', 'deployedAt'])
+    rows = _query("Route")
+    rows = _apply_filters(rows, params, ['id', 'name', 'service', 'stripPath', 'preserveHost', 'priority', 'pathHandling', 'httpsRedirectStatusCode', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/routes/<eid>", methods=["GET"])
+def get_route(request, eid):
+    """Retrieve a Route by id (supports ?expand=)."""
+    rows = _query("Route", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
+def update_route(request, eid):
+    """Update a Route."""
+    rows = _query("Route", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'version', 'status', 'deployedAt'])
+    err = _reject_unknown(data, ['id', 'name', 'service', 'stripPath', 'preserveHost', 'priority', 'pathHandling', 'httpsRedirectStatusCode', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('pathHandling') and data['pathHandling'] not in ['v0', 'v1']:
+        return {"error": {"message": "invalid pathHandling; allowed: " + ", ".join(['v0', 'v1']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Route", rec)
+    return rec, 200
+
+@app.route("/v1/routes/<eid>", methods=["DELETE"])
+def delete_route(request, eid):
+    """Delete a Route."""
+    rows = _query("Route", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kong.Route", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/consumers", methods=["POST"])
+def create_consumer(request):
+    """Create a Consumer."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'username', 'customId', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'username'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("kong_con")}
+    rec["id"] = data.get('id')
+    rec["username"] = data.get('username')
+    rec["customId"] = data.get('customId')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Consumer", rec)
+    return rec, 201
+
+@app.route("/v1/consumers", methods=["GET"])
+def list_consumers(request):
+    """List Consumers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Consumer")
+    rows = _apply_filters(rows, params, ['id', 'username', 'customId', 'createdAt', 'updatedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/consumers/<eid>", methods=["GET"])
+def get_consumer(request, eid):
+    """Retrieve a Consumer by id (supports ?expand=)."""
+    rows = _query("Consumer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/consumers/<eid>", methods=["POST", "PATCH"])
+def update_consumer(request, eid):
+    """Update a Consumer."""
+    rows = _query("Consumer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'username', 'customId', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,64 +318,69 @@ def update_deployment(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Deployment", rec)
+    _persist("Consumer", rec)
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/consumers/<eid>", methods=["DELETE"])
+def delete_consumer(request, eid):
+    """Delete a Consumer."""
+    rows = _query("Consumer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kong.Deployment", "id": eid})
+    db.retract({"entity": f"kong.Consumer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/secrets", methods=["POST"])
-def create_secret(request):
-    """Create a Secret."""
+@app.route("/v1/plugins", methods=["POST"])
+def create_plugin(request):
+    """Create a Plugin."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
+    err = _reject_unknown(data, ['id', 'name', 'instanceName', 'service', 'route', 'consumer', 'enabled', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'scope'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("kong_sec")}
+    rec = {"id": new_id("kong_plu")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["scope"] = data.get('scope')
-    rec["rotatedAt"] = data.get('rotatedAt')
+    rec["instanceName"] = data.get('instanceName')
+    rec["service"] = data.get('service')
+    rec["route"] = data.get('route')
+    rec["consumer"] = data.get('consumer')
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Secret", rec)
+    _persist("Plugin", rec)
     return rec, 201
 
-@app.route("/v1/secrets", methods=["GET"])
-def list_secrets(request):
-    """List Secrets with filtering + cursor pagination."""
+@app.route("/v1/plugins", methods=["GET"])
+def list_plugins(request):
+    """List Plugins with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Secret")
-    rows = _apply_filters(rows, params, ['name', 'scope', 'rotatedAt'])
+    rows = _query("Plugin")
+    rows = _apply_filters(rows, params, ['id', 'name', 'instanceName', 'service', 'route', 'consumer', 'enabled', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/secrets/<eid>", methods=["GET"])
-def get_secret(request, eid):
-    """Retrieve a Secret by id (supports ?expand=)."""
-    rows = _query("Secret", eid)
+@app.route("/v1/plugins/<eid>", methods=["GET"])
+def get_plugin(request, eid):
+    """Retrieve a Plugin by id (supports ?expand=)."""
+    rows = _query("Plugin", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["POST", "PATCH"])
-def update_secret(request, eid):
-    """Update a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/plugins/<eid>", methods=["POST", "PATCH"])
+def update_plugin(request, eid):
+    """Update a Plugin."""
+    rows = _query("Plugin", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'scope', 'rotatedAt'])
+    err = _reject_unknown(data, ['id', 'name', 'instanceName', 'service', 'route', 'consumer', 'enabled', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,65 +388,147 @@ def update_secret(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Secret", rec)
+    _persist("Plugin", rec)
     return rec, 200
 
-@app.route("/v1/secrets/<eid>", methods=["DELETE"])
-def delete_secret(request, eid):
-    """Delete a Secret."""
-    rows = _query("Secret", eid)
+@app.route("/v1/plugins/<eid>", methods=["DELETE"])
+def delete_plugin(request, eid):
+    """Delete a Plugin."""
+    rows = _query("Plugin", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kong.Secret", "id": eid})
+    db.retract({"entity": f"kong.Plugin", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/apiproxies", methods=["POST"])
-def create_api_proxy(request):
-    """Create a ApiProxy."""
+@app.route("/v1/upstreams", methods=["POST"])
+def create_upstream(request):
+    """Create a Upstream."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
+    err = _reject_unknown(data, ['id', 'name', 'algorithm', 'hashOn', 'hashFallback', 'hashOnHeader', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'basePath'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("kong_api")}
+    if data.get('algorithm') and data['algorithm'] not in ['round-robin', 'consistent-hashing', 'least-connections', 'latency']:
+        return {"error": {"message": "invalid algorithm; allowed: " + ", ".join(['round-robin', 'consistent-hashing', 'least-connections', 'latency']), "type": "invalid_request_error"}}, 400
+    if data.get('hashOn') and data['hashOn'] not in ['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']:
+        return {"error": {"message": "invalid hashOn; allowed: " + ", ".join(['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']), "type": "invalid_request_error"}}, 400
+    if data.get('hashFallback') and data['hashFallback'] not in ['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']:
+        return {"error": {"message": "invalid hashFallback; allowed: " + ", ".join(['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kong_ups")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["basePath"] = data.get('basePath')
+    rec["algorithm"] = data.get('algorithm')
+    rec["hashOn"] = data.get('hashOn')
+    rec["hashFallback"] = data.get('hashFallback')
+    rec["hashOnHeader"] = data.get('hashOnHeader')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Upstream", rec)
+    return rec, 201
+
+@app.route("/v1/upstreams", methods=["GET"])
+def list_upstreams(request):
+    """List Upstreams with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Upstream")
+    rows = _apply_filters(rows, params, ['id', 'name', 'algorithm', 'hashOn', 'hashFallback', 'hashOnHeader', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/upstreams/<eid>", methods=["GET"])
+def get_upstream(request, eid):
+    """Retrieve a Upstream by id (supports ?expand=)."""
+    rows = _query("Upstream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/upstreams/<eid>", methods=["POST", "PATCH"])
+def update_upstream(request, eid):
+    """Update a Upstream."""
+    rows = _query("Upstream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'algorithm', 'hashOn', 'hashFallback', 'hashOnHeader', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('algorithm') and data['algorithm'] not in ['round-robin', 'consistent-hashing', 'least-connections', 'latency']:
+        return {"error": {"message": "invalid algorithm; allowed: " + ", ".join(['round-robin', 'consistent-hashing', 'least-connections', 'latency']), "type": "invalid_request_error"}}, 400
+    if data.get('hashOn') and data['hashOn'] not in ['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']:
+        return {"error": {"message": "invalid hashOn; allowed: " + ", ".join(['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']), "type": "invalid_request_error"}}, 400
+    if data.get('hashFallback') and data['hashFallback'] not in ['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']:
+        return {"error": {"message": "invalid hashFallback; allowed: " + ", ".join(['none', 'consumer', 'ip', 'header', 'cookie', 'path', 'query_arg', 'uri_capture']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Upstream", rec)
+    return rec, 200
+
+@app.route("/v1/upstreams/<eid>", methods=["DELETE"])
+def delete_upstream(request, eid):
+    """Delete a Upstream."""
+    rows = _query("Upstream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kong.Upstream", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/targets", methods=["POST"])
+def create_target(request):
+    """Create a Target."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'upstream', 'target', 'weight', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'upstream'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("kong_tar")}
+    rec["id"] = data.get('id')
+    rec["upstream"] = data.get('upstream')
     rec["target"] = data.get('target')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["weight"] = _as_int(data.get('weight'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ApiProxy", rec)
+    _persist("Target", rec)
     return rec, 201
 
-@app.route("/v1/apiproxies", methods=["GET"])
-def list_api_proxies(request):
-    """List ApiProxies with filtering + cursor pagination."""
+@app.route("/v1/targets", methods=["GET"])
+def list_targets(request):
+    """List Targets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ApiProxy")
-    rows = _apply_filters(rows, params, ['name', 'basePath', 'target', 'active'])
+    rows = _query("Target")
+    rows = _apply_filters(rows, params, ['id', 'upstream', 'target', 'weight', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/apiproxies/<eid>", methods=["GET"])
-def get_api_proxy(request, eid):
-    """Retrieve a ApiProxy by id (supports ?expand=)."""
-    rows = _query("ApiProxy", eid)
+@app.route("/v1/targets/<eid>", methods=["GET"])
+def get_target(request, eid):
+    """Retrieve a Target by id (supports ?expand=)."""
+    rows = _query("Target", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/apiproxies/<eid>", methods=["POST", "PATCH"])
-def update_api_proxy(request, eid):
-    """Update a ApiProxy."""
-    rows = _query("ApiProxy", eid)
+@app.route("/v1/targets/<eid>", methods=["POST", "PATCH"])
+def update_target(request, eid):
+    """Update a Target."""
+    rows = _query("Target", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'basePath', 'target', 'active'])
+    err = _reject_unknown(data, ['id', 'upstream', 'target', 'weight', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -363,155 +536,22 @@ def update_api_proxy(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ApiProxy", rec)
+    _persist("Target", rec)
     return rec, 200
 
-@app.route("/v1/apiproxies/<eid>", methods=["DELETE"])
-def delete_api_proxy(request, eid):
-    """Delete a ApiProxy."""
-    rows = _query("ApiProxy", eid)
+@app.route("/v1/targets/<eid>", methods=["DELETE"])
+def delete_target(request, eid):
+    """Delete a Target."""
+    rows = _query("Target", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kong.ApiProxy", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/databases", methods=["POST"])
-def create_database(request):
-    """Create a Database."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'engine'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kong_dat")}
-    rec["name"] = data.get('name')
-    rec["engine"] = data.get('engine')
-    rec["region"] = data.get('region')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Database", rec)
-    return rec, 201
-
-@app.route("/v1/databases", methods=["GET"])
-def list_databases(request):
-    """List Databases with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Database")
-    rows = _apply_filters(rows, params, ['name', 'engine', 'region', 'sizeGb'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/databases/<eid>", methods=["GET"])
-def get_database(request, eid):
-    """Retrieve a Database by id (supports ?expand=)."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/databases/<eid>", methods=["POST", "PATCH"])
-def update_database(request, eid):
-    """Update a Database."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'engine', 'region', 'sizeGb'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Database", rec)
-    return rec, 200
-
-@app.route("/v1/databases/<eid>", methods=["DELETE"])
-def delete_database(request, eid):
-    """Delete a Database."""
-    rows = _query("Database", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kong.Database", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/functions", methods=["POST"])
-def create_function(request):
-    """Create a Function."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'memoryMb'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kong_fun")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
-    rec["memoryMb"] = _as_int(data.get('memoryMb'))
-    rec["timeoutMs"] = _as_int(data.get('timeoutMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Function", rec)
-    return rec, 201
-
-@app.route("/v1/functions", methods=["GET"])
-def list_functions(request):
-    """List Functions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Function")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/functions/<eid>", methods=["GET"])
-def get_function(request, eid):
-    """Retrieve a Function by id (supports ?expand=)."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/functions/<eid>", methods=["POST", "PATCH"])
-def update_function(request, eid):
-    """Update a Function."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'memoryMb', 'timeoutMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Function", rec)
-    return rec, 200
-
-@app.route("/v1/functions/<eid>", methods=["DELETE"])
-def delete_function(request, eid):
-    """Delete a Function."""
-    rows = _query("Function", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kong.Function", "id": eid})
+    db.retract({"entity": f"kong.Target", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "kong-compat", "tier": "L4",
-            "entities": ['Service', 'Deployment', 'Secret', 'ApiProxy', 'Database', 'Function']}, 200
+            "entities": ['Service', 'Route', 'Consumer', 'Plugin', 'Upstream', 'Target']}, 200
 
 
 if __name__ == "__main__":
