@@ -27,17 +27,18 @@ const SAMPLE_VM = [{
 }];
 
 describe("did:etzhayyim genesis", () => {
-  it("creates a root DID with did:etzhayyim: prefix and bafy... CID", async () => {
+  it("creates a root DID with did:etzhayyim: prefix and bafkrei... CID", async () => {
     const g = await createGenesis({
       type: "root",
       vm: SAMPLE_VM,
       createdAt: "2026-04-17T00:00:00Z",
     });
     expect(g.did.startsWith(DID_etzhayyim_PREFIX)).toBe(true);
-    expect(g.did.startsWith("did:etzhayyim:bafy")).toBe(true); // base32 multibase, dag-cbor codec? we use raw → "bafk"
-    // raw codec CIDv1 bafkrei... base32 prefix:
-    // multibase 'b' + version 0x01 + codec 0x55 + sha2-256 multihash
-    // → "bafkrei..." (base32 of 0x01 0x55 0x12 0x20 ...)
+    // genesis.ts builds the CID with the RAW codec (0x55), not dag-cbor (0x71),
+    // so the base32 multibase string is "bafkrei…" not "bafy…":
+    // multibase 'b' + version 0x01 + codec 0x55 + sha2-256 multihash 0x12 0x20
+    // → base32(0x01 0x55 0x12 0x20 …) = "bafkrei…"
+    expect(g.did.startsWith("did:etzhayyim:bafk")).toBe(true);
     expect(g.did).toMatch(/^did:etzhayyim:bafkrei[a-z2-7]+$/);
     expect(g.depth).toBe(0);
     expect(g.parent).toBeNull();
