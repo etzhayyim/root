@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 11,
+  "templateCount": 12,
   "templates": [
     {
       "id": "tmpl.consulting-services",
@@ -16,10 +16,10 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicvzt2fl7jtrccqpoqxhnkkr2uez22b2n2xon42omia2pmrohpflu",
-      "bodySha256": "0x55ccf455fd33888507ba173b54a8ea84ceb41d37577379a73100d3d9171de55d",
-      "bytes": 2351,
-      "clauseCount": 7,
+      "bodyCid": "bafkreib664mmvhxshqswnybwpcfbdbwtew3x3owe7n57e2k66donrm62hq",
+      "bodySha256": "0x3ef718ca9ef23c2566e036788a1186d325b77dbac4fb7bf2695ef0dcd8b3da3c",
+      "bytes": 2624,
+      "clauseCount": 8,
       "statutes": [
         {
           "id": "st.eu-late-payment",
@@ -98,6 +98,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         }
       ]
     },
@@ -356,6 +368,71 @@
       ]
     },
     {
+      "id": "tmpl.heter-iska",
+      "title": "Heter Iska Investment-Partnership Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreignfc4sluxgsmlplevuvo5yz4auhxm5q2lpgzx3xdlgar56w4kzwe",
+      "bodySha256": "0xcd28b925d2e69316f592b4abbb8cf0143dd9d8696f366fbb8d66047beb7159b1",
+      "bytes": 1874,
+      "clauseCount": 4,
+      "statutes": [
+        {
+          "id": "st.shulchan-aruch-yd-177",
+          "citation": "Shulchan Arukh, Yoreh De'ah 177",
+          "instrument": "Shulchan Arukh (שולחן ערוך), Yoreh De'ah",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De'ah.177"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
       "id": "tmpl.lease-jp",
       "title": "住宅賃貸借契約書",
       "lang": "ja",
@@ -477,16 +554,22 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicaig66dkoeitlwqm5ylm2zsfxlmjo7ypnciz2lndbsgicztizfgq",
-      "bodySha256": "0x4041bde1a9c444d76833b85b359916eb625dfc3da24674b68c32320599a32534",
-      "bytes": 1576,
-      "clauseCount": 3,
+      "bodyCid": "bafkreibk4zicaxmv664bctggib3sjpkhtc3jbiednh3b4iice432lrsz4e",
+      "bodySha256": "0x2ae650205d95f7b8114cc6407724bd4798b690a08369f61e21022737a5c659e1",
+      "bytes": 1904,
+      "clauseCount": 4,
       "statutes": [
         {
           "id": "st.jp-risoku-seigen",
           "citation": "利息制限法1条",
           "instrument": "利息制限法 (昭和29年法律第100号)",
           "url": "https://laws.e-gov.go.jp/law/329AC0000000100"
+        },
+        {
+          "id": "st.aaoifi-ss19-qard",
+          "citation": "AAOIFI SS No. 19 (Qarḍ)",
+          "instrument": "AAOIFI Shari'ah Standards",
+          "url": "https://aaoifi.com/shariaa-standards/?lang=en"
         },
         {
           "id": "st.eu-late-payment",
@@ -517,6 +600,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         }
       ]
     },
@@ -660,10 +755,10 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreievlsl2jjxeob7ybpbuwsyaiozncyozwyznysmvstr4dk55eo2xi4",
-      "bodySha256": "0x955c97a4a6e4707f80bc34b4b0043b2d161d9b632dc499594e3c1abbd23b5747",
-      "bytes": 2502,
-      "clauseCount": 8,
+      "bodyCid": "bafkreiaurgcwffjz4kubu3jgztc376ggz3b54lbxvr2kprekyfaq34stx4",
+      "bodySha256": "0x148985629539e2a81a6d26ccc5bff8c6cec3de2c37ac74a7c48ac1410df253bf",
+      "bytes": 2775,
+      "clauseCount": 9,
       "statutes": [
         {
           "id": "st.cisg-35",
@@ -742,6 +837,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         }
       ]
     }

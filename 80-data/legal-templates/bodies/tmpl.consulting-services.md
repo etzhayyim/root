@@ -33,6 +33,9 @@ _Rests on:_ Singapore Convention 2019, Art. 3 (United Nations Convention on Inte
 ### 7. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号))
 
+### 8. Good faith & fair dealing  (boilerplate, recommended)
+_Rests on:_ UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+
 ## Execution
 Executed electronically via the etzhayyim esign substrate (com.etzhayyim.esign.envelope): each party signs with a WebAuthn passkey bound to their DID. Electronic execution rests on eIDAS Art. 25 (EU), ESIGN/UETA (US) and 電子署名法 (JP), as cited by the signature clause.
 

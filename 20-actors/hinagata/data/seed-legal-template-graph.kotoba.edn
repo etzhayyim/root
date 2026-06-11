@@ -31,6 +31,11 @@
  {:lt/id "jx.jp" :lt/kind :jurisdiction :lt/label "Japan" :jurisdiction/code "JP" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.us" :lt/kind :jurisdiction :lt/label "United States" :jurisdiction/code "US" :jurisdiction/system :common-law :lt/sourcing :authoritative}
  {:lt/id "jx.uk" :lt/kind :jurisdiction :lt/label "United Kingdom" :jurisdiction/code "UK" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+ ;; coverage wave 2 (/loop): close the MISSING legal-system buckets — religious / customary / mixed
+ {:lt/id "jx.jewish-law" :lt/kind :jurisdiction :lt/label "Jewish law (Halakha / הלכה)" :jurisdiction/code "INTL" :jurisdiction/system :religious :lt/sourcing :authoritative}
+ {:lt/id "jx.islamic-law" :lt/kind :jurisdiction :lt/label "Islamic law (Sharia / fiqh al-muʿāmalāt)" :jurisdiction/code "INTL" :jurisdiction/system :religious :lt/sourcing :authoritative}
+ {:lt/id "jx.lex-mercatoria" :lt/kind :jurisdiction :lt/label "Lex mercatoria (international customary commercial law)" :jurisdiction/code "INTL" :jurisdiction/system :customary :lt/sourcing :authoritative}
+ {:lt/id "jx.israel" :lt/kind :jurisdiction :lt/label "Israel (mixed: common law + religious personal-status law)" :jurisdiction/code "IL" :jurisdiction/system :mixed :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -46,6 +51,9 @@
  {:lt/id "concept.donation" :lt/kind :concept :lt/label "Donation / grant" :concept/code "donation" :lt/sourcing :authoritative}
  {:lt/id "concept.consumer-protection" :lt/kind :concept :lt/label "Consumer protection" :concept/code "consumer-protection" :lt/sourcing :authoritative}
  {:lt/id "concept.limitation-liability" :lt/kind :concept :lt/label "Limitation of liability" :concept/code "limitation-liability" :lt/sourcing :authoritative}
+ ;; coverage wave 2 concepts
+ {:lt/id "concept.interest-free-finance" :lt/kind :concept :lt/label "Interest-free / riba-free finance (qarḍ ḥasan / heter iska)" :concept/code "interest-free-finance" :lt/sourcing :authoritative}
+ {:lt/id "concept.good-faith" :lt/kind :concept :lt/label "Good faith & fair dealing" :concept/code "good-faith" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -102,6 +110,16 @@
  ;; donation / gift
  {:lt/id "st.jp-civil-549" :lt/kind :statute :lt/label "日本民法 549条 — 贈与 (gift / donation)" :statute/citation "民法549条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 2 (/loop): religious / customary / mixed legal instruments (real) ───
+ ;; Jewish law — laws of ribbit (interest) + the heter iska investment-partnership instrument
+ {:lt/id "st.shulchan-aruch-yd-177" :lt/kind :statute :lt/label "Shulchan Aruch, Yoreh De'ah §177 — heter iska & the laws of ribbit (interest)" :statute/citation "Shulchan Arukh, Yoreh De'ah 177" :statute/instrument "Shulchan Arukh (שולחן ערוך), Yoreh De'ah" :statute/jurisdiction "jx.jewish-law" :statute/url "https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De'ah.177" :lt/sourcing :authoritative}
+ ;; Islamic law — AAOIFI Shari'ah Standard on Qard (benevolent loan)
+ {:lt/id "st.aaoifi-ss19-qard" :lt/kind :statute :lt/label "AAOIFI Shari'ah Standard No. 19 — Loan (Qarḍ)" :statute/citation "AAOIFI SS No. 19 (Qarḍ)" :statute/instrument "AAOIFI Shari'ah Standards" :statute/jurisdiction "jx.islamic-law" :statute/url "https://aaoifi.com/shariaa-standards/?lang=en" :lt/sourcing :authoritative}
+ ;; lex mercatoria — UNIDROIT Principles of International Commercial Contracts (good faith)
+ {:lt/id "st.unidroit-2016" :lt/kind :statute :lt/label "UNIDROIT Principles 2016, Art. 1.7 — good faith and fair dealing" :statute/citation "UNIDROIT Principles 2016, Art. 1.7" :statute/instrument "UNIDROIT Principles of International Commercial Contracts (2016)" :statute/jurisdiction "jx.lex-mercatoria" :statute/url "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/" :lt/sourcing :authoritative}
+ ;; mixed system — Israel codified contract law
+ {:lt/id "st.israel-contracts-1973" :lt/kind :statute :lt/label "Israel Contracts (General Part) Law 5733-1973, §39 — performance in good faith" :statute/citation "Contracts (General Part) Law 5733-1973, §39" :statute/instrument "Contracts (General Part) Law, 5733-1973 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.nevo.co.il/law_html/law01/055_002.htm" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -126,6 +144,9 @@
  {:lt/id "cl.cooling-off" :lt/kind :clause :lt/label "Cooling-off / withdrawal right" :clause/role :cooling-off :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.signature-esign" :lt/kind :clause :lt/label "Electronic signature & execution (DID + WebAuthn)" :clause/role :signature :clause/optionality :mandatory :lt/sourcing :authoritative :lt/links "com.etzhayyim.esign.envelope"}
  {:lt/id "cl.donation-irrevocable" :lt/kind :clause :lt/label "Irrevocable charitable donation (no return benefit)" :clause/role :boilerplate :clause/optionality :recommended :lt/sourcing :representative}
+ ;; coverage wave 2 clauses — religious-finance + good faith
+ {:lt/id "cl.heter-iska" :lt/kind :clause :lt/label "Heter iska profit-sharing (Jewish-law interest-avoidance)" :clause/role :no-interest :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.good-faith" :lt/kind :clause :lt/label "Good faith & fair dealing" :clause/role :boilerplate :clause/optionality :recommended :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── templates (nodes) — the publishable units ───
  {:lt/id "tmpl.sales-intl" :lt/kind :template :lt/label "International Sale of Goods Agreement" :template/title "International Sale of Goods Agreement (CISG)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -139,6 +160,8 @@
  {:lt/id "tmpl.loan-qard" :lt/kind :template :lt/label "Zero-Interest Benevolent Loan Agreement (qard ḥasan)" :template/title "Zero-Interest Benevolent Loan Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.donation-grant" :lt/kind :template :lt/label "Charitable Donation / Grant Agreement" :template/title "Charitable Donation & Grant Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :neutral :lt/sourcing :representative}
  {:lt/id "tmpl.consumer-sale-jp" :lt/kind :template :lt/label "訪問販売・通信販売 契約書 (Consumer Sale, JP)" :template/title "特定商取引 契約書 (クーリングオフ条項付)" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
+ ;; coverage wave 2 — a religious-finance template (Jewish-law heter iska), charter-resonant w/ the qard tradition
+ {:lt/id "tmpl.heter-iska" :lt/kind :template :lt/label "Heter Iska Investment-Partnership Agreement (Jewish law)" :template/title "Heter Iska Investment-Partnership Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -203,6 +226,15 @@
  {:en/from "tmpl.consumer-sale-jp" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.consumer-sale-jp" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
+ ;; coverage wave 2 — Heter Iska template composition + good-faith reuse across existing templates
+ {:en/from "tmpl.heter-iska" :en/to "cl.heter-iska" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.heter-iska" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.heter-iska" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.heter-iska" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.loan-qard" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+
  ;; (B) :cites-statute / :mandated-by — clause → statute (THE binding to actual public law)
  {:en/from "cl.warranty-conformity" :en/to "st.cisg-35" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
  {:en/from "cl.nonconformity-notice" :en/to "st.cisg-39" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
@@ -239,6 +271,11 @@
  {:en/from "cl.ip-assignment" :en/to "st.us-copyright-201" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.dispute-mediation" :en/to "st.singapore-mediation" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.donation-irrevocable" :en/to "st.jp-civil-549" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ ;; coverage wave 2 — religious / customary / mixed clause→statute bindings
+ {:en/from "cl.heter-iska" :en/to "st.shulchan-aruch-yd-177" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.no-interest-qard" :en/to "st.aaoifi-ss19-qard" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.unidroit-2016" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.israel-contracts-1973" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
 
  ;; (C) :instantiates — clause → concept (the cross-template legal-concept spine)
  {:en/from "cl.warranty-conformity" :en/to "concept.sale-of-goods" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -259,6 +296,10 @@
  {:en/from "cl.donation-irrevocable" :en/to "concept.donation" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.cooling-off" :en/to "concept.consumer-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.limitation-liability" :en/to "concept.limitation-liability" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 2 — new clause→concept spine
+ {:en/from "cl.heter-iska" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.no-interest-qard" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "concept.good-faith" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (D) :governed-by — template → jurisdiction
  {:en/from "tmpl.sales-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -272,6 +313,7 @@
  {:en/from "tmpl.loan-qard" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.donation-grant" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.consumer-sale-jp" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.heter-iska" :en/to "jx.jewish-law" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -308,6 +350,11 @@
  {:en/from "st.us-copyright-201" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.singapore-mediation" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-civil-549" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 2 — applies-in for religious / customary / mixed instruments
+ {:en/from "st.shulchan-aruch-yd-177" :en/to "jx.jewish-law" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.aaoifi-ss19-qard" :en/to "jx.islamic-law" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.unidroit-2016" :en/to "jx.lex-mercatoria" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.israel-contracts-1973" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
