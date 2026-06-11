@@ -165,3 +165,79 @@ export function verifySignalIdentityHybrid(opts: VerifyHybridOpts): boolean {
 export function signalIdentityFingerprint(identityKey: Uint8Array): string {
   return bytesToHex(sha256(identityKey)).slice(0, 16);
 }
+
+// ── DID-document key extraction (pqh-v1, ADR-2606111300) ────────────────────
+
+// mldsa-65-pub = 0x1211 (multicodec registry, draft; FIPS 204) → varint [0x91, 0x24].
+const MLDSA65_MULTICODEC: readonly [number, number] = [0x91, 0x24];
+const MLDSA65_PUB_BYTES = 1952;
+
+const B58_ALPHABET =
+  "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+const B58_MAP: Record<string, number> = {};
+for (let i = 0; i < B58_ALPHABET.length; i++) B58_MAP[B58_ALPHABET[i]] = i;
+
+function base58btcDecode(str: string): Uint8Array {
+  let zeros = 0;
+  while (zeros < str.length && str[zeros] === "1") zeros++;
+  const bytes: number[] = [];
+  for (let i = zeros; i < str.length; i++) {
+    let carry = B58_MAP[str[i]];
+    if (carry === undefined) throw new Error(`invalid base58 char: ${str[i]}`);
+    for (let j = 0; j < bytes.length; j++) {
+      carry += bytes[j] * 58;
+      bytes[j] = carry & 0xff;
+      carry >>= 8;
+    }
+    while (carry > 0) {
+      bytes.push(carry & 0xff);
+      carry >>= 8;
+    }
+  }
+  const out = new Uint8Array(zeros + bytes.length);
+  for (let i = 0; i < bytes.length; i++) out[zeros + bytes.length - 1 - i] = bytes[i];
+  return out;
+}
+
+interface VerificationMethodLike {
+  type?: unknown;
+  publicKeyMultibase?: unknown;
+}
+
+/**
+ * Extract the DID's ML-DSA-65 verification key from a resolved DID document.
+ *
+ * Scans `verificationMethod` for a multibase 'z' (base58btc) key whose
+ * decoded bytes carry the `mldsa-65-pub` multicodec prefix (0x1211, draft
+ * registry) and a 1952-byte FIPS 204 encapsulation of the public key — the
+ * encoding emitted by did-web's `mlDsa65PubToDidKey`. Entry `type` is not
+ * trusted for dispatch (Multikey / MlDsa65VerificationKey2026 both appear in
+ * the wild); the multicodec prefix is authoritative.
+ *
+ * Returns the raw key for `verifySignalIdentityHybrid`'s
+ * `didPqVerificationKey`, or null when the document publishes none (legacy
+ * read-compat — verification then stays Ed25519-only).
+ */
+export function pqVerificationKeyFromDidDoc(didDoc: unknown): Uint8Array | null {
+  if (typeof didDoc !== "object" || didDoc === null) return null;
+  const vm = (didDoc as {verificationMethod?: unknown}).verificationMethod;
+  if (!Array.isArray(vm)) return null;
+  for (const entry of vm as VerificationMethodLike[]) {
+    const mb = entry?.publicKeyMultibase;
+    if (typeof mb !== "string" || !mb.startsWith("z")) continue;
+    let decoded: Uint8Array;
+    try {
+      decoded = base58btcDecode(mb.slice(1));
+    } catch {
+      continue;
+    }
+    if (
+      decoded.length === 2 + MLDSA65_PUB_BYTES &&
+      decoded[0] === MLDSA65_MULTICODEC[0] &&
+      decoded[1] === MLDSA65_MULTICODEC[1]
+    ) {
+      return decoded.slice(2);
+    }
+  }
+  return null;
+}
