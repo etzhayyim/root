@@ -169,7 +169,11 @@ def build_plan(notice: dict, procs: list, jurisdictions: dict | None = None) -> 
     for dl in proc.get(":proc/deadline-rules", []):
         plan["deadlines"].append({"label": dl[":dl/label"], "rule": dl[":dl/rule"],
                                   "anchor": dl[":dl/anchor"],
+                                  "critical": bool(dl.get(":dl/critical")),
                                   "verify_service_date": bool(dl.get(":dl/verify-service-date"))})
+    # wave 18: catastrophic-if-missed deadlines (徒過で権利消滅: KSchG 3週間 / CH 10日 /
+    # AU 21日 / forclusion …) ALWAYS surface first — stable sort keeps registry order otherwise
+    plan["deadlines"].sort(key=lambda d: not d["critical"])
     # :us sub-jurisdiction (wave 6): state law is where the real deadline lives — append
     # the DISCLOSED state rule when the state is known; never guess an unknown state (G10)
     if juris_id == ":us":
@@ -180,13 +184,13 @@ def build_plan(notice: dict, procs: list, jurisdictions: dict | None = None) -> 
                 "rule": state[":state/answer-rule"]
                         + f" · small claims 上限 ${state[':state/small-claims-usd']:,}",
                 "anchor": state[":state/answer-anchor"],
-                "verify_service_date": True})
+                "critical": False, "verify_service_date": True})
         else:
             plan["deadlines"].append({
                 "label": "州規則 (州不明)",
                 "rule": "州が特定できないため州規則は提示しない — サモンズ記載の期限と"
                         "当該州の rules of civil procedure を必ず確認 (州差が本体)",
-                "anchor": "—", "verify_service_date": True})
+                "anchor": "—", "critical": False, "verify_service_date": True})
     plan["options"] = [_make_option(o) for o in proc.get(":proc/options", [])]
     plan["steps"] = [
         {"verb": "verify-service-date", "detail": "送達/受領日を自分で確認 (期限の起算点)", "mode": "dry-run"},

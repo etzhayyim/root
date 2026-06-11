@@ -20,7 +20,7 @@
   :proc/deadline-rules
   [{:dl/label "督促異議の申立て"
     :dl/rule "支払督促の送達を受けた日から2週間以内 (経過後も仮執行宣言送達から2週間は申立て可)"
-    :dl/anchor "民事訴訟法391条・393条" :dl/verify-service-date true}]
+    :dl/anchor "民事訴訟法391条・393条" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tokusoku-igi :opt/kind :self-submit
     :opt/label "督促異議申立書を発した簡易裁判所へ提出 (→ 通常訴訟へ移行)"}
@@ -425,7 +425,7 @@
   :proc/deadline-rules
   [{:dl/label "Kündigungsschutzklage (解雇無効確認)"
     :dl/rule "Kündigung の到達 (Zugang) から3週間以内に Arbeitsgericht へ提訴 — 徒過すると解雇は有効と擬制される (最重要短期期限)"
-    :dl/anchor "KSchG §4・§7" :dl/verify-service-date true}
+    :dl/anchor "KSchG §4・§7" :dl/critical true :dl/verify-service-date true}
    {:dl/label "形式要件"
     :dl/rule "Kündigung は書面必須で電子形式は無効 — email/SMS のみの解雇通知は形式無効の疑い (書面を要求)"
     :dl/anchor "BGB §623" :dl/verify-service-date true}]
@@ -463,7 +463,7 @@
   :proc/deadline-rules
   [{:dl/label "부당해고 구제신청"
     :dl/rule "해고일로부터 3개월 이내に 노동위원회へ구제신청 (不当解雇の救済申立て — 最重要短期期限)"
-    :dl/anchor "근로기준법 28조" :dl/verify-service-date true}
+    :dl/anchor "근로기준법 28조" :dl/critical true :dl/verify-service-date true}
    {:dl/label "서면 통지 요건"
     :dl/rule "解雇は事由・時期を書面で通知しなければ効力なし — 口頭/SMS のみの解雇は無効主張の余地"
     :dl/anchor "근로기준법 27조" :dl/verify-service-date true}]
@@ -506,6 +506,24 @@
    {:opt/id :dapbyeonseo :opt/kind :self-submit :opt/label "답변서・의견서を事前提出 (言い分の整理)"}]
   :proc/refer-when ["재산분할・양육권が争点 → 변호사/대한법률구조공단"
                     "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:kr-apnyu" :proc/label "채권압류 및 추심명령 (給与差押え・執行・韓国)"
+  :proc/jurisdiction :kr :proc/track :enforcement
+  :proc/trigger-keywords ["압류"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "즉시항고"
+    :dl/rule "압류명령 송달부터 1주 이내に즉시항고 가능 (手続違背)"
+    :dl/anchor "민사집행법 15조・227조" :dl/verify-service-date true}
+   {:dl/label "압류금지 범위 (생계 보호)"
+    :dl/rule "급여は1/2까지만 압류 가능 + 월 185만원 (最低生計費・시행령 기준) 이하は全額 압류금지 — 生活維持分は法律上守られている"
+    :dl/anchor "민사집행법 246조・동 시행령" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :beomwi-byeongyeong :opt/kind :self-submit :opt/protective true
+    :opt/label "압류금지채권 범위변경 신청 (생계 곤란 시 — 法定の権利)"}
+   {:opt/id :jeuksi-hanggo :opt/kind :self-submit :opt/label "즉시항고 (1주 이내)"}]
+  :proc/refer-when ["다중채무 → 신용회복위원회 / 대한법률구조공단 132"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:kr-jigeup-myeongryeong" :proc/label "지급명령 (支払督促・韓国)"
@@ -561,7 +579,7 @@
   :proc/deadline-rules
   [{:dl/label "FWC unfair dismissal application"
     :dl/rule "dismissal の発効から21日以内に Fair Work Commission へ申立て — 延長は例外的 (世界屈指の短期期限)"
-    :dl/anchor "Fair Work Act 2009 s.394(2)" :dl/verify-service-date true}
+    :dl/anchor "Fair Work Act 2009 s.394(2)" :dl/critical true :dl/verify-service-date true}
    {:dl/label "適格要件"
     :dl/rule "最低雇用期間 (6か月; 小規模事業者は12か月) と高所得閾値の適格を確認 — general protections (s.365) は別ルート (同じく21日)"
     :dl/anchor "FW Act ss.382-384・365" :dl/verify-service-date true}]
@@ -950,7 +968,7 @@
   :proc/deadline-rules
   [{:dl/label "Rechtsvorschlag (異議)"
     :dl/rule "Zustellung から10日以内に Rechtsvorschlag (理由不要・口頭でも可) — これだけで手続が止まる; Betreibung は証拠不要で誰でも開始できるため、身に覚えがなければ必ず異議"
-    :dl/anchor "SchKG Art. 74" :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 74" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :rechtsvorschlag :opt/kind :self-submit :opt/protective true
     :opt/label "Betreibungsamt へ Rechtsvorschlag (10日以内 — 受領時にその場で宣言も可)"}
@@ -958,6 +976,22 @@
     :opt/label "根拠のない Betreibung は登録簿の不開示申立て (SchKG Art. 8a Abs. 3 lit. d) — 信用記録を守る"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["Rechtsöffnung (異議排除) を申し立てられた場合"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:fr-divorce-assignation" :proc/label "Assignation en divorce (家事・フランス)"
+  :proc/jurisdiction :fr :proc/track :family
+  :proc/trigger-keywords ["assignation en divorce"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Constitution d'avocat (弁護士必須)"
+    :dl/rule "divorce contentieux は avocat による代理が必須 — 本人では対抗手続不能 (DE Anwaltszwang と同型); tate が雛形を出せない管轄類型であることを正直に開示"
+    :dl/anchor "CPC art. 1108 以下 / loi du 23 mars 2019" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :avocat-sofort :opt/kind :self-decide :opt/label "速やかに avocat へ (audience d'orientation 前に)"}
+   {:opt/id :aj :opt/kind :self-submit :opt/protective true
+    :opt/label "aide juridictionnelle の申請は本人可 (loi 91-647) — 資力がなくても avocat を立てられる"}]
+  :proc/refer-when ["即時に avocat (représentation obligatoire)"
+                    "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:fr-licenciement" :proc/label "Lettre de licenciement (解雇・労働・フランス)"
@@ -1022,7 +1056,7 @@
   :proc/deadline-rules
   [{:dl/label "Déclaration de créance"
     :dl/rule "BODACC 公告から2か月以内 (国外債権者は+2か月) に mandataire judiciaire へ déclaration — 徒過は forclusion (失権; relevé de forclusion は例外的)"
-    :dl/anchor "Code de commerce L.622-24・R.622-24" :dl/verify-service-date true}]
+    :dl/anchor "Code de commerce L.622-24・R.622-24" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :declarer :opt/kind :self-submit :opt/protective true
     :opt/label "déclaration de créance を期限内に (オンライン可) — 前払金・avoir も債権 (kaiyaku 縁-ledger 突合)"}

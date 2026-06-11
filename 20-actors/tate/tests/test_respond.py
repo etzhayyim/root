@@ -663,6 +663,41 @@ def test_court_vocabulary_derived():
     assert status == ":suspected-fake"
 
 
+def test_wave18_kr_enforcement_fr_family():
+    """Wave 18: :kr 압류 (급여 1/2 + 월185만원 압류금지 민사집행법246조 — 5管轄目の
+    差押え保護, protective invariant auto) · :fr assignation en divorce (avocat
+    obligatoire を正直開示 + AJ 本人申請; kokoro invariant auto)."""
+    ps, _ = _by_id()
+    kr = ps["ntc:kr-apnyu"]
+    assert kr["status"] == ":genuine" and kr["proc"] == "proc:kr-apnyu"
+    assert any("246조" in d["anchor"] for d in kr["deadlines"])
+    fr = ps["ntc:fr-divorce"]
+    assert fr["status"] == ":genuine" and fr["proc"] == "proc:fr-divorce-assignation"
+    assert any("avocat" in d["rule"] for d in fr["deadlines"])
+    assert any(o["id"] == ":aj" for o in fr["options"])
+
+
+def test_critical_deadlines_surface_first():
+    """Wave 18 maturity: catastrophic-if-missed deadlines (:dl/critical — KSchG
+    3週間/解雇有効擬制, CH 10日, AU 21日, FR forclusion, KR 3개월, JP 督促異議)
+    ALWAYS sort to the top of the plan so the member cannot miss them."""
+    ps, procs = _by_id()
+    for nid, proc_id in [("ntc:de-kuendigung", "proc:de-kuendigung"),
+                         ("ntc:ch-zb", "proc:ch-zahlungsbefehl"),
+                         ("ntc:au-dismissal", "proc:au-unfair-dismissal"),
+                         ("ntc:fr-creance", "proc:fr-declaration-creance"),
+                         ("ntc:kr-haego", "proc:kr-budang-haego"),
+                         ("ntc:tokusoku-real", "proc:shiharai-tokusoku")]:
+        p = ps[nid]
+        assert p["proc"] == proc_id
+        assert p["deadlines"][0]["critical"] is True, nid
+    # multi-rule proc: the critical rule beats registry order when it is not first
+    # (registry lint: critical is boolean-only)
+    for p in procs:
+        for dl in p[":proc/deadline-rules"]:
+            assert dl.get(":dl/critical") in (None, True), (p[":proc/id"], dl)
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

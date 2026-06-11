@@ -146,4 +146,40 @@
   :state/answer-rule "general sessions: civil warrant 記載の期日に出頭 (書面 answer 不要の制度)"
   :state/answer-anchor "Tenn. Code Ann. §16-15-501 以下"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 18 (+5: AZ SC AL LA KY) ─────────────────────────────────────────────
+ {:state/id :us-az :state/label "Arizona"
+  :state/small-claims-usd 3500
+  :state/answer-rule "justice court: 送達から20日以内に answer"
+  :state/answer-anchor "JCRCP Rule 113 系"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-sc :state/label "South Carolina"
+  :state/small-claims-usd 7500
+  :state/answer-rule "magistrate court: 送達から30日以内に answer"
+  :state/answer-anchor "S.C. Code §22-3-10 以下"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-al :state/label "Alabama"
+  :state/small-claims-usd 6000
+  :state/answer-rule "small claims: 送達から14日以内に answer (短い)"
+  :state/answer-anchor "Ala. Small Claims Rule C"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-la :state/label "Louisiana"
+  :state/small-claims-usd 5000
+  :state/answer-rule "citation 記載の期限 (district 21日 — 2023改正; city court は短い) 以内に answer"
+  :state/answer-anchor "La. CCP art. 1001"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ky :state/label "Kentucky"
+  :state/small-claims-usd 2500
+  :state/answer-rule "small claims: 通知記載の trial date に出頭; 通常民事は20日以内に answer"
+  :state/answer-anchor "KRS ch. 24A.200 以下 / CR 12.01"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

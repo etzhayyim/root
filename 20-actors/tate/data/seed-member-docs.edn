@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 18 (:kr enforcement + :fr family) ───────────────────────────────────
+ {:notice/id "ntc:kr-apnyu" :notice/label "채권압류 및 추심명령 (法院送達・執行)"
+  :notice/jurisdiction :kr
+  :notice/channel :formal-service :notice/claim-amount 8000000 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "채권압류 및 추심명령. 채무자의 급여채권을 압류한다."}
+
+ {:notice/id "ntc:fr-divorce" :notice/label "FR assignation en divorce (signification・家事)"
+  :notice/jurisdiction :fr
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Assignation en divorce délivrée à la demande de votre conjoint."}
+
  ;; ── wave 17 (:au :ca labor+housing) ──────────────────────────────────────────
  {:notice/id "ntc:au-dismissal" :notice/label "AU termination of employment (letter・労働)"
   :notice/jurisdiction :au
