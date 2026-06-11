@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**17 templates published.**
+**18 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -15,6 +15,7 @@
 | Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 25 | `bafkreichtid43dy6a…` |
 | Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 28 | `bafkreifm6qgim4xbp…` |
 | Heter Iska Investment-Partnership Agreement | en | INTL | 4 | 14 | `bafkreihglzka5wh74…` |
+| Wohnraummietvertrag / Residential Lease (Germany) | en | DE | 6 | 21 | `bafkreieinvykwym72…` |
 | 住宅賃貸借契約書 | ja | JP | 5 | 15 | `bafkreiaik6p4odajr…` |
 | Residential Lease Agreement (Japan) | en | JP | 3 | 4 | `bafkreif65rwqlekm4…` |
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
