@@ -212,4 +212,49 @@
   [{:opt/id :opposition :opt/kind :self-submit :opt/label "発令裁判所の greffe へ opposition を提出 (→ 対審手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/échéancier の交渉"}]
   :proc/refer-when ["€10,000 超 (représentation par avocat 義務域)"]
+  :proc/verify-current-law true}
+
+ ;; ── :au ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:au-statement-of-claim" :proc/label "Statement of claim (民事・豪州)"
+  :proc/jurisdiction :au
+  :proc/trigger-keywords ["statement of claim"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Defence の提出"
+    :dl/rule "送達から28日以内 (NSW UCPR 14.3 — 州・裁判所により異なる; 書面記載の期限を確認)"
+    :dl/anchor "NSW UCPR r 14.3 / 各州 court rules" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (default judgment 回避)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["claim が大きい" "cross-claim を検討する"]
+  :proc/verify-current-law true}
+
+ ;; ── :ca ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ca-plaintiffs-claim" :proc/label "Plaintiff's claim (small claims・カナダ ON)"
+  :proc/jurisdiction :ca
+  :proc/trigger-keywords ["plaintiff's claim"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Defence (Form 9A) の提出"
+    :dl/rule "送達から20日以内 (ON Rules of the Small Claims Court r. 9.01; 州により異なる)"
+    :dl/anchor "ON Small Claims Rules r. 9.01" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (認否 + 分割払い提案も可)"}
+   {:opt/id :settle :opt/kind :self-decide :opt/label "settlement conference 前の和解検討"}]
+  :proc/refer-when ["CAD $35,000 超 (small claims 上限外)"]
+  :proc/verify-current-law true}
+
+ ;; ── :it ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:it-decreto-ingiuntivo" :proc/label "Decreto ingiuntivo (支払命令・イタリア)"
+  :proc/jurisdiction :it
+  :proc/trigger-keywords ["decreto ingiuntivo"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Opposizione (異議)"
+    :dl/rule "notifica から40日以内に opposizione (→ 通常訴訟へ)"
+    :dl/anchor "Codice di procedura civile art. 641" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :opposizione :opt/kind :self-submit :opt/label "発令裁判所へ opposizione を提起"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["opposizione は訴訟手続 — 高額は常に弁護士"]
   :proc/verify-current-law true}]

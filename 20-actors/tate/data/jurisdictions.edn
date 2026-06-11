@@ -60,4 +60,28 @@
   :juris/referrals ["point-justice (France Services)" "aide juridictionnelle" "ordre des avocats (consultation)"]
   :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "cybermalveillance.gouv.fr" "France Victimes 116 006"]
   :juris/refer-over-amount 10000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :au :juris/label "Australia"
+  :juris/upl-anchor "Legal Profession Uniform Law (州採択) — 無資格の法律業務禁止"
+  :juris/service-note "statement of claim は personal service / 州規則による郵送 (例 NSW UCPR Part 10)"
+  :juris/referrals ["state Legal Aid (例 Legal Aid NSW)" "community legal centres (CLCs)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Scamwatch (ACCC)" "ReportCyber (cyber.gov.au)"]
+  :juris/refer-over-amount 20000 :juris/refer-over-currency "AUD"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :ca :juris/label "Canada"
+  :juris/upl-anchor "州 Law Society 法 (例 Ontario Law Society Act — 無資格 practice 禁止)"
+  :juris/service-note "plaintiff's claim / statement of claim は personal service 等 (州規則, 例 ON Small Claims Rules)"
+  :juris/referrals ["provincial legal aid (例 Legal Aid Ontario)" "law society referral service"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Canadian Anti-Fraud Centre 1-888-495-8501" "local police (non-emergency)"]
+  :juris/refer-over-amount 35000 :juris/refer-over-currency "CAD"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :it :juris/label "Italia"
+  :juris/upl-anchor "L. 247/2012 (ordinamento della professione forense)"
+  :juris/service-note "decreto ingiuntivo / atto di citazione は notifica (ufficiale giudiziario / PEC)"
+  :juris/referrals ["patrocinio a spese dello Stato (法律扶助)" "Consiglio dell'Ordine degli Avvocati"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polizia Postale (commissariatodips.it)"]
+  :juris/refer-over-amount 10000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}]

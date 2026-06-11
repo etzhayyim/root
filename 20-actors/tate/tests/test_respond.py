@@ -205,6 +205,37 @@ def test_fr_injonction_genuine():
     assert any(o["id"] == ":opposition" for o in p["options"])
 
 
+def test_wave3_au_ca_it_genuine():
+    """Wave 3: AU statement of claim (NSW UCPR 14.3 28d) · CA plaintiff's claim
+    (ON r. 9.01 20d) · IT decreto ingiuntivo (c.p.c. 641 opposizione 40d)."""
+    ps, _ = _by_id()
+    au = ps["ntc:au-soc"]
+    assert au["status"] == ":genuine" and au["proc"] == "proc:au-statement-of-claim"
+    assert any("UCPR" in d["anchor"] for d in au["deadlines"])
+    ca = ps["ntc:ca-claim"]
+    assert ca["status"] == ":genuine" and ca["proc"] == "proc:ca-plaintiffs-claim"
+    assert any("9.01" in d["anchor"] for d in ca["deadlines"])
+    it = ps["ntc:it-decreto"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-decreto-ingiuntivo"
+    assert any("641" in d["anchor"] for d in it["deadlines"])
+    assert any(o["id"] == ":opposizione" for o in it["options"])
+
+
+def test_arbitration_inversion_us_vs_ca():
+    """Maturity: the SAME clause text ('binding arbitration') maps to opposite
+    disclosed positions — :us FAA enforceable vs :ca ON CPA void — proving G10
+    carries jurisdiction-specific MEANING, not just filtering."""
+    sys.path.insert(0, str(ACTOR_DIR / "methods"))
+    from terms_scan import scan_doc, load_patterns  # noqa: E402
+    patterns = load_patterns()
+    base = {":doc/context": ":consumer", ":doc/sourcing": ":synthetic",
+            ":doc/text": "Any dispute shall be resolved by binding arbitration."}
+    us = scan_doc({**base, ":doc/id": "d:us", ":doc/jurisdiction": ":us"}, patterns)
+    ca = scan_doc({**base, ":doc/id": "d:ca", ":doc/jurisdiction": ":ca"}, patterns)
+    assert any("ENFORCEABLE" in f["anchor"] or "原則" in f["anchor"] for f in us)
+    assert any("無効" in f["anchor"] for f in ca)
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

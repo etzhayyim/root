@@ -98,7 +98,7 @@ def scan_doc(doc: dict, patterns: list) -> list:
     G10: pattern jurisdiction must match the document jurisdiction (default :jp for
     R0 back-compat) — a 消費者契約法 anchor can never fire on a US doc and vice versa."""
     flags = []
-    text = doc.get(":doc/text", "")
+    text = doc.get(":doc/text", "").casefold()  # case-insensitive — sentence-initial capitals must not hide a clause
     ctx = doc.get(":doc/context")
     juris = doc.get(":doc/jurisdiction", ":jp")
     for p in patterns:
@@ -106,7 +106,7 @@ def scan_doc(doc: dict, patterns: list) -> list:
             continue  # G5 — consumer anchors never cross into :b2b and vice versa
         if p.get(":clause/jurisdiction", ":jp") != juris:
             continue  # G10 — anchors never cross jurisdictions
-        hit = next((k for k in p[":clause/keywords"] if k in text), None)
+        hit = next((k for k in p[":clause/keywords"] if k.casefold() in text), None)
         if hit is None:
             continue
         flags.append({

@@ -118,6 +118,13 @@ def test_intl_expected_shapes_hit():
     assert ("doc:kr-tos", "cl:kr-excessive-penalty") in hits
     assert ("doc:fr-abonnement", "cl:fr-liability-exclusion") in hits
     assert ("doc:fr-abonnement", "cl:fr-tacit-renewal") in hits
+    # wave 3 (:au :ca :it)
+    assert ("doc:au-tos", "cl:au-unfair-variation") in hits
+    assert ("doc:au-tos", "cl:au-guarantee-exclusion") in hits
+    assert ("doc:ca-tos", "cl:ca-arbitration-consumer") in hits
+    assert ("doc:ca-tos", "cl:ca-all-sales-final") in hits
+    assert ("doc:it-tos", "cl:it-clausola-vessatoria") in hits
+    assert ("doc:it-tos", "cl:it-tacito-rinnovo") in hits
 
 
 def test_jurisdiction_isolation():
@@ -135,6 +142,14 @@ def test_jurisdiction_isolation():
            ":doc/text": "当社は一切の責任を負いません。遅延損害金は年率19.9%。"}
     for f in scan_doc(adv, patterns):
         assert "消費者契約法" not in f["anchor"], f
+
+
+def test_case_insensitive_matching():
+    """Maturity (wave 3): sentence-initial capitals / ALL-CAPS must not hide a clause."""
+    patterns = load_patterns()
+    doc = {":doc/id": "doc:caps", ":doc/jurisdiction": ":au", ":doc/context": ":consumer",
+           ":doc/sourcing": ":synthetic", ":doc/text": "WE EXCLUDE ALL LIABILITY."}
+    assert any(f["clause"] == "cl:au-guarantee-exclusion" for f in scan_doc(doc, patterns))
 
 
 def test_datoms_ground_and_transient():

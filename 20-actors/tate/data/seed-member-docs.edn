@@ -140,4 +140,51 @@
   :notice/jurisdiction :fr
   :notice/channel :formal-service :notice/claim-amount 2400 :notice/claim-currency "EUR"
   :notice/sourcing :synthetic
-  :notice/text "Ordonnance portant injonction de payer. Vous pouvez former opposition."}]
+  :notice/text "Ordonnance portant injonction de payer. Vous pouvez former opposition."}
+
+ ;; ── wave 3 (:au :ca :it + registry-seed completeness backfill) ───────────────
+ {:doc/id "doc:au-tos" :doc/label "AU subscription terms (synthetic)"
+  :doc/jurisdiction :au
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "We may vary these terms at any time. To the fullest extent, we exclude all liability for any loss."}
+
+ {:doc/id "doc:ca-tos" :doc/label "CA retail terms (synthetic)"
+  :doc/jurisdiction :ca
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Any dispute will be resolved by binding arbitration. All sales are final."}
+
+ {:doc/id "doc:it-tos" :doc/label "IT condizioni generali (synthetic)"
+  :doc/jurisdiction :it
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Si esclude ogni responsabilità per danni. Il contratto si rinnova per tacito rinnovo di anno in anno."}
+
+ {:notice/id "ntc:au-soc" :notice/label "AU statement of claim (personal service)"
+  :notice/jurisdiction :au
+  :notice/channel :personal-service :notice/claim-amount 8000 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "You have been served with a statement of claim. A defence must be filed."}
+
+ {:notice/id "ntc:ca-claim" :notice/label "CA plaintiff's claim (personal service)"
+  :notice/jurisdiction :ca
+  :notice/channel :personal-service :notice/claim-amount 6500 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "You are served with a plaintiff's claim. You have 20 days to file a defence."}
+
+ {:notice/id "ntc:it-decreto" :notice/label "IT decreto ingiuntivo (notifica)"
+  :notice/jurisdiction :it
+  :notice/channel :formal-service :notice/claim-amount 4200 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "È stato emesso un decreto ingiuntivo nei Suoi confronti. Può proporre opposizione."}
+
+ ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
+ {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
+  :notice/jurisdiction :us
+  :notice/channel :certified-mail :notice/claim-amount 3000 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "You are being sued in small claims court. See the attached notice for your hearing date."}
+
+ {:notice/id "ntc:eu-smallclaims" :notice/label "European Small Claims (Form C, mail)"
+  :notice/jurisdiction :eu
+  :notice/channel :mail :notice/claim-amount 1500 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "European Small Claims procedure. Complete and return the Form C answer within the stated time."}]

@@ -40,7 +40,8 @@ from terms_scan import read_edn, load_docs, HERE  # noqa: E402
 COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "summons", "lawsuit", "small claims", "claim form",
                   "order for payment", "Mahnbescheid", "Vollstreckungsbescheid",
-                  "지급명령", "법원", "injonction de payer", "assignation")
+                  "지급명령", "법원", "injonction de payer", "assignation",
+                  "statement of claim", "plaintiff's claim", "decreto ingiuntivo")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 
@@ -74,7 +75,7 @@ def classify(notice: dict, procs: list, jurisdictions: dict | None = None):
     """(proc, status) — :genuine | :suspected-fake | :unknown | :unknown-jurisdiction."""
     jurisdictions = jurisdictions or load_jurisdictions()
     juris = notice.get(":notice/jurisdiction", ":jp")
-    text = notice.get(":notice/text", "")
+    text = notice.get(":notice/text", "").casefold()  # case-insensitive — SUMMONS ≡ summons
     channel = notice.get(":notice/channel")
     if juris not in jurisdictions:
         return None, ":unknown-jurisdiction"  # G10 — never guess foreign law
@@ -82,13 +83,13 @@ def classify(notice: dict, procs: list, jurisdictions: dict | None = None):
     for p in procs:
         if p.get(":proc/jurisdiction", ":jp") != juris:
             continue  # G10 — procedures never cross jurisdictions
-        if any(k in text for k in p[":proc/trigger-keywords"]):
+        if any(k.casefold() in text for k in p[":proc/trigger-keywords"]):
             matched = p
             break
     if matched is None:
         # court vocabulary on a non-formal channel without a registry match is the
         # classic fake shape (JP 架空請求 / US fake-lawsuit robocall / DE Fake-Inkasso)
-        if any(k in text for k in COURT_KEYWORDS) and channel in (":sms", ":email", ":mail"):
+        if any(k.casefold() in text for k in COURT_KEYWORDS) and channel in (":sms", ":email", ":mail"):
             return None, ":suspected-fake"
         return None, ":unknown"
     genuine = matched.get(":proc/genuine-channels", [])

@@ -197,4 +197,49 @@
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["reconduction tacite"]
   :clause/anchor "Code de la consommation L215-1 (loi Chatel — 更新前通知義務; 不履行なら随時解約可)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :au — Australia (G10) ────────────────────────────────────────────────────
+ {:clause/id "cl:au-unfair-variation" :clause/label "一方的変更権 (unfair term)"
+  :clause/jurisdiction :au
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["we may vary these terms at any time"]
+  :clause/anchor "Australian Consumer Law (CCA Sch 2) ss 23–28 (unfair contract terms — 2023改正で民事制裁対象)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:au-guarantee-exclusion" :clause/label "consumer guarantees の排除"
+  :clause/jurisdiction :au
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["we exclude all liability"]
+  :clause/anchor "ACL s 64 (consumer guarantees は契約で排除不可)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :ca — Canada (G10; 仲裁条項の効力が :us と逆になる好例) ──────────────────
+ {:clause/id "cl:ca-arbitration-consumer" :clause/label "消費者契約の仲裁条項 (ON では無効)"
+  :clause/jurisdiction :ca
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["binding arbitration"]
+  :clause/anchor "Ontario Consumer Protection Act 2002 ss 7–8 (consumer remedy に対する仲裁強制・クラスアクション放棄は無効 — :us FAA と逆)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ca-all-sales-final" :clause/label "『all sales are final』(返品権の否定)"
+  :clause/jurisdiction :ca
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["all sales are final"]
+  :clause/anchor "ON CPA 2002 (unfair practices) / Sale of Goods Act implied conditions"
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :it — Italia (G10) ───────────────────────────────────────────────────────
+ {:clause/id "cl:it-clausola-vessatoria" :clause/label "全部免責 (clausola vessatoria)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["si esclude ogni responsabilità"]
+  :clause/anchor "Codice del consumo artt. 33–36 (clausole vessatorie — nullità di protezione)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:it-tacito-rinnovo" :clause/label "tacito rinnovo (黙示更新)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["tacito rinnovo"]
+  :clause/anchor "Codice del consumo art. 65-bis 系 / L. 99/2009 (黙示更新の事前告知) — 通知なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}]

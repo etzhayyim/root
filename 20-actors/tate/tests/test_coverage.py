@@ -15,7 +15,8 @@ ACTOR_DIR = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ACTOR_DIR / "methods"))
 
 from coverage_report import coverage, report  # noqa: E402
-from respond_plan import load_jurisdictions  # noqa: E402
+from respond_plan import load_jurisdictions, load_procs, plans  # noqa: E402
+from terms_scan import load_docs, load_patterns, scan  # noqa: E402
 
 
 CORE = {":jp", ":us", ":eu", ":uk", ":de"}
@@ -67,6 +68,45 @@ def test_report_names_the_gap():
     assert "named gaps" in text.lower() or "Named gaps" in text
     assert ":unknown-jurisdiction" in text  # the degrade path is documented in the readout
     assert "193" in text
+
+
+def test_every_clause_pattern_exercised():
+    """Maturity: NO untested registry entry — every clause pattern must be hit by at
+    least one synthetic seed doc, or it is dead weight nobody has proven fires."""
+    docs, _ = load_docs()
+    patterns = load_patterns()
+    hit = {f["clause"] for f in scan(docs, patterns)["flags"]}
+    missing = sorted(p[":clause/id"] for p in patterns if p[":clause/id"] not in hit)
+    assert not missing, f"patterns with no exercising seed doc: {missing}"
+
+
+def test_every_procedure_exercised():
+    """Maturity: every procedure must be matched :genuine by at least one seed notice
+    (the fake/unknown fixtures don't count as exercising a procedure's happy path)."""
+    _, notices = load_docs()
+    procs = load_procs()
+    exercised = {p["proc"] for p in plans(notices, procs) if p["status"] == ":genuine"}
+    missing = sorted(p[":proc/id"] for p in procs if p[":proc/id"] not in exercised)
+    assert not missing, f"procedures with no genuine seed notice: {missing}"
+
+
+def test_registry_lint():
+    """Maturity: unique ids; every procedure has ≥1 option and ≥1 anchored deadline
+    rule; every pattern has keywords + anchor."""
+    patterns = load_patterns()
+    procs = load_procs()
+    pids = [p[":clause/id"] for p in patterns]
+    assert len(pids) == len(set(pids)), "duplicate clause ids"
+    qids = [p[":proc/id"] for p in procs]
+    assert len(qids) == len(set(qids)), "duplicate proc ids"
+    for p in patterns:
+        assert p[":clause/keywords"] and p[":clause/anchor"], p[":clause/id"]
+    for p in procs:
+        assert p[":proc/options"], p[":proc/id"]
+        assert p[":proc/deadline-rules"], p[":proc/id"]
+        for dl in p[":proc/deadline-rules"]:
+            assert dl[":dl/anchor"], (p[":proc/id"], dl)
+        assert p[":proc/genuine-channels"], p[":proc/id"]
 
 
 if __name__ == "__main__":

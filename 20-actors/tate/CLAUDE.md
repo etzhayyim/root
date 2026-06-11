@@ -6,7 +6,7 @@
 (tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
 (Datom = canonical state)
 
-**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr` — representative 7 of ~193
+**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it` — representative 10 of ~193
 (`coverage_report.py` measures + names the gap, G10; the worklist drops entries off
 automatically once covered). Uncovered jurisdictions degrade to
 `:unknown-jurisdiction` — tate **never guesses foreign law**.
@@ -93,15 +93,15 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
-│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (26 shapes, 7 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (13 procs)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (32 shapes, 10 juris)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (16 procs)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
 │   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags, G10 filter)
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 33 tests, pure stdlib
+├── tests/                         # 39 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   └── test_coverage.py
@@ -118,10 +118,10 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 cd 20-actors/tate
 python3 methods/terms_scan.py        # → out/clause-readout.md
 python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
-python3 methods/coverage_report.py   # → out/coverage-report.md (7/193, named gaps)
+python3 methods/coverage_report.py   # → out/coverage-report.md (10/193, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 33 green
+  && python3 tests/test_coverage.py  # 39 green
 ```
 
 ## Do not
