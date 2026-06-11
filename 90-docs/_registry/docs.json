@@ -23832,6 +23832,40 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist.md",
+      "id": "adr-2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "title": "ADR-2606111800: Donation-media expansion — fiat in-kind (infrastructure-cost) recognition + non-custodial fiat on-ramp (Tier-1 amendment of ADR-2605172100) + curated crypto-asset allowlist",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "authoritative": true,
+      "authoritative_for": [
+        "fiat in-kind (infrastructure-cost) donation recognition (com.etzhayyim.give.infrastructureDonationAttestation)",
+        "the non-custodial fiat-on-ramp carve-in to the payments-on-chain-only rule (ADR-2605172100)",
+        "the curated crypto-asset donation allowlist"
+      ],
+      "related": [
+        "2606111700",
+        "2605301036",
+        "2605215000",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605172100",
+        "2606012100",
+        "2605192115",
+        "2605192130",
+        "2606062100",
+        "2605301020",
+        "2605262900"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
