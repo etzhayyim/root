@@ -129,6 +129,15 @@ pre-commit:
       run: node 70-tools/scripts/lint/paywall-warn.mjs {staged_files}
       stage_fixed: false
 
+    yirah-presence-warn:
+      # Warning-level surface for ADR-2606112200 D4 (yir'ah invariant bundle).
+      # A staged actor manifest without a `yirah` declaration block gets a
+      # non-blocking reminder (absent != violating - declarations are adopted
+      # only where meaningful for the actor's scope). Always exits 0.
+      glob: "20-actors/*/manifest.jsonld"
+      run: python3 70-tools/scripts/lint/yirah-presence-warn.py {staged_files}
+      stage_fixed: false
+
     no-commercial-remittance:
       # Enforce ADR-2605282200 G7 + silenKawaseReview
       # commercialRemittanceSoftwarePenetrationPct const 0. Forbids
