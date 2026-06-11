@@ -719,3 +719,18 @@ document flags) — the largest single-entity declared-enum haul in the
 corpus, and the second JP-government anchor after jma_weather. docTypeCode
 honestly gapped (the 様式コードリスト annex is large and tracks 府令
 changes).
+
+### §16.17 /loop iteration 16 — wave 17: AWS via its own wire model (212, 21.2%)
+
+aws → ledger **212** (788 L4 / 212 L5 = 21.2%), enforced 204 / **845 enum
+fields** (+5), verify PASS 0/0, contract suite green. Harness-direct.
+
+The official botocore service-2.json (the machine-readable wire model every
+AWS SDK is generated from; apiVersion 2016-11-15, 4,044 shapes) anchors:
+InstanceStateName(6) + VolumeState(6) + VpcState(2) lifecycle enums
+(decade-stable) + Tenancy(3) + HypervisorType(2) enforced; the 1,212-value
+InstanceType, VolumeType (gp3/io2 2020) and Architecture (arm64_mac 2021)
+honestly gapped as growing. hmrc carries (its endpoint schemas render in a
+JS viewer; the GOV.UK shell is server-rendered but the spec content is
+not); etax carries (仕様書 ships as ~118MB of CAB archives — needs a
+dedicated extraction wave).

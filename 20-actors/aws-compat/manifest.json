@@ -5,22 +5,65 @@
   "kind": "compat",
   "title": "aws clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (aws); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+  "wasmCid": "bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+  "ipfs": "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
   "schema": "schema/aws.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Instance",
+      "Volume",
+      "Vpc",
+      "SecurityGroup"
+    ],
+    "enums": {
+      "Instance": {
+        "state": [
+          "pending",
+          "running",
+          "shutting-down",
+          "terminated",
+          "stopping",
+          "stopped"
+        ],
+        "hypervisor": [
+          "ovm",
+          "xen"
+        ]
+      },
+      "Volume": {
+        "state": [
+          "creating",
+          "available",
+          "in-use",
+          "deleting",
+          "deleted",
+          "error"
+        ]
+      },
+      "Vpc": {
+        "state": [
+          "pending",
+          "available"
+        ],
+        "instanceTenancy": [
+          "default",
+          "dedicated",
+          "host"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Ec2Instance",
-    "S3Bucket",
-    "S3Object",
-    "LambdaFunction",
-    "DynamoTable",
-    "IamRole",
-    "RdsInstance"
+    "Instance",
+    "Volume",
+    "Vpc",
+    "SecurityGroup"
   ],
   "adr": [
     "260607",
@@ -32,182 +75,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 35,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/ec2instances",
-          "op": "create Ec2Instance"
+          "path": "/v1/instances",
+          "op": "create Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/ec2instances",
-          "op": "list Ec2Instance"
+          "path": "/v1/instances",
+          "op": "list Instance"
         },
         {
           "method": "GET",
-          "path": "/v1/ec2instances/{id}",
-          "op": "get Ec2Instance"
+          "path": "/v1/instances/{id}",
+          "op": "get Instance"
         },
         {
           "method": "PATCH",
-          "path": "/v1/ec2instances/{id}",
-          "op": "update Ec2Instance"
+          "path": "/v1/instances/{id}",
+          "op": "update Instance"
         },
         {
           "method": "DELETE",
-          "path": "/v1/ec2instances/{id}",
-          "op": "delete Ec2Instance"
+          "path": "/v1/instances/{id}",
+          "op": "delete Instance"
         },
         {
           "method": "POST",
-          "path": "/v1/s3buckets",
-          "op": "create S3Bucket"
+          "path": "/v1/volumes",
+          "op": "create Volume"
         },
         {
           "method": "GET",
-          "path": "/v1/s3buckets",
-          "op": "list S3Bucket"
+          "path": "/v1/volumes",
+          "op": "list Volume"
         },
         {
           "method": "GET",
-          "path": "/v1/s3buckets/{id}",
-          "op": "get S3Bucket"
+          "path": "/v1/volumes/{id}",
+          "op": "get Volume"
         },
         {
           "method": "PATCH",
-          "path": "/v1/s3buckets/{id}",
-          "op": "update S3Bucket"
+          "path": "/v1/volumes/{id}",
+          "op": "update Volume"
         },
         {
           "method": "DELETE",
-          "path": "/v1/s3buckets/{id}",
-          "op": "delete S3Bucket"
+          "path": "/v1/volumes/{id}",
+          "op": "delete Volume"
         },
         {
           "method": "POST",
-          "path": "/v1/s3objects",
-          "op": "create S3Object"
+          "path": "/v1/vpcs",
+          "op": "create Vpc"
         },
         {
           "method": "GET",
-          "path": "/v1/s3objects",
-          "op": "list S3Object"
+          "path": "/v1/vpcs",
+          "op": "list Vpc"
         },
         {
           "method": "GET",
-          "path": "/v1/s3objects/{id}",
-          "op": "get S3Object"
+          "path": "/v1/vpcs/{id}",
+          "op": "get Vpc"
         },
         {
           "method": "PATCH",
-          "path": "/v1/s3objects/{id}",
-          "op": "update S3Object"
+          "path": "/v1/vpcs/{id}",
+          "op": "update Vpc"
         },
         {
           "method": "DELETE",
-          "path": "/v1/s3objects/{id}",
-          "op": "delete S3Object"
+          "path": "/v1/vpcs/{id}",
+          "op": "delete Vpc"
         },
         {
           "method": "POST",
-          "path": "/v1/lambdafunctions",
-          "op": "create LambdaFunction"
+          "path": "/v1/securitygroups",
+          "op": "create SecurityGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/lambdafunctions",
-          "op": "list LambdaFunction"
+          "path": "/v1/securitygroups",
+          "op": "list SecurityGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/lambdafunctions/{id}",
-          "op": "get LambdaFunction"
+          "path": "/v1/securitygroups/{id}",
+          "op": "get SecurityGroup"
         },
         {
           "method": "PATCH",
-          "path": "/v1/lambdafunctions/{id}",
-          "op": "update LambdaFunction"
+          "path": "/v1/securitygroups/{id}",
+          "op": "update SecurityGroup"
         },
         {
           "method": "DELETE",
-          "path": "/v1/lambdafunctions/{id}",
-          "op": "delete LambdaFunction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/dynamotables",
-          "op": "create DynamoTable"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/dynamotables",
-          "op": "list DynamoTable"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/dynamotables/{id}",
-          "op": "get DynamoTable"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/dynamotables/{id}",
-          "op": "update DynamoTable"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/dynamotables/{id}",
-          "op": "delete DynamoTable"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/rdsinstances",
-          "op": "create RdsInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/rdsinstances",
-          "op": "list RdsInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/rdsinstances/{id}",
-          "op": "get RdsInstance"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/rdsinstances/{id}",
-          "op": "update RdsInstance"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/rdsinstances/{id}",
-          "op": "delete RdsInstance"
+          "path": "/v1/securitygroups/{id}",
+          "op": "delete SecurityGroup"
         }
       ],
       "features": {
@@ -270,11 +238,11 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 35,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_ec2_instance",
-          "description": "Create a Ec2Instance.",
+          "name": "create_instance",
+          "description": "Create a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -287,10 +255,25 @@
               "state": {
                 "type": "string"
               },
-              "privateIp": {
+              "architecture": {
                 "type": "string"
               },
-              "region": {
+              "hypervisor": {
+                "type": "string"
+              },
+              "ebsOptimized": {
+                "type": "boolean"
+              },
+              "enaSupport": {
+                "type": "boolean"
+              },
+              "rootDeviceName": {
+                "type": "string"
+              },
+              "rootDeviceType": {
+                "type": "string"
+              },
+              "outpostArn": {
                 "type": "string"
               }
             },
@@ -301,16 +284,16 @@
           }
         },
         {
-          "name": "list_ec2_instances",
-          "description": "List Ec2Instances.",
+          "name": "list_instances",
+          "description": "List Instances.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_ec2_instance",
-          "description": "Get a Ec2Instance by id.",
+          "name": "get_instance",
+          "description": "Get a Instance by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -324,8 +307,8 @@
           }
         },
         {
-          "name": "update_ec2_instance",
-          "description": "Update a Ec2Instance.",
+          "name": "update_instance",
+          "description": "Update a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -341,95 +324,26 @@
               "state": {
                 "type": "string"
               },
-              "privateIp": {
+              "architecture": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_ec2_instance",
-          "description": "Delete a Ec2Instance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_s3_bucket",
-          "description": "Create a S3Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
+              "hypervisor": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
-              },
-              "versioning": {
+              "ebsOptimized": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "region"
-            ]
-          }
-        },
-        {
-          "name": "list_s3_buckets",
-          "description": "List S3Buckets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_s3_bucket",
-          "description": "Get a S3Bucket by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_s3_bucket",
-          "description": "Update a S3Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "versioning": {
+              "enaSupport": {
                 "type": "boolean"
+              },
+              "rootDeviceName": {
+                "type": "string"
+              },
+              "rootDeviceType": {
+                "type": "string"
+              },
+              "outpostArn": {
+                "type": "string"
               }
             },
             "required": [
@@ -438,8 +352,8 @@
           }
         },
         {
-          "name": "delete_s3_bucket",
-          "description": "Delete a S3Bucket.",
+          "name": "delete_instance",
+          "description": "Delete a Instance.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -453,41 +367,56 @@
           }
         },
         {
-          "name": "create_s3_object",
-          "description": "Create a S3Object.",
+          "name": "create_volume",
+          "description": "Create a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "bucket": {
+              "volumeId": {
                 "type": "string"
               },
-              "key": {
-                "type": "string"
-              },
-              "sizeBytes": {
+              "size": {
                 "type": "integer"
               },
-              "etag": {
+              "state": {
+                "type": "string"
+              },
+              "volumeType": {
+                "type": "string"
+              },
+              "iops": {
+                "type": "integer"
+              },
+              "throughput": {
+                "type": "integer"
+              },
+              "multiAttachEnabled": {
+                "type": "boolean"
+              },
+              "fastRestored": {
+                "type": "boolean"
+              },
+              "createTime": {
                 "type": "string"
               }
             },
             "required": [
-              "bucket",
-              "key"
+              "size",
+              "state"
             ]
           }
         },
         {
-          "name": "list_s3_objects",
-          "description": "List S3Objects.",
+          "name": "list_volumes",
+          "description": "List Volumes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_s3_object",
-          "description": "Get a S3Object by id.",
+          "name": "get_volume",
+          "description": "Get a Volume by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -501,24 +430,39 @@
           }
         },
         {
-          "name": "update_s3_object",
-          "description": "Update a S3Object.",
+          "name": "update_volume",
+          "description": "Update a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "bucket": {
+              "volumeId": {
                 "type": "string"
               },
-              "key": {
-                "type": "string"
-              },
-              "sizeBytes": {
+              "size": {
                 "type": "integer"
               },
-              "etag": {
+              "state": {
+                "type": "string"
+              },
+              "volumeType": {
+                "type": "string"
+              },
+              "iops": {
+                "type": "integer"
+              },
+              "throughput": {
+                "type": "integer"
+              },
+              "multiAttachEnabled": {
+                "type": "boolean"
+              },
+              "fastRestored": {
+                "type": "boolean"
+              },
+              "createTime": {
                 "type": "string"
               }
             },
@@ -528,8 +472,8 @@
           }
         },
         {
-          "name": "delete_s3_object",
-          "description": "Delete a S3Object.",
+          "name": "delete_volume",
+          "description": "Delete a Volume.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -543,41 +487,50 @@
           }
         },
         {
-          "name": "create_lambda_function",
-          "description": "Create a LambdaFunction.",
+          "name": "create_vpc",
+          "description": "Create a Vpc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "vpcId": {
                 "type": "string"
               },
-              "runtime": {
+              "state": {
                 "type": "string"
               },
-              "memoryMb": {
-                "type": "integer"
+              "cidrBlock": {
+                "type": "string"
               },
-              "timeoutSec": {
-                "type": "integer"
+              "isDefault": {
+                "type": "boolean"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "instanceTenancy": {
+                "type": "string"
+              },
+              "dhcpOptionsId": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "runtime"
+              "state",
+              "cidrBlock"
             ]
           }
         },
         {
-          "name": "list_lambda_functions",
-          "description": "List LambdaFunctions.",
+          "name": "list_vpcs",
+          "description": "List Vpcs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_lambda_function",
-          "description": "Get a LambdaFunction by id.",
+          "name": "get_vpc",
+          "description": "Get a Vpc by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -591,39 +544,33 @@
           }
         },
         {
-          "name": "update_lambda_function",
-          "description": "Update a LambdaFunction.",
+          "name": "update_vpc",
+          "description": "Update a Vpc.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "vpcId": {
                 "type": "string"
               },
-              "runtime": {
+              "state": {
                 "type": "string"
               },
-              "memoryMb": {
-                "type": "integer"
+              "cidrBlock": {
+                "type": "string"
               },
-              "timeoutSec": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_lambda_function",
-          "description": "Delete a LambdaFunction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "isDefault": {
+                "type": "boolean"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "instanceTenancy": {
+                "type": "string"
+              },
+              "dhcpOptionsId": {
                 "type": "string"
               }
             },
@@ -633,41 +580,62 @@
           }
         },
         {
-          "name": "create_dynamo_table",
-          "description": "Create a DynamoTable.",
+          "name": "delete_vpc",
+          "description": "Delete a Vpc.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string"
-              },
-              "partitionKey": {
-                "type": "string"
-              },
-              "itemCount": {
-                "type": "integer"
-              },
-              "status": {
+              "id": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "partitionKey"
+              "id"
             ]
           }
         },
         {
-          "name": "list_dynamo_tables",
-          "description": "List DynamoTables.",
+          "name": "create_security_group",
+          "description": "Create a SecurityGroup.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "string"
+              },
+              "groupName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "vpcId": {
+                "type": "string"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "securityGroupArn": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "groupName",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_security_groups",
+          "description": "List SecurityGroups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dynamo_table",
-          "description": "Get a DynamoTable by id.",
+          "name": "get_security_group",
+          "description": "Get a SecurityGroup by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -681,24 +649,30 @@
           }
         },
         {
-          "name": "update_dynamo_table",
-          "description": "Update a DynamoTable.",
+          "name": "update_security_group",
+          "description": "Update a SecurityGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "groupId": {
                 "type": "string"
               },
-              "partitionKey": {
+              "groupName": {
                 "type": "string"
               },
-              "itemCount": {
-                "type": "integer"
+              "description": {
+                "type": "string"
               },
-              "status": {
+              "vpcId": {
+                "type": "string"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "securityGroupArn": {
                 "type": "string"
               }
             },
@@ -708,182 +682,8 @@
           }
         },
         {
-          "name": "delete_dynamo_table",
-          "description": "Delete a DynamoTable.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "arn": {
-                "type": "string"
-              },
-              "policyRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "arn"
-            ]
-          }
-        },
-        {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "arn": {
-                "type": "string"
-              },
-              "policyRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rds_instance",
-          "description": "Create a RdsInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "identifier": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "instanceClass": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "identifier",
-              "engine"
-            ]
-          }
-        },
-        {
-          "name": "list_rds_instances",
-          "description": "List RdsInstances.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rds_instance",
-          "description": "Get a RdsInstance by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_rds_instance",
-          "description": "Update a RdsInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "identifier": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "instanceClass": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rds_instance",
-          "description": "Delete a RdsInstance.",
+          "name": "delete_security_group",
+          "description": "Delete a SecurityGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {

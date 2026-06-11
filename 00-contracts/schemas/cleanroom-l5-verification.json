@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 211,
+  "count": 212,
   "actors": [
     {
       "handle": "aave-compat",
@@ -2980,6 +2980,122 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official autoware_adapi_v1_msgs. Enforced enums: OperationModeState.mode(5), RouteState.state(5), LocalizationInitializationState.state(4), MotionState.state(4), Gear.status(6) = 5 enum fields. gemini-CLI-drafted research independently re-verified against primary sources (Gear draft omission corrected)."
+    },
+    {
+      "handle": "aws-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+      "remodeled": "Remodeled to the faithful AWS EC2 surface verified against the OFFICIAL AWS-published wire model (botocore service-2.json — the machine-readable definition every AWS SDK is generated from; apiVersion 2016-11-15). Lifecycle enums enforced: InstanceStateName(6: pending/running/shutting-down/terminated/stopping/stopped) + VolumeState(6) + VpcState(2) — unchanged for a decade — plus Tenancy(3, stable since 2015) and HypervisorType(2: ovm/xen). Honestly gapped as growing: InstanceType (1,212 values and counting), VolumeType (gp3/io2 added 2020), ArchitectureValues (arm64_mac added 2021). Harness-direct.",
+      "resources": [
+        {
+          "entity": "Instance",
+          "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+          "verifiedFields": [
+            "instanceId",
+            "instanceType",
+            "state",
+            "architecture",
+            "hypervisor",
+            "ebsOptimized",
+            "enaSupport",
+            "rootDeviceName",
+            "rootDeviceType",
+            "outpostArn"
+          ],
+          "fieldStatus": "confirmed (Instance shape members; state = InstanceState.Name)",
+          "discoveredEnums": {
+            "state": [
+              "pending",
+              "running",
+              "shutting-down",
+              "terminated",
+              "stopping",
+              "stopped"
+            ],
+            "hypervisor": [
+              "ovm",
+              "xen"
+            ]
+          },
+          "gaps": [
+            "instanceType-1212-values-growing",
+            "architecture-grew (arm64_mac 2021)"
+          ]
+        },
+        {
+          "entity": "Volume",
+          "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+          "verifiedFields": [
+            "volumeId",
+            "size",
+            "state",
+            "volumeType",
+            "iops",
+            "throughput",
+            "multiAttachEnabled",
+            "fastRestored",
+            "createTime"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "creating",
+              "available",
+              "in-use",
+              "deleting",
+              "deleted",
+              "error"
+            ]
+          },
+          "gaps": [
+            "volumeType-grew (gp3/io2 2020)"
+          ]
+        },
+        {
+          "entity": "Vpc",
+          "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+          "verifiedFields": [
+            "vpcId",
+            "state",
+            "cidrBlock",
+            "isDefault",
+            "ownerId",
+            "instanceTenancy",
+            "dhcpOptionsId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              "pending",
+              "available"
+            ],
+            "instanceTenancy": [
+              "default",
+              "dedicated",
+              "host"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SecurityGroup",
+          "source": "https://raw.githubusercontent.com/boto/botocore/develop/botocore/data/ec2/2016-11-15/service-2.json (the official AWS-published EC2 wire model, 4,044 shapes)",
+          "verifiedFields": [
+            "groupId",
+            "groupName",
+            "description",
+            "vpcId",
+            "ownerId",
+            "securityGroupArn"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs the official AWS wire model. Enforced enums: Instance.state(6)+hypervisor(2) + Volume.state(6) + Vpc.state(2)+instanceTenancy(3) = 5 enum fields. The big-three clouds are now all L5 (aws/gcp/azure-pending... aws+gcp done; azure remains L4)."
     },
     {
       "handle": "aws_braket-compat",

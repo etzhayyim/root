@@ -3,82 +3,60 @@
 
 namespace aws {
 
-    entity Ec2Instance {
+    entity Instance {
         id: string @unique
         instanceId: string
         instanceType: string
         state: string
-        privateIp: string
-        region: string
+        architecture: string
+        hypervisor: string
+        ebsOptimized: boolean
+        enaSupport: boolean
+        rootDeviceName: string
+        rootDeviceType: string
+        outpostArn: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity S3Bucket {
+    entity Volume {
         id: string @unique
-        name: string
-        region: string
-        versioning: boolean
+        volumeId: string
+        size: integer
+        state: string
+        volumeType: string
+        iops: integer
+        throughput: integer
+        multiAttachEnabled: boolean
+        fastRestored: boolean
+        createTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity S3Object {
+    entity Vpc {
         id: string @unique
-        bucket: string
-        key: string
-        sizeBytes: integer
-        etag: string
+        vpcId: string
+        state: string
+        cidrBlock: string
+        isDefault: boolean
+        ownerId: string
+        instanceTenancy: string
+        dhcpOptionsId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity LambdaFunction {
+    entity SecurityGroup {
         id: string @unique
-        name: string
-        runtime: string
-        memoryMb: integer
-        timeoutSec: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity DynamoTable {
-        id: string @unique
-        name: string
-        partitionKey: string
-        itemCount: integer
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        name: string
-        arn: string
-        policyRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity RdsInstance {
-        id: string @unique
-        identifier: string
-        engine: string
-        instanceClass: string
-        status: string
+        groupId: string
+        groupName: string
+        description: string
+        vpcId: string
+        ownerId: string
+        securityGroupArn: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

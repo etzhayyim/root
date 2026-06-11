@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (aws); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:aws-compat",
-    "x-wasm-cid": "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+    "x-wasm-cid": "bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+      "url": "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/ec2instances": {
+    "/v1/instances": {
       "get": {
-        "summary": "List Ec2Instances",
+        "summary": "List Instances",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Ec2Instance"
+                        "$ref": "#/components/schemas/Instance"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Ec2Instance",
+        "summary": "Create a Instance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Ec2InstanceCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ec2Instance"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/ec2instances/{id}": {
+    "/v1/instances/{id}": {
       "get": {
-        "summary": "Get a Ec2Instance",
+        "summary": "Get a Instance",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ec2Instance"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Ec2Instance",
+        "summary": "Update a Instance",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Ec2InstanceCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ec2Instance"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Ec2Instance",
+        "summary": "Delete a Instance",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/s3buckets": {
+    "/v1/volumes": {
       "get": {
-        "summary": "List S3Buckets",
+        "summary": "List Volumes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/S3Bucket"
+                        "$ref": "#/components/schemas/Volume"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a S3Bucket",
+        "summary": "Create a Volume",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/S3BucketCreate"
+                "$ref": "#/components/schemas/VolumeCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Bucket"
+                  "$ref": "#/components/schemas/Volume"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/s3buckets/{id}": {
+    "/v1/volumes/{id}": {
       "get": {
-        "summary": "Get a S3Bucket",
+        "summary": "Get a Volume",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Bucket"
+                  "$ref": "#/components/schemas/Volume"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a S3Bucket",
+        "summary": "Update a Volume",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/S3BucketCreate"
+                "$ref": "#/components/schemas/VolumeCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Bucket"
+                  "$ref": "#/components/schemas/Volume"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a S3Bucket",
+        "summary": "Delete a Volume",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/s3objects": {
+    "/v1/vpcs": {
       "get": {
-        "summary": "List S3Objects",
+        "summary": "List Vpcs",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/S3Object"
+                        "$ref": "#/components/schemas/Vpc"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a S3Object",
+        "summary": "Create a Vpc",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/S3ObjectCreate"
+                "$ref": "#/components/schemas/VpcCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Object"
+                  "$ref": "#/components/schemas/Vpc"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/s3objects/{id}": {
+    "/v1/vpcs/{id}": {
       "get": {
-        "summary": "Get a S3Object",
+        "summary": "Get a Vpc",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Object"
+                  "$ref": "#/components/schemas/Vpc"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a S3Object",
+        "summary": "Update a Vpc",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/S3ObjectCreate"
+                "$ref": "#/components/schemas/VpcCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/S3Object"
+                  "$ref": "#/components/schemas/Vpc"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a S3Object",
+        "summary": "Delete a Vpc",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/lambdafunctions": {
+    "/v1/securitygroups": {
       "get": {
-        "summary": "List LambdaFunctions",
+        "summary": "List SecurityGroups",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/LambdaFunction"
+                        "$ref": "#/components/schemas/SecurityGroup"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a LambdaFunction",
+        "summary": "Create a SecurityGroup",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LambdaFunctionCreate"
+                "$ref": "#/components/schemas/SecurityGroupCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LambdaFunction"
+                  "$ref": "#/components/schemas/SecurityGroup"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/lambdafunctions/{id}": {
+    "/v1/securitygroups/{id}": {
       "get": {
-        "summary": "Get a LambdaFunction",
+        "summary": "Get a SecurityGroup",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LambdaFunction"
+                  "$ref": "#/components/schemas/SecurityGroup"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a LambdaFunction",
+        "summary": "Update a SecurityGroup",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LambdaFunctionCreate"
+                "$ref": "#/components/schemas/SecurityGroupCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LambdaFunction"
+                  "$ref": "#/components/schemas/SecurityGroup"
                 }
               }
             }
@@ -736,562 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a LambdaFunction",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/dynamotables": {
-      "get": {
-        "summary": "List DynamoTables",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/DynamoTable"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a DynamoTable",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DynamoTableCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DynamoTable"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/dynamotables/{id}": {
-      "get": {
-        "summary": "Get a DynamoTable",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DynamoTable"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a DynamoTable",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DynamoTableCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DynamoTable"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a DynamoTable",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/iamroles": {
-      "get": {
-        "summary": "List IamRoles",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/IamRole"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a IamRole",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/iamroles/{id}": {
-      "get": {
-        "summary": "Get a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/rdsinstances": {
-      "get": {
-        "summary": "List RdsInstances",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/RdsInstance"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a RdsInstance",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RdsInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RdsInstance"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/rdsinstances/{id}": {
-      "get": {
-        "summary": "Get a RdsInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RdsInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a RdsInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RdsInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RdsInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a RdsInstance",
+        "summary": "Delete a SecurityGroup",
         "parameters": [
           {
             "name": "id",
@@ -1325,7 +770,7 @@
   },
   "components": {
     "schemas": {
-      "Ec2Instance": {
+      "Instance": {
         "type": "object",
         "properties": {
           "id": {
@@ -1338,12 +783,39 @@
             "type": "string"
           },
           "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "running",
+              "shutting-down",
+              "terminated",
+              "stopping",
+              "stopped"
+            ]
+          },
+          "architecture": {
             "type": "string"
           },
-          "privateIp": {
+          "hypervisor": {
+            "type": "string",
+            "enum": [
+              "ovm",
+              "xen"
+            ]
+          },
+          "ebsOptimized": {
+            "type": "boolean"
+          },
+          "enaSupport": {
+            "type": "boolean"
+          },
+          "rootDeviceName": {
             "type": "string"
           },
-          "region": {
+          "rootDeviceType": {
+            "type": "string"
+          },
+          "outpostArn": {
             "type": "string"
           },
           "createdAt": {
@@ -1356,7 +828,7 @@
           }
         }
       },
-      "Ec2InstanceCreate": {
+      "InstanceCreate": {
         "type": "object",
         "properties": {
           "instanceId": {
@@ -1366,12 +838,39 @@
             "type": "string"
           },
           "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "running",
+              "shutting-down",
+              "terminated",
+              "stopping",
+              "stopped"
+            ]
+          },
+          "architecture": {
             "type": "string"
           },
-          "privateIp": {
+          "hypervisor": {
+            "type": "string",
+            "enum": [
+              "ovm",
+              "xen"
+            ]
+          },
+          "ebsOptimized": {
+            "type": "boolean"
+          },
+          "enaSupport": {
+            "type": "boolean"
+          },
+          "rootDeviceName": {
             "type": "string"
           },
-          "region": {
+          "rootDeviceType": {
+            "type": "string"
+          },
+          "outpostArn": {
             "type": "string"
           }
         },
@@ -1380,65 +879,136 @@
           "state"
         ]
       },
-      "S3Bucket": {
+      "Volume": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "volumeId": {
             "type": "string"
           },
-          "region": {
+          "size": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "available",
+              "in-use",
+              "deleting",
+              "deleted",
+              "error"
+            ]
+          },
+          "volumeType": {
             "type": "string"
           },
-          "versioning": {
+          "iops": {
+            "type": "integer"
+          },
+          "throughput": {
+            "type": "integer"
+          },
+          "multiAttachEnabled": {
             "type": "boolean"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "S3BucketCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "versioning": {
+          "fastRestored": {
             "type": "boolean"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VolumeCreate": {
+        "type": "object",
+        "properties": {
+          "volumeId": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "available",
+              "in-use",
+              "deleting",
+              "deleted",
+              "error"
+            ]
+          },
+          "volumeType": {
+            "type": "string"
+          },
+          "iops": {
+            "type": "integer"
+          },
+          "throughput": {
+            "type": "integer"
+          },
+          "multiAttachEnabled": {
+            "type": "boolean"
+          },
+          "fastRestored": {
+            "type": "boolean"
+          },
+          "createTime": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
-          "region"
+          "size",
+          "state"
         ]
       },
-      "S3Object": {
+      "Vpc": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "bucket": {
+          "vpcId": {
             "type": "string"
           },
-          "key": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "available"
+            ]
+          },
+          "cidrBlock": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
+          "isDefault": {
+            "type": "boolean"
           },
-          "etag": {
+          "ownerId": {
+            "type": "string"
+          },
+          "instanceTenancy": {
+            "type": "string",
+            "enum": [
+              "default",
+              "dedicated",
+              "host"
+            ]
+          },
+          "dhcpOptionsId": {
             "type": "string"
           },
           "createdAt": {
@@ -1451,92 +1021,67 @@
           }
         }
       },
-      "S3ObjectCreate": {
+      "VpcCreate": {
         "type": "object",
         "properties": {
-          "bucket": {
+          "vpcId": {
             "type": "string"
           },
-          "key": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "available"
+            ]
+          },
+          "cidrBlock": {
             "type": "string"
           },
-          "sizeBytes": {
-            "type": "integer"
+          "isDefault": {
+            "type": "boolean"
           },
-          "etag": {
+          "ownerId": {
+            "type": "string"
+          },
+          "instanceTenancy": {
+            "type": "string",
+            "enum": [
+              "default",
+              "dedicated",
+              "host"
+            ]
+          },
+          "dhcpOptionsId": {
             "type": "string"
           }
         },
         "required": [
-          "bucket",
-          "key"
+          "state",
+          "cidrBlock"
         ]
       },
-      "LambdaFunction": {
+      "SecurityGroup": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "groupId": {
             "type": "string"
           },
-          "runtime": {
+          "groupName": {
             "type": "string"
           },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutSec": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "LambdaFunctionCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "description": {
             "type": "string"
           },
-          "runtime": {
+          "vpcId": {
             "type": "string"
           },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutSec": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "runtime"
-        ]
-      },
-      "DynamoTable": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "ownerId": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "partitionKey": {
-            "type": "string"
-          },
-          "itemCount": {
-            "type": "integer"
-          },
-          "status": {
+          "securityGroupArn": {
             "type": "string"
           },
           "createdAt": {
@@ -1549,117 +1094,31 @@
           }
         }
       },
-      "DynamoTableCreate": {
+      "SecurityGroupCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "groupId": {
             "type": "string"
           },
-          "partitionKey": {
+          "groupName": {
             "type": "string"
           },
-          "itemCount": {
-            "type": "integer"
+          "description": {
+            "type": "string"
           },
-          "status": {
+          "vpcId": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "securityGroupArn": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "partitionKey"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "arn": {
-            "type": "string"
-          },
-          "policyRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "arn": {
-            "type": "string"
-          },
-          "policyRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "arn"
-        ]
-      },
-      "RdsInstance": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "identifier": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "instanceClass": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RdsInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "identifier": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "instanceClass": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "identifier",
-          "engine"
+          "groupName",
+          "description"
         ]
       }
     }

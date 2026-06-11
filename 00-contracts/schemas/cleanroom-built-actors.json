@@ -1231,18 +1231,15 @@
       "handle": "aws-compat",
       "platform": "aws",
       "bytes": 2117,
-      "wasmCid": "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+      "wasmCid": "bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Ec2Instance",
-        "S3Bucket",
-        "S3Object",
-        "LambdaFunction",
-        "DynamoTable",
-        "IamRole",
-        "RdsInstance"
+        "Instance",
+        "Volume",
+        "Vpc",
+        "SecurityGroup"
       ]
     },
     {

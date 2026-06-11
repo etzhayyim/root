@@ -974,11 +974,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible cloud infrastructure (IaaS) actor (aws); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "aws.kotoba"
-   :actor/wasm-cid "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y"
+   :actor/wasm-cid "bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:aws-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aws-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aws-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aws-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aws-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aws-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:aws-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:aws-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "aws_braket-compat"
    :actor/did "did:web:etzhayyim.com:actor:aws_braket-compat"
    :actor/kind :compat

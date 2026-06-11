@@ -111,251 +111,291 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/ec2instances", methods=["POST"])
-def create_ec2_instance(request):
-    """Create a Ec2Instance."""
+@app.route("/v1/instances", methods=["POST"])
+def create_instance(request):
+    """Create a Instance."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['instanceId', 'instanceType', 'state', 'privateIp', 'region'])
+    err = _reject_unknown(data, ['instanceId', 'instanceType', 'state', 'architecture', 'hypervisor', 'ebsOptimized', 'enaSupport', 'rootDeviceName', 'rootDeviceType', 'outpostArn'])
     if err:
         return err, 400
     err = _require(data, ['instanceType', 'state'])
     if err:
         return err, 400
-    rec = {"id": new_id("aws_ec2")}
+    if data.get('state') and data['state'] not in ['pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped']), "type": "invalid_request_error"}}, 400
+    if data.get('hypervisor') and data['hypervisor'] not in ['ovm', 'xen']:
+        return {"error": {"message": "invalid hypervisor; allowed: " + ", ".join(['ovm', 'xen']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aws_ins")}
     rec["instanceId"] = data.get('instanceId')
     rec["instanceType"] = data.get('instanceType')
     rec["state"] = data.get('state')
-    rec["privateIp"] = data.get('privateIp')
-    rec["region"] = data.get('region')
+    rec["architecture"] = data.get('architecture')
+    rec["hypervisor"] = data.get('hypervisor')
+    rec["ebsOptimized"] = _as_bool(data.get('ebsOptimized'))
+    rec["enaSupport"] = _as_bool(data.get('enaSupport'))
+    rec["rootDeviceName"] = data.get('rootDeviceName')
+    rec["rootDeviceType"] = data.get('rootDeviceType')
+    rec["outpostArn"] = data.get('outpostArn')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Ec2Instance", rec)
+    _persist("Instance", rec)
     return rec, 201
 
-@app.route("/v1/ec2instances", methods=["GET"])
-def list_ec2_instances(request):
-    """List Ec2Instances with filtering + cursor pagination."""
+@app.route("/v1/instances", methods=["GET"])
+def list_instances(request):
+    """List Instances with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Ec2Instance")
-    rows = _apply_filters(rows, params, ['instanceId', 'instanceType', 'state', 'privateIp', 'region'])
+    rows = _query("Instance")
+    rows = _apply_filters(rows, params, ['instanceId', 'instanceType', 'state', 'architecture', 'hypervisor', 'ebsOptimized', 'enaSupport', 'rootDeviceName', 'rootDeviceType', 'outpostArn'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/ec2instances/<eid>", methods=["GET"])
-def get_ec2_instance(request, eid):
-    """Retrieve a Ec2Instance by id (supports ?expand=)."""
-    rows = _query("Ec2Instance", eid)
+@app.route("/v1/instances/<eid>", methods=["GET"])
+def get_instance(request, eid):
+    """Retrieve a Instance by id (supports ?expand=)."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'instanceId': 'Instance'})
     return rec, 200
 
-@app.route("/v1/ec2instances/<eid>", methods=["POST", "PATCH"])
-def update_ec2_instance(request, eid):
-    """Update a Ec2Instance."""
-    rows = _query("Ec2Instance", eid)
+@app.route("/v1/instances/<eid>", methods=["POST", "PATCH"])
+def update_instance(request, eid):
+    """Update a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['instanceId', 'instanceType', 'state', 'privateIp', 'region'])
+    err = _reject_unknown(data, ['instanceId', 'instanceType', 'state', 'architecture', 'hypervisor', 'ebsOptimized', 'enaSupport', 'rootDeviceName', 'rootDeviceType', 'outpostArn'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped']), "type": "invalid_request_error"}}, 400
+    if data.get('hypervisor') and data['hypervisor'] not in ['ovm', 'xen']:
+        return {"error": {"message": "invalid hypervisor; allowed: " + ", ".join(['ovm', 'xen']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Ec2Instance", rec)
+    _persist("Instance", rec)
     return rec, 200
 
-@app.route("/v1/ec2instances/<eid>", methods=["DELETE"])
-def delete_ec2_instance(request, eid):
-    """Delete a Ec2Instance."""
-    rows = _query("Ec2Instance", eid)
+@app.route("/v1/instances/<eid>", methods=["DELETE"])
+def delete_instance(request, eid):
+    """Delete a Instance."""
+    rows = _query("Instance", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.Ec2Instance", "id": eid})
+    db.retract({"entity": f"aws.Instance", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/s3buckets", methods=["POST"])
-def create_s3_bucket(request):
-    """Create a S3Bucket."""
+@app.route("/v1/volumes", methods=["POST"])
+def create_volume(request):
+    """Create a Volume."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'versioning'])
+    err = _reject_unknown(data, ['volumeId', 'size', 'state', 'volumeType', 'iops', 'throughput', 'multiAttachEnabled', 'fastRestored', 'createTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['size', 'state'])
     if err:
         return err, 400
-    rec = {"id": new_id("aws_s3b")}
-    rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["versioning"] = _as_bool(data.get('versioning'))
+    if data.get('state') and data['state'] not in ['creating', 'available', 'in-use', 'deleting', 'deleted', 'error']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['creating', 'available', 'in-use', 'deleting', 'deleted', 'error']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aws_vol")}
+    rec["volumeId"] = data.get('volumeId')
+    rec["size"] = _as_int(data.get('size'))
+    rec["state"] = data.get('state')
+    rec["volumeType"] = data.get('volumeType')
+    rec["iops"] = _as_int(data.get('iops'))
+    rec["throughput"] = _as_int(data.get('throughput'))
+    rec["multiAttachEnabled"] = _as_bool(data.get('multiAttachEnabled'))
+    rec["fastRestored"] = _as_bool(data.get('fastRestored'))
+    rec["createTime"] = data.get('createTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("S3Bucket", rec)
+    _persist("Volume", rec)
     return rec, 201
 
-@app.route("/v1/s3buckets", methods=["GET"])
-def list_s3_buckets(request):
-    """List S3Buckets with filtering + cursor pagination."""
+@app.route("/v1/volumes", methods=["GET"])
+def list_volumes(request):
+    """List Volumes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("S3Bucket")
-    rows = _apply_filters(rows, params, ['name', 'region', 'versioning'])
+    rows = _query("Volume")
+    rows = _apply_filters(rows, params, ['volumeId', 'size', 'state', 'volumeType', 'iops', 'throughput', 'multiAttachEnabled', 'fastRestored', 'createTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/s3buckets/<eid>", methods=["GET"])
-def get_s3_bucket(request, eid):
-    """Retrieve a S3Bucket by id (supports ?expand=)."""
-    rows = _query("S3Bucket", eid)
+@app.route("/v1/volumes/<eid>", methods=["GET"])
+def get_volume(request, eid):
+    """Retrieve a Volume by id (supports ?expand=)."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'volumeId': 'Volume'})
     return rec, 200
 
-@app.route("/v1/s3buckets/<eid>", methods=["POST", "PATCH"])
-def update_s3_bucket(request, eid):
-    """Update a S3Bucket."""
-    rows = _query("S3Bucket", eid)
+@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
+def update_volume(request, eid):
+    """Update a Volume."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'versioning'])
+    err = _reject_unknown(data, ['volumeId', 'size', 'state', 'volumeType', 'iops', 'throughput', 'multiAttachEnabled', 'fastRestored', 'createTime'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['creating', 'available', 'in-use', 'deleting', 'deleted', 'error']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['creating', 'available', 'in-use', 'deleting', 'deleted', 'error']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("S3Bucket", rec)
+    _persist("Volume", rec)
     return rec, 200
 
-@app.route("/v1/s3buckets/<eid>", methods=["DELETE"])
-def delete_s3_bucket(request, eid):
-    """Delete a S3Bucket."""
-    rows = _query("S3Bucket", eid)
+@app.route("/v1/volumes/<eid>", methods=["DELETE"])
+def delete_volume(request, eid):
+    """Delete a Volume."""
+    rows = _query("Volume", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.S3Bucket", "id": eid})
+    db.retract({"entity": f"aws.Volume", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/s3objects", methods=["POST"])
-def create_s3_object(request):
-    """Create a S3Object."""
+@app.route("/v1/vpcs", methods=["POST"])
+def create_vpc(request):
+    """Create a Vpc."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bucket', 'key', 'sizeBytes', 'etag'])
+    err = _reject_unknown(data, ['vpcId', 'state', 'cidrBlock', 'isDefault', 'ownerId', 'instanceTenancy', 'dhcpOptionsId'])
     if err:
         return err, 400
-    err = _require(data, ['bucket', 'key'])
+    err = _require(data, ['state', 'cidrBlock'])
     if err:
         return err, 400
-    rec = {"id": new_id("aws_s3o")}
-    rec["bucket"] = data.get('bucket')
-    rec["key"] = data.get('key')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["etag"] = data.get('etag')
+    if data.get('state') and data['state'] not in ['pending', 'available']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['pending', 'available']), "type": "invalid_request_error"}}, 400
+    if data.get('instanceTenancy') and data['instanceTenancy'] not in ['default', 'dedicated', 'host']:
+        return {"error": {"message": "invalid instanceTenancy; allowed: " + ", ".join(['default', 'dedicated', 'host']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aws_vpc")}
+    rec["vpcId"] = data.get('vpcId')
+    rec["state"] = data.get('state')
+    rec["cidrBlock"] = data.get('cidrBlock')
+    rec["isDefault"] = _as_bool(data.get('isDefault'))
+    rec["ownerId"] = data.get('ownerId')
+    rec["instanceTenancy"] = data.get('instanceTenancy')
+    rec["dhcpOptionsId"] = data.get('dhcpOptionsId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("S3Object", rec)
+    _persist("Vpc", rec)
     return rec, 201
 
-@app.route("/v1/s3objects", methods=["GET"])
-def list_s3_objects(request):
-    """List S3Objects with filtering + cursor pagination."""
+@app.route("/v1/vpcs", methods=["GET"])
+def list_vpcs(request):
+    """List Vpcs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("S3Object")
-    rows = _apply_filters(rows, params, ['bucket', 'key', 'sizeBytes', 'etag'])
+    rows = _query("Vpc")
+    rows = _apply_filters(rows, params, ['vpcId', 'state', 'cidrBlock', 'isDefault', 'ownerId', 'instanceTenancy', 'dhcpOptionsId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/s3objects/<eid>", methods=["GET"])
-def get_s3_object(request, eid):
-    """Retrieve a S3Object by id (supports ?expand=)."""
-    rows = _query("S3Object", eid)
+@app.route("/v1/vpcs/<eid>", methods=["GET"])
+def get_vpc(request, eid):
+    """Retrieve a Vpc by id (supports ?expand=)."""
+    rows = _query("Vpc", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'vpcId': 'Vpc'})
     return rec, 200
 
-@app.route("/v1/s3objects/<eid>", methods=["POST", "PATCH"])
-def update_s3_object(request, eid):
-    """Update a S3Object."""
-    rows = _query("S3Object", eid)
+@app.route("/v1/vpcs/<eid>", methods=["POST", "PATCH"])
+def update_vpc(request, eid):
+    """Update a Vpc."""
+    rows = _query("Vpc", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bucket', 'key', 'sizeBytes', 'etag'])
+    err = _reject_unknown(data, ['vpcId', 'state', 'cidrBlock', 'isDefault', 'ownerId', 'instanceTenancy', 'dhcpOptionsId'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['pending', 'available']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['pending', 'available']), "type": "invalid_request_error"}}, 400
+    if data.get('instanceTenancy') and data['instanceTenancy'] not in ['default', 'dedicated', 'host']:
+        return {"error": {"message": "invalid instanceTenancy; allowed: " + ", ".join(['default', 'dedicated', 'host']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("S3Object", rec)
+    _persist("Vpc", rec)
     return rec, 200
 
-@app.route("/v1/s3objects/<eid>", methods=["DELETE"])
-def delete_s3_object(request, eid):
-    """Delete a S3Object."""
-    rows = _query("S3Object", eid)
+@app.route("/v1/vpcs/<eid>", methods=["DELETE"])
+def delete_vpc(request, eid):
+    """Delete a Vpc."""
+    rows = _query("Vpc", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.S3Object", "id": eid})
+    db.retract({"entity": f"aws.Vpc", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/lambdafunctions", methods=["POST"])
-def create_lambda_function(request):
-    """Create a LambdaFunction."""
+@app.route("/v1/securitygroups", methods=["POST"])
+def create_security_group(request):
+    """Create a SecurityGroup."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'memoryMb', 'timeoutSec'])
+    err = _reject_unknown(data, ['groupId', 'groupName', 'description', 'vpcId', 'ownerId', 'securityGroupArn'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'runtime'])
+    err = _require(data, ['groupName', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("aws_lam")}
-    rec["name"] = data.get('name')
-    rec["runtime"] = data.get('runtime')
-    rec["memoryMb"] = _as_int(data.get('memoryMb'))
-    rec["timeoutSec"] = _as_int(data.get('timeoutSec'))
+    rec = {"id": new_id("aws_sec")}
+    rec["groupId"] = data.get('groupId')
+    rec["groupName"] = data.get('groupName')
+    rec["description"] = data.get('description')
+    rec["vpcId"] = data.get('vpcId')
+    rec["ownerId"] = data.get('ownerId')
+    rec["securityGroupArn"] = data.get('securityGroupArn')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LambdaFunction", rec)
+    _persist("SecurityGroup", rec)
     return rec, 201
 
-@app.route("/v1/lambdafunctions", methods=["GET"])
-def list_lambda_functions(request):
-    """List LambdaFunctions with filtering + cursor pagination."""
+@app.route("/v1/securitygroups", methods=["GET"])
+def list_security_groups(request):
+    """List SecurityGroups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LambdaFunction")
-    rows = _apply_filters(rows, params, ['name', 'runtime', 'memoryMb', 'timeoutSec'])
+    rows = _query("SecurityGroup")
+    rows = _apply_filters(rows, params, ['groupId', 'groupName', 'description', 'vpcId', 'ownerId', 'securityGroupArn'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/lambdafunctions/<eid>", methods=["GET"])
-def get_lambda_function(request, eid):
-    """Retrieve a LambdaFunction by id (supports ?expand=)."""
-    rows = _query("LambdaFunction", eid)
+@app.route("/v1/securitygroups/<eid>", methods=["GET"])
+def get_security_group(request, eid):
+    """Retrieve a SecurityGroup by id (supports ?expand=)."""
+    rows = _query("SecurityGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'vpcId': 'Vpc'})
     return rec, 200
 
-@app.route("/v1/lambdafunctions/<eid>", methods=["POST", "PATCH"])
-def update_lambda_function(request, eid):
-    """Update a LambdaFunction."""
-    rows = _query("LambdaFunction", eid)
+@app.route("/v1/securitygroups/<eid>", methods=["POST", "PATCH"])
+def update_security_group(request, eid):
+    """Update a SecurityGroup."""
+    rows = _query("SecurityGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'runtime', 'memoryMb', 'timeoutSec'])
+    err = _reject_unknown(data, ['groupId', 'groupName', 'description', 'vpcId', 'ownerId', 'securityGroupArn'])
     if err:
         return err, 400
     rec = rows[0]
@@ -363,219 +403,22 @@ def update_lambda_function(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LambdaFunction", rec)
+    _persist("SecurityGroup", rec)
     return rec, 200
 
-@app.route("/v1/lambdafunctions/<eid>", methods=["DELETE"])
-def delete_lambda_function(request, eid):
-    """Delete a LambdaFunction."""
-    rows = _query("LambdaFunction", eid)
+@app.route("/v1/securitygroups/<eid>", methods=["DELETE"])
+def delete_security_group(request, eid):
+    """Delete a SecurityGroup."""
+    rows = _query("SecurityGroup", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.LambdaFunction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/dynamotables", methods=["POST"])
-def create_dynamo_table(request):
-    """Create a DynamoTable."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitionKey', 'itemCount', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'partitionKey'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aws_dyn")}
-    rec["name"] = data.get('name')
-    rec["partitionKey"] = data.get('partitionKey')
-    rec["itemCount"] = _as_int(data.get('itemCount'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("DynamoTable", rec)
-    return rec, 201
-
-@app.route("/v1/dynamotables", methods=["GET"])
-def list_dynamo_tables(request):
-    """List DynamoTables with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("DynamoTable")
-    rows = _apply_filters(rows, params, ['name', 'partitionKey', 'itemCount', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/dynamotables/<eid>", methods=["GET"])
-def get_dynamo_table(request, eid):
-    """Retrieve a DynamoTable by id (supports ?expand=)."""
-    rows = _query("DynamoTable", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/dynamotables/<eid>", methods=["POST", "PATCH"])
-def update_dynamo_table(request, eid):
-    """Update a DynamoTable."""
-    rows = _query("DynamoTable", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitionKey', 'itemCount', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("DynamoTable", rec)
-    return rec, 200
-
-@app.route("/v1/dynamotables/<eid>", methods=["DELETE"])
-def delete_dynamo_table(request, eid):
-    """Delete a DynamoTable."""
-    rows = _query("DynamoTable", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.DynamoTable", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/iamroles", methods=["POST"])
-def create_iam_role(request):
-    """Create a IamRole."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'arn', 'policyRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'arn'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aws_iam")}
-    rec["name"] = data.get('name')
-    rec["arn"] = data.get('arn')
-    rec["policyRef"] = data.get('policyRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("IamRole", rec)
-    return rec, 201
-
-@app.route("/v1/iamroles", methods=["GET"])
-def list_iam_roles(request):
-    """List IamRoles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("IamRole")
-    rows = _apply_filters(rows, params, ['name', 'arn', 'policyRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["GET"])
-def get_iam_role(request, eid):
-    """Retrieve a IamRole by id (supports ?expand=)."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["POST", "PATCH"])
-def update_iam_role(request, eid):
-    """Update a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'arn', 'policyRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("IamRole", rec)
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["DELETE"])
-def delete_iam_role(request, eid):
-    """Delete a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.IamRole", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/rdsinstances", methods=["POST"])
-def create_rds_instance(request):
-    """Create a RdsInstance."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'engine', 'instanceClass', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['identifier', 'engine'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aws_rds")}
-    rec["identifier"] = data.get('identifier')
-    rec["engine"] = data.get('engine')
-    rec["instanceClass"] = data.get('instanceClass')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("RdsInstance", rec)
-    return rec, 201
-
-@app.route("/v1/rdsinstances", methods=["GET"])
-def list_rds_instances(request):
-    """List RdsInstances with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("RdsInstance")
-    rows = _apply_filters(rows, params, ['identifier', 'engine', 'instanceClass', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/rdsinstances/<eid>", methods=["GET"])
-def get_rds_instance(request, eid):
-    """Retrieve a RdsInstance by id (supports ?expand=)."""
-    rows = _query("RdsInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/rdsinstances/<eid>", methods=["POST", "PATCH"])
-def update_rds_instance(request, eid):
-    """Update a RdsInstance."""
-    rows = _query("RdsInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'engine', 'instanceClass', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("RdsInstance", rec)
-    return rec, 200
-
-@app.route("/v1/rdsinstances/<eid>", methods=["DELETE"])
-def delete_rds_instance(request, eid):
-    """Delete a RdsInstance."""
-    rows = _query("RdsInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aws.RdsInstance", "id": eid})
+    db.retract({"entity": f"aws.SecurityGroup", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "aws-compat", "tier": "L4",
-            "entities": ['Ec2Instance', 'S3Bucket', 'S3Object', 'LambdaFunction', 'DynamoTable', 'IamRole', 'RdsInstance']}, 200
+            "entities": ['Instance', 'Volume', 'Vpc', 'SecurityGroup']}, 200
 
 
 if __name__ == "__main__":

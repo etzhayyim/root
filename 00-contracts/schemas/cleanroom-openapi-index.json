@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29165,
+  "totalEndpoints": 29150,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 203,
-  "totalVerifiedEnumFields": 840,
+  "l5VerifiedActors": 204,
+  "totalVerifiedEnumFields": 845,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -1401,10 +1401,10 @@
     {
       "handle": "aws-compat",
       "did": "did:web:etzhayyim.com:actor:aws-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 35,
-      "ipfs": "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+      "endpointCount": 20,
+      "ipfs": "ipfs://bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -1413,8 +1413,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 5,
       "openapi": "20-actors/aws-compat/openapi.json"
     },
     {

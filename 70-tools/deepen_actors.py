@@ -2826,6 +2826,19 @@ PLATFORM_OVERRIDES["edinet"] = {
     "Metadata": E(title="string", parameterDate="datetime", parameterType="string", resultsetCount="integer", processDateTime="datetime", status="string", message="string"),
 }
 
+# Faithful AWS EC2 model (the official AWS-published wire model: botocore
+# service-2.json, apiVersion 2016-11-15 — date-versioned and additive).
+# Lifecycle enums enforced (InstanceStateName 6 / VolumeState 6 / VpcState 2
+# — unchanged for a decade) + Tenancy(3, stable since 2015) +
+# HypervisorType(2). InstanceType (1,212 values!) / VolumeType (gp3/io2
+# additions) / Architecture (arm64_mac 2021) -> gapped as growing.
+PLATFORM_OVERRIDES["aws"] = {
+    "Instance": E(instanceId="string", instanceType="string", state="string", architecture="string", hypervisor="string", ebsOptimized="boolean", enaSupport="boolean", rootDeviceName="string", rootDeviceType="string", outpostArn="string"),
+    "Volume": E(volumeId="string", size="integer", state="string", volumeType="string", iops="integer", throughput="integer", multiAttachEnabled="boolean", fastRestored="boolean", createTime="datetime"),
+    "Vpc": E(vpcId="string", state="string", cidrBlock="string", isDefault="boolean", ownerId="string", instanceTenancy="string", dhcpOptionsId="string"),
+    "SecurityGroup": E(groupId="string", groupName="string", description="string", vpcId="string", ownerId="string", securityGroupArn="string"),
+}
+
 # Faithful FDIC BankFind Suite model (the official banks.data.fdic.gov API;
 # field surfaces from live entities per the real-object rule — 27,835
 # institutions live). BKCLASS/RESTYPE values observed-not-declared (the

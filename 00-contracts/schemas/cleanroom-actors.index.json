@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 789,
-    "L5": 211
+    "L4": 788,
+    "L5": 212
   },
   "actors": [
     {
@@ -1331,10 +1331,10 @@
     {
       "handle": "aws-compat",
       "did": "did:web:etzhayyim.com:actor:aws-compat",
-      "wasmCid": "bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
+      "wasmCid": "bafkreiexorh2bvuuzsz7p3toosobrrjycig7dybino3vvxrar7gylalvcu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "aws clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [
