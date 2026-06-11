@@ -315,6 +315,38 @@ def test_us_state_sub_jurisdiction():
     assert len(honest) == 1 and "提示しない" in honest[0]["rule"]
 
 
+def test_wave7_pl_se_genuine():
+    """Wave 7: PL nakaz zapłaty (sprzeciw 2週間, KPC 480²/505) · SE
+    betalningsföreläggande (Kronofogden — bestrida inom förklaringstiden)."""
+    ps, _ = _by_id()
+    pl = ps["ntc:pl-nakaz"]
+    assert pl["status"] == ":genuine" and pl["proc"] == "proc:pl-nakaz-zaplaty"
+    assert any("480²" in d["anchor"] for d in pl["deadlines"])
+    se = ps["ntc:se-bf"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-betalningsforelaggande"
+    assert any("1990:746" in d["anchor"] for d in se["deadlines"])
+    assert any(o["id"] == ":bestrida" for o in se["options"])
+
+
+def test_currency_mismatch_refers_conservatively():
+    """Wave 7 maturity: a foreign-currency claim can't be sized against the
+    jurisdiction's refer-over line → conservative referral-forward, with the reason
+    stated. Same-currency small claims stay un-referred."""
+    _, procs = _by_id()
+    base = {":notice/id": "ntc:cur", ":notice/jurisdiction": ":us",
+            ":notice/channel": ":personal-service",
+            ":notice/text": "small claims notice", ":notice/sourcing": ":synthetic"}
+    # small USD claim on a US small-claims proc → no jurisdiction directory appended
+    same = build_plan({**base, ":notice/claim-amount": 500,
+                       ":notice/claim-currency": "USD"}, procs)
+    assert not any("state bar" in r for r in same["referrals"])
+    # same small amount in EUR → incomparable → conservative referral with reason
+    mismatch = build_plan({**base, ":notice/claim-amount": 500,
+                           ":notice/claim-currency": "EUR"}, procs)
+    assert any("外貨建て" in r for r in mismatch["referrals"])
+    assert any("state bar" in r for r in mismatch["referrals"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

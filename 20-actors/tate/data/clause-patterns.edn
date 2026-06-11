@@ -274,6 +274,36 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :pl — Polska (G10) ───────────────────────────────────────────────────────
+ {:clause/id "cl:pl-niedozwolona" :clause/label "全部免責 (klauzula niedozwolona)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["nie ponosimy odpowiedzialności"]
+  :clause/anchor "Kodeks cywilny art. 385¹ (niedozwolone postanowienia umowne) + UOKiK 不当条項登録簿"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:pl-auto-renewal" :clause/label "automatyczne przedłużenie (黙示更新)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["automatyczne przedłużenie"]
+  :clause/anchor "Kodeks cywilny art. 385³ pkt 18 (黙示更新は grey list 該当類型)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :se — Sverige (G10; 自動更新の事前通知を義務付ける専用法あり) ─────────────
+ {:clause/id "cl:se-friskrivning" :clause/label "全部免責 (friskrivning)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["friskriver sig från allt ansvar"]
+  :clause/anchor "Avtalsvillkorslagen (1994:1512) / 36 § avtalslagen (oskäliga villkor の調整)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:se-auto-renewal" :clause/label "förlängs automatiskt (黙示更新)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["förlängs automatiskt"]
+  :clause/anchor "Lag (2014:1449) om konsumentskydd vid automatisk avtalsförlängning (更新前の書面リマインド義務 — 怠れば随時解約可)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :br — Brasil (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:br-exoneracao" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :br

@@ -38,4 +38,40 @@
   :state/answer-rule "送達から20日以内に応答 (superior court)"
   :state/answer-anchor "Wash. CR 4(a)(2)"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 7 (+5: IL PA OH GA NC) ──────────────────────────────────────────────
+ {:state/id :us-il :state/label "Illinois"
+  :state/small-claims-usd 10000
+  :state/answer-rule "summons 記載の期限 (通常 送達から30日) 以内に appearance/answer"
+  :state/answer-anchor "Ill. S. Ct. R. 181"
+  :state/arl "815 ILCS 601 (Automatic Contract Renewal Act)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-pa :state/label "Pennsylvania"
+  :state/small-claims-usd 12000
+  :state/answer-rule "magisterial district court: 通知記載の hearing 期日に出頭 (書面 answer 不要の制度)"
+  :state/answer-anchor "Pa. R.C.P.M.D.J. 305 系"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-oh :state/label "Ohio"
+  :state/small-claims-usd 6000
+  :state/answer-rule "small claims: 通知記載の trial 期日に出頭; 通常民事は送達から28日以内に answer"
+  :state/answer-anchor "ORC ch. 1925 / Ohio Civ. R. 12(A)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ga :state/label "Georgia"
+  :state/small-claims-usd 15000
+  :state/answer-rule "magistrate court: 送達から30日以内に answer"
+  :state/answer-anchor "OCGA §15-10-43"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-nc :state/label "North Carolina"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims (magistrate): summons 記載の期日; 通常民事は送達から30日以内に answer"
+  :state/answer-anchor "N.C. R. Civ. P. 12(a) / NCGS ch. 7A art. 19"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

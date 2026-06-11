@@ -134,6 +134,22 @@
   :juris/refer-over-amount 500000 :juris/refer-over-currency "INR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :pl :juris/label "Polska"
+  :juris/upl-anchor "Prawo o adwokaturze / ustawa o radcach prawnych (法律業務の資格独占)"
+  :juris/service-note "nakaz zapłaty は裁判所からの書留 (za potwierdzeniem odbioru) — SMS の『sąd』通知は偽"
+  :juris/referrals ["nieodpłatna pomoc prawna (無料法律相談ポイント)" "rzecznik konsumentów (消費者オンブズマン)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "CERT Polska (incydent.cert.pl)" "Policja 997"]
+  :juris/refer-over-amount 20000 :juris/refer-over-currency "PLN"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :se :juris/label "Sverige"
+  :juris/upl-anchor "Rättegångsbalken (ombud 規律) — 本人訴訟は広く可"
+  :juris/service-note "betalningsföreläggande は Kronofogden からの delgivning (送達確認付き)"
+  :juris/referrals ["Hallå konsument / Konsumentverket" "kommunal konsumentvägledning" "rättshjälp (法律扶助)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polisen 114 14" "Hallå konsument"]
+  :juris/refer-over-amount 28650 :juris/refer-over-currency "SEK" ; ≈ 0.5 prisbasbelopp (förenklat tvistemål 上限の代表値)
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :br :juris/label "Brasil"
   :juris/upl-anchor "Lei 8.906/1994 (Estatuto da OAB — advocacia privativa; Juizados ≤20 SM は本人可)"
   :juris/service-note "citação は oficial de justiça または correio (AR) — CPC arts. 246–248; SMS/WhatsApp の『processo』通知は偽"

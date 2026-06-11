@@ -212,6 +212,29 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 7 (:pl :se) ─────────────────────────────────────────────────────────
+ {:doc/id "doc:pl-regulamin" :doc/label "PL regulamin (synthetic)"
+  :doc/jurisdiction :pl
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Nie ponosimy odpowiedzialności za jakiekolwiek szkody. Umowa ulega automatyczne przedłużenie na kolejny rok."}
+
+ {:doc/id "doc:se-villkor" :doc/label "SE allmänna villkor (synthetic)"
+  :doc/jurisdiction :se
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Bolaget friskriver sig från allt ansvar för skador. Abonnemanget förlängs automatiskt med ett år."}
+
+ {:notice/id "ntc:pl-nakaz" :notice/label "PL nakaz zapłaty (書留)"
+  :notice/jurisdiction :pl
+  :notice/channel :mail :notice/claim-amount 4500 :notice/claim-currency "PLN"
+  :notice/sourcing :synthetic
+  :notice/text "Nakaz zapłaty w postępowaniu upominawczym. Pozwany może wnieść sprzeciw."}
+
+ {:notice/id "ntc:se-bf" :notice/label "SE betalningsföreläggande (Kronofogden)"
+  :notice/jurisdiction :se
+  :notice/channel :mail :notice/claim-amount 9000 :notice/claim-currency "SEK"
+  :notice/sourcing :synthetic
+  :notice/text "Betalningsföreläggande. Du kan bestrida kravet skriftligen inom förklaringstiden."}
+
  ;; ── wave 6 (:cn + :us 州レベル) ──────────────────────────────────────────────
  {:doc/id "doc:cn-tos" :doc/label "CN 服务条款 (synthetic)"
   :doc/jurisdiction :cn

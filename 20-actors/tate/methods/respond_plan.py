@@ -43,7 +43,8 @@ COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "지급명령", "법원", "injonction de payer", "assignation",
                   "statement of claim", "plaintiff's claim", "decreto ingiuntivo",
                   "proceso monitorio", "dagvaarding", "citação",
-                  "支付命令", "small claims tribunal", "written statement", "支付令")
+                  "支付命令", "small claims tribunal", "written statement", "支付令",
+                  "nakaz zapłaty", "betalningsföreläggande")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 
@@ -190,7 +191,18 @@ def build_plan(notice: dict, procs: list, jurisdictions: dict | None = None) -> 
     ]
     plan["referrals"] = list(proc.get(":proc/refer-when", []))
     refer_over = float(juris.get(":juris/refer-over-amount", 0) or 0)
-    if (refer_over and _claim(notice) > refer_over) or proc[":proc/id"] in PROC_REFERRAL_ALWAYS:
+    claim = _claim(notice)
+    claim_cur = notice.get(":notice/claim-currency") or \
+        ("JPY" if ":notice/claim-jpy" in notice else None)
+    juris_cur = juris.get(":juris/refer-over-currency")
+    # currency guard (wave 7): an amount is only comparable to the refer-over line in
+    # the SAME currency; a foreign-currency claim can't be sized → refer conservatively
+    currency_mismatch = bool(claim > 0 and claim_cur and juris_cur and claim_cur != juris_cur)
+    over_line = bool(refer_over and not currency_mismatch and claim > refer_over)
+    if over_line or currency_mismatch or proc[":proc/id"] in PROC_REFERRAL_ALWAYS:
+        if currency_mismatch:
+            plan["referrals"] = plan["referrals"] + \
+                [f"請求が外貨建て ({claim_cur}) — 金額比較不能のため保守的に専門家照会"]
         plan["referrals"] = plan["referrals"] + list(juris.get(":juris/referrals",
                                                                GENERIC_REFERRALS))  # G7
     return plan

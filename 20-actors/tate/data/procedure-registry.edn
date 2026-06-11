@@ -349,6 +349,36 @@
   :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
   :proc/verify-current-law true}
 
+ ;; ── :pl ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:pl-nakaz-zaplaty" :proc/label "Nakaz zapłaty (支払命令・ポーランド)"
+  :proc/jurisdiction :pl
+  :proc/trigger-keywords ["nakaz zapłaty"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Sprzeciw / zarzuty (異議)"
+    :dl/rule "doręczenie (送達) から2週間以内に sprzeciw (upominawcze) または zarzuty (nakazowe)"
+    :dl/anchor "KPC art. 480² § 1 / art. 505" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :sprzeciw :opt/kind :self-submit :opt/label "sprzeciw を発令裁判所へ提出 (→ 通常手続へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割交渉"}]
+  :proc/refer-when ["nakazowe (手形等) は zarzuty に手数料 — 早めに専門家へ"]
+  :proc/verify-current-law true}
+
+ ;; ── :se ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:se-betalningsforelaggande" :proc/label "Betalningsföreläggande (支払督促・スウェーデン)"
+  :proc/jurisdiction :se
+  :proc/trigger-keywords ["betalningsföreläggande"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Bestrida (異議)"
+    :dl/rule "föreläggande 記載の förklaringstid (回答期限 — 通常2週間程度) 内に書面で bestrida"
+    :dl/anchor "Lag (1990:746) om betalningsföreläggande och handräckning" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :bestrida :opt/kind :self-submit :opt/label "Kronofogden へ書面で bestrida (→ 申立人が裁判所移行を選択)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い (記録に注意 — betalningsanmärkning)"}]
+  :proc/refer-when ["異議後 tingsrätt へ移行した場合"]
+  :proc/verify-current-law true}
+
  ;; ── :br ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"
   :proc/jurisdiction :br

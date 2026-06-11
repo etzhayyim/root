@@ -142,6 +142,11 @@ def test_intl_expected_shapes_hit():
     # wave 6 (:cn — 簡体字, :tw 繁体字とは別パターン)
     assert ("doc:cn-tos", "cl:cn-full-exemption") in hits
     assert ("doc:cn-tos", "cl:cn-auto-renewal") in hits
+    # wave 7 (:pl :se)
+    assert ("doc:pl-regulamin", "cl:pl-niedozwolona") in hits
+    assert ("doc:pl-regulamin", "cl:pl-auto-renewal") in hits
+    assert ("doc:se-villkor", "cl:se-friskrivning") in hits
+    assert ("doc:se-villkor", "cl:se-auto-renewal") in hits
 
 
 def test_jurisdiction_isolation():
