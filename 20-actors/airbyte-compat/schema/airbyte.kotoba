@@ -3,69 +3,61 @@
 
 namespace airbyte {
 
-    entity Connector {
+    entity AirbyteMessage {
         id: string @unique
-        name: string
-        source: string
-        destination: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Sync {
-        id: string @unique
-        connectorId: string
-        status: string
-        rows: integer
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Model {
-        id: string @unique
-        name: string
-        materialization: string
-        sql: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        name: string
-        partitions: integer
-        retentionMs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Schema {
-        id: string @unique
-        name: string
-        database: string
-        tableCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Test {
-        id: string @unique
-        modelName: string
         type: string
-        passed: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AirbyteRecordMessage {
+        id: string @unique
+        stream: string
+        namespace: string
+        emittedAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AirbyteLogMessage {
+        id: string @unique
+        level: string
+        message: string
+        stackTrace: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AirbyteConnectionStatus {
+        id: string @unique
+        status: string
+        message: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AirbyteStateMessage {
+        id: string @unique
+        type: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity AirbyteStreamStatusTraceMessage {
+        id: string @unique
+        status: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ConfiguredAirbyteStream {
+        id: string @unique
+        syncMode: string
+        destinationSyncMode: string
+        cursorField: string
+        primaryKey: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 186,
+  "count": 189,
   "actors": [
     {
       "handle": "aave-compat",
@@ -368,6 +368,230 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official AfterShip Node SDK. Enforced enums: Tracking.tag(9), Tracking.deliveryType(3), Checkpoint.tag(9) = 3 enums."
+    },
+    {
+      "handle": "agones-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/gameserver.go + https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/fleet.go (official googleforgames/agones v1 CRD sources)",
+      "remodeled": "Remodeled to the faithful Agones v1 CRD surface verified against the official Go sources (struct fields machine-extracted from json tags; constants machine-extracted from typed const blocks). The v1 API of a Kubernetes CRD is compatibility-bound: GameServerState (11 — the complete documented state machine PortAllocation..Allocated) + PortPolicy (4: Static/Dynamic/Passthrough/None) + SdkServerLogLevel (4: Info/Debug/Error/Trace) enforced. gemini-CLI-drafted; all sets machine-matched against the cached sources.",
+      "resources": [
+        {
+          "entity": "GameServer",
+          "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/gameserver.go",
+          "verifiedFields": [
+            "state",
+            "address",
+            "nodeName",
+            "reservedUntil",
+            "container",
+            "scheduling"
+          ],
+          "fieldStatus": "confirmed (GameServerStatus + GameServerSpec json tags)",
+          "discoveredEnums": {
+            "state": [
+              "PortAllocation",
+              "Creating",
+              "Starting",
+              "Scheduled",
+              "RequestReady",
+              "Ready",
+              "Shutdown",
+              "Error",
+              "Unhealthy",
+              "Reserved",
+              "Allocated"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "GameServerPort",
+          "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/gameserver.go",
+          "verifiedFields": [
+            "name",
+            "portPolicy",
+            "container",
+            "containerPort",
+            "hostPort",
+            "protocol"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "portPolicy": [
+              "Static",
+              "Dynamic",
+              "Passthrough",
+              "None"
+            ]
+          },
+          "gaps": [
+            "protocol-k8s-corev1-open (TCP/UDP/TCPUDP + upstream growth)"
+          ]
+        },
+        {
+          "entity": "Fleet",
+          "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/fleet.go",
+          "verifiedFields": [
+            "replicas",
+            "readyReplicas",
+            "reservedReplicas",
+            "allocatedReplicas",
+            "scheduling"
+          ],
+          "fieldStatus": "confirmed (FleetSpec + FleetStatus json tags)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "SdkServer",
+          "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/gameserver.go",
+          "verifiedFields": [
+            "logLevel",
+            "grpcPort",
+            "httpPort"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "logLevel": [
+              "Info",
+              "Debug",
+              "Error",
+              "Trace"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs the official agones v1 CRD sources. Enforced enums: GameServerState(11) + portPolicy(4) + logLevel(4) = 3 enum fields, anchored on Kubernetes v1-API compatibility."
+    },
+    {
+      "handle": "airbyte-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+      "remodeled": "Remodeled to the faithful Airbyte protocol surface verified against the OFFICIAL versioned protocol spec (airbyte-protocol v0 YAML; every enum machine-extracted with a JSON-Schema walker). Stable complete sets enforced: SyncMode {full_refresh, incremental} (the protocol's foundational dichotomy), AirbyteLogMessage.level (6 standard levels), AirbyteConnectionStatus.status {SUCCEEDED, FAILED}, AirbyteStateMessage.type {GLOBAL, STREAM, LEGACY} (stable since state-v2 2022), AirbyteStreamStatus {STARTED, RUNNING, COMPLETE, INCOMPLETE} (complete lifecycle). Gapped (grew WITHIN v0, so the versioned-dir anchor does NOT freeze them): AirbyteMessage.type (+DESTINATION_CATALOG), DestinationSyncMode (+update/soft_delete), meta-change reasons (11, growing), failure_type. v0-evolves-in-place is the explicit contrast with dbt's immutable vN schemas.",
+      "resources": [
+        {
+          "entity": "AirbyteMessage",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed; type GAPPED (grew within v0: +DESTINATION_CATALOG)",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-grew-within-v0 (+DESTINATION_CATALOG)"
+          ]
+        },
+        {
+          "entity": "AirbyteRecordMessage",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "stream",
+            "namespace",
+            "emittedAt"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "meta-change-reasons-growing (11)"
+          ]
+        },
+        {
+          "entity": "AirbyteLogMessage",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "level",
+            "message",
+            "stackTrace"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "level": [
+              "FATAL",
+              "ERROR",
+              "WARN",
+              "INFO",
+              "DEBUG",
+              "TRACE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AirbyteConnectionStatus",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "status",
+            "message"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "SUCCEEDED",
+              "FAILED"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AirbyteStateMessage",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "type"
+          ],
+          "fieldStatus": "confirmed (AirbyteStateType)",
+          "discoveredEnums": {
+            "type": [
+              "GLOBAL",
+              "STREAM",
+              "LEGACY"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AirbyteStreamStatusTraceMessage",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "status"
+          ],
+          "fieldStatus": "confirmed (AirbyteStreamStatus lifecycle)",
+          "discoveredEnums": {
+            "status": [
+              "STARTED",
+              "RUNNING",
+              "COMPLETE",
+              "INCOMPLETE"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ConfiguredAirbyteStream",
+          "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+          "verifiedFields": [
+            "syncMode",
+            "destinationSyncMode",
+            "cursorField",
+            "primaryKey"
+          ],
+          "fieldStatus": "confirmed; destinationSyncMode gapped (+update/soft_delete within v0)",
+          "discoveredEnums": {
+            "syncMode": [
+              "full_refresh",
+              "incremental"
+            ]
+          },
+          "gaps": [
+            "destinationSyncMode-grew-within-v0"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (7/7) vs the official airbyte-protocol v0 spec (machine-extracted). Enforced enums: level(6) + status(2) + stateType(3) + streamStatus(4) + syncMode(2) = 5 enum fields. NEW discipline note: a versioned DIRECTORY that evolves in place (v0) is NOT an immutability anchor — only sets stable across that evolution are enforced."
     },
     {
       "handle": "airtable-compat",
@@ -9617,6 +9841,144 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs freee's official published OpenAPI schema. Enforced enums: Deal.type(2)+status(2), Partner.orgCode(2)+transferFeeHandlingSide(2), Invoice.invoiceStatus(7)+paymentType(3 incl. empty string, faithful to spec), Company.role(5)+orgCode(2), Walletable.type(3)+syncStatus(6) = 10 enum fields. One gemini-draft enum refuted by machine-check -> gapped (honesty over coverage)."
+    },
+    {
+      "handle": "freefly-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model) + https://freeflysystems.com/knowledge-base/what-flight-controller-does-astro-use + https://freeflysystems.com/astro + https://docs.auterion.com/ (2-hop official chain)",
+      "remodeled": "MAVLink-family conformance leverage, 5th member, via the FIRST TRANSITIVE (2-hop) official chain: hop 1 — Freefly's OWN knowledge base states verbatim 'Astro runs on a Freefly designed & manufactured version of the Auterion Skynode flight controller' (page tags: pixhawk / PX4 / skynode) and freeflysystems.com/astro describes Astro with 'mission computer, AuterionOS' in title/og/JSON-LD/body; hop 2 — Auterion's own docs establish AuterionOS = APX4 (PX4-based) + MAVLink (the auterion-compat L5 evidence). Each hop is the vendor's own self-declaration, independently harness-fetched. The gemini conformance run independently surfaced the same knowledge-base URL before its output truncated (cross-validation). Joins the mavlink_drones-verified common.xml model with the family enum discipline.",
+      "resources": [
+        {
+          "entity": "Heartbeat",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "type",
+            "autopilot",
+            "baseMode",
+            "customMode",
+            "systemStatus",
+            "mavlinkVersion"
+          ],
+          "fieldStatus": "confirmed via mavlink-family leverage",
+          "discoveredEnums": {
+            "systemStatus": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "gaps": [
+            "type-MAV_TYPE-version-growing",
+            "autopilot-version-growing"
+          ]
+        },
+        {
+          "entity": "SysStatus",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "load",
+            "voltageBattery",
+            "currentBattery",
+            "batteryRemaining",
+            "dropRateComm",
+            "errorsComm"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GpsRawInt",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeUsec",
+            "fixType",
+            "lat",
+            "lon",
+            "alt",
+            "vel",
+            "satellitesVisible"
+          ],
+          "fieldStatus": "confirmed via leverage; fixType version-growing -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "fixType-version-growing"
+          ]
+        },
+        {
+          "entity": "Attitude",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeBootMs",
+            "roll",
+            "pitch",
+            "yaw",
+            "rollspeed",
+            "pitchspeed",
+            "yawspeed"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "GlobalPositionInt",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "timeBootMs",
+            "lat",
+            "lon",
+            "alt",
+            "relativeAlt",
+            "vx",
+            "vy",
+            "vz",
+            "hdg"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "MissionItem",
+          "source": "https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0 (common.xml, leveraged via the verified mavlink_drones model)",
+          "verifiedFields": [
+            "targetSystem",
+            "targetComponent",
+            "seq",
+            "frame",
+            "command",
+            "current",
+            "autocontinue",
+            "x",
+            "y",
+            "z",
+            "missionType"
+          ],
+          "fieldStatus": "confirmed via leverage",
+          "discoveredEnums": {
+            "missionType": [
+              0,
+              1,
+              2,
+              255
+            ]
+          },
+          "gaps": [
+            "frame-version-growing",
+            "command-MAV_CMD-version-growing"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (6/6) onto the mavlink-family verified model (5th member) via the first 2-hop official chain (Freefly->AuterionOS->PX4/MAVLink). Enforced enums: Heartbeat.systemStatus(9) + MissionItem.missionType(4) = 2 enum fields."
     },
     {
       "handle": "gbfs-compat",

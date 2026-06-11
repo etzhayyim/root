@@ -5,21 +5,73 @@
   "kind": "compat",
   "title": "airbyte clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (airbyte); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+  "wasmCid": "bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+  "ipfs": "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
   "schema": "schema/airbyte.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/airbytehq/airbyte-protocol/main/protocol-models/src/main/resources/airbyte_protocol/v0/airbyte_protocol.yaml",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "AirbyteMessage",
+      "AirbyteRecordMessage",
+      "AirbyteLogMessage",
+      "AirbyteConnectionStatus",
+      "AirbyteStateMessage",
+      "AirbyteStreamStatusTraceMessage",
+      "ConfiguredAirbyteStream"
+    ],
+    "enums": {
+      "AirbyteLogMessage": {
+        "level": [
+          "FATAL",
+          "ERROR",
+          "WARN",
+          "INFO",
+          "DEBUG",
+          "TRACE"
+        ]
+      },
+      "AirbyteConnectionStatus": {
+        "status": [
+          "SUCCEEDED",
+          "FAILED"
+        ]
+      },
+      "AirbyteStateMessage": {
+        "type": [
+          "GLOBAL",
+          "STREAM",
+          "LEGACY"
+        ]
+      },
+      "AirbyteStreamStatusTraceMessage": {
+        "status": [
+          "STARTED",
+          "RUNNING",
+          "COMPLETE",
+          "INCOMPLETE"
+        ]
+      },
+      "ConfiguredAirbyteStream": {
+        "syncMode": [
+          "full_refresh",
+          "incremental"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Connector",
-    "Sync",
-    "Model",
-    "Stream",
-    "Schema",
-    "Test"
+    "AirbyteMessage",
+    "AirbyteRecordMessage",
+    "AirbyteLogMessage",
+    "AirbyteConnectionStatus",
+    "AirbyteStateMessage",
+    "AirbyteStreamStatusTraceMessage",
+    "ConfiguredAirbyteStream"
   ],
   "adr": [
     "260607",
@@ -31,157 +83,182 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 35,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/airbytemessages",
+          "op": "create AirbyteMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/airbytemessages",
+          "op": "list AirbyteMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/airbytemessages/{id}",
+          "op": "get AirbyteMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/airbytemessages/{id}",
+          "op": "update AirbyteMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/airbytemessages/{id}",
+          "op": "delete AirbyteMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/syncs",
-          "op": "create Sync"
+          "path": "/v1/airbyterecordmessages",
+          "op": "create AirbyteRecordMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs",
-          "op": "list Sync"
+          "path": "/v1/airbyterecordmessages",
+          "op": "list AirbyteRecordMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs/{id}",
-          "op": "get Sync"
+          "path": "/v1/airbyterecordmessages/{id}",
+          "op": "get AirbyteRecordMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/syncs/{id}",
-          "op": "update Sync"
+          "path": "/v1/airbyterecordmessages/{id}",
+          "op": "update AirbyteRecordMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/syncs/{id}",
-          "op": "delete Sync"
+          "path": "/v1/airbyterecordmessages/{id}",
+          "op": "delete AirbyteRecordMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/airbytelogmessages",
+          "op": "create AirbyteLogMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/airbytelogmessages",
+          "op": "list AirbyteLogMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/airbytelogmessages/{id}",
+          "op": "get AirbyteLogMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/airbytelogmessages/{id}",
+          "op": "update AirbyteLogMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
+          "path": "/v1/airbytelogmessages/{id}",
+          "op": "delete AirbyteLogMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/airbyteconnectionstatuses",
+          "op": "create AirbyteConnectionStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/airbyteconnectionstatuses",
+          "op": "list AirbyteConnectionStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/airbyteconnectionstatuses/{id}",
+          "op": "get AirbyteConnectionStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/airbyteconnectionstatuses/{id}",
+          "op": "update AirbyteConnectionStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
+          "path": "/v1/airbyteconnectionstatuses/{id}",
+          "op": "delete AirbyteConnectionStatus"
         },
         {
           "method": "POST",
-          "path": "/v1/schemas",
-          "op": "create Schema"
+          "path": "/v1/airbytestatemessages",
+          "op": "create AirbyteStateMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas",
-          "op": "list Schema"
+          "path": "/v1/airbytestatemessages",
+          "op": "list AirbyteStateMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas/{id}",
-          "op": "get Schema"
+          "path": "/v1/airbytestatemessages/{id}",
+          "op": "get AirbyteStateMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/schemas/{id}",
-          "op": "update Schema"
+          "path": "/v1/airbytestatemessages/{id}",
+          "op": "update AirbyteStateMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/schemas/{id}",
-          "op": "delete Schema"
+          "path": "/v1/airbytestatemessages/{id}",
+          "op": "delete AirbyteStateMessage"
         },
         {
           "method": "POST",
-          "path": "/v1/tests",
-          "op": "create Test"
+          "path": "/v1/airbytestreamstatustracemessages",
+          "op": "create AirbyteStreamStatusTraceMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tests",
-          "op": "list Test"
+          "path": "/v1/airbytestreamstatustracemessages",
+          "op": "list AirbyteStreamStatusTraceMessage"
         },
         {
           "method": "GET",
-          "path": "/v1/tests/{id}",
-          "op": "get Test"
+          "path": "/v1/airbytestreamstatustracemessages/{id}",
+          "op": "get AirbyteStreamStatusTraceMessage"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tests/{id}",
-          "op": "update Test"
+          "path": "/v1/airbytestreamstatustracemessages/{id}",
+          "op": "update AirbyteStreamStatusTraceMessage"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tests/{id}",
-          "op": "delete Test"
+          "path": "/v1/airbytestreamstatustracemessages/{id}",
+          "op": "delete AirbyteStreamStatusTraceMessage"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/configuredairbytestreams",
+          "op": "create ConfiguredAirbyteStream"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/configuredairbytestreams",
+          "op": "list ConfiguredAirbyteStream"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/configuredairbytestreams/{id}",
+          "op": "get ConfiguredAirbyteStream"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/configuredairbytestreams/{id}",
+          "op": "update ConfiguredAirbyteStream"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/configuredairbytestreams/{id}",
+          "op": "delete ConfiguredAirbyteStream"
         }
       ],
       "features": {
@@ -244,473 +321,34 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 35,
       "tools": [
         {
-          "name": "create_connector",
-          "description": "Create a Connector.",
+          "name": "create_airbyte_message",
+          "description": "Create a AirbyteMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "source"
-            ]
-          }
-        },
-        {
-          "name": "list_connectors",
-          "description": "List Connectors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_connector",
-          "description": "Update a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sync",
-          "description": "Create a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status",
-              "rows"
-            ]
-          }
-        },
-        {
-          "name": "list_syncs",
-          "description": "List Syncs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sync",
-          "description": "Get a Sync by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sync",
-          "description": "Update a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sync",
-          "description": "Delete a Sync.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_model",
-          "description": "Create a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "materialization"
-            ]
-          }
-        },
-        {
-          "name": "list_models",
-          "description": "List Models.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_model",
-          "description": "Get a Model by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_model",
-          "description": "Update a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_model",
-          "description": "Delete a Model.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "partitions"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_stream",
-          "description": "Update a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "partitions": {
-                "type": "integer"
-              },
-              "retentionMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_schema",
-          "description": "Create a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "database"
-            ]
-          }
-        },
-        {
-          "name": "list_schemas",
-          "description": "List Schemas.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_schema",
-          "description": "Get a Schema by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_schema",
-          "description": "Update a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_schema",
-          "description": "Delete a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_test",
-          "description": "Create a Test.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
               "type": {
                 "type": "string"
-              },
-              "passed": {
-                "type": "boolean"
               }
             },
             "required": [
-              "modelName",
               "type"
             ]
           }
         },
         {
-          "name": "list_tests",
-          "description": "List Tests.",
+          "name": "list_airbyte_messages",
+          "description": "List AirbyteMessages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_test",
-          "description": "Get a Test by id.",
+          "name": "get_airbyte_message",
+          "description": "Get a AirbyteMessage by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +362,16 @@
           }
         },
         {
-          "name": "update_test",
-          "description": "Update a Test.",
+          "name": "update_airbyte_message",
+          "description": "Update a AirbyteMessage.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "modelName": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
-              },
-              "passed": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -748,8 +380,486 @@
           }
         },
         {
-          "name": "delete_test",
-          "description": "Delete a Test.",
+          "name": "delete_airbyte_message",
+          "description": "Delete a AirbyteMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_airbyte_record_message",
+          "description": "Create a AirbyteRecordMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stream": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "emittedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "stream",
+              "namespace"
+            ]
+          }
+        },
+        {
+          "name": "list_airbyte_record_messages",
+          "description": "List AirbyteRecordMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_airbyte_record_message",
+          "description": "Get a AirbyteRecordMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_airbyte_record_message",
+          "description": "Update a AirbyteRecordMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "stream": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "emittedAt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_airbyte_record_message",
+          "description": "Delete a AirbyteRecordMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_airbyte_log_message",
+          "description": "Create a AirbyteLogMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "stackTrace": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "level",
+              "message"
+            ]
+          }
+        },
+        {
+          "name": "list_airbyte_log_messages",
+          "description": "List AirbyteLogMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_airbyte_log_message",
+          "description": "Get a AirbyteLogMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_airbyte_log_message",
+          "description": "Update a AirbyteLogMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "stackTrace": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_airbyte_log_message",
+          "description": "Delete a AirbyteLogMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_airbyte_connection_status",
+          "description": "Create a AirbyteConnectionStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "message"
+            ]
+          }
+        },
+        {
+          "name": "list_airbyte_connection_statuses",
+          "description": "List AirbyteConnectionStatuses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_airbyte_connection_status",
+          "description": "Get a AirbyteConnectionStatus by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_airbyte_connection_status",
+          "description": "Update a AirbyteConnectionStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_airbyte_connection_status",
+          "description": "Delete a AirbyteConnectionStatus.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_airbyte_state_message",
+          "description": "Create a AirbyteStateMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_airbyte_state_messages",
+          "description": "List AirbyteStateMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_airbyte_state_message",
+          "description": "Get a AirbyteStateMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_airbyte_state_message",
+          "description": "Update a AirbyteStateMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_airbyte_state_message",
+          "description": "Delete a AirbyteStateMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_airbyte_stream_status_trace_message",
+          "description": "Create a AirbyteStreamStatusTraceMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_airbyte_stream_status_trace_messages",
+          "description": "List AirbyteStreamStatusTraceMessages.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_airbyte_stream_status_trace_message",
+          "description": "Get a AirbyteStreamStatusTraceMessage by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_airbyte_stream_status_trace_message",
+          "description": "Update a AirbyteStreamStatusTraceMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_airbyte_stream_status_trace_message",
+          "description": "Delete a AirbyteStreamStatusTraceMessage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_configured_airbyte_stream",
+          "description": "Create a ConfiguredAirbyteStream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "syncMode": {
+                "type": "string"
+              },
+              "destinationSyncMode": {
+                "type": "string"
+              },
+              "cursorField": {
+                "type": "string"
+              },
+              "primaryKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "syncMode",
+              "destinationSyncMode"
+            ]
+          }
+        },
+        {
+          "name": "list_configured_airbyte_streams",
+          "description": "List ConfiguredAirbyteStreams.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_configured_airbyte_stream",
+          "description": "Get a ConfiguredAirbyteStream by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_configured_airbyte_stream",
+          "description": "Update a ConfiguredAirbyteStream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "syncMode": {
+                "type": "string"
+              },
+              "destinationSyncMode": {
+                "type": "string"
+              },
+              "cursorField": {
+                "type": "string"
+              },
+              "primaryKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_configured_airbyte_stream",
+          "description": "Delete a ConfiguredAirbyteStream.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -2574,6 +2574,40 @@ PLATFORM_OVERRIDES["comma_ai"] = {
 # auterion.com states its PX4 contributions — official conformance.
 PLATFORM_OVERRIDES["auterion"] = PLATFORM_OVERRIDES["mavlink_swarm"]
 
+# freefly joins the MAVLink family (5th member) via the FIRST TRANSITIVE
+# (2-hop) conformance chain: freeflysystems.com/astro officially describes
+# Astro as running AuterionOS (title/og/JSON-LD/body, 4 occurrences), and
+# Auterion's own docs establish AuterionOS = APX4 (PX4-based) + MAVLink.
+# Each hop is an official self-declaration, independently fetched.
+PLATFORM_OVERRIDES["freefly"] = PLATFORM_OVERRIDES["mavlink_swarm"]
+
+# Faithful Airbyte protocol model (official airbytehq/airbyte-protocol
+# v0/airbyte_protocol.yaml — machine-extracted enum arrays). Stable complete
+# sets enforced (SyncMode dichotomy, log levels, connection status, state
+# types, stream-status lifecycle); sets that grew WITHIN v0
+# (AirbyteMessage.type +DESTINATION_CATALOG, DestinationSyncMode
+# +update/soft_delete, meta-change reasons) -> gapped.
+PLATFORM_OVERRIDES["airbyte"] = {
+    "AirbyteMessage": E(type="string"),
+    "AirbyteRecordMessage": E(stream="string", namespace="string", emittedAt="integer"),
+    "AirbyteLogMessage": E(level="string", message="string", stackTrace="string"),
+    "AirbyteConnectionStatus": E(status="string", message="string"),
+    "AirbyteStateMessage": E(type="string"),
+    "AirbyteStreamStatusTraceMessage": E(status="string"),
+    "ConfiguredAirbyteStream": E(syncMode="string", destinationSyncMode="string", cursorField="string", primaryKey="string"),
+}
+
+# Faithful Agones model (official googleforgames/agones pkg/apis/agones/v1 Go
+# sources). The v1 CRD is Kubernetes-compatibility-bound: GameServerState
+# (11, complete state machine) + PortPolicy (4) + SdkServerLogLevel (4)
+# enforced; struct fields machine-extracted from json tags.
+PLATFORM_OVERRIDES["agones"] = {
+    "GameServer": E(state="string", address="string", nodeName="string", reservedUntil="datetime", container="string", scheduling="string"),
+    "GameServerPort": E(name="string", portPolicy="string", container="string", containerPort="integer", hostPort="integer", protocol="string"),
+    "Fleet": E(replicas="integer", readyReplicas="integer", reservedReplicas="integer", allocatedReplicas="integer", scheduling="string"),
+    "SdkServer": E(logLevel="string", grpcPort="integer", httpPort="integer"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

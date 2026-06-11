@@ -5,21 +5,61 @@
   "kind": "compat",
   "title": "agones clean-room actor",
   "description": "Clean-room, API-compatible gaming backend / metaverse actor (agones); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+  "wasmCid": "bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+  "ipfs": "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
   "schema": "schema/agones.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/gameserver.go + https://raw.githubusercontent.com/googleforgames/agones/main/pkg/apis/agones/v1/fleet.go (official googleforgames/agones v1 CRD sources)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "GameServer",
+      "GameServerPort",
+      "Fleet",
+      "SdkServer"
+    ],
+    "enums": {
+      "GameServer": {
+        "state": [
+          "PortAllocation",
+          "Creating",
+          "Starting",
+          "Scheduled",
+          "RequestReady",
+          "Ready",
+          "Shutdown",
+          "Error",
+          "Unhealthy",
+          "Reserved",
+          "Allocated"
+        ]
+      },
+      "GameServerPort": {
+        "portPolicy": [
+          "Static",
+          "Dynamic",
+          "Passthrough",
+          "None"
+        ]
+      },
+      "SdkServer": {
+        "logLevel": [
+          "Info",
+          "Debug",
+          "Error",
+          "Trace"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Player",
-    "Session",
-    "Match",
-    "Leaderboard",
-    "Inventory",
-    "Achievement"
+    "GameServer",
+    "GameServerPort",
+    "Fleet",
+    "SdkServer"
   ],
   "adr": [
     "260607",
@@ -31,157 +71,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/players",
-          "op": "create Player"
+          "path": "/v1/gameservers",
+          "op": "create GameServer"
         },
         {
           "method": "GET",
-          "path": "/v1/players",
-          "op": "list Player"
+          "path": "/v1/gameservers",
+          "op": "list GameServer"
         },
         {
           "method": "GET",
-          "path": "/v1/players/{id}",
-          "op": "get Player"
+          "path": "/v1/gameservers/{id}",
+          "op": "get GameServer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/players/{id}",
-          "op": "update Player"
+          "path": "/v1/gameservers/{id}",
+          "op": "update GameServer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/players/{id}",
-          "op": "delete Player"
+          "path": "/v1/gameservers/{id}",
+          "op": "delete GameServer"
         },
         {
           "method": "POST",
-          "path": "/v1/sessions",
-          "op": "create Session"
+          "path": "/v1/gameserverports",
+          "op": "create GameServerPort"
         },
         {
           "method": "GET",
-          "path": "/v1/sessions",
-          "op": "list Session"
+          "path": "/v1/gameserverports",
+          "op": "list GameServerPort"
         },
         {
           "method": "GET",
-          "path": "/v1/sessions/{id}",
-          "op": "get Session"
+          "path": "/v1/gameserverports/{id}",
+          "op": "get GameServerPort"
         },
         {
           "method": "PATCH",
-          "path": "/v1/sessions/{id}",
-          "op": "update Session"
+          "path": "/v1/gameserverports/{id}",
+          "op": "update GameServerPort"
         },
         {
           "method": "DELETE",
-          "path": "/v1/sessions/{id}",
-          "op": "delete Session"
+          "path": "/v1/gameserverports/{id}",
+          "op": "delete GameServerPort"
         },
         {
           "method": "POST",
-          "path": "/v1/matches",
-          "op": "create Match"
+          "path": "/v1/fleets",
+          "op": "create Fleet"
         },
         {
           "method": "GET",
-          "path": "/v1/matches",
-          "op": "list Match"
+          "path": "/v1/fleets",
+          "op": "list Fleet"
         },
         {
           "method": "GET",
-          "path": "/v1/matches/{id}",
-          "op": "get Match"
+          "path": "/v1/fleets/{id}",
+          "op": "get Fleet"
         },
         {
           "method": "PATCH",
-          "path": "/v1/matches/{id}",
-          "op": "update Match"
+          "path": "/v1/fleets/{id}",
+          "op": "update Fleet"
         },
         {
           "method": "DELETE",
-          "path": "/v1/matches/{id}",
-          "op": "delete Match"
+          "path": "/v1/fleets/{id}",
+          "op": "delete Fleet"
         },
         {
           "method": "POST",
-          "path": "/v1/leaderboards",
-          "op": "create Leaderboard"
+          "path": "/v1/sdkservers",
+          "op": "create SdkServer"
         },
         {
           "method": "GET",
-          "path": "/v1/leaderboards",
-          "op": "list Leaderboard"
+          "path": "/v1/sdkservers",
+          "op": "list SdkServer"
         },
         {
           "method": "GET",
-          "path": "/v1/leaderboards/{id}",
-          "op": "get Leaderboard"
+          "path": "/v1/sdkservers/{id}",
+          "op": "get SdkServer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/leaderboards/{id}",
-          "op": "update Leaderboard"
+          "path": "/v1/sdkservers/{id}",
+          "op": "update SdkServer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/leaderboards/{id}",
-          "op": "delete Leaderboard"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/inventories",
-          "op": "create Inventory"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/inventories",
-          "op": "list Inventory"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/inventories/{id}",
-          "op": "get Inventory"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/inventories/{id}",
-          "op": "update Inventory"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/inventories/{id}",
-          "op": "delete Inventory"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/achievements",
-          "op": "create Achievement"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/achievements",
-          "op": "list Achievement"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/achievements/{id}",
-          "op": "get Achievement"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/achievements/{id}",
-          "op": "update Achievement"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/achievements/{id}",
-          "op": "delete Achievement"
+          "path": "/v1/sdkservers/{id}",
+          "op": "delete SdkServer"
         }
       ],
       "features": {
@@ -244,44 +234,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_player",
-          "description": "Create a Player.",
+          "name": "create_game_server",
+          "description": "Create a GameServer.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "state": {
                 "type": "string"
               },
-              "level": {
-                "type": "integer"
+              "address": {
+                "type": "string"
               },
-              "xp": {
-                "type": "integer"
+              "nodeName": {
+                "type": "string"
               },
-              "region": {
+              "reservedUntil": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "scheduling": {
                 "type": "string"
               }
             },
             "required": [
-              "handle",
-              "level"
+              "state",
+              "address"
             ]
           }
         },
         {
-          "name": "list_players",
-          "description": "List Players.",
+          "name": "list_game_servers",
+          "description": "List GameServers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_player",
-          "description": "Get a Player by id.",
+          "name": "get_game_server",
+          "description": "Get a GameServer by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +291,30 @@
           }
         },
         {
-          "name": "update_player",
-          "description": "Update a Player.",
+          "name": "update_game_server",
+          "description": "Update a GameServer.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "state": {
                 "type": "string"
               },
-              "level": {
-                "type": "integer"
+              "address": {
+                "type": "string"
               },
-              "xp": {
-                "type": "integer"
+              "nodeName": {
+                "type": "string"
               },
-              "region": {
+              "reservedUntil": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "scheduling": {
                 "type": "string"
               }
             },
@@ -322,56 +324,8 @@
           }
         },
         {
-          "name": "delete_player",
-          "description": "Delete a Player.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_session",
-          "description": "Create a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "playerId": {
-                "type": "string"
-              },
-              "platform": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              },
-              "durationSec": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "platform",
-              "startedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_sessions",
-          "description": "List Sessions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_session",
-          "description": "Get a Session by id.",
+          "name": "delete_game_server",
+          "description": "Delete a GameServer.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,164 +339,47 @@
           }
         },
         {
-          "name": "update_session",
-          "description": "Update a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "playerId": {
-                "type": "string"
-              },
-              "platform": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              },
-              "durationSec": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_session",
-          "description": "Delete a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_match",
-          "description": "Create a Match.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "mode": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "playerCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "mode",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_matches",
-          "description": "List Matches.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_match",
-          "description": "Get a Match by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_match",
-          "description": "Update a Match.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "mode": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "playerCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_match",
-          "description": "Delete a Match.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_leaderboard",
-          "description": "Create a Leaderboard.",
+          "name": "create_game_server_port",
+          "description": "Create a GameServerPort.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "metric": {
+              "portPolicy": {
                 "type": "string"
               },
-              "season": {
+              "container": {
+                "type": "string"
+              },
+              "containerPort": {
+                "type": "integer"
+              },
+              "hostPort": {
+                "type": "integer"
+              },
+              "protocol": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "metric"
+              "portPolicy"
             ]
           }
         },
         {
-          "name": "list_leaderboards",
-          "description": "List Leaderboards.",
+          "name": "list_game_server_ports",
+          "description": "List GameServerPorts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_leaderboard",
-          "description": "Get a Leaderboard by id.",
+          "name": "get_game_server_port",
+          "description": "Get a GameServerPort by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,8 +393,8 @@
           }
         },
         {
-          "name": "update_leaderboard",
-          "description": "Update a Leaderboard.",
+          "name": "update_game_server_port",
+          "description": "Update a GameServerPort.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -567,10 +404,19 @@
               "name": {
                 "type": "string"
               },
-              "metric": {
+              "portPolicy": {
                 "type": "string"
               },
-              "season": {
+              "container": {
+                "type": "string"
+              },
+              "containerPort": {
+                "type": "integer"
+              },
+              "hostPort": {
+                "type": "integer"
+              },
+              "protocol": {
                 "type": "string"
               }
             },
@@ -580,8 +426,8 @@
           }
         },
         {
-          "name": "delete_leaderboard",
-          "description": "Delete a Leaderboard.",
+          "name": "delete_game_server_port",
+          "description": "Delete a GameServerPort.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,37 +441,44 @@
           }
         },
         {
-          "name": "create_inventory",
-          "description": "Create a Inventory.",
+          "name": "create_fleet",
+          "description": "Create a Fleet.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "playerId": {
-                "type": "string"
-              },
-              "itemId": {
-                "type": "string"
-              },
-              "quantity": {
+              "replicas": {
                 "type": "integer"
+              },
+              "readyReplicas": {
+                "type": "integer"
+              },
+              "reservedReplicas": {
+                "type": "integer"
+              },
+              "allocatedReplicas": {
+                "type": "integer"
+              },
+              "scheduling": {
+                "type": "string"
               }
             },
             "required": [
-              "quantity"
+              "replicas",
+              "readyReplicas"
             ]
           }
         },
         {
-          "name": "list_inventories",
-          "description": "List Inventories.",
+          "name": "list_fleets",
+          "description": "List Fleets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_inventory",
-          "description": "Get a Inventory by id.",
+          "name": "get_fleet",
+          "description": "Get a Fleet by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -639,21 +492,111 @@
           }
         },
         {
-          "name": "update_inventory",
-          "description": "Update a Inventory.",
+          "name": "update_fleet",
+          "description": "Update a Fleet.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "playerId": {
+              "replicas": {
+                "type": "integer"
+              },
+              "readyReplicas": {
+                "type": "integer"
+              },
+              "reservedReplicas": {
+                "type": "integer"
+              },
+              "allocatedReplicas": {
+                "type": "integer"
+              },
+              "scheduling": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_fleet",
+          "description": "Delete a Fleet.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_sdk_server",
+          "description": "Create a SdkServer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "logLevel": {
                 "type": "string"
               },
-              "itemId": {
+              "grpcPort": {
+                "type": "integer"
+              },
+              "httpPort": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "logLevel",
+              "grpcPort"
+            ]
+          }
+        },
+        {
+          "name": "list_sdk_servers",
+          "description": "List SdkServers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_sdk_server",
+          "description": "Get a SdkServer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_sdk_server",
+          "description": "Update a SdkServer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
-              "quantity": {
+              "logLevel": {
+                "type": "string"
+              },
+              "grpcPort": {
+                "type": "integer"
+              },
+              "httpPort": {
                 "type": "integer"
               }
             },
@@ -663,92 +606,8 @@
           }
         },
         {
-          "name": "delete_inventory",
-          "description": "Delete a Inventory.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_achievement",
-          "description": "Create a Achievement.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "playerId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "unlockedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "unlockedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_achievements",
-          "description": "List Achievements.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_achievement",
-          "description": "Get a Achievement by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_achievement",
-          "description": "Update a Achievement.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "playerId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "unlockedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_achievement",
-          "description": "Delete a Achievement.",
+          "name": "delete_sdk_server",
+          "description": "Delete a SdkServer.",
           "inputSchema": {
             "type": "object",
             "properties": {

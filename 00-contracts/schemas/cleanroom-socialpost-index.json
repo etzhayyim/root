@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 181,
-  "totalVerifiedEnumFields": 772,
+  "l5VerifiedActors": 184,
+  "totalVerifiedEnumFields": 782,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -167,8 +167,8 @@
       "source": "agones.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "agora-compat",
@@ -197,8 +197,8 @@
       "source": "airbyte.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 5
     },
     {
       "handle": "airtable-compat",
@@ -3567,8 +3567,8 @@
       "source": "freefly.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "freja_eid-compat",

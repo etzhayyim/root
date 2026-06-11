@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29470,
-  "l5VerifiedActors": 181,
-  "totalVerifiedEnumFields": 772,
+  "totalTools": 29465,
+  "l5VerifiedActors": 184,
+  "totalVerifiedEnumFields": 782,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -179,12 +179,12 @@
     {
       "handle": "agones-compat",
       "did": "did:web:etzhayyim.com:actor:agones-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 20,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "manifest": "20-actors/agones-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -212,12 +212,12 @@
     {
       "handle": "airbyte-compat",
       "did": "did:web:etzhayyim.com:actor:airbyte-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 35,
+      "l5Verified": true,
+      "verifiedEnumFields": 5,
       "manifest": "20-actors/airbyte-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -3919,12 +3919,12 @@
     {
       "handle": "freefly-compat",
       "did": "did:web:etzhayyim.com:actor:freefly-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidqdgprrelzmvql7wby2nhhdkc3odsgefea6bn7i64s6qr5eqmbca",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/freefly-compat/manifest.json#/capabilities/mcp"
     },
     {

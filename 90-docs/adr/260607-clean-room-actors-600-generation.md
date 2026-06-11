@@ -553,3 +553,23 @@ gemini quota churn).
 | argo_ocean_floats | OFFICIAL Argo User's Manual (DOI 10.13155/29825) PDF **text-extracted by the harness** + NVS vocabularies (JSON-LD) | direction{A,D} (physically anchored) + dataMode{R,A,D} (manual-defined complete lifecycle) + QC flags {0,1,2,3,4,5,8,9} ×4 fields — the published scale's omission of 6/7 preserved faithfully. New anchor class: PDF-only normative manuals are reachable via pdftotext |
 | comma_ai | official api.comma.ai docs (company API, distinct from the openpilot software actor) | deviceType(3, 'one of' declared) + primeType(3) + Segment File Status table (0/10/20/30/40) ×3 + saveType(3, documented superset — the page declares 2- AND 3-value sets; variance recorded). Harness corrected two draft TYPE errors (ints not strings) + a missed member |
 | auterion | Auterion's own docs: APX4 (PX4-based stack) + MAVLink Forwarding + corporate PX4 stewardship | 4th MAVLink-family member; systemStatus(9) + missionType(4) inherited; growing sets stay gapped |
+
+### §16.7 /loop iteration 6 — wave 7: 2-hop conformance chain + airbyte + agones (189, 18.9%)
+
+freefly + airbyte + agones → ledger **189** (811 L4 / 189 L5 = 18.9%),
+enforced 184 actors / **782 enum fields** (+10), verify PASS 0/0, 3/3 green.
+arm_isa carries (developer.arm.com is a JS SPA — fetches return no content).
+
+| Actor | Anchor | Enforced / gapped |
+|---|---|---|
+| freefly | **first TRANSITIVE (2-hop) conformance chain**: Freefly's own KB — 'Astro runs on a Freefly designed & manufactured version of the Auterion Skynode flight controller' (tags: pixhawk/PX4/skynode) + product pages naming 'Mavlink' directly → AuterionOS = APX4/PX4 (the auterion-compat L5 evidence). 5th MAVLink-family member | systemStatus(9) + missionType(4) inherited |
+| airbyte | official v0 protocol YAML, every enum machine-extracted | level(6)+connectionStatus(2)+stateType(3)+streamStatus(4)+syncMode(2); **NEW discipline: a versioned directory that evolves IN PLACE (v0) is not an immutability anchor** — AirbyteMessage.type (+DESTINATION_CATALOG) and DestinationSyncMode (+update/soft_delete) grew within v0 → gapped; contrast with dbt's immutable vN |
+| agones | Kubernetes v1-CRD compatibility bound; constants + json tags machine-extracted | GameServerState(11, complete machine) + portPolicy(4) + sdkLogLevel(4); k8s corev1 protocol open → gapped |
+
+**Cross-validations this wave:** the late agones gemini draft matched the
+shipped model exactly (and surfaced the Packed/Distributed scheduling enum,
+not enforced — recorded); the late freefly gemini retry independently found
+the same KB page plus DIRECT 'Mavlink' mentions on Freefly's own product
+pages, strengthening hop 1 of the chain. The previously-shipped auterion
+conformance was also retro-confirmed by its late gemini run (same PX4
+quotes + MAVSDK-Proto fetched), closing the loop promised in §16.6.

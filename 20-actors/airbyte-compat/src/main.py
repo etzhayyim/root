@@ -111,380 +111,50 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/airbytemessages", methods=["POST"])
+def create_airbyte_message(request):
+    """Create a AirbyteMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['type'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['type'])
     if err:
         return err, 400
-    rec = {"id": new_id("airbyte_con")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
-    return rec, 201
-
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['name', 'source', 'destination', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Connector", rec)
-    return rec, 200
-
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Connector", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/syncs", methods=["POST"])
-def create_sync(request):
-    """Create a Sync."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'rows'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airbyte_syn")}
-    rec["connectorId"] = data.get('connectorId')
-    rec["status"] = data.get('status')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["startedAt"] = data.get('startedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Sync", rec)
-    return rec, 201
-
-@app.route("/v1/syncs", methods=["GET"])
-def list_syncs(request):
-    """List Syncs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Sync")
-    rows = _apply_filters(rows, params, ['connectorId', 'status', 'rows', 'startedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/syncs/<eid>", methods=["GET"])
-def get_sync(request, eid):
-    """Retrieve a Sync by id (supports ?expand=)."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'connectorId': 'Connector'})
-    return rec, 200
-
-@app.route("/v1/syncs/<eid>", methods=["POST", "PATCH"])
-def update_sync(request, eid):
-    """Update a Sync."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Sync", rec)
-    return rec, 200
-
-@app.route("/v1/syncs/<eid>", methods=["DELETE"])
-def delete_sync(request, eid):
-    """Delete a Sync."""
-    rows = _query("Sync", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Sync", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'materialization'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airbyte_mod")}
-    rec["name"] = data.get('name')
-    rec["materialization"] = data.get('materialization')
-    rec["sql"] = data.get('sql')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
-    return rec, 201
-
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'materialization', 'sql'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Model", rec)
-    return rec, 200
-
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Model", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'partitions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airbyte_str")}
-    rec["name"] = data.get('name')
-    rec["partitions"] = _as_int(data.get('partitions'))
-    rec["retentionMs"] = _as_int(data.get('retentionMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
-    return rec, 201
-
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['name', 'partitions', 'retentionMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Stream", rec)
-    return rec, 200
-
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/schemas", methods=["POST"])
-def create_schema(request):
-    """Create a Schema."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'database'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airbyte_sch")}
-    rec["name"] = data.get('name')
-    rec["database"] = data.get('database')
-    rec["tableCount"] = _as_int(data.get('tableCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Schema", rec)
-    return rec, 201
-
-@app.route("/v1/schemas", methods=["GET"])
-def list_schemas(request):
-    """List Schemas with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Schema")
-    rows = _apply_filters(rows, params, ['name', 'database', 'tableCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/schemas/<eid>", methods=["GET"])
-def get_schema(request, eid):
-    """Retrieve a Schema by id (supports ?expand=)."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["POST", "PATCH"])
-def update_schema(request, eid):
-    """Update a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Schema", rec)
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["DELETE"])
-def delete_schema(request, eid):
-    """Delete a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Schema", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tests", methods=["POST"])
-def create_test(request):
-    """Create a Test."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
-    if err:
-        return err, 400
-    err = _require(data, ['modelName', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("airbyte_tes")}
-    rec["modelName"] = data.get('modelName')
+    rec = {"id": new_id("airbyte_air")}
     rec["type"] = data.get('type')
-    rec["passed"] = _as_bool(data.get('passed'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Test", rec)
+    _persist("AirbyteMessage", rec)
     return rec, 201
 
-@app.route("/v1/tests", methods=["GET"])
-def list_tests(request):
-    """List Tests with filtering + cursor pagination."""
+@app.route("/v1/airbytemessages", methods=["GET"])
+def list_airbyte_messages(request):
+    """List AirbyteMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Test")
-    rows = _apply_filters(rows, params, ['modelName', 'type', 'passed'])
+    rows = _query("AirbyteMessage")
+    rows = _apply_filters(rows, params, ['type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tests/<eid>", methods=["GET"])
-def get_test(request, eid):
-    """Retrieve a Test by id (supports ?expand=)."""
-    rows = _query("Test", eid)
+@app.route("/v1/airbytemessages/<eid>", methods=["GET"])
+def get_airbyte_message(request, eid):
+    """Retrieve a AirbyteMessage by id (supports ?expand=)."""
+    rows = _query("AirbyteMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["POST", "PATCH"])
-def update_test(request, eid):
-    """Update a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/airbytemessages/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_message(request, eid):
+    """Update a AirbyteMessage."""
+    rows = _query("AirbyteMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
+    err = _reject_unknown(data, ['type'])
     if err:
         return err, 400
     rec = rows[0]
@@ -492,22 +162,428 @@ def update_test(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Test", rec)
+    _persist("AirbyteMessage", rec)
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["DELETE"])
-def delete_test(request, eid):
-    """Delete a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/airbytemessages/<eid>", methods=["DELETE"])
+def delete_airbyte_message(request, eid):
+    """Delete a AirbyteMessage."""
+    rows = _query("AirbyteMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"airbyte.Test", "id": eid})
+    db.retract({"entity": f"airbyte.AirbyteMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/airbyterecordmessages", methods=["POST"])
+def create_airbyte_record_message(request):
+    """Create a AirbyteRecordMessage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stream', 'namespace', 'emittedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['stream', 'namespace'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("airbyte_air")}
+    rec["stream"] = data.get('stream')
+    rec["namespace"] = data.get('namespace')
+    rec["emittedAt"] = _as_int(data.get('emittedAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AirbyteRecordMessage", rec)
+    return rec, 201
+
+@app.route("/v1/airbyterecordmessages", methods=["GET"])
+def list_airbyte_record_messages(request):
+    """List AirbyteRecordMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AirbyteRecordMessage")
+    rows = _apply_filters(rows, params, ['stream', 'namespace', 'emittedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/airbyterecordmessages/<eid>", methods=["GET"])
+def get_airbyte_record_message(request, eid):
+    """Retrieve a AirbyteRecordMessage by id (supports ?expand=)."""
+    rows = _query("AirbyteRecordMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/airbyterecordmessages/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_record_message(request, eid):
+    """Update a AirbyteRecordMessage."""
+    rows = _query("AirbyteRecordMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['stream', 'namespace', 'emittedAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AirbyteRecordMessage", rec)
+    return rec, 200
+
+@app.route("/v1/airbyterecordmessages/<eid>", methods=["DELETE"])
+def delete_airbyte_record_message(request, eid):
+    """Delete a AirbyteRecordMessage."""
+    rows = _query("AirbyteRecordMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.AirbyteRecordMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/airbytelogmessages", methods=["POST"])
+def create_airbyte_log_message(request):
+    """Create a AirbyteLogMessage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['level', 'message', 'stackTrace'])
+    if err:
+        return err, 400
+    err = _require(data, ['level', 'message'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airbyte_air")}
+    rec["level"] = data.get('level')
+    rec["message"] = data.get('message')
+    rec["stackTrace"] = data.get('stackTrace')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AirbyteLogMessage", rec)
+    return rec, 201
+
+@app.route("/v1/airbytelogmessages", methods=["GET"])
+def list_airbyte_log_messages(request):
+    """List AirbyteLogMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AirbyteLogMessage")
+    rows = _apply_filters(rows, params, ['level', 'message', 'stackTrace'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/airbytelogmessages/<eid>", methods=["GET"])
+def get_airbyte_log_message(request, eid):
+    """Retrieve a AirbyteLogMessage by id (supports ?expand=)."""
+    rows = _query("AirbyteLogMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/airbytelogmessages/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_log_message(request, eid):
+    """Update a AirbyteLogMessage."""
+    rows = _query("AirbyteLogMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['level', 'message', 'stackTrace'])
+    if err:
+        return err, 400
+    if data.get('level') and data['level'] not in ['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']:
+        return {"error": {"message": "invalid level; allowed: " + ", ".join(['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AirbyteLogMessage", rec)
+    return rec, 200
+
+@app.route("/v1/airbytelogmessages/<eid>", methods=["DELETE"])
+def delete_airbyte_log_message(request, eid):
+    """Delete a AirbyteLogMessage."""
+    rows = _query("AirbyteLogMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.AirbyteLogMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/airbyteconnectionstatuses", methods=["POST"])
+def create_airbyte_connection_status(request):
+    """Create a AirbyteConnectionStatus."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'message'])
+    if err:
+        return err, 400
+    err = _require(data, ['status', 'message'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['SUCCEEDED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['SUCCEEDED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airbyte_air")}
+    rec["status"] = data.get('status')
+    rec["message"] = data.get('message')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AirbyteConnectionStatus", rec)
+    return rec, 201
+
+@app.route("/v1/airbyteconnectionstatuses", methods=["GET"])
+def list_airbyte_connection_statuses(request):
+    """List AirbyteConnectionStatuses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AirbyteConnectionStatus")
+    rows = _apply_filters(rows, params, ['status', 'message'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/airbyteconnectionstatuses/<eid>", methods=["GET"])
+def get_airbyte_connection_status(request, eid):
+    """Retrieve a AirbyteConnectionStatus by id (supports ?expand=)."""
+    rows = _query("AirbyteConnectionStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/airbyteconnectionstatuses/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_connection_status(request, eid):
+    """Update a AirbyteConnectionStatus."""
+    rows = _query("AirbyteConnectionStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status', 'message'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['SUCCEEDED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['SUCCEEDED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AirbyteConnectionStatus", rec)
+    return rec, 200
+
+@app.route("/v1/airbyteconnectionstatuses/<eid>", methods=["DELETE"])
+def delete_airbyte_connection_status(request, eid):
+    """Delete a AirbyteConnectionStatus."""
+    rows = _query("AirbyteConnectionStatus", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.AirbyteConnectionStatus", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/airbytestatemessages", methods=["POST"])
+def create_airbyte_state_message(request):
+    """Create a AirbyteStateMessage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type'])
+    if err:
+        return err, 400
+    err = _require(data, ['type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['GLOBAL', 'STREAM', 'LEGACY']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['GLOBAL', 'STREAM', 'LEGACY']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airbyte_air")}
+    rec["type"] = data.get('type')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AirbyteStateMessage", rec)
+    return rec, 201
+
+@app.route("/v1/airbytestatemessages", methods=["GET"])
+def list_airbyte_state_messages(request):
+    """List AirbyteStateMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AirbyteStateMessage")
+    rows = _apply_filters(rows, params, ['type'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/airbytestatemessages/<eid>", methods=["GET"])
+def get_airbyte_state_message(request, eid):
+    """Retrieve a AirbyteStateMessage by id (supports ?expand=)."""
+    rows = _query("AirbyteStateMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/airbytestatemessages/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_state_message(request, eid):
+    """Update a AirbyteStateMessage."""
+    rows = _query("AirbyteStateMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['GLOBAL', 'STREAM', 'LEGACY']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['GLOBAL', 'STREAM', 'LEGACY']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AirbyteStateMessage", rec)
+    return rec, 200
+
+@app.route("/v1/airbytestatemessages/<eid>", methods=["DELETE"])
+def delete_airbyte_state_message(request, eid):
+    """Delete a AirbyteStateMessage."""
+    rows = _query("AirbyteStateMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.AirbyteStateMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/airbytestreamstatustracemessages", methods=["POST"])
+def create_airbyte_stream_status_trace_message(request):
+    """Create a AirbyteStreamStatusTraceMessage."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status'])
+    if err:
+        return err, 400
+    err = _require(data, ['status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['STARTED', 'RUNNING', 'COMPLETE', 'INCOMPLETE']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['STARTED', 'RUNNING', 'COMPLETE', 'INCOMPLETE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airbyte_air")}
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AirbyteStreamStatusTraceMessage", rec)
+    return rec, 201
+
+@app.route("/v1/airbytestreamstatustracemessages", methods=["GET"])
+def list_airbyte_stream_status_trace_messages(request):
+    """List AirbyteStreamStatusTraceMessages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AirbyteStreamStatusTraceMessage")
+    rows = _apply_filters(rows, params, ['status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/airbytestreamstatustracemessages/<eid>", methods=["GET"])
+def get_airbyte_stream_status_trace_message(request, eid):
+    """Retrieve a AirbyteStreamStatusTraceMessage by id (supports ?expand=)."""
+    rows = _query("AirbyteStreamStatusTraceMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/airbytestreamstatustracemessages/<eid>", methods=["POST", "PATCH"])
+def update_airbyte_stream_status_trace_message(request, eid):
+    """Update a AirbyteStreamStatusTraceMessage."""
+    rows = _query("AirbyteStreamStatusTraceMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['STARTED', 'RUNNING', 'COMPLETE', 'INCOMPLETE']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['STARTED', 'RUNNING', 'COMPLETE', 'INCOMPLETE']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AirbyteStreamStatusTraceMessage", rec)
+    return rec, 200
+
+@app.route("/v1/airbytestreamstatustracemessages/<eid>", methods=["DELETE"])
+def delete_airbyte_stream_status_trace_message(request, eid):
+    """Delete a AirbyteStreamStatusTraceMessage."""
+    rows = _query("AirbyteStreamStatusTraceMessage", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.AirbyteStreamStatusTraceMessage", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/configuredairbytestreams", methods=["POST"])
+def create_configured_airbyte_stream(request):
+    """Create a ConfiguredAirbyteStream."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['syncMode', 'destinationSyncMode', 'cursorField', 'primaryKey'])
+    if err:
+        return err, 400
+    err = _require(data, ['syncMode', 'destinationSyncMode'])
+    if err:
+        return err, 400
+    if data.get('syncMode') and data['syncMode'] not in ['full_refresh', 'incremental']:
+        return {"error": {"message": "invalid syncMode; allowed: " + ", ".join(['full_refresh', 'incremental']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("airbyte_con")}
+    rec["syncMode"] = data.get('syncMode')
+    rec["destinationSyncMode"] = data.get('destinationSyncMode')
+    rec["cursorField"] = data.get('cursorField')
+    rec["primaryKey"] = data.get('primaryKey')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ConfiguredAirbyteStream", rec)
+    return rec, 201
+
+@app.route("/v1/configuredairbytestreams", methods=["GET"])
+def list_configured_airbyte_streams(request):
+    """List ConfiguredAirbyteStreams with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ConfiguredAirbyteStream")
+    rows = _apply_filters(rows, params, ['syncMode', 'destinationSyncMode', 'cursorField', 'primaryKey'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/configuredairbytestreams/<eid>", methods=["GET"])
+def get_configured_airbyte_stream(request, eid):
+    """Retrieve a ConfiguredAirbyteStream by id (supports ?expand=)."""
+    rows = _query("ConfiguredAirbyteStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/configuredairbytestreams/<eid>", methods=["POST", "PATCH"])
+def update_configured_airbyte_stream(request, eid):
+    """Update a ConfiguredAirbyteStream."""
+    rows = _query("ConfiguredAirbyteStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['syncMode', 'destinationSyncMode', 'cursorField', 'primaryKey'])
+    if err:
+        return err, 400
+    if data.get('syncMode') and data['syncMode'] not in ['full_refresh', 'incremental']:
+        return {"error": {"message": "invalid syncMode; allowed: " + ", ".join(['full_refresh', 'incremental']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ConfiguredAirbyteStream", rec)
+    return rec, 200
+
+@app.route("/v1/configuredairbytestreams/<eid>", methods=["DELETE"])
+def delete_configured_airbyte_stream(request, eid):
+    """Delete a ConfiguredAirbyteStream."""
+    rows = _query("ConfiguredAirbyteStream", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"airbyte.ConfiguredAirbyteStream", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "airbyte-compat", "tier": "L4",
-            "entities": ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']}, 200
+            "entities": ['AirbyteMessage', 'AirbyteRecordMessage', 'AirbyteLogMessage', 'AirbyteConnectionStatus', 'AirbyteStateMessage', 'AirbyteStreamStatusTraceMessage', 'ConfiguredAirbyteStream']}, 200
 
 
 if __name__ == "__main__":

@@ -111,316 +111,198 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/players", methods=["POST"])
-def create_player(request):
-    """Create a Player."""
+@app.route("/v1/gameservers", methods=["POST"])
+def create_game_server(request):
+    """Create a GameServer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'level', 'xp', 'region'])
+    err = _reject_unknown(data, ['state', 'address', 'nodeName', 'reservedUntil', 'container', 'scheduling'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'level'])
+    err = _require(data, ['state', 'address'])
     if err:
         return err, 400
-    rec = {"id": new_id("agones_pla")}
-    rec["handle"] = data.get('handle')
-    rec["level"] = _as_int(data.get('level'))
-    rec["xp"] = _as_int(data.get('xp'))
-    rec["region"] = data.get('region')
+    if data.get('state') and data['state'] not in ['PortAllocation', 'Creating', 'Starting', 'Scheduled', 'RequestReady', 'Ready', 'Shutdown', 'Error', 'Unhealthy', 'Reserved', 'Allocated']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PortAllocation', 'Creating', 'Starting', 'Scheduled', 'RequestReady', 'Ready', 'Shutdown', 'Error', 'Unhealthy', 'Reserved', 'Allocated']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("agones_gam")}
+    rec["state"] = data.get('state')
+    rec["address"] = data.get('address')
+    rec["nodeName"] = data.get('nodeName')
+    rec["reservedUntil"] = data.get('reservedUntil')
+    rec["container"] = data.get('container')
+    rec["scheduling"] = data.get('scheduling')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Player", rec)
+    _persist("GameServer", rec)
     return rec, 201
 
-@app.route("/v1/players", methods=["GET"])
-def list_players(request):
-    """List Players with filtering + cursor pagination."""
+@app.route("/v1/gameservers", methods=["GET"])
+def list_game_servers(request):
+    """List GameServers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Player")
-    rows = _apply_filters(rows, params, ['handle', 'level', 'xp', 'region'])
+    rows = _query("GameServer")
+    rows = _apply_filters(rows, params, ['state', 'address', 'nodeName', 'reservedUntil', 'container', 'scheduling'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/players/<eid>", methods=["GET"])
-def get_player(request, eid):
-    """Retrieve a Player by id (supports ?expand=)."""
-    rows = _query("Player", eid)
+@app.route("/v1/gameservers/<eid>", methods=["GET"])
+def get_game_server(request, eid):
+    """Retrieve a GameServer by id (supports ?expand=)."""
+    rows = _query("GameServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/players/<eid>", methods=["POST", "PATCH"])
-def update_player(request, eid):
-    """Update a Player."""
-    rows = _query("Player", eid)
+@app.route("/v1/gameservers/<eid>", methods=["POST", "PATCH"])
+def update_game_server(request, eid):
+    """Update a GameServer."""
+    rows = _query("GameServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'level', 'xp', 'region'])
+    err = _reject_unknown(data, ['state', 'address', 'nodeName', 'reservedUntil', 'container', 'scheduling'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['PortAllocation', 'Creating', 'Starting', 'Scheduled', 'RequestReady', 'Ready', 'Shutdown', 'Error', 'Unhealthy', 'Reserved', 'Allocated']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['PortAllocation', 'Creating', 'Starting', 'Scheduled', 'RequestReady', 'Ready', 'Shutdown', 'Error', 'Unhealthy', 'Reserved', 'Allocated']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Player", rec)
+    _persist("GameServer", rec)
     return rec, 200
 
-@app.route("/v1/players/<eid>", methods=["DELETE"])
-def delete_player(request, eid):
-    """Delete a Player."""
-    rows = _query("Player", eid)
+@app.route("/v1/gameservers/<eid>", methods=["DELETE"])
+def delete_game_server(request, eid):
+    """Delete a GameServer."""
+    rows = _query("GameServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Player", "id": eid})
+    db.retract({"entity": f"agones.GameServer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/sessions", methods=["POST"])
-def create_session(request):
-    """Create a Session."""
+@app.route("/v1/gameserverports", methods=["POST"])
+def create_game_server_port(request):
+    """Create a GameServerPort."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'platform', 'startedAt', 'durationSec'])
+    err = _reject_unknown(data, ['name', 'portPolicy', 'container', 'containerPort', 'hostPort', 'protocol'])
     if err:
         return err, 400
-    err = _require(data, ['platform', 'startedAt'])
+    err = _require(data, ['name', 'portPolicy'])
     if err:
         return err, 400
-    rec = {"id": new_id("agones_ses")}
-    rec["playerId"] = data.get('playerId')
-    rec["platform"] = data.get('platform')
-    rec["startedAt"] = data.get('startedAt')
-    rec["durationSec"] = _as_int(data.get('durationSec'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Session", rec)
-    return rec, 201
-
-@app.route("/v1/sessions", methods=["GET"])
-def list_sessions(request):
-    """List Sessions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Session")
-    rows = _apply_filters(rows, params, ['playerId', 'platform', 'startedAt', 'durationSec'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/sessions/<eid>", methods=["GET"])
-def get_session(request, eid):
-    """Retrieve a Session by id (supports ?expand=)."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'playerId': 'Player'})
-    return rec, 200
-
-@app.route("/v1/sessions/<eid>", methods=["POST", "PATCH"])
-def update_session(request, eid):
-    """Update a Session."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'platform', 'startedAt', 'durationSec'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Session", rec)
-    return rec, 200
-
-@app.route("/v1/sessions/<eid>", methods=["DELETE"])
-def delete_session(request, eid):
-    """Delete a Session."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Session", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/matches", methods=["POST"])
-def create_match(request):
-    """Create a Match."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mode', 'status', 'playerCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['mode', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("agones_mat")}
-    rec["mode"] = data.get('mode')
-    rec["status"] = data.get('status')
-    rec["playerCount"] = _as_int(data.get('playerCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Match", rec)
-    return rec, 201
-
-@app.route("/v1/matches", methods=["GET"])
-def list_matches(request):
-    """List Matches with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Match")
-    rows = _apply_filters(rows, params, ['mode', 'status', 'playerCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/matches/<eid>", methods=["GET"])
-def get_match(request, eid):
-    """Retrieve a Match by id (supports ?expand=)."""
-    rows = _query("Match", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/matches/<eid>", methods=["POST", "PATCH"])
-def update_match(request, eid):
-    """Update a Match."""
-    rows = _query("Match", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mode', 'status', 'playerCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Match", rec)
-    return rec, 200
-
-@app.route("/v1/matches/<eid>", methods=["DELETE"])
-def delete_match(request, eid):
-    """Delete a Match."""
-    rows = _query("Match", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Match", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/leaderboards", methods=["POST"])
-def create_leaderboard(request):
-    """Create a Leaderboard."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'metric', 'season'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'metric'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("agones_lea")}
+    if data.get('portPolicy') and data['portPolicy'] not in ['Static', 'Dynamic', 'Passthrough', 'None']:
+        return {"error": {"message": "invalid portPolicy; allowed: " + ", ".join(['Static', 'Dynamic', 'Passthrough', 'None']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("agones_gam")}
     rec["name"] = data.get('name')
-    rec["metric"] = data.get('metric')
-    rec["season"] = data.get('season')
+    rec["portPolicy"] = data.get('portPolicy')
+    rec["container"] = data.get('container')
+    rec["containerPort"] = _as_int(data.get('containerPort'))
+    rec["hostPort"] = _as_int(data.get('hostPort'))
+    rec["protocol"] = data.get('protocol')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Leaderboard", rec)
+    _persist("GameServerPort", rec)
     return rec, 201
 
-@app.route("/v1/leaderboards", methods=["GET"])
-def list_leaderboards(request):
-    """List Leaderboards with filtering + cursor pagination."""
+@app.route("/v1/gameserverports", methods=["GET"])
+def list_game_server_ports(request):
+    """List GameServerPorts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Leaderboard")
-    rows = _apply_filters(rows, params, ['name', 'metric', 'season'])
+    rows = _query("GameServerPort")
+    rows = _apply_filters(rows, params, ['name', 'portPolicy', 'container', 'containerPort', 'hostPort', 'protocol'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/leaderboards/<eid>", methods=["GET"])
-def get_leaderboard(request, eid):
-    """Retrieve a Leaderboard by id (supports ?expand=)."""
-    rows = _query("Leaderboard", eid)
+@app.route("/v1/gameserverports/<eid>", methods=["GET"])
+def get_game_server_port(request, eid):
+    """Retrieve a GameServerPort by id (supports ?expand=)."""
+    rows = _query("GameServerPort", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/leaderboards/<eid>", methods=["POST", "PATCH"])
-def update_leaderboard(request, eid):
-    """Update a Leaderboard."""
-    rows = _query("Leaderboard", eid)
+@app.route("/v1/gameserverports/<eid>", methods=["POST", "PATCH"])
+def update_game_server_port(request, eid):
+    """Update a GameServerPort."""
+    rows = _query("GameServerPort", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'metric', 'season'])
+    err = _reject_unknown(data, ['name', 'portPolicy', 'container', 'containerPort', 'hostPort', 'protocol'])
     if err:
         return err, 400
+    if data.get('portPolicy') and data['portPolicy'] not in ['Static', 'Dynamic', 'Passthrough', 'None']:
+        return {"error": {"message": "invalid portPolicy; allowed: " + ", ".join(['Static', 'Dynamic', 'Passthrough', 'None']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Leaderboard", rec)
+    _persist("GameServerPort", rec)
     return rec, 200
 
-@app.route("/v1/leaderboards/<eid>", methods=["DELETE"])
-def delete_leaderboard(request, eid):
-    """Delete a Leaderboard."""
-    rows = _query("Leaderboard", eid)
+@app.route("/v1/gameserverports/<eid>", methods=["DELETE"])
+def delete_game_server_port(request, eid):
+    """Delete a GameServerPort."""
+    rows = _query("GameServerPort", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Leaderboard", "id": eid})
+    db.retract({"entity": f"agones.GameServerPort", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/inventories", methods=["POST"])
-def create_inventory(request):
-    """Create a Inventory."""
+@app.route("/v1/fleets", methods=["POST"])
+def create_fleet(request):
+    """Create a Fleet."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'itemId', 'quantity'])
+    err = _reject_unknown(data, ['replicas', 'readyReplicas', 'reservedReplicas', 'allocatedReplicas', 'scheduling'])
     if err:
         return err, 400
-    err = _require(data, ['quantity'])
+    err = _require(data, ['replicas', 'readyReplicas'])
     if err:
         return err, 400
-    rec = {"id": new_id("agones_inv")}
-    rec["playerId"] = data.get('playerId')
-    rec["itemId"] = data.get('itemId')
-    rec["quantity"] = _as_int(data.get('quantity'))
+    rec = {"id": new_id("agones_fle")}
+    rec["replicas"] = _as_int(data.get('replicas'))
+    rec["readyReplicas"] = _as_int(data.get('readyReplicas'))
+    rec["reservedReplicas"] = _as_int(data.get('reservedReplicas'))
+    rec["allocatedReplicas"] = _as_int(data.get('allocatedReplicas'))
+    rec["scheduling"] = data.get('scheduling')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Inventory", rec)
+    _persist("Fleet", rec)
     return rec, 201
 
-@app.route("/v1/inventories", methods=["GET"])
-def list_inventories(request):
-    """List Inventories with filtering + cursor pagination."""
+@app.route("/v1/fleets", methods=["GET"])
+def list_fleets(request):
+    """List Fleets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Inventory")
-    rows = _apply_filters(rows, params, ['playerId', 'itemId', 'quantity'])
+    rows = _query("Fleet")
+    rows = _apply_filters(rows, params, ['replicas', 'readyReplicas', 'reservedReplicas', 'allocatedReplicas', 'scheduling'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/inventories/<eid>", methods=["GET"])
-def get_inventory(request, eid):
-    """Retrieve a Inventory by id (supports ?expand=)."""
-    rows = _query("Inventory", eid)
+@app.route("/v1/fleets/<eid>", methods=["GET"])
+def get_fleet(request, eid):
+    """Retrieve a Fleet by id (supports ?expand=)."""
+    rows = _query("Fleet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'playerId': 'Player'})
     return rec, 200
 
-@app.route("/v1/inventories/<eid>", methods=["POST", "PATCH"])
-def update_inventory(request, eid):
-    """Update a Inventory."""
-    rows = _query("Inventory", eid)
+@app.route("/v1/fleets/<eid>", methods=["POST", "PATCH"])
+def update_fleet(request, eid):
+    """Update a Fleet."""
+    rows = _query("Fleet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'itemId', 'quantity'])
+    err = _reject_unknown(data, ['replicas', 'readyReplicas', 'reservedReplicas', 'allocatedReplicas', 'scheduling'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,88 +310,91 @@ def update_inventory(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Inventory", rec)
+    _persist("Fleet", rec)
     return rec, 200
 
-@app.route("/v1/inventories/<eid>", methods=["DELETE"])
-def delete_inventory(request, eid):
-    """Delete a Inventory."""
-    rows = _query("Inventory", eid)
+@app.route("/v1/fleets/<eid>", methods=["DELETE"])
+def delete_fleet(request, eid):
+    """Delete a Fleet."""
+    rows = _query("Fleet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Inventory", "id": eid})
+    db.retract({"entity": f"agones.Fleet", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/achievements", methods=["POST"])
-def create_achievement(request):
-    """Create a Achievement."""
+@app.route("/v1/sdkservers", methods=["POST"])
+def create_sdk_server(request):
+    """Create a SdkServer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'code', 'unlockedAt'])
+    err = _reject_unknown(data, ['logLevel', 'grpcPort', 'httpPort'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'unlockedAt'])
+    err = _require(data, ['logLevel', 'grpcPort'])
     if err:
         return err, 400
-    rec = {"id": new_id("agones_ach")}
-    rec["playerId"] = data.get('playerId')
-    rec["code"] = data.get('code')
-    rec["unlockedAt"] = data.get('unlockedAt')
+    if data.get('logLevel') and data['logLevel'] not in ['Info', 'Debug', 'Error', 'Trace']:
+        return {"error": {"message": "invalid logLevel; allowed: " + ", ".join(['Info', 'Debug', 'Error', 'Trace']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("agones_sdk")}
+    rec["logLevel"] = data.get('logLevel')
+    rec["grpcPort"] = _as_int(data.get('grpcPort'))
+    rec["httpPort"] = _as_int(data.get('httpPort'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Achievement", rec)
+    _persist("SdkServer", rec)
     return rec, 201
 
-@app.route("/v1/achievements", methods=["GET"])
-def list_achievements(request):
-    """List Achievements with filtering + cursor pagination."""
+@app.route("/v1/sdkservers", methods=["GET"])
+def list_sdk_servers(request):
+    """List SdkServers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Achievement")
-    rows = _apply_filters(rows, params, ['playerId', 'code', 'unlockedAt'])
+    rows = _query("SdkServer")
+    rows = _apply_filters(rows, params, ['logLevel', 'grpcPort', 'httpPort'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/achievements/<eid>", methods=["GET"])
-def get_achievement(request, eid):
-    """Retrieve a Achievement by id (supports ?expand=)."""
-    rows = _query("Achievement", eid)
+@app.route("/v1/sdkservers/<eid>", methods=["GET"])
+def get_sdk_server(request, eid):
+    """Retrieve a SdkServer by id (supports ?expand=)."""
+    rows = _query("SdkServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'playerId': 'Player'})
     return rec, 200
 
-@app.route("/v1/achievements/<eid>", methods=["POST", "PATCH"])
-def update_achievement(request, eid):
-    """Update a Achievement."""
-    rows = _query("Achievement", eid)
+@app.route("/v1/sdkservers/<eid>", methods=["POST", "PATCH"])
+def update_sdk_server(request, eid):
+    """Update a SdkServer."""
+    rows = _query("SdkServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['playerId', 'code', 'unlockedAt'])
+    err = _reject_unknown(data, ['logLevel', 'grpcPort', 'httpPort'])
     if err:
         return err, 400
+    if data.get('logLevel') and data['logLevel'] not in ['Info', 'Debug', 'Error', 'Trace']:
+        return {"error": {"message": "invalid logLevel; allowed: " + ", ".join(['Info', 'Debug', 'Error', 'Trace']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Achievement", rec)
+    _persist("SdkServer", rec)
     return rec, 200
 
-@app.route("/v1/achievements/<eid>", methods=["DELETE"])
-def delete_achievement(request, eid):
-    """Delete a Achievement."""
-    rows = _query("Achievement", eid)
+@app.route("/v1/sdkservers/<eid>", methods=["DELETE"])
+def delete_sdk_server(request, eid):
+    """Delete a SdkServer."""
+    rows = _query("SdkServer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"agones.Achievement", "id": eid})
+    db.retract({"entity": f"agones.SdkServer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "agones-compat", "tier": "L4",
-            "entities": ['Player', 'Session', 'Match', 'Leaderboard', 'Inventory', 'Achievement']}, 200
+            "entities": ['GameServer', 'GameServerPort', 'Fleet', 'SdkServer']}, 200
 
 
 if __name__ == "__main__":

@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible modern data stack actor (airbyte); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:airbyte-compat",
-    "x-wasm-cid": "bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+    "x-wasm-cid": "bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+      "url": "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/connectors": {
+    "/v1/airbytemessages": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List AirbyteMessages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/AirbyteMessage"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a AirbyteMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/AirbyteMessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/AirbyteMessage"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/airbytemessages/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a AirbyteMessage",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/AirbyteMessage"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a AirbyteMessage",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/AirbyteMessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/AirbyteMessage"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
+        "summary": "Delete a AirbyteMessage",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/syncs": {
+    "/v1/airbyterecordmessages": {
       "get": {
-        "summary": "List Syncs",
+        "summary": "List AirbyteRecordMessages",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Sync"
+                        "$ref": "#/components/schemas/AirbyteRecordMessage"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Sync",
+        "summary": "Create a AirbyteRecordMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/AirbyteRecordMessageCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/AirbyteRecordMessage"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/syncs/{id}": {
+    "/v1/airbyterecordmessages/{id}": {
       "get": {
-        "summary": "Get a Sync",
+        "summary": "Get a AirbyteRecordMessage",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/AirbyteRecordMessage"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Sync",
+        "summary": "Update a AirbyteRecordMessage",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SyncCreate"
+                "$ref": "#/components/schemas/AirbyteRecordMessageCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sync"
+                  "$ref": "#/components/schemas/AirbyteRecordMessage"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Sync",
+        "summary": "Delete a AirbyteRecordMessage",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/models": {
+    "/v1/airbytelogmessages": {
       "get": {
-        "summary": "List Models",
+        "summary": "List AirbyteLogMessages",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Model"
+                        "$ref": "#/components/schemas/AirbyteLogMessage"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Model",
+        "summary": "Create a AirbyteLogMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/AirbyteLogMessageCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AirbyteLogMessage"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/models/{id}": {
+    "/v1/airbytelogmessages/{id}": {
       "get": {
-        "summary": "Get a Model",
+        "summary": "Get a AirbyteLogMessage",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AirbyteLogMessage"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Model",
+        "summary": "Update a AirbyteLogMessage",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModelCreate"
+                "$ref": "#/components/schemas/AirbyteLogMessageCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Model"
+                  "$ref": "#/components/schemas/AirbyteLogMessage"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Model",
+        "summary": "Delete a AirbyteLogMessage",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/streams": {
+    "/v1/airbyteconnectionstatuses": {
       "get": {
-        "summary": "List Streams",
+        "summary": "List AirbyteConnectionStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Stream"
+                        "$ref": "#/components/schemas/AirbyteConnectionStatus"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Stream",
+        "summary": "Create a AirbyteConnectionStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/AirbyteConnectionStatusCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/AirbyteConnectionStatus"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/streams/{id}": {
+    "/v1/airbyteconnectionstatuses/{id}": {
       "get": {
-        "summary": "Get a Stream",
+        "summary": "Get a AirbyteConnectionStatus",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/AirbyteConnectionStatus"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Stream",
+        "summary": "Update a AirbyteConnectionStatus",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StreamCreate"
+                "$ref": "#/components/schemas/AirbyteConnectionStatusCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Stream"
+                  "$ref": "#/components/schemas/AirbyteConnectionStatus"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Stream",
+        "summary": "Delete a AirbyteConnectionStatus",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/schemas": {
+    "/v1/airbytestatemessages": {
       "get": {
-        "summary": "List Schemas",
+        "summary": "List AirbyteStateMessages",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Schema"
+                        "$ref": "#/components/schemas/AirbyteStateMessage"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Schema",
+        "summary": "Create a AirbyteStateMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/AirbyteStateMessageCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/AirbyteStateMessage"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/schemas/{id}": {
+    "/v1/airbytestatemessages/{id}": {
       "get": {
-        "summary": "Get a Schema",
+        "summary": "Get a AirbyteStateMessage",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/AirbyteStateMessage"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Schema",
+        "summary": "Update a AirbyteStateMessage",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SchemaCreate"
+                "$ref": "#/components/schemas/AirbyteStateMessageCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Schema"
+                  "$ref": "#/components/schemas/AirbyteStateMessage"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Schema",
+        "summary": "Delete a AirbyteStateMessage",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/tests": {
+    "/v1/airbytestreamstatustracemessages": {
       "get": {
-        "summary": "List Tests",
+        "summary": "List AirbyteStreamStatusTraceMessages",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Test"
+                        "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessage"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Test",
+        "summary": "Create a AirbyteStreamStatusTraceMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestCreate"
+                "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessageCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Test"
+                  "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessage"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/tests/{id}": {
+    "/v1/airbytestreamstatustracemessages/{id}": {
       "get": {
-        "summary": "Get a Test",
+        "summary": "Get a AirbyteStreamStatusTraceMessage",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Test"
+                  "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessage"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Test",
+        "summary": "Update a AirbyteStreamStatusTraceMessage",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestCreate"
+                "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessageCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Test"
+                  "$ref": "#/components/schemas/AirbyteStreamStatusTraceMessage"
                 }
               }
             }
@@ -1106,7 +1106,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Test",
+        "summary": "Delete a AirbyteStreamStatusTraceMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/configuredairbytestreams": {
+      "get": {
+        "summary": "List ConfiguredAirbyteStreams",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConfiguredAirbyteStream"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a ConfiguredAirbyteStream",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfiguredAirbyteStreamCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfiguredAirbyteStream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/configuredairbytestreams/{id}": {
+      "get": {
+        "summary": "Get a ConfiguredAirbyteStream",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfiguredAirbyteStream"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a ConfiguredAirbyteStream",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfiguredAirbyteStreamCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfiguredAirbyteStream"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a ConfiguredAirbyteStream",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +1325,13 @@
   },
   "components": {
     "schemas": {
-      "Connector": {
+      "AirbyteMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
+          "type": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,45 +1344,31 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "AirbyteMessageCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
+          "type": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "source"
+          "type"
         ]
       },
-      "Sync": {
+      "AirbyteRecordMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "connectorId": {
+          "stream": {
             "type": "string"
           },
-          "status": {
+          "namespace": {
             "type": "string"
           },
-          "rows": {
+          "emittedAt": {
             "type": "integer"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1218,170 +1380,141 @@
           }
         }
       },
-      "SyncCreate": {
+      "AirbyteRecordMessageCreate": {
         "type": "object",
         "properties": {
-          "connectorId": {
+          "stream": {
+            "type": "string"
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "emittedAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "stream",
+          "namespace"
+        ]
+      },
+      "AirbyteLogMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "FATAL",
+              "ERROR",
+              "WARN",
+              "INFO",
+              "DEBUG",
+              "TRACE"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "stackTrace": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AirbyteLogMessageCreate": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string",
+            "enum": [
+              "FATAL",
+              "ERROR",
+              "WARN",
+              "INFO",
+              "DEBUG",
+              "TRACE"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "stackTrace": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "level",
+          "message"
+        ]
+      },
+      "AirbyteConnectionStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "SUCCEEDED",
+              "FAILED"
+            ]
+          },
+          "message": {
             "type": "string"
           },
-          "rows": {
-            "type": "integer"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "startedAt": {
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AirbyteConnectionStatusCreate": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCEEDED",
+              "FAILED"
+            ]
+          },
+          "message": {
             "type": "string"
           }
         },
         "required": [
           "status",
-          "rows"
+          "message"
         ]
       },
-      "Model": {
+      "AirbyteStateMessage": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ModelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "materialization": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "materialization"
-        ]
-      },
-      "Stream": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "StreamCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "partitions": {
-            "type": "integer"
-          },
-          "retentionMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "partitions"
-        ]
-      },
-      "Schema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SchemaCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "database": {
-            "type": "string"
-          },
-          "tableCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "database"
-        ]
-      },
-      "Test": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelName": {
             "type": "string"
           },
           "type": {
-            "type": "string"
-          },
-          "passed": {
-            "type": "boolean"
+            "type": "string",
+            "enum": [
+              "GLOBAL",
+              "STREAM",
+              "LEGACY"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1393,22 +1526,119 @@
           }
         }
       },
-      "TestCreate": {
+      "AirbyteStateMessageCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
-            "type": "string"
-          },
           "type": {
-            "type": "string"
-          },
-          "passed": {
-            "type": "boolean"
+            "type": "string",
+            "enum": [
+              "GLOBAL",
+              "STREAM",
+              "LEGACY"
+            ]
           }
         },
         "required": [
-          "modelName",
           "type"
+        ]
+      },
+      "AirbyteStreamStatusTraceMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "STARTED",
+              "RUNNING",
+              "COMPLETE",
+              "INCOMPLETE"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AirbyteStreamStatusTraceMessageCreate": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "STARTED",
+              "RUNNING",
+              "COMPLETE",
+              "INCOMPLETE"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "ConfiguredAirbyteStream": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "syncMode": {
+            "type": "string",
+            "enum": [
+              "full_refresh",
+              "incremental"
+            ]
+          },
+          "destinationSyncMode": {
+            "type": "string"
+          },
+          "cursorField": {
+            "type": "string"
+          },
+          "primaryKey": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ConfiguredAirbyteStreamCreate": {
+        "type": "object",
+        "properties": {
+          "syncMode": {
+            "type": "string",
+            "enum": [
+              "full_refresh",
+              "incremental"
+            ]
+          },
+          "destinationSyncMode": {
+            "type": "string"
+          },
+          "cursorField": {
+            "type": "string"
+          },
+          "primaryKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "syncMode",
+          "destinationSyncMode"
         ]
       }
     }

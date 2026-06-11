@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "airbyte.kotoba")
-ENTITIES = ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']
-PLURALS = {'Connector': 'connectors', 'Sync': 'syncs', 'Model': 'models', 'Stream': 'streams', 'Schema': 'schemas', 'Test': 'tests'}
+ENTITIES = ['AirbyteMessage', 'AirbyteRecordMessage', 'AirbyteLogMessage', 'AirbyteConnectionStatus', 'AirbyteStateMessage', 'AirbyteStreamStatusTraceMessage', 'ConfiguredAirbyteStream']
+PLURALS = {'AirbyteMessage': 'airbytemessages', 'AirbyteRecordMessage': 'airbyterecordmessages', 'AirbyteLogMessage': 'airbytelogmessages', 'AirbyteConnectionStatus': 'airbyteconnectionstatuses', 'AirbyteStateMessage': 'airbytestatemessages', 'AirbyteStreamStatusTraceMessage': 'airbytestreamstatustracemessages', 'ConfiguredAirbyteStream': 'configuredairbytestreams'}
 
 
 class AirbyteContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class AirbyteContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['level', 'status', 'syncMode', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

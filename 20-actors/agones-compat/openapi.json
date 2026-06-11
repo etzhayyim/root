@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible gaming backend / metaverse actor (agones); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:agones-compat",
-    "x-wasm-cid": "bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+    "x-wasm-cid": "bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+      "url": "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/players": {
+    "/v1/gameservers": {
       "get": {
-        "summary": "List Players",
+        "summary": "List GameServers",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Player"
+                        "$ref": "#/components/schemas/GameServer"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Player",
+        "summary": "Create a GameServer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlayerCreate"
+                "$ref": "#/components/schemas/GameServerCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Player"
+                  "$ref": "#/components/schemas/GameServer"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/players/{id}": {
+    "/v1/gameservers/{id}": {
       "get": {
-        "summary": "Get a Player",
+        "summary": "Get a GameServer",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Player"
+                  "$ref": "#/components/schemas/GameServer"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Player",
+        "summary": "Update a GameServer",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlayerCreate"
+                "$ref": "#/components/schemas/GameServerCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Player"
+                  "$ref": "#/components/schemas/GameServer"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Player",
+        "summary": "Delete a GameServer",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/sessions": {
+    "/v1/gameserverports": {
       "get": {
-        "summary": "List Sessions",
+        "summary": "List GameServerPorts",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Session"
+                        "$ref": "#/components/schemas/GameServerPort"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Session",
+        "summary": "Create a GameServerPort",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SessionCreate"
+                "$ref": "#/components/schemas/GameServerPortCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/GameServerPort"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/sessions/{id}": {
+    "/v1/gameserverports/{id}": {
       "get": {
-        "summary": "Get a Session",
+        "summary": "Get a GameServerPort",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/GameServerPort"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Session",
+        "summary": "Update a GameServerPort",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SessionCreate"
+                "$ref": "#/components/schemas/GameServerPortCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Session"
+                  "$ref": "#/components/schemas/GameServerPort"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Session",
+        "summary": "Delete a GameServerPort",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/matches": {
+    "/v1/fleets": {
       "get": {
-        "summary": "List Matches",
+        "summary": "List Fleets",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Match"
+                        "$ref": "#/components/schemas/Fleet"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Match",
+        "summary": "Create a Fleet",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MatchCreate"
+                "$ref": "#/components/schemas/FleetCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Match"
+                  "$ref": "#/components/schemas/Fleet"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/matches/{id}": {
+    "/v1/fleets/{id}": {
       "get": {
-        "summary": "Get a Match",
+        "summary": "Get a Fleet",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Match"
+                  "$ref": "#/components/schemas/Fleet"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Match",
+        "summary": "Update a Fleet",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MatchCreate"
+                "$ref": "#/components/schemas/FleetCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Match"
+                  "$ref": "#/components/schemas/Fleet"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Match",
+        "summary": "Delete a Fleet",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/leaderboards": {
+    "/v1/sdkservers": {
       "get": {
-        "summary": "List Leaderboards",
+        "summary": "List SdkServers",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Leaderboard"
+                        "$ref": "#/components/schemas/SdkServer"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Leaderboard",
+        "summary": "Create a SdkServer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeaderboardCreate"
+                "$ref": "#/components/schemas/SdkServerCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Leaderboard"
+                  "$ref": "#/components/schemas/SdkServer"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/leaderboards/{id}": {
+    "/v1/sdkservers/{id}": {
       "get": {
-        "summary": "Get a Leaderboard",
+        "summary": "Get a SdkServer",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Leaderboard"
+                  "$ref": "#/components/schemas/SdkServer"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Leaderboard",
+        "summary": "Update a SdkServer",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeaderboardCreate"
+                "$ref": "#/components/schemas/SdkServerCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Leaderboard"
+                  "$ref": "#/components/schemas/SdkServer"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Leaderboard",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/inventories": {
-      "get": {
-        "summary": "List Inventories",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Inventory"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Inventory",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InventoryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Inventory"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/inventories/{id}": {
-      "get": {
-        "summary": "Get a Inventory",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Inventory"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Inventory",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InventoryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Inventory"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Inventory",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/achievements": {
-      "get": {
-        "summary": "List Achievements",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Achievement"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Achievement",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AchievementCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Achievement"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/achievements/{id}": {
-      "get": {
-        "summary": "Get a Achievement",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Achievement"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Achievement",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AchievementCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Achievement"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Achievement",
+        "summary": "Delete a SdkServer",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +770,42 @@
   },
   "components": {
     "schemas": {
-      "Player": {
+      "GameServer": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "handle": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "PortAllocation",
+              "Creating",
+              "Starting",
+              "Scheduled",
+              "RequestReady",
+              "Ready",
+              "Shutdown",
+              "Error",
+              "Unhealthy",
+              "Reserved",
+              "Allocated"
+            ]
+          },
+          "address": {
             "type": "string"
           },
-          "level": {
-            "type": "integer"
+          "nodeName": {
+            "type": "string"
           },
-          "xp": {
-            "type": "integer"
+          "reservedUntil": {
+            "type": "string",
+            "format": "date-time"
           },
-          "region": {
+          "container": {
+            "type": "string"
+          },
+          "scheduling": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,121 +818,47 @@
           }
         }
       },
-      "PlayerCreate": {
+      "GameServerCreate": {
         "type": "object",
         "properties": {
-          "handle": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "PortAllocation",
+              "Creating",
+              "Starting",
+              "Scheduled",
+              "RequestReady",
+              "Ready",
+              "Shutdown",
+              "Error",
+              "Unhealthy",
+              "Reserved",
+              "Allocated"
+            ]
+          },
+          "address": {
             "type": "string"
           },
-          "level": {
-            "type": "integer"
+          "nodeName": {
+            "type": "string"
           },
-          "xp": {
-            "type": "integer"
+          "reservedUntil": {
+            "type": "string"
           },
-          "region": {
+          "container": {
+            "type": "string"
+          },
+          "scheduling": {
             "type": "string"
           }
         },
         "required": [
-          "handle",
-          "level"
+          "state",
+          "address"
         ]
       },
-      "Session": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "playerId": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "durationSec": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SessionCreate": {
-        "type": "object",
-        "properties": {
-          "playerId": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string"
-          },
-          "durationSec": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "platform",
-          "startedAt"
-        ]
-      },
-      "Match": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "mode": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "playerCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MatchCreate": {
-        "type": "object",
-        "properties": {
-          "mode": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "playerCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "mode",
-          "status"
-        ]
-      },
-      "Leaderboard": {
+      "GameServerPort": {
         "type": "object",
         "properties": {
           "id": {
@@ -1291,10 +867,25 @@
           "name": {
             "type": "string"
           },
-          "metric": {
+          "portPolicy": {
+            "type": "string",
+            "enum": [
+              "Static",
+              "Dynamic",
+              "Passthrough",
+              "None"
+            ]
+          },
+          "container": {
             "type": "string"
           },
-          "season": {
+          "containerPort": {
+            "type": "integer"
+          },
+          "hostPort": {
+            "type": "integer"
+          },
+          "protocol": {
             "type": "string"
           },
           "createdAt": {
@@ -1307,37 +898,113 @@
           }
         }
       },
-      "LeaderboardCreate": {
+      "GameServerPortCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "metric": {
+          "portPolicy": {
+            "type": "string",
+            "enum": [
+              "Static",
+              "Dynamic",
+              "Passthrough",
+              "None"
+            ]
+          },
+          "container": {
             "type": "string"
           },
-          "season": {
+          "containerPort": {
+            "type": "integer"
+          },
+          "hostPort": {
+            "type": "integer"
+          },
+          "protocol": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "metric"
+          "portPolicy"
         ]
       },
-      "Inventory": {
+      "Fleet": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "playerId": {
+          "replicas": {
+            "type": "integer"
+          },
+          "readyReplicas": {
+            "type": "integer"
+          },
+          "reservedReplicas": {
+            "type": "integer"
+          },
+          "allocatedReplicas": {
+            "type": "integer"
+          },
+          "scheduling": {
             "type": "string"
           },
-          "itemId": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FleetCreate": {
+        "type": "object",
+        "properties": {
+          "replicas": {
+            "type": "integer"
+          },
+          "readyReplicas": {
+            "type": "integer"
+          },
+          "reservedReplicas": {
+            "type": "integer"
+          },
+          "allocatedReplicas": {
+            "type": "integer"
+          },
+          "scheduling": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "replicas",
+          "readyReplicas"
+        ]
+      },
+      "SdkServer": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "quantity": {
+          "logLevel": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Debug",
+              "Error",
+              "Trace"
+            ]
+          },
+          "grpcPort": {
+            "type": "integer"
+          },
+          "httpPort": {
             "type": "integer"
           },
           "createdAt": {
@@ -1350,65 +1017,28 @@
           }
         }
       },
-      "InventoryCreate": {
+      "SdkServerCreate": {
         "type": "object",
         "properties": {
-          "playerId": {
-            "type": "string"
+          "logLevel": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Debug",
+              "Error",
+              "Trace"
+            ]
           },
-          "itemId": {
-            "type": "string"
+          "grpcPort": {
+            "type": "integer"
           },
-          "quantity": {
+          "httpPort": {
             "type": "integer"
           }
         },
         "required": [
-          "quantity"
-        ]
-      },
-      "Achievement": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "playerId": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "unlockedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AchievementCreate": {
-        "type": "object",
-        "properties": {
-          "playerId": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "unlockedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "unlockedAt"
+          "logLevel",
+          "grpcPort"
         ]
       }
     }

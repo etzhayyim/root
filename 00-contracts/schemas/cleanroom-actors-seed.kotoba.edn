@@ -220,11 +220,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible gaming backend / metaverse actor (agones); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "agones.kotoba"
-   :actor/wasm-cid "bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le"
+   :actor/wasm-cid "bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:agones-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agones-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agones-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agones-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:agones-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agones-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:agones-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:agones-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "agora-compat"
    :actor/did "did:web:etzhayyim.com:actor:agora-compat"
    :actor/kind :compat
@@ -259,11 +259,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible modern data stack actor (airbyte); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "airbyte.kotoba"
-   :actor/wasm-cid "bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu"
+   :actor/wasm-cid "bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:airbyte-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:airbyte-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "airtable-compat"
    :actor/did "did:web:etzhayyim.com:actor:airtable-compat"
    :actor/kind :compat

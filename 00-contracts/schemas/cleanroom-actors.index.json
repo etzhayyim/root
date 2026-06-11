@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 814,
-    "L5": 186
+    "L4": 811,
+    "L5": 189
   },
   "actors": [
     {
@@ -287,10 +287,10 @@
     {
       "handle": "agones-compat",
       "did": "did:web:etzhayyim.com:actor:agones-compat",
-      "wasmCid": "bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
+      "wasmCid": "bafkreibo3ova77xxbshpeyae62bj56hjnatb6gjchmvr3h42xksdztjt3e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "agones clean-room actor",
       "category": "gaming_backend",
       "capabilities": [
@@ -341,10 +341,10 @@
     {
       "handle": "airbyte-compat",
       "did": "did:web:etzhayyim.com:actor:airbyte-compat",
-      "wasmCid": "bafkreiaifkc4xbcrihiyq2hiyf3r3moau7sg2ctiizefwu5kvczuxoaayu",
+      "wasmCid": "bafkreihapfbqysrrwqjznk2riiea66y2a4mrnbuxq4zmgerov2i67xcxn4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "airbyte clean-room actor",
       "category": "modern_data_stack",
       "capabilities": [
@@ -6410,7 +6410,7 @@
       "wasmCid": "bafkreidqdgprrelzmvql7wby2nhhdkc3odsgefea6bn7i64s6qr5eqmbca",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "freefly clean-room actor",
       "category": "drone_robotics",
       "capabilities": [
