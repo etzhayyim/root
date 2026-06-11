@@ -158,5 +158,14 @@
     "dataset_substrate": "/90-docs/adr/2605241500-etzhayyim-dataset-cid-substrate.md",
     "confidential_envelope": "/90-docs/adr/2605181100-etzhayyim-confidential-records-xchacha20-envelope.md",
     "charter_rider": "/CHARTER-RIDER.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "map-not-target": "MANDATORY ECU/infotainment/telematics data wipe BEFORE disassembly with cryptographic destruction attestation (G8) — the scrapped vehicle's personal data dies with it, never harvested into any registry",
+      "append-only": "mass-balance audit ≥98% closure on kotoba-datomic (G2) — recovery lineage appends, nothing erased (the G8 wipe destroys the vehicle's onboard PII, not the actor's attestation log)",
+      "never-a-throne": "critical depollution steps signed by witness quorum ≥2 distinct robots (G3); all firmware + fixture CAD open-source (G1)"
+    }
   }
 }

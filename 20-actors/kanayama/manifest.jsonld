@@ -141,5 +141,13 @@
     ],
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md",
     "charter_rider": "/CHARTER-RIDER.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "mass-balance audit on kotoba-datomic ≥98% closure (G2) + per-batch IPFS-pinned evidence (G3) — the metal's provenance appends, nothing erased",
+      "never-a-throne": "every pour signed by witness quorum ≥2 distinct robots, Ed25519 DID-bound (G4); open-source firmware (G1) + public emissions disclosure (G5)"
+    }
   }
 }
