@@ -793,3 +793,18 @@ the Video state lifecycle(4), the ingest lifecycle(5), the complete
 variant(5). Method note: when the same field carries different enum sets
 on the FULL schema vs a request-body subset (Video.state 4 vs 2), the full
 schema's set wins — request bodies constrain writes, not the domain.
+
+### §16.23 /loop iteration 22 — wave 23: the Ethereum JSON-RPC family (219, 21.9%)
+
+infura + alchemy → ledger **219** (781 L4 / 219 L5 = 21.9%), enforced 211 /
+**881 enum fields** (+4), verify PASS 0/0, 2/2 green. Harness-direct.
+
+**The 5th conformance family: Ethereum JSON-RPC (execution-apis).** The
+official ethereum/execution-apis OpenRPC schemas anchor the model
+(BlockTag {earliest, finalized, safe, latest, pending} — each value with
+declared semantics; Receipt.status {0x0, 0x1} per the spec prose; Block
+surface incl. the post-Cancun blob fields). Conformance evidence: each
+provider's OWN documentation documents the standard eth_* methods
+(docs.metamask.io/services for Infura; alchemy.com/docs — both
+harness-fetched). The transaction-type registry (legacy/2930/1559/4844/
+7702) honestly gapped as growing.

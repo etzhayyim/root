@@ -368,17 +368,14 @@
       "handle": "alchemy-compat",
       "platform": "alchemy",
       "bytes": 2121,
-      "wasmCid": "bafkreigsxn46byt6caxoiplbfnvvacpthtqkfjepv6v7bxake4jfiz3wmq",
+      "wasmCid": "bafkreifjsughg53pagjip73aqtwtrjxyfvvvr65ixkkqdspuc3o3muylgi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "BlockQuery",
+        "Receipt"
       ]
     },
     {
@@ -7563,17 +7560,14 @@
       "handle": "infura-compat",
       "platform": "infura",
       "bytes": 2120,
-      "wasmCid": "bafkreicddgr6l56mjxrzzztzeztip6aofbwtptxox7xgjdy3zvba5hh6pq",
+      "wasmCid": "bafkreihl4cmtlx7t62swimw3yz7fuiu3pabn7xqlcvbaudf5itfldpe6ki",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "BlockQuery",
+        "Receipt"
       ]
     },
     {

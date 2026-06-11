@@ -5,71 +5,45 @@ namespace alchemy {
 
     entity Block {
         id: string @unique
-        number: integer
         hash: string
-        chain: string
-        minedAt: datetime
+        parentHash: string
+        miner: string
+        stateRoot: string
+        transactionsRoot: string
+        receiptsRoot: string
+        number: string
+        gasLimit: string
+        gasUsed: string
+        timestamp: string
+        baseFeePerGas: string
+        blobGasUsed: string
+        excessBlobGas: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Transaction {
+    entity BlockQuery {
         id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
+        blockTag: string
+        hydrated: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Receipt {
+        id: string @unique
+        transactionHash: string
+        transactionIndex: string
+        blockHash: string
+        blockNumber: string
+        gasUsed: string
+        cumulativeGasUsed: string
+        contractAddress: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contract {
-        id: string @unique
-        address: string
-        chain: string
-        abiRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Account {
-        id: string @unique
-        address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
-        name: string
-        blockNumber: integer
-        dataRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Token {
-        id: string @unique
-        contractAddr: string
-        symbol: string
-        decimals: integer
-        standard: string
+        effectiveGasPrice: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

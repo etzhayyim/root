@@ -2851,6 +2851,19 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Ethereum JSON-RPC conformance family (the 5th family): node providers
+# whose OWN docs document the standard eth_* JSON-RPC interface join on the
+# official ethereum/execution-apis spec model. BlockTag(5, declared with
+# per-value semantics) + Receipt.status(2, '1 (success) or 0 (failure)')
+# enforced; hex quantities modeled as strings per the wire format.
+_ETH_JSONRPC_MODEL = {
+    "Block": E(hash="string", parentHash="string", miner="string", stateRoot="string", transactionsRoot="string", receiptsRoot="string", number="string", gasLimit="string", gasUsed="string", timestamp="string", baseFeePerGas="string", blobGasUsed="string", excessBlobGas="string"),
+    "BlockQuery": E(blockTag="string", hydrated="boolean"),
+    "Receipt": E(transactionHash="string", transactionIndex="string", blockHash="string", blockNumber="string", gasUsed="string", cumulativeGasUsed="string", contractAddress="string", status="string", effectiveGasPrice="string", type="string"),
+}
+for _eth_provider in ("infura", "alchemy"):
+    PLATFORM_OVERRIDES[_eth_provider] = _ETH_JSONRPC_MODEL
+
 # Faithful Kaltura model (the operator's own machine-readable API schema:
 # kaltura.com/api_v3/api_schema.php, apiVersion 21.12.0). mediaType(7,
 # legacy live-stream members fossilized) + moderationStatus(6, complete

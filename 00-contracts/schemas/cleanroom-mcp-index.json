@@ -7,9 +7,9 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalTools": 29090,
-  "l5VerifiedActors": 209,
-  "totalVerifiedEnumFields": 877,
+  "totalTools": 29060,
+  "l5VerifiedActors": 211,
+  "totalVerifiedEnumFields": 881,
   "servers": [
     {
       "handle": "8th_wall-compat",
@@ -245,12 +245,12 @@
     {
       "handle": "alchemy-compat",
       "did": "did:web:etzhayyim.com:actor:alchemy-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreigsxn46byt6caxoiplbfnvvacpthtqkfjepv6v7bxake4jfiz3wmq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreifjsughg53pagjip73aqtwtrjxyfvvvr65ixkkqdspuc3o3muylgi",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/alchemy-compat/manifest.json#/capabilities/mcp"
     },
     {
@@ -4975,12 +4975,12 @@
     {
       "handle": "infura-compat",
       "did": "did:web:etzhayyim.com:actor:infura-compat",
-      "tier": "L4",
-      "endpoint": "ipfs://bafkreicddgr6l56mjxrzzztzeztip6aofbwtptxox7xgjdy3zvba5hh6pq",
+      "tier": "L5",
+      "endpoint": "ipfs://bafkreihl4cmtlx7t62swimw3yz7fuiu3pabn7xqlcvbaudf5itfldpe6ki",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "toolCount": 15,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "manifest": "20-actors/infura-compat/manifest.json#/capabilities/mcp"
     },
     {

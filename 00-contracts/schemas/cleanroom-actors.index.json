@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 783,
-    "L5": 217
+    "L4": 781,
+    "L5": 219
   },
   "actors": [
     {
@@ -395,10 +395,10 @@
     {
       "handle": "alchemy-compat",
       "did": "did:web:etzhayyim.com:actor:alchemy-compat",
-      "wasmCid": "bafkreigsxn46byt6caxoiplbfnvvacpthtqkfjepv6v7bxake4jfiz3wmq",
+      "wasmCid": "bafkreifjsughg53pagjip73aqtwtrjxyfvvvr65ixkkqdspuc3o3muylgi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "alchemy clean-room actor",
       "category": "web3_rpc",
       "capabilities": [
@@ -8135,10 +8135,10 @@
     {
       "handle": "infura-compat",
       "did": "did:web:etzhayyim.com:actor:infura-compat",
-      "wasmCid": "bafkreicddgr6l56mjxrzzztzeztip6aofbwtptxox7xgjdy3zvba5hh6pq",
+      "wasmCid": "bafkreihl4cmtlx7t62swimw3yz7fuiu3pabn7xqlcvbaudf5itfldpe6ki",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "infura clean-room actor",
       "category": "web3_rpc",
       "capabilities": [

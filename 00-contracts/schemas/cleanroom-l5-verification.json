@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 217,
+  "count": 219,
   "actors": [
     {
       "handle": "aave-compat",
@@ -946,6 +946,84 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs gpsd AIVDM (canonical ITU-R M.1371). Enforced enums: Message.messageType(27), PositionReport.navigationStatus(16)/maneuverIndicator(3), BaseStationReport.typeOfEpfd(10), AidToNavigationReport.typeOfAid(32)/typeOfEpfd(10) = 6 enums. shipType (0-99) not enforced."
+    },
+    {
+      "handle": "alchemy-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas) + alchemy.com/docs documents eth_getBlockByHash et al. as its Ethereum API endpoints (harness-fetched)",
+      "remodeled": "Ethereum JSON-RPC conformance leverage (the 5th conformance family): Alchemy's OWN documentation documents the standard eth_* JSON-RPC interface (alchemy.com/docs documents eth_getBlockByHash et al. as its Ethereum API endpoints (harness-fetched)), whose normative machine-readable spec is ethereum/execution-apis. Joins the spec-verified model: BlockTag enforced {earliest, finalized, safe, latest, pending} — each value carries declared semantics in the spec — and Receipt.status enforced {0x0, 0x1} ('Either 1 (success) or 0 (failure)' per the spec prose). Hex quantities modeled as strings per the wire format. Harness-direct.",
+      "resources": [
+        {
+          "entity": "Block",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "hash",
+            "parentHash",
+            "miner",
+            "stateRoot",
+            "transactionsRoot",
+            "receiptsRoot",
+            "number",
+            "gasLimit",
+            "gasUsed",
+            "timestamp",
+            "baseFeePerGas",
+            "blobGasUsed",
+            "excessBlobGas"
+          ],
+          "fieldStatus": "confirmed (Block schema properties incl. post-Cancun blob fields)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "BlockQuery",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "blockTag",
+            "hydrated"
+          ],
+          "fieldStatus": "confirmed (eth_getBlockBy* parameters)",
+          "discoveredEnums": {
+            "blockTag": [
+              "earliest",
+              "finalized",
+              "safe",
+              "latest",
+              "pending"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Receipt",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "transactionHash",
+            "transactionIndex",
+            "blockHash",
+            "blockNumber",
+            "gasUsed",
+            "cumulativeGasUsed",
+            "contractAddress",
+            "status",
+            "effectiveGasPrice",
+            "type"
+          ],
+          "fieldStatus": "confirmed (ReceiptInfo schema)",
+          "discoveredEnums": {
+            "status": [
+              "0x0",
+              "0x1"
+            ]
+          },
+          "gaps": [
+            "transaction-type-registry-grows (legacy/2930/1559/4844/7702)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (3/3) onto the official execution-apis spec (family: infura/alchemy). Enforced enums: blockTag(5) + status(2) = 2 enum fields."
     },
     {
       "handle": "algolia-compat",
@@ -14069,6 +14147,84 @@
       ],
       "notApplicable": [],
       "note": "CONFORMANCE-LEVERAGED (3/3) onto the SDMX 2.1 REST spec-verified model (family: ecb/eurostat/imf). Enforced enums: detail(4, spec-declared) = 1 enum field."
+    },
+    {
+      "handle": "infura-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas) + docs.metamask.io/services documents eth_getBlockByHash et al. as its JSON-RPC methods (harness-fetched)",
+      "remodeled": "Ethereum JSON-RPC conformance leverage (the 5th conformance family): Infura's OWN documentation documents the standard eth_* JSON-RPC interface (docs.metamask.io/services documents eth_getBlockByHash et al. as its JSON-RPC methods (harness-fetched)), whose normative machine-readable spec is ethereum/execution-apis. Joins the spec-verified model: BlockTag enforced {earliest, finalized, safe, latest, pending} — each value carries declared semantics in the spec — and Receipt.status enforced {0x0, 0x1} ('Either 1 (success) or 0 (failure)' per the spec prose). Hex quantities modeled as strings per the wire format. Harness-direct.",
+      "resources": [
+        {
+          "entity": "Block",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "hash",
+            "parentHash",
+            "miner",
+            "stateRoot",
+            "transactionsRoot",
+            "receiptsRoot",
+            "number",
+            "gasLimit",
+            "gasUsed",
+            "timestamp",
+            "baseFeePerGas",
+            "blobGasUsed",
+            "excessBlobGas"
+          ],
+          "fieldStatus": "confirmed (Block schema properties incl. post-Cancun blob fields)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "BlockQuery",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "blockTag",
+            "hydrated"
+          ],
+          "fieldStatus": "confirmed (eth_getBlockBy* parameters)",
+          "discoveredEnums": {
+            "blockTag": [
+              "earliest",
+              "finalized",
+              "safe",
+              "latest",
+              "pending"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Receipt",
+          "source": "https://raw.githubusercontent.com/ethereum/execution-apis/main/src/schemas/{block,transaction,receipt}.yaml (the official Ethereum execution-apis OpenRPC schemas)",
+          "verifiedFields": [
+            "transactionHash",
+            "transactionIndex",
+            "blockHash",
+            "blockNumber",
+            "gasUsed",
+            "cumulativeGasUsed",
+            "contractAddress",
+            "status",
+            "effectiveGasPrice",
+            "type"
+          ],
+          "fieldStatus": "confirmed (ReceiptInfo schema)",
+          "discoveredEnums": {
+            "status": [
+              "0x0",
+              "0x1"
+            ]
+          },
+          "gaps": [
+            "transaction-type-registry-grows (legacy/2930/1559/4844/7702)"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (3/3) onto the official execution-apis spec (family: infura/alchemy). Enforced enums: blockTag(5) + status(2) = 2 enum fields."
     },
     {
       "handle": "intercom-compat",

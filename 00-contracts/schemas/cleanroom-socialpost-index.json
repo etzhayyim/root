@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 209,
-  "totalVerifiedEnumFields": 877,
+  "l5VerifiedActors": 211,
+  "totalVerifiedEnumFields": 881,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -227,8 +227,8 @@
       "source": "alchemy.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "algolia-compat",
@@ -4527,8 +4527,8 @@
       "source": "infura.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "inscripta-compat",

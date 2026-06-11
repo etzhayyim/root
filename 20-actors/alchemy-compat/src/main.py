@@ -115,17 +115,26 @@ def _expand(rec, params, refs):
 def create_block(request):
     """Create a Block."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['hash', 'parentHash', 'miner', 'stateRoot', 'transactionsRoot', 'receiptsRoot', 'number', 'gasLimit', 'gasUsed', 'timestamp', 'baseFeePerGas', 'blobGasUsed', 'excessBlobGas'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['hash', 'parentHash'])
     if err:
         return err, 400
     rec = {"id": new_id("alchemy_blo")}
-    rec["number"] = _as_int(data.get('number'))
     rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
+    rec["parentHash"] = data.get('parentHash')
+    rec["miner"] = data.get('miner')
+    rec["stateRoot"] = data.get('stateRoot')
+    rec["transactionsRoot"] = data.get('transactionsRoot')
+    rec["receiptsRoot"] = data.get('receiptsRoot')
+    rec["number"] = data.get('number')
+    rec["gasLimit"] = data.get('gasLimit')
+    rec["gasUsed"] = data.get('gasUsed')
+    rec["timestamp"] = data.get('timestamp')
+    rec["baseFeePerGas"] = data.get('baseFeePerGas')
+    rec["blobGasUsed"] = data.get('blobGasUsed')
+    rec["excessBlobGas"] = data.get('excessBlobGas')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Block", rec)
@@ -136,7 +145,7 @@ def list_blocks(request):
     """List Blocks with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
+    rows = _apply_filters(rows, params, ['hash', 'parentHash', 'miner', 'stateRoot', 'transactionsRoot', 'receiptsRoot', 'number', 'gasLimit', 'gasUsed', 'timestamp', 'baseFeePerGas', 'blobGasUsed', 'excessBlobGas'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +166,7 @@ def update_block(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['hash', 'parentHash', 'miner', 'stateRoot', 'transactionsRoot', 'receiptsRoot', 'number', 'gasLimit', 'gasUsed', 'timestamp', 'baseFeePerGas', 'blobGasUsed', 'excessBlobGas'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,340 +186,154 @@ def delete_block(request, eid):
     db.retract({"entity": f"alchemy.Block", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
+@app.route("/v1/blockqueries", methods=["POST"])
+def create_block_query(request):
+    """Create a BlockQuery."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['blockTag', 'hydrated'])
     if err:
         return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
+    err = _require(data, ['blockTag', 'hydrated'])
     if err:
         return err, 400
-    rec = {"id": new_id("alchemy_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
+    if data.get('blockTag') and data['blockTag'] not in ['earliest', 'finalized', 'safe', 'latest', 'pending']:
+        return {"error": {"message": "invalid blockTag; allowed: " + ", ".join(['earliest', 'finalized', 'safe', 'latest', 'pending']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alchemy_blo")}
+    rec["blockTag"] = data.get('blockTag')
+    rec["hydrated"] = _as_bool(data.get('hydrated'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("BlockQuery", rec)
+    return rec, 201
+
+@app.route("/v1/blockqueries", methods=["GET"])
+def list_block_queries(request):
+    """List BlockQueries with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("BlockQuery")
+    rows = _apply_filters(rows, params, ['blockTag', 'hydrated'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/blockqueries/<eid>", methods=["GET"])
+def get_block_query(request, eid):
+    """Retrieve a BlockQuery by id (supports ?expand=)."""
+    rows = _query("BlockQuery", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/blockqueries/<eid>", methods=["POST", "PATCH"])
+def update_block_query(request, eid):
+    """Update a BlockQuery."""
+    rows = _query("BlockQuery", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['blockTag', 'hydrated'])
+    if err:
+        return err, 400
+    if data.get('blockTag') and data['blockTag'] not in ['earliest', 'finalized', 'safe', 'latest', 'pending']:
+        return {"error": {"message": "invalid blockTag; allowed: " + ", ".join(['earliest', 'finalized', 'safe', 'latest', 'pending']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("BlockQuery", rec)
+    return rec, 200
+
+@app.route("/v1/blockqueries/<eid>", methods=["DELETE"])
+def delete_block_query(request, eid):
+    """Delete a BlockQuery."""
+    rows = _query("BlockQuery", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"alchemy.BlockQuery", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/receipts", methods=["POST"])
+def create_receipt(request):
+    """Create a Receipt."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['transactionHash', 'transactionIndex', 'blockHash', 'blockNumber', 'gasUsed', 'cumulativeGasUsed', 'contractAddress', 'status', 'effectiveGasPrice', 'type'])
+    if err:
+        return err, 400
+    err = _require(data, ['transactionHash', 'transactionIndex'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['0x0', '0x1']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['0x0', '0x1']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("alchemy_rec")}
+    rec["transactionHash"] = data.get('transactionHash')
+    rec["transactionIndex"] = data.get('transactionIndex')
+    rec["blockHash"] = data.get('blockHash')
+    rec["blockNumber"] = data.get('blockNumber')
+    rec["gasUsed"] = data.get('gasUsed')
+    rec["cumulativeGasUsed"] = data.get('cumulativeGasUsed')
+    rec["contractAddress"] = data.get('contractAddress')
     rec["status"] = data.get('status')
+    rec["effectiveGasPrice"] = data.get('effectiveGasPrice')
+    rec["type"] = data.get('type')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
+    _persist("Receipt", rec)
     return rec, 201
 
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
+@app.route("/v1/receipts", methods=["GET"])
+def list_receipts(request):
+    """List Receipts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    rows = _query("Receipt")
+    rows = _apply_filters(rows, params, ['transactionHash', 'transactionIndex', 'blockHash', 'blockNumber', 'gasUsed', 'cumulativeGasUsed', 'contractAddress', 'status', 'effectiveGasPrice', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/receipts/<eid>", methods=["GET"])
+def get_receipt(request, eid):
+    """Retrieve a Receipt by id (supports ?expand=)."""
+    rows = _query("Receipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/receipts/<eid>", methods=["POST", "PATCH"])
+def update_receipt(request, eid):
+    """Update a Receipt."""
+    rows = _query("Receipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['transactionHash', 'transactionIndex', 'blockHash', 'blockNumber', 'gasUsed', 'cumulativeGasUsed', 'contractAddress', 'status', 'effectiveGasPrice', 'type'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['0x0', '0x1']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['0x0', '0x1']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Transaction", rec)
+    _persist("Receipt", rec)
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/receipts/<eid>", methods=["DELETE"])
+def delete_receipt(request, eid):
+    """Delete a Receipt."""
+    rows = _query("Receipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alchemy.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alchemy_con")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
-    return rec, 201
-
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contract", rec)
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alchemy.Contract", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alchemy_acc")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alchemy.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alchemy_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alchemy.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("alchemy_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
-    rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
-    return rec, 201
-
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Token", rec)
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"alchemy.Token", "id": eid})
+    db.retract({"entity": f"alchemy.Receipt", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "alchemy-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['Block', 'BlockQuery', 'Receipt']}, 200
 
 
 if __name__ == "__main__":
