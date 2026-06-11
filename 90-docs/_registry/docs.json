@@ -23871,6 +23871,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111640-portfolio-qa-deflake-coverage-ci-wave.md",
+      "id": "adr-2606111640-portfolio-qa-deflake-coverage-ci-wave",
+      "title": "ADR-2606111640: Portfolio QA wave — SDK quorum-test deflake, kotoba coverage baseline + CI",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "portfolio-qa-deflake-coverage-ci-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "sdk-test-determinism",
+        "kotoba-coverage-baseline"
+      ],
+      "related": [
+        "adr-2605302355-kotoba-langgraph-llm-verified-durable-routing"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md",
       "id": "adr-2606111700-public-sponsor-donation-solicitation-surfaces",
       "title": "ADR-2606111700: Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA",
