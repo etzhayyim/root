@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**32 templates published.**
+**39 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -18,9 +18,12 @@
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 20 | `bafkreibqwm3icmmik…` |
 | Auftragsverarbeitungsvertrag (DSGVO Art. 28) | de | EU | 4 | 20 | `bafkreihzs5bqus7iv…` |
 | Accord de traitement des données (RGPD Art. 28) | fr | EU | 4 | 20 | `bafkreianan2uq4xic…` |
-| Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 25 | `bafkreichtid43dy6a…` |
-| Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 31 | `bafkreihq3lbekuc2a…` |
-| 雇用契約書 | ja | JP | 4 | 20 | `bafkreihfuq7jbbbjw…` |
+| Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 26 | `bafkreig2bevdj6fgt…` |
+| Contrato de trabajo | es | ES | 3 | 16 | `bafkreiad4oqvyvt6y…` |
+| Contrat de travail | fr | FR | 3 | 20 | `bafkreiejf4h2edtnv…` |
+| Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 32 | `bafkreib2asrwaltd7…` |
+| 雇用契約書 | ja | JP | 4 | 21 | `bafkreifkaalnzulxk…` |
+| 劳动合同 | zh | CN | 2 | 15 | `bafkreihr7pt7pet4r…` |
 | Franchise Agreement | en | INTL | 7 | 24 | `bafkreignklckrn3l6…` |
 | Guaranty Agreement | en | JP | 5 | 16 | `bafkreicdiqquoreyt…` |
 | 保証契約書 | ja | JP | 3 | 14 | `bafkreiep32q5bbphb…` |
@@ -31,8 +34,12 @@
 | Residential Lease Agreement (Japan) | en | JP | 3 | 4 | `bafkreif65rwqlekm4…` |
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
 | 無利息金銭消費貸借契約書 | ja | JP | 3 | 13 | `bafkreig2npvvenlfj…` |
+| Gegenseitige Geheimhaltungsvereinbarung | de | DE | 2 | 13 | `bafkreieamxkipjp7x…` |
+| Acuerdo de confidencialidad mutuo | es | ES | 2 | 13 | `bafkreihflyyvtgxig…` |
+| Accord de confidentialite reciproque | fr | FR | 2 | 13 | `bafkreiblqabqgsvzm…` |
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 19 | `bafkreigwj7hdhjnis…` |
 | 相互秘密保持契約書 | ja | JP | 5 | 17 | `bafkreigkfape6sn2i…` |
+| 相互保密协议 | zh | CN | 2 | 13 | `bafkreid62ffprrm7x…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 12 | `bafkreifhbarshwydc…` |
 | General Partnership Agreement | en | INTL | 7 | 19 | `bafkreidjtqvsyezjx…` |
 | Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |

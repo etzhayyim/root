@@ -44,6 +44,7 @@
  {:lt/id "jx.br" :lt/kind :jurisdiction :lt/label "Brazil" :jurisdiction/code "BR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.cn" :lt/kind :jurisdiction :lt/label "China (PRC)" :jurisdiction/code "CN" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.kr" :lt/kind :jurisdiction :lt/label "South Korea" :jurisdiction/code "KR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.es" :lt/kind :jurisdiction :lt/label "Spain" :jurisdiction/code "ES" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -234,6 +235,10 @@
  {:lt/id "st.jp-kensetsu" :lt/kind :statute :lt/label "建設業法 19条 — 建設工事の請負契約の内容" :statute/citation "建設業法19条" :statute/instrument "建設業法 (昭和24年法律第100号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/324AC0000000100" :lt/sourcing :authoritative}
  {:lt/id "st.fr-civil-1792" :lt/kind :statute :lt/label "Code civil Art. 1792 — garantie decennale (10-year structural warranty)" :statute/citation "Code civil, Art. 1792" :statute/instrument "Code civil (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006443591/" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 13 (/loop): language breadth (ES/ZH/FR/DE) + Spain grounding ───
+ {:lt/id "st.es-cc-1254" :lt/kind :statute :lt/label "Codigo Civil Art. 1254 — existencia del contrato" :statute/citation "Codigo Civil, Art. 1254" :statute/instrument "Codigo Civil (Spain)" :statute/jurisdiction "jx.es" :statute/url "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763" :lt/sourcing :authoritative}
+ {:lt/id "st.es-et-8" :lt/kind :statute :lt/label "Estatuto de los Trabajadores Art. 8 — forma del contrato de trabajo" :statute/citation "Estatuto de los Trabajadores, Art. 8" :statute/instrument "Estatuto de los Trabajadores (Spain)" :statute/jurisdiction "jx.es" :statute/url "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -315,6 +320,14 @@
  {:lt/id "tmpl.guaranty-ja" :lt/kind :template :lt/label "保証契約書 (Guaranty, JA)" :template/title "保証契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.dpa-gdpr-fr" :lt/kind :template :lt/label "Accord de traitement des données (DPA, FR)" :template/title "Accord de traitement des données (RGPD Art. 28)" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.dpa-gdpr-de" :lt/kind :template :lt/label "Auftragsverarbeitungsvertrag (DPA, DE)" :template/title "Auftragsverarbeitungsvertrag (DSGVO Art. 28)" :template/lang "de" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ ;; coverage wave 13 — more languages (fr/de/es/zh)
+ {:lt/id "tmpl.nda-fr" :lt/kind :template :lt/label "Accord de confidentialite (Mutual NDA, FR)" :template/title "Accord de confidentialite reciproque" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-fr" :lt/kind :template :lt/label "Contrat de travail (Employment, FR)" :template/title "Contrat de travail" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-de" :lt/kind :template :lt/label "Geheimhaltungsvereinbarung (Mutual NDA, DE)" :template/title "Gegenseitige Geheimhaltungsvereinbarung" :template/lang "de" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-es" :lt/kind :template :lt/label "Acuerdo de confidencialidad (Mutual NDA, ES)" :template/title "Acuerdo de confidencialidad mutuo" :template/lang "es" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-es" :lt/kind :template :lt/label "Contrato de trabajo (Employment, ES)" :template/title "Contrato de trabajo" :template/lang "es" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-zh" :lt/kind :template :lt/label "保密协议 (Mutual NDA, ZH)" :template/title "相互保密协议" :template/lang "zh" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-zh" :lt/kind :template :lt/label "劳动合同 (Employment, ZH)" :template/title "劳动合同" :template/lang "zh" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -502,6 +515,24 @@
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 13 — fr/de/es/zh translation composition
+ {:en/from "tmpl.nda-fr" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-fr" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-fr" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-fr" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-fr" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-de" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-de" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-es" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-es" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-es" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-es" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.employment-es" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-zh" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-zh" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-zh" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-zh" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -569,6 +600,7 @@
  {:en/from "cl.employment-particulars" :en/to "st.de-nachwg-2" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.employment-particulars" :en/to "st.fr-travail-l1221" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-particulars" :en/to "st.uk-era-1" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.es-et-8" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.jp-roukei-16" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.de-kschg-1" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.fr-travail-l1232" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -718,6 +750,13 @@
  {:en/from "tmpl.guaranty-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.dpa-gdpr-fr" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-fr" :en/to "jx.fr" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-fr" :en/to "jx.fr" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-de" :en/to "jx.de" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-es" :en/to "jx.es" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-es" :en/to "jx.es" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-zh" :en/to "jx.cn" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-zh" :en/to "jx.cn" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -850,10 +889,19 @@
  {:en/from "st.jp-civil-632" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-kensetsu" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.fr-civil-1792" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.es-cc-1254" :en/to "jx.es" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.es-et-8" :en/to "jx.es" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-mutual-ja" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-fr" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-fr" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-de" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-es" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-es" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-zh" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-zh" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-ja" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.consulting-ja" :en/to "tmpl.consulting-services" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.loan-qard-ja" :en/to "tmpl.loan-qard" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
