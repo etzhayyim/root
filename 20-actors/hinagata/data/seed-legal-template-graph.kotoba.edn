@@ -1,0 +1,254 @@
+;; hinagata 雛形 — seed legal-template-commons graph (real, PUBLIC reference data only)
+;; ADR-2606111954 · vocabulary: legal-template-ontology (00-contracts/schemas/legal-template-ontology.kotoba.edn)
+;;
+;; SCOPE GUARD (constitutional, G1 — read first):
+;;   - hinagata is a COMMONS of fair, openly-licensed legal-document templates that ANYONE
+;;     may copy + adapt, NEVER the practice of law. NO advice, NO opinion on a specific
+;;     matter, NO representation, NO enforceability certification. UPL is structurally
+;;     excluded: the unit is ALWAYS a template / clause / statute-link — never a party,
+;;     a matter, or a recommendation.
+;;   - A clause's :cites-statute / :mandated-by link is a DISCLOSED STRUCTURAL FACT (this
+;;     clause rests on this public article), sourced from the instrument or its official
+;;     guidance — never a hinagata verdict that the clause is valid/sufficient (N3).
+;;   - The lens is integrated STATUTORY GROUNDEDNESS over a template, routed to PUBLIC
+;;     RELEASE (free use). karma lives ONLY on edges (:en/binding-load × disclosed
+;;     :clause/optionality; N1).
+;;
+;; SOURCING: statute citations, instrument names and official source URLs are :authoritative
+;;   publicly-disclosed facts (EUR-Lex / e-Gov / UNCITRAL / ILO / treaty depositaries). The
+;;   template TEXT bodies are :representative — fair illustrative drafts published under
+;;   Apache-2.0 + Charter Rider, NOT exhaustive and NOT certified for any jurisdiction.
+;;   Coverage of all template families / all jurisdictions is ~0 by design. Live legal-corpus
+;;   binding (ADR-2605262800) + Council review is G7-gated.
+;;
+;; LAW IS PLURAL, NOT ONE SYSTEM: the seed spans international treaties / model laws (CISG,
+;;   New York Convention, UNCITRAL, ILO, eIDAS, ESIGN/UETA), civil-law (JP 民法 / 借地借家法 /
+;;   利息制限法 / 特定商取引法 / 電子署名法; EU GDPR), and open-source license law (Apache-2.0).
+
+[;; ───────────────────────────── jurisdictions (nodes) ───────────────────────
+ {:lt/id "jx.intl" :lt/kind :jurisdiction :lt/label "International (treaties / model laws)" :jurisdiction/code "INTL" :jurisdiction/system :international :lt/sourcing :authoritative}
+ {:lt/id "jx.eu" :lt/kind :jurisdiction :lt/label "European Union" :jurisdiction/code "EU" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.jp" :lt/kind :jurisdiction :lt/label "Japan" :jurisdiction/code "JP" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.us" :lt/kind :jurisdiction :lt/label "United States" :jurisdiction/code "US" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+
+ ;; ───────────────────────────── concepts (nodes) ────────────────────────────
+ {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
+ {:lt/id "concept.confidentiality" :lt/kind :concept :lt/label "Confidentiality / non-disclosure" :concept/code "confidentiality" :lt/sourcing :authoritative}
+ {:lt/id "concept.ip-assignment" :lt/kind :concept :lt/label "Intellectual-property assignment" :concept/code "ip-assignment" :lt/sourcing :authoritative}
+ {:lt/id "concept.ip-license" :lt/kind :concept :lt/label "Intellectual-property license" :concept/code "ip-license" :lt/sourcing :authoritative}
+ {:lt/id "concept.lease" :lt/kind :concept :lt/label "Lease of land / building" :concept/code "lease" :lt/sourcing :authoritative}
+ {:lt/id "concept.employment" :lt/kind :concept :lt/label "Employment" :concept/code "employment" :lt/sourcing :authoritative}
+ {:lt/id "concept.data-protection" :lt/kind :concept :lt/label "Personal-data protection" :concept/code "data-protection" :lt/sourcing :authoritative}
+ {:lt/id "concept.dispute-resolution" :lt/kind :concept :lt/label "Dispute resolution" :concept/code "dispute-resolution" :lt/sourcing :authoritative}
+ {:lt/id "concept.electronic-signature" :lt/kind :concept :lt/label "Electronic signature" :concept/code "electronic-signature" :lt/sourcing :authoritative}
+ {:lt/id "concept.loan" :lt/kind :concept :lt/label "Loan of money" :concept/code "loan" :lt/sourcing :authoritative}
+ {:lt/id "concept.donation" :lt/kind :concept :lt/label "Donation / grant" :concept/code "donation" :lt/sourcing :authoritative}
+ {:lt/id "concept.consumer-protection" :lt/kind :concept :lt/label "Consumer protection" :concept/code "consumer-protection" :lt/sourcing :authoritative}
+ {:lt/id "concept.limitation-liability" :lt/kind :concept :lt/label "Limitation of liability" :concept/code "limitation-liability" :lt/sourcing :authoritative}
+
+ ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
+ ;; international treaties / model laws
+ {:lt/id "st.cisg-35" :lt/kind :statute :lt/label "CISG Art. 35 — conformity of the goods" :statute/citation "CISG Art. 35" :statute/instrument "UN Convention on Contracts for the International Sale of Goods (1980)" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg" :lt/sourcing :authoritative}
+ {:lt/id "st.cisg-39" :lt/kind :statute :lt/label "CISG Art. 39 — notice of non-conformity" :statute/citation "CISG Art. 39" :statute/instrument "UN Convention on Contracts for the International Sale of Goods (1980)" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg" :lt/sourcing :authoritative}
+ {:lt/id "st.ny-convention" :lt/kind :statute :lt/label "New York Convention (1958) — recognition & enforcement of arbitral awards" :statute/citation "New York Convention 1958, Art. III" :statute/instrument "Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/arbitration/conventions/foreign_arbitral_awards" :lt/sourcing :authoritative}
+ {:lt/id "st.uncitral-model-arb" :lt/kind :statute :lt/label "UNCITRAL Model Law on International Commercial Arbitration (1985, am. 2006)" :statute/citation "UNCITRAL Model Law, Art. 7" :statute/instrument "UNCITRAL Model Law on International Commercial Arbitration" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/arbitration/modellaw/commercial_arbitration" :lt/sourcing :authoritative}
+ {:lt/id "st.ilo-c87" :lt/kind :statute :lt/label "ILO Convention No. 87 — freedom of association" :statute/citation "ILO C087" :statute/instrument "ILO Freedom of Association and Protection of the Right to Organise Convention, 1948 (No. 87)" :statute/jurisdiction "jx.intl" :statute/url "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312232" :lt/sourcing :authoritative}
+ {:lt/id "st.ilo-c105" :lt/kind :statute :lt/label "ILO Convention No. 105 — abolition of forced labour" :statute/citation "ILO C105" :statute/instrument "ILO Abolition of Forced Labour Convention, 1957 (No. 105)" :statute/jurisdiction "jx.intl" :statute/url "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312250" :lt/sourcing :authoritative}
+ {:lt/id "st.eidas-25" :lt/kind :statute :lt/label "eIDAS Art. 25 — legal effect of electronic signatures" :statute/citation "Regulation (EU) No 910/2014, Art. 25" :statute/instrument "eIDAS Regulation (EU) No 910/2014" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910" :lt/sourcing :authoritative}
+
+ ;; EU — GDPR
+ {:lt/id "st.gdpr-15" :lt/kind :statute :lt/label "GDPR Art. 15 — right of access by the data subject" :statute/citation "GDPR Art. 15" :statute/instrument "Regulation (EU) 2016/679 (GDPR)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1" :lt/sourcing :authoritative}
+ {:lt/id "st.gdpr-28" :lt/kind :statute :lt/label "GDPR Art. 28 — processor (data-processing agreement)" :statute/citation "GDPR Art. 28" :statute/instrument "Regulation (EU) 2016/679 (GDPR)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3051-1-1" :lt/sourcing :authoritative}
+ {:lt/id "st.gdpr-33" :lt/kind :statute :lt/label "GDPR Art. 33 — notification of a personal-data breach" :statute/citation "GDPR Art. 33" :statute/instrument "Regulation (EU) 2016/679 (GDPR)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3528-1-1" :lt/sourcing :authoritative}
+
+ ;; Japan — Civil Code + special acts
+ {:lt/id "st.jp-civil-601" :lt/kind :statute :lt/label "日本民法 601条 — 賃貸借 (lease)" :statute/citation "民法601条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-shakuchi-shakka" :lt/kind :statute :lt/label "借地借家法 — 建物賃貸借の存続・更新保護" :statute/citation "借地借家法26条・28条" :statute/instrument "借地借家法 (平成3年法律第90号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/403AC0000000090" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-risoku-seigen" :lt/kind :statute :lt/label "利息制限法 1条 — 上限金利 (interest-rate ceiling)" :statute/citation "利息制限法1条" :statute/instrument "利息制限法 (昭和29年法律第100号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/329AC0000000100" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-tokushoho-coolingoff" :lt/kind :statute :lt/label "特定商取引法 — クーリングオフ (cooling-off)" :statute/citation "特定商取引法9条" :statute/instrument "特定商取引に関する法律 (昭和51年法律第57号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/351AC0000000057" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-denshishomei" :lt/kind :statute :lt/label "電子署名法 3条 — 電子署名の推定効" :statute/citation "電子署名法3条" :statute/instrument "電子署名及び認証業務に関する法律 (平成12年法律第102号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/412AC0000000102" :lt/sourcing :authoritative}
+
+ ;; US — e-signature statutes
+ {:lt/id "st.us-esign" :lt/kind :statute :lt/label "ESIGN Act — 15 U.S.C. §7001 (validity of electronic signatures)" :statute/citation "15 U.S.C. §7001" :statute/instrument "Electronic Signatures in Global and National Commerce Act (2000)" :statute/jurisdiction "jx.us" :statute/url "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001" :lt/sourcing :authoritative}
+ {:lt/id "st.us-ueta" :lt/kind :statute :lt/label "UETA §7 — legal recognition of electronic records & signatures" :statute/citation "UETA §7" :statute/instrument "Uniform Electronic Transactions Act (1999)" :statute/jurisdiction "jx.us" :statute/url "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034" :lt/sourcing :authoritative}
+
+ ;; open-source license law (treated as an instrument a clause rests on)
+ {:lt/id "st.apache-2" :lt/kind :statute :lt/label "Apache License 2.0 §2–§4 — copyright & patent grant" :statute/citation "Apache-2.0 §2–§4" :statute/instrument "Apache License, Version 2.0" :statute/jurisdiction "jx.intl" :statute/url "https://www.apache.org/licenses/LICENSE-2.0" :lt/sourcing :authoritative}
+
+ ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
+ {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.payment-terms" :lt/kind :clause :lt/label "Payment terms" :clause/role :payment :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.ip-assignment" :lt/kind :clause :lt/label "Assignment of intellectual property" :clause/role :ip-assignment :clause/optionality :optional :lt/sourcing :representative}
+ {:lt/id "cl.ip-license-apache" :lt/kind :clause :lt/label "Apache-2.0 copyright & patent license grant" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.warranty-conformity" :lt/kind :clause :lt/label "Warranty of conformity of the goods" :clause/role :warranty :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.nonconformity-notice" :lt/kind :clause :lt/label "Notice of non-conformity (time limit)" :clause/role :warranty :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.limitation-liability" :lt/kind :clause :lt/label "Limitation of liability" :clause/role :liability :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.governing-law" :lt/kind :clause :lt/label "Governing law" :clause/role :governing-law :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.dispute-arbitration" :lt/kind :clause :lt/label "Dispute resolution — arbitration" :clause/role :dispute :clause/optionality :optional :lt/sourcing :authoritative}
+ {:lt/id "cl.dispute-mediation" :lt/kind :clause :lt/label "Dispute resolution — good-faith mediation first" :clause/role :dispute :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.force-majeure" :lt/kind :clause :lt/label "Force majeure" :clause/role :force-majeure :clause/optionality :optional :lt/sourcing :representative}
+ {:lt/id "cl.termination" :lt/kind :clause :lt/label "Term & termination" :clause/role :termination :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.data-subject-rights" :lt/kind :clause :lt/label "Data-subject rights (access / erasure / portability)" :clause/role :data-rights :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.processor-obligations" :lt/kind :clause :lt/label "Processor obligations & sub-processing" :clause/role :privacy :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.breach-notification" :lt/kind :clause :lt/label "Personal-data-breach notification" :clause/role :privacy :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.lease-renewal-jp" :lt/kind :clause :lt/label "Lease term & statutory renewal protection (JP)" :clause/role :term :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.lease-deposit-jp" :lt/kind :clause :lt/label "Security deposit (敷金) & return" :clause/role :payment :clause/optionality :recommended :lt/sourcing :authoritative}
+ {:lt/id "cl.labor-freedom-association" :lt/kind :clause :lt/label "Freedom of association & no forced labour" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.no-interest-qard" :lt/kind :clause :lt/label "Zero-interest principal-only repayment (qard ḥasan)" :clause/role :no-interest :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.cooling-off" :lt/kind :clause :lt/label "Cooling-off / withdrawal right" :clause/role :cooling-off :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.signature-esign" :lt/kind :clause :lt/label "Electronic signature & execution (DID + WebAuthn)" :clause/role :signature :clause/optionality :mandatory :lt/sourcing :authoritative :lt/links "com.etzhayyim.esign.envelope"}
+ {:lt/id "cl.donation-irrevocable" :lt/kind :clause :lt/label "Irrevocable charitable donation (no return benefit)" :clause/role :boilerplate :clause/optionality :recommended :lt/sourcing :representative}
+
+ ;; ───────────────────────────── templates (nodes) — the publishable units ───
+ {:lt/id "tmpl.sales-intl" :lt/kind :template :lt/label "International Sale of Goods Agreement" :template/title "International Sale of Goods Agreement (CISG)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-mutual" :lt/kind :template :lt/label "Mutual Non-Disclosure Agreement" :template/title "Mutual Non-Disclosure Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.dpa-gdpr" :lt/kind :template :lt/label "Data Processing Agreement (GDPR)" :template/title "Data Processing Agreement (GDPR Art. 28)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.lease-jp" :lt/kind :template :lt/label "住宅賃貸借契約書 (Residential Lease, JP)" :template/title "住宅賃貸借契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
+ {:lt/id "tmpl.lease-jp-en" :lt/kind :template :lt/label "Residential Lease Agreement (Japan, EN translation)" :template/title "Residential Lease Agreement (Japan)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-intl" :lt/kind :template :lt/label "Employment Agreement (ILO-aligned)" :template/title "Employment Agreement (ILO core-conventions aligned)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.consulting-services" :lt/kind :template :lt/label "Independent Consulting Services Agreement" :template/title "Independent Consulting Services Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.oss-contribution" :lt/kind :template :lt/label "Open-Source Contributor License Grant (Apache-2.0)" :template/title "Apache-2.0 Inbound Contribution Grant" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :neutral :lt/sourcing :authoritative}
+ {:lt/id "tmpl.loan-qard" :lt/kind :template :lt/label "Zero-Interest Benevolent Loan Agreement (qard ḥasan)" :template/title "Zero-Interest Benevolent Loan Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.donation-grant" :lt/kind :template :lt/label "Charitable Donation / Grant Agreement" :template/title "Charitable Donation & Grant Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :neutral :lt/sourcing :representative}
+ {:lt/id "tmpl.consumer-sale-jp" :lt/kind :template :lt/label "訪問販売・通信販売 契約書 (Consumer Sale, JP)" :template/title "特定商取引 契約書 (クーリングオフ条項付)" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
+
+ ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
+ ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
+ {:en/from "tmpl.sales-intl" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.warranty-conformity" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.nonconformity-notice" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.limitation-liability" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.dispute-arbitration" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.governing-law" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.sales-intl" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.nda-mutual" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual" :en/to "cl.governing-law" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual" :en/to "cl.dispute-mediation" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.dpa-gdpr" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.dpa-gdpr" :en/to "cl.processor-obligations" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.lease-jp" :en/to "cl.lease-renewal-jp" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp" :en/to "cl.lease-deposit-jp" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.lease-jp" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.lease-jp" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.lease-jp-en" :en/to "cl.lease-renewal-jp" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp-en" :en/to "cl.lease-deposit-jp" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp-en" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+
+ {:en/from "tmpl.employment-intl" :en/to "cl.labor-freedom-association" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.ip-assignment" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.consulting-services" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.ip-assignment" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.limitation-liability" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.dispute-mediation" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-services" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.oss-contribution" :en/to "cl.ip-license-apache" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.oss-contribution" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.loan-qard" :en/to "cl.no-interest-qard" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.loan-qard" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.loan-qard" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.donation-grant" :en/to "cl.donation-irrevocable" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :representative}
+ {:en/from "tmpl.donation-grant" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ {:en/from "tmpl.consumer-sale-jp" :en/to "cl.cooling-off" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.consumer-sale-jp" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.consumer-sale-jp" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; (B) :cites-statute / :mandated-by — clause → statute (THE binding to actual public law)
+ {:en/from "cl.warranty-conformity" :en/to "st.cisg-35" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.nonconformity-notice" :en/to "st.cisg-39" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.ny-convention" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "st.uncitral-model-arb" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.processor-obligations" :en/to "st.gdpr-28" :en/kind :mandated-by :en/force :mandated :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.gdpr-15" :en/kind :mandated-by :en/force :mandated :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.breach-notification" :en/to "st.gdpr-33" :en/kind :mandated-by :en/force :mandated :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.lease-renewal-jp" :en/to "st.jp-shakuchi-shakka" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.lease-renewal-jp" :en/to "st.jp-civil-601" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.lease-deposit-jp" :en/to "st.jp-civil-601" :en/kind :cites-statute :en/force :cited :en/binding-load 0.6 :en/sourcing :authoritative}
+ {:en/from "cl.labor-freedom-association" :en/to "st.ilo-c87" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.labor-freedom-association" :en/to "st.ilo-c105" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.ip-license-apache" :en/to "st.apache-2" :en/kind :mandated-by :en/force :mandated :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.no-interest-qard" :en/to "st.jp-risoku-seigen" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.cooling-off" :en/to "st.jp-tokushoho-coolingoff" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.eidas-25" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.us-esign" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.us-ueta" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.jp-denshishomei" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+
+ ;; (C) :instantiates — clause → concept (the cross-template legal-concept spine)
+ {:en/from "cl.warranty-conformity" :en/to "concept.sale-of-goods" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.nonconformity-notice" :en/to "concept.sale-of-goods" :en/kind :instantiates :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.confidentiality" :en/to "concept.confidentiality" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.ip-assignment" :en/to "concept.ip-assignment" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.ip-license-apache" :en/to "concept.ip-license" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.lease-renewal-jp" :en/to "concept.lease" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.lease-deposit-jp" :en/to "concept.lease" :en/kind :instantiates :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.labor-freedom-association" :en/to "concept.employment" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.processor-obligations" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.breach-notification" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "concept.dispute-resolution" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-mediation" :en/to "concept.dispute-resolution" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "concept.electronic-signature" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.no-interest-qard" :en/to "concept.loan" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.donation-irrevocable" :en/to "concept.donation" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.cooling-off" :en/to "concept.consumer-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.limitation-liability" :en/to "concept.limitation-liability" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; (D) :governed-by — template → jurisdiction
+ {:en/from "tmpl.sales-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-mutual" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.dpa-gdpr" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.lease-jp-en" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.consulting-services" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.oss-contribution" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.loan-qard" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.donation-grant" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.consumer-sale-jp" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; (E) :applies-in — statute → jurisdiction
+ {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.cisg-39" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ny-convention" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uncitral-model-arb" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ilo-c87" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ilo-c105" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eidas-25" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.gdpr-15" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.gdpr-28" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.gdpr-33" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-601" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-shakuchi-shakka" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-risoku-seigen" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-tokushoho-coolingoff" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-denshishomei" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-esign" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-ueta" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.apache-2" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; (F) :translates — template → template (cross-language pair; same legal structure)
+ {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
