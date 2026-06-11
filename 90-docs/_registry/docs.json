@@ -26778,6 +26778,22 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/yirah-attest-snapshot.md",
+      "id": "yirah-attest-snapshot",
+      "title": "yir'ah invariant-bundle attestation snapshot (ADR-2606112200 D4)",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "yirah-attest",
+      "authoritative": false,
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/yoro/260405-yoro-ocel-activity-log-design.md",
       "id": "yoro-ocel-activity-log",
       "title": "yoro.etzhayyim.com — OCEL v2 Activity Log Design",
