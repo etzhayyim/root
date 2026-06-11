@@ -4,7 +4,9 @@
 `90-docs/papers/2606111500` §6 · **sibling**: mishmar storage covenant (2606082100 —
 data keeping ↔ human keeping). **Status**: 🟢 R1-offline — autonomous heartbeat +
 offer-matching + social-capital mint + local kotoba commit-DAG persistence
-(ADR-2606091000 pattern); **fleet-registered** as MimamoriHeartbeatCell
+(ADR-2606091000 pattern); **wasm build-ready** (componentize-py component,
+rasen pattern — stateless heartbeat: the host owns the log, so the architecture
+itself cannot become the throne); **fleet-registered** as MimamoriHeartbeatCell
 (cell-runner cells.edn: benjamin, cron 23 * * * *, healthz 13080 — the runner's
 spawn path is the ADR-2605192415 maturity track); synthetic seed only; live
 legs G7-gated.
@@ -57,6 +59,11 @@ relay · 解ける=G3 · 見えている=G4).
 20-actors/mimamori/
 ├── CLAUDE.md                         # this file
 ├── cell.py                           # cell-runner entry (fire = one heartbeat)
+├── wasm/                             # componentize-py component (build-ready, rasen pattern)
+│   ├── wit/world.wit                 # exports: heartbeat / coverage / bonds-of / vow
+│   ├── app.py                        # export bodies (dev-runnable); stateless
+│   ├── build.sh                      # operator build → dist/mimamori.wasm + CID + did-service
+│   └── README.md
 ├── manifest.jsonld                   # actor manifest (2 cells, 8 gates)
 ├── data/
 │   ├── seed-mimamori-bonds.json      # SYNTHETIC fictional roster + bonds (zero real persons)
@@ -74,7 +81,8 @@ relay · 解ける=G3 · 見えている=G4).
 │   ├── test_coverage.py              # 3 aggregate-only tests
 │   ├── test_kotoba_autorun.py        # 8 R1 tests (DAG/tamper/determinism/match)
 │   ├── test_shakai.py                # 7 social-capital tests (keeper-only/cap/decay/firewalls)
-│   └── test_cell.py                  # 3 cell-runner contract tests
+│   ├── test_cell.py                  # 3 cell-runner contract tests
+│   └── test_wasm_app.py              # 4 wasm export-body tests
 └── out/                              # GENERATED — do not hand-edit
 ```
 
@@ -85,5 +93,5 @@ cd 20-actors/mimamori
 python3 methods/bond.py               # → out/mimamori-datoms.kotoba.edn
 python3 methods/coverage_report.py    # → out/coverage-report.md
 python3 methods/autorun.py --cycles 3 # heartbeat → data/mimamori.datoms.kotoba.edn
-for t in tests/test_*.py; do python3 $t; done   # 31 green
+for t in tests/test_*.py; do python3 $t; done   # 35 green
 ```
