@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_jpn_invoice_register_issuer"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-invoice"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="jpn_invoice_register_issuer" name="国税庁 インボイス登録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="issuer 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_jpn_invoice_issuer&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, registration_number: registrationNumber,
+              name_ja: nameJa, issuer_type: issuerType, corporate_number: corporateNumber,
+              registered_address: registeredAddress, registration_date: registrationDate,
+              status: &quot;active&quot;, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 1,
+              org_id: corporateNumber, user_id: callerDid, actor_id: &quot;sys.bpmn.jpn-invoice&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit jpnInvoice.issuer.register">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;jpnInvoice.issuer.register&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, registrationNumber: registrationNumber, issuerType: issuerType, corporateNumber: corporateNumber}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

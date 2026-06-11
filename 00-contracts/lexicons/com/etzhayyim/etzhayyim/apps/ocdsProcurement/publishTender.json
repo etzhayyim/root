@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ocdsProcurement.publishTender",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OCDS 1.2 / TED EU / WTO GPA procurement tender (bridges merger-review + cbam-extension + fair-pricing + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "ocid",
+            "jurisdictionIso3",
+            "procurementStage",
+            "publishedAt"
+          ],
+          "properties": {
+            "ocid": {
+              "type": "string",
+              "description": "OCDS open-contracting identifier"
+            },
+            "buyerLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "procurementStage": {
+              "type": "string",
+              "enum": [
+                "planning",
+                "tender",
+                "award",
+                "contract",
+                "implementation"
+              ]
+            },
+            "estimatedValueUsd": {
+              "type": "number"
+            },
+            "procurementMethod": {
+              "type": "string",
+              "enum": [
+                "open",
+                "selective",
+                "limited",
+                "direct",
+                "framework_agreement",
+                "dynamic_purchasing"
+              ]
+            },
+            "mainCategoryCpv": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "scaleTier": {
+              "type": "string",
+              "enum": [
+                "small",
+                "mid",
+                "large",
+                "mega"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

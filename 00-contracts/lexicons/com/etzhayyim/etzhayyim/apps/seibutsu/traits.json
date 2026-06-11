@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seibutsu.traits",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Procedural-generation profile for a taxon. 1:1 with kami_vegetation::TaxonomicProfile.",
+      "record": {
+        "type": "object",
+        "required": ["taxonDid", "division", "habit", "leafShape", "canopy"],
+        "properties": {
+          "taxonDid": { "type": "string" },
+          "division": { "type": "string", "enum": ["bryophyta", "pteridophyta", "gymnospermae", "angiospermae", "chordata", "arthropoda", "fungi", "bacteria", "archaea", "protista"] },
+          "habit": { "type": "string", "enum": ["grass", "herb", "shrub", "tree", "succulent", "mat", "climber"] },
+          "arrangement": { "type": "string", "enum": ["alternate", "opposite", "whorled", "rosette", "basal", "none"] },
+          "leafShape": { "type": "string", "enum": ["linear", "lanceolate", "ovate", "palmate", "pinnate", "needle", "succulent", "scale"] },
+          "canopy": { "type": "string", "enum": ["blade", "fan", "dome", "cone", "radial", "column", "carpet"] },
+          "heightRange": { "type": "array", "items": { "type": "number" }, "minLength": 2, "maxLength": 2 },
+          "stemRadiusBase": { "type": "number" },
+          "stemRadiusTop": { "type": "number" },
+          "leafCount": { "type": "integer" },
+          "leafSize": { "type": "number" },
+          "colorBase": { "type": "array", "items": { "type": "number" }, "minLength": 3, "maxLength": 3 },
+          "colorTip": { "type": "array", "items": { "type": "number" }, "minLength": 3, "maxLength": 3 }
+        }
+      }
+    }
+  }
+}

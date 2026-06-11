@@ -1,0 +1,17 @@
+{
+  "name": "audit-did-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker serving did:web:audit.etzhayyim.com — the substrate-level audit subject for com.etzhayyim.audit.event emission. Per ADR-2605231700.",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260501.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}

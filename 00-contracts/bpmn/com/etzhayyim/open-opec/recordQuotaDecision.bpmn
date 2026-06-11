@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_opec_record_quota_decision"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-opec"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_opec_record_quota_decision" name="OPEC+ quota decision" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+    <bpmn:serviceTask id="Task_Classify" name="分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if decisionType = &quot;emergency-release&quot; or (quotaMbdDelta != null and (quotaMbdDelta &gt;= 1.0 or quotaMbdDelta &lt;= -1.0)) then &quot;major&quot; else if quotaMbdDelta != null and (quotaMbdDelta &gt;= 0.3 or quotaMbdDelta &lt;= -0.3) then &quot;moderate&quot; else &quot;minor&quot;" target="impactTier"/>
+          <zeebe:output source="=decisionType = &quot;emergency-release&quot; or (quotaMbdDelta != null and (quotaMbdDelta &gt;= 1.0 or quotaMbdDelta &lt;= -1.0))" target="requireMarketNotice"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="quota 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_opec_quota_decision&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: vertexId, meeting_id: meetingId, meeting_date: meetingDate, member_country: memberCountry, quota_mbd: quotaMbd, quota_mbd_delta: quotaMbdDelta, effective_from: effectiveFrom, effective_until: effectiveUntil, decision_type: decisionType, impact_tier: impactTier, require_market_notice: requireMarketNotice, status: &quot;published&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-opec&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Log">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Major</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Log</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Major" sourceRef="Gate" targetRef="Task_AuditMajor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireMarketNotice = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Log" sourceRef="Gate" targetRef="Task_AuditLog"/>
+    <bpmn:serviceTask id="Task_AuditMajor" name="audit openOpec.quota.majorChange">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOpec.quota.majorChange&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, meetingId: meetingId, memberCountry: memberCountry, quotaMbd: quotaMbd, quotaMbdDelta: quotaMbdDelta, decisionType: decisionType}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Major</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditMajor" targetRef="End_M"/>
+    <bpmn:serviceTask id="Task_AuditLog" name="audit openOpec.quota.record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOpec.quota.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, meetingId: meetingId, memberCountry: memberCountry, quotaMbd: quotaMbd, quotaMbdDelta: quotaMbdDelta, decisionType: decisionType}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Log</bpmn:incoming><bpmn:outgoing>Flow_EL</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EL" sourceRef="Task_AuditLog" targetRef="End_L"/>
+    <bpmn:endEvent id="End_L"><bpmn:incoming>Flow_EL</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,193 @@
+---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
+# lg-open-unispsc — resident LangServer for 18,342 UNSPSC commodity agents.
+#
+# Surface (per 00-contracts/lexicons/com/etzhayyim/apps/unispsc/*.json):
+#   GET  /xrpc/com.etzhayyim.apps.unispsc.health
+#   GET  /xrpc/com.etzhayyim.apps.unispsc.listAgents
+#   POST /xrpc/com.etzhayyim.apps.unispsc.invokeAgent
+#   POST /xrpc/com.etzhayyim.apps.unispsc.classify
+#
+# Upstream of the unified etzhayyim.com CF Worker
+# (50-infra/etzhayyim-did-web). The Worker routes
+# /xrpc/com.etzhayyim.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
+# No per-actor subdomain (ADR-2605212030 §D2).
+#
+# Substrate: kotoba-datomic (ADR-2605231400) — RW-free per ADR-2605172000. The
+# previous `mitama-udf-pool-rw` secretRef wiring (RW_URL / DATABASE_URL /
+# RW_SYNC_POOL) was removed in ADR-2605232100. State writes flow through the
+# @etzhayyim/sdk MstCheckpointSaver sidecar (Pod sidecar wiring is Stage 2
+# work, not in this manifest yet — markers ETZ_SUBSTRATE / ETZ_CHECKPOINTER_SOCKET
+# are placeholders for that follow-up).
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-open-unispsc
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: etzhayyim.com
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-open-unispsc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-open-unispsc
+    spec:
+      serviceAccountName: lg-open-unispsc
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: server
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - granian
+            - "--interface"
+            - asgi
+            - "--host"
+            - 0.0.0.0
+            - "--port"
+            - "8080"
+            - "--workers"
+            - "1"
+            - kotodama.langgraph_server_app:app
+          env:
+            # Substrate marker — kotoba-datomic composition per ADR-2605231400.
+            # No Kotoba/Datomic / Postgres / Hyperdrive secrets are referenced from
+            # this Pod (RW-free per ADR-2605172000, decontaminated by
+            # ADR-2605232100). The legacy `mitama-udf-pool-rw` secretRef was
+            # removed in the same change.
+            - name: ETZ_SUBSTRATE
+              value: "kotoba-datomic"
+            # Forward-compatible marker for Stage 2 sidecar wiring of
+            # @etzhayyim/sdk MstCheckpointSaver (20-actors/etzhayyim-sdk/src/checkpointer.ts).
+            # Until the sidecar is added to this Pod (separate ADR), the path
+            # is informational only — the XRPC façade itself does not require
+            # a checkpointer to serve listAgents / invokeAgent / classify.
+            - name: ETZ_CHECKPOINTER_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
+            # Stage D (ADR-2605232100) — UNSPSC actor capability wrapping.
+            # Turns on the perceive → inner-graph → record loop in
+            # kotodama.xrpc.unispsc.invoke_agent. Belief-store SQLite
+            # files land in /tmp (writable emptyDir, ephemeral until the
+            # MstCheckpointSaver sidecar replaces it with substrate-anchored
+            # persistence).
+            - name: ETZ_UNISPSC_CAPABILITY_WRAP
+              value: "1"
+            - name: ORGANISM_SQLITE_DIR
+              value: "/tmp/etzhayyim/organism"
+            # Stage D / kotoba-datomic wire-up (ADR-2605231400 §2 + §3): each
+            # observation is POSTed to the PDS via com.atproto.repo.createRecord
+            # in addition to the local SQLite hot cache. Downstream the
+            # existing mst-projector + ipfs-pinner + anchor-cron pipeline
+            # makes the record IPFS-content-addressed + L2-anchored.
+            # Publish errors degrade gracefully to local-only.
+            - name: ETZ_PDS_ENDPOINT
+              value: "https://pds.etzhayyim.com"
+            # Service token for PDS writes — optional. If absent, anonymous
+            # writes (rejected by PDS for protected NSIDs). Long-term:
+            # member-signed writes per ADR-2605231525 Stage E. The legacy
+            # service-token shim is acceptable while the wrapper is gated
+            # behind the no-server-key exemption marker.
+            - name: ETZ_PDS_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pds-service-token
+                  key: token
+                  optional: true
+            # Suppress the static-builtin assistants — this server's surface
+            # is the XRPC façade, not /runs?assistant_id=builtin_*.
+            - name: LANGGRAPH_DISABLE_BUILTINS
+              value: "1"
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gemini-api-secrets
+                  key: GEMINI_API_KEY
+                  optional: true
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: anthropic-api-secrets
+                  key: ANTHROPIC_API_KEY
+                  optional: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            # /healthz returns graph registry counts only (db_loaded / static_filled)
+            # and never touches Kotoba/Datomic. The unispsc XRPC façade serves
+            # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
+            # so registry-ready is the correct readiness signal.
+            #
+            # Previous target /xrpc/com.etzhayyim.apps.unispsc.health transitively
+            # exercised /readyz (psycopg DB SELECT 1) → removed by ADR-2605232100
+            # in lockstep with the RW_URL / DATABASE_URL secret removal.
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-open-unispsc
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-open-unispsc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-open-unispsc
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP

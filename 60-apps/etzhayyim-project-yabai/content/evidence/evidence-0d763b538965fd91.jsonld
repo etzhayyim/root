@@ -1,0 +1,15 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-0d763b538965fd91",
+  "evidenceId": "evidence-0d763b538965fd91",
+  "entityId": "ent-b01070e33474",
+  "category": "FraudSignal",
+  "source": "resources/crawl",
+  "sourceReliability": "B",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.42,
+  "severity": 2,
+  "probability": 0.35,
+  "summary": "crawl page res-1772522538-000001 matched FraudSignal"
+}

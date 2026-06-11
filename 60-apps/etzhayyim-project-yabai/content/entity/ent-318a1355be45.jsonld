@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-318a1355be45",
+  "entityId": "ent-318a1355be45",
+  "canonicalName": "limited liability company rustmash",
+  "aliases": [
+    "limited liability company rustmash"
+  ]
+}

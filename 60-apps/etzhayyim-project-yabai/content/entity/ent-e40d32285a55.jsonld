@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e40d32285a55",
+  "entityId": "ent-e40d32285a55",
+  "canonicalName": "gerardo rivera ibarra",
+  "aliases": [
+    "gerardo rivera ibarra"
+  ]
+}

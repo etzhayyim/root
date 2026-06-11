@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  id="Definitions_lawfirm_conflict_severity"
+  name="lawfirm_conflict_severity"
+  namespace="https://etzhayyim.ai/dmn/lawfirm">
+  <!--
+    Conflict-of-interest severity classifier for lawfirm.runConflictCheck.
+
+    Inputs (read from BPMN process scope at Task_Classify; FEEL expressions
+    derive numeric features from arrays in scope):
+      - scanScope:        "matterIntake" / "externalCounselInvite" / "periodicAudit"
+      - pastMatterCount:  count(pastMatters)  — past representations of the same/related party
+      - precedentTopScore: if precedentHits[1] != null then precedentHits[1].score else 0
+      - partyCount:       count(partyDids)
+
+    Outputs:
+      - severity: none / low / medium / high / critical
+      - status:   clear / disclosureRequired / waivable / blocked
+
+    Hit policy: FIRST. Order matters — block-conditions first, then waivable,
+    then disclosure, then clear default.
+
+    Standards traced:
+      - ABA Model Rule 1.7 (concurrent conflicts)
+      - ABA Model Rule 1.9 (former clients, substantially related matters)
+      - ABA Model Rule 1.10 (imputation; ethical-wall screening)
+      - ABA Model Rule 1.18 (prospective clients)
+      - 弁護士職務基本規程 §27-29 (JFBA — conflicts of interest, JP)
+
+    Refinements deferred to v2:
+      - subjectMatterAreaConflict (semantic similarity past↔current matter)
+      - informedConsentObtained (written waiver evidence)
+      - ethicalWallActive (screen status)
+  -->
+  <decision id="lawfirm_conflict_severity" name="lawfirm_conflict_severity">
+    <decisionTable id="DecisionTable_lawfirm_conflict_severity" hitPolicy="FIRST">
+      <input id="Input_scanScope">
+        <inputExpression id="InputExpression_scanScope" typeRef="string"><text>scanScope</text></inputExpression>
+      </input>
+      <input id="Input_pastMatterCount">
+        <inputExpression id="InputExpression_pastMatterCount" typeRef="number"><text>count(pastMatters)</text></inputExpression>
+      </input>
+      <input id="Input_precedentTopScore">
+        <inputExpression id="InputExpression_precedentTopScore" typeRef="number"><text>if precedentHits[1] != null then precedentHits[1].score else 0</text></inputExpression>
+      </input>
+      <output id="Output_severity" label="severity" typeRef="string" name="severity"/>
+      <output id="Output_status"   label="status"   typeRef="string" name="status"/>
+
+      <!-- 1. external counsel invitation: any prior rep history → block (ABA 1.10 imputation) -->
+      <rule id="ConflictRule_1">
+        <inputEntry id="ConflictRule_1_ie1"><text>"externalCounselInvite"</text></inputEntry>
+        <inputEntry id="ConflictRule_1_ie2"><text>&gt;= 1</text></inputEntry>
+        <inputEntry id="ConflictRule_1_ie3"><text>-</text></inputEntry>
+        <outputEntry id="ConflictRule_1_oe1"><text>"critical"</text></outputEntry>
+        <outputEntry id="ConflictRule_1_oe2"><text>"blocked"</text></outputEntry>
+      </rule>
+
+      <!-- 2. heavy overlap (≥3 past matters with same party) → block, even with consent -->
+      <rule id="ConflictRule_2">
+        <inputEntry id="ConflictRule_2_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_2_ie2"><text>&gt;= 3</text></inputEntry>
+        <inputEntry id="ConflictRule_2_ie3"><text>-</text></inputEntry>
+        <outputEntry id="ConflictRule_2_oe1"><text>"critical"</text></outputEntry>
+        <outputEntry id="ConflictRule_2_oe2"><text>"blocked"</text></outputEntry>
+      </rule>
+
+      <!-- 3. moderate overlap (1-2 past matters) + low precedent similarity → waivable (ABA 1.7(b) informed consent) -->
+      <rule id="ConflictRule_3">
+        <inputEntry id="ConflictRule_3_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_3_ie2"><text>[1..2]</text></inputEntry>
+        <inputEntry id="ConflictRule_3_ie3"><text>&lt; 0.85</text></inputEntry>
+        <outputEntry id="ConflictRule_3_oe1"><text>"high"</text></outputEntry>
+        <outputEntry id="ConflictRule_3_oe2"><text>"waivable"</text></outputEntry>
+      </rule>
+
+      <!-- 4. moderate overlap + high precedent similarity → still waivable, severity bumped -->
+      <rule id="ConflictRule_4">
+        <inputEntry id="ConflictRule_4_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_4_ie2"><text>[1..2]</text></inputEntry>
+        <inputEntry id="ConflictRule_4_ie3"><text>&gt;= 0.85</text></inputEntry>
+        <outputEntry id="ConflictRule_4_oe1"><text>"high"</text></outputEntry>
+        <outputEntry id="ConflictRule_4_oe2"><text>"waivable"</text></outputEntry>
+      </rule>
+
+      <!-- 5. no past matters, but very high precedent similarity → informational disclosure -->
+      <rule id="ConflictRule_5">
+        <inputEntry id="ConflictRule_5_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_5_ie2"><text>0</text></inputEntry>
+        <inputEntry id="ConflictRule_5_ie3"><text>&gt;= 0.9</text></inputEntry>
+        <outputEntry id="ConflictRule_5_oe1"><text>"medium"</text></outputEntry>
+        <outputEntry id="ConflictRule_5_oe2"><text>"disclosureRequired"</text></outputEntry>
+      </rule>
+
+      <!-- 6. no past matters, moderate precedent similarity → low-touch disclosure -->
+      <rule id="ConflictRule_6">
+        <inputEntry id="ConflictRule_6_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_6_ie2"><text>0</text></inputEntry>
+        <inputEntry id="ConflictRule_6_ie3"><text>[0.75..0.9)</text></inputEntry>
+        <outputEntry id="ConflictRule_6_oe1"><text>"low"</text></outputEntry>
+        <outputEntry id="ConflictRule_6_oe2"><text>"disclosureRequired"</text></outputEntry>
+      </rule>
+
+      <!-- 7. default: nothing notable found → clear -->
+      <rule id="ConflictRule_7">
+        <inputEntry id="ConflictRule_7_ie1"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_7_ie2"><text>-</text></inputEntry>
+        <inputEntry id="ConflictRule_7_ie3"><text>-</text></inputEntry>
+        <outputEntry id="ConflictRule_7_oe1"><text>"none"</text></outputEntry>
+        <outputEntry id="ConflictRule_7_oe2"><text>"clear"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

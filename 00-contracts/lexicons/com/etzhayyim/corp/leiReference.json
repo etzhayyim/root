@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.corp.leiReference",
+  "description": "GLEIF LEI canonical entity reference + relationship subset. R0 skeleton per ADR-2605263800 §3 (LeiSensor). The LEI is the canonical cross-jurisdiction key — other corp lexicons (`registryAttestation`, `disclosureAttestation`, `ownershipEdge`, `filingEvent`) set their `entityLei` by resolving the local registry ID against records of this type. GLEIF data is CC0 1.0 (Tier-A globally). `parentLei` + `ultimateParentLei` capture GLEIF L2 (Relationship Records) direct + ultimate parent edges when published by the LEI registrant.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "entityLei",
+          "legalName",
+          "jurisdictionIso3",
+          "registrationStatus",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "entityLei": {
+            "type": "string",
+            "description": "20-character GLEIF LEI (canonical).",
+            "maxLength": 20,
+            "minLength": 20
+          },
+          "legalName": {"type": "string", "maxLength": 512},
+          "jurisdictionIso3": {
+            "type": "string",
+            "description": "Incorporation jurisdiction ISO 3166-1 alpha-3.",
+            "maxLength": 3,
+            "minLength": 3
+          },
+          "registrationStatus": {
+            "type": "string",
+            "knownValues": [
+              "ISSUED", "LAPSED", "RETIRED", "DUPLICATE",
+              "PENDING_VALIDATION", "PENDING_TRANSFER", "ANNULLED"
+            ]
+          },
+          "parentLei": {
+            "type": "string",
+            "description": "GLEIF L2 direct-parent LEI when published. NULL otherwise.",
+            "maxLength": 20
+          },
+          "ultimateParentLei": {
+            "type": "string",
+            "description": "GLEIF L2 ultimate-parent LEI when published. NULL otherwise.",
+            "maxLength": 20
+          },
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {
+            "type": "string",
+            "knownValues": ["A"],
+            "description": "GLEIF data is canonically Tier-A (CC0 1.0). No Tier-B path for this lexicon."
+          },
+          "license": {
+            "type": "string",
+            "knownValues": ["CC0-1.0"]
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_logistics_lastmile_confirm_delivery"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-logistics-lastmile"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="open_logistics_lastmile_confirm_delivery" name="confirmDelivery" isExecutable="true">
+    <bpmn:startEvent id="Start" name="proof received">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_AssessProof"/>
+
+    <bpmn:serviceTask id="Task_AssessProof" name="assess delivery proof">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-logistics-lastmile.delivery-proof.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:       vertexId,
+              proofId:        proofId,
+              legVid:         legVid,
+              deliveredAt:    deliveredAt,
+              minutesLate:    minutesLate,
+              damageReported: damageReported,
+              signatureCid:   signatureCid
+          }" target="facts"/>
+          <zeebe:output source="=coalesce(proofValid, signatureCid != null)" target="proofValid"/>
+          <zeebe:output source="=coalesce(slaTier, if damageReported = true then &quot;damaged&quot; else if minutesLate != null and minutesLate &gt; 60 then &quot;late&quot; else if minutesLate != null and minutesLate &gt; 0 then &quot;mild_late&quot; else &quot;on_time&quot;)" target="slaTier"/>
+          <zeebe:output source="=coalesce(claimRequired, damageReported = true or (minutesLate != null and minutesLate &gt; 60))" target="claimRequired"/>
+          <zeebe:output source="=findings" target="proofFindings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Assessed</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Assessed" sourceRef="Task_AssessProof" targetRef="Gate_ProofValid"/>
+
+    <bpmn:exclusiveGateway id="Gate_ProofValid" name="proof valid?" default="Flow_InvalidProof">
+      <bpmn:incoming>Flow_Assessed</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidProof</bpmn:outgoing>
+      <bpmn:outgoing>Flow_InvalidProof</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ValidProof" sourceRef="Gate_ProofValid" targetRef="Task_Save">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=proofValid = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_InvalidProof" sourceRef="Gate_ProofValid" targetRef="Task_AuditInvalidProof"/>
+
+    <bpmn:serviceTask id="Task_Save" name="save delivery proof">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_logistics_lastmile&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              proof_id:         proofId,
+              leg_vid:          legVid,
+              delivered_at:     deliveredAt,
+              minutes_late:     minutesLate,
+              damage_reported:  damageReported,
+              signature_cid:    signatureCid,
+              sla_tier:         slaTier,
+              claim_required:   claimRequired,
+              proof_findings:   proofFindings,
+              status:           &quot;delivered&quot;,
+              created_at:       string(now()),
+              owner_did:        callerDid,
+              sensitivity_ord:  1,
+              org_id:           callerDid,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-logistics-lastmile&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ValidProof</bpmn:incoming>
+      <bpmn:outgoing>Flow_ClaimGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ClaimGate" sourceRef="Task_Save" targetRef="Gate_ClaimRequired"/>
+
+    <bpmn:exclusiveGateway id="Gate_ClaimRequired" name="claim required?" default="Flow_NoClaim">
+      <bpmn:incoming>Flow_ClaimGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ClaimRequired</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoClaim</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ClaimRequired" sourceRef="Gate_ClaimRequired" targetRef="Task_OpenClaim">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=claimRequired = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoClaim" sourceRef="Gate_ClaimRequired" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_OpenClaim" name="open exception claim">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_logistics_lastmile&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        claimVertexId,
+              proof_vid:        vertexId,
+              leg_vid:          legVid,
+              proof_id:         proofId,
+              claim_type:       if damageReported = true then &quot;damage&quot; else &quot;sla_breach&quot;,
+              minutes_late:     minutesLate,
+              sla_tier:         slaTier,
+              status:           &quot;claim_open&quot;,
+              created_at:       string(now()),
+              owner_did:        callerDid,
+              sensitivity_ord:  1,
+              org_id:           callerDid,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-logistics-lastmile&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ClaimRequired</bpmn:incoming>
+      <bpmn:outgoing>Flow_ClaimAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ClaimAudit" sourceRef="Task_OpenClaim" targetRef="Task_AuditClaim"/>
+
+    <bpmn:serviceTask id="Task_AuditClaim" name="audit claim opened">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.delivery.claimOpened&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, claimVertexId: claimVertexId, legVid: legVid, slaTier: slaTier}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ClaimAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndClaim</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndClaim" sourceRef="Task_AuditClaim" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit delivery confirmed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.confirm.delivery&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:       vertexId,
+              proofId:        proofId,
+              legVid:         legVid,
+              deliveredAt:    deliveredAt,
+              slaTier:        slaTier,
+              damageReported: damageReported
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoClaim</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditInvalidProof" name="audit invalid proof">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.delivery.invalidProof&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, proofId: proofId, legVid: legVid, findings: proofFindings}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_InvalidProof</bpmn:incoming>
+      <bpmn:outgoing>Flow_InvalidEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_InvalidEnd" sourceRef="Task_AuditInvalidProof" targetRef="End_Invalid"/>
+
+    <bpmn:endEvent id="End" name="delivery confirmed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_EndClaim</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_Invalid" name="proof rejected">
+      <bpmn:incoming>Flow_InvalidEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

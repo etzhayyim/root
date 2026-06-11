@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — trade idea synthesize (autonomous, R/PT4H).
+
+  Pipeline:
+    1. shosha.trade.synth          LLM synthesis of trade ideas from market view
+                                   + open exposure + recent intel.
+                                   Returns ideaCount + summary text.
+    2. ExclusiveGateway            ideaCount > 0 ?
+       Yes → generic.pds.dispatch  Post idea summary as `app.bsky.feed.post`
+                                   from did:web:shosha.etzhayyim.com (social derive).
+       No  → skip social
+    3. generic.audit.emit          OCEL trail.
+
+  No XRPC entry. Pure timer-start BPMN-as-actor (ADR-0056).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_trade_idea_synthesize"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_trade_idea_synthesize" name="shosha trade idea synthesize (4h)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 4 hours">
+      <bpmn:outgoing>Flow_ToSynth</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT4H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Synth" name="synthesize trade ideas (LLM)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.trade.synth"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=3" target="maxIdeas"/>
+          <zeebe:output source="=ideaCount" target="ideaCount"/>
+          <zeebe:output source="=summary" target="summary"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSynth</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSynth" sourceRef="StartTimer" targetRef="Task_Synth"/>
+
+    <bpmn:exclusiveGateway id="Gate_HasIdeas" name="ideaCount > 0?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Post</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoPost</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Synth" targetRef="Gate_HasIdeas"/>
+
+    <bpmn:sequenceFlow id="Flow_Post" sourceRef="Gate_HasIdeas" targetRef="Task_Post">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ideaCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoPost" sourceRef="Gate_HasIdeas" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ideaCount = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Post" name="post idea summary (social derive)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="repo"/>
+          <zeebe:input source="={ &quot;text&quot;: summary, &quot;createdAt&quot;: string(now()) }" target="record"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Post</bpmn:incoming>
+      <bpmn:outgoing>Flow_PostToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_PostToAudit" sourceRef="Task_Post" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.tradeIdeaSynthesize&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;ideaCount&quot;: ideaCount }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoPost</bpmn:incoming>
+      <bpmn:incoming>Flow_PostToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

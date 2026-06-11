@@ -1,0 +1,87 @@
+;; tate 盾 — coded legal-procedure registry (ADR-2606112301). :representative — the
+;; common procedures a private individual RECEIVES from courts / government / companies,
+;; with DISCLOSED response options + deadline RULES (never computed dates — the member
+;; verifies the service date themselves, G4 deadline-honesty; :verify-current-law true
+;; everywhere). tate maps notice → options; the MEMBER decides and self-submits (G1/G3
+;; UPL: no representation, no individualized legal judgment).
+;;
+;; :proc/genuine-channel — how the REAL document arrives. 特別送達 (court special
+;; service, postal worker hands it over with receipt) is the key 架空請求 discriminator:
+;; a "court" notice by SMS / email / ordinary mail claiming 支払督促/訴訟 is :suspected-fake.
+
+[{:proc/id "proc:shiharai-tokusoku" :proc/label "支払督促 (簡易裁判所)"
+  :proc/trigger-keywords ["支払督促" "督促異議"]
+  :proc/genuine-channel :special-service
+  :proc/deadline-rules
+  [{:dl/label "督促異議の申立て"
+    :dl/rule "支払督促の送達を受けた日から2週間以内 (経過後も仮執行宣言送達から2週間は申立て可)"
+    :dl/anchor "民事訴訟法391条・393条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tokusoku-igi :opt/kind :self-submit
+    :opt/label "督促異議申立書を発した簡易裁判所へ提出 (→ 通常訴訟へ移行)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide
+    :opt/label "請求に理由がある場合: 支払い/分割の相談 (書面で)"}]
+  :proc/refer-when ["請求額が大きい" "仮執行宣言後・強制執行の予告がある"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:shougaku-sosho" :proc/label "少額訴訟の呼出状 (60万円以下)"
+  :proc/trigger-keywords ["少額訴訟" "口頭弁論期日呼出状"]
+  :proc/genuine-channel :special-service
+  :proc/claim-ceiling-jpy 600000
+  :proc/deadline-rules
+  [{:dl/label "答弁書の提出"
+    :dl/rule "呼出状に記載された裁判所指定の期限まで (欠席は擬制自白のリスク)"
+    :dl/anchor "民事訴訟法159条・254条" :dl/verify-service-date true}
+   {:dl/label "通常訴訟への移行申述"
+    :dl/rule "最初の口頭弁論期日において弁論をするまで"
+    :dl/anchor "民事訴訟法373条" :dl/verify-service-date true}
+   {:dl/label "少額訴訟判決への異議"
+    :dl/rule "判決書等の送達を受けた日から2週間以内"
+    :dl/anchor "民事訴訟法378条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :touben :opt/kind :self-submit :opt/label "答弁書の提出 (言い分・証拠を整理)"}
+   {:opt/id :ikou :opt/kind :self-submit :opt/label "通常訴訟への移行申述 (反訴・控訴が必要な場合)"}
+   {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭して陳述 (一期日審理)"}]
+  :proc/refer-when ["反訴を検討する" "事実関係が複雑"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:sojou" :proc/label "訴状の送達 (通常訴訟)"
+  :proc/trigger-keywords ["訴状" "第1回口頭弁論"]
+  :proc/genuine-channel :special-service
+  :proc/deadline-rules
+  [{:dl/label "答弁書の提出"
+    :dl/rule "呼出状に記載された裁判所指定の期限まで (欠席+答弁書なし → 欠席判決)"
+    :dl/anchor "民事訴訟法159条3項・254条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :touben :opt/kind :self-submit :opt/label "答弁書の提出 (請求の認否 + 抗弁)"}]
+  :proc/refer-when ["請求額が大きい" "常に弁護士相談を強く推奨 (本訴は高リスク)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:gyousei-shobun" :proc/label "行政処分の通知 (許認可取消・課税処分等)"
+  :proc/trigger-keywords ["行政処分" "処分通知書" "審査請求"]
+  :proc/genuine-channel :mail
+  :proc/deadline-rules
+  [{:dl/label "審査請求"
+    :dl/rule "処分があったことを知った日の翌日から起算して3月以内"
+    :dl/anchor "行政不服審査法18条1項" :dl/verify-service-date true}
+   {:dl/label "取消訴訟"
+    :dl/rule "処分があったことを知った日から6箇月以内"
+    :dl/anchor "行政事件訴訟法14条1項" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shinsa-seikyu :opt/kind :self-submit :opt/label "審査請求書の提出 (教示記載の審査庁へ)"}
+   {:opt/id :chouki :opt/kind :self-decide :opt/label "聴聞・弁明の機会への対応 (通知に従う)"}]
+  :proc/refer-when ["営業停止など重大処分" "税務 → 税理士/弁護士"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
+  :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
+  :proc/genuine-channel :mail
+  :proc/deadline-rules
+  [{:dl/label "(法定期限なし)"
+    :dl/rule "法的な応答義務はないが、無視は時効中断・次手続きの布石になり得る — 内容の真偽を確認の上対応を選ぶ"
+    :dl/anchor "—" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :reply-written :opt/kind :self-submit :opt/label "書面で回答 (認否を明確に・口頭/電話を避ける)"}
+   {:opt/id :no-action :opt/kind :self-decide :opt/label "請求に根拠がない場合: 応答せず記録保全"}]
+  :proc/refer-when ["請求額が大きい" "退職・不動産・名誉毀損など専門領域"]
+  :proc/verify-current-law true}]

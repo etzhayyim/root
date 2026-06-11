@@ -1,0 +1,43 @@
+;; giemon-factory-r0 — 施工ロボット登録台帳 (construction-robot registry),
+;; Datomic-style EDN. SSoT for which robot performs each construction step.
+;;
+;; The factory is designed to be BUILT by robotics (tatekata 建方 actor,
+;; ADR-2605250715). Each construction.edn :step references a :step/robot here;
+;; `kami-app-tatekata` simulates that robot performing the step on kami-genesis
+;; (reach + cycle), and the geometry "grows" as the robot builds it.
+;;
+;; :robot/reach-m   manipulator reach (m) — used by the buildability check
+;; :robot/base      [length width] of the robot footprint (m)
+;; :robot/cycle-min nominal cycle time per unit of work (minutes)
+;; :robot/mobile    true = self-relocating base (covers a zone), false = fixed
+;; :robot/process   material process it drives: deposition | thermal-weld | none
+;; :robot/maturity  HONEST real-world maturity of this robot class today
+;;                  field-trial | partial | human-collab  (none is "fully autonomous")
+
+{:robot/meta
+ {:robot/of    "giemon-factory-r0"
+  :robot/note  "R0 design assignment. Maturity is the HONEST state of each robot class in real construction today — NONE is a turnkey autonomous solution; most are point tools or human-collaborative. Reach/cycle are representative planning figures."}
+
+ :robot/registry
+ [{:robot/id "robot:doboku"  :robot/name "自動運転建機 (掘削/造成/転圧/舗装)"
+   :robot/type "earthworks-uev" :robot/reach-m 8.0 :robot/base [6.0 3.0]
+   :robot/cycle-min 30 :robot/mobile true :robot/process "none" :robot/maturity "field-trial"
+   :robot/sibling "wadachi / sarutahiko (自律建機・トラック)"}
+  {:robot/id "robot:rebar"   :robot/name "鉄筋結束ロボット"
+   :robot/type "rebar-tier" :robot/reach-m 1.2 :robot/base [1.5 1.0]
+   :robot/cycle-min 2 :robot/mobile true :robot/process "none" :robot/maturity "partial"}
+  {:robot/id "robot:printer" :robot/name "コンクリート3Dプリンタ/均しロボ"
+   :robot/type "concrete-deposition" :robot/reach-m 5.0 :robot/base [8.0 8.0]
+   :robot/cycle-min 1 :robot/mobile true :robot/process "deposition" :robot/maturity "partial"}
+  {:robot/id "robot:bolter"  :robot/name "鉄骨ボルト締め/溶接ロボット"
+   :robot/type "steel-fastening" :robot/reach-m 2.5 :robot/base [2.0 2.0]
+   :robot/cycle-min 6 :robot/mobile true :robot/process "thermal-weld" :robot/maturity "human-collab"}
+  {:robot/id "robot:panel"   :robot/name "外装/屋根パネル設置ロボット"
+   :robot/type "panel-placement" :robot/reach-m 3.5 :robot/base [3.0 2.0]
+   :robot/cycle-min 12 :robot/mobile true :robot/process "none" :robot/maturity "partial"}
+  {:robot/id "robot:mep"     :robot/name "MEP設置/天井穿孔ロボット"
+   :robot/type "mep-install" :robot/reach-m 3.0 :robot/base [1.8 1.8]
+   :robot/cycle-min 8 :robot/mobile true :robot/process "none" :robot/maturity "partial"}
+  {:robot/id "robot:fitout"  :robot/name "内装/設備据付ロボット + AGV"
+   :robot/type "fitout-agv" :robot/reach-m 2.0 :robot/base [2.0 1.2]
+   :robot/cycle-min 15 :robot/mobile true :robot/process "none" :robot/maturity "partial"}]}

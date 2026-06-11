@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.training.runLora",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a LoRA / PEFT adapter training run. Same shape as runSft but emits adapter-only checkpoints (small, ~tens to hundreds of MB) instead of full weights. Adapter is recorded in vertex_training_checkpoint with adapter_kind='lora' and adapter_rank.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["baseModel", "datasetName"],
+          "properties": {
+            "runId": {"type": "string"},
+            "baseModel": {"type": "string"},
+            "baseModelRevision": {"type": "string"},
+            "datasetName": {"type": "string"},
+            "datasetLabel": {"type": "string"},
+            "datasetRevision": {"type": "string"},
+            "hyperparams": {
+              "type": "object",
+              "properties": {
+                "epochs": {"type": "number"},
+                "learningRate": {"type": "number"},
+                "batchSize": {"type": "integer"},
+                "loraRank": {"type": "integer"},
+                "loraAlpha": {"type": "integer"},
+                "loraDropout": {"type": "number"},
+                "targetModules": {"type": "array", "items": {"type": "string"}},
+                "maxSeqLen": {"type": "integer"},
+                "saveStepInterval": {"type": "integer"}
+              }
+            },
+            "evalBenches": {"type": "array", "items": {"type": "string"}},
+            "gpuTarget": {"type": "string"},
+            "seed": {"type": "integer"},
+            "rationale": {"type": "string", "maxLength": 2000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "runId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "runId": {"type": "string"},
+            "runVertexId": {"type": "string"},
+            "datasetSnapshotId": {"type": "string"},
+            "finalCheckpointId": {"type": "string"},
+            "finalCheckpointVertexId": {"type": "string"},
+            "adapterRank": {"type": "integer"},
+            "evalSummary": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

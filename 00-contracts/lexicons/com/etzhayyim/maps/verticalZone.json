@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.verticalZone",
+  "description": "Altitude / depth band record — atmosphere (5), underground (4), or ocean (5) = 14 canonical zones per maps CLAUDE.md §Layer 3. Constants under ISIC-style infrequent revision. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{slug}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "slug",
+          "kind",
+          "name",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "slug": {
+            "type": "string",
+            "description": "kebab-case '{kind}-{layer}' (e.g., 'atmosphere-troposphere').",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "kind": {
+            "type": "string",
+            "knownValues": [
+              "atmosphere",
+              "underground",
+              "ocean"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Canonical English name.",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "minMeters": {
+            "type": "integer",
+            "description": "Minimum altitude/depth in integer meters relative to sea level. Negative for underground/ocean."
+          },
+          "maxMeters": {
+            "type": "integer",
+            "description": "Maximum altitude/depth in integer meters relative to sea level."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

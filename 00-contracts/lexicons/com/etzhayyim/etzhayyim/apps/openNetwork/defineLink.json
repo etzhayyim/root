@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openNetwork.defineLink",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a bidirectional network link between two sites. Starts BPMN process open_network_define_link.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "operatorOrgId": { "type": "string" },
+            "fromVertexId":  { "type": "string" },
+            "toVertexId":    { "type": "string" },
+            "capacityMbps":  { "type": "number" },
+            "media":         { "type": "string", "description": "fiber / microwave / copper / satellite" },
+            "installedAt":   { "type": "string", "format": "datetime" }
+          },
+          "required": ["operatorOrgId", "fromVertexId", "toVertexId", "capacityMbps", "media"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "vertexId":    { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

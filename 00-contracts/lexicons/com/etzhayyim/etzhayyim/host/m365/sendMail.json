@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.m365.sendMail",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. com.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
+      "x-hostImportsMethod": "m365SendMail",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "token": { "type": "string", "description": "App-only Bearer access token from m365.acquireAppToken" },
+            "fromUpn": { "type": "string", "description": "Sender mailbox UPN (required). Caller resolves this from role / caller identity / configured default." },
+            "to": { "type": "array", "items": { "type": "string" }, "description": "Recipient email addresses" },
+            "cc": { "type": "array", "items": { "type": "string" } },
+            "bcc": { "type": "array", "items": { "type": "string" } },
+            "subject": { "type": "string" },
+            "bodyHtml": { "type": "string", "description": "HTML body. Takes precedence over bodyText if both provided." },
+            "bodyText": { "type": "string", "description": "Plain text body (fallback when bodyHtml absent)." },
+            "saveToSentItems": { "type": "boolean", "default": true },
+            "importance": { "type": "string", "enum": ["low", "normal", "high"], "default": "normal" },
+            "replyTo": { "type": "array", "items": { "type": "string" } }
+          },
+          "required": ["token", "fromUpn", "to", "subject"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

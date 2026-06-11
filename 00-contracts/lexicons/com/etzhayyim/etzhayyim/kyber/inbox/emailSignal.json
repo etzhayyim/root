@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kyber.inbox.emailSignal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "An Outlook/Gmail email classified and routed to a kyber department (accounting/hr/procurement/inventory/sales/it/strategy). Body/subject are encrypted via wproto signal:v1 envelope. Repo record stores only hash + routing metadata (PII Tier 3).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["messageIdHash", "receivedAt", "fromDomain", "kyberDept", "signalClass", "accountDid"],
+        "properties": {
+          "messageIdHash":   { "type": "string", "description": "SHA-256 of Graph API message id (32-char prefix)" },
+          "conversationHash": { "type": "string" },
+          "accountDid":      { "type": "string", "format": "did" },
+          "receivedAt":      { "type": "string", "format": "datetime" },
+          "folder":          { "type": "string" },
+          "fromAddress":     { "type": "string", "description": "plaintext — routing metadata" },
+          "fromDomain":      { "type": "string" },
+          "senderKind":      { "type": "string", "enum": ["internal", "external", "ses_vendor", "noreply"] },
+          "subjectHash":     { "type": "string" },
+          "subjectEnc":      { "type": "string", "description": "signal:v1:{ciphertext}" },
+          "bodyPreviewEnc":  { "type": "string", "description": "signal:v1:{ciphertext}" },
+          "importance":      { "type": "string", "enum": ["low", "normal", "high"] },
+          "isRead":          { "type": "boolean" },
+          "isFlagged":       { "type": "boolean" },
+          "hasAttachments":  { "type": "boolean" },
+          "noiseScore":      { "type": "number", "minimum": 0, "maximum": 1 },
+          "signalClass":     { "type": "string", "enum": ["signal", "noise", "focus"] },
+          "kyberDept":       { "type": "string", "enum": ["accounting", "hr", "procurement", "inventory", "sales", "it", "strategy"] },
+          "kyberDeptDid":    { "type": "string", "format": "did" },
+          "classifierVersion": { "type": "string" },
+          "sensitivityOrd":  { "type": "integer", "minimum": 0, "maximum": 3 }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — live aircraft state ingest (Flightradar24-equivalent).
+
+  Pipeline:
+    1. flight.live.poll — single OpenSky /states/all GET, all aircraft
+       (~12k rows). Writes vertex_aircraft_state via sync_cursor.
+       Returns rowsIngested + sourcedFrom.
+    2. exclusive gateway — short-circuit when 0 rows ingested (rate limit hit).
+    3. generic.audit.emit — OCEL event with aggregate stats.
+
+  Cadence: R/PT10S. OpenSky anonymous rate limit is 10s/req. One BPMN
+  instance per tick; pyzeebe handler retries with adsb-fi if OpenSky 429.
+
+  com.etzhayyim.apps.maps.liveTrackAircraft.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_live_track_aircraft"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_live_track_aircraft" name="maps live track aircraft" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.liveTrackAircraft", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 10 seconds">
+      <bpmn:outgoing>Flow_ToPoll</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT10S">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT10S</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToPoll_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToPoll" sourceRef="Start_Timer" targetRef="Task_Poll"/>
+    <bpmn:sequenceFlow id="Flow_ToPoll_Manual" sourceRef="Start_Manual" targetRef="Task_Poll"/>
+
+    <bpmn:serviceTask id="Task_Poll" name="OpenSky /states/all + persist">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.live.poll"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=null" target="bbox"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=rowsIngested" target="rowsIngested"/>
+          <zeebe:output source="=sourcedFrom" target="sourcedFrom"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPoll</bpmn:incoming>
+      <bpmn:incoming>Flow_ToPoll_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Poll" targetRef="Gateway_Has"/>
+
+    <bpmn:exclusiveGateway id="Gateway_Has" name="any rows?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasRows</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoRows</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasRows" sourceRef="Gateway_Has" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=rowsIngested &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoRows" sourceRef="Gateway_Has" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=rowsIngested &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit live-track OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.liveTrackAircraft&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;rowsIngested&quot;: rowsIngested, &quot;sourcedFrom&quot;: sourcedFrom }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasRows</bpmn:incoming>
+      <bpmn:incoming>Flow_NoRows</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

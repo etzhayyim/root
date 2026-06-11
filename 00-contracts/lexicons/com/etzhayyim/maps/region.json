@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.region",
+  "description": "Canonical AdminArea / region record with multi-scheme code mapping. One record per real-world region (country, prefecture, city, etc.). Aliases under multiple geo schemes (ISO 3166, JIS, FIPS, H3, etc.) live in com.etzhayyim.maps.geoAlias records that point back to this canonical via `canonicalUri`. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{nanoid}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "nanoid",
+          "name",
+          "level",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1,
+            "description": "Record format version."
+          },
+          "nanoid": {
+            "type": "string",
+            "description": "Stable canonical identifier (lowercase alphanumeric + hyphen, no leading/trailing/double hyphens). Used as rkey and DID path segment. Hand-picked for well-known regions (e.g., 'jp' for Japan, 'jp-tokyo' for 東京都); system-generated for bulk-pipeline-seeded regions.",
+            "minLength": 2,
+            "maxLength": 32
+          },
+          "name": {
+            "type": "string",
+            "description": "Canonical English name.",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "displayName": {
+            "type": "string",
+            "description": "UI display name (may differ from `name` for romanization, native script, etc.).",
+            "maxLength": 256
+          },
+          "level": {
+            "type": "string",
+            "description": "Administrative level.",
+            "knownValues": [
+              "country",
+              "admin1",
+              "admin2",
+              "admin3",
+              "city",
+              "ward",
+              "village",
+              "zone"
+            ]
+          },
+          "parentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the parent region. Country regions have no parent."
+          },
+          "centerLat": {
+            "type": "integer",
+            "description": "Latitude of region centroid (WGS84) in microdegrees (×1e7)."
+          },
+          "centerLng": {
+            "type": "integer",
+            "description": "Longitude of region centroid (WGS84) in microdegrees (×1e7)."
+          },
+          "bboxWest": {
+            "type": "integer",
+            "description": "WGS84 bbox west edge in microdegrees (×1e7)."
+          },
+          "bboxSouth": {
+            "type": "integer",
+            "description": "WGS84 bbox south edge in microdegrees (×1e7)."
+          },
+          "bboxEast": {
+            "type": "integer",
+            "description": "WGS84 bbox east edge in microdegrees (×1e7)."
+          },
+          "bboxNorth": {
+            "type": "integer",
+            "description": "WGS84 bbox north edge in microdegrees (×1e7)."
+          },
+          "codes": {
+            "type": "unknown",
+            "description": "Free-form object mapping geo scheme name (e.g., 'iso3166-1', 'jis-x0401') to the region's code under that scheme. Drives the geoAlias records."
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

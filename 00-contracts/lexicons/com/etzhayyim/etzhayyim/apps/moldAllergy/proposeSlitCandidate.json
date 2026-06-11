@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.moldAllergy.proposeSlitCandidate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Propose a SLIT orodispersible-tablet formulation candidate (Shidakure/Acitea lineage).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["species"],
+          "properties": {
+            "species":            { "type": "string" },
+            "majorAllergen":      { "type": "string" },
+            "allergenSource":     { "type": "string" },
+            "dosageForm":         { "type": "string" },
+            "buildupWeeks":       { "type": "integer" },
+            "maintenanceDoseJau": { "type": "number" },
+            "excipients":         { "type": "array", "items": { "type": "string" } },
+            "targetIndication":   { "type": "string" },
+            "phase":              { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["candidateId"],
+          "properties": { "candidateId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

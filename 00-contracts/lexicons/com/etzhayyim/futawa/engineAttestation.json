@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.engineAttestation",
+  "description": "Motorcycle engine/motor assembly attestation (L2a). ≤250cc 4-stroke OR ≤15kW electric. G11 cap + G14 30-year service life. Per ADR-2605261330 L2a.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "powerplant": {
+            "type": "object",
+            "properties": {
+              "powerplantType": {"type": "string", "knownValues": ["ICE-4-stroke-single", "electric-mid-drive", "electric-hub-motor"]},
+              "displacementCc": {"type": "integer"},
+              "maxPowerKw": {"type": "integer"},
+              "g11MaxDisplacementCc": {"type": "integer", "const": 250},
+              "g11WithinCap": {"type": "boolean"},
+              "fuelType": {"type": "string"},
+              "serviceLifeYearsTarget": {"type": "integer"},
+              "g14ServiceLifeCompliant": {"type": "boolean"}
+            },
+            "required": ["powerplantType", "g11WithinCap", "g14ServiceLifeCompliant"]
+          },
+          "caseBlock": {"type": "unknown"},
+          "internals": {"type": "unknown"},
+          "torqueQa": {"type": "unknown"},
+          "g11Compliant": {"type": "boolean", "const": true},
+          "g14ServiceLifeYearsTarget": {"type": "integer", "const": 30},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "powerplant", "g11Compliant", "g14ServiceLifeYearsTarget", "attestingRobots"]
+      }
+    }
+  }
+}

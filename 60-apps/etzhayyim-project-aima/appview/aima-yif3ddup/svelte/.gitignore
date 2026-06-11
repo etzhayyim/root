@@ -1,0 +1,23 @@
+# Capacitor iOS build artifacts
+ios/App/Pods/
+ios/App/App/public/
+ios/capacitor-cordova-ios-plugins/
+
+# Capacitor Android build artifacts
+android/.gradle/
+android/app/build/
+android/app/src/main/assets/public/
+android/capacitor-cordova-android-plugins/
+
+# Release automation artifacts
+.bundle/
+vendor/bundle/
+dist/
+fastlane/Preview.html
+fastlane/report.xml
+fastlane/test_output/
+fastlane/*.auto.json
+keystore.properties
+*.jks
+*.keystore
+AuthKey_*.p8

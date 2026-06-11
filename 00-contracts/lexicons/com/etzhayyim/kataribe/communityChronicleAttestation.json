@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kataribe.communityChronicleAttestation",
+  "description": "Per-publication community chronicle attestation. G4 STRUCTURAL: toneAttestation enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; nonEschatologicalAttested const true (Charter §1.15 non-eschatological invariant). G9 STRUCTURAL: licenseAttested const 'apache-2.0-with-charter-rider-v2.0'.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "publicationTitle",
+          "publicationBodyCid",
+          "publicationPeriodStartUtc",
+          "publicationPeriodEndUtc",
+          "communitySiteCid",
+          "toneAttestation",
+          "nonEschatologicalAttested",
+          "kataribeOfficiantDid",
+          "licenseAttested",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "publicationTitle": {"type": "string", "maxLength": 200},
+          "publicationBodyCid": {
+            "type": "string",
+            "description": "IPFS CID of publication full text (Apache 2.0 + Charter Rider per G9)"
+          },
+          "publicationPeriodStartUtc": {"type": "string", "format": "datetime"},
+          "publicationPeriodEndUtc": {"type": "string", "format": "datetime"},
+          "communitySiteCid": {
+            "type": "string",
+            "description": "Community site identifier; cross-link to Land Registry if applicable"
+          },
+          "toneAttestation": {
+            "type": "string",
+            "knownValues": [
+              "factual-chronicling",
+              "reflective-narrative",
+              "informational-update",
+              "celebratory-multi-gen",
+              "memorial-funeral-honoring",
+              "educational-instructional",
+              "covenant-witnessing"
+            ],
+            "description": "G4 STRUCTURAL: enum DELIBERATELY excludes 'apocalyptic' / 'clickbait' / 'engagement-optimized' / 'sensationalized' / 'crisis-amplifying' (Charter §1.15 non-eschatological invariant)"
+          },
+          "nonEschatologicalAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G4 STRUCTURAL: const true; no apocalyptic / rapture / 末法 / 千年王国 framing"
+          },
+          "kataribeOfficiantDid": {
+            "type": "string",
+            "description": "Kataribe officiant DID; G11 STRUCTURAL vocation-flow L5 verified via chigiri.stewardLaborAttestation cross-link"
+          },
+          "licenseAttested": {
+            "type": "string",
+            "const": "apache-2.0-with-charter-rider-v2.0",
+            "description": "G9 STRUCTURAL: const apache-2.0-with-charter-rider-v2.0"
+          },
+          "multiGenCohortMix": {
+            "type": "object",
+            "properties": {
+              "under18AudienceTargeted": {"type": "boolean"},
+              "adultAudienceTargeted": {"type": "boolean"},
+              "over65AudienceTargeted": {"type": "boolean"}
+            },
+            "description": "G10 (multi-gen invariant per Charter §1.7): publication accessibility across cohorts"
+          },
+          "translationCidsAvailable": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Cross-link to translationAttestation CIDs for multilingual versions"
+          },
+          "charterRiderScanRunCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

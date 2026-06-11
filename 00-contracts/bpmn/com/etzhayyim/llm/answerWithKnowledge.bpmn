@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  llm.answerWithKnowledge
+
+  Proper RAG path for llm.etzhayyim.com:
+    1. Retrieve domain knowledge from RisingWave vertex/edge/MV tables.
+    2. Run a Python LangGraph answer graph over retrieved evidence.
+    3. Emit audit.
+
+  The CF Worker remains a thin OpenAI/XRPC facade. It must not embed
+  application facts or game-specific branches.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_llm_answer_with_knowledge"
+    targetNamespace="https://etzhayyim.ai/bpmn/llm"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="llm_answer_with_knowledge" name="llm answer with knowledge" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.llm.answerWithKnowledge", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="question submitted">
+      <bpmn:outgoing>Flow_Retrieve</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_Retrieve" sourceRef="Start" targetRef="Task_Retrieve"/>
+    <bpmn:serviceTask id="Task_Retrieve" name="retrieve RisingWave domain knowledge">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="llm.knowledge.retrieve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(question)" target="question"/>
+          <zeebe:input source="=if domain = null then &quot;&quot; else string(domain)" target="domain"/>
+          <zeebe:input source="=if game_slug = null then &quot;&quot; else string(game_slug)" target="gameSlug"/>
+          <zeebe:input source="=if lang = null then &quot;ja&quot; else string(lang)" target="lang"/>
+          <zeebe:input source="=if topK = null then 8 else topK" target="topK"/>
+          <zeebe:output source="=contexts" target="contexts"/>
+          <zeebe:output source="=citations" target="citations"/>
+          <zeebe:output source="=usedKnowledge" target="usedKnowledge"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Retrieve</bpmn:incoming>
+      <bpmn:outgoing>Flow_Answer</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_Answer" sourceRef="Task_Retrieve" targetRef="Task_Answer"/>
+    <bpmn:serviceTask id="Task_Answer" name="LangGraph answer from evidence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="llm.knowledge.langgraphAnswer"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(question)" target="question"/>
+          <zeebe:input source="=contexts" target="contexts"/>
+          <zeebe:input source="=citations" target="citations"/>
+          <zeebe:input source="=if tier = null then &quot;fast&quot; else string(tier)" target="tier"/>
+          <zeebe:input source="=if model = null then &quot;&quot; else string(model)" target="model"/>
+          <zeebe:input source="=if lang = null then &quot;ja&quot; else string(lang)" target="lang"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=answer" target="answer"/>
+          <zeebe:output source="=confidence" target="confidence"/>
+          <zeebe:output source="=model" target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+          <zeebe:output source="=error" target="error"/>
+          <zeebe:output source="=errorKind" target="errorKind"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Answer</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Answer" targetRef="End"/>
+    <bpmn:endEvent id="End" name="answer ready">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

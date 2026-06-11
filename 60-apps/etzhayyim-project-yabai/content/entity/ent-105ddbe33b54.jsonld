@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-105ddbe33b54",
+  "entityId": "ent-105ddbe33b54",
+  "canonicalName": "floribert ngabu njabu",
+  "aliases": [
+    "floribert ngabu njabu"
+  ]
+}

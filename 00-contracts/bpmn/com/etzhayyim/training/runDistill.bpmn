@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  training.etzhayyim.com - runDistill workflow (XRPC com.etzhayyim.apps.training.runDistill).
+  ADR-2605070700.
+
+  Pipeline:
+    1. train.dataset.snapshot   freeze dataset
+    2. train.teacher.label      bulk-infer logits via teacher (run | actor DID | artifact)
+                                writes Hume-style artifact (ADR-2604300135)
+    3. train.distill.run        student fine-tune with hard/soft/feature loss
+    4. train.eval.run           bench final student
+    5. generic.audit.emit
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_training_run_distill"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="training_run_distill" name="training run distill" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.training.runDistill", "version": 1, "resultTimeoutMs": 3600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="runDistill">
+      <bpmn:outgoing>Flow_ToSnapshot</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Snapshot" name="freeze dataset snapshot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.dataset.snapshot"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=datasetName" target="datasetName"/>
+          <zeebe:input source="=datasetLabel" target="datasetLabel"/>
+          <zeebe:input source="=datasetRevision" target="datasetRevision"/>
+          <zeebe:output source="=snapshotId" target="datasetSnapshotId"/>
+          <zeebe:output source="=rowCount" target="datasetRowCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSnapshot</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToTeacher</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSnapshot" sourceRef="Start" targetRef="Task_Snapshot"/>
+
+    <bpmn:serviceTask id="Task_Teacher" name="bulk-infer teacher labels">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.teacher.label"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=datasetSnapshotId" target="datasetSnapshotId"/>
+          <zeebe:input source="=teacherKind" target="teacherKind"/>
+          <zeebe:input source="=teacherRunId" target="teacherRunId"/>
+          <zeebe:input source="=teacherActorDid" target="teacherActorDid"/>
+          <zeebe:input source="=teacherArtifactRunId" target="teacherArtifactRunId"/>
+          <zeebe:input source="=distillMethod" target="distillMethod"/>
+          <zeebe:input source="=temperature" target="temperature"/>
+          <zeebe:output source="=teacherLabelArtifactRunId" target="teacherLabelArtifactRunId"/>
+          <zeebe:output source="=teacherLabelB2Uri" target="teacherLabelB2Uri"/>
+          <zeebe:output source="=labelSampleCount" target="labelSampleCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToTeacher</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToTrain</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToTeacher" sourceRef="Task_Snapshot" targetRef="Task_Teacher"/>
+
+    <bpmn:serviceTask id="Task_Train" name="student distill on GPU">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.distill.run"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=studentBaseModel" target="studentBaseModel"/>
+          <zeebe:input source="=studentBaseModelRevision" target="studentBaseModelRevision"/>
+          <zeebe:input source="=datasetSnapshotId" target="datasetSnapshotId"/>
+          <zeebe:input source="=teacherLabelArtifactRunId" target="teacherLabelArtifactRunId"/>
+          <zeebe:input source="=teacherKind" target="teacherKind"/>
+          <zeebe:input source="=teacherRunId" target="teacherRunId"/>
+          <zeebe:input source="=teacherActorDid" target="teacherActorDid"/>
+          <zeebe:input source="=distillMethod" target="distillMethod"/>
+          <zeebe:input source="=temperature" target="temperature"/>
+          <zeebe:input source="=hyperparams" target="hyperparams"/>
+          <zeebe:input source="=gpuTarget" target="gpuTarget"/>
+          <zeebe:input source="=seed" target="seed"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=runVertexId" target="runVertexId"/>
+          <zeebe:output source="=finalCheckpointId" target="finalCheckpointId"/>
+          <zeebe:output source="=finalCheckpointVertexId" target="finalCheckpointVertexId"/>
+          <zeebe:output source="=distilledFromEdgeId" target="distilledFromEdgeId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToTrain</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEval</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToTrain" sourceRef="Task_Teacher" targetRef="Task_Train"/>
+
+    <bpmn:serviceTask id="Task_Eval" name="eval student">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.eval.run"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=finalCheckpointId" target="checkpointId"/>
+          <zeebe:input source="=evalBenches" target="benches"/>
+          <zeebe:input source="=gpuTarget" target="gpuTarget"/>
+          <zeebe:output source="=evalSummary" target="evalSummary"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEval</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEval" sourceRef="Task_Train" targetRef="Task_Eval"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.training.runDistill&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;teacherKind&quot;: teacherKind, &quot;teacherLabelArtifactRunId&quot;: teacherLabelArtifactRunId, &quot;finalCheckpointId&quot;: finalCheckpointId }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Eval" targetRef="Task_Audit"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+  </bpmn:process>
+</bpmn:definitions>

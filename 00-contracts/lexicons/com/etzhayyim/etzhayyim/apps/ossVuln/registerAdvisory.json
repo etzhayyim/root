@@ -1,0 +1,118 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ossVuln.registerAdvisory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OSS advisory / CVE (MITRE NVD + GHSA + BSI + JVN — bridges cyber-incident + cyber-resilience-stress + ai-supply-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "advisoryId",
+            "scheme",
+            "affectedEcosystem",
+            "affectedPackage",
+            "publishedAt"
+          ],
+          "properties": {
+            "advisoryId": {
+              "type": "string",
+              "description": "CVE / GHSA / BSI / JVN ID"
+            },
+            "scheme": {
+              "type": "string",
+              "enum": [
+                "cve",
+                "ghsa",
+                "bsi",
+                "jvn",
+                "rustsec",
+                "osv",
+                "pysec"
+              ]
+            },
+            "cvss3Score": {
+              "type": "number"
+            },
+            "cvss4Score": {
+              "type": "number"
+            },
+            "epssPct": {
+              "type": "number",
+              "description": "EPSS exploitation probability 0-1"
+            },
+            "cweId": {
+              "type": "string"
+            },
+            "affectedEcosystem": {
+              "type": "string",
+              "enum": [
+                "npm",
+                "pypi",
+                "maven",
+                "nuget",
+                "rubygems",
+                "go",
+                "crates",
+                "composer",
+                "swift",
+                "pub",
+                "hex",
+                "cran",
+                "cpan",
+                "github",
+                "linux_kernel",
+                "firmware"
+              ]
+            },
+            "affectedPackage": {
+              "type": "string"
+            },
+            "versionRanges": {
+              "type": "string"
+            },
+            "kevTagged": {
+              "type": "boolean",
+              "description": "CISA KEV catalog"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

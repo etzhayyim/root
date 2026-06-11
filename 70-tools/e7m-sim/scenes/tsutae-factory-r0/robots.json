@@ -1,0 +1,88 @@
+{
+  "robots": [
+    {
+      "id": "robot:doboku",
+      "name": "自動運転建機 (掘削/造成/転圧/舗装)",
+      "type": "earthworks-uev",
+      "reach_m": 6.0,
+      "base": [
+        5.0,
+        2.6
+      ],
+      "cycle_min": 24.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "field-trial"
+    },
+    {
+      "id": "robot:crane",
+      "name": "自律クローラクレーン (軽量鉄骨建方)",
+      "type": "lift-crane",
+      "reach_m": 16.0,
+      "base": [
+        5.0,
+        5.0
+      ],
+      "cycle_min": 14.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "human-collab"
+    },
+    {
+      "id": "robot:printer",
+      "name": "コンクリート3Dプリンタ/均しロボ",
+      "type": "concrete-deposition",
+      "reach_m": 5.0,
+      "base": [
+        6.0,
+        6.0
+      ],
+      "cycle_min": 1.0,
+      "mobile": true,
+      "process": "deposition",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:panel",
+      "name": "外装/クリーンルームパネル設置ロボット",
+      "type": "panel-placement",
+      "reach_m": 3.4,
+      "base": [
+        2.6,
+        2.0
+      ],
+      "cycle_min": 10.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:mep",
+      "name": "MEP設置/FFU+配管+穿孔ロボット",
+      "type": "mep-install",
+      "reach_m": 3.0,
+      "base": [
+        1.7,
+        1.7
+      ],
+      "cycle_min": 7.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:fitout",
+      "name": "装置据付ロボット + AGV (SMT/組立/検査機)",
+      "type": "fitout-agv",
+      "reach_m": 2.4,
+      "base": [
+        2.0,
+        1.4
+      ],
+      "cycle_min": 12.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    }
+  ]
+}

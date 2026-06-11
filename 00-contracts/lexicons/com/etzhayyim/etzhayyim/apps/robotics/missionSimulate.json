@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.mission.simulate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run a dry-run mission simulation before robot motion approval.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "missionId": { "type": "string" },
+            "assetKind": { "type": "string" },
+            "mission": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "simulationId": { "type": "string" },
+            "missionId": { "type": "string" },
+            "status": { "type": "string" },
+            "checks": { "type": "array", "items": { "type": "unknown" } },
+            "estimatedSeconds": { "type": "integer" },
+            "requiresHumanApproval": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

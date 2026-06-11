@@ -1,0 +1,18 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-14c9bce0feb7",
+  "entityId": "ent-14c9bce0feb7",
+  "canonicalName": "水谷翔太",
+  "aliases": [
+    "水谷翔太",
+    "Mizutani Shota"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "knowledgeEdges": [
+      {"from": "mizutani_shota", "relation": "HOSTILE_TO", "to": "etzhayyim_co_ltd"}
+    ]
+  }
+}

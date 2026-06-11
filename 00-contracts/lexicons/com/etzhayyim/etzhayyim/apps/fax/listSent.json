@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fax.listSent",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List previously sent faxes (optionally filtered by caseId / recipient / status).",
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "caseId": { "type": "string" },
+          "to": { "type": "string" },
+          "status": { "type": "string", "enum": ["queued", "sending", "success", "failure", "unknown"] },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "faxes", "total", "offset", "limit"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "faxes": { "type": "array", "items": { "type": "ref", "ref": "#faxRecord" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "faxRecord": {
+      "type": "object",
+      "required": ["txId", "to", "status"],
+      "properties": {
+        "txId": { "type": "string" },
+        "providerFaxId": { "type": "string" },
+        "to": { "type": "string" },
+        "from": { "type": "string" },
+        "subject": { "type": "string" },
+        "caseId": { "type": "string" },
+        "status": { "type": "string" },
+        "pages": { "type": "integer" },
+        "sentAt": { "type": "string", "format": "datetime" },
+        "deliveredAt": { "type": "string", "format": "datetime" }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gyosei.getMyCase",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch one gyosei case visible to the caller.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "caseId": { "type": "string" }
+        },
+        "required": ["caseId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "case": { "type": "object" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

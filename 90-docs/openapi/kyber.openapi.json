@@ -1,0 +1,1654 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "kyber XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://kyber.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.kyber.projector.emitApqcEvent": {
+      "post": {
+        "summary": "Emit an OCEL 2.0 event linked to an APQC code + BPMN task + case objects. Writes com.etzhayyim.apps.apqc.apqcEvent (federable). Intended for handler use and external orchestrators.",
+        "operationId": "com.etzhayyim.kyber.projector.emitApqcEvent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "apqcCode": {
+                    "type": "string"
+                  },
+                  "taskId": {
+                    "type": "string"
+                  },
+                  "eventType": {
+                    "type": "string",
+                    "description": "OCEL event type (e.g. journal.posted)"
+                  },
+                  "caseId": {
+                    "type": "string"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  },
+                  "attributes": {
+                    "type": "object"
+                  },
+                  "actorDid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "apqcCode",
+                  "eventType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "ocelEventId": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "eventType": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "ocelEventId",
+                    "eventType"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.getActivity": {
+      "get": {
+        "summary": "Compatibility query for one APQC activity by activityId/ocelEventId.",
+        "operationId": "com.etzhayyim.kyber.projector.getActivity",
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of ocelEventId",
+            "schema": {
+              "type": "string",
+              "description": "Alias of ocelEventId"
+            }
+          },
+          {
+            "name": "ocelEventId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "activityId": {
+                      "type": "string"
+                    },
+                    "ocelEventId": {
+                      "type": "string"
+                    },
+                    "processId": {
+                      "type": "string"
+                    },
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "groupId": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "actorDid": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "eventType": {
+                      "type": "string"
+                    },
+                    "caseId": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "objects": {
+                      "type": "array"
+                    },
+                    "attributes": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.getApqcCoverage": {
+      "get": {
+        "summary": "APQC coverage summary: registered L1 actors (/13), bound BPMN tasks, observed OCEL events per L1 in the period.",
+        "operationId": "com.etzhayyim.kyber.projector.getApqcCoverage",
+        "parameters": [
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "description": "ISO date range e.g. 2026-04-01/2026-04-30",
+            "schema": {
+              "type": "string",
+              "description": "ISO date range e.g. 2026-04-01/2026-04-30"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "registeredL1": {
+                      "type": "integer"
+                    },
+                    "totalL1": {
+                      "type": "integer"
+                    },
+                    "registeredSubProcesses": {
+                      "type": "integer"
+                    },
+                    "totalSubProcesses": {
+                      "type": "integer"
+                    },
+                    "boundBpmnTasks": {
+                      "type": "integer"
+                    },
+                    "byL1": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "registered": {
+                            "type": "boolean"
+                          },
+                          "subProcesses": {
+                            "type": "integer"
+                          },
+                          "bpmnTasks": {
+                            "type": "integer"
+                          },
+                          "ocelEvents": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "apqcCode",
+                          "name",
+                          "registered"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "registeredL1",
+                    "totalL1",
+                    "byL1"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.getProcess": {
+      "get": {
+        "summary": "Compatibility query for one APQC/BPMN process by processId/taskId.",
+        "operationId": "com.etzhayyim.kyber.projector.getProcess",
+        "parameters": [
+          {
+            "name": "processId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of taskId",
+            "schema": {
+              "type": "string",
+              "description": "Alias of taskId"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "processId": {
+                      "type": "string"
+                    },
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "groupId": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "actorDid": {
+                      "type": "string"
+                    },
+                    "taskType": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "ocelEventType": {
+                      "type": "string"
+                    },
+                    "kyberCollection": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.getProcessGroup": {
+      "get": {
+        "summary": "Compatibility query for a single APQC process group. Resolves one APQC L1 group and its BPMN-bound processes.",
+        "operationId": "com.etzhayyim.kyber.projector.getProcessGroup",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of apqcCode",
+            "schema": {
+              "type": "string",
+              "description": "Alias of apqcCode"
+            }
+          },
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts",
+            "schema": {
+              "type": "string",
+              "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "groupId": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "slug": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "subProcesses": {
+                      "type": "integer"
+                    },
+                    "processCount": {
+                      "type": "integer"
+                    },
+                    "activityCount": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "processes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.listActivities": {
+      "get": {
+        "summary": "Compatibility query for APQC activities. In kyber-projector, an activity maps to one emitted OCEL event.",
+        "operationId": "com.etzhayyim.kyber.projector.listActivities",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of apqcCode",
+            "schema": {
+              "type": "string",
+              "description": "Alias of apqcCode"
+            }
+          },
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "processId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of taskId",
+            "schema": {
+              "type": "string",
+              "description": "Alias of taskId"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "caseId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "activities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "activityId": {
+                            "type": "string"
+                          },
+                          "ocelEventId": {
+                            "type": "string"
+                          },
+                          "processId": {
+                            "type": "string"
+                          },
+                          "taskId": {
+                            "type": "string"
+                          },
+                          "groupId": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "actorDid": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "type": "string"
+                          },
+                          "caseId": {
+                            "type": "string"
+                          },
+                          "timestamp": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "objects": {
+                            "type": "array"
+                          },
+                          "attributes": {
+                            "type": "object"
+                          }
+                        },
+                        "required": [
+                          "activityId",
+                          "groupId",
+                          "eventType",
+                          "timestamp"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "activities",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.listApqcActors": {
+      "get": {
+        "summary": "List registered APQC L1 actor DIDs with coverage summary.",
+        "operationId": "com.etzhayyim.kyber.projector.listApqcActors",
+        "parameters": [
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "actors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "did": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "subProcesses": {
+                            "type": "integer"
+                          },
+                          "bpmnTaskCount": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "did",
+                          "apqcCode",
+                          "name"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "actors",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.listBpmnTasks": {
+      "get": {
+        "summary": "List BPMN 2.0 task bindings to APQC codes. Each task carries {taskId, apqcCode, taskType, ocelEventType, kyberCollection}.",
+        "operationId": "com.etzhayyim.kyber.projector.listBpmnTasks",
+        "parameters": [
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskType",
+            "in": "query",
+            "required": false,
+            "description": "userTask | serviceTask | businessRuleTask | scriptTask | sendTask | receiveTask",
+            "schema": {
+              "type": "string",
+              "description": "userTask | serviceTask | businessRuleTask | scriptTask | sendTask | receiveTask"
+            }
+          },
+          {
+            "name": "kyberCollection",
+            "in": "query",
+            "required": false,
+            "description": "Filter by upstream kyber collection e.g. journalEntry",
+            "schema": {
+              "type": "string",
+              "description": "Filter by upstream kyber collection e.g. journalEntry"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "taskId": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "actorDid": {
+                            "type": "string"
+                          },
+                          "taskType": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "ocelEventType": {
+                            "type": "string"
+                          },
+                          "kyberCollection": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "taskId",
+                          "apqcCode",
+                          "taskType",
+                          "name",
+                          "ocelEventType"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "tasks",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.listProcessGroups": {
+      "get": {
+        "summary": "Compatibility query for APQC process groups. In kyber-projector, a process group maps to one APQC L1 actor/DID.",
+        "operationId": "com.etzhayyim.kyber.projector.listProcessGroups",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of apqcCode",
+            "schema": {
+              "type": "string",
+              "description": "Alias of apqcCode"
+            }
+          },
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts",
+            "schema": {
+              "type": "string",
+              "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "processGroups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "groupId": {
+                            "type": "string"
+                          },
+                          "did": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "subProcesses": {
+                            "type": "integer"
+                          },
+                          "processCount": {
+                            "type": "integer"
+                          },
+                          "activityCount": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "groupId",
+                          "apqcCode",
+                          "name",
+                          "status"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "processGroups",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.listProcesses": {
+      "get": {
+        "summary": "Compatibility query for APQC/BPMN processes. In kyber-projector, a process maps to one BPMN task binding.",
+        "operationId": "com.etzhayyim.kyber.projector.listProcesses",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "query",
+            "required": false,
+            "description": "Alias of apqcCode",
+            "schema": {
+              "type": "string",
+              "description": "Alias of apqcCode"
+            }
+          },
+          {
+            "name": "apqcCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taskType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kyberCollection",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "processes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "processId": {
+                            "type": "string"
+                          },
+                          "taskId": {
+                            "type": "string"
+                          },
+                          "groupId": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "actorDid": {
+                            "type": "string"
+                          },
+                          "taskType": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "ocelEventType": {
+                            "type": "string"
+                          },
+                          "kyberCollection": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "processId",
+                          "groupId",
+                          "name",
+                          "status"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "processes",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.registerApqcActors": {
+      "post": {
+        "summary": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.etzhayyim.com. Idempotent: re-invocation returns existing DIDs unchanged.",
+        "operationId": "com.etzhayyim.kyber.projector.registerApqcActors",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "scope": {
+                    "type": "string",
+                    "description": "all | l1-only | { apqcCode: '9.0' } for single L1"
+                  },
+                  "apqcCode": {
+                    "type": "string",
+                    "description": "Single L1 code (e.g. 9.0) when scope != all"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "registered": {
+                      "type": "integer"
+                    },
+                    "skipped": {
+                      "type": "integer"
+                    },
+                    "actors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "did": {
+                            "type": "string"
+                          },
+                          "apqcCode": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "subProcesses": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "did",
+                          "apqcCode",
+                          "name",
+                          "status"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "registered",
+                    "actors"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kyber.projector.runBpmnTask": {
+      "post": {
+        "summary": "Execute a BPMN task bound to an APQC code. Creates a processInstance record (Design E Tier 2), emits an OCEL event (apqcEvent collection), and performs the task effect (e.g. post to dept DID, notify subscriber).",
+        "operationId": "com.etzhayyim.kyber.projector.runBpmnTask",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "taskId": {
+                    "type": "string"
+                  },
+                  "processInstanceId": {
+                    "type": "string",
+                    "description": "Optional — auto-generated when omitted"
+                  },
+                  "caseId": {
+                    "type": "string",
+                    "description": "Business case correlation (e.g. invoiceId, journalId)"
+                  },
+                  "input": {
+                    "type": "object",
+                    "description": "Task input payload (case attributes, BPMN data objects)"
+                  },
+                  "actorDid": {
+                    "type": "string",
+                    "description": "Override the APQC L1 DID; defaults to the task binding"
+                  }
+                },
+                "required": [
+                  "taskId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "processInstanceId": {
+                      "type": "string"
+                    },
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "actorDid": {
+                      "type": "string"
+                    },
+                    "ocelEventId": {
+                      "type": "string"
+                    },
+                    "ocelEventType": {
+                      "type": "string"
+                    },
+                    "startedAt": {
+                      "type": "string"
+                    },
+                    "completedAt": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "taskId",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_kyber_inbox_calendarSignal": {
+        "type": "object",
+        "properties": {
+          "eventIdHash": {
+            "type": "string"
+          },
+          "accountDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "subjectEnc": {
+            "type": "string"
+          },
+          "subjectHash": {
+            "type": "string"
+          },
+          "startAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "endAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "durationMin": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "organizerAddress": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "showAs": {
+            "type": "string",
+            "enum": [
+              "free",
+              "tentative",
+              "busy",
+              "oof",
+              "workingElsewhere",
+              "unknown"
+            ]
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "attendeeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "internalAttendeeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "externalAttendeeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "kyberDept": {
+            "type": "string",
+            "enum": [
+              "accounting",
+              "hr",
+              "procurement",
+              "inventory",
+              "sales",
+              "it",
+              "strategy"
+            ]
+          },
+          "kyberDeptDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "signalClass": {
+            "type": "string",
+            "enum": [
+              "signal",
+              "noise",
+              "focus"
+            ]
+          },
+          "sensitivityOrd": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "eventIdHash",
+          "startAt",
+          "accountDid",
+          "kyberDept",
+          "signalClass"
+        ]
+      },
+      "ai_etzhayyim_kyber_inbox_documentSignal": {
+        "type": "object",
+        "properties": {
+          "driveItemIdHash": {
+            "type": "string"
+          },
+          "accountDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "pathHash": {
+            "type": "string"
+          },
+          "nameEnc": {
+            "type": "string"
+          },
+          "nameHash": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string",
+            "enum": [
+              "xlsx",
+              "xlsm",
+              "docx",
+              "pptx",
+              "pdf",
+              "txt",
+              "csv",
+              "md",
+              "other"
+            ]
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "authorAddress": {
+            "type": "string"
+          },
+          "lastModifiedBy": {
+            "type": "string"
+          },
+          "sheetCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pageCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "wordCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "extracted": {
+            "type": "boolean"
+          },
+          "extractEngine": {
+            "type": "string"
+          },
+          "kyberDept": {
+            "type": "string",
+            "enum": [
+              "accounting",
+              "hr",
+              "procurement",
+              "inventory",
+              "sales",
+              "it",
+              "strategy"
+            ]
+          },
+          "kyberDeptDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "signalClass": {
+            "type": "string",
+            "enum": [
+              "signal",
+              "noise"
+            ]
+          },
+          "noiseScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "sensitivityOrd": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "driveItemIdHash",
+          "accountDid",
+          "extension",
+          "kyberDept",
+          "signalClass"
+        ]
+      },
+      "ai_etzhayyim_kyber_inbox_emailSignal": {
+        "type": "object",
+        "properties": {
+          "messageIdHash": {
+            "type": "string",
+            "description": "SHA-256 of Graph API message id (32-char prefix)"
+          },
+          "conversationHash": {
+            "type": "string"
+          },
+          "accountDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "receivedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "folder": {
+            "type": "string"
+          },
+          "fromAddress": {
+            "type": "string",
+            "description": "plaintext — routing metadata"
+          },
+          "fromDomain": {
+            "type": "string"
+          },
+          "senderKind": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "external",
+              "ses_vendor",
+              "noreply"
+            ]
+          },
+          "subjectHash": {
+            "type": "string"
+          },
+          "subjectEnc": {
+            "type": "string",
+            "description": "signal:v1:{ciphertext}"
+          },
+          "bodyPreviewEnc": {
+            "type": "string",
+            "description": "signal:v1:{ciphertext}"
+          },
+          "importance": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "isFlagged": {
+            "type": "boolean"
+          },
+          "hasAttachments": {
+            "type": "boolean"
+          },
+          "noiseScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "signalClass": {
+            "type": "string",
+            "enum": [
+              "signal",
+              "noise",
+              "focus"
+            ]
+          },
+          "kyberDept": {
+            "type": "string",
+            "enum": [
+              "accounting",
+              "hr",
+              "procurement",
+              "inventory",
+              "sales",
+              "it",
+              "strategy"
+            ]
+          },
+          "kyberDeptDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "classifierVersion": {
+            "type": "string"
+          },
+          "sensitivityOrd": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "messageIdHash",
+          "receivedAt",
+          "fromDomain",
+          "kyberDept",
+          "signalClass",
+          "accountDid"
+        ]
+      }
+    }
+  }
+}

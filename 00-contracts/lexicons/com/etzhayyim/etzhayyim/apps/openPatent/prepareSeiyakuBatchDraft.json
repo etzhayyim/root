@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.prepareSeiyakuBatchDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Prepare the initial open-seiyaku batch-record payload from an expired-patent manufacturing handoff.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["handoffVid", "productId", "manufacturerOrgId", "plantOrgId"],
+          "properties": {
+            "handoffVid": { "type": "string" },
+            "productId": { "type": "string" },
+            "manufacturerOrgId": { "type": "string" },
+            "plantOrgId": { "type": "string" },
+            "productCode": { "type": "string" },
+            "batchNumber": { "type": "string" },
+            "dosageForm": { "type": "string" },
+            "targetMarket": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "seiyakuProcessId": { "type": "string" },
+            "batchNumber": { "type": "string" },
+            "status": { "type": "string" },
+            "batchPayload": { "type": "object" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

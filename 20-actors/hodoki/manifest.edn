@@ -1,0 +1,59 @@
+;; hodoki 解き — actor manifest (Gen-3 kotoba-native)
+;; ELV Disassembly + Materials Recovery Tier-B actor
+;; ADR-2605261215 (R0 scaffold)
+{:actor/id        "hodoki"
+ :actor/glyph     "解"
+ :actor/tier      :tier-b
+ :actor/domain    "hodoki.etzhayyim.com"
+ :actor/purpose   "End-of-life vehicle (ELV) disassembly + materials recovery Tier-B actor. Adopts mature OEM-run ELV facility methodology (depollution → parts harvest → shred → sort); religious-corp-ised by mandatory ECU data wipe (G8, §2(c) anti-surveillance constitutional first), right-to-repair parts catalog (G12, §2(e) anti-gatekeeping constitutional first), ≥95% material recovery (G13), ≥95% F-gas capture (G6), ≥95% PGM yield (G14), Li-ion second-life classification (L2 hikari handoff), and cross-actor circular feed mandatory (kanayama metals + makura seat foam G13 closure + silicon Wave 2 ECU + hikari R2+ second-life). Military vehicles + aerospace + marine + rail + buses + trucks ≥3.5t + Tesla-class proprietary cell harvest + H2 FCV are constitutional non-goals."
+ :actor/status    :r0
+ :actor/adr       "2605261215"
+ :actor/related   ["2605261215" "2605261230" "2605261245" "2605261300"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "firmware-open-source"         :gate/rule "All depollution + dismantling + shredder firmware + fixture CAD open-source (Apache 2.0 + Charter Rider)"}
+  {:gate/id "G2"  :gate/name "mass-balance-98pct"           :gate/rule "Mass-balance audit ≥98% closure on kotoba-datomic (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); inherits kanayama G2 pattern"}
+  {:gate/id "G3"  :gate/name "witness-quorum-2robot"        :gate/rule "Every critical step (refrigerant capture, battery disconnect, airbag neutralization, PGM brick removal) signed by witness quorum ≥2 distinct robots (ADR-2605191524)"}
+  {:gate/id "G4"  :gate/name "bilingual-reports"            :gate/rule "All parts catalog entries + recovery reports + take-back records JP + EN bilingual minimum"}
+  {:gate/id "G5"  :gate/name "charter-rider-scan"           :gate/rule "All vehicle intakes pass Charter Rider §2(a-h) scan (no military / weapon-carrying / covertly-modified)"}
+  {:gate/id "G6"  :gate/name "f-gas-capture-95pct"          :gate/rule "F-gas (HFC / HFO refrigerant) capture ≥95% by mass per vehicle; continuous leak monitoring; no atmospheric venting (UNEP Kigali Amendment alignment)"}
+  {:gate/id "G7"  :gate/name "li-ion-thermal-safety"        :gate/rule "Li-ion battery thermal-safety SOP — no puncture, no short-circuit, thermal-runaway-containment enclosure required; SoH measurement per battery + cell where accessible"}
+  {:gate/id "G8"  :gate/name "ecu-data-wipe-mandatory"      :gate/rule "CONSTITUTIONAL FIRST: MANDATORY ECU + infotainment + telematics data wipe BEFORE any disassembly; cryptographic destruction attestation with ≥2 robot witness signatures; physical chip-shred fallback if wipe fails. §2(c) anti-surveillance operationalized for consumer vehicles."}
+  {:gate/id "G9"  :gate/name "murakumo-only"                :gate/rule "Inference paths (parts ID, defect classification, SoH estimation, fluid type detection) use Murakumo no-VKE mesh only (ADR-2605214000 / ADR-2605215000)"}
+  {:gate/id "G10" :gate/name "sbt-gated-personnel"          :gate/rule "Refrigerant + airbag + Li-ion + PGM + ECU-shred operations are SBT-gated personnel; non-SBT visitors require 1 SBT = 1 vote Council review"}
+  {:gate/id "G11" :gate/name "kpi-caps-r0-r1"               :gate/rule "KPI caps R0–R1: M1 passenger class only, ≤2.5t curb weight, ≤8 seats. N2/N3/N4 = Wave 2 ADR; H2 FCV = Wave 2 ADR; Tesla cell-recovery = Wave 2 ADR. Council Lv6+ to amend."}
+  {:gate/id "G12" :gate/name "right-to-repair-invariant"    :gate/rule "CONSTITUTIONAL FIRST: RIGHT-TO-REPAIR INVARIANT — every harvested part has IPFS-pinned catalog entry with VIN provenance + part DID + condition grade + bilingual description + open price discovery; no proprietary lock-in; no anti-disassembly DRM tolerated. §2(e) anti-gatekeeping operationalized at vehicle scale."}
+  {:gate/id "G13" :gate/name "material-recovery-95pct"      :gate/rule "≥95% material recovery rate by mass (target ≥97% by R3); ASR <5% mass to landfill; ASR composition disclosed; cross-actor circular feed mandatory to kanayama + makura + silicon Wave 2"}
+  {:gate/id "G14" :gate/name "pgm-recovery-95pct"           :gate/rule "PGM (Pt / Pd / Rh) recovery yield ≥95% from catalytic converters; cell-level audit of PGM smelter receipts; no PGM leak to ASR fraction"}
+  ;; Substrate gates
+  {:gate/id "S1"  :gate/name "kotoba-eavt-native"           :gate/rule "State is kotoba EAVT Datoms (no SQL/RisingWave/Cypher)"}
+  {:gate/id "S2"  :gate/name "tithe-non-fiat"               :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10%, never Stripe/fiat"}
+  {:gate/id "S3"  :gate/name "no-server-key"                :gate/rule "Platform holds no key (member/operator signs)"}
+  {:gate/id "S4"  :gate/name "consent-bound"                :gate/rule "Real outward actions stay gated (compute-only R0; settlement stops at 'intent')"}
+  {:gate/id "S5"  :gate/name "pii-encrypted"                :gate/rule "PII encrypted (ADR-2605181100)"}]
+
+ :actor/cells
+ [{:cell/id "elv-intake-audit"       :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-depollution"        :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-battery-handling"   :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-parts-harvest"      :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-catalyst-recovery"  :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-seat-textile-recovery" :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-body-shred"         :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-emissions-audit"    :cell/kind :langgraph :cell/runtime :kotoba}
+  {:cell/id "elv-provenance-binder"  :cell/kind :langgraph :cell/runtime :kotoba}]
+
+ :actor/lex
+ [{:lex/id "elvIntakeRecord"}
+  {:lex/id "depollutionAttestation"}
+  {:lex/id "batteryHandlingRecord"}
+  {:lex/id "partsHarvestCatalog"}
+  {:lex/id "catalystRecoveryRecord"}
+  {:lex/id "shredOutputAttestation"}
+  {:lex/id "dataWipeAttestation"}
+  {:lex/id "silenDeconstructionReview"}]
+}

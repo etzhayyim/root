@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openNaics.classifyEntity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NAICS 分類 - Starts BPMN open_naics_classify_entity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "entityDid",
+            "naicsCode",
+            "confidence",
+            "classifiedAt"
+          ],
+          "properties": {
+            "entityDid": {
+              "type": "string"
+            },
+            "naicsCode": {
+              "type": "string",
+              "description": "2-6 digit NAICS"
+            },
+            "entityName": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "evidenceUrl": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number"
+            },
+            "classifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "verification": {
+              "type": "string",
+              "enum": [
+                "authoritative",
+                "community",
+                "candidate"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

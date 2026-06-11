@@ -1,0 +1,125 @@
+# UnispscOrganismFleetCell shard-2 — dan, segments 45-60 (~5,204 organisms).
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: unispsc-organism-fleet-shard-2
+  namespace: etzhayyim-organism
+  labels:
+    app.kubernetes.io/name: unispsc-organism-fleet
+    etzhayyim.com/shard: "2"
+    etzhayyim.com/leader-node: dan
+  annotations:
+    etzhayyim.com/adr: "2605240000,2605240015,2605240030,2605240100,2605232100"
+    etzhayyim.com/segments: "45-60"
+    etzhayyim.com/organism-count: "5204"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: unispsc-organism-fleet
+      etzhayyim.com/shard: "2"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: unispsc-organism-fleet
+        etzhayyim.com/shard: "2"
+        etzhayyim.com/leader-node: dan
+    spec:
+      serviceAccountName: unispsc-organism-fleet-shard-2
+      nodeSelector:
+        kubernetes.io/hostname: dannomac-mini.local
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: cell
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - python
+            - -m
+            - kotodama.organism.fleet_cell_main
+          env:
+            - name: ETZHAYYIM_NODE
+              value: dan
+            - name: UNISPSC_ORGANISM_SHARD_INDEX
+              value: "2"
+            - name: UNISPSC_ORGANISM_LRU_MAX
+              value: "5500"
+            - name: UNISPSC_ORGANISM_TICK_INTERVAL_S
+              value: "300"
+            - name: UNISPSC_ORGANISM_POST_SINK
+              value: ndjson
+            - name: UNISPSC_ORGANISM_POST_QUEUE_PATH
+              value: /var/lib/etzhayyim/organism-posts/shard-2.ndjson
+            - name: ETZ_REPO
+              value: /repo
+            - name: FLEET_TOML
+              value: /repo/50-infra/murakumo/fleet.toml
+          ports:
+            - name: healthz
+              containerPort: 13060
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1.5Gi
+            limits:
+              cpu: 2500m
+              memory: 5Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: repo
+              mountPath: /repo
+              readOnly: true
+            - name: organism-posts
+              mountPath: /var/lib/etzhayyim/organism-posts
+            - name: tmp
+              mountPath: /tmp
+        # Drainer sidecar (Wave 3)
+        - name: drainer
+          image: ghcr.io/etzhayyim/organism-post-drainer:main
+          imagePullPolicy: Always
+          env:
+            - name: ORGANISM_POST_QUEUE_PATH
+              value: /var/lib/etzhayyim/organism-posts/shard-2.ndjson
+            - name: ETZHAYYIM_PDS_URL
+              value: https://atproto.etzhayyim.com
+            - name: ETZHAYYIM_SHARD
+              value: "2"
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+          volumeMounts:
+            - name: organism-posts
+              mountPath: /var/lib/etzhayyim/organism-posts
+      volumes:
+        - name: repo
+          hostPath:
+            path: /Users/etzhayyim/etzhayyim-root
+            type: Directory
+        - name: organism-posts
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: tmp
+          emptyDir:
+            sizeLimit: 128Mi

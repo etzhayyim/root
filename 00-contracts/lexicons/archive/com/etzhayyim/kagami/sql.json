@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kagami.sql",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Execute a raw SQL statement against the kagami graph (RisingWave). Sole NSID for graph access (ADR-0012).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "statement": { "type": "string", "description": "SQL statement (SELECT for read, INSERT/UPDATE/DELETE for write)." },
+            "params": { "type": "unknown", "description": "Optional bind parameters." },
+            "timeoutMs": { "type": "integer" },
+            "maxRows": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "namespace": { "type": "string" }
+          },
+          "required": ["statement"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rows": { "type": "array", "items": { "type": "unknown" } },
+            "cursor": { "type": "string" }
+          },
+          "required": ["rows"]
+        }
+      }
+    }
+  }
+}

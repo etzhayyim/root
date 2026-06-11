@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hagukumi.silenCareReview",
+  "description": "Council attestation scope for hagukumi care decisions. Multi-axis (privacy + Wellbecoming + multi-gen ratio). Per ADR-2605261030.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "scope": {"type": "string", "knownValues": [
+            "wave-1-r0-charter-baseline",
+            "r1-advisory-activation",
+            "r2-pilot-live-care-activation",
+            "r3-community-scale-activation",
+            "g4-caregiver-vetting-attestation",
+            "g2-no-recording-firmware-audit",
+            "g9-human-in-loop-yutori-attestation",
+            "g14-multi-gen-cohort-ratio-audit",
+            "cohort-ratio-quarterly-audit",
+            "encrypted-record-framework-attestation"
+          ]},
+          "subject": {"type": "string"},
+          "cohortRatio": {
+            "type": "object",
+            "description": "G14: under-18 ≥40% + over-65 ≥30% + middle adults ≤30%",
+            "properties": {
+              "under18Pct": {"type": "number"},
+              "over65Pct": {"type": "number"},
+              "middleAdultPct": {"type": "number"}
+            }
+          },
+          "attestingCouncilMembers": {"type": "array", "items": {"type": "string"}, "minItems": 3},
+          "medicalAdvisoryAttestation": {"type": "array", "items": {"type": "string"}, "description": "R1+: pediatrician + geriatrician DIDs"},
+          "attestationTimestamp": {"type": "string"},
+          "decisionCid": {"type": "string"}
+        },
+        "required": ["scope", "subject", "attestingCouncilMembers", "attestationTimestamp", "decisionCid"]
+      }
+    }
+  }
+}

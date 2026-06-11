@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalAid.createCase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a legal aid case (public defender / 法テラス assignment). Sources: ILAG + 法テラス + national legal aid bodies.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jurisdiction", "applicantDid", "matter"],
+          "properties": {
+            "jurisdiction": { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "applicantDid": { "type": "string", "format": "did", "description": "natural-person DID (PII Tier 3)" },
+            "matter": { "type": "string", "enum": ["criminal-defense", "family", "housing", "immigration", "consumer", "labor", "civil"] },
+            "courtDid": { "type": "string", "format": "did" },
+            "filedAt": { "type": "string", "format": "datetime" },
+            "meansTestPassed": { "type": "boolean" },
+            "estimatedHours": { "type": "number" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "uri"],
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "caseNumber": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "gstr3b-review-v1",
+  "version": 1,
+  "title": "GSTR-3B Finance Review",
+  "regulatoryRef": { "law": "CGST Act 2017", "article": "§39" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "actorRole": "finance-controller",
+  "components": [
+    {
+      "key": "summary",
+      "type": "fieldset",
+      "label": "Summary (read-only)",
+      "components": [
+        { "key": "taxPeriod", "label": "Tax period", "type": "textfield", "readOnly": true },
+        { "key": "totalOutwardTaxInrPaise", "label": "Total outward tax", "type": "number", "readOnly": true },
+        { "key": "totalInwardItcInrPaise", "label": "Total ITC", "type": "number", "readOnly": true },
+        { "key": "totalNetTaxInrPaise", "label": "Net tax payable (cash)", "type": "number", "readOnly": true }
+      ]
+    },
+    {
+      "key": "checks",
+      "type": "fieldset",
+      "label": "Control checks",
+      "components": [
+        { "key": "gstinFormatValid", "label": "GSTIN 15-char format valid", "type": "checkbox", "required": true },
+        { "key": "outwardSumIntegrity", "label": "3.1 sums match P/L revenue", "type": "checkbox", "required": true },
+        { "key": "itcEligibility", "label": "ITC §17(5) ineligible items excluded", "type": "checkbox", "required": true },
+        { "key": "rule36ItcMatch", "label": "ITC ≤ GSTR-2B (Rule 36(4))", "type": "checkbox", "required": true },
+        { "key": "ledgerReconciled", "label": "Cash + credit ledger balances reconciled", "type": "checkbox", "required": true },
+        { "key": "rcmDeclared", "label": "All RCM liabilities declared in 3.1(d)", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "verdict",
+      "type": "fieldset",
+      "label": "Decision",
+      "components": [
+        { "key": "decision", "label": "Decision", "type": "select", "required": true,
+          "options": [
+            { "value": "approve", "label": "Approve — proceed to portal file" },
+            { "value": "reject",  "label": "Return to gst-officer for correction" }
+          ]
+        },
+        { "key": "comment", "label": "Comment", "type": "textarea", "validate": { "maxLength": 1500 } },
+        { "key": "reviewedAt", "label": "Reviewed at", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

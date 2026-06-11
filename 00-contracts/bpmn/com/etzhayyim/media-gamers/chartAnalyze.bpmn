@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  media-gamers.chartAnalyze
+
+  On-demand chart analysis triggered via XRPC
+  com.etzhayyim.apps.media_gamers.analyzeChart.
+
+  Useful for back-filling historical weeks or re-analyzing after new
+  vertex_game_title data arrives.
+
+  Input variables (from BPMN lexicon binding → XRPC body):
+    weekStart  — ISO date string e.g. "2026-04-27" (Monday)
+    source     — "steamspy_top2w" | "rawg_top" | "steam_jp_topsellers"
+
+  Output variables:
+    analysisUri — vertex_id of vertex_game_chart_analysis row
+    socialText  — Japanese post text
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_media_gamers_chart_analyze"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="media_gamers_chart_analyze" name="media gamers chart analyze" isExecutable="true">
+
+    <bpmn:startEvent id="Start_Manual" name="analyze chart requested">
+      <bpmn:outgoing>Flow_ToAnalyze</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToAnalyze" sourceRef="Start_Manual" targetRef="Task_Analyze"/>
+
+    <bpmn:serviceTask id="Task_Analyze" name="LLM analyze chart and post">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="mediaGamers.chart.analyze"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(weekStart)" target="weekStart"/>
+          <zeebe:input source="=string(source)"    target="source"/>
+          <zeebe:output source="=analysisUri"  target="analysisUri"/>
+          <zeebe:output source="=socialText"   target="socialText"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAnalyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Analyze" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="analysis complete"/>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,98 @@
+name: md-link-validation
+
+# Validate in-repo markdown links per 8th-axis registry enforcement
+# (ADR-2605271200 closure cycle 67; defense-in-depth wired cycle 68).
+# Parallel pattern to axes 6 + 7 (also tracker mode).
+#
+# Cycle 67 baseline: 33 broken in-repo links remaining after
+# auto-fix of 54 wrong-absolute-prefix + 2 line-number-suffix.
+# Promotion to PR-gate awaits baseline = 0.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '70-tools/scripts/docs/validate-md-links.py'
+      - '70-tools/scripts/docs/test_validate_md_links.py'
+      - '.github/workflows/md-link-validation.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '70-tools/scripts/docs/validate-md-links.py'
+      - '70-tools/scripts/docs/test_validate_md_links.py'
+      - '.github/workflows/md-link-validation.yml'
+  schedule:
+    # Nightly at 03:47 UTC = ~12:47 JST. Off-minute :47 separates from
+    # kotodama :41 / registry-schema :35 / docs-graph :29 / docs-registry :23 /
+    # deps-toml :17 (6-min spread × 6 axes including tracker).
+    - cron: '47 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: md-link-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run validator unit tests (cycle 67; 8/8 must pass)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_validate_md_links.py \
+            -v
+
+      - name: Validate markdown links (tracker mode)
+        id: validate
+        run: |
+          python3 70-tools/scripts/docs/validate-md-links.py \
+            --json > /tmp/md-link-audit.json
+          cat /tmp/md-link-audit.json
+
+      - name: Step summary
+        if: always()
+        run: |
+          if [ -f /tmp/md-link-audit.json ]; then
+            broken=$(python3 -c "import json; print(json.load(open('/tmp/md-link-audit.json'))['total_broken'])")
+            {
+              echo "## md-link-validation"
+              echo ""
+              echo "- **Broken in-repo links**: ${broken}"
+              echo ""
+              echo "Baseline as of cycle 67 (2026-05-27): 33 broken"
+              echo "  - Cycle 66 auto-fixed 54 wrong-absolute-prefix"
+              echo "  - Cycle 67 auto-fixed 2 line-number-suffix"
+              echo "  - Remaining 33 = truly-broken or manual-judgment needed"
+              echo ""
+              if [ "$broken" -gt 33 ]; then
+                echo "⚠️ Broken count **above baseline (33)** — new broken link(s) introduced."
+                echo ""
+                echo '```json'
+                cat /tmp/md-link-audit.json
+                echo '```'
+              elif [ "$broken" -lt 33 ]; then
+                echo "✅ Broken count **below baseline** — cleanup landed. Update baseline."
+              else
+                echo "✓ Broken count matches baseline (33). No new broken links."
+              fi
+              echo ""
+              echo "**Mode**: NIGHTLY TRACKER — does not block PRs. Will promote to PR-gate when baseline = 0."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

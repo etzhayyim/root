@@ -1,0 +1,104 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.impeachmentTrial.recordTrial",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Impeachment / removal trial (executive / judicial) (bridges judicialMisconductBoard.flagOutcomeBias + scotusDocket + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "trialId",
+            "subjectRole",
+            "forum",
+            "groundsKind",
+            "commencedAt"
+          ],
+          "properties": {
+            "trialId": {
+              "type": "string"
+            },
+            "subjectRole": {
+              "type": "string",
+              "enum": [
+                "president",
+                "prime_minister",
+                "cabinet_minister",
+                "governor",
+                "judge",
+                "constitutional_judge",
+                "senator",
+                "mp",
+                "ag_attorney_general",
+                "central_bank_chief",
+                "ig"
+              ]
+            },
+            "forum": {
+              "type": "string",
+              "enum": [
+                "us_senate",
+                "us_house_inquiry",
+                "uk_recall",
+                "de_constitutional",
+                "kr_constitutional",
+                "br_senate",
+                "peru_congress",
+                "sa_supreme",
+                "mx_constitutional",
+                "ph_senate",
+                "arg_senate"
+              ]
+            },
+            "groundsKind": {
+              "type": "string",
+              "enum": [
+                "high_crimes",
+                "abuse_of_power",
+                "obstruction",
+                "corruption",
+                "betrayal_of_trust",
+                "violation_of_constitution",
+                "treason",
+                "misuse_of_funds",
+                "perjury",
+                "contempt_of_court",
+                "incitement"
+              ]
+            },
+            "outcomeBiasVid": {
+              "type": "string",
+              "description": "bridges judicialMisconductBoard.flagOutcomeBias"
+            },
+            "commencedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.urbanMobility.reportDisruption",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Service disruption across MaaS modes (bridges disaster-response + cyber-incident)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disruptionId",
+            "routeVid",
+            "mode",
+            "cause",
+            "severityMinutes",
+            "reportedAt"
+          ],
+          "properties": {
+            "disruptionId": {
+              "type": "string"
+            },
+            "routeVid": {
+              "type": "string",
+              "description": "bridges registerMaasRoute"
+            },
+            "mode": {
+              "type": "string"
+            },
+            "cause": {
+              "type": "string",
+              "enum": [
+                "weather",
+                "incident",
+                "cyber",
+                "strike",
+                "infra",
+                "demand_spike",
+                "political"
+              ]
+            },
+            "severityMinutes": {
+              "type": "integer"
+            },
+            "cyberIncidentVid": {
+              "type": "string",
+              "description": "bridges open-cyber-incident"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "impactTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "significant",
+                "major"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

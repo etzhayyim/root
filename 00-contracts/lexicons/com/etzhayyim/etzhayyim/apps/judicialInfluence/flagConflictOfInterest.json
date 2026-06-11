@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judicialInfluence.flagConflictOfInterest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Undisclosed gift / recusal failure / campaign finance conflict (bridges amicusBrief.flagCitation + enforcementAction + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "networkVid",
+            "conflictKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "networkVid": {
+              "type": "string",
+              "description": "bridges recordInfluenceNetwork"
+            },
+            "conflictKind": {
+              "type": "string",
+              "enum": [
+                "undisclosed_gift",
+                "luxury_travel",
+                "real_estate",
+                "spouse_employment",
+                "child_tuition",
+                "speaking_fee",
+                "book_deal_advance",
+                "stock_ownership",
+                "campaign_donor_litigant",
+                "failure_to_recuse",
+                "post_retirement_promise"
+              ]
+            },
+            "estValueUsd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.exportCreditAgency.flagClimateCarveout",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CETP / Glasgow Statement / fossil-fuel ECA phase-out breach (bridges sovereignGuarantee.flagCallEvent + climate-value-chain + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "exposureVid",
+            "breachKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "exposureVid": {
+              "type": "string",
+              "description": "bridges recordExposure"
+            },
+            "breachKind": {
+              "type": "string",
+              "enum": [
+                "cetp_fossil_support",
+                "glasgow_statement_breach",
+                "limited_exemption_abuse",
+                "upstream_gas_loophole",
+                "downstream_refinery",
+                "thermal_coal",
+                "domestic_only_carveout",
+                "technical_assistance_gap",
+                "misclassification"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

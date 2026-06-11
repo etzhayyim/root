@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — cohort fission (XRPC entry).
+
+  Pipeline:
+    1. karma.cohort.fission   verify posterior > 0.95 (or force=true),
+                                split member_did_csv into N children,
+                                INSERT N vertex_organism_cohort rows
+                                with parent_cohort_id, mark parent
+                                status='fissioned'
+    2. generic.audit.emit     OCEL trail
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_cohort_fission"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_cohort_fission" name="karma cohort fission" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.fissionCohort", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToFission</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Fission" name="fission cohort (split + INSERT children)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.cohort.fission"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=cohortId" target="cohortId"/>
+          <zeebe:input source="=if splitInto = null then 2 else splitInto" target="splitInto"/>
+          <zeebe:input source="=if trigger = null then &quot;manual&quot; else trigger" target="trigger"/>
+          <zeebe:input source="=if force = null then false else force" target="force"/>
+          <zeebe:output source="=parentCohortId" target="parentCohortId"/>
+          <zeebe:output source="=childCohortIds" target="childCohortIds"/>
+          <zeebe:output source="=childCohortDids" target="childCohortDids"/>
+          <zeebe:output source="=membersPerChild" target="membersPerChild"/>
+          <zeebe:output source="=fissionedAt" target="fissionedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFission</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToFission" sourceRef="StartXrpc" targetRef="Task_Fission"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.fissionCohort&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;parent&quot;: parentCohortId, &quot;children&quot;: childCohortIds, &quot;membersPerChild&quot;: membersPerChild, &quot;trigger&quot;: trigger }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Fission" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="fissioned">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

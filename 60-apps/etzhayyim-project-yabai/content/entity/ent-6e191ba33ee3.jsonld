@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6e191ba33ee3",
+  "entityId": "ent-6e191ba33ee3",
+  "canonicalName": "sz dji technology co., ltd.",
+  "aliases": [
+    "sz dji technology co., ltd."
+  ]
+}

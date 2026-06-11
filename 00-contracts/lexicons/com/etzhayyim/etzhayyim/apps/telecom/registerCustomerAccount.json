@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerCustomerAccount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register or update a customer billing account via TMF666 Account Management API. Creates a vertex_telecom_tmf_customer_account record. PII fields are hashed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["accountId", "customerKind", "accountKind"],
+          "properties": {
+            "accountId": { "type": "string" },
+            "customerKind": { "type": "string", "enum": ["individual", "organization"] },
+            "accountKind": { "type": "string", "enum": ["prepaid", "postpaid", "hybrid"] },
+            "partyName": { "type": "string", "description": "sha256: hashed" },
+            "partyContact": { "type": "string", "description": "sha256: hashed" },
+            "partyTaxId": { "type": "string", "description": "sha256: hashed" },
+            "billingAddress": { "type": "string", "description": "sha256: hashed" },
+            "currency": { "type": "string" },
+            "paymentMethodKind": { "type": "string", "enum": ["bankTransfer", "creditCard", "directDebit", "electronicCheck", "token"] },
+            "paymentMethodRef": { "type": "string" },
+            "parentSubscriberId": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "accountId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

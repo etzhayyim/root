@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.auditEuiccState",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Poll and record eUICC state snapshot (profile count, active ICCID, free memory). Designed for timer-start (R/PT4H). EID/ICCID sha256: hashed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["auditId", "eid"],
+          "properties": {
+            "auditId": { "type": "string" },
+            "eid": { "type": "string", "description": "sha256: hashed EID" },
+            "profileCount": { "type": "integer" },
+            "activeIccid": { "type": "string", "description": "sha256: hashed ICCID of active profile" },
+            "freeMemoryBytes": { "type": "integer" },
+            "lastContactAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "eid": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

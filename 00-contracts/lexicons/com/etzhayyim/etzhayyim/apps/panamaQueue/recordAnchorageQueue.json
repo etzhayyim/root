@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.panamaQueue.recordAnchorageQueue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "錨地待機",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "queueId",
+            "imo",
+            "anchorageZone",
+            "arrivedAt"
+          ],
+          "properties": {
+            "queueId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "anchorageZone": {
+              "type": "string",
+              "enum": [
+                "pacific",
+                "atlantic"
+              ]
+            },
+            "arrivedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "queuedPosition": {
+              "type": "integer"
+            },
+            "departedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "dwellHours": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

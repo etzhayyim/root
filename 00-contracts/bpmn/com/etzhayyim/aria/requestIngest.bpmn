@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  aria.requestIngest — ADR-2604291800 §ARIA
+
+  Timer-start (R/PT1H): runs every hour.
+  Fetches request intent signals from XRPC call distribution.
+
+  NSID: com.etzhayyim.apps.aria.requestIngest (BPMN dispatcher T2 tier)
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aria-request-ingest-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_aria_request_ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/aria"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="aria_request_ingest" name="ARIA Request Ingest" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.aria.requestIngest", "version": 1, "tier": "T2" }
+    </bpmn:documentation>
+
+    <!-- R/PT1H: fires every hour indefinitely -->
+    <bpmn:startEvent id="Start_Timer" name="R/PT1H">
+      <bpmn:outgoing>Flow_ToIngest</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToIngest" sourceRef="Start_Timer" targetRef="Task_Ingest"/>
+
+    <!-- Fetch request intent signals from XRPC call distribution -->
+    <bpmn:serviceTask id="Task_Ingest" name="Request ingest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aria.request.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=top_nsid"  target="topNsid"/>
+          <zeebe:output source="=eta"       target="requestEta"/>
+          <zeebe:output source="=entropy_h" target="requestH"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToIngest</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Ingest" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

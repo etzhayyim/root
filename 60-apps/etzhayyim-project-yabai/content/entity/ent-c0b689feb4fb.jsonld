@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c0b689feb4fb",
+  "entityId": "ent-c0b689feb4fb",
+  "canonicalName": "stanislas nzeyimana",
+  "aliases": [
+    "stanislas nzeyimana"
+  ]
+}

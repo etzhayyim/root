@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6286a8b974e4",
+  "entityId": "ent-6286a8b974e4",
+  "canonicalName": "сараєв олег володимирович",
+  "aliases": [
+    "сараєв олег володимирович"
+  ]
+}

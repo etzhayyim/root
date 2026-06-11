@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_textile_circularity_record_garment_flow" targetNamespace="https://etzhayyim.ai/bpmn/open-textile-circularity" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_textile_circularity_record_garment_flow" name="recordGarmentFlow" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_textile_circularity&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, flow_id: flowId, brand_lei: brandLei, hs_code: hsCode, product_category: productCategory, fiber_mix: fiberMix, stage: stage, tonnes: tonnes, origin_iso3: originIso3, destination_iso3: destinationIso3, recorded_at: recordedAt, circularity_tier: if stage = &quot;reuse&quot; or stage = &quot;recycle&quot; then &quot;circular&quot; else if stage = &quot;collection&quot; then &quot;recovery&quot; else if stage = &quot;incineration&quot; or stage = &quot;landfill&quot; then &quot;linear&quot; else &quot;in_use&quot;, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-textile-circularity&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-textile-circularity.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.textileCircularity.recordGarmentFlow&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

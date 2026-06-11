@@ -1,0 +1,13 @@
+{
+  "@context": "https://resources.etzhayyim.com/etzhayyim-performers-org-etzhayyim/id/Context/PROJECT",
+  "@type": "Project",
+  "id": "sveltejs-adapter-wasm",
+  "name": "SvelteKit Adapter for wasmCloud",
+  "description": "An adapter for SvelteKit that targets wasmCloud components using QuickJS.",
+  "techStack": {
+    "runtime": "wasmCloud",
+    "language": ["TinyGo", "TypeScript"],
+    "framework": "Svelte 5",
+    "jsEngine": "QuickJS"
+  }
+}

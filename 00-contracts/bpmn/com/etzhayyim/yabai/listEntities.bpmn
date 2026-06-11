@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.listEntities — migration of cmdListEntities.
+
+  Optional `entityType` filter via `extraFilters` (dynamic WHERE added
+  in kotodama 0.2.27).
+
+  Flow:
+    Start (entityType?, limit?)
+      → generic.db.select (vertex_yabai_entity + extraFilters)
+      → End
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yabai_list_entities"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="yabai_list_entities" name="yabai list entities" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Select"/>
+    <bpmn:serviceTask id="Task_Select" name="select recent entities">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_entity&quot;" target="table"/>
+          <zeebe:input source="=[
+              { column: &quot;entity_type&quot;, value: if entityType = null then null else string(entityType) }
+          ]" target="extraFilters"/>
+          <zeebe:input source="=if limit = null then 50 else number(string(limit))" target="limit"/>
+          <zeebe:input source="=&quot;created_at DESC&quot;"     target="orderBy"/>
+          <zeebe:output source="=rows"     target="entities"/>
+          <zeebe:output source="=rowCount" target="total"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Select" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

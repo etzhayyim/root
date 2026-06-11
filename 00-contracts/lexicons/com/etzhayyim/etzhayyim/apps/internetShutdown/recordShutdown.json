@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.internetShutdown.recordShutdown",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Internet shutdown / blackout / throttling event (Access Now STOP / KeepItOn — bridges cellBroadcastAlert.flagDeliveryGap + press-freedom + press-finance-coercion)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "shutdownId",
+            "countryIso3",
+            "shutdownKind",
+            "triggerKind",
+            "beganAt"
+          ],
+          "properties": {
+            "shutdownId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "shutdownKind": {
+              "type": "string",
+              "enum": [
+                "full_blackout",
+                "partial_regional",
+                "platform_specific",
+                "throttling",
+                "dns_blocking",
+                "bgp_route_null",
+                "mobile_suspend",
+                "sms_only",
+                "vpn_block",
+                "tor_block",
+                "bandwidth_cap",
+                "peak_time_off"
+              ]
+            },
+            "triggerKind": {
+              "type": "string",
+              "enum": [
+                "election",
+                "protest",
+                "exam_cheating",
+                "religious_violence",
+                "communal_riot",
+                "military_ops",
+                "state_security",
+                "visit_diplomatic",
+                "sports_event",
+                "border_dispute"
+              ]
+            },
+            "deliveryGapVid": {
+              "type": "string",
+              "description": "bridges cellBroadcastAlert.flagDeliveryGap"
+            },
+            "hoursDark": {
+              "type": "integer"
+            },
+            "beganAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

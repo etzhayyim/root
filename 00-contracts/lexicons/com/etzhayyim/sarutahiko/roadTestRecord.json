@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.roadTestRecord",
+  "description": "Quality road test record (L5c). Roller dynamometer + 50 km public-road test. Norimichi driver (SAE Level 3 driver-in-seat). G12 KPI enforcement. Per ADR-2605252500 L5c.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "dynoResult": {"type": "unknown"},
+          "g12KpiCheck": {
+            "type": "object",
+            "properties": {
+              "maxSpeedKmh": {"type": "number", "maximum": 90},
+              "maxSpeedLimitKmh": {"type": "number", "const": 90},
+              "autonomyMaxLevel": {"type": "integer", "maximum": 4},
+              "rangeKm": {"type": "number", "minimum": 800},
+              "gvwrT": {"type": "number", "maximum": 40},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "publicRoadResult": {"type": "unknown"},
+          "norimichiAttestation": {
+            "type": "object",
+            "properties": {
+              "norimichiDid": {"type": "string", "format": "did"},
+              "humanDriverSbtDid": {"type": "string", "format": "did"},
+              "saeLevel": {"type": "integer", "maximum": 4},
+              "signature": {"type": "string"}
+            }
+          },
+          "overallAccept": {"type": "boolean"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "g12KpiCheck", "overallAccept"]
+      }
+    }
+  }
+}

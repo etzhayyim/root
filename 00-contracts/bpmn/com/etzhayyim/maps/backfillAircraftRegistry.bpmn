@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — backfill vertex_aircraft from OpenSky aircraft database.
+
+  Pipeline:
+    1. flight.registry.refresh — fetch OpenSky aircraft DB CSV
+       (https://opensky-network.org/datasets/metadata/aircraft-database-complete-*.csv,
+       ~620K rows, public, CC-BY 4.0). Parse + INSERT vertex_aircraft rows
+       keyed by icao24 → DID. Resolve registration prefix → ISO 3166-1 alpha-2.
+    2. flight.registry.linkLive — find vertex_aircraft_state rows whose
+       aircraft_did is NULL but icao24 matches a vertex_aircraft.icao24,
+       UPDATE the column + INSERT edge_aircraft_state_for_aircraft.
+
+  Cadence: R/P7D. 620K rows / 7d ingest amortizes RW Hummock pressure.
+  This runs out of band from the live tracker R/PT10S poll.
+
+  com.etzhayyim.apps.maps.backfillAircraftRegistry
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_backfill_aircraft_registry"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_backfill_aircraft_registry" name="maps backfill aircraft registry" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.backfillAircraftRegistry", "version": 1, "resultTimeoutMs": 1800000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 7 days">
+      <bpmn:outgoing>Flow_ToRefresh</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P7D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToRefresh_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToRefresh" sourceRef="Start_Timer" targetRef="Task_Refresh"/>
+    <bpmn:sequenceFlow id="Flow_ToRefresh_Manual" sourceRef="Start_Manual" targetRef="Task_Refresh"/>
+
+    <bpmn:serviceTask id="Task_Refresh" name="OpenSky aircraft DB CSV → vertex_aircraft">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.registry.refresh"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=null" target="csv_url"/>
+          <zeebe:input source="=200000" target="max_rows"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=aircraftIngested" target="aircraftIngested"/>
+          <zeebe:output source="=skipped" target="skipped"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRefresh</bpmn:incoming>
+      <bpmn:incoming>Flow_ToRefresh_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToLink</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToLink" sourceRef="Task_Refresh" targetRef="Task_LinkLive"/>
+
+    <bpmn:serviceTask id="Task_LinkLive" name="link live state → registered (icao24 join)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.registry.linkLive"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50000" target="max_links"/>
+          <zeebe:output source="=linksWritten" target="linksWritten"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLink</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_LinkLive" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit registry-refresh OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.backfillAircraftRegistry&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;aircraftIngested&quot;: aircraftIngested, &quot;skipped&quot;: skipped, &quot;linksWritten&quot;: linksWritten }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

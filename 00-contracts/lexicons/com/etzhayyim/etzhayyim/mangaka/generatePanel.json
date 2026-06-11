@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.generatePanel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 3/8 — Generate one panel candidate image (Animagine XL 4.0 @ pod n911oglid03v5n, 832x1216 monochrome manga ink). HITL gate: caller invokes 3 times (candidateNum=1,2,3), editor picks 1 via status=approved. Backed by BPMN mangaka_generate_panel.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pageId", "panelNum", "panelSummary", "candidateNum"],
+          "properties": {
+            "pageId": { "type": "string" },
+            "panelNum": { "type": "integer", "minimum": 1 },
+            "candidateNum": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "panelSummary": { "type": "string" },
+            "characters": { "type": "string", "description": "Comma-separated character names." },
+            "cameraAngle": { "type": "string", "description": "e.g. 'low angle', 'birds-eye', 'close-up'." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "panelVertexId": { "type": "string", "format": "at-uri" },
+            "blobCid": { "type": "string" },
+            "visualPrompt": { "type": "string" },
+            "renderMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

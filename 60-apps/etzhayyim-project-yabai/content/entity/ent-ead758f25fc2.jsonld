@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ead758f25fc2",
+  "entityId": "ent-ead758f25fc2",
+  "canonicalName": "joint stock company state research institute of instrument engineering",
+  "aliases": [
+    "joint stock company state research institute of instrument engineering"
+  ]
+}

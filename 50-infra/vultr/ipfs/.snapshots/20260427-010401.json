@@ -1,0 +1,84 @@
+{
+  "captured_at": "20260427-010401",
+  "b2_block_count": 47,
+  "identity": {
+    "Identity": {
+      "PeerID": "12D3KooWQoBtuuj2acZCmnyWxs9gyrexMpQGn2EQNQi8A812xbgF",
+      "PrivKey": null
+    },
+    "Datastore": {
+      "Spec": {
+        "mounts": [
+          {
+            "child": {
+              "accessKey": "004d9f6c0ba12580000000003",
+              "bucket": "etzhayyim-nats",
+              "region": "us-west-004",
+              "regionEndpoint": "https://s3.us-west-004.backblazeb2.com",
+              "rootDirectory": "ipfs/blocks",
+              "secretKey": "K004qpIDbFY1Zm1u69sVSjpn/l21yL0",
+              "type": "s3ds"
+            },
+            "mountpoint": "/blocks",
+            "prefix": "s3.datastore",
+            "type": "measure"
+          },
+          {
+            "child": {
+              "path": "datastore",
+              "type": "levelds"
+            },
+            "mountpoint": "/",
+            "prefix": "leveldb.datastore",
+            "type": "measure"
+          }
+        ],
+        "type": "mount"
+      }
+    }
+  },
+  "pins": [
+    "bafkreid4liu3hctamldomksmbsc4gnihhggavlngforcbo5rseix33aqta",
+    "bafkreifq6o2siy7a5sxumaqxhpcoml5n5itkquujwjax7qb6pai45b4aaq",
+    "QmPTq5refPUSPgp1aSnwAu3yVcFLtx584Cho5FyooBsHd4",
+    "bafkreia2oo7lqakjxha6obfb2y32smxwsh6btjpcavmzbm3mufldusbprq",
+    "bafkreiawjstqwinncgwsz2sheurrrvuamohwatvb4jpocla5nvfalmf6gq",
+    "bafkreib2tmmwwmgpktne4wx5tglplx3m3sw2cgywh4wlorofutsfjzehve",
+    "bafkreibnoelefnzgwbcacyt4vh52ymxvzbjq7mmqhtcnwarfq4lzegsiqe",
+    "bafkreicxyqbqco6briteui55v6nwq2xlpzsloqram5hz6qccvnl7mhmtii",
+    "bafkreig7kuif5syu7j7noqasm7gwqiq6rbdk3wbnbezs2odkomx4gmug4a",
+    "bafkreihizhwxlktsesrez73vlj2e3z2z2e6cnyomli66np3hjpppzcovbm",
+    "bafkreiaazj57iai6zzbfpqsmtetbbky3dglepycfuj6nwd6556h53kgkbe",
+    "bafkreibqo5berteeqb3tky7cllkelyahfrk6csau2wcwqhqycne6qiqdzq",
+    "bafkreicpao6leoqwhzrhuh6nahzjn6izcg56fnauajbspozn25fseawsyu",
+    "bafkreif6ubzbe2j7pkeyh5zfbtbr2zgbsxasqh25jwdrs73haavzmzmj3u",
+    "bafkreifbmlqbsmdtyaf3556o5hevetir46vmuzigcvdjsp7yjoddrwa3v4",
+    "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
+    "bafkreifqhapdezy7zoikidytkd3abiicz4uzqon7zqdskplblaqryzchsq",
+    "bafkreifw77na47nv4gs47pz6sulqps6ql3zpzxp5kyilwc45jryy6legtq",
+    "bafkreichjp2ii2t43dgjon6ozzraa3uzjupnoltyidmrpavasvbvp7vzwu",
+    "bafkreick2khlix3rh5kbkni2hidlzdkzt4sur5koxcodzp535vgbtzkt3y",
+    "bafkreidxahb62bxcnhvmp5l52j35ihjmccyu3ayjtecspcmmza5mq7ke2y",
+    "bafkreiek4e7vku4rznrsv6cfnognf2l23wy5uyu6hb3ctqaqxoaped5pqy",
+    "bafkreifvbgymijarlfxzzjfszmk3avx3wurx6bwq5dly6yx3qumabyg3ai",
+    "bafkreihpsuuz6avv6z6e6xvwacco6nwgsnifiwrjwedfcj7e7znqpi5zbi",
+    "bafkreiauohdpd2uyetflfkhwribdeclufbn3mhebr7x5vvb4gvr7qjzktq",
+    "bafkreib2kx5jtwi6ttnc2qnxlgxanoysdinqeeqx4pvb3jwejhxc2edjcm",
+    "bafkreibp7bn6ki2jrigrn2uj5cb64og4kbavzv2ir7oh6ihdxvm6mbhxqy",
+    "bafkreigbjd2bcf4mk2rntvviaw2voixxplkpidrq5tyqjtq3w37lamklfa",
+    "bafkreigl5kktmv4qnjwx5erp2ifsa5hzd6q5yjho26iufeaevraaczncni",
+    "bafkreignluzhwbtttbr4d2x65fry3po32fvggkjz6b2ijeveymijkve4te",
+    "bafkreiguiyziscfv2rskrgz5h25lo5p7cqyt2ust33am54dsmdwqw3pj7i",
+    "bafkreigwmi6hk3yra5ciw3mxc2gk2g2d4znvtek6i3v2dfw2bi3nfgqurm",
+    "bafkreiaevbikwk7vveu2sh2oukjq7bxqh2vpgtz2mvpwluhpik6lwplrw4",
+    "bafkreibrpfndaawq3id47hhjmyplxjbmnqudslhsh7djhvfkmnxakqa7am",
+    "bafkreibxpjrbjxxabnzu2sqghn5ioker3trayqganp5ytqgzeyqhrzs6ay",
+    "bafkreie62vk2fzx25lxdvhw52z76usfchht34zzufinvjbwuizq7ukaq4u",
+    "bafkreif2z3mfbrbpcxu4t6tvvgerxbg4z6bclag4zofbdzcrt7osgncp44",
+    "bafkreifxy4eitkqfedqv5f6cp6fun5nebmv6pb4cvkpzehhqz4taaqgdl4",
+    "bafkreiaez5zwvd2p6btz2cmgpak7hkrm4ngnrid35fxr6oqq4al4enntx4",
+    "bafkreibdn6altgrux7qdf3zpso7c62ibuvr3nbdzapnvoyirzkgqqv4hnq",
+    "bafkreicdttqpliis33y4ekbup2q4vzgzeklcmgaeb6vz5mo7ap3u7bw2ba",
+    "bafkreif74k2ogw2x62dejptwdjcnn6r4uxd2hlydc2sa3x4yvezj4llswu"
+  ]
+}

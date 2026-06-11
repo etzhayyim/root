@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.authz.enforce",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "In-process RBAC enforcement. Throws on deny, returns on allow.",
+      "x-hostImportsMethod": "authzEnforce",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "orgId": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "permissions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requiredPermissions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requiredRoles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "orgId",
+            "role",
+            "permissions",
+            "requiredPermissions",
+            "requiredRoles"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "allowed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "allowed"
+          ]
+        }
+      }
+    }
+  }
+}

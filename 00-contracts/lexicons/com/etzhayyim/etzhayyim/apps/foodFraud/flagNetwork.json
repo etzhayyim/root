@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.foodFraud.flagNetwork",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fraud network / organized adulteration / cross-border (bridges isotopeTraceability.flagOriginMismatch + enforcement-action + fatf-travel-rule)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "incidentVid",
+            "networkKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "incidentVid": {
+              "type": "string",
+              "description": "bridges recordIncident"
+            },
+            "networkKind": {
+              "type": "string",
+              "enum": [
+                "organized_crime",
+                "cross_border",
+                "corporate_insider",
+                "rogue_trader",
+                "mafia_family",
+                "counterfeit_ring",
+                "nsa_reidentified",
+                "iuu_fisheries_linked",
+                "adulterant_supplier_chain",
+                "shell_repackager"
+              ]
+            },
+            "estMarketValueMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

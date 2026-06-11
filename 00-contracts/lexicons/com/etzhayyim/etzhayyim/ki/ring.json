@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.ki.ring",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a versioned knowledge checkpoint (growth ring). Analogous to tree dendrochronology — each ring records conditions at a point in time, enabling knowledge graph time-travel queries.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "period": { "type": "string", "description": "ISO 8601 duration defining the ring period (e.g. PT1H, P1D, P1W)" }
+          },
+          "required": ["period"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ringId": { "type": "string" },
+            "snapshotCount": { "type": "integer", "description": "Number of artifacts captured in this ring" },
+            "error": { "type": "string" }
+          },
+          "required": ["ringId", "snapshotCount"]
+        }
+      }
+    }
+  }
+}

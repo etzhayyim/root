@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yuubin.normalizeDocx",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Normalize .docx to A4 (210x297mm) page size for Web ゆうびん acceptance. Pandoc and Word-for-Mac US locale default to US Letter, which Web ゆうびん rejects. Pure JS implementation (fflate) — unzips .docx, injects <w:pgSz w:w=11906 w:h=16838/> + <w:pgMar ...> into every <w:sectPr>, repacks. Runs in CF Workers.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["blobKey"],
+          "properties": {
+            "blobKey": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "SHA-256 hex blobKey of the source .docx in CDN_R2"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "originalBlobKey":      { "type": "string" },
+            "normalizedBlobKey":    { "type": "string" },
+            "normalizedPublicUrl":  { "type": "string", "format": "uri" },
+            "byteSize":             { "type": "integer" },
+            "deduped":              { "type": "boolean" },
+            "appliedSectPr":        { "type": "string", "description": "The injected XML fragment (for audit)" },
+            "error":                { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "BlobNotFound", "description": "B2 object not found for blobKey" },
+        { "name": "InvalidDocx",  "description": "Could not parse as .docx (word/document.xml missing)" }
+      ]
+    }
+  }
+}

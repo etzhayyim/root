@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.govRwa.resolveOrgPath",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a Rwanda government organization path to its graph record.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "lang": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "nameEn": {
+              "type": "string"
+            },
+            "website": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

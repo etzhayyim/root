@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.tosArbitration.flagUnconscionability",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Unconscionability / Concepcion / DirecTV challenge (bridges massArbitration.flagFeePushback + federal-court-docket + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "changeVid",
+            "grounds",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "changeVid": {
+              "type": "string",
+              "description": "bridges recordClauseChange"
+            },
+            "grounds": {
+              "type": "string",
+              "enum": [
+                "procedural_unconsc",
+                "substantive_unconsc",
+                "concepcion_preempt",
+                "discover_bank",
+                "directv_effective_vindication",
+                "vacatur",
+                "public_policy",
+                "fair_hearing",
+                "arbitrary_delegation",
+                "inescapable_arb"
+              ]
+            },
+            "rulingOutcome": {
+              "type": "string",
+              "enum": [
+                "upheld_clause",
+                "struck_clause",
+                "severed",
+                "reformed",
+                "remanded",
+                "affirmed_on_appeal",
+                "scotus_cert_denied"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open SaaS Control Plane</title>
+    <style>
+      :root {
+        --bg: #efe8db;
+        --paper: rgba(255, 252, 246, 0.88);
+        --paper-strong: #fffdf8;
+        --line: rgba(20, 33, 39, 0.12);
+        --ink: #142127;
+        --muted: #5e6b72;
+        --teal: #0f766e;
+        --teal-soft: #d7f0ea;
+        --orange: #c97118;
+        --orange-soft: #fff0dd;
+        --red: #9f2d2d;
+        --red-soft: #fde7e7;
+        --blue: #2956cc;
+        --blue-soft: #e7eeff;
+        --shadow: 0 24px 64px rgba(16, 24, 40, 0.09);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 24%),
+          radial-gradient(circle at top right, rgba(201, 113, 24, 0.14), transparent 20%),
+          linear-gradient(180deg, #f6f0e7 0%, #ece4d6 100%);
+      }
+
+      .shell {
+        width: min(1260px, calc(100% - 28px));
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .hero,
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        background: var(--paper);
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 18px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--teal-soft);
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(2.3rem, 5vw, 4.8rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.65;
+      }
+
+      .muted { color: var(--muted); }
+
+      .hero-actions,
+      .top-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        border-radius: 14px;
+        min-height: 44px;
+        padding: 0 16px;
+        font-weight: 700;
+        text-decoration: none;
+        color: inherit;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .button.primary { background: var(--ink); color: #fff; }
+      .button.secondary { background: rgba(255,255,255,0.55); border-color: var(--line); }
+
+      .signal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .signal,
+      .card,
+      .form-card,
+      .list-card {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--paper-strong);
+        box-shadow: var(--shadow);
+      }
+
+      .signal { padding: 16px; }
+      .signal strong {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 6px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .overview-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .main-grid { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
+      .tenant-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .detail-grid { grid-template-columns: 1.1fr 0.9fr; }
+      .api-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .card, .form-card, .list-card { padding: 18px; }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin: 26px 0 12px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2vw, 2.2rem);
+        letter-spacing: -0.03em;
+      }
+
+      .kpi-label {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .kpi-value {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+        margin: 10px 0 8px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .badge.stable, .badge.active, .badge.community { background: var(--teal-soft); color: var(--teal); }
+      .badge.watch, .badge.trial, .badge.standard { background: var(--orange-soft); color: var(--orange); }
+      .badge.action, .badge.churn-risk, .badge.priority, .badge.paused, .badge.grace, .badge.canceled { background: var(--red-soft); color: var(--red); }
+      .badge.beta { background: var(--blue-soft); color: var(--blue); }
+
+      .tenant-card header,
+      .list-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: start;
+        margin-bottom: 12px;
+      }
+
+      .tenant-card h3,
+      .list-title h3,
+      .form-card h3,
+      .detail-card h3 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: 10px;
+      }
+
+      .meter-track {
+        width: 100%;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(20, 33, 39, 0.08);
+        overflow: hidden;
+      }
+
+      .meter-fill {
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--teal), var(--orange));
+      }
+
+      .subtle {
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.72);
+      }
+
+      dl {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 14px;
+        margin: 0;
+      }
+
+      dt {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      dd {
+        margin: 4px 0 0;
+        font-weight: 700;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      input, select {
+        width: 100%;
+        min-height: 42px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 0 12px;
+        font: inherit;
+        color: var(--ink);
+      }
+
+      .flash {
+        min-height: 22px;
+        color: var(--teal);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .flash.error { color: var(--red); }
+
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .row {
+        padding: 12px 14px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.72);
+      }
+
+      code {
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.9rem;
+        padding: 4px 7px;
+        border-radius: 9px;
+        border: 1px solid var(--line);
+        background: #f4eee4;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: reveal 0.55s ease forwards;
+      }
+
+      @keyframes reveal {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .overview-grid,
+        .main-grid,
+        .tenant-grid,
+        .detail-grid,
+        .api-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 18px, 1260px); }
+        .hero { padding: 18px; }
+        .signal-grid { grid-template-columns: 1fr; }
+        dl { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <section class="hero reveal">
+        <div>
+          <div class="eyebrow">Open SaaS Control Plane</div>
+          <h1>最初に作るべき SaaS は、<br />tenant と revenue の面です。</h1>
+          <p class="muted">
+            大きいニーズから着手するため、この実装は tenant onboarding、workspace/seat 管理、subscription 状態、usage ledger、audit history を優先しています。
+            機能を増やす前に、誰が契約主体で、どれだけ使い、何が変わったかを見える化します。
+          </p>
+          <div class="hero-actions" style="margin-top:18px">
+            <a class="button primary" href="#tenantSection">tenant を見る</a>
+            <a class="button secondary" href="/api/open-saas/overview">overview API</a>
+          </div>
+        </div>
+        <div class="signal-grid">
+          <article class="signal">
+            <span class="kpi-label">MRR</span>
+            <strong id="mrrKpi">-</strong>
+            <span class="muted">subscription plane の現在値</span>
+          </article>
+          <article class="signal">
+            <span class="kpi-label">Active tenants</span>
+            <strong id="activeTenantKpi">-</strong>
+            <span class="muted">契約継続中の tenant</span>
+          </article>
+          <article class="signal">
+            <span class="kpi-label">Assigned seats</span>
+            <strong id="seatKpi">-</strong>
+            <span class="muted">workspace 配下の利用者数</span>
+          </article>
+          <article class="signal">
+            <span class="kpi-label">Overloaded</span>
+            <strong id="riskKpi">-</strong>
+            <span class="muted">usage が逼迫している tenant</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-head">
+        <div>
+          <h2>Priority view</h2>
+          <p class="muted">最初に作るべき領域と、その理由を overview から表示します。</p>
+        </div>
+      </section>
+      <div id="priorityGrid" class="grid overview-grid"></div>
+
+      <section class="section-head" id="tenantSection">
+        <div>
+          <h2>Tenant operations</h2>
+          <p class="muted">新規 tenant 作成と usage 記録を同じ control plane 上で試せます。</p>
+        </div>
+        <div class="top-actions">
+          <button class="button secondary" id="reloadButton" type="button">再読み込み</button>
+        </div>
+      </section>
+      <div class="grid main-grid">
+        <div class="stack">
+          <div id="tenantGrid" class="grid tenant-grid"></div>
+          <div class="panel detail-card" style="padding:18px">
+            <div class="list-title">
+              <h3>Selected tenant detail</h3>
+              <span id="detailBadge" class="badge beta">loading</span>
+            </div>
+            <div id="tenantDetail" class="stack"></div>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="form-card">
+            <h3>Create tenant</h3>
+            <p class="muted" style="margin:8px 0 12px">需要が最も大きい onboarding を最初に叩けるようにしています。</p>
+            <form id="tenantForm">
+              <label>Tenant name<input name="name" placeholder="Example Industries" required /></label>
+              <label>Owner email<input name="ownerEmail" type="email" placeholder="owner@example.com" required /></label>
+              <label>Plan<select name="planId" id="planSelect"></select></label>
+              <label>Workspace name<input name="workspaceName" placeholder="Core Workspace" /></label>
+              <button class="button primary" type="submit">tenant を作成</button>
+            </form>
+            <div class="flash" id="tenantFlash"></div>
+          </div>
+          <div class="form-card">
+            <h3>Record usage</h3>
+            <p class="muted" style="margin:8px 0 12px">billing の根拠になる usage ledger を append-only で記録します。</p>
+            <form id="usageForm">
+              <label>Tenant<select name="tenantId" id="usageTenantSelect"></select></label>
+              <label>Workspace<select name="workspaceId" id="usageWorkspaceSelect"></select></label>
+              <label>Metric<select name="metric">
+                <option value="automation-runs">automation-runs</option>
+                <option value="api-calls">api-calls</option>
+                <option value="seats">seats</option>
+              </select></label>
+              <label>Quantity<input name="quantity" type="number" min="1" value="100" required /></label>
+              <button class="button primary" type="submit">usage を記録</button>
+            </form>
+            <div class="flash" id="usageFlash"></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section-head">
+        <div>
+          <h2>Subscriptions and audit</h2>
+          <p class="muted">revenue plane と operator history を同じ画面で確認します。</p>
+        </div>
+      </section>
+      <div class="grid detail-grid">
+        <div class="list-card">
+          <div class="list-title">
+            <h3>Subscriptions</h3>
+            <code>/api/open-saas/subscriptions</code>
+          </div>
+          <div id="subscriptionList" class="list"></div>
+        </div>
+        <div class="list-card">
+          <div class="list-title">
+            <h3>Recent audit</h3>
+            <code>/api/open-saas/audit</code>
+          </div>
+          <div id="auditList" class="list"></div>
+        </div>
+      </div>
+
+      <section class="section-head">
+        <div>
+          <h2>Open API surface</h2>
+          <p class="muted">この turn で重要度の高い SaaS API を揃えています。</p>
+        </div>
+      </section>
+      <div id="apiGrid" class="grid api-grid"></div>
+    </div>
+
+    <script>
+      const state = {
+        overview: null,
+        plans: [],
+        subscriptions: [],
+        audit: [],
+        selectedTenantId: null,
+      };
+
+      async function loadAll() {
+        const [overviewRes, plansRes, subsRes, auditRes, blueprintRes] = await Promise.all([
+          fetch("/api/open-saas/overview"),
+          fetch("/api/open-saas/plans"),
+          fetch("/api/open-saas/subscriptions"),
+          fetch("/api/open-saas/audit?limit=12"),
+          fetch("/api/open-saas/blueprint"),
+        ]);
+        if (![overviewRes, plansRes, subsRes, auditRes, blueprintRes].every((res) => res.ok)) {
+          throw new Error("failed to load open saas control plane");
+        }
+        state.overview = await overviewRes.json();
+        state.plans = (await plansRes.json()).items;
+        state.subscriptions = (await subsRes.json()).items;
+        state.audit = (await auditRes.json()).items;
+        state.blueprint = await blueprintRes.json();
+
+        if (!state.selectedTenantId && state.overview.tenants[0]) {
+          state.selectedTenantId = state.overview.tenants[0].tenant.tenantId;
+        }
+        render();
+      }
+
+      function render() {
+        renderKpis();
+        renderPriorities();
+        renderTenantCards();
+        renderPlans();
+        renderUsageTenantOptions();
+        renderSelectedTenant();
+        renderSubscriptions();
+        renderAudit();
+        renderApis();
+      }
+
+      function renderKpis() {
+        document.getElementById("mrrKpi").textContent = yen(state.overview.totalMrrJpy);
+        document.getElementById("activeTenantKpi").textContent = String(state.overview.activeTenants);
+        document.getElementById("seatKpi").textContent = String(state.overview.totalAssignedSeats);
+        document.getElementById("riskKpi").textContent = String(state.overview.overloadedTenants);
+      }
+
+      function renderPriorities() {
+        document.getElementById("priorityGrid").innerHTML = state.overview.highestNeedAreas.map((item) => `
+          <article class="card reveal">
+            <div class="kpi-label">${escapeHtml(item.key)}</div>
+            <div class="kpi-value" style="font-size:1.3rem">${escapeHtml(item.name)}</div>
+            <p class="muted">${escapeHtml(item.reason)}</p>
+          </article>
+        `).join("");
+      }
+
+      function renderTenantCards() {
+        const host = document.getElementById("tenantGrid");
+        host.innerHTML = state.overview.tenants.map((snapshot) => `
+          <article class="card tenant-card reveal" data-tenant-card="${escapeHtml(snapshot.tenant.tenantId)}">
+            <header>
+              <div>
+                <h3>${escapeHtml(snapshot.tenant.name)}</h3>
+                <p class="muted">${escapeHtml(snapshot.tenant.primaryOwnerEmail)}</p>
+              </div>
+              <span class="badge ${escapeHtml(snapshot.riskLevel)}">${escapeHtml(snapshot.riskLevel)}</span>
+            </header>
+            <div class="stack">
+              <div class="subtle">
+                <p class="muted">plan</p>
+                <strong>${escapeHtml(snapshot.plan ? snapshot.plan.name : "Unknown")}</strong>
+              </div>
+              <div class="subtle">
+                <p class="muted">usage</p>
+                <div class="meter-track"><div class="meter-fill" style="width:${Math.min(snapshot.usageSummary.usagePct, 100)}%"></div></div>
+                <p class="muted">${snapshot.usageSummary.usagePct}% of included units</p>
+              </div>
+              <div class="subtle">
+                <p class="muted">seats</p>
+                <strong>${snapshot.seatSummary.assignedSeats} / ${snapshot.seatSummary.seatLimit}</strong>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        host.querySelectorAll("[data-tenant-card]").forEach((node) => {
+          node.addEventListener("click", () => {
+            state.selectedTenantId = node.getAttribute("data-tenant-card");
+            renderSelectedTenant();
+          });
+        });
+      }
+
+      function renderPlans() {
+        const planSelect = document.getElementById("planSelect");
+        planSelect.innerHTML = state.plans.map((plan) =>
+          `<option value="${escapeHtml(plan.planId)}">${escapeHtml(plan.name)} · ${yen(plan.priceJpyMonthly)}</option>`
+        ).join("");
+      }
+
+      function renderUsageTenantOptions() {
+        const tenantSelect = document.getElementById("usageTenantSelect");
+        tenantSelect.innerHTML = state.overview.tenants.map((snapshot) =>
+          `<option value="${escapeHtml(snapshot.tenant.tenantId)}">${escapeHtml(snapshot.tenant.name)}</option>`
+        ).join("");
+
+        if (state.selectedTenantId) tenantSelect.value = state.selectedTenantId;
+        tenantSelect.onchange = () => {
+          state.selectedTenantId = tenantSelect.value;
+          renderSelectedTenant();
+          renderUsageWorkspaceOptions();
+        };
+        renderUsageWorkspaceOptions();
+      }
+
+      function renderUsageWorkspaceOptions() {
+        const tenant = state.overview.tenants.find((item) => item.tenant.tenantId === state.selectedTenantId);
+        const workspaceSelect = document.getElementById("usageWorkspaceSelect");
+        workspaceSelect.innerHTML = (tenant?.workspaces || []).map((workspace) =>
+          `<option value="${escapeHtml(workspace.workspaceId)}">${escapeHtml(workspace.name)} · ${escapeHtml(workspace.environment)}</option>`
+        ).join("");
+      }
+
+      function renderSelectedTenant() {
+        const tenant = state.overview.tenants.find((item) => item.tenant.tenantId === state.selectedTenantId);
+        const detailBadge = document.getElementById("detailBadge");
+        const detail = document.getElementById("tenantDetail");
+        if (!tenant) {
+          detailBadge.textContent = "none";
+          detail.className = "stack";
+          detail.innerHTML = `<div class="subtle">tenant がありません</div>`;
+          return;
+        }
+        detailBadge.className = `badge ${tenant.riskLevel}`;
+        detailBadge.textContent = tenant.riskLevel;
+        detail.innerHTML = `
+          <div class="subtle">
+            <div class="list-title">
+              <h3>${escapeHtml(tenant.tenant.name)}</h3>
+              <span class="badge ${escapeHtml(tenant.subscription ? tenant.subscription.status : "beta")}">${escapeHtml(tenant.subscription ? tenant.subscription.status : "no-subscription")}</span>
+            </div>
+            <dl>
+              <div><dt>Owner</dt><dd>${escapeHtml(tenant.tenant.primaryOwnerEmail)}</dd></div>
+              <div><dt>Plan</dt><dd>${escapeHtml(tenant.plan ? tenant.plan.name : "Unknown")}</dd></div>
+              <div><dt>MRR</dt><dd>${tenant.subscription ? yen(tenant.subscription.mrrJpy) : "-"}</dd></div>
+              <div><dt>Renewal</dt><dd>${formatDate(tenant.tenant.renewalAt)}</dd></div>
+              <div><dt>Usage units</dt><dd>${tenant.usageSummary.totalUnits.toLocaleString("ja-JP")}</dd></div>
+              <div><dt>Assigned seats</dt><dd>${tenant.seatSummary.assignedSeats}</dd></div>
+            </dl>
+          </div>
+          <div class="subtle">
+            <p class="muted" style="margin-bottom:10px">Workspaces</p>
+            <div class="list">
+              ${tenant.workspaces.map((workspace) => `
+                <div class="row">
+                  <strong>${escapeHtml(workspace.name)}</strong>
+                  <p class="muted">${escapeHtml(workspace.environment)} · ${escapeHtml(workspace.region)} · seat limit ${workspace.seatLimit}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+          <div class="subtle">
+            <p class="muted" style="margin-bottom:10px">Memberships</p>
+            <div class="list">
+              ${tenant.memberships.map((member) => `
+                <div class="row">
+                  <strong>${escapeHtml(member.email)}</strong>
+                  <p class="muted">${escapeHtml(member.role)} · ${escapeHtml(member.workspaceId)}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderSubscriptions() {
+        document.getElementById("subscriptionList").innerHTML = state.subscriptions.map((item) => `
+          <div class="row">
+            <div class="list-title">
+              <h3>${escapeHtml(item.tenant ? item.tenant.name : item.tenantId)}</h3>
+              <span class="badge ${escapeHtml(item.status)}">${escapeHtml(item.status)}</span>
+            </div>
+            <p class="muted">${escapeHtml(item.plan ? item.plan.name : item.planId)} · ${yen(item.mrrJpy)} · ${escapeHtml(item.contractMode)}</p>
+            <p class="muted">renewal ${formatDate(item.renewalAt)}</p>
+          </div>
+        `).join("");
+      }
+
+      function renderAudit() {
+        document.getElementById("auditList").innerHTML = state.audit.map((item) => `
+          <div class="row">
+            <div class="list-title">
+              <h3>${escapeHtml(item.action)}</h3>
+              <code>${escapeHtml(item.resourceType)}</code>
+            </div>
+            <p>${escapeHtml(item.summary)}</p>
+            <p class="muted">${escapeHtml(item.actor)} · ${formatDate(item.createdAt)}</p>
+          </div>
+        `).join("");
+      }
+
+      function renderApis() {
+        document.getElementById("apiGrid").innerHTML = state.blueprint.apiDomains.map((item) => `
+          <article class="card">
+            <div class="list-title">
+              <h3><code>${escapeHtml(item.path)}</code></h3>
+            </div>
+            <p class="muted">${escapeHtml(item.purpose)}</p>
+          </article>
+        `).join("");
+      }
+
+      function yen(value) {
+        return `¥${Number(value).toLocaleString("ja-JP")}`;
+      }
+
+      function formatDate(value) {
+        return new Date(value).toLocaleString("ja-JP", { dateStyle: "medium" });
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function setFlash(id, message, isError) {
+        const node = document.getElementById(id);
+        node.textContent = message;
+        node.className = isError ? "flash error" : "flash";
+      }
+
+      document.getElementById("reloadButton").addEventListener("click", async () => {
+        await loadAll();
+      });
+
+      document.getElementById("tenantForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        try {
+          const response = await fetch("/api/open-saas/tenants", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(Object.fromEntries(form.entries())),
+          });
+          const payload = await response.json();
+          if (!response.ok) throw new Error(payload.error || "tenant create failed");
+          state.selectedTenantId = payload.tenant.tenantId;
+          setFlash("tenantFlash", `tenant ${payload.tenant.name} を作成しました`, false);
+          event.currentTarget.reset();
+          await loadAll();
+        } catch (error) {
+          setFlash("tenantFlash", String(error.message || error), true);
+        }
+      });
+
+      document.getElementById("usageForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        const body = Object.fromEntries(form.entries());
+        body.quantity = Number(body.quantity);
+        try {
+          const response = await fetch("/api/open-saas/usage", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const payload = await response.json();
+          if (!response.ok) throw new Error(payload.error || "usage record failed");
+          setFlash("usageFlash", `usage ${payload.metric} を ${payload.quantity} 記録しました`, false);
+          await loadAll();
+        } catch (error) {
+          setFlash("usageFlash", String(error.message || error), true);
+        }
+      });
+
+      loadAll().catch((error) => {
+        document.body.insertAdjacentHTML(
+          "beforeend",
+          `<div style="position:fixed;left:16px;bottom:16px;padding:12px 14px;border-radius:14px;background:#7a1f1f;color:#fff">open-saas control plane load failed: ${escapeHtml(error.message || error)}</div>`,
+        );
+      });
+    </script>
+  </body>
+</html>

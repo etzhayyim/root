@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.getGsplatAsset",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a 3D Gaussian Splat preview asset by tile (H3 cell) or by AT vertex_id. Returns metadata + a short-lived B2 signed URL for the binary payload. Preview / QC scope only — runtime delivery uses baked static meshes.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "tileH3": { "type": "string" },
+          "vertexId": { "type": "string" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["meta", "signedUrl", "expiresInSec"],
+          "properties": {
+            "meta": {
+              "type": "object",
+              "required": [
+                "vertexId",
+                "sourceDid",
+                "tileH3",
+                "b2Key",
+                "byteSize",
+                "splatCount",
+                "shDegree",
+                "format",
+                "generatedAt"
+              ],
+              "properties": {
+                "vertexId": { "type": "string" },
+                "sourceDid": { "type": "string" },
+                "tileH3": { "type": "string" },
+                "b2Key": { "type": "string" },
+                "byteSize": { "type": "integer" },
+                "splatCount": { "type": "integer" },
+                "shDegree": { "type": "integer" },
+                "format": { "type": "string", "knownValues": ["ply", "splat"] },
+                "generatedAt": { "type": "string", "format": "datetime" },
+                "bakeJobId": { "type": "string" }
+              }
+            },
+            "signedUrl": { "type": "string", "format": "uri" },
+            "expiresInSec": { "type": "integer", "minimum": 1, "maximum": 86400 },
+            "bakedMesh": {
+              "type": "object",
+              "description": "Set when an `edge_maps_gsplat_baked_to` row resolves to a `vertex_maps_gsplat_mesh` for this splat. Mesh is the runtime-delivery format (260416 design); the splat itself stays preview/QC.",
+              "required": ["vertexId", "tileH3", "b2Key", "byteSize", "triangleCount", "bakedAt"],
+              "properties": {
+                "vertexId": { "type": "string" },
+                "tileH3": { "type": "string" },
+                "b2Key": { "type": "string" },
+                "byteSize": { "type": "integer" },
+                "triangleCount": { "type": "integer" },
+                "bakedAt": { "type": "string", "format": "datetime" },
+                "bakeJobId": { "type": "string" }
+              }
+            },
+            "bakedMeshUrl": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    }
+  }
+}

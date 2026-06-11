@@ -1,0 +1,58 @@
+;; futawa 二輪 — actor manifest (Gen-3 kotoba-native)
+;; Small-displacement motorcycle manufacturing — 9 Pregel cells implementing 5-layer assembly
+;; ADR-2605261330 (R0 scaffold)
+{:actor/id        "futawa"
+ :actor/glyph     "二"
+ :actor/tier      :tier-b
+ :actor/domain    "futawa.etzhayyim.com"
+ :actor/purpose   "Small-displacement motorcycle manufacturing (≤250cc / ≤15kW). 9 Pregel cells implementing 5-layer assembly (L1 frame welding → L2 engine/drivetrain → L3 electrical/suspension → L4 body/paint → L5 assembly/test/provenance). G7 ABS-mandatory ≥125cc/≥6kW. G8 NO surveillance built-in. G12 RIGHT-TO-REPAIR forward-publishing. G14 30-year service life. Murakumo-only, kotoba-EAVT-native."
+ :actor/status    :r0
+ :actor/adr       "2605261330"
+ :actor/related   ["2605261330"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-source-cad-firmware"       :gate/rule "All robot firmware + CAD + fixtures open-source (Apache 2.0 + Charter Rider)"}
+  {:gate/id "G2"  :gate/name "mass-balance-witness"            :gate/rule "≥98% mass-balance closure; ≥2 distinct robots witness per assembly lot"}
+  {:gate/id "G3"  :gate/name "robot-witness-quorum"            :gate/rule "≥2 distinct robots witness per build lot (frame + engine assembly canonical)"}
+  {:gate/id "G4"  :gate/name "bilingual-documentation"        :gate/rule "English + Japanese for all manufacturing docs / service manuals"}
+  {:gate/id "G5"  :gate/name "charter-rider-artwork-scan"      :gate/rule "Charter §2(a-h) scan on every design/artwork; no prohibited content"}
+  {:gate/id "G6"  :gate/name "sound-emission-cap"              :gate/rule "≤80 dB(A) stock exhaust (G6 safety non-negotiable); dyno witness"}
+  {:gate/id "G7"  :gate/name "abs-mandatory-safety"            :gate/rule "ABS-mandatory ≥125cc/≥6kW electric; NO ABS-delete; §1.13 adherent safety non-negotiable"}
+  {:gate/id "G8"  :gate/name "anti-surveillance-build-time"    :gate/rule "NO GPS/telematics/connected-app/V2X/proprietary diagnostic-DRM built-in; passive odometer only; optional user-installed open-source GPS module"}
+  {:gate/id "G9"  :gate/name "murakumo-inference"              :gate/rule "Inference is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited"}
+  {:gate/id "G10" :gate/name "sbt-gated-personnel"             :gate/rule "Manufacturing personnel gated by SBT (Adherent or certified-SME)"}
+  {:gate/id "G11" :gate/name "capacity-caps"                   :gate/rule "≤250cc / ≤15kW / ≤200kg dry weight caps enforced at build"}
+  {:gate/id "G12" :gate/name "right-to-repair-forward-publish" :gate/rule "IPFS-pinned full parts catalog + CAD + firmware source + service manual + open diagnostic protocol at manufacture; no proprietary lock-in; part availability 30 years post-discontinue"}
+  {:gate/id "G13" :gate/name "hodoki-vin-pre-registration"     :gate/rule "VIN pre-registered with hodoki at production; ≥10% recycled mass via kanayama"}
+  {:gate/id "G14" :gate/name "30-year-service-life"            :gate/rule "Frame + engine + transmission + motor housing + structural suspension designed 30-year fatigue + corrosion + wear; firmware 30-year update commitment"}
+  {:gate/id "G15" :gate/name "kotoba-eavt-native"              :gate/rule "State is kotoba EAVT Datoms (no SQL/RisingWave/Cypher)"}
+  {:gate/id "G16" :gate/name "tithe-non-fiat"                  :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
+  {:gate/id "G17" :gate/name "no-server-key"                   :gate/rule "Platform holds no key (member/operator signs)"}
+  {:gate/id "G18" :gate/name "consent-bound"                   :gate/rule "Real outward actions stay gated (compute-only R0; settlement stops at 'intent')"}
+  {:gate/id "G19" :gate/name "pii-encrypted"                   :gate/rule "PII is encrypted"}]
+
+ :actor/cells
+ [{:cell/id "moto_frame_welding"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_engine_assembly"       :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_drivetrain_assembly"   :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_electrical_harness"    :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_suspension_brake"      :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_body_paint"            :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_final_assembly"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_test_dyno_road"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "moto_provenance_binder"     :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "frameAttestation"}
+  {:lex/id "engineAttestation"}
+  {:lex/id "electricalAttestation"}
+  {:lex/id "paintAttestation"}
+  {:lex/id "vehicleLotAttestation"}
+  {:lex/id "testRecord"}
+  {:lex/id "partsCatalog"}
+  {:lex/id "silenMobilityReview"}]
+}

@@ -1,0 +1,36 @@
+{
+  "agentRegistration": {
+    "bytes": 2837,
+    "cid": "bafkreifsrp65mol2uo6wn3pgyaynbpp7u3ajyfyjvz4l3pjvautkckh6aa",
+    "dryRun": false,
+    "gatewayUrl": "https://ipfs.etzhayyim.com/ipfs/bafkreifsrp65mol2uo6wn3pgyaynbpp7u3ajyfyjvz4l3pjvautkckh6aa",
+    "ipfsBase": "https://ipfs.etzhayyim.com",
+    "ok": true,
+    "published": true,
+    "sha256": "0xb28bfdd6397aa3bd66ede6c030d0bdffa6c09c1709ae78bdbd350526a128fe00",
+    "uri": "ipfs://bafkreifsrp65mol2uo6wn3pgyaynbpp7u3ajyfyjvz4l3pjvautkckh6aa"
+  },
+  "dryRun": false,
+  "generatedAt": "2026-05-07T12:20:00Z",
+  "ok": true,
+  "preflight": {
+    "chainErrors": []
+  },
+  "publishIpfs": true,
+  "submitChain": true,
+  "chain": {
+    "ok": true,
+    "submitted": true,
+    "via": "safe-2-of-3",
+    "safe": "0xc0C20918372bf200faf3587eB0C6685a830daFc1",
+    "registry": "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
+    "chainId": 260425,
+    "tokenId": 3,
+    "rootDidHash": "0xbe0b02c82b03b1cf5a53787f3e20b1ca39655bbc3fe195c4dbe7540a63822b0a",
+    "owner": "0xe506d815690ab0b81bf2f34b5057d7b8b96fe643",
+    "agentURI": "ipfs://bafkreifsrp65mol2uo6wn3pgyaynbpp7u3ajyfyjvz4l3pjvautkckh6aa",
+    "txHash": "0x82bc9f893eb5695ffeaf59c27f3a5dc892b84d89966b945cab864122565ffa75",
+    "blockNumber": "0x3450f",
+    "safeTxHash": "0xbd348de3eb59a33efc675e6e0618554824c505e756cadf7c35250c09b53e3411"
+  }
+}

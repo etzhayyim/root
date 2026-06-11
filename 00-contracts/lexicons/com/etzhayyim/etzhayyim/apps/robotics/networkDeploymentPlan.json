@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.network.deployment.plan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Plan robotics missions for telecom network deployment, survey, commissioning, and evidence capture across supported media.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "requestId": { "type": "string" },
+            "siteId": { "type": "string" },
+            "robotFleetId": { "type": "string" },
+            "media": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsNetworkDeploymentPlan": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

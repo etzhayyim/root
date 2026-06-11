@@ -1,0 +1,18 @@
+;; yamabiko 山彦 — dynamic_test cell (L5b)
+{:cell/id          "dynamic_test"
+ :cell/glyph       "🚄"
+ :cell/kind        :langgraph
+ :cell/runtime     :wasm
+ :cell/doc         "L5b dynamic test: speed ramp-up to Wave 1 max (≤320 km/h per G12), braking, emergency procedures, and power-system validation under load."
+ :cell/gates       [{:gate/id "G12" :gate/name "autonomous-cap"}]
+ :cell/llm         {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/kotoba      {:reads    []
+                    :writes   []}
+ :cell/state-graph {:nodes [{:id "start" :type "llm-prompt" :prompt "Collect dynamic test telemetry: speed profile, braking distance, power draw, emergency stop response, thermal signature."}
+                           {:id "validate" :type "function" :func "validate_dynamic_test"}
+                           {:id "record" :type "function" :func "record_dynamic_test_record"}
+                           {:id "end" :type "return"}]
+                    :entry    "start"
+                    :edges    [{:from "start" :to "validate"}
+                               {:from "validate" :to "record"}
+                               {:from "record" :to "end"}]}}

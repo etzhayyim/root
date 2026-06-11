@@ -1,0 +1,46 @@
+# kotoba-datomic-projection manifest — feed-discover
+#
+# Per ADR-2605231500. This manifest grants the substrate-boundary lint
+# allow-rule for `50-infra/mst-projector/src/feed-discover.ts` (and any
+# future projection emitters that ship in this daemon). New projection
+# modules go in this manifest, never in a new uncovered location.
+
+[[projection]]
+name = "feed-discover"
+level = "L1-projection"  # bumped from L0 on 2026-05-23 — CI replay test landed
+                         # at `test/feed-discover.replay.test.ts` per ADR-2605231500
+
+# Lexicon governing the emitted snapshot record.
+lexicon = "com.etzhayyim.projection.feedDiscover"
+
+# Daemon emitter — line-comment marker also present in source.
+emitter = "src/feed-discover.ts"
+
+# Source collections consumed from kotoba-datomic-chain (PDS firehose).
+source_collections = ["app.bsky.feed.post"]
+
+# Optional supplementary inputs (membrane verdict sidecar). When the
+# membrane sidecar emits an `com.etzhayyim.membrane.verdict` for one of
+# the indexed records, the projection updates the `verdict` field
+# (and drops the entry entirely on `reject`). See
+# `40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/`.
+supplementary_collections = ["com.etzhayyim.membrane.verdict"]
+
+# Rebuild contract. The runbook must reproduce the projection from the
+# firehose alone, with no operator-held state.
+rebuild_runbook = "REBUILD.md"
+rebuild_estimated_minutes = 60
+
+# ADR provenance.
+adr = ["2605231500", "2605191655", "2605171800", "2605231400"]
+
+# Conformance-level upgrade history.
+upgrade_to_l1 = "test/feed-discover.replay.test.ts — landed 2026-05-23"
+upgrade_to_l2 = "1% random-slice replay against live PDS — pending; would gate pre-deploy"
+
+# Non-determinism enumerated (per ADR §L2 conformance gate). Required to
+# claim L2 in the future. Currently irrelevant since we're at L0.
+intentional_non_determinism = [
+  # snapshotAt is wall-clock; excluded from L2 comparator.
+  { field = "snapshotAt", reason = "wall clock; excluded from golden compare" },
+]

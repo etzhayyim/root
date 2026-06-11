@@ -1,0 +1,78 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@ctgserver.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][AS152194] 51 phishing domains on your network (Etzhayyim Yabai)
+Date: Sun, 19 Apr 2026 11:22:50 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello CTG Server Limited HK abuse team,
+
+We are reporting 51 domains currently resolving to your network
+(CTGSERVERLIMITED-AS-AP CTG Server Limited, HK, AS152194, HK). Full list below (domain => ip):
+
+account-whatsapp.com => 103.19.190.221
+bq-line.me => 103.19.190.221
+gr-line.me => 103.19.190.221
+help-whatssopp.com => 103.19.190.221
+jd-line.me => 103.19.190.221
+jw-line.me => 103.19.190.221
+kc-line.me => 103.19.190.221
+l0-line.me => 103.19.190.221
+l1-line.me => 103.19.190.221
+l2-line.me => 103.19.190.221
+l3-line.me => 103.19.190.221
+l4-line.me => 103.19.190.221
+l5-line.me => 103.19.190.221
+l6-line.me => 103.19.190.221
+l7-line.me => 103.19.190.221
+l8-line.me => 103.19.190.221
+l9-line.me => 103.19.190.221
+ls-line.me => 103.19.190.221
+of-line.me => 103.19.190.221
+pv-line.me => 103.19.190.221
+pw-line.me => 103.19.190.221
+vu-line.me => 103.19.190.221
+w0-line.me => 103.19.190.221
+w1-line.me => 103.19.190.221
+w2-line.me => 103.19.190.221
+w3-line.me => 103.19.190.221
+w4-line.me => 103.19.190.221
+w5-line.me => 103.19.190.221
+w6-line.me => 103.19.190.221
+w7-line.me => 103.19.190.221
+w8-line.me => 103.19.190.221
+w9-line.me => 103.19.190.221
+whaaatspp.cc => 103.19.190.221
+whaaatspp.vip => 103.19.190.221
+whaatsupp.app => 103.19.190.221
+whaatupp.com => 103.19.190.221
+whactsopp.com => 103.19.190.221
+whaitsupp.com => 103.19.190.221
+whateepp.com => 103.19.190.221
+whatsapp-jp1.com => 103.19.190.221
+whatsapp-jp2.com => 103.19.190.221
+whatssapp.club => 103.19.190.221
+whatstsnpp.com => 103.19.190.221
+whatstxopp.com => 103.19.190.221
+whattsscpp.com => 103.19.190.221
+whattssopp.com => 103.19.190.221
+whatttpp.com => 103.19.190.221
+whaxxsupp.com => 103.19.190.221
+whiatsapp.com => 103.19.190.221
+whsssapp.com => 103.19.190.221
+xo-line.me => 103.19.190.221
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

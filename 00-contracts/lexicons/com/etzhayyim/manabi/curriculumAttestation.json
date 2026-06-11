@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manabi.curriculumAttestation",
+  "description": "Curriculum module declaration. Open-source content CID + Council Lv6+ ≥3 charter-alignment review attestation + Charter Rider §2 scan. G1 + G4 + G8 + G9 structural enforcement. Per ADR-2605261045.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "moduleId": {"type": "string"},
+          "title": {"type": "string"},
+          "domain": {"type": "string", "knownValues": ["literacy", "numeracy", "civics_charter", "vocational", "lifelong_inquiry"]},
+          "languages": {"type": "array", "items": {"type": "string"}, "description": "G5: EN + JA minimum"},
+          "contentCid": {"type": "string", "description": "G1: IPFS-pinned open-source content"},
+          "licenseDeclaration": {"type": "string", "knownValues": ["Apache-2.0", "CC-BY-SA-4.0"], "description": "G8: no proprietary"},
+          "charterAlignmentAttestations": {"type": "array", "items": {"type": "string"}, "minItems": 3, "description": "G4: Council Lv6+ ≥3 review"},
+          "charterRiderScanResult": {"type": "string", "knownValues": ["pass", "fail", "warn"], "description": "Automated §2 scan"},
+          "inquiryFractionPct": {"type": "number", "description": "G13: ≥30% learner-led"},
+          "comparativeReligionFlag": {"type": "boolean", "description": "G14: required true for any religion-touching module"},
+          "noAddictionUxAttestationCid": {"type": "string", "description": "G3: no streaks/rewards/FOMO/leaderboards/badges-as-status"},
+          "publishedAt": {"type": "string"}
+        },
+        "required": ["moduleId", "title", "domain", "languages", "contentCid", "licenseDeclaration", "charterAlignmentAttestations", "charterRiderScanResult", "inquiryFractionPct", "noAddictionUxAttestationCid"]
+      }
+    }
+  }
+}

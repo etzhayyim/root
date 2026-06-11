@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.follow",
+  "description": "Bluesky follow relation snapshot (ADR-0037)。公開 relation なので T2。subject 側が opt-out した場合は cascade purge。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sourceDid", "subjectDid", "createdAt", "indexedAt"],
+        "properties": {
+          "sourceDid": { "type": "string", "description": "follower DID" },
+          "subjectDid": { "type": "string", "description": "followee DID" },
+          "sourceRkey": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "indexedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

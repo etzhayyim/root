@@ -1,0 +1,19 @@
+{
+  "description": "Reverse-topological sales DAG for open-salesforce. Nodes are listed in REVERSE topo order — index 0 is the leaf (no outgoing deps, final outcome); index N-1 is the root (ICP, pure prerequisite). Each /loop tick produces the artifact for nodes[pointer], then increments pointer.",
+  "approach": "Work backwards from closed-won. Each later-produced artifact informs the earlier-topo artifact that must support it.",
+  "nodes": [
+    { "id": "01-reference-case-study",  "title": "Closed-won reference case study (imagined)",       "artifact": "01-reference-case-study.md" },
+    { "id": "02-onboarding-playbook",   "title": "Tenant onboarding playbook",                        "artifact": "02-onboarding-playbook.md" },
+    { "id": "03-contract-sow",          "title": "Contract / SOW template",                           "artifact": "03-contract-sow.md" },
+    { "id": "04-poc-plan",              "title": "Proof-of-concept plan (30-day)",                    "artifact": "04-poc-plan.md" },
+    { "id": "05-discovery-script",      "title": "Discovery call script + qualification",             "artifact": "05-discovery-script.md" },
+    { "id": "06-inbound-content",       "title": "Inbound deep-dive content plan",                    "artifact": "06-inbound-content.md" },
+    { "id": "07-outbound-sequence",     "title": "Outbound cold email + LinkedIn sequence",           "artifact": "07-outbound-sequence.md" },
+    { "id": "08-pricing",               "title": "Pricing + packaging",                               "artifact": "08-pricing.md" },
+    { "id": "09-demo-script",           "title": "Demo script + seeded tenant",                       "artifact": "09-demo-script.md" },
+    { "id": "10-landing-page",          "title": "Landing page copy",                                 "artifact": "10-landing-page.md" },
+    { "id": "11-messaging-pillars",     "title": "Messaging pillars",                                 "artifact": "11-messaging-pillars.md" },
+    { "id": "12-positioning",           "title": "Positioning statement",                             "artifact": "12-positioning.md" },
+    { "id": "13-icp",                   "title": "ICP — ideal customer profile",                      "artifact": "13-icp.md" }
+  ]
+}

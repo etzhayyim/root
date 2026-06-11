@@ -1,0 +1,722 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "signal XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://signal.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.signal.ensureDevice": {
+      "post": {
+        "summary": "com.etzhayyim.signal.ensureDevice",
+        "operationId": "com.etzhayyim.signal.ensureDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  },
+                  "deviceName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "provisioned": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "did",
+                    "provisioned"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.getIdentityFingerprint": {
+      "get": {
+        "summary": "com.etzhayyim.signal.getIdentityFingerprint",
+        "operationId": "com.etzhayyim.signal.getIdentityFingerprint",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "fingerprint": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "fingerprint"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.getPrekeyBundle": {
+      "get": {
+        "summary": "com.etzhayyim.signal.getPrekeyBundle",
+        "operationId": "com.etzhayyim.signal.getPrekeyBundle",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bundle": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "bundle"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.getPrekeyBundles": {
+      "get": {
+        "summary": "com.etzhayyim.signal.getPrekeyBundles",
+        "operationId": "com.etzhayyim.signal.getPrekeyBundles",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bundles": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "bundles"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.listDevices": {
+      "get": {
+        "summary": "com.etzhayyim.signal.listDevices",
+        "operationId": "com.etzhayyim.signal.listDevices",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "devices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "devices"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.ratchetEncrypt": {
+      "post": {
+        "summary": "com.etzhayyim.signal.ratchetEncrypt",
+        "operationId": "com.etzhayyim.signal.ratchetEncrypt",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientDid": {
+                    "type": "string"
+                  },
+                  "plaintext": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "recipientDid",
+                  "plaintext"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ciphertext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ciphertext"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.registerPrekeys": {
+      "post": {
+        "summary": "com.etzhayyim.signal.registerPrekeys",
+        "operationId": "com.etzhayyim.signal.registerPrekeys",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identityKey": {
+                    "type": "string"
+                  },
+                  "signedPrekey": {
+                    "type": "object"
+                  },
+                  "oneTimePrekeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "identityKey",
+                  "signedPrekey",
+                  "oneTimePrekeys"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "registered": {
+                      "type": "boolean"
+                    },
+                    "otkCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "registered",
+                    "otkCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.renameDevice": {
+      "post": {
+        "summary": "com.etzhayyim.signal.renameDevice",
+        "operationId": "com.etzhayyim.signal.renameDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deviceId",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.replenishOtpks": {
+      "post": {
+        "summary": "com.etzhayyim.signal.replenishOtpks",
+        "operationId": "com.etzhayyim.signal.replenishOtpks",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oneTimePrekeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "oneTimePrekeys"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "replenished": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "replenished",
+                    "count"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.revokeDevice": {
+      "post": {
+        "summary": "com.etzhayyim.signal.revokeDevice",
+        "operationId": "com.etzhayyim.signal.revokeDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deviceId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "revoked": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "deviceId",
+                    "revoked"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.rotateGroupKey": {
+      "post": {
+        "summary": "com.etzhayyim.signal.rotateGroupKey",
+        "operationId": "com.etzhayyim.signal.rotateGroupKey",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convoId": {
+                      "type": "string"
+                    },
+                    "rotated": {
+                      "type": "boolean"
+                    },
+                    "rkey": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convoId",
+                    "rotated",
+                    "rkey"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.setEncryption": {
+      "post": {
+        "summary": "com.etzhayyim.signal.setEncryption",
+        "operationId": "com.etzhayyim.signal.setEncryption",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "convoId": {
+                      "type": "string"
+                    },
+                    "encryption": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "convoId",
+                    "encryption"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.signal.verifyIdentity": {
+      "post": {
+        "summary": "com.etzhayyim.signal.verifyIdentity",
+        "operationId": "com.etzhayyim.signal.verifyIdentity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  },
+                  "fingerprint": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "did",
+                  "fingerprint"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "verified": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "verified"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_signal_groupKeyRotation": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "rotatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "rotatedAt"
+        ]
+      },
+      "ai_etzhayyim_signal_otpks": {
+        "type": "object",
+        "properties": {
+          "oneTimePrekeys": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "oneTimePrekeys"
+        ]
+      },
+      "ai_etzhayyim_signal_prekeys": {
+        "type": "object",
+        "properties": {
+          "identityKey": {
+            "type": "string"
+          },
+          "signedPrekey": {},
+          "oneTimePrekeys": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "identityKey",
+          "signedPrekey",
+          "oneTimePrekeys"
+        ]
+      }
+    }
+  }
+}

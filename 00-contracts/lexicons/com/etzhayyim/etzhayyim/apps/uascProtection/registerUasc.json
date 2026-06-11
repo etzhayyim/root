@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.uascProtection.registerUasc",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Unaccompanied / Separated Child refugee registration (bridges refugee-unhcr + crc-children-digital + labour-mobility + migrant-worker-welfare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "registrationId",
+            "originIso3",
+            "countryOfRegIso3",
+            "category",
+            "ageBand",
+            "statusKind",
+            "registeredAt"
+          ],
+          "properties": {
+            "registrationId": {
+              "type": "string"
+            },
+            "originIso3": {
+              "type": "string"
+            },
+            "countryOfRegIso3": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "unaccompanied",
+                "separated",
+                "other_vulnerable"
+              ]
+            },
+            "ageBand": {
+              "type": "string",
+              "enum": [
+                "0_4",
+                "5_11",
+                "12_14",
+                "15_17"
+              ]
+            },
+            "genderBand": {
+              "type": "string",
+              "enum": [
+                "girl",
+                "boy",
+                "other",
+                "unknown"
+              ]
+            },
+            "statusKind": {
+              "type": "string",
+              "enum": [
+                "best_interest_assessment",
+                "family_tracing",
+                "interim_care",
+                "foster_care",
+                "special_protection"
+              ]
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

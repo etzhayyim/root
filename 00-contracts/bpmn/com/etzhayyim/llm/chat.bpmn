@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  F5 expansion — `llm.chat` — thinnest possible LLM passthrough actor.
+  Proves that `generic.llm.chat` can be exposed as a first-class NSID
+  without a bespoke Worker.
+
+  Flow:
+    Start (input: user, system?, tier?, maxTokens?, temperature?)
+      → generic.llm.chat
+      → End
+
+  Variables on the instance:
+    in:  user (required), system (optional), tier (default "fast"),
+         maxTokens (default 400), temperature (default 0.3)
+    out: content, model, latencyMs
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_llm_chat"
+    targetNamespace="https://etzhayyim.ai/bpmn/llm"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="llm_chat" name="llm chat" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="prompt submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Chat"/>
+
+    <bpmn:serviceTask id="Task_Chat" name="LLM chat">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if tier = null then &quot;fast&quot; else string(tier)" target="tier"/>
+          <zeebe:input source="=if system = null then &quot;You are concise.&quot; else string(system)" target="system"/>
+          <zeebe:input source="=string(user)" target="user"/>
+          <zeebe:input source="=if maxTokens = null then 400 else maxTokens" target="maxTokens"/>
+          <zeebe:input source="=if temperature = null then 0.3 else temperature" target="temperature"/>
+          <zeebe:output source="=content"   target="content"/>
+          <zeebe:output source="=model"     target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Chat" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

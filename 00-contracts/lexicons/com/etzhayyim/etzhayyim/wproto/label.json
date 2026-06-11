@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.wproto.label",
+  "description": "W Protocol label record. Extends com.atproto.label.defs#label with W Protocol label namespace.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the actor who created this label. Compatible with com.atproto.label.defs#label.src."
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "description": "AT URI of the resource this label applies to. Compatible with com.atproto.label.defs#label.uri."
+          },
+          "val": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "The short string name of the value or type of this label. Compatible with com.atproto.label.defs#label.val."
+          },
+          "neg": {
+            "type": "boolean",
+            "description": "If true, this is a negation label. Compatible with com.atproto.label.defs#label.neg."
+          },
+          "cts": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Timestamp when this label was created. Compatible with com.atproto.label.defs#label.cts."
+          },
+          "label": {
+            "type": "string",
+            "description": "etzhayyim extension: W Protocol label namespace identifier"
+          }
+        },
+        "required": [
+          "val",
+          "cts"
+        ]
+      }
+    }
+  }
+}

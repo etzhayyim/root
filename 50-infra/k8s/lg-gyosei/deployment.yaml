@@ -1,0 +1,123 @@
+---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
+# lg-gyosei — LangGraph Server for Gyosei Administrative Procedure Execution.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-gyosei
+  namespace: mitama-udf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-gyosei
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-gyosei
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: gyosei.etzhayyim.com
+spec:
+  replicas: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-gyosei
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-gyosei
+    spec:
+      serviceAccountName: lg-gyosei
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: server
+          image: ghcr.io/etzhayyim/lg-gyosei:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - uvicorn
+            - kotodama.langgraph_server_app:app
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            - --workers
+            - "2"
+            - --access-log
+            - --log-level
+            - info
+          env:
+            - name: RW_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lg-gyosei-secrets
+                  key: RW_URL
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lg-gyosei-secrets
+                  key: RW_URL
+            - name: etzhayyim_LLM_URL
+              value: "https://gemma.etzhayyim.com/v1"
+            - name: etzhayyim_LLM_MODEL
+              value: "gemma-4-E2B-it"
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 8
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-gyosei
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-gyosei
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-gyosei
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+      protocol: TCP

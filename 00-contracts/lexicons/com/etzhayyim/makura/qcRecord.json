@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.qcRecord",
+  "description": "Per-pillow QC record (L5b). Dimensional + weight + ILD (ASTM D3574 Test B) + visual. Per ADR-2605261115 L5b (G2 + G3).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "pillowSerial": {"type": "string"},
+          "pillowDid": {"type": "string"},
+          "dimensional": {
+            "type": "object",
+            "properties": {
+              "specLengthMm": {"type": "integer"},
+              "actualLengthMm": {"type": "integer"},
+              "specWidthMm": {"type": "integer"},
+              "actualWidthMm": {"type": "integer"},
+              "specHeightMm": {"type": "integer"},
+              "actualHeightMm": {"type": "integer"},
+              "toleranceMm": {"type": "integer"},
+              "withinSpec": {"type": "boolean"}
+            }
+          },
+          "weight": {
+            "type": "object",
+            "properties": {
+              "specKg": {"type": "number"},
+              "actualKg": {"type": "number"},
+              "tolerancePct": {"type": "number"},
+              "g11MaxFoamMassKg": {"type": "number", "const": 2.0},
+              "withinG11Cap": {"type": "boolean"},
+              "withinSpec": {"type": "boolean"}
+            }
+          },
+          "ild": {
+            "type": "object",
+            "properties": {
+              "test": {"type": "string", "knownValues": ["ASTM-D3574-B", "ISO-2439-A"]},
+              "indentationDepthPct": {"type": "integer"},
+              "loadN": {"type": "number"},
+              "specMinN": {"type": "number"},
+              "specMaxN": {"type": "number"},
+              "withinSpec": {"type": "boolean"}
+            }
+          },
+          "visual": {
+            "type": "object",
+            "properties": {
+              "inspector": {"type": "string"},
+              "stainsDetected": {"type": "integer"},
+              "uncutThreadsDetected": {"type": "integer"},
+              "seamDefectsDetected": {"type": "integer"},
+              "labelLegibilityCheck": {"type": "string", "knownValues": ["pass", "fail"]},
+              "takeBackQrLegibilityCheck": {"type": "string", "knownValues": ["pass", "fail"]},
+              "rejectPct": {"type": "number"},
+              "rejectSpecMaxPct": {"type": "number", "const": 0.5},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "overallAccept": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "pillowSerial", "pillowDid", "overallAccept", "attestingRobots"]
+      }
+    }
+  }
+}

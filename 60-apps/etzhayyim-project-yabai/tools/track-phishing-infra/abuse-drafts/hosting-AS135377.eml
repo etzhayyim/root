@@ -1,0 +1,100 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@ucloud.cn
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][AS135377] 73 phishing domains on your network (Etzhayyim Yabai)
+Date: Sun, 19 Apr 2026 11:22:50 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello UCLOUD HK abuse team,
+
+We are reporting 73 domains currently resolving to your network
+(UCLOUD-HK-AS-AP UCLOUD INFORMATION TECHNOLOGY HK LIMITED, HK, AS135377, HK). Full list below (domain => ip):
+
+000pq.help => 152.32.147.201
+110wq.help => 152.32.146.45
+120we.help => 152.32.146.45
+130er.help => 152.32.146.45
+140rty.help => 152.32.146.45
+150asd.help => 152.32.146.45
+160sdf.help => 152.32.146.45
+170fgh.help => 152.32.146.45
+180ghj.help => 152.32.146.45
+190hjk.help => 152.32.146.45
+200jkl.help => 152.32.146.45
+999op.help => 152.32.147.201
+applestorls.com => 152.32.146.45
+cde33.help => 152.32.146.45
+ijb330.help => 152.32.146.45
+lhu330.help => 152.32.146.45
+masdercard.com => 152.32.146.45
+masetrscard.com => 152.32.146.45
+maslercard.com => 152.32.146.45
+maspercard.com => 152.32.146.45
+masstarcard.com => 152.32.146.45
+mastaercard.com => 152.32.146.45
+mastcaerd.com => 152.32.146.45
+mastcaort.com => 152.32.146.45
+mastcarrd.com => 152.32.146.45
+mastcrada.com => 152.32.146.45
+mastcrade.com => 152.32.146.45
+mastcrads.com => 152.32.146.45
+mastecaerd.com => 152.32.146.45
+mastecaort.com => 152.32.146.45
+mastecards.com => 152.32.146.45
+mastecored.com => 152.32.146.45
+mastekard.com => 152.32.146.45
+mastencard.com => 152.32.146.45
+masteracard.com => 152.32.146.45
+mastercand.com => 152.32.146.45
+masterced.com => 152.32.146.45
+mastercrads.com => 152.32.146.45
+masterecrd.com => 152.32.146.45
+masterkrad.com => 152.32.146.45
+masterncard.com => 152.32.146.45
+mastiercard.com => 152.32.146.45
+mastircard.com => 152.32.146.45
+mastirkard.com => 152.32.146.45
+mastoercard.com => 152.32.146.45
+mastorcards.com => 152.32.146.45
+mastracrds.com => 152.32.146.45
+mastrecarde.com => 152.32.146.45
+mastrecardi.com => 152.32.146.45
+mastrecart.com => 152.32.146.45
+mastrecrads.com => 152.32.146.45
+mastrescard.com => 152.32.146.45
+mastrrkard.com => 152.32.146.45
+masturcard.com => 152.32.146.45
+masturkard.com => 152.32.146.45
+msatecord.com => 152.32.146.45
+msatecrad.com => 152.32.146.45
+msatercards.com => 152.32.146.45
+msatercrads.com => 152.32.146.45
+msatercrds.com => 152.32.146.45
+msatracrds.com => 152.32.146.45
+msatrecards.com => 152.32.146.45
+myapplesev.com => 152.32.146.45
+myidapples.com => 152.32.146.45
+okm220.help => 152.32.146.45
+plm110.help => 152.32.146.45
+qaz11.help => 152.32.146.45
+qaz11.sbs => 152.32.146.45
+smbcservice.com => 152.32.146.45
+wsx22.help => 152.32.146.45
+xcv555.help => 152.32.146.45
+zxc001.help => 152.32.146.45
+zxc444.help => 152.32.146.45
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

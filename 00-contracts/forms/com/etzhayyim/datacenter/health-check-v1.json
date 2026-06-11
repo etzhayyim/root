@@ -1,0 +1,65 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "datacenter-health-check-v1",
+  "version": 1,
+  "title": "データセンター健全性確認",
+  "tier": 1,
+  "actorRole": "dc-noc",
+  "components": [
+    {
+      "key": "healthCheck",
+      "type": "fieldset",
+      "label": "確認結果",
+      "components": [
+        {
+          "key": "status",
+          "label": "健全性判定",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "value": "ok", "label": "正常" },
+            { "value": "degraded", "label": "劣化" },
+            { "value": "failed", "label": "失敗" }
+          ]
+        },
+        {
+          "key": "metricRef",
+          "label": "監視メトリクス参照",
+          "type": "textfield",
+          "description": "dashboard URL, alert ID, ticket ID など"
+        },
+        {
+          "key": "powerCheck",
+          "label": "電源系統正常",
+          "type": "checkbox",
+          "required": true
+        },
+        {
+          "key": "coolingCheck",
+          "label": "冷却系統正常",
+          "type": "checkbox",
+          "required": true
+        },
+        {
+          "key": "networkCheck",
+          "label": "ネットワーク正常",
+          "type": "checkbox",
+          "required": true
+        },
+        {
+          "key": "securityCheck",
+          "label": "物理・論理アクセス制御正常",
+          "type": "checkbox",
+          "required": true
+        },
+        {
+          "key": "checkedAt",
+          "label": "確認日時",
+          "type": "textfield",
+          "required": true,
+          "description": "ISO-8601 datetime"
+        }
+      ]
+    }
+  ]
+}

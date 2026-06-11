@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5f2755c07736",
+  "entityId": "ent-5f2755c07736",
+  "canonicalName": "alayne investments limited",
+  "aliases": [
+    "alayne investments limited"
+  ]
+}

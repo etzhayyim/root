@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  lifehack.etzhayyim.com — research topic (autonomous, R/PT24H).
+
+  Pipeline:
+    1. lifehack.topic.findStale       topics needing fresh tips
+    2. lifehack.tip.synth             LLM synthesize candidate tips
+    3. lifehack.tip.gradeAuthority    score sourceAuthority + effectiveness
+    4. lifehack.tip.persist           insert vertex_lifehack_tip rows
+
+  Pure timer-start BPMN-as-actor (ADR-0056). No XRPC entry.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_lifehack_research_topic"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="lifehack_research_topic" name="lifehack research topic (daily)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 24 hours">
+      <bpmn:outgoing>Flow_ToFind</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Find" name="find stale topics">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.topic.findStale"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=604800" target="staleSeconds"/>
+          <zeebe:input source="=10" target="limit"/>
+          <zeebe:output source="=topicIds" target="topicIds"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFind</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSynth</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToFind" sourceRef="StartTimer" targetRef="Task_Find"/>
+
+    <bpmn:serviceTask id="Task_Synth" name="synthesize tips (LLM)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.tip.synth"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=topicIds" target="topicIds"/>
+          <zeebe:input source="=3" target="tipsPerTopic"/>
+          <zeebe:output source="=candidates" target="candidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSynth</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGrade</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSynth" sourceRef="Task_Find" targetRef="Task_Synth"/>
+
+    <bpmn:serviceTask id="Task_Grade" name="grade authority + effectiveness">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.tip.gradeAuthority"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=candidates" target="candidates"/>
+          <zeebe:output source="=graded" target="graded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToGrade</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPersist</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGrade" sourceRef="Task_Synth" targetRef="Task_Grade"/>
+
+    <bpmn:serviceTask id="Task_Persist" name="persist tips">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.tip.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=graded" target="graded"/>
+          <zeebe:output source="=insertedCount" target="insertedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPersist</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPersist" sourceRef="Task_Grade" targetRef="Task_Persist"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.researchTopic&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;topicCount&quot;: count(topicIds), &quot;insertedCount&quot;: insertedCount }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Persist" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

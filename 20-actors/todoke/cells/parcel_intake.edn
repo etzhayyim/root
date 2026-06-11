@@ -1,0 +1,14 @@
+{:cell/id "parcel_intake"
+ :cell/glyph "受付"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/node "naphtali"
+ :cell/doc "Accept a last-mile delivery job: payload class + dims/weight, origin curb/locker, destination door/locker, recipient consent ref, time window. Refuses contraband/regulated payload classes (N3 — pharma→yakushi cold-chain, etc.). R0 = cell .edn definition only."
+ :cell/entry "cells/parcel_intake/cell.py"
+ :cell/handler "ParcelIntakeCell"
+ :cell/state-graph
+ {:nodes [:received :classified :consent-bound :job-emitted] :entry :received
+  :edges [[:received :classified] [:classified :consent-bound] [:consent-bound :job-emitted] [:job-emitted :end]]}
+ :cell/llm {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/gates ["G4" "G13" "G14"]
+ :cell/kotoba {:reads [:parcel/class] :writes [:job/record :job/consent-ref]}}

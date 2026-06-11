@@ -1,0 +1,78 @@
+name: Bootstrap Council Candidate Objection
+description: File an objection against a Council Bootstrap candidate (per ADR-2605192300). Requires active Adherent SBT.
+title: "[Council Objection] <candidate-handle> Seat <N> — <ground>"
+labels: ["council-bootstrap", "council-objection", "rfp-2026-05-20"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## File an objection against a Council candidate
+
+        Per [ADR-2605192300 §1](../blob/main/90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md):
+
+        - You **must** hold an active Adherent SBT (AdherentRegistry.isActive == true)
+        - Three (3) cleared objections from distinct SBT holders triggers founder re-proposal for that seat
+        - Defamatory or evidence-free objections themselves may trigger Council Lv6+ review of the objector under the Charter Compliance framework
+
+        Your objection becomes a public PDS AT Record + this github issue.
+  - type: input
+    id: candidate-application
+    attributes:
+      label: Candidate application issue URL (or AT Record URI)
+      description: "Link to the candidate's self-nomination issue / AT Record being objected to."
+      placeholder: "https://github.com/etzhayyim/root/issues/... or at://did:plc:..."
+    validations:
+      required: true
+  - type: input
+    id: objector-did
+    attributes:
+      label: Your DID
+      placeholder: "did:web:... / did:plc:... / did:key:..."
+    validations:
+      required: true
+  - type: input
+    id: objector-sbt
+    attributes:
+      label: Your Adherent SBT tokenId
+      description: "Numeric tokenId from AdherentRegistry"
+      placeholder: "42"
+    validations:
+      required: true
+  - type: dropdown
+    id: grounds
+    attributes:
+      label: Objection grounds
+      options:
+        - "Rider §2(a)-(h) violation — undisclosed prohibited business representation"
+        - "Conflict-of-interest undisclosed in application"
+        - "Qualification fabrication (resume claims are not substantiated)"
+        - "Doctrinal incompatibility with Mission Charter"
+        - "Axis mismatch (candidate's expertise does not fit the seat axis)"
+        - "Ethical misconduct (prior religious-corp / community context)"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: narrative
+    attributes:
+      label: Objection narrative
+      description: "Specific, evidence-grounded objection. Public + permanent. Defamatory or evidence-free objections expose YOU to Council review."
+      placeholder: "The candidate's qualifications include working at <X>, but ..."
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence URIs
+      description: "URL / IPFS CID / AT URI supporting your objection. Without evidence, an objection is weight-zero."
+      placeholder: |
+        - https://<source-of-claim>
+        - ipfs://<receipt-of-claim>
+    validations:
+      required: true
+  - type: input
+    id: at-record-uri
+    attributes:
+      label: AT Record URI (strongly preferred)
+      description: "AT URI of your com.etzhayyim.apps.etzhayyim.council-objection record on your PDS."
+      placeholder: "at://did:plc:.../com.etzhayyim.apps.etzhayyim.council-objection/..."

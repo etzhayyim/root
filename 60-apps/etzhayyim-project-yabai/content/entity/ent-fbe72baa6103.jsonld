@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fbe72baa6103",
+  "entityId": "ent-fbe72baa6103",
+  "canonicalName": "artemis offshore",
+  "aliases": [
+    "artemis offshore"
+  ]
+}

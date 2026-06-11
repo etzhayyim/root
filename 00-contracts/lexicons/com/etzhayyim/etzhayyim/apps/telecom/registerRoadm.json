@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerRoadm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a ROADM node within an OLS. Bound to Phase 2 cellSite via siteId, Phase 2 networkAsset via attachedAssetId.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["olsId", "displayName", "roadmKind", "degreeCount", "addDropPortCount", "wssVendor", "observedAt"],
+          "properties": {
+            "roadmId": { "type": "string" },
+            "olsId": { "type": "string" },
+            "displayName": { "type": "string" },
+            "siteId": { "type": "string" },
+            "roadmKind": { "type": "string", "enum": ["cdc_f", "cd_f", "directionless", "colorless_only", "fixed_oadm"] },
+            "degreeCount": { "type": "integer" },
+            "addDropPortCount": { "type": "integer" },
+            "wssVendor": { "type": "string" },
+            "attachedAssetId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "roadmId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

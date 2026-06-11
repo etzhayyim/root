@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pds.authPlatform",
+  "description": "PDS platform permissions. Superset — includes official com.atproto.repo and com.atproto.server RPCs plus etzhayyim PDS extensions (entity graph, heartbeat, agent chat).",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "PDS Platform",
+      "title:lang": {
+        "ja": "PDSプラットフォーム"
+      },
+      "detail": "Access PDS platform features. Includes official repo CRUD, sync, and server operations plus etzhayyim extensions: entity graph, heartbeat monitoring, and agent chat.",
+      "detail:lang": {
+        "ja": "PDSプラットフォーム機能。公式リポジトリCRUD/同期/サーバー操作に加え、etzhayyimのエンティティグラフ、ハートビート、エージェントチャットを含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto repo RPCs",
+          "lxm": [
+            "com.atproto.repo.createRecord",
+            "com.atproto.repo.putRecord",
+            "com.atproto.repo.deleteRecord",
+            "com.atproto.repo.getRecord",
+            "com.atproto.repo.listRecords",
+            "com.atproto.repo.describeRepo",
+            "com.atproto.repo.applyWrites",
+            "com.atproto.repo.uploadBlob",
+            "com.atproto.repo.importRepo",
+            "com.atproto.repo.listMissingBlobs"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto server RPCs",
+          "lxm": [
+            "com.atproto.server.getSession",
+            "com.atproto.server.describeServer",
+            "com.atproto.server.getServiceAuth"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto identity RPCs",
+          "lxm": [
+            "com.atproto.identity.resolveHandle",
+            "com.atproto.identity.resolveDid",
+            "com.atproto.identity.resolveIdentity",
+            "com.atproto.identity.updateHandle"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim PDS extension RPCs",
+          "lxm": [
+            "com.etzhayyim.pds.getActorProfile",
+            "com.etzhayyim.pds.getAppPreview",
+            "com.etzhayyim.pds.getEntityGraph",
+            "com.etzhayyim.pds.getProfile",
+            "com.etzhayyim.pds.putProfile",
+            "com.etzhayyim.pds.exportRepo",
+            "com.etzhayyim.pds.importRepo",
+            "com.etzhayyim.pds.invoke",
+            "com.etzhayyim.pds.query",
+            "com.etzhayyim.pds.listHeartbeatApps",
+            "com.etzhayyim.pds.registerSyncApp",
+            "com.etzhayyim.agent.chat"
+          ]
+        }
+      ]
+    }
+  }
+}

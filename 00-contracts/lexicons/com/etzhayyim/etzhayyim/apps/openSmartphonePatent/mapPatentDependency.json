@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphonePatent.mapPatentDependency",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Map a patent dependency to a smartphone component",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["depId", "componentType", "patentNo", "standard", "dependencyType"],
+          "properties": {
+            "depId": { "type": "string" },
+            "componentType": { "type": "string", "knownValues": ["soc", "modem", "wifi", "bluetooth", "gnss", "display", "camera", "audio", "fingerprint", "other"] },
+            "componentDid": { "type": "string", "format": "did" },
+            "patentNo": { "type": "string" },
+            "holderDid": { "type": "string", "format": "did" },
+            "standard": { "type": "string" },
+            "dependencyType": { "type": "string", "knownValues": ["sep", "frand", "design", "copyright", "trade-secret"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

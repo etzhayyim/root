@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.governance.authGovernance",
+  "description": "Governance & access control permissions. Superset — includes official com.atproto.label and com.atproto.moderation RPCs plus etzhayyim governance extensions.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Governance & Access Control",
+      "title:lang": {
+        "ja": "ガバナンス・アクセス制御"
+      },
+      "detail": "Manage access policies, labels, moderation, follow requests, role bindings, and actor sensitivity. Includes official AT Protocol label/moderation RPCs plus etzhayyim governance extensions.",
+      "detail:lang": {
+        "ja": "アクセスポリシー、ラベル、モデレーション、フォローリクエスト、ロールバインディング、Actor感度の管理。公式AT Protocolラベル/モデレーションRPCに加えetzhayyimガバナンス拡張を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official AT Protocol label and moderation RPCs",
+          "lxm": [
+            "com.atproto.label.queryLabels",
+            "com.atproto.label.subscribeLabels",
+            "com.atproto.moderation.createReport"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official app.bsky labeler RPCs",
+          "lxm": [
+            "app.bsky.labeler.getServices"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "Official labeler record collections",
+          "collection": [
+            "app.bsky.labeler.service"
+          ],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim governance extension RPCs",
+          "lxm": [
+            "com.etzhayyim.governance.checkAccess",
+            "com.etzhayyim.governance.getPolicy",
+            "com.etzhayyim.governance.resolveActorVisibility",
+            "com.etzhayyim.governance.queryLabels",
+            "com.etzhayyim.governance.approveFollowRequest",
+            "com.etzhayyim.governance.rejectFollowRequest",
+            "com.etzhayyim.governance.approveAllFollowRequests",
+            "com.etzhayyim.governance.registerPolicy",
+            "com.etzhayyim.governance.registerMethodPolicy",
+            "com.etzhayyim.governance.registerManifest",
+            "com.etzhayyim.governance.registerRoleBindings",
+            "com.etzhayyim.governance.setActorSensitivity",
+            "com.etzhayyim.governance.createLabel"
+          ]
+        }
+      ]
+    }
+  }
+}

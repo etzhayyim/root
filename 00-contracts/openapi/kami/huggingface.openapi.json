@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HuggingFace Hub (yorishiro kami spec)",
+    "version": "0.1.0",
+    "description": "Hand-authored OpenAPI 3 spec for the HuggingFace Hub public REST API. Used as input to `yorishiro create huggingface --from openapi-v3`. Reference: https://huggingface.co/docs/hub/api"
+  },
+  "servers": [
+    { "url": "https://huggingface.co", "description": "HuggingFace Hub" }
+  ],
+  "paths": {
+    "/api/models": {
+      "get": {
+        "operationId": "searchModels",
+        "summary": "Search HuggingFace Hub models",
+        "description": "List models with optional free-text search, author filter, and sort. Returns a JSON array of model summaries.",
+        "parameters": [
+          { "name": "search", "in": "query", "schema": { "type": "string", "maxLength": 512, "description": "Free-text query." } },
+          { "name": "author", "in": "query", "schema": { "type": "string", "maxLength": 128, "description": "Filter by author/organization." } },
+          { "name": "filter", "in": "query", "schema": { "type": "string", "maxLength": 256, "description": "Tag filter (e.g. `pytorch`, `text-generation`)." } },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["downloads", "likes", "lastModified"], "description": "Sort key." } },
+          { "name": "direction", "in": "query", "schema": { "type": "string", "enum": ["-1", "1"], "description": "Sort direction (-1 desc, 1 asc)." } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10, "minimum": 1, "maximum": 1000, "description": "Maximum number of results." } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matched model summaries.",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "description": "Array of model summary objects. Each entry includes id, downloads, likes, tags, lastModified." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/datasets": {
+      "get": {
+        "operationId": "searchDatasets",
+        "summary": "Search HuggingFace Hub datasets",
+        "description": "List datasets with optional free-text search and tag filter.",
+        "parameters": [
+          { "name": "search", "in": "query", "schema": { "type": "string", "maxLength": 512 } },
+          { "name": "filter", "in": "query", "schema": { "type": "string", "maxLength": 256 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10, "minimum": 1, "maximum": 1000 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matched dataset summaries.",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "description": "Array of dataset summary objects." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

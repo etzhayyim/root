@@ -1,0 +1,124 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.forceAuthorizationRecord",
+  "description": "Transparent Force authorization procedural record. Integrates with ADR-2605192315 1 SBT = 1 vote attestation contract. G7 structural enforcement: posture enum DELIBERATELY EXCLUDES 'offensive' — offensive-force attestation is impossible at the schema layer, not merely refused at policy layer. Includes Reformed Just War Doctrine checklist (jus ad bellum 6 checks + jus in bello 3 checks = 9 checkpoints) and IHL compliance citation (Geneva Conventions + Additional Protocols + ICCPR). The 1 SBT = 1 vote chain hash references the on-chain attestation contract.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "requestingPartyDid",
+          "scenarioCategory",
+          "posture",
+          "justWarChecklist",
+          "ihlCompliance",
+          "oneSbtOneVoteChainCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "requestingPartyDid": {
+            "type": "string",
+            "description": "DID of party requesting authorization (typically a Council seat or a designated Defense Affairs steward)."
+          },
+          "scenarioCategory": {
+            "type": "string",
+            "knownValues": [
+              "imminent-physical-threat-religious-corp-personnel",
+              "imminent-physical-threat-religious-corp-property",
+              "armed-extraction-of-hostage-member",
+              "deterrent-posture-declaration",
+              "cyber-defense-isolation",
+              "infrastructure-defense-physical",
+              "training-exercise-no-deployment"
+            ],
+            "description": "Authorization scenario category. ALL categories are defensive or deterrent by structure (G7)."
+          },
+          "posture": {
+            "type": "string",
+            "knownValues": ["defensive", "deterrent"],
+            "description": "G7 INVARIANT: only defensive or deterrent. 'offensive' is NOT a valid value (offensive force attestation impossible at schema layer)."
+          },
+          "justWarChecklist": {
+            "type": "object",
+            "required": [
+              "justCause",
+              "legitimateAuthority",
+              "rightIntention",
+              "lastResort",
+              "reasonableHopeOfSuccess",
+              "proportionalityAdBellum",
+              "discriminationInBello",
+              "proportionalityInBello",
+              "dueCare"
+            ],
+            "properties": {
+              "justCause": {"type": "boolean"},
+              "justCauseEvidenceCid": {"type": "string"},
+              "legitimateAuthority": {"type": "boolean", "description": "Council Lv6+ ≥4 attestation + 1 SBT = 1 vote chain"},
+              "rightIntention": {"type": "boolean"},
+              "lastResort": {"type": "boolean", "description": "All non-force alternatives exhausted; non-force-attempts log required"},
+              "lastResortNonForceAttemptsCid": {"type": "string"},
+              "reasonableHopeOfSuccess": {"type": "boolean"},
+              "proportionalityAdBellum": {"type": "boolean"},
+              "discriminationInBello": {"type": "boolean", "description": "Combatant / non-combatant distinction maintained"},
+              "proportionalityInBello": {"type": "boolean"},
+              "dueCare": {"type": "boolean", "description": "Minimization of harm; medical / humanitarian response pre-positioned"}
+            },
+            "description": "9-checkpoint Reformed Just War Doctrine. ALL 9 MUST be true for authorization to advance to 1 SBT = 1 vote chain."
+          },
+          "ihlCompliance": {
+            "type": "object",
+            "properties": {
+              "genevaConventionsApplicable": {"type": "array", "items": {"type": "string"}, "description": "e.g., ['GC-I-1949', 'GC-IV-1949', 'AP-I-1977']"},
+              "iccprApplicableArticles": {"type": "array", "items": {"type": "string"}},
+              "haguePragueApplicable": {"type": "array", "items": {"type": "string"}},
+              "ihlCorpusCid": {"type": "string", "description": "IPFS CID of the IHL corpus pinned per ADR-2605262800."}
+            }
+          },
+          "openSourceDocumentationCid": {
+            "type": "string",
+            "description": "Open-source operational documentation CID. Charter §1.12.B INVARIANT: Transparent Force requires open-source publication + on-chain log + 1 SBT = 1 vote — all three conditions per ADR-2605192315."
+          },
+          "oneSbtOneVoteChainCid": {
+            "type": "string",
+            "description": "ADR-2605192315 on-chain attestation contract chain CID. Vote count + per-voter DID list embedded in chain."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "≥4 Council Lv6+ attestations per G4 + Just War legitimate-authority condition."
+          },
+          "attestingDid": {
+            "type": "string"
+          },
+          "currentStatus": {
+            "type": "string",
+            "knownValues": [
+              "filed-jw-review-pending",
+              "jw-checklist-failed",
+              "council-attestation-pending",
+              "community-1sbt1vote-pending",
+              "authorized",
+              "deployed",
+              "concluded",
+              "post-action-review",
+              "withdrawn"
+            ]
+          },
+          "postActionReviewCid": {
+            "type": "string",
+            "description": "After deployment + conclusion, mandatory post-action review CID (Council + community-witness review)."
+          }
+        }
+      }
+    }
+  }
+}

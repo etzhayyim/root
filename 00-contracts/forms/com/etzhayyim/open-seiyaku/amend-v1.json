@@ -1,0 +1,28 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "open-seiyaku-amend-v1",
+  "version": 1,
+  "title": "製薬バッチ変更・逸脱申請",
+  "tier": 2,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "amendmentType",
+      "type": "select",
+      "label": "変更種別",
+      "required": true,
+      "options": [
+        { "value": "deviation", "label": "逸脱" },
+        { "value": "rework", "label": "再加工" },
+        { "value": "retest", "label": "再試験" },
+        { "value": "labeling", "label": "表示変更" },
+        { "value": "documentation", "label": "文書補正" }
+      ]
+    },
+    { "key": "effectiveDate", "type": "datepicker", "label": "発生日", "required": true },
+    { "key": "reason", "type": "textarea", "label": "理由", "required": true, "x-encryptedSection": "amendmentPayload" },
+    { "key": "impactSummary", "type": "textarea", "label": "品質影響", "x-encryptedSection": "impactPayload" },
+    { "key": "requiresQaApproval", "type": "checkbox", "label": "QA 承認要" },
+    { "key": "correctiveAction", "type": "textarea", "label": "是正措置", "x-encryptedSection": "capaPayload" }
+  ]
+}

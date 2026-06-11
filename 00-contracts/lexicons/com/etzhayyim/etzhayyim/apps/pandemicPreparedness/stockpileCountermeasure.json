@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pandemicPreparedness.stockpileCountermeasure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Medical countermeasure stockpile (vaccine / antiviral / PPE) per country",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "stockpileId",
+            "countermeasureType",
+            "jurisdictionIso3",
+            "unitsStockpiled",
+            "recordedAt"
+          ],
+          "properties": {
+            "stockpileId": {
+              "type": "string"
+            },
+            "outbreakVid": {
+              "type": "string",
+              "description": "bridges reportOutbreak"
+            },
+            "countermeasureType": {
+              "type": "string",
+              "enum": [
+                "vaccine",
+                "antiviral",
+                "antibody",
+                "antibiotic",
+                "ppe",
+                "diagnostic",
+                "ventilator"
+              ]
+            },
+            "productVid": {
+              "type": "string",
+              "description": "bridges open-pharma-supply"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "unitsStockpiled": {
+              "type": "integer"
+            },
+            "daysOfSupply": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "readinessTier": {
+              "type": "string",
+              "enum": [
+                "insufficient",
+                "adequate",
+                "robust"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

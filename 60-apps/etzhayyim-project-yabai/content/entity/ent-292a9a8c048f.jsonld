@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-292a9a8c048f",
+  "entityId": "ent-292a9a8c048f",
+  "canonicalName": "fuga bluemarine",
+  "aliases": [
+    "fuga bluemarine"
+  ]
+}

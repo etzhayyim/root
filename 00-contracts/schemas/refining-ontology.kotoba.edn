@@ -1,0 +1,73 @@
+;; kamado 竈 — closed-loop refining + decommission ontology (ADR-2606051500)
+;; kotoba EAVT vocabulary. Supersedes the legacy `oil-refining` Cypher/graph actor
+;; (ADR-2605262130: no RisingWave/Cypher; kotoba Datom log is canonical state).
+;;
+;; THE G1 INVARIANT LIVES HERE (point #1 of 3): :feedstock/class :db/allowed excludes
+;; every fossil-extracted carbon source. `:fossil-virgin-crude` is NOT a member of the
+;; allowed set — a fossil-fed refining design is therefore not expressible in the data
+;; model (mirrored in lex/feedstockProvenance.edn const + methods/feedstock_guard.py).
+
+{:schema/id "com.etzhayyim.refining.ontology"
+ :schema/adr "2606051500"
+ :schema/note "竈 = the hearth/furnace reclaimed for closed-loop carbon. The apparatus
+   (distillation/cracking/reforming/hydrotreating) is neutral; the carbon SOURCE and FATE
+   carry the multi-generational harm. The model keys on those, not on the unit operations."
+
+ ;; ─────────────────────── :feedstock/class — THE G1 INVARIANT ───────────────────────
+ :feedstock/class
+ {:db/valueType :db.type/keyword
+  :db/doc "G1: closed-loop carbon ONLY. Fossil-extracted carbon is NOT a member."
+  :db/allowed [:biogenic                         ; algae/plant-fixed atmospheric CO2
+               :captured-co2                      ; DAC / point-source atmospheric capture
+               :recycled-carbon                   ; waste-plastic / industrial-CO recovery
+               :existing-inventory-decommission]} ; in-tank fossil stock being safely drawn down
+ ;; NOTE: :fossil-virgin-crude is deliberately absent. Do not add it (G1, Lv7+ would be
+ ;; required and would violate §2(d) + ADR-2605263500 D3 — i.e. it cannot be added).
+
+ ;; ─────────────────────── :refinery/* — OBSERVED asset (face A) ───────────────────────
+ :refinery/id        {:db/valueType :db.type/string :db/unique :db.unique/identity}
+ :refinery/name      {:db/valueType :db.type/string}
+ :refinery/country   {:db/valueType :db.type/string}
+ :refinery/operator  {:db/valueType :db.type/string :db/doc "org.corp.* id (kabuto) — an org, never a person (G4)"}
+ :refinery/throughput-bpd {:db/valueType :db.type/long :db/doc ":representative; public-bulletin figure"}
+ :refinery/status    {:db/valueType :db.type/keyword :db/doc ":active :idled :decommissioning :converted"}
+ :refinery/feedstock-class {:db/valueType :db.type/keyword :db/doc "what the OBSERVED asset runs on (may be fossil — observation, not operation)"}
+ :refinery/transition-readiness {:db/valueType :db.type/keyword :db/doc ":high :medium :low — fit for §2(d) convert/decommission"}
+ :refinery/sourcing  {:db/valueType :db.type/keyword}
+
+ :unit/id            {:db/valueType :db.type/string :db/unique :db.unique/identity}
+ :unit/refinery      {:db/valueType :db.type/ref}
+ :unit/kind          {:db/valueType :db.type/keyword :db/doc ":cdu :fcc :hydrocracker :coker :reformer :hydrotreater :alkylation"}
+ :unit/status        {:db/valueType :db.type/keyword}
+ :unit/sourcing      {:db/valueType :db.type/keyword}
+
+ :outage/id          {:db/valueType :db.type/string :db/unique :db.unique/identity}
+ :outage/unit        {:db/valueType :db.type/ref}
+ :outage/status      {:db/valueType :db.type/keyword :db/doc ":planned :active :resolved — as-of history, 非終末論"}
+ :outage/as-of       {:db/valueType :db.type/string}
+ :outage/sourcing    {:db/valueType :db.type/keyword}
+
+ ;; ─────────────────────── :decommission/* — §2(d) robotics (face B) ───────────────────────
+ :decommission/id    {:db/valueType :db.type/string :db/unique :db.unique/identity}
+ :decommission/refinery {:db/valueType :db.type/ref}
+ :decommission/intervention {:db/valueType :db.type/keyword
+                             :db/doc "G3: :decommission | :remediate | :convert | :monitor ONLY (never :expand/:restart-fossil)"}
+ :decommission/robot-class {:db/valueType :db.type/keyword :db/doc ":purge :cut :inspect :remediate-soil :hot-zone-entry → hodoki/kanayama coupling"}
+ :decommission/principal {:db/valueType :db.type/keyword :db/doc "G5: :operator | :member — server-key refused"}
+ :decommission/server-held-key {:db/valueType :db.type/boolean :db/doc "G5 const false"}
+ :decommission/convert-to {:db/valueType :db.type/keyword :db/doc ":hikari-solar | :synthesis-plant | :materials-recovery (hodoki/kanayama) | :remediated-land"}
+ :decommission/outward-gated {:db/valueType :db.type/boolean :db/doc "G8 const true"}
+ :decommission/sourcing {:db/valueType :db.type/keyword}
+
+ ;; ─────────────────────── :synthesis/* — closed-loop refining (face C) ───────────────────────
+ :synthesis/id       {:db/valueType :db.type/string :db/unique :db.unique/identity}
+ :synthesis/feedstock-class {:db/valueType :db.type/keyword :db/doc "G1: MUST be a :feedstock/class member"}
+ :synthesis/energy   {:db/valueType :db.type/keyword :db/doc ":hikari-renewable mandated for D3 (G2)"}
+ :synthesis/product-fate {:db/valueType :db.type/keyword :db/doc ":combusted-fuel | :durable-material (G12 EOL route if material)"}
+ :synthesis/control  {:db/valueType :db.type/keyword :db/doc ":teleop | :supervised-autonomy (tazuna sibling; G5 no-server-key)"}
+ :synthesis/sourcing {:db/valueType :db.type/keyword}
+
+ ;; ─────────────────────── :carbon/* — D3 ledger (derived) ───────────────────────
+ :carbon/of          {:db/valueType :db.type/ref :db/doc "→ :synthesis/id"}
+ :carbon/net-delta-tco2e-per-t {:db/valueType :db.type/double :db/doc "G2/D3: MUST be ≤ tolerance"}
+ :carbon/passes-d3   {:db/valueType :db.type/boolean}}

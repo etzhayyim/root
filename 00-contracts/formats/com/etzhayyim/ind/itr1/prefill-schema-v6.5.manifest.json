@@ -1,0 +1,32 @@
+{
+  "formatKey": "ind.itr1.prefillSchema.v6_5",
+  "jurisdiction": "itr1",
+  "actorDid": "did:web:ind-union.etzhayyim.com:cbdt:itr1",
+  "formatKind": "official_json_schema",
+  "officialSourceUrl": "https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip",
+  "sourcePageUrl": "https://www.incometax.gov.in/iec/foportal/api-specifications",
+  "lastVerified": "2026-04-26",
+  "status": "active",
+  "downloadedArtifact": {
+    "zipName": "PreFillSchemaJSON_V6.5.zip",
+    "jsonName": "PreFillSchemaJSON_V6.5.json",
+    "jsonSchemaDefs": 45,
+    "topLevelProperties": [
+      "ais",
+      "assesseeRep",
+      "auditInfo",
+      "bankAccountDtls",
+      "filingReturn",
+      "filingStatus",
+      "form26as",
+      "insights",
+      "lastFiledITR",
+      "personalInfo",
+      "scheduleAL",
+      "scheduleCFL",
+      "verification"
+    ]
+  },
+  "internalFormKeys": ["itr1-form-v1"],
+  "usage": "Prefill source schema for mapping taxpayer, AIS/26AS, bank, filing status, and prior return data into itr1-form-v1 before review."
+}

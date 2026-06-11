@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0aa5c8916aea",
+  "entityId": "ent-0aa5c8916aea",
+  "canonicalName": "mizban khadr hadi",
+  "aliases": [
+    "mizban khadr hadi"
+  ]
+}

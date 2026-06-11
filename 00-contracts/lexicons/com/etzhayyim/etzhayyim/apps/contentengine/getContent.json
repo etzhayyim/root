@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.contentengine.getContent",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get generated content by ID.",
+      "parameters": {
+        "type": "params",
+        "required": ["contentId"],
+        "properties": {
+          "contentId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["contentId", "status"],
+          "properties": {
+            "contentId": { "type": "string" },
+            "cohortName": { "type": "string" },
+            "contentType": { "type": "string" },
+            "topic": { "type": "string" },
+            "title": { "type": "string" },
+            "body": { "type": "string" },
+            "qualityScore": { "type": "number" },
+            "relevanceScore": { "type": "number" },
+            "adCampaignId": { "type": "string" },
+            "status": { "type": "string" },
+            "createdAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

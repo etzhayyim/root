@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.commonCrawl.ingestSegment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, RisingWave Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["crawlId", "segmentId"],
+          "properties": {
+            "crawlId": { "type": "string", "description": "CC-MAIN-2026-XX format" },
+            "segmentId": { "type": "string", "description": "1745234567.89/segments/1745234567.89/wet/CC-MAIN-...wet.gz" },
+            "format": { "type": "string", "enum": ["wat", "warc", "wet"], "default": "wat" },
+            "url": { "type": "string", "format": "uri" },
+            "estimatedRecords": { "type": "integer" },
+            "filterDomain": { "type": "string", "description": "ingest only matching authority (e.g. *.gov, *.go.jp)" },
+            "outputCollection": { "type": "string", "description": "AT collection NSID for derived vertex/edge records" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" }, "ingestId": { "type": "string" } } } }
+    }
+  }
+}

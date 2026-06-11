@@ -1,0 +1,28 @@
+{
+  :meta {
+    :clis ["gemma"]
+    :cells 2
+    :deferred ["codex(usage-limit)"]}
+  :rollup {
+    :gemma {
+      :build_pass_rate 0
+      :struct_ok_rate 0
+      :avg_judge 2
+      :total_usd 0
+      :total_wall_s 840.5}}
+  :results [{
+    :cli "gemma"
+    :model "gemma-4-26B-A4B-it"
+    :cell ":service-request"
+    :build_pass false
+    :structural_ok false
+    :structural_why "missing WitWorld/compiled"
+    :judge_score 2
+    :wall_s 840.5
+    :usd 0
+    :turns 4
+    :tokens_in 10379
+    :tokens_out 3130} {
+    :cli "gemma"
+    :cell ":elv-body-shred"
+    :error "Remote end closed connection without response"}]}

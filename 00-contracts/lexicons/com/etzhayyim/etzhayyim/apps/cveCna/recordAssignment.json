@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cveCna.recordAssignment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CVE Numbering Authority (CNA) assignment (bridges zeroDayBroker.flagVendorPatchLag + cyber-vuln-cve + cyber-vuln-patch)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "cveId",
+            "productCategory",
+            "assignerProcess",
+            "assignedAt"
+          ],
+          "properties": {
+            "cveId": {
+              "type": "string"
+            },
+            "cnaLei": {
+              "type": "string"
+            },
+            "productCategory": {
+              "type": "string",
+              "enum": [
+                "os_kernel",
+                "browser",
+                "email",
+                "messaging",
+                "crypto_lib",
+                "network_stack",
+                "iot_firmware",
+                "scada",
+                "medical_device",
+                "av_endpoint",
+                "cloud_runtime",
+                "auth_service",
+                "edge_router",
+                "printer",
+                "smart_tv"
+              ]
+            },
+            "cvssBase": {
+              "type": "number"
+            },
+            "assignerProcess": {
+              "type": "string",
+              "enum": [
+                "cna_local",
+                "root_mitre",
+                "vendor_self_assign",
+                "ics_cert",
+                "jpcert_us",
+                "rootca_third",
+                "bug_bounty",
+                "researcher_coordinate",
+                "embargo"
+              ]
+            },
+            "patchLagVid": {
+              "type": "string",
+              "description": "bridges zeroDayBroker.flagVendorPatchLag"
+            },
+            "assignedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

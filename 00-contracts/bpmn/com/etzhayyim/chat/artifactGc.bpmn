@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  etzhayyim.ai chat — artifact GC (timer-start, autonomous, R/PT24H).
+
+  Removes B2 objects + soft-deletes vertex_chat_artifact rows whose
+  expires_at < now() OR (status='gc-pending' AND ts_ms older than 30 d).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_chat_artifact_gc"
+    targetNamespace="https://etzhayyim.ai/bpmn/chat"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="chat_artifact_gc" name="chat artifact GC" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1, "schedule": "R/PT24H" }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="daily 04:00 UTC">
+      <bpmn:outgoing>Flow_ToGc</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_Daily">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 4 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Gc" name="delete expired B2 artifacts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="chat.artifact.gc"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=deleted" target="deleted"/>
+          <zeebe:output source="=bytesFreed" target="bytesFreed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToGc</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGc" sourceRef="Start" targetRef="Task_Gc"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.chat.artifactGc&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;deleted&quot;: deleted, &quot;bytesFreed&quot;: bytesFreed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Gc" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

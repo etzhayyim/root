@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crpdDisability.recordCountryReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UN CRPD periodic report (bridges digital-accessibility + accessibility-services + universal-health-coverage + mental-health-parity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "countryIso3",
+            "reportingCycle",
+            "articleFocus",
+            "submittedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "reportingCycle": {
+              "type": "string"
+            },
+            "articleFocus": {
+              "type": "string",
+              "enum": [
+                "art9_accessibility",
+                "art12_legal_capacity",
+                "art19_independent_living",
+                "art24_education",
+                "art25_health",
+                "art27_work",
+                "art29_political",
+                "art30_cultural",
+                "general"
+              ]
+            },
+            "implementationScore": {
+              "type": "integer",
+              "description": "0-10"
+            },
+            "shadowReportsCount": {
+              "type": "integer"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "progressTier": {
+              "type": "string",
+              "enum": [
+                "nascent",
+                "moderate",
+                "advanced"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

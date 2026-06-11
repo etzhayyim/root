@@ -1,0 +1,876 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "bpmn XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://bpmn.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.bpmn.analyzeProcess": {
+      "get": {
+        "summary": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=com.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
+        "operationId": "com.etzhayyim.bpmn.analyzeProcess",
+        "parameters": [
+          {
+            "name": "processId",
+            "in": "query",
+            "required": false,
+            "description": "Optional BPMN process id filter when audit payloads carry process_id/processId/_bpmnProcessId.",
+            "schema": {
+              "type": "string",
+              "description": "Optional BPMN process id filter when audit payloads carry process_id/processId/_bpmnProcessId."
+            }
+          },
+          {
+            "name": "caseId",
+            "in": "query",
+            "required": false,
+            "description": "Optional OCEL case/run id filter.",
+            "schema": {
+              "type": "string",
+              "description": "Optional OCEL case/run id filter."
+            }
+          },
+          {
+            "name": "actionPrefix",
+            "in": "query",
+            "required": false,
+            "description": "Optional action prefix filter, e.g. mangaka. or jpCorpFinance.",
+            "schema": {
+              "type": "string",
+              "description": "Optional action prefix filter, e.g. mangaka. or jpCorpFinance."
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            }
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5000,
+              "default": 500
+            }
+          },
+          {
+            "name": "includeLlm",
+            "in": "query",
+            "required": false,
+            "description": "When false, return statistics only and skip the LLM explanation call.",
+            "schema": {
+              "type": "boolean",
+              "description": "When false, return statistics only and skip the LLM explanation call.",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "filters": {},
+                    "eventCount": {
+                      "type": "integer"
+                    },
+                    "caseCount": {
+                      "type": "integer"
+                    },
+                    "activityCount": {
+                      "type": "integer"
+                    },
+                    "window": {},
+                    "activities": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "bottlenecks": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "variants": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "cases": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "anomalies": {},
+                    "llm": {},
+                    "llmError": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.cancelInstance": {
+      "post": {
+        "summary": "DESTRUCTIVE. Cancel a running instance.",
+        "operationId": "com.etzhayyim.bpmn.cancelInstance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "instanceId": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "instanceId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "cancelledAt": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.compileBpmn": {
+      "get": {
+        "summary": "Compile BPMN 2.0 XML to ActorManifest pipeline without deployment (validation only).",
+        "operationId": "com.etzhayyim.bpmn.compileBpmn",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "description": "Target actor DID",
+            "schema": {
+              "type": "string",
+              "description": "Target actor DID"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nanoid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bpmnXml",
+            "in": "query",
+            "required": true,
+            "description": "BPMN 2.0 XML",
+            "schema": {
+              "type": "string",
+              "description": "BPMN 2.0 XML"
+            }
+          },
+          {
+            "name": "dmnXml",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "formSchemas",
+            "in": "query",
+            "required": false,
+            "description": "JSON-encoded form schemas",
+            "schema": {
+              "type": "string",
+              "description": "JSON-encoded form schemas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "manifest": {
+                      "type": "object"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "errors",
+                    "warnings"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.compileJsonToXml": {
+      "post": {
+        "summary": "Compile BPMN JSON subset (9 step types) to BPMN 2.0 XML. Deterministic.",
+        "operationId": "com.etzhayyim.bpmn.compileJsonToXml",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "json": {}
+                },
+                "required": [
+                  "json"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "xml": {
+                      "type": "string"
+                    },
+                    "byteSize": {
+                      "type": "integer"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.deployProcess": {
+      "post": {
+        "summary": "Deploy a BPMN process (JSON subset or XML). Stores XML to B2 + metadata to D1 + graph projection.",
+        "operationId": "com.etzhayyim.bpmn.deployProcess",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "json": {},
+                  "xml": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "default": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "processId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "xmlR2Key": {
+                      "type": "string"
+                    },
+                    "jsonR2Key": {
+                      "type": "string"
+                    },
+                    "deployedAt": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.executePipeline": {
+      "post": {
+        "summary": "Execute a T1/T2 actor pipeline by DID and pipeline index.",
+        "operationId": "com.etzhayyim.bpmn.executePipeline",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string",
+                    "description": "Actor DID"
+                  },
+                  "pipelineIndex": {
+                    "type": "integer",
+                    "default": 0
+                  },
+                  "input": {
+                    "type": "object",
+                    "description": "Trigger input data"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "outputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "outputs",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.getActivityLog": {
+      "get": {
+        "summary": "OCEL-style activity event log for a process instance.",
+        "operationId": "com.etzhayyim.bpmn.getActivityLog",
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string"
+                    },
+                    "events": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.getInstanceState": {
+      "get": {
+        "summary": "Get full instance state (variables + current token + recent events).",
+        "operationId": "com.etzhayyim.bpmn.getInstanceState",
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string"
+                    },
+                    "instance": {},
+                    "events": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.listInstances": {
+      "get": {
+        "summary": "List process instances, optionally filtered by processId and state.",
+        "operationId": "com.etzhayyim.bpmn.listInstances",
+        "parameters": [
+          {
+            "name": "processId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "completed",
+                "terminated",
+                "error",
+                "suspended"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instances": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.listProcesses": {
+      "get": {
+        "summary": "List deployed processes.",
+        "operationId": "com.etzhayyim.bpmn.listProcesses",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          },
+          {
+            "name": "includeDeprecated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "processes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.signalInstance": {
+      "post": {
+        "summary": "Signal a waiting message event on an instance, optionally with payload.",
+        "operationId": "com.etzhayyim.bpmn.signalInstance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "instanceId": {
+                    "type": "string"
+                  },
+                  "messageName": {
+                    "type": "string"
+                  },
+                  "payload": {}
+                },
+                "required": [
+                  "instanceId",
+                  "messageName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string"
+                    },
+                    "activityId": {
+                      "type": "string"
+                    },
+                    "messageName": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "occurredAt": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.startInstance": {
+      "post": {
+        "summary": "Start a process instance with inputs. Correlation key is optional and enables signalInstance routing.",
+        "operationId": "com.etzhayyim.bpmn.startInstance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "processId": {
+                    "type": "string"
+                  },
+                  "variables": {},
+                  "correlationKey": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "processId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": {
+                      "type": "string"
+                    },
+                    "processId": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "startedAt": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.bpmn.validateXml": {
+      "post": {
+        "summary": "Validate BPMN 2.0 XML (XSD + Schematron). Phase 1: cheap well-formedness; Phase 2: true XSD.",
+        "operationId": "com.etzhayyim.bpmn.validateXml",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "xml": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "xml"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="outreachSequence"
+                  targetNamespace="com.etzhayyim.apps.outreach">
+
+  <!--
+    outreachSequence.bpmn — Sales Outreach Automation (ADR-2605072000)
+    Triggered by: com.etzhayyim.apps.outreach.createSequence XRPC
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py
+    PII: prospect email/title/company = Tier 3 (sensitivity_ord=3, ADR-0018)
+  -->
+
+  <bpmn:process id="outreachSequenceProcess" isExecutable="true" name="Sales Outreach Sequence">
+
+    <bpmn:startEvent id="Start" name="Sequence Created">
+      <bpmn:outgoing>toCheckDnc</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Pre-send DNC gate -->
+    <bpmn:serviceTask id="CheckDnc" name="Check DNC List">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.check_dnc" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="15" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toCheckDnc</bpmn:incoming>
+      <bpmn:outgoing>toDncGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="DncGateway" name="On DNC?">
+      <bpmn:incoming>toDncGateway</bpmn:incoming>
+      <bpmn:outgoing>toDncEnd</bpmn:outgoing>
+      <bpmn:outgoing>toResearch</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:endEvent id="DncEnd" name="Skipped — DNC">
+      <bpmn:incoming>toDncEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- LangGraph research + draft loop -->
+    <bpmn:serviceTask id="RunResearchAgent" name="Research + Draft (LangGraph)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.run_research_agent" retries="2" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="180" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toResearch</bpmn:incoming>
+      <bpmn:outgoing>toSend</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Send step 1 email via Resend -->
+    <bpmn:serviceTask id="SendEmail" name="Send via Resend">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.send_via_resend" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="60" />
+          <zeebe:header key="stepNumber" value="1" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toSend</bpmn:incoming>
+      <bpmn:outgoing>toWaitReply</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Wait up to 3 days for reply -->
+    <bpmn:intermediateCatchEvent id="WaitReply" name="Wait for Reply (3d)">
+      <bpmn:incoming>toWaitReply</bpmn:incoming>
+      <bpmn:outgoing>toReplyGateway</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>P3D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+
+    <bpmn:exclusiveGateway id="ReplyGateway" name="Reply Received?">
+      <bpmn:incoming>toReplyGateway</bpmn:incoming>
+      <bpmn:outgoing>toFollowUp</bpmn:outgoing>
+      <bpmn:outgoing>toReplied</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Follow-up email (step 2) -->
+    <bpmn:serviceTask id="FollowUp" name="Send Follow-up">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.send_via_resend" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="60" />
+          <zeebe:header key="stepNumber" value="2" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toFollowUp</bpmn:incoming>
+      <bpmn:outgoing>toSponsor</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Optional ads.etzhayyim.com sponsor slot -->
+    <bpmn:serviceTask id="CreateSponsorSlot" name="Create Sponsor Slot (optional)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.create_sponsor_slot" retries="2" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="30" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toSponsor</bpmn:incoming>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Sequence Complete">
+      <bpmn:incoming>toEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="RepliedEnd" name="Reply Received — Stop">
+      <bpmn:incoming>toReplied</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="toCheckDnc" sourceRef="Start" targetRef="CheckDnc" />
+    <bpmn:sequenceFlow id="toDncGateway" sourceRef="CheckDnc" targetRef="DncGateway" />
+    <bpmn:sequenceFlow id="toDncEnd" sourceRef="DncGateway" targetRef="DncEnd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= isDnc = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toResearch" sourceRef="DncGateway" targetRef="RunResearchAgent">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= isDnc = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toSend" sourceRef="RunResearchAgent" targetRef="SendEmail" />
+    <bpmn:sequenceFlow id="toWaitReply" sourceRef="SendEmail" targetRef="WaitReply" />
+    <bpmn:sequenceFlow id="toReplyGateway" sourceRef="WaitReply" targetRef="ReplyGateway" />
+    <bpmn:sequenceFlow id="toFollowUp" sourceRef="ReplyGateway" targetRef="FollowUp">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= replyDetected = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toReplied" sourceRef="ReplyGateway" targetRef="RepliedEnd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= replyDetected = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toSponsor" sourceRef="FollowUp" targetRef="CreateSponsorSlot" />
+    <bpmn:sequenceFlow id="toEnd" sourceRef="CreateSponsorSlot" targetRef="End" />
+  </bpmn:process>
+</bpmn:definitions>

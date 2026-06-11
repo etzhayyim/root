@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.higherEducationAccred.flagDiplomaConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Diploma mill / mass shutdown / cross-border recognition gap (bridges apprenticeshipReg.flagCompletionGap + credential-portability + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "accreditationVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "accreditationVid": {
+              "type": "string",
+              "description": "bridges recordAccreditation"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "diploma_mill",
+                "mass_shutdown",
+                "fraudulent_credentials",
+                "cross_border_recognition_denied",
+                "esg_compliance",
+                "tuition_fraud",
+                "predatory_recruitment",
+                "quality_control_breach",
+                "branch_campus_collapse",
+                "accreditor_revoke",
+                "quality_assurance_drift"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  approveRevision — XRPC com.etzhayyim.apps.sekkei.approveRevision で起動。
+  承認済み図面を製造リリース (release レコード作成 + drawing.status=released)。
+  obsoletesDrawingId が指定された場合、旧図番を obsolete に更新。
+
+  Inputs:
+    drawingId
+    revNo
+    releaseType     (prototype | pilot | production | service)
+    releasedByDid
+    targetProductCode
+    effectiveDate
+    obsoletesDrawingId   (optional)
+    distributionList     (optional array of DIDs)
+-->
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_sekkei_approve_revision"
+  targetNamespace="https://etzhayyim.ai/bpmn/sekkei"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="sekkei_approve_revision" name="sekkei Approve Revision" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="release requested">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_CheckApproved"/>
+
+    <bpmn:serviceTask id="Task_CheckApproved" name="verify drawing is approved">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_drawing&quot;" target="table"/>
+          <zeebe:input source="=&quot;drawing_id = %s AND status = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[drawingId, &quot;approved&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;drawing_id, status, current_rev_no&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:output source="=rows" target="drawingRows"/>
+          <zeebe:output source="=rowCount" target="approvedFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_CheckApproved" targetRef="Gate_Approved"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approved" name="drawing approved?" default="Flow_NotApproved">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_DoRelease</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NotApproved</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_DoRelease" sourceRef="Gate_Approved" targetRef="Task_WriteRelease">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approvedFound > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NotApproved" sourceRef="Gate_Approved" targetRef="Task_AuditError"/>
+
+    <bpmn:serviceTask id="Task_WriteRelease" name="write release record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_release&quot;" target="table"/>
+          <zeebe:input source="={ drawing_id: drawingId, rev_no: revNo, release_type: releaseType, released_by_did: releasedByDid, released_at: now, target_product_code: targetProductCode, effective_date: effectiveDate, obsoletes_drawing_id: obsoletesDrawingId }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_DoRelease</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_WriteRelease" targetRef="Task_UpdateReleased"/>
+
+    <bpmn:serviceTask id="Task_UpdateReleased" name="set drawing status=released">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_drawing&quot;" target="table"/>
+          <zeebe:input source="={ drawing_id: drawingId, status: &quot;released&quot; }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_ObsGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ObsGate" sourceRef="Task_UpdateReleased" targetRef="Gate_Obsolete"/>
+
+    <bpmn:exclusiveGateway id="Gate_Obsolete" name="obsolete old drawing?" default="Flow_NoObsolete">
+      <bpmn:incoming>Flow_ObsGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Obsolete</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoObsolete</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Obsolete" sourceRef="Gate_Obsolete" targetRef="Task_ObsoleteOld">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=obsoletesDrawingId != null and obsoletesDrawingId != ""</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoObsolete" sourceRef="Gate_Obsolete" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_ObsoleteOld" name="set old drawing obsolete">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_drawing&quot;" target="table"/>
+          <zeebe:input source="={ drawing_id: obsoletesDrawingId, status: &quot;obsolete&quot; }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Obsolete</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ObsoleteOld" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit release audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;drawingReleased&quot;" target="action"/>
+          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, releaseType: releaseType, targetProductCode: targetProductCode, obsoletesDrawingId: obsoletesDrawingId }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoObsolete</bpmn:incoming>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditError" name="emit not-approved error">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;releaseError&quot;" target="action"/>
+          <zeebe:input source="={ drawingId: drawingId, revNo: revNo, error: &quot;drawing not in approved status&quot; }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NotApproved</bpmn:incoming>
+      <bpmn:outgoing>Flow_ErrEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ErrEnd" sourceRef="Task_AuditError" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_ErrEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

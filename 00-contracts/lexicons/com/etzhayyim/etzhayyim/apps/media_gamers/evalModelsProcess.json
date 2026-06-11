@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.evalModelsProcess",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the LangServer model-evaluation pipeline for media-gamers.etzhayyim.com.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "result": { "type": "object" },
+            "auditRkey": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

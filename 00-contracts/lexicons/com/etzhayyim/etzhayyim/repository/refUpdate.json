@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.refUpdate",
+  "description": "AT Record written to the owning DID's AT Repo every time updateRef succeeds. Travels the com.atproto.sync firehose so peer PDS instances can mirror the ref graph without polling. Immutable per rkey; ref history reconstructed by concatenating all refUpdate records for a given (ownerDid, refName).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["refName", "kind", "newCommit", "updateKind", "pushedAt"],
+        "properties": {
+          "refName": { "type": "string" },
+          "kind": {
+            "type": "string",
+            "knownValues": ["branch", "tag", "head"]
+          },
+          "previousCommit": {
+            "type": "string",
+            "description": "Omitted on initial createRef."
+          },
+          "newCommit": { "type": "string" },
+          "updateKind": {
+            "type": "string",
+            "knownValues": ["created", "fastForward", "rolledBack", "forcePushed", "deleted"]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Required when updateKind in {rolledBack, forcePushed}. Free text logged to audit trail."
+          },
+          "pushedAt": { "type": "string", "format": "datetime" },
+          "committerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID that invoked updateRef. May differ from the commit's authorDid."
+          }
+        }
+      }
+    }
+  }
+}

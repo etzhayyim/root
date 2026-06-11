@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — Filecoin deal renewal (R/P30D autonomous).
+
+  Monthly sweep over deals expiring in <30d. Re-proposes a fresh
+  deal at the same SP (or a different SP if the original is offline).
+  Original deal stays in vertex_karma_filecoin_deal with status
+  unchanged for audit lineage.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_filecoin_renew"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_filecoin_renew" name="karma filecoin renew" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="cron 1st of month 02:00 UTC">
+      <bpmn:outgoing>Flow_ToRenew</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 2 1 * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Renew" name="renew deals expiring &lt; 30d">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.filecoin.renewExpiring"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=500" target="batchSize"/>
+          <zeebe:input source="=540" target="newDurationDays"/>
+          <zeebe:output source="=renewed" target="renewed"/>
+          <zeebe:output source="=skipped" target="skipped"/>
+          <zeebe:output source="=failed" target="failed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRenew</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRenew" sourceRef="StartTimer" targetRef="Task_Renew"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.filecoinRenew&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;renewed&quot;: renewed, &quot;skipped&quot;: skipped, &quot;failed&quot;: failed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Renew" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="renewed">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

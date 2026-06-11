@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_lei_dissolve_org_unit"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="open_lei_dissolve_org_unit" name="Org Unit 解散" isExecutable="true">
+
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Dissolve"/>
+
+    <!-- Mark unit + optional descendant cascade as dissolved -->
+    <bpmn:serviceTask id="Task_Dissolve" name="Org Unit 解散">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.org.dissolve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=orgUnitVid"   target="orgUnitVid"/>
+          <zeebe:input source="=validUntil"   target="validUntil"/>
+          <zeebe:input source="=if cascade = false then false else true" target="cascade"/>
+          <zeebe:input source="=if dryRun = true then true else false"   target="dryRun"/>
+          <zeebe:output source="=ok"          target="dissolveOk"/>
+          <zeebe:output source="=dissolved"   target="dissolvedCount"/>
+          <zeebe:output source="=validUntil"  target="resolvedValidUntil"/>
+          <zeebe:output source="=errors"      target="dissolveErrors"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Dissolve" targetRef="GW_Ok"/>
+
+    <bpmn:exclusiveGateway id="GW_Ok" default="Flow_Audit">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Err</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Err" sourceRef="GW_Ok" targetRef="End_Err">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=dissolveOk = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="GW_Ok" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit openLei.org.dissolve">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-lei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLei.org.dissolve&quot;"    target="action"/>
+          <zeebe:input source="={orgUnitVid: orgUnitVid, dissolved: dissolvedCount, validUntil: resolvedValidUntil, dryRun: dryRun}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End_Ok"/>
+
+    <bpmn:endEvent id="End_Ok"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_Err"><bpmn:incoming>Flow_Err</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

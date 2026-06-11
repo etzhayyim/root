@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_gov_tuv_list_orgs"
+    targetNamespace="https://etzhayyim.ai/bpmn/govTuv"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="gov_tuv_list_orgs" name="govTuv list orgs" isExecutable="true">
+    <bpmn:startEvent id="Start" name="list requested">
+      <bpmn:outgoing>Flow_Task</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>
+    <bpmn:serviceTask id="Task_List" name="list orgs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govTuv.listOrgs"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=orgs" target="orgs"/>
+          <zeebe:output source="=total" target="total"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Task</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_List" targetRef="End"/>
+    <bpmn:endEvent id="End" name="listed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

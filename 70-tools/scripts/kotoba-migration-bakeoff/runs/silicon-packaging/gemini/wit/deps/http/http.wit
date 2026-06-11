@@ -1,0 +1,1 @@
+package wasi:http@0.2.0; interface outgoing-handler { enum error-code { unknown } } interface types { enum error-code { unknown } }

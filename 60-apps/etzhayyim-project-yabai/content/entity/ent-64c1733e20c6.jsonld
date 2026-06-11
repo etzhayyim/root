@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-64c1733e20c6",
+  "entityId": "ent-64c1733e20c6",
+  "canonicalName": "laurin katz",
+  "aliases": [
+    "laurin katz"
+  ]
+}

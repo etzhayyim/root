@@ -1,0 +1,21 @@
+;; com.etzhayyim.futawa.engineAttestation — lexicon (EDN form)
+;; L2a engine/motor + torque + ≤250cc/≤15kW cap verification
+{:lexicon 1
+ :id "com.etzhayyim.futawa.engineAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["engineAttestationId" "displacementCc" "powerKw"]
+    :properties
+    {:engineAttestationId {:type "string"}
+     :displacementCc      {:type "integer" :description "engine displacement; must be ≤250cc (G11)"}
+     :powerKw             {:type "number" :description "rated power; must be ≤15kW (G11)"}
+     :torqueNm            {:type "number" :description "rated torque (Nm)"}
+     :engineBlockLot      {:type "string"}
+     :pistonRodCrankLot   {:type "string"}
+     :valvetrainSpec      {:type "string"}
+     :g11CapVerified      {:type "boolean" :description "displacement + power within G11 caps"}
+     :timestamp           {:type "string" :description "ISO-8601 timestamp"}}}}}}

@@ -1,0 +1,41 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@alibabacloud.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][AS45102] 14 phishing domains on your network (Etzhayyim Yabai)
+Date: Sun, 19 Apr 2026 11:22:50 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello Alibaba Cloud SG abuse team,
+
+We are reporting 14 domains currently resolving to your network
+(ALIBABA-CN-NET Alibaba US Technology Co., Ltd., CN, AS45102, SG). Full list below (domain => ip):
+
+aocunts.com => 8.209.248.243
+servecenter.one => 8.209.248.243
+supportpulse.one => 8.209.248.243
+uurl.one => 8.209.248.243
+whattsspp.com => 8.209.248.243
+whotsapp.one => 8.209.248.243
+whotsupp.com => 8.209.248.243
+whtaspp.com => 8.209.248.243
+whtaspp.vip => 8.209.248.243
+whtzappp.vip => 8.209.248.243
+wnatsap.vip => 8.209.248.243
+wnatspp.com => 8.209.248.243
+wnatspp.vip => 8.209.248.243
+wnatzapp.vip => 8.209.248.243
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

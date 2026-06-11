@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_legal_entity_collect_usa_edgar"
+    targetNamespace="https://etzhayyim.ai/bpmn/legal-entity"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="legal_entity_collect_usa_edgar" name="legal entity collect USA EDGAR" isExecutable="true">
+    <bpmn:startEvent id="Start" name="USA EDGAR collection requested">
+      <bpmn:outgoing>Flow_Collect</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Collect" sourceRef="Start" targetRef="Task_Collect"/>
+    <bpmn:serviceTask id="Task_Collect" name="fetch and commit SEC registrants">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="legalEntity.edgar.collectUsa"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=pages" target="pages"/>
+          <zeebe:input source="=pageSize" target="pageSize"/>
+          <zeebe:input source="=startPage" target="startPage"/>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Collect</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Collect" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit USA EDGAR collection">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:legal-entity.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;legal-entity.collectUsaEdgar&quot;" target="action"/>
+          <zeebe:input source="={ startPage: startPage, pages: pages, result: result }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="USA EDGAR records committed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

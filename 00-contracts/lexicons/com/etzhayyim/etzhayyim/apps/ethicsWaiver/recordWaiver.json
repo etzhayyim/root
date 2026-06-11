@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ethicsWaiver.recordWaiver",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ethics waiver / 207(c) / agency-level exception (bridges revolvingDoor.flagCoolingBreach + ethics-disclosure + lobbying-disclosure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "waiverId",
+            "agency",
+            "waiverKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "waiverId": {
+              "type": "string"
+            },
+            "agency": {
+              "type": "string",
+              "enum": [
+                "oge",
+                "omb",
+                "white_house",
+                "doj_crm",
+                "irs",
+                "sec",
+                "cftc",
+                "dod",
+                "state",
+                "ofac",
+                "fincen",
+                "epa",
+                "fda",
+                "nih",
+                "dot",
+                "treasury",
+                "dhs"
+              ]
+            },
+            "waiverKind": {
+              "type": "string",
+              "enum": [
+                "208_financial_interest",
+                "207_c",
+                "matter_specific",
+                "general_waiver",
+                "de_minimis",
+                "impartiality",
+                "post_employment",
+                "alternative_remuneration",
+                "ghost_advisor",
+                "emergency"
+              ]
+            },
+            "coolingBreachVid": {
+              "type": "string",
+              "description": "bridges revolvingDoor.flagCoolingBreach"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.runExpiredDrugPatentPipeline",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run the expired pharmaceutical patent pipeline: collect estimated-expired drug patents, screen eligibility, and create manufacturing candidates when product metadata is present.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "asOf": { "type": "string", "format": "date" },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 1000 },
+            "jurisdiction": { "type": "string" },
+            "candidateKind": {
+              "type": "string",
+              "enum": ["generic", "biosimilar", "api_source"]
+            },
+            "autoHandoffToSeiyaku": { "type": "boolean" },
+            "autoPrepareSeiyakuBatchDraft": { "type": "boolean" },
+            "autoValidateSeiyakuBatchDraft": { "type": "boolean" },
+            "autoQueueSeiyakuBatchStart": { "type": "boolean" },
+            "dryRun": { "type": "boolean" },
+            "rows": {
+              "type": "array",
+              "items": { "type": "object" }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "runVertexId": { "type": "string" },
+            "asOf": { "type": "string", "format": "date" },
+            "collectedCount": { "type": "integer" },
+            "screenedCount": { "type": "integer" },
+            "plannedCount": { "type": "integer" },
+            "handoffCount": { "type": "integer" },
+            "draftCount": { "type": "integer" },
+            "validationCount": { "type": "integer" },
+            "startRequestCount": { "type": "integer" },
+            "skippedPlanCount": { "type": "integer" },
+            "skippedDraftCount": { "type": "integer" },
+            "skippedQueueCount": { "type": "integer" },
+            "plans": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "handoffs": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "drafts": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "validations": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "startRequests": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

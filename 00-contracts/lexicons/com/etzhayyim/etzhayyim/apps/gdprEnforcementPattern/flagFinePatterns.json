@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gdprEnforcementPattern.flagFinePatterns",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fine escalation / global maximum / turnover cap (bridges edpbBinding.flagNationalResistance + enforcementAction + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "clusterVid",
+            "patternKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "clusterVid": {
+              "type": "string",
+              "description": "bridges recordCaseCluster"
+            },
+            "patternKind": {
+              "type": "string",
+              "enum": [
+                "turnover_2pct",
+                "turnover_4pct",
+                "escalating",
+                "benchmark_case",
+                "eu_wide",
+                "consolidated",
+                "company_group",
+                "symbolic_fine",
+                "delayed_enforcement",
+                "judicial_review_pending"
+              ]
+            },
+            "totalFineMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

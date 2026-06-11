@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_backfill_body_text" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="legal_corpus_backfill_body_text" name="backfillBodyText" isExecutable="true">
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start_Manual" targetRef="Task_FindDocs"/>
+    <bpmn:serviceTask id="Task_FindDocs" name="find docs without body_text">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT vertex_id, canonical_uri, source_id FROM vertex_legal_corpus_document WHERE body_text IS NULL AND canonical_uri IS NOT NULL LIMIT $1&quot;" target="sql"/>
+          <zeebe:input source="=[batchSize]" target="params"/>
+          <zeebe:output source="=rows" target="docs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_FindDocs" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="fetch+embed each doc" calledElement="legal_corpus_fetch_and_embed">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_fetch_and_embed"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=doc.vertex_id" target="vertexId"/>
+          <zeebe:input source="=doc.canonical_uri" target="canonicalUri"/>
+          <zeebe:input source="=doc.source_id" target="sourceId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true">
+        <bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=docs" inputElement="doc"/></bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Loop" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

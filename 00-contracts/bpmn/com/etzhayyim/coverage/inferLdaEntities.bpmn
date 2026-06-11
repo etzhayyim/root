@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  coverage.inferLdaEntities — Phase C of LDA latent entity inference (ADR-0096).
+
+  Reads the converged topic model (from inferLdaTopics) and identifies
+  stable topic clusters that represent latent (unobservable) entities.
+  Creates vertex_latent_entity rows, edge_topic_entity_binding,
+  edge_entity_evidence, and edge_entity_cohort_link (ADR-0026 bridge).
+
+  An entity emerges when ≥2 viewpoints independently assign high weight
+  to the same topic cluster AND evidence_count ≥ 20 records.
+
+  Pipeline:
+    1. generic.db.select  — read latest converged model + topics
+    2. generic.db.select  — read top-N record→topic assignments (θ, high-weight only)
+    3. generic.db.select  — read mv_lda_topic_top_signals (consensus check)
+    4. generic.db.bulkInsert — create vertex_latent_entity (consensus ≥ 2 viewpoints)
+    5. generic.db.bulkInsert — create edge_topic_entity_binding (topic→entity)
+    6. generic.db.bulkInsert — create edge_entity_evidence (record→entity)
+    7. generic.db.bulkInsert — create edge_entity_cohort_link (entity→ADR-0026 cohort)
+    8. generic.audit.emit — OCEL summary
+
+  Trigger:
+    timer-start R/P7D (weekly, after inferLdaTopics) AND XRPC (`com.etzhayyim.apps.coverage.inferLdaEntities`).
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-entities-v1
+  NSID:      com.etzhayyim.apps.coverage.inferLdaEntities
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_coverage_infer_lda_entities"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="coverage_infer_lda_entities" name="coverage infer LDA entities" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.coverage.inferLdaEntities", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 7 days">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P7D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="manual trigger">
+      <bpmn:outgoing>Flow_0</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_0" sourceRef="Start_Manual" targetRef="Task_ReadTopics"/>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start_Timer"  targetRef="Task_ReadTopics"/>
+
+    <!-- Step 1: Read latest converged topics -->
+    <bpmn:serviceTask id="Task_ReadTopics" name="read converged topics">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_lda_topic&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, model_vid, topic_index, primary_viewpoint_vid, topic_label, coherence_score, top_signal_count, entity_kind_hint&quot;" target="columns"/>
+          <zeebe:input source="=&quot;coherence_score > 0.1&quot;" target="where"/>
+          <zeebe:input source="=100" target="limit"/>
+          <zeebe:input source="=&quot;coherence_score DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="topics"/>
+          <zeebe:output source="=rowCount" target="topicCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0</bpmn:incoming>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_ReadTopics" targetRef="Gateway_HasTopics"/>
+    <bpmn:exclusiveGateway id="Gateway_HasTopics" name="topics available?" default="Flow_NoTopics">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_ReadThetaEdges</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoTopics</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ReadThetaEdges" sourceRef="Gateway_HasTopics" targetRef="Task_ReadThetaEdges">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=topicCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoTopics" sourceRef="Gateway_HasTopics" targetRef="Task_AuditNoInput"/>
+
+    <!-- Step 2: Read high-weight record→topic assignments (θ, weight > 0.3) -->
+    <bpmn:serviceTask id="Task_ReadThetaEdges" name="read record-topic assignments">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_record_topic_weight&quot;" target="table"/>
+          <zeebe:input source="=&quot;src_vid, dst_vid, weight, source_collection&quot;" target="columns"/>
+          <zeebe:input source="=&quot;weight > 0.3&quot;" target="where"/>
+          <zeebe:input source="=if (thetaLimit = null) then 5000 else thetaLimit" target="limit"/>
+          <zeebe:input source="=&quot;weight DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="thetaEdges"/>
+          <zeebe:output source="=rowCount" target="thetaCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ReadThetaEdges</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ReadThetaEdges" targetRef="Task_ReadTopicSignals"/>
+
+    <!-- Step 3: Read topic signal summary for viewpoint consensus check -->
+    <bpmn:serviceTask id="Task_ReadTopicSignals" name="read topic signal summary">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;mv_lda_topic_top_signals&quot;" target="table"/>
+          <zeebe:input source="=&quot;topic_vid, entity_kind_hint, coherence_score, signal_count, total_weight&quot;" target="columns"/>
+          <zeebe:input source="=100" target="limit"/>
+          <zeebe:output source="=rows"     target="topicSignals"/>
+          <zeebe:output source="=rowCount" target="topicSignalCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ReadTopicSignals" targetRef="Task_CreateEntities"/>
+
+    <!-- Step 4: Create vertex_latent_entity for topics with enough evidence -->
+    <bpmn:serviceTask id="Task_CreateEntities" name="create latent entities">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_latent_entity&quot;" target="table"/>
+          <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) >= 5] return {
+    &quot;vertex_id&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;_seq&quot;:                   t.topic_index + 1,
+    &quot;sensitivity_ord&quot;:        if (t.entity_kind_hint = &quot;person&quot;) then 300 else 0,
+    &quot;owner_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;entity_kind&quot;:            if (t.entity_kind_hint != null) then t.entity_kind_hint else &quot;unknown&quot;,
+    &quot;canonical_label&quot;:        t.topic_label,
+    &quot;existence_probability&quot;:  if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0,
+    &quot;existence_mass&quot;:         sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight),
+    &quot;primary_viewpoint_vid&quot;:  t.primary_viewpoint_vid,
+    &quot;primary_topic_vid&quot;:      t.vertex_id,
+    &quot;k_evidence_count&quot;:       count(thetaEdges[dst_vid = t.vertex_id]),
+    &quot;viewpoint_consensus&quot;:    1,
+    &quot;fission_eligible&quot;:       (if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0) > 0.85 and count(thetaEdges[dst_vid = t.vertex_id]) >= 20,
+    &quot;status&quot;:                 if ((if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0) > 0.5) then &quot;emerging&quot; else &quot;latent&quot;,
+    &quot;actor_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:               &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;created_at&quot;:             now()
+  }" target="rows"/>
+          <zeebe:output source="=inserted" target="entitiesCreated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_CreateEntities" targetRef="Task_BindTopics"/>
+
+    <!-- Step 5: Create edge_topic_entity_binding (topic → entity) -->
+    <bpmn:serviceTask id="Task_BindTopics" name="bind topics to entities">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_topic_entity_binding&quot;" target="table"/>
+          <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) &gt;= 5] return {
+    &quot;edge_id&quot;:             &quot;lda-bind-&quot; + substring(t.vertex_id, 60),
+    &quot;src_vid&quot;:             t.vertex_id,
+    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;_seq&quot;:                1,
+    &quot;sensitivity_ord&quot;:     0,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;binding_confidence&quot;:  t.coherence_score,
+    &quot;stability_score&quot;:     0.5,
+    &quot;binding_type&quot;:        &quot;primary&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;created_at&quot;:          now()
+  }" target="rows"/>
+          <zeebe:output source="=inserted" target="bindingsCreated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_BindTopics" targetRef="Task_LinkEvidence"/>
+
+    <!-- Step 6: Create edge_entity_evidence (record → entity, top 1000) -->
+    <bpmn:serviceTask id="Task_LinkEvidence" name="link evidence to entities">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_entity_evidence&quot;" target="table"/>
+          <zeebe:input source="=for e in (slice(thetaEdges, 0, 1000))
+  return {
+    &quot;edge_id&quot;:             &quot;lda-ev-&quot; + substring(e.src_vid, 60) + &quot;-&quot; + substring(e.dst_vid, 60),
+    &quot;src_vid&quot;:             e.src_vid,
+    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(e.dst_vid, 80),
+    &quot;_seq&quot;:                1,
+    &quot;sensitivity_ord&quot;:     0,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;evidence_weight&quot;:     e.weight,
+    &quot;evidence_kind&quot;:       &quot;statistical&quot;,
+    &quot;source_collection&quot;:   if (e.source_collection != null) then e.source_collection else &quot;unknown&quot;,
+    &quot;observed_at&quot;:         now(),
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;created_at&quot;:          now()
+  }" target="rows"/>
+          <zeebe:output source="=inserted" target="evidenceLinked"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_LinkEvidence" targetRef="Task_LinkCohorts"/>
+
+    <!-- Step 7: Create edge_entity_cohort_link for fission-eligible entities (ADR-0026 bridge) -->
+    <bpmn:serviceTask id="Task_LinkCohorts" name="link fission-eligible entities to cohorts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_entity_cohort_link&quot;" target="table"/>
+          <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) &gt;= 20 and (if (sum(thetaEdges[dst_vid = vertex_id].weight) &gt; 0) then 1 - exp(-(sum(thetaEdges[dst_vid = vertex_id].weight)) / 10) else 0.0) &gt; 0.85] return {
+    &quot;edge_id&quot;:             &quot;lda-cohort-link-&quot; + substring(t.vertex_id, 60),
+    &quot;src_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;dst_vid&quot;:             &quot;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
+    &quot;_seq&quot;:                1,
+    &quot;sensitivity_ord&quot;:     0,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;link_confidence&quot;:     if (sum(thetaEdges[dst_vid = t.vertex_id].weight) &gt; 0) then 1 - exp(-(sum(thetaEdges[dst_vid = t.vertex_id].weight)) / 10) else 0.0,
+    &quot;link_type&quot;:           &quot;fission_candidate&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;created_at&quot;:          now()
+  }" target="rows"/>
+          <zeebe:output source="=inserted" target="cohortLinked"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Task_LinkCohorts" targetRef="Task_Audit"/>
+
+    <!-- Step 8: OCEL audit -->
+    <bpmn:serviceTask id="Task_Audit" name="emit LDA entities OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferLdaEntities.bind&quot;" target="action"/>
+          <zeebe:input source="={
+            &quot;topics_read&quot;:       topicCount,
+            &quot;theta_edges_read&quot;:   thetaCount,
+            &quot;entities_created&quot;:   entitiesCreated,
+            &quot;bindings_created&quot;:   bindingsCreated,
+            &quot;evidence_linked&quot;:    evidenceLinked,
+            &quot;cohort_links&quot;:       cohortLinked
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoInput" name="emit LDA entities no-input audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferLdaEntities.noInput&quot;" target="action"/>
+          <zeebe:input source="={ &quot;topics_read&quot;: topicCount, &quot;status&quot;: &quot;no-topics&quot; }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoTopics</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoInputEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoInputEnd" sourceRef="Task_AuditNoInput" targetRef="End"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:incoming>Flow_NoInputEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

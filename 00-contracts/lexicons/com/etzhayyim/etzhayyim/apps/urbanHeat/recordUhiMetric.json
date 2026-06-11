@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.urbanHeat.recordUhiMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Urban Heat Island metric (WMO UHI study + Copernicus C3S + LST — bridges coastal-slr + air-quality + disaster-response)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "cityUnlocode",
+            "measurementType",
+            "uhiDeltaC",
+            "recordedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "cityUnlocode": {
+              "type": "string"
+            },
+            "measurementType": {
+              "type": "string",
+              "enum": [
+                "lst_day",
+                "lst_night",
+                "air_temp",
+                "wetbulb",
+                "heatindex"
+              ]
+            },
+            "uhiDeltaC": {
+              "type": "number",
+              "description": "urban-rural delta"
+            },
+            "meanTempC": {
+              "type": "number"
+            },
+            "populationExposed": {
+              "type": "integer"
+            },
+            "peakDay": {
+              "type": "string"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "exposureTier": {
+              "type": "string",
+              "enum": [
+                "mild",
+                "moderate",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

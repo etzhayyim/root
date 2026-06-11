@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3b0a52892ee2",
+  "entityId": "ent-3b0a52892ee2",
+  "canonicalName": "oceanic orbit incorporated",
+  "aliases": [
+    "oceanic orbit incorporated"
+  ]
+}

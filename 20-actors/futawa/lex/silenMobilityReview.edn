@@ -1,0 +1,21 @@
+;; com.etzhayyim.futawa.silenMobilityReview — lexicon (EDN form)
+;; Council 5-of-7 Safe attestation (terminal gate)
+{:lexicon 1
+ :id "com.etzhayyim.futawa.silenMobilityReview"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["silenMobilityReviewId" "vehicleLotAttestationId" "councilApproval"]
+    :properties
+    {:silenMobilityReviewId    {:type "string"}
+     :vehicleLotAttestationId  {:type "string"}
+     :allAttestationsCid       {:type "string" :description "IPFS CID of merged provenance chain (L1-L5b)"}
+     :councilApproval          {:type "string" :description "5-of-7 Safe multisig status (approved/rejected/pending)"}
+     :councilSig               {:type "string" :description "Council multisig signature reference"}
+     :testRecordPass           {:type "boolean" :description "dyno + safety testing passed"}
+     :safetyRecommendations    {:type "string" :description "Council safety advisory (if any)"}
+     :approvalDate             {:type "string" :description "ISO-8601 approval datetime"}
+     :timestamp                {:type "string" :description "ISO-8601 timestamp"}}}}}}

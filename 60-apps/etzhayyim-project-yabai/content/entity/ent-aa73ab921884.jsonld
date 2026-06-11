@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-aa73ab921884",
+  "entityId": "ent-aa73ab921884",
+  "canonicalName": "car care center",
+  "aliases": [
+    "car care center"
+  ]
+}

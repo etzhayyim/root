@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_kev_catalog_fetch_kev_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-kev-catalog" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_kev_catalog_fetch_kev_delta" name="fetchKevDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 12h"><bpmn:outgoing>Flow_F</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT12H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_FM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_FM" sourceRef="Start_Manual" targetRef="Task_Fetch"/>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Start" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="cisa kev snapshot">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json&quot;" target="url"/>
+          <zeebe:input source="={&quot;Accept&quot;: &quot;application/json&quot;}" target="headers"/>
+          <zeebe:output source="=bodyJson.vulnerabilities" target="items"/>
+          <zeebe:output source="=string(now())" target="fetchedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="record each KEV entry" calledElement="open_kev_catalog_record_entry">
+      <bpmn:extensionElements><zeebe:calledElement processId="open_kev_catalog_record_entry"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;at://did:web:open-kev-catalog.etzhayyim.com/com.etzhayyim.apps.kevCatalog.recordEntry/&quot; + item.cveID" target="vertexId"/>
+          <zeebe:input source="=item.cveID" target="entryId"/>
+          <zeebe:input source="=item.cveID" target="cveId"/>
+          <zeebe:input source="=item.product" target="productCategory"/>
+          <zeebe:input source="=&quot;active&quot;" target="exploitationMaturity"/>
+          <zeebe:input source="=null" target="disclosureGapVid"/>
+          <zeebe:input source="=item.dueDate" target="dueDate"/>
+          <zeebe:input source="=item.dateAdded" target="addedAt"/>
+          <zeebe:input source="=&quot;did:web:open-kev-catalog.etzhayyim.com&quot;" target="callerDid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false"><bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements></bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Loop" targetRef="Task_Advance"/>
+    <bpmn:serviceTask id="Task_Advance" name="mark fetched">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_open_cyber_source SET last_fetched_at = $1 WHERE source_id = 'cisa-kev'&quot;" target="sql"/>
+          <zeebe:input source="=[fetchedAt]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Advance" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

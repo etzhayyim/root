@@ -1,0 +1,126 @@
+{
+  "comment": "Deterministic firehose fixture for the feed-discover L1 projection conformance smoke. Events represent: 3 posts created across 3 DIDs in interleaved indexedAt order, 1 update, 1 delete, 3 membrane verdicts (approve / escalate / reject). The replayer translates each event into applyFeedPostEvent or applyVerdictEvent and the final snapshot is compared byte-for-byte against golden.json (modulo snapshotAt per kotoba-datomic-projection.edn intentional_non_determinism).",
+  "events": [
+    {
+      "kind": "post",
+      "seq": "1",
+      "did": "did:web:alice.etzhayyim.com",
+      "rkey": "3kfa",
+      "op": "create",
+      "recordCid": "bafyrei-alice-3kfa-v1",
+      "record": {
+        "text": "alice's first post",
+        "createdAt": "2026-05-23T02:00:00Z"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "2",
+      "did": "did:web:bob.etzhayyim.com",
+      "rkey": "3kfb",
+      "op": "create",
+      "recordCid": "bafyrei-bob-3kfb-v1",
+      "record": {
+        "text": "bob's hello",
+        "createdAt": "2026-05-23T01:00:00Z"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "3",
+      "did": "did:web:carol.etzhayyim.com",
+      "rkey": "3kfc",
+      "op": "create",
+      "recordCid": "bafyrei-carol-3kfc-v1",
+      "record": {
+        "text": "carol's first",
+        "createdAt": "2026-05-23T03:00:00Z"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "4",
+      "did": "did:web:alice.etzhayyim.com",
+      "rkey": "3kfa",
+      "op": "update",
+      "recordCid": "bafyrei-alice-3kfa-v2",
+      "record": {
+        "text": "alice's first post (edited)",
+        "createdAt": "2026-05-23T02:30:00Z"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "5",
+      "did": "did:web:dan.etzhayyim.com",
+      "rkey": "3kfd",
+      "op": "create",
+      "recordCid": "bafyrei-dan-3kfd-v1",
+      "record": {
+        "text": "post we will reject",
+        "createdAt": "2026-05-23T04:00:00Z"
+      }
+    },
+    {
+      "kind": "verdict",
+      "seq": "6",
+      "did": "did:web:cell.etzhayyim.com",
+      "rkey": "v1",
+      "op": "create",
+      "recordCid": "bafyrei-verdict-v1",
+      "record": {
+        "subject": {
+          "uri": "at://did:web:bob.etzhayyim.com/app.bsky.feed.post/3kfb"
+        },
+        "verdict": "approve"
+      }
+    },
+    {
+      "kind": "verdict",
+      "seq": "7",
+      "did": "did:web:cell.etzhayyim.com",
+      "rkey": "v2",
+      "op": "create",
+      "recordCid": "bafyrei-verdict-v2",
+      "record": {
+        "subject": {
+          "uri": "at://did:web:carol.etzhayyim.com/app.bsky.feed.post/3kfc"
+        },
+        "verdict": "escalate"
+      }
+    },
+    {
+      "kind": "verdict",
+      "seq": "8",
+      "did": "did:web:cell.etzhayyim.com",
+      "rkey": "v3",
+      "op": "create",
+      "recordCid": "bafyrei-verdict-v3",
+      "record": {
+        "subject": {
+          "uri": "at://did:web:dan.etzhayyim.com/app.bsky.feed.post/3kfd"
+        },
+        "verdict": "reject"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "9",
+      "did": "did:web:eve.etzhayyim.com",
+      "rkey": "3kfe",
+      "op": "create",
+      "recordCid": "bafyrei-eve-3kfe-v1",
+      "record": {
+        "text": "eve posts then deletes",
+        "createdAt": "2026-05-23T00:30:00Z"
+      }
+    },
+    {
+      "kind": "post",
+      "seq": "10",
+      "did": "did:web:eve.etzhayyim.com",
+      "rkey": "3kfe",
+      "op": "delete"
+    }
+  ]
+}

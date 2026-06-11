@@ -1,0 +1,715 @@
+# lefthook config — etzhayyim/root
+#
+# Scaffolding stub. Real hooks (adr-validate, docs-registry, bpmn-contract-gates,
+# lint-dangerous-query, llm-model-ssot, etc.) will be added when the
+# corresponding source paths land in this repo.
+
+pre-commit:
+  parallel: true
+  commands:
+    secret-scan:
+      # Block obvious credentials before they hit git history.
+      # Per the GitGuardian incident (2026-05-17): the RisingWave
+      # PostgreSQL credential `rw_66a4db…` landed in HEAD via seeded
+      # framework content and required remediation.
+      #
+      # Detection regex covers:
+      #   - postgres://USER:PASSWORD@HOST/DB                     (DSN with embedded password — placeholder doc only)
+      #   - sk_live_… / sk_test_… (Stripe-style secret keys)     (also matches arbitrary `sk_*` tokens)
+      #   - rw_<32-hex>             (RisingWave password format used by upstream)
+      #   - AWS_SECRET_ACCESS_KEY=  / aws_secret_access_key=     (env-style aws keys)
+      #   - github_pat_              (GitHub personal access tokens)
+      #   - ghp_ / ghs_ / ghr_ / gho_  (GitHub PATs short prefixes)
+      #   - PRIVATE KEY-----         (PEM headers)
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh,sol,sql,env,example}"
+      run: |
+        # Allow false-positive-ish matches inside ADR docs / tests
+        # describing the secret pattern as a literal example.
+        # Reject in all other code paths.
+        leaks=$(grep -nE \
+          'postgres(ql)?://[^@[:space:]]*:[^@[:space:]]+@|sk_(live|test)_[A-Za-z0-9]{16,}|rw_[a-f0-9]{32}|AWS_SECRET_ACCESS_KEY=[A-Za-z0-9/+]{16,}|github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|ghs_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----' \
+          {staged_files} 2>/dev/null | \
+          grep -vE '(REDACTED|<rw-host>|example|fixture|placeholder|EXAMPLE_|DUMMY_|XXXX|<your-|<insert-|/test/|_test\.|\.test\.|/tests/|\.example|\.sample)' || true)
+        if [ -n "$leaks" ]; then
+          echo "✘ secret-scan detected potential credential leak:"
+          echo "$leaks"
+          echo ""
+          echo "  Move the value to a secret manager (Keychain / 1Password / k8s Secret) and"
+          echo "  reference via env var instead. If this is a documented EXAMPLE format, mark"
+          echo "  the line with the token 'EXAMPLE' or 'placeholder' to bypass this check."
+          exit 1
+        fi
+      stage_fixed: false
+
+    trailing-whitespace:
+      # Exempt build outputs (analogous to no-cookie's path exemption).
+      # `static/_app/immutable/` is where SvelteKit's adapter-cloudflare with
+      # `fallback: 'spa'` writes its hashed chunks; the trailing whitespace
+      # in those files is inside vendored error-message template literals
+      # (e.g. MLC web-llm), not editable formatting.
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      exclude:
+        - "**/node_modules/**"
+        - "**/.svelte-kit/**"
+        - "**/build/**"
+        - "**/dist/**"
+        - "**/static/_app/immutable/**"
+      run: |
+        if grep -nE ' +$' {staged_files} 2>/dev/null; then
+          echo "✘ trailing whitespace found"; exit 1
+        fi
+      stage_fixed: false
+
+    end-of-file:
+      glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      exclude:
+        - "**/node_modules/**"
+        - "**/.svelte-kit/**"
+        - "**/build/**"
+        - "**/dist/**"
+        - "**/static/_app/immutable/**"
+      run: |
+        for f in {staged_files}; do
+          if [ -s "$f" ] && [ "$(tail -c1 "$f" | xxd -p)" != "0a" ]; then
+            echo "✘ missing final newline: $f"; exit 1
+          fi
+        done
+      stage_fixed: false
+
+    substrate-boundary:
+      # Enforce ADR-2605172000 (RW-free state substrate) and
+      # ADR-2605172100 (no fiat payment processors) at commit time.
+      # Blocks direct imports of kysely / pg / postgres / mysql /
+      # mongodb / risingwave (storage), stripe / paypal / square / …
+      # (payment), and @atproto/api / viem / @noble/ciphers /
+      # @signalapp/libsignal-client / ipfs-http-client / helia
+      # (substrate clients that must route through @etzhayyim/sdk).
+      # See 70-tools/scripts/lint/substrate-boundary.mjs §allowedPrefixes
+      # for the SDK-seam carve-outs. ADR-2605191648.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte}"
+      run: node 70-tools/scripts/lint/substrate-boundary.mjs {staged_files}
+      stage_fixed: false
+
+    no-advertising:
+      # Enforce ADR-2605192115 §1.2 (No Advertising hard rule) +
+      # ADR-2605192100 §1.6 (Mission Charter middleman elimination).
+      # Blocks imports of advertising networks / affiliate SDKs /
+      # ad-context trackers + HTML/DOM advertising integration patterns.
+      # See 70-tools/scripts/lint/no-advertising.mjs for the full list.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte,html,htm}"
+      run: node 70-tools/scripts/lint/no-advertising.mjs {staged_files}
+      stage_fixed: false
+
+    no-cookie:
+      # Enforce CHARTER-RIDER.md §2(c) (no surveillance / trackers) +
+      # ADR-2605172000 (RW-free substrate, identity = DID + WebAuthn).
+      # Blocks document.cookie writes, SvelteKit/hono/express cookies.set(),
+      # setCookie() helpers, cookie.serialize(), and raw Set-Cookie header
+      # construction. Reads are allowed (legacy-cookie migration is fine).
+      # Inline bypass: add `// no-cookie: allow <reason>`.
+      # The etzhayyim-did-web Worker is exempt (it IS the policy enforcer).
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,svelte}"
+      run: node 70-tools/scripts/lint/no-cookie.mjs {staged_files}
+      stage_fixed: false
+
+    no-purchase-purpose:
+      # Enforce ADR-2605192115 §1.3 + §3.3 + ADR-2605192130.
+      # Blocks the v0 payment.sent.purpose enum values that were
+      # removed in the v0→v1 narrow (subscription / purchase / tip /
+      # refund / offering / split). Allowed: donation / kisha / grant /
+      # tithe / escrow-refund + internal-* (SBT↔SBT carve-out only).
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte,json}"
+      run: node 70-tools/scripts/lint/no-purchase-purpose.mjs {staged_files}
+      stage_fixed: false
+
+    paywall-warn:
+      # Warning-level surface for ADR-2605192115 §2.3 paywall patterns.
+      # Non-blocking — Council Lv6+ reviews case by case. Always exits 0.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte,md}"
+      run: node 70-tools/scripts/lint/paywall-warn.mjs {staged_files}
+      stage_fixed: false
+
+    yirah-presence-warn:
+      # Warning-level surface for ADR-2606112200 D4 (yir'ah invariant bundle).
+      # A staged actor manifest without a `yirah` declaration block gets a
+      # non-blocking reminder (absent != violating - declarations are adopted
+      # only where meaningful for the actor's scope). Always exits 0.
+      glob: "20-actors/*/manifest.jsonld"
+      run: python3 70-tools/scripts/lint/yirah-presence-warn.py {staged_files}
+      stage_fixed: false
+
+    no-commercial-remittance:
+      # Enforce ADR-2605282200 G7 + silenKawaseReview
+      # commercialRemittanceSoftwarePenetrationPct const 0. Forbids
+      # integration / import / URL reference to 15 named MSB vendors
+      # (Wise / Western Union / MoneyGram / Remitly / WorldRemit / Xoom /
+      # Revolut / OFX-money / Currencies Direct / Ria / Paysend /
+      # Atlantic Money / Sendwave / Boss Revolution / PayPal-Xoom) in any
+      # kawase-yui runtime source. Charter Rider §2(e) anti-gatekeeping +
+      # §2(c) covert-ops avoidance. Build-time enforcement so violations
+      # are caught BEFORE they reach the silenKawaseReview audit layer.
+      # Scans guarded roots only (kawase-yui actor + 5 kotodama cells +
+      # kawase-pool contract + kotoba_kawase Python facade). Allow-listed
+      # files: the lint script itself + the ADR-2605282200 document.
+      glob: "*.{py,ts,tsx,js,mjs,cjs,rs,sol,go}"
+      run: python3 70-tools/scripts/lint/verify_no_commercial_remittance.py
+      stage_fixed: false
+
+    sensor-no-active-probe:
+      # Enforce ADR-2605262400 §7 + G8 (passive-only invariant). Scans
+      # staged DatasetSensor sources under
+      # `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/` for
+      # forbidden network imports (socket / dnspython / aiodns / scapy /
+      # nmap / paramiko) and for URL string literals targeting hosts
+      # outside the religious-corp DID infrastructure allow-list.
+      # Sensors MUST consume pre-captured public archives only.
+      glob: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/*.py"
+      run: node 70-tools/scripts/lint/sensor-no-active-probe.mjs {staged_files}
+      stage_fixed: false
+
+    charter-rider-notice:
+      # Enforce ADR-2605192200 v2.0 §3 + §4. Every Apache-2.0 first-party
+      # package MUST have NOTICE (referencing the Rider) + CHARTER-RIDER.md
+      # (file or symlink to repo-root canonical). 3rd-party vendored
+      # directories (lib/, vendor/, *-fork/) are exempted. Run
+      # `./70-tools/charter-rider-applicator/apply.sh` to fix violations.
+      glob: "{package.json,Cargo.toml,pyproject.toml}"
+      run: node 70-tools/scripts/lint/charter-rider-notice.mjs {staged_files}
+      stage_fixed: false
+
+    no-autonomous-legal-act:
+      # Enforce ADR-2605302345 §D2 G18. The counsel-operated comms gateway
+      # may transmit a LEGAL ACT (court filing / pleading / 内容証明 /
+      # demand / representation letter) ONLY when a human licensed lawyer
+      # actuated + signed it with their OWN credential; etzhayyim holds no
+      # legal-act signing key (no-server-key ADR-2605231525). Check A
+      # asserts the outboundLegalAct lexicon structure (counselActuation +
+      # actuatedByLicensedCounsel const true; no corp-signing property);
+      # Check B blocks autonomous-legal-act marker tokens in legal-comms
+      # code. Runs against the canonical lexicon even with no staged files.
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/no-autonomous-legal-act.mjs {staged_files}
+      stage_fixed: false
+
+    lint-no-judge-profiling:
+      # Enforce ADR-2605302345 §D5 G19. The global judiciary corpus is
+      # FACTUAL reference only; it MUST NOT evaluate/analyse/compare/score/
+      # rank/predict a named judge (criminal in France, loi 2019-222 art.33
+      # / Code pénal art.226-18). Check A asserts the judgeReference lexicon
+      # carries noAnalytics const true + required and no analytics property;
+      # Check B blocks judge-analytics marker tokens in judiciary code.
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/lint-no-judge-profiling.mjs {staged_files}
+      stage_fixed: false
+
+    legal-jurisdiction-consistency:
+      # Drift-guard for ADR-2605302200 §D4. The `enabled` jurisdiction set is
+      # represented in 3 artifacts that must never disagree: the in-node WASM
+      # gate (Rust ENABLED_JURISDICTIONS), the cell port (Python `enabled`),
+      # and the kotoba KG routing-table records (enableState=="enabled"). Parses
+      # all three and fails on mismatch. Runs against the canonical paths even
+      # with no staged files.
+      glob: "*.{rs,py,ndjson}"
+      run: node 70-tools/scripts/lint/legal-jurisdiction-consistency.mjs {staged_files}
+      stage_fixed: false
+
+    no-legal-aid-consideration:
+      # Enforce ADR-2605302200 §D2 G15 (+ ADR-2605302330 §D4). Free legal
+      # aid charges the adherent NOTHING — no fee / tithe / SBT-purchase /
+      # indirect benefit; donations flow only to the general Public Fund,
+      # never coupled to a specific matter. Check A asserts the
+      # legalAidMatter lexicon carries zeroCompensation const true +
+      # supervisingCounsel (G16) required and no consideration property;
+      # Check B blocks matter↔consideration coupling markers in chigiri
+      # legalAid code. The central cash≡0 invariant (ADR-2605301020).
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/no-legal-aid-consideration.mjs {staged_files}
+      stage_fixed: false
+
+    karute-phi-plaintext-guard:
+      # Enforce ADR-2605231100 §"Substrate hard-rules" + ADR-2605181100.
+      # Blocks plaintext writes whose collection / $type / nsid points to a
+      # karute inner type (patient / encounter / soapNote / observation /
+      # condition / medicationRequest / serviceRequest / dispenseRecord)
+      # unless the surrounding lines are an encryptedWrite() context.
+      # Exempt: lexicon SoTs, actor manifest, ADRs/docs, tests, the guard
+      # script itself. Use '// phi-guard: allow' inline to bypass with
+      # documented justification.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte,jsonld}"
+      run: node 70-tools/scripts/lint/karute-phi-plaintext-guard.mjs {staged_files}
+      stage_fixed: false
+
+    validate-religious-corp-lexicons:
+      # Validate etzhayyim religious-corp lexicons per AT Protocol Lexicon v1
+      # rules (no float types, integer with implied units). Per ADR-2605190900.
+      #
+      # Staged-only mode (fix 2026-05-26): pass {staged_files} to --files so
+      # pre-existing unrelated Lexicon issues in com/etzhayyim/etzhayyim/ don't block
+      # commits that touch only other Lexicon paths. Manual full-tree audit:
+      #   python3 70-tools/scripts/validate-lexicons.py \
+      #       --root 00-contracts/lexicons/com/etzhayyim/ --exit-on-error
+      glob: "00-contracts/lexicons/com/etzhayyim/**/*.json"
+      run: python3 70-tools/scripts/validate-lexicons.py --files {staged_files} --exit-on-error
+      tags: lexicon
+
+    no-external-purchase-purpose:
+      # Enforce ADR-2605211900 §D2 + ADR-2605192115 §4 on every yorishiro
+      # lexicon. Yorishiri are vessels (依代) that bridge external substrate;
+      # their x-charter-purpose must be a non-empty subset of:
+      #   donation / kisha / grant / tithe / escrow-refund
+      # and must never include subscription / purchase / tip /
+      # internal-purchase / internal-subscription / internal-promo
+      # (the internal-* values belong on SBT↔SBT carveout apps, NOT on
+      # yorishiri). x-yorishiro-external must also be true. See
+      # 70-tools/scripts/lint/no-external-purchase-purpose.mjs.
+      glob: "00-contracts/lexicons/ai/etzhayyim/yorishiro/**/*.json"
+      run: node 70-tools/scripts/lint/no-external-purchase-purpose.mjs {staged_files}
+      tags: lexicon yorishiro
+
+    no-two-stage-etzhayyim-domains:
+      # Enforce ADR-2605212340 (legacy domain → etzhayyim.com cutover).
+      # Blocks new introduction of the legacy etzhayyim top-level zone literal
+      # in canonical etzhayyim code, including in .jsonld @context URIs.
+      # Alias docs (/CLAUDE.md, /README.md, /CHARTER-RIDER.md) are exempt.
+      glob: "*.{md,toml,yaml,yml,json,jsonc,jsonld,ts,tsx,js,jsx,mjs,cjs,py,rs,go,sh,sol,svelte}"
+      run: node 70-tools/scripts/lint/no-two-stage-etzhayyim-domains.mjs {staged_files}
+      stage_fixed: false
+
+    dataset-substrate-guard:
+      # Enforce ADR-2605241500 invariants:
+      #   1. `90-docs/baien/datasets.jsonl` is append-only — no row
+      #      may be modified or removed in place. Tombstone via a new
+      #      row instead.
+      #   2. No first-party file > 100 MiB enters git history. Datasets
+      #      MUST go through `e7m-dataset add` (git-annex on
+      #      /Volumes/<vol>/etzhayyim/annex-store/), not direct `git add`.
+      #
+      # The 100 MiB ceiling is conservative; GitHub itself rejects
+      # blobs > 100 MiB. Exempt paths: 50-infra/etzhayyim-paymaster/lib/,
+      # any path containing `/vendor/`, `/lib/forge-std/`, or under
+      # 90-docs/baien/datasets/<subdataset>/ (those route through
+      # git-annex symlinks, not regular blobs).
+      run: |
+        set -e
+        viol=0
+
+        # (1) datasets.jsonl append-only check
+        if echo "{staged_files}" | tr ' ' '\n' | grep -qx '90-docs/baien/datasets.jsonl'; then
+          # Diff existing rows in HEAD vs the staged version. If any row
+          # disappears or changes in place, that's a violation.
+          if git rev-parse --verify HEAD >/dev/null 2>&1 \
+             && git show HEAD:90-docs/baien/datasets.jsonl > /tmp/dsm-head.$$ 2>/dev/null; then
+            git show :90-docs/baien/datasets.jsonl > /tmp/dsm-staged.$$ 2>/dev/null || true
+            head_lines=$(wc -l < /tmp/dsm-head.$$ | tr -d ' ')
+            if ! head -n "$head_lines" /tmp/dsm-staged.$$ | diff -q /tmp/dsm-head.$$ - >/dev/null 2>&1; then
+              echo "✘ datasets.jsonl is append-only (ADR-2605241500 §D1)."
+              echo "  HEAD's $head_lines existing rows must remain byte-identical."
+              echo "  To retire a row, APPEND a tombstone row instead."
+              viol=1
+            fi
+            rm -f /tmp/dsm-head.$$ /tmp/dsm-staged.$$
+          fi
+        fi
+
+        # (2) 100 MiB blob ceiling
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          case "$f" in
+            */vendor/*|*/lib/forge-std/*|50-infra/etzhayyim-paymaster/lib/*|90-docs/baien/datasets/*) continue ;;
+          esac
+          size=$(stat -f%z "$f" 2>/dev/null || stat -c%s "$f" 2>/dev/null || echo 0)
+          if [ "$size" -gt 104857600 ]; then
+            echo "✘ $f is ${size} bytes (> 100 MiB)."
+            echo "  Datasets MUST route via \`e7m-dataset add\` (ADR-2605241500 §D2)."
+            echo "  Direct \`git add\` of large blobs is prohibited."
+            viol=1
+          fi
+        done
+
+        exit $viol
+      stage_fixed: false
+
+    e7m-verify:
+      # Per ADR-2605221411 + ADR-2605192100 §1: every commit re-checks the
+      # 8 constitutional hard-invariants surfaced by `e7m verify`. Unlike
+      # the per-file lints above, this is a whole-repo scan that catches
+      # invariant drift introduced by merges, vendored content, or out-of-
+      # tree edits.
+      #
+      # If e7m is not installed (new contributor), the hook is informational
+      # and exits 0. Install via:
+      #   cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e .
+      run: |
+        # The canonical constitutional verify is the IN-REPO e7m (Python,
+        # kotoba-premised: scans no-server-key + substrate-boundary etc. over
+        # the kotoba Datom substrate). Refactored off the stale `etzhayyim`/PATH-`e7m`
+        # binary (v0.2.0), which has NO `verify` subcommand and used to hard-fail
+        # every commit with `unknown command: verify` (ADR-2606061500). We never
+        # fall back to that binary; we run the repo source directly.
+        # A shell function (not an unquoted string) so this is shell-agnostic —
+        # zsh does not word-split `$var`, which would break a `cmd="env … python3"`
+        # form. The in-repo e7m verify is now stdlib-only (rich lazily imported),
+        # so a bare `python3` enforces it.
+        if [ -x 70-tools/e7m/.venv/bin/e7m ]; then
+          e7m_run() { 70-tools/e7m/.venv/bin/e7m "$@"; }
+        elif command -v python3 >/dev/null 2>&1 && [ -d 70-tools/e7m/src/e7m ]; then
+          e7m_run() { PYTHONPATH=70-tools/e7m/src python3 -m e7m "$@"; }
+        else
+          echo "ℹ e7m (repo source) unavailable; skipping constitutional verify."
+          echo "  Install: cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e ."
+          exit 0
+        fi
+        OUT=$(e7m_run --json verify 2>/dev/null) || true
+        # No parseable JSON (e.g. python3 itself unavailable) → informational
+        # skip, NOT a blocked commit and NOT an `unknown command` hard-fail.
+        if ! printf '%s' "$OUT" | python3 -c 'import sys,json; json.load(sys.stdin)' >/dev/null 2>&1; then
+          echo "ℹ e7m verify could not run; skipping."
+          echo "  Install: cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e ."
+          exit 0
+        fi
+        if ! printf '%s' "$OUT" | python3 -c 'import sys,json; sys.exit(0 if json.load(sys.stdin).get("ok") else 1)'; then
+          echo "✘ e7m verify failed — constitutional invariant violation"
+          e7m_run verify || true
+          exit 1
+        fi
+      stage_fixed: false
+
+
+    deps-toml-paths:
+      # When deps.toml is staged, run the book-keeping path verifier
+      # (70-tools/scripts/lint/verify_deps_toml_paths.py — ADR-2605262500
+      # cycle 27). Catches orphaned [[adrs]] + [[modules]] entries from
+      # renames / refactors before they hit history. ~0.05s overhead.
+      glob: "deps.toml"
+      run: |
+        python3 70-tools/scripts/lint/verify_deps_toml_paths.py \
+          --filter ADR-2605262500 \
+          > /tmp/deps-toml-audit.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ]; then
+          echo "✘ deps.toml path audit failed for ADR-2605262500 scope:"
+          cat /tmp/deps-toml-audit.$$.txt
+          rm -f /tmp/deps-toml-audit.$$.txt
+          echo ""
+          echo "  Either restore the missing file(s), or remove the orphan"
+          echo "  entries from deps.toml. Run unfiltered audit for full picture:"
+          echo "    python3 70-tools/scripts/lint/verify_deps_toml_paths.py"
+          exit 1
+        fi
+        rm -f /tmp/deps-toml-audit.$$.txt
+      stage_fixed: false
+
+
+    docs-registry-freshness:
+      # When any 90-docs/**/*.md changes, verify 90-docs/_registry/docs.json
+      # is in sync (70-tools/scripts/docs/regen-registry.py --check;
+      # ADR-2605271100 cycle 48). Parallel pattern to deps-toml-paths.
+      # Catches operators adding/editing docs without regenerating the
+      # machine-readable sidecar index. ~0.2s overhead.
+      glob: "90-docs/**/*.md"
+      run: |
+        python3 70-tools/scripts/docs/regen-registry.py --check \
+          > /tmp/docs-registry-check.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ]; then
+          echo "✘ docs registry drift detected:"
+          cat /tmp/docs-registry-check.$$.txt
+          rm -f /tmp/docs-registry-check.$$.txt
+          echo ""
+          echo "  Run the regenerator and stage the result:"
+          echo "    python3 70-tools/scripts/docs/regen-registry.py"
+          echo "    git add 90-docs/_registry/docs.json"
+          exit 1
+        fi
+        rm -f /tmp/docs-registry-check.$$.txt
+      stage_fixed: false
+
+
+    docs-graph-jsonld-freshness:
+      # When docs.json changes (which happens via docs-registry-freshness
+      # hook above) or any 90-docs/**/*.md changes, verify
+      # 90-docs/_registry/graph.jsonld stays in sync
+      # (70-tools/scripts/docs/regen-graph-jsonld.py --check; ADR-2605271100
+      # cycle 49). Chain: .md → docs.json → graph.jsonld. Both sidecars
+      # regen idempotently from canonical .md source. ~0.2s overhead.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/regen-graph-jsonld.py --check \
+          > /tmp/docs-graph-check.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ]; then
+          echo "✘ graph.jsonld drift detected:"
+          cat /tmp/docs-graph-check.$$.txt
+          rm -f /tmp/docs-graph-check.$$.txt
+          echo ""
+          echo "  Run the regenerator and stage the result:"
+          echo "    python3 70-tools/scripts/docs/regen-graph-jsonld.py"
+          echo "    git add 90-docs/_registry/graph.jsonld"
+          exit 1
+        fi
+        rm -f /tmp/docs-graph-check.$$.txt
+      stage_fixed: false
+
+
+    relation-integrity:
+      # Validate doc-relation integrity (ADR-2605271200 cycle 60; axis-6
+      # defense-in-depth wired cycle 69). Tracker mode — info-only.
+      # ETZ_RELATION_STRICT=1 for blocking-mode local dev.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-relation-integrity.py \
+          > /tmp/relation-check.$$.txt 2>&1
+        rc=$?
+        if [ "${ETZ_RELATION_STRICT:-0}" = "1" ]; then
+          python3 70-tools/scripts/docs/validate-relation-integrity.py --strict \
+            > /tmp/relation-strict.$$.txt 2>&1
+          srcode=$?
+          if [ $srcode -eq 1 ]; then
+            echo "✘ relation integrity validation failed (strict mode):"
+            cat /tmp/relation-strict.$$.txt
+            rm -f /tmp/relation-check.$$.txt /tmp/relation-strict.$$.txt
+            exit 1
+          fi
+          rm -f /tmp/relation-strict.$$.txt
+        fi
+        rm -f /tmp/relation-check.$$.txt
+      stage_fixed: false
+
+
+    id-filename-consistency:
+      # Validate id↔filename per CLAUDE.md ADR ID Convention
+      # (ADR-2605271200 cycle 61; axis-7 defense-in-depth wired cycle 69).
+      # Tracker mode — info-only. ETZ_ID_FILENAME_STRICT=1 for blocking.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-id-filename-consistency.py \
+          > /tmp/id-filename-check.$$.txt 2>&1
+        rc=$?
+        if [ "${ETZ_ID_FILENAME_STRICT:-0}" = "1" ]; then
+          python3 70-tools/scripts/docs/validate-id-filename-consistency.py --strict \
+            > /tmp/id-filename-strict.$$.txt 2>&1
+          srcode=$?
+          if [ $srcode -eq 1 ]; then
+            echo "✘ id-filename consistency failed (strict mode):"
+            cat /tmp/id-filename-strict.$$.txt
+            rm -f /tmp/id-filename-check.$$.txt /tmp/id-filename-strict.$$.txt
+            exit 1
+          fi
+          rm -f /tmp/id-filename-strict.$$.txt
+        fi
+        rm -f /tmp/id-filename-check.$$.txt
+      stage_fixed: false
+
+
+    md-link-validation:
+      # When any 90-docs/**/*.md changes, validate in-repo markdown
+      # links (ADR-2605271200 closure cycle 67; 8th axis defense-in-depth
+      # wired cycle 68). Tracker mode — exits 0 with baseline 33.
+      # Promotion to PR-gate awaits baseline = 0.
+      glob: "90-docs/**/*.md"
+      run: |
+        python3 70-tools/scripts/docs/validate-md-links.py \
+          > /tmp/md-link-check.$$.txt 2>&1
+        rc=$?
+        if [ $rc -eq 1 ] && [ "${ETZ_MD_LINK_STRICT:-0}" = "1" ]; then
+          echo "✘ markdown link validation failed (strict mode):"
+          cat /tmp/md-link-check.$$.txt
+          rm -f /tmp/md-link-check.$$.txt
+          exit 1
+        fi
+        # Default: tracker info-only output (still informative)
+        broken=$(grep -oE "^md-links: [0-9]+ broken" /tmp/md-link-check.$$.txt 2>/dev/null || echo "0")
+        rm -f /tmp/md-link-check.$$.txt
+      stage_fixed: false
+
+
+    kotodama-manifest-validation:
+      # When any 60-apps/*/kotodama.jsonld or the canonical
+      # kotodama.schema.json changes, validate every manifest
+      # (ADR-2605271200 cycle 53; 5th registry axis after axes 1-4).
+      # PR-gate from day 1 (baseline = 0 after cycle 53 fixed 5 schema
+      # enums + 13 data bugs across 13 apps).
+      glob:
+        - "60-apps/*/kotodama.jsonld"
+        - "90-docs/_registry/schemas/kotodama.schema.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-kotodama-manifests.py \
+          > /tmp/kotodama-validation.$$.txt 2>&1
+        rc=$?
+        if [ $rc -eq 1 ]; then
+          echo "✘ kotodama manifest validation failed:"
+          cat /tmp/kotodama-validation.$$.txt
+          rm -f /tmp/kotodama-validation.$$.txt
+          echo ""
+          echo "  Fix the failing kotodama.jsonld OR kotodama.schema.json."
+          echo "  Run locally:"
+          echo "    python3 70-tools/scripts/docs/validate-kotodama-manifests.py"
+          exit 1
+        fi
+        if grep -q "jsonschema package not installed" /tmp/kotodama-validation.$$.txt 2>/dev/null; then
+          echo "ℹ️ kotodama-manifest-validation skipped — jsonschema not installed."
+          echo "  Install: python3 -m pip install --break-system-packages jsonschema"
+          echo "  (CI runs the check unconditionally; ok to commit.)"
+        fi
+        rm -f /tmp/kotodama-validation.$$.txt
+      stage_fixed: false
+
+
+    registry-schema-validation:
+      # When any 90-docs/_registry/ artifact changes, run schema
+      # validation (ADR-2605271100 cycle 50; promoted to PR-gate cycle 51
+      # after all 32 baseline violations were cleaned). 4th registry axis
+      # after docs-registry-freshness + docs-graph-jsonld-freshness +
+      # deps-toml-paths.
+      #
+      # **Cycle 51 mode: STRICT by default** (baseline = 0). Hook fails
+      # commit if schema validation reports any violation.
+      #
+      # If `jsonschema` is not installed, hook prints install instructions
+      # and warns (does NOT fail) — operator-friendly graceful fallback.
+      # CI installs jsonschema via pip and runs strict mode unconditionally.
+      glob:
+        - "90-docs/_registry/docs.json"
+        - "90-docs/_registry/graph.jsonld"
+        - "90-docs/_registry/schemas/docs.schema.json"
+        - "90-docs/_registry/schemas/graph.schema.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-registry-schemas.py \
+          > /tmp/registry-validation.$$.txt 2>&1
+        rc=$?
+        # rc=0 → valid; rc=1 → violation; rc=2 → graceful skip (jsonschema missing).
+        # Operator-friendly: graceful skip is not a commit-blocker locally.
+        if [ $rc -eq 1 ]; then
+          echo "✘ registry schema validation failed:"
+          cat /tmp/registry-validation.$$.txt
+          rm -f /tmp/registry-validation.$$.txt
+          echo ""
+          echo "  Fix the .md front-matter to match docs.schema.json /"
+          echo "  graph.schema.json, then re-stage and retry. CI runs the"
+          echo "  same check unconditionally."
+          exit 1
+        fi
+        if grep -q "jsonschema package not installed" /tmp/registry-validation.$$.txt 2>/dev/null; then
+          echo "ℹ️ registry-schema-validation skipped — jsonschema not installed locally."
+          echo "  Install: python3 -m pip install --break-system-packages jsonschema"
+          echo "  (CI will run the check unconditionally; ok to commit.)"
+        fi
+        rm -f /tmp/registry-validation.$$.txt
+      stage_fixed: false
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# pre-push — heavier regression checks that don't fit in the per-commit
+# budget. Mirror of .github/workflows/kami-engine-sdk.yml so contributors
+# catch SDK / cyber-drill build regressions BEFORE pushing, saving a
+# round-trip to GitHub Actions.
+#
+# Each command uses `glob:` so the check only fires when its target
+# paths are in the push range. Unrelated pushes pass through with zero
+# additional wall-clock.
+# ─────────────────────────────────────────────────────────────────────────
+pre-push:
+  parallel: false  # SDK build must finish before cyber-drill build reads its dist/
+
+  commands:
+    substrate-remediation-audit:
+      # ADR-2606071800 shrink-only ratchet for the legacy RisingWave/Hyperdrive/
+      # Kysely read path. Full-tree scan (too heavy for per-commit; runs on push).
+      # FAILS if a storage-boundary violation appears that is NOT on the frozen
+      # allowlist (substrate-frozen-allowlist.json) — i.e. new debt or a regression.
+      # Legacy debt is grandfathered; the list may only shrink. The pre-commit
+      # `substrate-boundary` hook still blocks new storage imports in staged files.
+      run: node 70-tools/scripts/lint/substrate-remediation-audit.mjs --audit
+
+    kami-engine-sdk-build:
+      # `svelte-package -i src/lib` produces dist/ that downstream apps
+      # consume via `link:` or `workspace:*`. ~1.6s on M1.
+      glob: "40-engine/kami-engine/kami-engine-sdk/**"
+      run: |
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Skip gracefully when build prerequisites are absent (e.g. the
+        # kami-engine submodule isn't populated, or `npm install` hasn't run
+        # — both true on a fresh Claude-Code-on-the-web container). The
+        # authoritative gate is .github/workflows/kami-engine-sdk.yml, which
+        # runs in a fully provisioned CI; this is only a local fast-path.
+        if [ ! -f "$SDK/package.json" ]; then
+          echo "  kami-engine-sdk-build (skip) submodule not populated — CI is authoritative"; exit 0
+        fi
+        if [ ! -d "$SDK/node_modules" ]; then
+          echo "  kami-engine-sdk-build (skip) node_modules absent (run npm install) — CI is authoritative"; exit 0
+        fi
+        cd "$SDK"
+        if ! npm run build > /tmp/sdk-build.$$.log 2>&1; then
+          echo "✘ SDK build failed"
+          tail -20 /tmp/sdk-build.$$.log
+          rm -f /tmp/sdk-build.$$.log
+          exit 1
+        fi
+        rm -f /tmp/sdk-build.$$.log
+
+    kami-engine-sdk-vitest:
+      # 82-passing-tests gate. Tolerates the pre-existing langgraph
+      # optional-peer-dep file failure (ADR-2605264300 §1 + b638c27e0)
+      # by gating on PASSED count, not exit code.
+      glob: "40-engine/kami-engine/kami-engine-sdk/**"
+      run: |
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Same prerequisite guard as kami-engine-sdk-build — skip when the
+        # submodule/deps are absent; CI workflow remains the authoritative gate.
+        if [ ! -f "$SDK/package.json" ]; then
+          echo "  kami-engine-sdk-vitest (skip) submodule not populated — CI is authoritative"; exit 0
+        fi
+        if [ ! -d "$SDK/node_modules" ]; then
+          echo "  kami-engine-sdk-vitest (skip) node_modules absent (run npm install) — CI is authoritative"; exit 0
+        fi
+        cd "$SDK"
+        npm test > /tmp/sdk-test.$$.log 2>&1 || true
+        PASSED=$(grep -oE "Tests +[0-9]+ passed" /tmp/sdk-test.$$.log | grep -oE "[0-9]+" | head -1)
+        if [ "${PASSED:-0}" -lt 82 ]; then
+          echo "✘ SDK vitest passed count regressed below 82 (got ${PASSED:-0})"
+          tail -30 /tmp/sdk-test.$$.log
+          rm -f /tmp/sdk-test.$$.log
+          exit 1
+        fi
+        echo "  vitest: ${PASSED}/82+ passing"
+        rm -f /tmp/sdk-test.$$.log
+
+    cyber-drill-build:
+      # vite SSR + SvelteKit static adapter prerender. Exercises the
+      # langchain externalize config from b638c27e0 — Rollup must NOT
+      # try to resolve @langchain/langgraph from the SDK's filesystem
+      # path during the SSR build. ~2.3s on M1.
+      glob: "60-apps/etzhayyim-project-cyber-drill/**"
+      run: |
+        APP=60-apps/etzhayyim-project-cyber-drill/svelte
+        SDK=40-engine/kami-engine/kami-engine-sdk
+        # Skip gracefully when build prerequisites are absent — the cyber-drill
+        # SvelteKit build needs both the app's node_modules (pnpm install) and
+        # the kami-engine-sdk submodule populated. Neither exists on a fresh
+        # Claude-Code-on-the-web container; a new-branch push also fires this
+        # command regardless of glob (git gives lefthook an all-zeros remote
+        # SHA, so no diff range can be computed). The authoritative gate is the
+        # GitHub Actions workflow; this is only a local pre-push fast-path.
+        if [ ! -d "$APP/node_modules" ] || [ ! -f "$SDK/package.json" ]; then
+          echo "  cyber-drill-build (skip) build deps absent (node_modules/submodule) — CI is authoritative"; exit 0
+        fi
+        # Make sure SDK dist/ is current; if the user only changed
+        # cyber-drill files, the SDK build above didn't fire.
+        if [ ! -d "$SDK/dist/webvr" ]; then
+          echo "  pre-building SDK dist/ (was stale)…"
+          (cd 40-engine/kami-engine/kami-engine-sdk && npm run build > /dev/null 2>&1)
+        fi
+        cd 60-apps/etzhayyim-project-cyber-drill/svelte
+        if ! pnpm run build > /tmp/cyber-build.$$.log 2>&1; then
+          echo "✘ cyber-drill prod build failed"
+          tail -20 /tmp/cyber-build.$$.log
+          rm -f /tmp/cyber-build.$$.log
+          exit 1
+        fi
+        rm -f /tmp/cyber-build.$$.log

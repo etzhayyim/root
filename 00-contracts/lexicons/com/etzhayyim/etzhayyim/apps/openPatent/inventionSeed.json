@@ -1,0 +1,45 @@
+{
+  "$type": "lex:com.atproto.lexicon.schema",
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.inventionSeed",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "LLM-generated invention seed awaiting human claim drafting",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["techDomain", "title", "summary", "noveltyStatus", "createdAt"],
+        "properties": {
+          "techDomain": { "type": "string", "maxLength": 50, "description": "IPC/CPC class or tech keyword" },
+          "title": { "type": "string", "maxLength": 500 },
+          "summary": { "type": "string", "maxLength": 4000 },
+          "keyClaims": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#claimItem" }
+          },
+          "ipcClass": { "type": "string", "maxLength": 20 },
+          "corpusPatentIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "AT URIs of source patents used in generation"
+          },
+          "noveltyScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "noveltyStatus": {
+            "type": "string",
+            "knownValues": ["pending", "pass", "fail", "review"]
+          },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "claimItem": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "claimNum": { "type": "integer" },
+        "text": { "type": "string", "maxLength": 2000 }
+      }
+    }
+  }
+}

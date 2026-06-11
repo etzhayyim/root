@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.telemetry.schema",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return required robotics telemetry topics, fields, retention, and state enums for mission audit.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "schemaId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "schemaId": { "type": "string" },
+            "topics": { "type": "array", "items": { "type": "unknown" } },
+            "stateEnums": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

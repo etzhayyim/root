@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_patent_collect_expired_drug_patent_backlog" targetNamespace="https://etzhayyim.ai/bpmn/open-patent" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_patent_collect_expired_drug_patent_backlog" name="collectExpiredDrugPatentBacklog" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Collect"/>
+    <bpmn:serviceTask id="Task_Collect" name="collect expired drug patent backlog">
+      <bpmn:extensionElements><zeebe:taskDefinition type="openPatent.expiredDrugPatent.collect"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={asOf: asOf, limit: limit, jurisdiction: jurisdiction, dryRun: dryRun, rows: rows}" target="payload"/>
+          <zeebe:output source="=runVertexId" target="runVertexId"/><zeebe:output source="=scannedCount" target="scannedCount"/><zeebe:output source="=candidateCount" target="candidateCount"/><zeebe:output source="=insertedCount" target="insertedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Collect" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;openPatent.expiredDrugPatent.collect&quot;" target="action"/><zeebe:input source="={runVertexId: runVertexId, scannedCount: scannedCount, candidateCount: candidateCount, insertedCount: insertedCount}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

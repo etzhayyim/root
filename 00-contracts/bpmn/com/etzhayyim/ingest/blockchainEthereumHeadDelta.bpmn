@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_blockchain_ethereum_head_delta"
+    targetNamespace="https://etzhayyim.ai/bpmn/ingest/blockchain"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="blockchain_ethereum_head_delta" name="blockchain ethereum head delta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="start">
+      <bpmn:outgoing>Flow_Health</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Health" sourceRef="Start" targetRef="Task_Health"/>
+
+    <bpmn:serviceTask id="Task_Health" name="rw health gate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rw.health.probe"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Health</bpmn:incoming>
+      <bpmn:outgoing>Flow_Ingest</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Ingest" sourceRef="Task_Health" targetRef="Task_Ingest"/>
+
+    <bpmn:serviceTask id="Task_Ingest" name="ingest ethereum head">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="blockchain.head.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=&quot;ethereum-mainnet&quot;" target="sourceId"/>
+          <zeebe:input source="=string(inputJson)" target="inputJson"/>
+          <zeebe:input source="=3" target="maxBlocks"/>
+          <zeebe:output source="=blocksRead" target="recordsRead"/>
+          <zeebe:output source="=rowsWritten" target="recordsWritten"/>
+          <zeebe:output source="=transactionsRead" target="transactionsRead"/>
+          <zeebe:output source="=latest" target="latestHeight"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Ingest</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Ingest" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit ethereum ingest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:blockchain.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;blockchain.ethereum.head.delta&quot;" target="action"/>
+          <zeebe:input source="={runId: runId, sourceId: sourceId, recordsRead: recordsRead, recordsWritten: recordsWritten, transactionsRead: transactionsRead, latestHeight: latestHeight}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_MarkCompleted</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_MarkCompleted" sourceRef="Task_Audit" targetRef="Task_MarkCompleted"/>
+
+    <bpmn:serviceTask id="Task_MarkCompleted" name="mark run completed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ingest.run.markCompleted"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=&quot;completed&quot;" target="status"/>
+          <zeebe:input source="=recordsRead" target="recordsRead"/>
+          <zeebe:input source="=recordsWritten" target="recordsWritten"/>
+          <zeebe:input source="=0" target="recordsSkipped"/>
+          <zeebe:input source="=0" target="errorCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_MarkCompleted</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_MarkCompleted" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="completed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

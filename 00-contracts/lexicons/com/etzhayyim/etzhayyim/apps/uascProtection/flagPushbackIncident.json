@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.uascProtection.flagPushbackIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pushback / refoulement / age-assessment abuse (bridges press-freedom + forced-labor + migrant-worker-welfare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "borderType",
+            "respondentStateIso3",
+            "violation",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "registrationVid": {
+              "type": "string",
+              "description": "bridges registerUasc"
+            },
+            "borderType": {
+              "type": "string",
+              "enum": [
+                "land",
+                "sea",
+                "air",
+                "internal"
+              ]
+            },
+            "respondentStateIso3": {
+              "type": "string"
+            },
+            "violation": {
+              "type": "string",
+              "enum": [
+                "refoulement",
+                "disputed_age_assessment",
+                "detention",
+                "family_separation",
+                "denied_asylum_procedure",
+                "failure_to_identify"
+              ]
+            },
+            "childrenAffected": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "concern",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

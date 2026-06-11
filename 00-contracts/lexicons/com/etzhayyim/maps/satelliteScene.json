@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.satelliteScene",
+  "description": "Satellite scene metadata record (Sentinel-2 / Landsat / Sentinel-1 SAR / HLS / Copernicus DEM / NAIP). Scene metadata + STAC item URL + bbox + cloud cover live here; the actual COG / JP2 / SAFE asset bytes are referenced via `payloadKind`: `stac-url` keeps the original external STAC asset URL (typical for ESA / USGS / NASA Earthdata), `datalad-pin` mirrors locally per ADR-2605241500, `ipfs` for direct IPFS-pinned assets. Per maps CLAUDE.md §Satellite Intelligence + Phase 3 Tier B.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{sceneId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "sceneId",
+          "sensor",
+          "bboxWestE7",
+          "bboxSouthE7",
+          "bboxEastE7",
+          "bboxNorthE7",
+          "acquiredAt",
+          "payloadKind"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "sceneId": {
+            "type": "string",
+            "description": "Provider-native scene identifier (e.g., 'S2A_MSIL2A_20260523T012345_N0509_R046_T54SUE_20260523T030000').",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "sensor": {
+            "type": "string",
+            "knownValues": [
+              "sentinel-2",
+              "landsat-8",
+              "landsat-9",
+              "sentinel-1",
+              "hls",
+              "copernicus-dem",
+              "naip",
+              "other"
+            ]
+          },
+          "stacCollectionId": {
+            "type": "string",
+            "description": "STAC collection ID (e.g., 'sentinel-2-l2a', 'landsat-c2l2-sr').",
+            "maxLength": 128
+          },
+          "bboxWestE7": { "type": "integer" },
+          "bboxSouthE7": { "type": "integer" },
+          "bboxEastE7": { "type": "integer" },
+          "bboxNorthE7": { "type": "integer" },
+          "acquiredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "cloudCoverPctBps": {
+            "type": "integer",
+            "description": "Cloud cover percentage in basis points (10000 = 100%, integer to avoid float drift).",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "sunElevationDegBps": {
+            "type": "integer",
+            "description": "Sun elevation in basis points (9000 = 90°).",
+            "minimum": -9000,
+            "maximum": 9000
+          },
+          "payloadKind": {
+            "type": "string",
+            "description": "Where the scene assets (COG / JP2 / SAFE / etc.) actually live.",
+            "knownValues": ["stac-url", "datalad-pin", "ipfs", "external-url"]
+          },
+          "stacItemUrl": {
+            "type": "string",
+            "description": "Original STAC item URL (ESA / USGS / NASA). Default for non-mirrored scenes.",
+            "maxLength": 1024
+          },
+          "datasetPinUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "When payloadKind=datalad-pin, AT URI of the com.etzhayyim.substrate.datasetPin record."
+          },
+          "assetCids": {
+            "type": "string",
+            "description": "JSON-encoded object mapping STAC asset key → IPFS CID (e.g., {\"B04\":\"bafy...\",\"B03\":\"bafy...\"}). When payloadKind=ipfs or datalad-pin.",
+            "maxLength": 16384
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Provenance (e.g., did:web:maps.etzhayyim.com:satellite)."
+          },
+          "supersededBySceneId": {
+            "type": "string",
+            "description": "When a later L2 product supersedes this L1 scene, name the replacement."
+          }
+        }
+      }
+    }
+  }
+}

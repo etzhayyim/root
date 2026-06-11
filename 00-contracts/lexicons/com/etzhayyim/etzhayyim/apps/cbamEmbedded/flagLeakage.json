@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cbamEmbedded.flagLeakage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Carbon leakage / resource shuffling / scope-3 gap (bridges euDpp.flagDppInconsistency + climate-value-chain + eu-cbam)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "declarationVid",
+            "leakageKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "declarationVid": {
+              "type": "string",
+              "description": "bridges recordEmbeddedEmission"
+            },
+            "leakageKind": {
+              "type": "string",
+              "enum": [
+                "resource_shuffle",
+                "renaming_origin",
+                "declared_low_grid",
+                "power_purchase_certificates",
+                "allocation_shuffle",
+                "gaming_benchmark",
+                "downstream_miss",
+                "scope3_unaccounted",
+                "transshipment_haven",
+                "rebating_country"
+              ]
+            },
+            "estLeakedTco2e": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

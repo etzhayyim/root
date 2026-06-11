@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.justTransition.reportAdaptationOutcome",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transition outcome: placement / wage delta / displacement",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "outcomeId",
+            "shiftVid",
+            "measuredAt"
+          ],
+          "properties": {
+            "outcomeId": {
+              "type": "string"
+            },
+            "shiftVid": {
+              "type": "string",
+              "description": "bridges recordSectoralShift"
+            },
+            "placedCount": {
+              "type": "integer"
+            },
+            "placementRatePct": {
+              "type": "number"
+            },
+            "wageDeltaPct": {
+              "type": "number"
+            },
+            "outOfLaborCount": {
+              "type": "integer"
+            },
+            "measuredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "outcomeTier": {
+              "type": "string",
+              "enum": [
+                "inadequate",
+                "partial",
+                "successful"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

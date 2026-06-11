@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.card.refund",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reverse a settled warifu transaction. Purpose is always escrow-refund. Zero fee.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["settlementId"],
+          "properties": {
+            "settlementId": { "type": "string" },
+            "amountUsdc": { "type": "integer", "description": "omit for full refund", "minimum": 1 },
+            "idempotencyKey": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["refunded", "feeUsdc"],
+          "properties": {
+            "refunded": { "type": "boolean" },
+            "refundId": { "type": "string" },
+            "tx": { "type": "string" },
+            "feeUsdc": { "type": "integer", "const": 0 }
+          }
+        }
+      }
+    }
+  }
+}

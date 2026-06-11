@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.passkeyBeginRegister",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Begin WebAuthn/FIDO2 passkey registration. Returns challenge and credential creation options for navigator.credentials.create().",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "userId": { "type": "string", "description": "Optional user identifier" },
+            "userName": { "type": "string", "description": "Optional display name" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["challenge", "rp", "user", "pubKeyCredParams"],
+          "properties": {
+            "challenge": { "type": "string", "description": "Base64url-encoded challenge" },
+            "rp": { "type": "object", "description": "Relying party info (id, name)" },
+            "user": { "type": "object", "description": "User entity (id, name, displayName)" },
+            "pubKeyCredParams": { "type": "array" },
+            "authenticatorSelection": { "type": "object" },
+            "attestation": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

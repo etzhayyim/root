@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gov.consult",
+  "description": "User-submitted public-services consultation request (healthcare / welfare / education / housing / employment / etc). Originally `com.etzhayyim.apps.gov.submitConsult` insertion into `vertex_gov_consult`. Per ADR-2605212100 the etzhayyim-side Kysely write is replaced by MST PUT via `@etzhayyim/sdk`. The record represents the request only; the agent response (LLM triage / referral / eligibility assessment) lives in a separate `com.etzhayyim.gov.consultResponse` record (not yet authored).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "requesterDid",
+          "domain",
+          "query",
+          "createdAt"
+        ],
+        "properties": {
+          "requesterDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the requester. Required even for anonymous requests (use a generated did:key for single-use sessions)."
+          },
+          "domain": {
+            "type": "string",
+            "description": "COFOG-aligned public-services domain.",
+            "enum": [
+              "healthcare",
+              "insurance",
+              "welfare",
+              "education",
+              "prevention",
+              "housing",
+              "employment",
+              "child-family",
+              "other"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "description": "Domain-specific sub-category. Free-form, lowercase, hyphenated. Examples: 'symptom-triage', 'eligibility-childcare-allowance', 'highcost-medical-calc'.",
+            "maxLength": 128
+          },
+          "query": {
+            "type": "string",
+            "description": "Free-form user question or request. May be in any language; the response agent is responsible for language detection.",
+            "maxLength": 8192
+          },
+          "municipalityCode": {
+            "type": "string",
+            "description": "Optional municipality code (e.g. JIS X 0402 6-digit code for JP, FIPS code for US, NUTS code for EU). Resolves to a `com.etzhayyim.gov.municipality` record.",
+            "maxLength": 32
+          },
+          "priority": {
+            "type": "string",
+            "description": "Triage priority. Default 'normal'. 'urgent' may trigger faster routing.",
+            "enum": [
+              "low",
+              "normal",
+              "urgent",
+              "emergency"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Current consult status. Default 'open' on creation.",
+            "enum": [
+              "open",
+              "triaged",
+              "in-progress",
+              "answered",
+              "escalated",
+              "closed"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Record creation timestamp (ISO-8601 UTC with Z)."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Last-modified timestamp."
+          }
+        }
+      }
+    }
+  }
+}

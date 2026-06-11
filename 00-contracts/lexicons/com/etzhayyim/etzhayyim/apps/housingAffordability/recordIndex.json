@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.housingAffordability.recordIndex",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Housing affordability index (OECD Better Life / UN Habitat / Demographia — bridges coastal-slr + urban-heat + urban-mobility + reit-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "indexId",
+            "cityUnlocode",
+            "countryIso3",
+            "indexProvider",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "indexId": {
+              "type": "string"
+            },
+            "cityUnlocode": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "indexProvider": {
+              "type": "string",
+              "enum": [
+                "oecd_bli",
+                "unhabitat",
+                "demographia",
+                "zillow",
+                "rightmove",
+                "eurostat",
+                "vhda"
+              ]
+            },
+            "medianPriceToIncomeRatio": {
+              "type": "number"
+            },
+            "rentToIncomePct": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "affordabilityTier": {
+              "type": "string",
+              "enum": [
+                "affordable",
+                "moderately_unaffordable",
+                "seriously_unaffordable",
+                "severely_unaffordable"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

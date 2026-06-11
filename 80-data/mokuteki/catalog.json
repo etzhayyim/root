@@ -1,0 +1,247 @@
+{
+  "format_version": 1,
+  "table_uuid": "mokuteki-local-001",
+  "location": "/Users/junkawasaki/github/etzhayyim-root/data/mokuteki",
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "id": 1,
+        "name": "evaluated_at",
+        "type": "string",
+        "required": true
+      },
+      {
+        "id": 2,
+        "name": "total_apps",
+        "type": "int",
+        "required": true
+      },
+      {
+        "id": 3,
+        "name": "total_edges",
+        "type": "int",
+        "required": true
+      },
+      {
+        "id": 4,
+        "name": "total_score",
+        "type": "int",
+        "required": true
+      },
+      {
+        "id": 5,
+        "name": "max_score",
+        "type": "int",
+        "required": true
+      },
+      {
+        "id": 6,
+        "name": "rank_name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "id": 7,
+        "name": "layer_a_score",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 8,
+        "name": "layer_b_score",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 9,
+        "name": "layer_c_score",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 10,
+        "name": "layer_d_score",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 11,
+        "name": "engagement",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 12,
+        "name": "competence",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 13,
+        "name": "contribution",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 14,
+        "name": "growth",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 15,
+        "name": "resilience",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 16,
+        "name": "dsm_bandwidth",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 17,
+        "name": "graph_connectivity",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 18,
+        "name": "shannon_redundancy",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 19,
+        "name": "hypergraph_coupling",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 20,
+        "name": "type_system",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 21,
+        "name": "bayesnet_propagation",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 22,
+        "name": "causal_dag",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 23,
+        "name": "info_bottleneck",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 24,
+        "name": "state_space_diversity",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 25,
+        "name": "pomdp_observation",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 26,
+        "name": "constraint_opt",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 27,
+        "name": "mpc_lookahead",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 28,
+        "name": "bandit_sensing",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 29,
+        "name": "event_sourcing",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 30,
+        "name": "immutable_log",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 31,
+        "name": "policy_as_code",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 32,
+        "name": "typed_schema",
+        "type": "double",
+        "required": true
+      },
+      {
+        "id": 33,
+        "name": "attestation",
+        "type": "double",
+        "required": true
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "snapshot_id": 1775612512773,
+      "snapshot_ms": 1775612512773,
+      "summary": "2026-04-08 01:41 score=9042 rank=Dan 7 apps=1529",
+      "data_file": "snapshots/snap-20260408-014152.parquet"
+    },
+    {
+      "snapshot_id": 1775612630962,
+      "snapshot_ms": 1775612630962,
+      "summary": "2026-04-08 01:43 score=9042 rank=Dan 7 apps=1529",
+      "data_file": "snapshots/snap-20260408-014350.parquet"
+    },
+    {
+      "snapshot_id": 1775652761867,
+      "snapshot_ms": 1775652761867,
+      "summary": "2026-04-08 12:52 score=6565 rank=Dan 4 apps=0",
+      "data_file": "snapshots/snap-20260408-125241.parquet"
+    },
+    {
+      "snapshot_id": 1775652821873,
+      "snapshot_ms": 1775652821873,
+      "summary": "2026-04-08 12:53 score=6565 rank=Dan 4 apps=0",
+      "data_file": "snapshots/snap-20260408-125341.parquet"
+    },
+    {
+      "snapshot_id": 1775652834155,
+      "snapshot_ms": 1775652834155,
+      "summary": "2026-04-08 12:53 score=6565 rank=Dan 4 apps=0",
+      "data_file": "snapshots/snap-20260408-125354.parquet"
+    },
+    {
+      "snapshot_id": 1775653101832,
+      "snapshot_ms": 1775653101832,
+      "summary": "2026-04-08 12:58 score=8686 rank=Dan 6 apps=1530",
+      "data_file": "snapshots/snap-20260408-125821.parquet"
+    }
+  ],
+  "current_snapshot_id": 1775653101832
+}

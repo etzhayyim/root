@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manga.publishChapter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a chapter (set status to published)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "user_id": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id", "status"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Standalone mangaka image generation.
+  Appview stays thin and dispatches this BPMN; Python Zeebe primitives handle
+  ComfyUI invocation, blob upload, and audit.
+  in:  prompt, style?
+  out: blobCid, meta, latencyMs
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_generate_image_standalone"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_generate_image_standalone" name="mangaka standalone image generation" isExecutable="true">
+    <bpmn:startEvent id="Start" name="image requested">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Render"/>
+    <bpmn:serviceTask id="Task_Render" name="render manga panel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/images/generations&quot;" target="route"/>
+          <zeebe:input source="={
+              prompt: (if prompt = null then &quot;manga panel illustration&quot; else string(prompt)) + &quot;, &quot; + (if style = null then &quot;manga&quot; else string(style)) + &quot; manga panel, black and white ink, high contrast, clean line art, screentone shading, professional manga art, no text, no watermark&quot;,
+              negative_prompt: &quot;color, photograph, text, watermark, signature, blurry, low quality, jpeg artifacts, extra limbs&quot;,
+              size: &quot;832x1216&quot;,
+              steps: 24,
+              cfg_scale: 6.0,
+              n: 1
+          }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=180" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+          <zeebe:output source="=meta" target="meta"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Render" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateImage&quot;" target="action"/>
+          <zeebe:input source="={prompt: string(prompt), style: (if style = null then &quot;manga&quot; else string(style)), blobCid: string(blobCid), latencyMs: latencyMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>F3</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

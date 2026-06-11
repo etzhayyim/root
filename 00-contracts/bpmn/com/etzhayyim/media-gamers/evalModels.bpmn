@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_media_gamers_eval_models"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="media_gamers_eval_models" name="media gamers eval models" isExecutable="true">
+    <bpmn:startEvent id="Start" name="model eval requested">
+      <bpmn:outgoing>Flow_Eval</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Eval" sourceRef="Start" targetRef="Task_Eval"/>
+    <bpmn:serviceTask id="Task_Eval" name="evaluate guide model">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="mediaGamers.eval.models"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Eval</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Eval" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit model eval">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;media-gamers.evalModels&quot;" target="action"/>
+          <zeebe:input source="={ result: result }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="model eval committed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

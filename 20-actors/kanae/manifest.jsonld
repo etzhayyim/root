@@ -1,0 +1,205 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:kanae.etzhayyim.com",
+  "name": "kanae",
+  "displayName": "鼎 — Global Government Fiscal-Flow Visualization",
+  "displayNameJa": "鼎",
+  "displayNameEn": "Kanae",
+  "description": "kotoba-native global government fiscal-flow visualization substrate. Assembles worldwide fund flows — domestic full chain (appropriation → outlay → subaward → procurement-award → recipient) + inter-governmental (IMF / World Bank / OECD / UN transfers, aid, loans) — into kotoba EAVT as fundFlowEdge datoms, narrates flow subgraphs with Murakumo-only LLM (NON-adjudicating, source-cited), and renders aggregate-first kami-engine WASM visualizations (Sankey / treemap / transfer-globe). Reads the already-IPFS-pinned open-government corpus (ADR-2605263900) + the danjo cross-reference graph (ADR-2605301600 + extension ADR-2605302245); never re-fetches (G3 passive-only). danjo finds, kanae renders. NON-adjudicating (G4 UPL-equivalent). Murakumo-only inference (G7). Aggregate-first (G10). kotoba-native — NO RisingWave / Postgres / Lance as store or read backend (G2/N13; the maps RisingWave backend is NOT a template). Transparent Religious Force discipline (G11, ADR-2605192100 §1.12). kami-engine WASM render-only (G14); no third-party BI, no ad/analytics SDK (G15). 5 cells / 4 Lexicons / 15 gates / 14 non-goals.",
+  "descriptionJa": "kotoba-native のグローバル政府資金フロー可視化 substrate。全世界の資金の流れ — 国内フルチェーン (歳出予算→支出→補助→調達落札→受領者) + 国際間 (IMF / 世界銀行 / OECD / UN の移転・援助・融資) — を kotoba EAVT に fundFlowEdge datom として組み立て、フロー部分グラフを Murakumo-only LLM で叙述 (非裁定・出典付き) し、集計優先の kami-engine WASM 可視化 (Sankey / ツリーマップ / 移転グローブ) を描画。既に IPFS pin 済みの open-government corpus (ADR-2605263900) + danjo 相互参照グラフ (ADR-2605301600 + 拡張 ADR-2605302245) を読むのみ。再取得なし (G3 受動取得)。弾正が見つけ、鼎が描く。非裁定 (G4, UPL 等価; 「不正・違反があった」とは断定しない)。Murakumo-only 推論 (G7)。集計優先 (G10)。kotoba-native — RisingWave / Postgres / Lance を store・read backend に禁止 (G2/N13; maps の RisingWave backend は雛形にしない)。Transparent Religious Force 規律 (G11, ADR-2605192100 §1.12)。kami-engine WASM 描画のみ (G14); 第三者 BI 禁止・広告/解析 SDK 禁止 (G15)。名 = 鼎(かなえ); 鼎の軽重を問う — 統べる者の資金記録を公開で量る。三本脚 = 国内予算 / 国内調達 / 国際移転 の三基盤。5 cells / 4 Lexicons / 15 gates / 14 non-goals。",
+  "adr": {
+    "master": "etzhayyim:adr:2605302300",
+    "parent": "etzhayyim:adr:2605301600",
+    "fiscalFlowExtension": "etzhayyim:adr:2605302245",
+    "r0": "etzhayyim:adr:2605302300",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "crossActorBoundary": [
+    "did:web:danjo.etzhayyim.com (PRIMARY UPSTREAM + BOUNDARY: danjo = non-adjudicating cross-reference ENGINE emitting fiscal + intergov-fund-flow datoms; kanae = fiscal-flow ASSEMBLY + Murakumo NARRATIVE + kami-engine WASM VISUALIZATION. danjo finds, kanae renders. kanae reads danjo datoms read-only and never writes back; ADR-2605301600 + ADR-2605302245)",
+    "com.etzhayyim.gov.dataset.* corpus (ADR-2605263900): READ-ONLY budgetRecord / procurementRecord / statisticsObservation (IMF SDMX / World Bank / OECD / UN) — fiscal-flow input where danjo has not yet indexed a jurisdiction",
+    "did:web:ossekai.etzhayyim.com (kanae aggregate visualizations → ossekai §1.12 aggregate-anonymized publication; ADR-2605264000)",
+    "did:web:kataribe.etzhayyim.com (kanae visualization artifacts = citable primary-source graphics for press / publishing)",
+    "did:web:toritate.etzhayyim.com (∥ disjoint: toritate visualizes the religious-corp's OWN on-chain books; kanae visualizes the STATE's published fiscal flows)",
+    "maps actor (∥ sibling visualization actor, disjoint domain geo-vs-fiscal AND disjoint backend: maps = RisingWave; kanae = kotoba EAVT per G2/N13)",
+    "kami-engine (ADR-2605261800): WASM render substrate (G14); visualizationManifest compiles to a kami-engine scene reusing isekai/omniverse WASM viewer assets",
+    "kotoba QuadStore EAVT (fund-flow graph store; ADR-2605262130; no RisingWave / no projection layer)"
+  ],
+  "lexiconReadAccess": {
+    "com.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY appropriation / outlay / subaward (USAspending / EU FTS / HM Treasury OSCAR / JP 予算書). Assembled into kotoba EAVT fundFlowEdge by kanae_flow_assembler.",
+    "com.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY tender / award (EU TED / US SAM.gov / UK Contracts Finder / JP 政府調達). awardeeLei cross-link to corp.leiReference.",
+    "com.etzhayyim.gov.dataset.statisticsObservation": "ADR-2605263900; READ-ONLY IMF SDMX / World Bank / OECD.Stat / UN data — inter-governmental transfer / aid / loan flows. Assembled by kanae_intergov_flow.",
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient / awardee endpoint resolution. CC0 1.0.",
+    "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO / parent-subsidiary for flow-edge endpoint resolution. GLEIF L2 (CC0) + OpenCorporates open-data.",
+    "com.etzhayyim.danjo.crossReferenceLink": "ADR-2605301600; READ-ONLY danjo cross-reference edges (engine output).",
+    "com.etzhayyim.danjo.discrepancyObservation": "ADR-2605301600; READ-ONLY danjo non-adjudicating observations (engine output; kanae may surface them in a visualization, NON-adjudicating pass-through, never re-characterized)."
+  },
+  "form": "任意団体 internal civic-transparency fiscal-flow visualization substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a state-recognized audit organ; NOT a commercial fiscal-intelligence product)",
+  "constitutionalDiscipline": {
+    "nonAdjudicating": "G4 — UPL-equivalent (mirrors danjo G4 / chigiri G14 / toritate G5). kanae emits FACTUAL flow descriptions only; it MUST NOT assert that a crime / 不正 / violation occurred. Every flowNarrative carries nonAdjudicatingNotice=true; the fundFlowEdge flowClass enum carries no verdict token. Legal characterization via external counsel (chigiri + Public Fund Council Lv6+).",
+    "kotobaNativePersistence": "G2 — fund-flow graph lives in kotoba EAVT; RisingWave / Postgres / Lance / DuckDB / SQLite PROHIBITED as primary store or read backend (ADR-2605262130). The maps RisingWave backend is NOT a template.",
+    "passiveOnlyUpstream": "G3 — reads ONLY the pre-published IPFS-pinned gov.dataset.* corpus + danjo datoms. No live portal scraping, no per-query API, no non-public sources, no whistleblower intake (§2(c)).",
+    "sourceProvenanceMandatory": "G5 — every fundFlowEdge + flowNarrative cites ≥2 upstream gov.dataset.* / danjo record CIDs.",
+    "openMethod": "G6 — every aggregation + narrative-prompt heuristic published as a methodNote (open, versioned).",
+    "murakumoOnlyInference": "G7 — flowNarrative LLM analysis on Murakumo fleet ONLY (ADR-2605215000). murakumoInferenceAttestation mandatory; vendor-LLM origin unrepresentable at schema layer.",
+    "aggregateFirstVisualization": "G10 — every visualization aggregate by default; named-party element only where source records already name the party AND severity-gated + Council-reviewed; no per-individual targeting (N9).",
+    "transparentForce": "G11 — assembly + narrative + visualization + publication ONLY. No coercion, no state-coercion dependency, no covert op. 1 SBT = 1 vote governs named-party publication (§1.12).",
+    "noCommercialGovIntel": "G8 — GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro PROHIBITED (§2(e) anti-gatekeeping). Deny-list lint.",
+    "kamiEngineRenderOnly": "G14 — render substrate = kami-engine WASM (ADR-2605261800), reproducible from public kotoba datoms. NO third-party BI (Tableau / Power BI / Looker / Palantir Foundry) as render or fusion layer.",
+    "noAdAnalyticsSdk": "G15 — render path carries NO GA4 / Meta Pixel / affiliate / third-party analytics SDK (Substrate boundary Advertising row). Lint-enforced.",
+    "readOnly": "G12 — never mutates upstream gov.dataset.* / danjo records nor any on-chain contract."
+  },
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "Assembly of pre-published global fiscal flows (domestic full chain + inter-governmental) into kotoba EAVT + Murakumo-LLM non-adjudicating narrative + aggregate-first kami-engine WASM visualization + Council-attested publication. Global / jurisdiction-generic architecture from R0; JP-first → multi-jurisdiction activation ramp follows danjo + corpus.",
+    "exclusions": [
+      "prosecutor / law-enforcement arm",
+      "court / adjudicator of guilt or of 'violation'",
+      "surveillance system (live monitoring of individuals)",
+      "commercial gov-intelligence / fiscal-intelligence product (GovWin / Bloomberg Government / FiscalNote / Palantir)",
+      "whistleblower-intake / non-public-leak handler",
+      "state-granted legal personality (NOT 宗教法人法 登記)",
+      "closed-source / secret-aggregation engine",
+      "partisan / electioneering tool",
+      "per-individual reputation / social-credit score",
+      "replacement for the state's own audit organs (会計検査院 / GAO / ECA)",
+      "defamation vector (structurally prevented by G4/G5/G10)",
+      "vendor-LLM inference path (Murakumo-only)",
+      "substrate-engine or projection-layer replacement (kotoba canonical; no RisingWave like maps)",
+      "third-party-BI / Palantir-class fusion dashboard (render = kami-engine WASM)"
+    ]
+  },
+  "cells": [
+    {
+      "name": "flow_assembler",
+      "module": "kotodama.cells.kanae_flow_assembler",
+      "murakumoNode": "reuben",
+      "phase": "continuous",
+      "io": "danjo budget_ledger + procurement_graph datoms + gov.dataset.{budgetRecord,procurementRecord} → kotoba EAVT fundFlowEdge datoms (domestic full chain: appropriation ↔ outlay ↔ subaward ↔ award ↔ recipientLei)"
+    },
+    {
+      "name": "intergov_flow",
+      "module": "kotodama.cells.kanae_intergov_flow",
+      "murakumoNode": "reuben",
+      "phase": "continuous",
+      "io": "gov.dataset.statisticsObservation (IMF SDMX / World Bank / OECD / UN) → fundFlowEdge datoms (flowClass = intergovernmental-transfer / aid-disbursement / loan; donor-juris ↔ recipient-juris ↔ instrument ↔ amount ↔ period)"
+    },
+    {
+      "name": "flow_narrative",
+      "module": "kotodama.cells.kanae_flow_narrative",
+      "murakumoNode": "gad",
+      "phase": "continuous",
+      "io": "fundFlowEdge subgraph → Murakumo-LLM flowNarrative (factual, source-cited, NON-adjudicating; G4 + G5 + G7)"
+    },
+    {
+      "name": "viz_compiler",
+      "module": "kotodama.cells.kanae_viz_compiler",
+      "murakumoNode": "gad",
+      "phase": "periodic (event)",
+      "io": "fundFlowEdge subgraph + flowNarrative → visualizationManifest (kami-engine WASM scene; aggregate-first; each manifest carries the reproducing kotoba-kqe query)"
+    },
+    {
+      "name": "publish",
+      "module": "kotodama.cells.kanae_publish",
+      "murakumoNode": "naphtali",
+      "phase": "periodic (event)",
+      "io": "aggregate visualizationManifest → published IPFS-pinned artifact + Council Lv6+ ≥3 attestation chain"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.kanae.fundFlowEdge",
+    "com.etzhayyim.kanae.flowNarrative",
+    "com.etzhayyim.kanae.visualizationManifest",
+    "com.etzhayyim.kanae.methodNote"
+  ],
+  "constitutionalGates": {
+    "description": "15 immutable gates per ADR-2605302300 §4 (G1–G13 inherit the danjo gate set; G14–G15 are visualization-specific). Council Lv6+ supermajority + new ADR to amend.",
+    "gates": {
+      "G1": "Charter Rider §2(a)-(h) scan on every published narrative + manifest + artifact",
+      "G2": "kotoba EAVT persistence — RisingWave / Postgres / Lance / DuckDB / SQLite PROHIBITED as primary store or read backend (the maps RisingWave backend is NOT a template)",
+      "G3": "Passive-only / upstream-only ingestion — only pre-published IPFS-pinned gov.dataset.* + danjo datoms; no live scraping / no per-query API / no non-public sources / no whistleblower intake (§2(c))",
+      "G4": "NON-adjudicating (UPL-equivalent) — flowNarrative nonAdjudicatingNotice const true; fundFlowEdge flowClass enum carries no crime/violation/guilt token; legal characterization via external counsel (chigiri + Public Fund)",
+      "G5": "Source-provenance mandatory — ≥2 upstream gov.dataset.* / danjo record CIDs per fundFlowEdge + flowNarrative",
+      "G6": "Open method — every aggregation + narrative-prompt heuristic published as methodNote (open, versioned)",
+      "G7": "Murakumo-only inference (ADR-2605215000) — flowNarrative LLM on Murakumo fleet only; murakumoInferenceAttestation mandatory; vendor-LLM origin unrepresentable",
+      "G8": "No commercial gov-intelligence terminals (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro PROHIBITED)",
+      "G9": "Per-jurisdiction publication-rule honoring — no unilateral re-identification; DSARs route via chigiri.data_privacy; kanae never adds/removes PII",
+      "G10": "Aggregate-first visualization — named-party element only where source records already name the party AND severity-gated + Council-reviewed; no per-individual targeting",
+      "G11": "Transparent Religious Force discipline (§1.12) — assembly + narrative + visualization + publication ONLY; no coercion; no state-coercion dependency; no covert op; 1 SBT = 1 vote governs named-party publication",
+      "G12": "Read-only — never mutates upstream gov.dataset.* / danjo records nor any on-chain contract",
+      "G13": "stateAlignedFlag pass-through — CN-class / state-aligned sources carry the flag into every derived fundFlowEdge / flowNarrative / visualizationManifest",
+      "G14": "kami-engine WASM render-only (ADR-2605261800), reproducible from public kotoba datoms — NO third-party BI (Tableau / Power BI / Looker / Palantir Foundry) as render or fusion layer",
+      "G15": "No ad / analytics SDK in the render path — NO GA4 / Meta Pixel / affiliate / third-party analytics SDK (Substrate boundary Advertising row)"
+    }
+  },
+  "nonGoals": {
+    "description": "14 explicitly excluded scopes",
+    "goals": {
+      "N1": "NOT a prosecutor / law-enforcement arm",
+      "N2": "NOT a court / adjudicator of guilt or of 'violation'",
+      "N3": "NOT a surveillance system (public-record only; no live monitoring)",
+      "N4": "NOT a commercial gov-intelligence / fiscal-intelligence product",
+      "N5": "NOT a whistleblower-intake / non-public-leak handler",
+      "N6": "NOT a state-granted legal personality",
+      "N7": "NOT a closed-source / secret-aggregation engine",
+      "N8": "NOT a partisan / electioneering tool",
+      "N9": "NOT a per-individual reputation / social-credit score",
+      "N10": "NOT a replacement for the state's own audit organs (会計検査院 / GAO / ECA)",
+      "N11": "NOT a defamation vector (structurally prevented by G4/G5/G10)",
+      "N12": "NOT a vendor-LLM inference path (Murakumo-only)",
+      "N13": "NOT a substrate-engine / projection-layer replacement (kotoba canonical; no RisingWave like maps)",
+      "N14": "NOT a third-party-BI / Palantir-class fusion dashboard (render = kami-engine WASM)"
+    }
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-05-30",
+      "scope": "Scaffold only. 5 cells path-reserved. 4 Lexicon skeletons. manifest + README + CLAUDE.md + open method seed + constitutional lint + test.",
+      "murakumoFleet": "No deployment",
+      "gate": "ADR-2605302300 (PROPOSED)"
+    },
+    {
+      "phase": "R1",
+      "date": "post-Bootstrap-Council + ≥1 Council Lv6+ ratify + danjo R1 ingest cells healthy",
+      "scope": "flow_assembler + intergov_flow build kotoba EAVT fundFlowEdge (JP-first domestic chain + first global: USAspending / EU FTS / IMF / WB); fundFlowEdge + methodNote schemas Council-reviewed. NO narratives, NO published viz.",
+      "murakumoFleet": "reuben",
+      "gate": "Council Lv6+ ≥3 per cell"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1 + 30-day public objection",
+      "scope": "+flow_narrative (Murakumo) + viz_compiler; first flowNarrative + first aggregate visualizationManifest (JP + global core); flowNarrative + visualizationManifest schemas Council-reviewed.",
+      "murakumoFleet": "reuben + gad",
+      "gate": "Council Lv6+ ≥4 + 30-day public comment"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2 + Council Lv7+ unanimity",
+      "scope": "+publish; first published global fiscal-flow visualization (multi-jurisdiction + inter-governmental); named-party element path (G10) battle-tested under 1 SBT = 1 vote.",
+      "murakumoFleet": "Full 10-node fleet",
+      "gate": "Council Lv7+ unanimity"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md",
+      "danjoEngine": "/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md",
+      "fiscalFlowExtension": "/90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md",
+      "govCorpus": "/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md",
+      "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
+      "kamiEngine": "/90-docs/adr/2605261800-nvidia-omniverse-compat-kami-engine.md",
+      "missionCharter": "/90-docs/adr/2605192100-etzhayyim-mission-charter.md",
+      "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
+      "council": "/90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md",
+      "murakumoInference": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
+    }
+  }
+}

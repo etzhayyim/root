@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.dns.transferFromSquarespace",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Initiate a domain transfer from Squarespace to Cloudflare. Creates the com.etzhayyim.apps.dns.transferRequest record on the cfRegistrar sub-DID; the yorishiro-squarespace sqExporter picks it up via Follow and drives the 5-step release workflow. Requires ClassA (3 signers, high) approval before status transitions to approved.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["domain"],
+          "properties": {
+            "domain": { "type": "string", "description": "FQDN to transfer (e.g. example.com). Must currently be held by Squarespace." },
+            "requesterDid": { "type": "string", "description": "Optional: caller DID override. Defaults to the session DID." },
+            "approvals": {
+              "type": "array",
+              "description": "ClassA signer DIDs (3 required before sqExporter proceeds). May be provided later via a follow-up approval record.",
+              "items": { "type": "string" },
+              "maxLength": 8
+            },
+            "note": { "type": "string", "maxLength": 512 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["transferRequestUri", "transferRequestRkey", "status"],
+          "properties": {
+            "transferRequestUri": { "type": "string", "description": "AT URI of the created transferRequest record" },
+            "transferRequestRkey": { "type": "string", "description": "rkey == projectConvoId for the per-transfer project convo" },
+            "status": { "type": "string", "enum": ["requested", "approved"], "description": "approved only if 3 ClassA signers were supplied in-band" },
+            "missingApprovals": { "type": "integer", "description": "0..3" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "DomainNotFoundOnSquarespace" },
+        { "name": "DomainAlreadyOnCloudflare" },
+        { "name": "InsufficientPermission" }
+      ]
+    }
+  }
+}

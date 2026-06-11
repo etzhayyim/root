@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8833e6e7bb53",
+  "entityId": "ent-8833e6e7bb53",
+  "canonicalName": "bank refah kargaran",
+  "aliases": [
+    "bank refah kargaran"
+  ]
+}

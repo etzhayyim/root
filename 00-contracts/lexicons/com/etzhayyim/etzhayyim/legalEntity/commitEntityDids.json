@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.commitEntityDids",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge boundary for Zeebe-resolved legal-entity path DID creation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "source": { "type": "string" },
+            "page": { "type": "integer" },
+            "dids": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": { "type": "string" },
+                  "doc": { "type": "object" }
+                },
+                "required": ["path", "doc"]
+              }
+            }
+          },
+          "required": ["dids"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "page": { "type": "integer" },
+            "totalRegistered": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "totalErrors": { "type": "integer" },
+            "firstError": { "type": "string" },
+            "ts": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listAssets",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List KAMI runtime assets, optionally filtering by asset type, chunk size, source, and publish status.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "assetType": {
+            "type": "string"
+          },
+          "chunkSizeMeters": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sourceDid": {
+            "type": "string"
+          },
+          "chunkKeyPrefix": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["assets", "total", "offset", "limit"],
+          "properties": {
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "nodeId": { "type": "string" },
+                  "name": { "type": "string" },
+                  "assetType": { "type": "string" },
+                  "assetRole": { "type": "string" },
+                  "packageKind": { "type": "string" },
+                  "targetRuntime": { "type": "string" },
+                  "chunkKey": { "type": "string" },
+                  "chunkSizeMeters": { "type": "integer" },
+                  "lodCount": { "type": "integer" },
+                  "compressedBytes": { "type": "integer" },
+                  "maxCompressedBytes": { "type": "integer" },
+                  "qualityClass": { "type": "string" },
+                  "status": { "type": "string" },
+                  "sourceDid": { "type": "string" },
+                  "packageUrl": { "type": "string" },
+                  "metadataUrl": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

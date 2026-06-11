@@ -1,0 +1,116 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.runtimeLeaseLifecycle",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-2604301200 BPMN-as-actor endpoint for quoting and reserving a persistent autonomous-agent runtime lease.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rootDid", "agentDid"],
+          "properties": {
+            "rootDid": {
+              "type": "string"
+            },
+            "agentDid": {
+              "type": "string"
+            },
+            "leaseId": {
+              "type": "string"
+            },
+            "runtimeKind": {
+              "type": "string",
+              "description": "k8s-langserver | browser-worker | gpu-worker | tool-server"
+            },
+            "runtimeNamespace": {
+              "type": "string",
+              "description": "Explicit k8s namespace such as yoro-actors; default namespace is forbidden."
+            },
+            "cpuMillicores": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "memoryMiB": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "gpuClass": {
+              "type": "string"
+            },
+            "gpuSecondsCapDay": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "storageGiB": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "networkEgressGiBDay": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxParallelJobs": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "leasePeriodSec": {
+              "type": "integer",
+              "minimum": 3600
+            },
+            "riskMultiplierBps": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "resourcePolicyCid": {
+              "type": "string"
+            },
+            "slashPolicyHash": {
+              "type": "string"
+            },
+            "submitOnChain": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "leaseId": {
+              "type": "string"
+            },
+            "runtimeLeaseVertexId": {
+              "type": "string"
+            },
+            "runtimeLeaseExpiresAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "bondGccWei": {
+              "type": "string"
+            },
+            "resourceHash": {
+              "type": "string"
+            },
+            "runtimeLeasePendingOnChain": {
+              "type": "boolean"
+            },
+            "runtimeLeaseTxHash": {
+              "type": "string"
+            },
+            "runtimeLeaseAuditRkey": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

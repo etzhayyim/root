@@ -1,0 +1,232 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:ossekai.etzhayyim.com",
+  "name": "ossekai",
+  "displayName": "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge",
+  "displayNameJa": "御節介",
+  "displayNameEn": "Ossekai",
+  "description": "Non-profit religious-corp artificial-organism actor for societal information-arbitrage elimination + Wellbecoming-nudge delivery. Dual-channel architecture: (1) aggregate public-good publication (anonymized, AT Proto `app.bsky.feed.post` + custom feed generator `feed.ossekai.wellbecoming`) is the DEFAULT mode; (2) opt-in member digest (encrypted envelope per ADR-2605181100) + Council-gated single-touch non-member @mention (Council Lv6+ ≥3 attestation; ≥4 if >50 handles) is the secondary mode. First-touch channel = AT Protocol; NO email / SMTP at R0-R2 (N1). NO commercial intel/CRM/marketing software (G5: Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e)+§2(c)). NO surveillance (G3 PASSIVE-ONLY per ADR-2605262400). NO dark patterns (G6 — AT Proto native mute/block/quote-block honored structurally at projection layer G15). 8 cells / 9 Lexicons / 15 gates / 12 non-goals.",
+  "descriptionJa": "非営利 religious-corp の人工生命体 actor で、社会の情報 arbitrage 解消 + Wellbecoming 通知配信を担う。dual-channel 構造: (1) 集約公開 (匿名化、AT Proto `app.bsky.feed.post` + カスタム feed generator `feed.ossekai.wellbecoming`) を DEFAULT、(2) opt-in member digest (暗号化 envelope per ADR-2605181100) + Council-gated 単一接触 non-member @mention (Council Lv6+ ≥3 attestation; >50 handle なら ≥4) を secondary。first-touch = AT Protocol; R0-R2 で email / SMTP なし (N1)。商業 intel/CRM/marketing software 禁止 (G5)。監視なし (G3 PASSIVE-ONLY)。dark pattern なし (G6 — AT Proto native mute/block を projection layer で structurally honor G15)。8 cell / 9 Lexicon / 15 gate / 12 non-goal。",
+  "adr": {
+    "master": "etzhayyim:adr:2605264000",
+    "parent": "etzhayyim:adr:2605192100",
+    "r0": "etzhayyim:adr:2605264000",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "form": "任意団体 internal artificial-organism information-arbitrage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
+  "firstTouchChannelInvariant": "AT Protocol — `app.bsky.feed.post` (existing membrane per ADR-2605231902 preserved unchanged) + custom feed generator `feed.ossekai.wellbecoming` + `@mention`; NO email / SMTP at R0-R2 (N1); email-bridge to AT Proto DM for opted-in members is R3+ Council Lv7+ unanimity gate; non-member email contact permanently prohibited at this charter level",
+  "aggregateFirstInvariant": "G4 STRUCTURAL — anonymized aggregate-public-feed channel is the DEFAULT mode; targeted @mention + member digest combined ≤50.00% of output volume by quarter (silenOssekaiReview.anonAggregateSharePctIntegerHundredths ≥5000); the default order MUST NOT be inverted at runtime",
+  "crossActor": {
+    "e7m-dataset": "Sensor data source (ADR-2605262400; RIR / GeoLite2 / IANA / RIS / Routeviews / Rapid7-Sonar / OpenINTEL / CAIDA / CZDS / CommonCrawl-CDX)",
+    "legal-corpus": "Regulatory / statutory / case-law intel source (ADR-2605262800; legal-foundations-r1 at R1; full corpus at R2)",
+    "toritate": "Financial transparency intel SOURCE (ADR-2605262900; toritate publishes — ossekai reads + curates)",
+    "chigiri": "UPL boundary cross-actor (ADR-2605262700; ossekai MUST NOT render legal advice; legal-themed advisories cite chigiri.ipLicenseClaim)",
+    "iyashi": "Medical-advice boundary (ADR-2605263000)",
+    "mitate": "Diagnostic-advice boundary (existing G10 mitate emergency-keyword Lexicon)",
+    "yakushi": "Pharmaceutical-advice boundary (ADR-2605250500)",
+    "kazaori": "Emergency-advisory cross-actor (ADR-2605263200; emergency_advisory cell receives kazaori.emergencyDeclarationAttestation)",
+    "baien-moemoekyun": "Murakumo inference via judah LiteLLM (ADR-2605262100 R3+ when shipped; gemma4:e4b interim)",
+    "kotoba": "Storage substrate (ADR-2605262130; kotoba-kqe arrangements)",
+    "feed-discover": "AT Proto `app.bsky.feed.post` membrane (ADR-2605231902 preserved unchanged; ossekai is a producer)",
+    "corp-disclosure-substrate": "READ-ONLY consumer (ADR-2605263800; reads com.etzhayyim.corp.{registryAttestation,disclosureAttestation,leiReference,ownershipEdge,filingEvent}). Powers aggregate-anonymized publication of corporate-officer networks + cross-jurisdictional ownership graphs + material-event timelines. G4 aggregate-first invariant applied (no individual-targeting publication); UPL boundary preserved (financial-advice cites chigiri.ipLicenseClaim). Vendor commercial-terminal imports (Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro) CONSTITUTIONALLY PROHIBITED.",
+    "gov-dataset-substrate": "READ-ONLY consumer (ADR-2605263900; reads com.etzhayyim.gov.dataset.{openDatasetAttestation,parliamentRecord,budgetRecord,procurementRecord,statisticsObservation}). Powers aggregate-anonymized publication of state-function-routing-around evidence per Charter §1.12 (publicly-recorded state activity, anonymized aggregate-only). G4 aggregate-first invariant applied; CN-class sources carry stateAlignedFlag=true which downstream publication MUST display (§2(g) parallel to ADR-2605262800). Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED."
+  },
+  "constitutionalDiscipline": {
+    "passiveOnlyCollection": "G3 — PASSIVE-ONLY per ADR-2605262400; no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration against third parties; only pre-published public archives + voluntarily-published AT Proto activity",
+    "aggregateFirst": "G4 — anonymized aggregate-public-feed is DEFAULT; targeted dispatch is SECONDARY; ratio audited quarterly",
+    "noCommercialIntelCrmMarketingSoftware": "G5 — Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e)+§2(c)",
+    "noDarkPatterns": "G6 — AT Proto native mute/block/quote-block honored structurally at projection layer (G15); no urgency / no scarcity / no engagement-hacking / no A/B-test-for-conversion",
+    "rateLimitHardCoded": "G7 — per non-member handle ≤1 @mention / 90-day rolling window; per Adherent-SBT member ≤1 digest/week + ≤1 ad-hoc/month UNLESS member cadenceOverride",
+    "encryptedEnvelopeMandatory": "G8 — memberDigestRecord.encryptedPayloadCid REQUIRED per ADR-2605181100",
+    "signedSenderDidTransparent": "G9 — every AT Proto post (feed-post OR @mention) carries did:web:ossekai.etzhayyim.com + cryptographic signature",
+    "wellbecomingPositiveFraming": "G10 — Charter §1.13; no Gore / fear / shame / zero-sum framing; framing-audit attestation in every wellbecomingAdvisory",
+    "antiIndividualism": "G11 — Charter §1.4; community + multi-gen context preferred over individual nudge",
+    "muragumoOnlyInference": "G12 — per ADR-2605215000; commercial AI PROHIBITED",
+    "councilGatedNonMemberMention": "G13 — Council Lv6+ ≥3 attestation for non-member @mention campaign; ≥4 if campaignSize>50",
+    "quarterlySilenOssekaiReview": "G14 — Council Lv6+ ≥3 attestation per silenOssekaiReview emission",
+    "muteBlockHonoredAtProjectionLayer": "G15 — mention_dispatcher rejects dispatch BEFORE composing post; AT Proto block + mute ingested at consent_registry"
+  },
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "Societal information-arbitrage elimination + Wellbecoming-nudge delivery for religious-corp community sites + opted-in members + Council-attested non-member campaigns",
+    "exclusions": [
+      "email-based outreach at R0-R2 (AT Proto first-touch only)",
+      "surveillance / OSINT-for-hire / private-detective service",
+      "marketing automation / growth-hacking / viral-loop engineering",
+      "corporate intelligence-for-hire / competitive intel",
+      "social pressure / public shaming / vigilante coordination",
+      "lobbying / political campaign mailing",
+      "commercial outreach / upsell / affiliate",
+      "credit-score / financial-blacklist / debt-collection",
+      "match-making / dating",
+      "recruitment / headhunting",
+      "children-targeted advisories (manabi G3 anti-dependency parallel)",
+      "chigiri/legal-threat proxy / Transparent-Force-authorization proxy / excommunication-procedure proxy"
+    ]
+  },
+  "cells": [
+    {
+      "name": "arbitrage_observer",
+      "module": "kotodama.cells.ossekai_arbitrage_observer",
+      "murakumoNode": "issachar",
+      "phase": "continuous (heartbeat)",
+      "io": "sensor stream consume → arbitrageGapReport"
+    },
+    {
+      "name": "intel_analyzer",
+      "module": "kotodama.cells.ossekai_intel_analyzer",
+      "murakumoNode": "issachar",
+      "phase": "joucho-cadence",
+      "io": "arbitrageGapReport → wellbecomingAdvisory + cross-correlation + Wellbecoming framing audit"
+    },
+    {
+      "name": "aggregate_publisher",
+      "module": "kotodama.cells.ossekai_aggregate_publisher",
+      "murakumoNode": "issachar",
+      "phase": "hourly",
+      "io": "wellbecomingAdvisory (anonymized) → AT Proto `app.bsky.feed.post` via membrane + custom feed generator + feedPostAttestation"
+    },
+    {
+      "name": "member_digest",
+      "module": "kotodama.cells.ossekai_member_digest",
+      "murakumoNode": "issachar (paired-PDS-node)",
+      "phase": "weekly (default cadence; member-override allowed)",
+      "io": "wellbecomingAdvisory (member-filtered) → encrypted envelope (ADR-2605181100) → memberDigestRecord"
+    },
+    {
+      "name": "mention_dispatcher",
+      "module": "kotodama.cells.ossekai_mention_dispatcher",
+      "murakumoNode": "issachar",
+      "phase": "event (Council attestation triggered)",
+      "io": "mentionDispatchAttestation + (externalMentionConsent OR memberImpactAttestation) + mute/block check → AT Proto `@mention` + feedPostAttestation"
+    },
+    {
+      "name": "consent_registry",
+      "module": "kotodama.cells.ossekai_consent_registry",
+      "murakumoNode": "issachar",
+      "phase": "continuous",
+      "io": "externalMentionConsent + unsubscribeRecord + AT Proto `app.bsky.graph.block`/`mute` ingestion → consent state"
+    },
+    {
+      "name": "kaizen_observer",
+      "module": "kotodama.cells.ossekai_kaizen_observer",
+      "murakumoNode": "issachar",
+      "phase": "quarterly",
+      "io": "unsubscribe rate / spam-classifier flag / re-engagement-after-opt-out / member-impact-attestation false-positive / arbitrage-publication staleness / framing-audit drift → KaizenProposal per ADR-2605240200"
+    },
+    {
+      "name": "emergency_advisory",
+      "module": "kotodama.cells.ossekai_emergency_advisory",
+      "murakumoNode": "issachar (kazaori-paired)",
+      "phase": "event (kazaori emergencyDeclarationAttestation)",
+      "io": "kazaori cross-actor → expedited Wellbecoming-positive emergency advisory (NO fear-amplification per G10) → AT Proto `app.bsky.feed.post` + custom feed",
+      "crossActorPair": "kazaori"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.ossekai.arbitrageGapReport",
+    "com.etzhayyim.ossekai.wellbecomingAdvisory",
+    "com.etzhayyim.ossekai.feedPostAttestation",
+    "com.etzhayyim.ossekai.memberDigestSubscription",
+    "com.etzhayyim.ossekai.memberDigestRecord",
+    "com.etzhayyim.ossekai.mentionDispatchAttestation",
+    "com.etzhayyim.ossekai.externalMentionConsent",
+    "com.etzhayyim.ossekai.unsubscribeRecord",
+    "com.etzhayyim.ossekai.silenOssekaiReview"
+  ],
+  "constitutionalGates": {
+    "description": "15 immutable gates per ADR-2605264000. Council Lv6+ supermajority + new ADR to amend.",
+    "gates": {
+      "G1": "Charter Rider §2(a)-(h) scan on every input AND output",
+      "G2": "kotoba-datomic attestation lineage on every record",
+      "G3": "PASSIVE-ONLY collection (no live DNS / probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration; pre-published public archives + voluntary AT Proto activity only)",
+      "G4": "Aggregate-first publication (anonymized AT Proto feed-post DEFAULT; targeted dispatch SECONDARY; ratio audited quarterly ≥50%)",
+      "G5": "NO commercial intel / CRM / marketing software (Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED)",
+      "G6": "NO dark patterns (AT Proto native mute/block/quote-block honored at projection layer G15; no urgency / scarcity / engagement-hacking / A/B-test-for-conversion)",
+      "G7": "Rate limit hard-coded (non-member ≤1/90d/handle; member ≤1 digest/week + ≤1 ad-hoc/month default)",
+      "G8": "Encrypted envelope MANDATORY for member digest (ADR-2605181100)",
+      "G9": "Signed sender DID transparent (did:web:ossekai.etzhayyim.com + cryptographic signature on every post)",
+      "G10": "Wellbecoming-positive framing only (Charter §1.13; framing-audit attestation in every advisory)",
+      "G11": "Anti-individualism (Charter §1.4; community + multi-gen context preferred)",
+      "G12": "Murakumo-only inference (ADR-2605215000)",
+      "G13": "Council Lv6+ ≥3 attestation for non-member @mention campaign (≥4 if campaignSize>50)",
+      "G14": "silenOssekaiReview quarterly audit",
+      "G15": "AT Proto native mute/block honored at projection layer (mention_dispatcher rejects dispatch BEFORE composing post)"
+    }
+  },
+  "nonGoals": {
+    "description": "12 explicitly excluded scopes",
+    "goals": {
+      "N1": "NOT email-based outreach at R0-R2 (AT Proto first-touch only)",
+      "N2": "NOT surveillance / OSINT-for-hire / private-detective service",
+      "N3": "NOT marketing automation / growth-hacking / viral-loop engineering",
+      "N4": "NOT corporate intelligence-for-hire / competitive intel",
+      "N5": "NOT social pressure / public shaming / vigilante coordination",
+      "N6": "NOT lobbying / political campaign mailing",
+      "N7": "NOT commercial outreach / upsell / affiliate",
+      "N8": "NOT credit-score / financial-blacklist / debt-collection",
+      "N9": "NOT match-making / dating",
+      "N10": "NOT recruitment / headhunting",
+      "N11": "NOT children-targeted (manabi G3 anti-dependency parallel)",
+      "N12": "NOT chigiri/legal-threat proxy / Transparent-Force proxy / excommunication-procedure proxy"
+    }
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-05-26",
+      "scope": "Scaffold only. 8 cells path-reserved. 9 Lexicons schema skeleton.",
+      "murakumoFleet": "No deployment",
+      "gate": "ADR-2605264000 (PROPOSED)"
+    },
+    {
+      "phase": "R1",
+      "date": "post-Bootstrap-Council ratify + e7m-dataset Tier-A foundations available + legal-foundations-r1 recipe ratified + chigiri R1 active (UPL boundary) + iyashi R1 active (medical boundary)",
+      "scope": "3 cells (arbitrage_observer + intel_analyzer + aggregate_publisher); AT Proto custom feed generator `feed.ossekai.wellbecoming` live; ≤100 advisories/week ceiling; NO targeted @mention yet",
+      "murakumoFleet": "issachar (single node)",
+      "gate": "Future ADR + Council Lv6+ ≥3 + cross-actor dependencies"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1 + 30-day public objection + first quarterly silenOssekaiReview + ≥1 cross-actor advisory cycle",
+      "scope": "+3 cells (member_digest ≤500 opt-in members; mention_dispatcher Council gate live, ≤50 non-member handles/quarter; consent_registry AT Proto block/mute ingestion live)",
+      "murakumoFleet": "issachar + zebulun (2 nodes)",
+      "gate": "Council Lv6+ ≥4 + 30-day public + first silenOssekaiReview cycle"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2 + Council Lv7+ unanimity + multi-juris consent compliance (chigiri R3+ attested) + ≥4 consecutive silenOssekaiReview cycles G14-compliant",
+      "scope": "+2 cells (kaizen_observer with 6 new R12..R17 rules; emergency_advisory kazaori cross-actor); ≤5000 opt-in members; ≤200 non-member handles/quarter cumulative",
+      "murakumoFleet": "issachar + zebulun + dan (3 nodes)",
+      "gate": "Council Lv7+ unanimity + multi-juris consent attestation + 4-quarter G14 compliance"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md",
+      "missionCharter": "/90-docs/adr/2605192100-etzhayyim-mission-charter.md",
+      "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
+      "council": "/90-docs/adr/2605192300-etzhayyim-council-5-of-7-safe.md",
+      "muragumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
+      "feedPostMembrane": "/90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md",
+      "organism": "/90-docs/adr/2605232345-unispsc-organism-wave1.md",
+      "kaizen": "/90-docs/adr/2605240200-kaizen-observer-cell.md",
+      "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
+      "publicData": "/90-docs/adr/2605262400-public-data-ingestion-via-ipfs-datalad.md",
+      "legalCorpus": "/90-docs/adr/2605262800-global-legal-corpus-ingestion-via-ipfs-datalad.md",
+      "crossActorChigiri": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
+      "crossActorToritate": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md",
+      "crossActorIyashi": "/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md",
+      "crossActorKazaori": "/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md",
+      "encryptedEnvelope": "/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md"
+    }
+  }
+}

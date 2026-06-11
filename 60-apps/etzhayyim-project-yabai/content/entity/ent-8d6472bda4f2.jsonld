@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8d6472bda4f2",
+  "entityId": "ent-8d6472bda4f2",
+  "canonicalName": "bank markazi jomhouri islami iran",
+  "aliases": [
+    "bank markazi jomhouri islami iran"
+  ]
+}

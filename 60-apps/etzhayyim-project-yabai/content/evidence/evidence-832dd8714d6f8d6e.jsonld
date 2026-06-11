@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-832dd8714d6f8d6e",
+  "evidenceId": "evidence-832dd8714d6f8d6e",
+  "entityId": "ent-96ad34f0402f",
+  "category": "AMLPattern",
+  "source": "chainalysis/reactor",
+  "sourceReliability": "A",
+  "occurredAt": "2022-02-21T16:00:00Z",
+  "confidence": 0.95,
+  "severity": 4,
+  "probability": 0.002,
+  "jurisdiction": "INTL",
+  "summary": "TradeOgre categorized as high risk exchange by Chainalysis. Received stolen funds from Rokes Exchange. ETH address 0x4648451b5F87FF8F0F7D622bD40574bb97E25980 with 124.67 ETH and 59,483 transfers."
+}

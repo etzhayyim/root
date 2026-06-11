@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.birthRegistration.recordRegistration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Civil birth registration (UNICEF CRVS / SDG 16.9 — bridges statelessPerson.flagGapOutcome + refugee-unhcr + land-tenure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "registrationId",
+            "countryIso3",
+            "regimeKind",
+            "childCategory",
+            "registeredAt"
+          ],
+          "properties": {
+            "registrationId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "regimeKind": {
+              "type": "string",
+              "enum": [
+                "crvs_digital",
+                "paper_only",
+                "hybrid",
+                "mobile_registry",
+                "late_registration",
+                "retrofit_certificates",
+                "village_officiant",
+                "cold_chain_crvs",
+                "tribal_council"
+              ]
+            },
+            "childCategory": {
+              "type": "string",
+              "enum": [
+                "in_hospital",
+                "home_birth",
+                "refugee_child",
+                "stateless_parent",
+                "rural_remote",
+                "urban_informal",
+                "indigenous",
+                "conflict_zone",
+                "nomadic",
+                "orphan"
+              ]
+            },
+            "statelessGapVid": {
+              "type": "string",
+              "description": "bridges statelessPerson.flagGapOutcome"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

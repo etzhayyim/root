@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0051 — fuyou_declare_initial.
+
+  年初 / 入社時の新規「給与所得者の扶養控除等申告書」提出フロー。
+  100% generic primitives (db.insert / pds.dispatch / audit.emit) +
+  Camunda Forms (formKey) で構築。fuyou actor 専用の Python は無い。
+
+  Variables on the instance:
+    in:
+      employeeDid (str)        申告者 DID。dispatcher が caller の sub から注入
+      employerOrgId (str)      雇用主 org_id (kaisya scope)
+      taxYear (int)            対象年 (e.g. 2026)
+      vertexId (str)           at://{employeeDid}/com.etzhayyim.apps.fuyou.declaration/{taxYear}-{rkey}
+                               dispatcher 側で生成して注入
+
+    middle (form output):
+      applicantPayload, spousePayload, dependentsPayload,
+      minorDependentsPayload, specialStatusPayload   (signal:v1: ciphertext)
+      declarationHash (sha256 of canonical PII payload, plaintext, computed by form)
+
+    middle (HR review):
+      reviewDecision = "approve" | "reject"
+      reviewComment  (optional)
+
+    out:
+      finalStatus = "approved" | "rejected"
+      auditRkey
+      kaikeiPropagated (bool)
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_fuyou_declare_initial"
+    targetNamespace="https://etzhayyim.ai/bpmn/fuyou"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="fuyou_declare_initial" name="扶養控除等申告書 — 新規提出" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="申告開始">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_FormInput"/>
+
+    <!-- 1. Employee fills in the form (Camunda Forms key=fuyou-form-v1).
+         Operate UI / Tasklist が Tier 3 PII を signal:v1: 暗号化して
+         output variables に格納する。 -->
+    <bpmn:userTask id="Task_FormInput" name="申告書フォーム入力">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:fuyou-form-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="employee"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P14D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:incoming>Flow_LoopBack</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_FormInput" targetRef="Task_PersistDraft"/>
+
+    <!-- 2. Persist Tier 3 PII payload to vertex_fuyou_declaration_pii. -->
+    <bpmn:serviceTask id="Task_PersistDraft" name="Tier 3 PII を永続化 (draft)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_fuyou_declaration_pii&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:              vertexId,
+              applicant_payload:      string(applicantPayload),
+              spouse_payload:         string(spousePayload),
+              dependents_payload:     string(dependentsPayload),
+              minor_dep_payload:      string(minorDependentsPayload),
+              special_status:         string(specialStatusPayload),
+              amendment_log:          &quot;[]&quot;,
+              retention_until:        date and time(date(&quot;9999-12-31&quot;), time(&quot;00:00:00&quot;)),
+              created_at:             string(now()),
+              owner_did:              employeeDid,
+              sensitivity_ord:        3,
+              org_id:                 employerOrgId,
+              user_id:                employeeDid,
+              actor_id:               &quot;sys.bpmn.fuyou&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="piiInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_PersistDraft" targetRef="Task_PersistTier1"/>
+
+    <!-- 3. Mirror metadata + hash into Tier 1 (federable, no PII). -->
+    <bpmn:serviceTask id="Task_PersistTier1" name="Tier 1 メタデータを記録 (hash only)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_fuyou_declaration&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              employee_did:     employeeDid,
+              employer_org_id:  employerOrgId,
+              tax_year:         taxYear,
+              process_type:     &quot;initial&quot;,
+              status:           &quot;submitted&quot;,
+              declaration_hash: string(declarationHash),
+              amendment_count:  0,
+              submitted_at:     string(now()),
+              created_at:       string(now()),
+              owner_did:        employeeDid,
+              sensitivity_ord:  1,
+              org_id:           employerOrgId,
+              user_id:          employeeDid,
+              actor_id:         &quot;sys.bpmn.fuyou&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="metaInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_PersistTier1" targetRef="Task_HRReview"/>
+
+    <!-- 4. HR officer reviews. SLA: 7 days. -->
+    <bpmn:userTask id="Task_HRReview" name="HR レビュー">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:fuyou-review-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="hr-officer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P7D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_F4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F4" sourceRef="Task_HRReview" targetRef="Gate_Approved"/>
+
+    <!-- 5. Approved? -->
+    <bpmn:exclusiveGateway id="Gate_Approved" name="承認?" default="Flow_Reject">
+      <bpmn:incoming>Flow_F4</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Approve" sourceRef="Gate_Approved" targetRef="Task_MarkApproved">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=verdict.decision = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Reject" sourceRef="Gate_Approved" targetRef="Task_MarkRejected"/>
+
+    <!-- 6a. Mark approved + propagate to kaikei. -->
+    <bpmn:serviceTask id="Task_MarkApproved" name="承認状態に更新">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <!--
+            generic.db.insert with onConflict=replace functions as upsert.
+            We rewrite the Tier 1 row with status=approved.
+          -->
+          <zeebe:input source="=&quot;vertex_fuyou_declaration&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              employee_did:     employeeDid,
+              employer_org_id:  employerOrgId,
+              tax_year:         taxYear,
+              process_type:     &quot;initial&quot;,
+              status:           &quot;approved&quot;,
+              declaration_hash: string(declarationHash),
+              amendment_count:  0,
+              submitted_at:     string(now()),
+              approved_at:      string(now()),
+              approved_by_did:  string(reviewerDid),
+              created_at:       string(now()),
+              owner_did:        employeeDid,
+              sensitivity_ord:  1,
+              org_id:           employerOrgId,
+              user_id:          employeeDid,
+              actor_id:         &quot;sys.bpmn.fuyou&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;approved&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_Kaikei</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Kaikei" sourceRef="Task_MarkApproved" targetRef="Task_PropagateKaikei"/>
+
+    <!-- 6b. Trigger kaikei recompute. Errors here are non-fatal: we
+         record kaikeiPropagated=false and let an out-of-band retry pick
+         it up via vertex_fuyou_declaration.status='approved' AND
+         kaikei_propagated_at IS NULL. -->
+    <bpmn:serviceTask id="Task_PropagateKaikei" name="kaikei 月次源泉計算へ propagate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.kaikei.recomputeWithholding&quot;" target="type"/>
+          <zeebe:input source="={
+              employeeDid:        employeeDid,
+              employerOrgId:      employerOrgId,
+              taxYear:            taxYear,
+              effectiveFromMonth: substring(string(now()), 1, 7),
+              triggerVertexId:    vertexId,
+              triggerSource:      &quot;com.etzhayyim.apps.fuyou.finalize&quot;
+          }" target="payload"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="callerDid"/>
+          <zeebe:output source="=ok"     target="kaikeiPropagated"/>
+          <zeebe:output source="=status" target="kaikeiHttpStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Kaikei</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditOk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditOk" sourceRef="Task_PropagateKaikei" targetRef="Task_AuditApproved"/>
+
+    <!-- 6c. Audit. -->
+    <bpmn:serviceTask id="Task_AuditApproved" name="audit: approved">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;fuyou.declareInitial.approve&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:         vertexId,
+              employeeDid:      employeeDid,
+              employerOrgId:    employerOrgId,
+              taxYear:          taxYear,
+              kaikeiPropagated: kaikeiPropagated
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditOk</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditApproved" targetRef="End"/>
+
+    <!-- 7. Reject path: mark rejected + audit + loop back to form input. -->
+    <bpmn:serviceTask id="Task_MarkRejected" name="差戻し状態に更新">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_fuyou_declaration&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              employee_did:     employeeDid,
+              employer_org_id:  employerOrgId,
+              tax_year:         taxYear,
+              process_type:     &quot;initial&quot;,
+              status:           &quot;rejected&quot;,
+              declaration_hash: string(declarationHash),
+              amendment_count:  0,
+              submitted_at:     string(now()),
+              created_at:       string(now()),
+              owner_did:        employeeDid,
+              sensitivity_ord:  1,
+              org_id:           employerOrgId,
+              user_id:          employeeDid,
+              actor_id:         &quot;sys.bpmn.fuyou&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;rejected&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Reject</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditRej</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditRej" sourceRef="Task_MarkRejected" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="audit: rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;fuyou.declareInitial.reject&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:      vertexId,
+              employeeDid:   employeeDid,
+              employerOrgId: employerOrgId,
+              taxYear:       taxYear,
+              comment:       string(verdict.comment)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditRej</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoopBack</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_LoopBack" sourceRef="Task_AuditRejected" targetRef="Task_FormInput"/>
+
+    <bpmn:endEvent id="End" name="完了">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

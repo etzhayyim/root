@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Phase D pilot #1 (ADR-0056, 2026-04-23): lawyer.health — retire the
+  38-LoC lawyer.etzhayyim.com Worker by mapping its single XRPC command to
+  one `generic.audit.emit` task. No DB, no LLM, no HTTP.
+
+  Flow:
+    Start → generic.audit.emit → End
+
+  Output variables (returned as XRPC response body by bpmn-dispatcher):
+    ok        = true  (audit emitted)
+    nanoid    = "334bbd5f"  (lawyer.etzhayyim.com worker nanoid, grandfathered)
+    handle    = "lawyer.etzhayyim.com"
+    tenant    = "etzhayyimcojp"
+    note      = "MVP stub — record writes delegate to lawfirm Worker via firmDid scoping"
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_lawyer_health"
+    targetNamespace="https://etzhayyim.ai/bpmn/lawyer"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="lawyer_health" name="lawyer health" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="health">
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Start" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: lawyer.health probe">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawyer.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawyer.health.probe&quot;" target="action"/>
+          <zeebe:input source="={ nanoid: &quot;334bbd5f&quot; }" target="payload"/>
+          <zeebe:output source="=true"                     target="ok"/>
+          <zeebe:output source="=&quot;334bbd5f&quot;"                target="nanoid"/>
+          <zeebe:output source="=&quot;lawyer.etzhayyim.com&quot;"           target="handle"/>
+          <zeebe:output source="=&quot;etzhayyimcojp&quot;"                 target="tenant"/>
+          <zeebe:output source="=&quot;MVP stub — record writes delegate to lawfirm Worker via firmDid scoping&quot;" target="note"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="healthy">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

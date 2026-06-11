@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.constituencyPressure.flagAstroturf",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Astroturf / dark-money / coordinated inauthentic behavior (bridges coalitionReform.flagCollapse + transnational-repression + judicial-influence)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "campaignVid",
+            "indicatorKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "campaignVid": {
+              "type": "string",
+              "description": "bridges recordCampaign"
+            },
+            "indicatorKind": {
+              "type": "string",
+              "enum": [
+                "dark_money",
+                "front_org",
+                "sock_puppet_accounts",
+                "repurposed_template",
+                "fake_local",
+                "captive_constituent",
+                "paid_actor",
+                "duplicate_signatures",
+                "cross_border_signatories",
+                "timing_anomaly",
+                "origin_obscured",
+                "funding_undisclosed"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

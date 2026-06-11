@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  com.etzhayyim.apps.live.scheduleSet — performer authors / replaces a room.
+
+  Single-task flow. Upserts (insert with `on conflict ignore` semantics
+  via PK rewrite) into `vertex_live_room`. RisingWave overwrites on
+  duplicate PK so this is effectively a put.
+
+  RLS shape per ADR-0095.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_live_schedule_set"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="live_schedule_set" name="live scheduleSet" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="vertex_live_room upsert">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_live_room&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: &quot;at://&quot; + string(performerDid) + &quot;/com.etzhayyim.apps.live.room/&quot; + string(roomSlug),
+              slug: roomSlug,
+              bpm: bpm,
+              start_at: startAt,
+              stage_preset: stagePreset,
+              performer_handle: performerHandle,
+              setlist_json: setlistJson,
+              lighting_json: lightingJson,
+              crowd_seed: crowdSeed,
+              fans_target: fansTarget,
+              name: string(roomSlug) + &quot; — &quot; + string(stagePreset),
+              description: &quot;Live virtual concert room scheduled by &quot; + string(performerHandle),
+              actor_did: performerDid,
+              org_did: if orgDid != null then orgDid else &quot;anon&quot;,
+              at_did: performerDid,
+              created_at: string(now())
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;scheduled&quot;" target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit live.scheduleSet">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;live.scheduleSet&quot;" target="action"/>
+          <zeebe:input source="={ roomSlug: roomSlug, bpm: bpm, stagePreset: stagePreset }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

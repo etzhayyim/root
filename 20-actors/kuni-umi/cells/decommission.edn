@@ -1,0 +1,27 @@
+;; kuni-umi 国産 — decommission cell (langgraph, WASM runtime)
+;; ADR-2605201400 · Phase 2 scaffold
+{:cell/id "decommission"
+ :cell/glyph "🗑️"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/entry "py/agent.py"
+ :cell/handler "handle_decommission"
+ :cell/doc "End-of-mission decommission: intake :auditRecord (operational-complete) → plan robot retrieval + equipment salvage (circular inventory) → generate :decommissionRecord with ≥2 robot-DID witness signatures (constitutional, G8) + final site restoration attestation (soil/water remediation if applicable) → mark site :available-for-redeployment. Circular: all Giemon hardware returnable to kuni-umi fleet pool via closed-loop logistics (Quad robot). All witness records encrypted & kotoba-native (G9/G17)."
+ :cell/state-graph
+ {:nodes [:intake-audit :plan-retrieval :plan-salvage :record-restoration :witness-complete :output-final]
+  :entry :intake-audit
+  :edges [[:intake-audit :plan-retrieval]
+          [:plan-retrieval :plan-salvage]
+          [:plan-salvage :record-restoration]
+          [:record-restoration :witness-complete]
+          [:witness-complete :output-final]
+          [:output-final :end]]}
+ :cell/llm
+ {:provider :murakumo
+  :endpoint "127.0.0.1:4000"
+  :model "gemma3:4b"
+  :charter-rider true}
+ :cell/gates ["G1" "G5" "G6" "G8" "G9" "G13" "G14" "G15" "G17"]
+ :cell/kotoba
+ {:reads [:audit/state :site/baseline-attestation]
+  :writes [:decommission/id :decommission/salvage-inventory :decommission/restoration :decommission/witness-sigs :decommission/state]}}

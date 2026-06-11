@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — random IPFS retrieval verification (R/PT1H).
+
+  Sample 100 karma CIDs and verify retrievability across all 5 layers.
+  Failures are emitted to yabai for alerting; persistent failures
+  trigger re-pin from authoritative source.
+
+  Lean axiom: Karma.lean karma_survives_quad_failure requires that
+  even with 4 location failures, ≥1 location is reachable.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_ipfs_verify_random"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_ipfs_verify_random" name="karma ipfs verify random" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="every 1 hour">
+      <bpmn:outgoing>Flow_ToVerify</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Verify" name="random sample retrieval verify">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.ipfs.verifyRandom"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=100" target="sampleSize"/>
+          <zeebe:output source="=sampled" target="sampled"/>
+          <zeebe:output source="=failures" target="failures"/>
+          <zeebe:output source="=avgLayersAvailable" target="avgLayersAvailable"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToVerify</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToVerify" sourceRef="StartTimer" targetRef="Task_Verify"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.ipfsVerifyRandom&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;sampled&quot;: sampled, &quot;failures&quot;: failures, &quot;avgLayers&quot;: avgLayersAvailable }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Verify" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="verified">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

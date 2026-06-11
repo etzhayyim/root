@@ -1,0 +1,299 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "commonCrawl XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://commonCrawl.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.commonCrawl.getSegment": {
+      "get": {
+        "summary": "Get a Common Crawl ingest segment by ingestId or crawlId+segmentId.",
+        "operationId": "com.etzhayyim.commonCrawl.getSegment",
+        "parameters": [
+          {
+            "name": "ingestId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "crawlId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "segmentId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "ingestId": {
+                      "type": "string"
+                    },
+                    "crawlId": {
+                      "type": "string"
+                    },
+                    "segmentId": {
+                      "type": "string"
+                    },
+                    "format": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "estimatedRecords": {
+                      "type": "integer"
+                    },
+                    "filterDomain": {
+                      "type": "string"
+                    },
+                    "outputCollection": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "in-progress",
+                        "completed",
+                        "failed"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.commonCrawl.ingestSegment": {
+      "post": {
+        "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, Kotoba/Datomic Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
+        "operationId": "com.etzhayyim.commonCrawl.ingestSegment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "crawlId": {
+                    "type": "string",
+                    "description": "CC-MAIN-2026-XX format"
+                  },
+                  "segmentId": {
+                    "type": "string",
+                    "description": "1745234567.89/segments/1745234567.89/wet/CC-MAIN-...wet.gz"
+                  },
+                  "format": {
+                    "type": "string",
+                    "enum": [
+                      "wat",
+                      "warc",
+                      "wet"
+                    ],
+                    "default": "wat"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "estimatedRecords": {
+                    "type": "integer"
+                  },
+                  "filterDomain": {
+                    "type": "string",
+                    "description": "ingest only matching authority (e.g. *.gov, *.go.jp)"
+                  },
+                  "outputCollection": {
+                    "type": "string",
+                    "description": "AT collection NSID for derived vertex/edge records"
+                  }
+                },
+                "required": [
+                  "crawlId",
+                  "segmentId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "ingestId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.commonCrawl.listIngestSegments": {
+      "get": {
+        "summary": "List Common Crawl ingest segments with optional crawl/format/domain filter.",
+        "operationId": "com.etzhayyim.commonCrawl.listIngestSegments",
+        "parameters": [
+          {
+            "name": "crawlId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "wat",
+                "warc",
+                "wet"
+              ]
+            }
+          },
+          {
+            "name": "filterDomain",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "segments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "ingestId": {
+                            "type": "string"
+                          },
+                          "crawlId": {
+                            "type": "string"
+                          },
+                          "segmentId": {
+                            "type": "string"
+                          },
+                          "format": {
+                            "type": "string"
+                          },
+                          "estimatedRecords": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "segments",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

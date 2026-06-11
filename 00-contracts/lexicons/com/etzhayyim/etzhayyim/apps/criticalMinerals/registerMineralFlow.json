@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.criticalMinerals.registerMineralFlow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Critical mineral production / trade flow (USGS / IEA / EU CRMA — bridges fusion-energy.flagTritiumSupply + green-transition + ev-supply-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flowId",
+            "mineral",
+            "stageKind",
+            "producerCountryIso3",
+            "reportedAt"
+          ],
+          "properties": {
+            "flowId": {
+              "type": "string"
+            },
+            "mineral": {
+              "type": "string",
+              "enum": [
+                "lithium",
+                "cobalt",
+                "nickel",
+                "graphite",
+                "rare_earth_ndpr",
+                "rare_earth_dyTb",
+                "platinum",
+                "palladium",
+                "copper",
+                "manganese",
+                "tellurium",
+                "germanium",
+                "gallium",
+                "indium",
+                "tungsten",
+                "beryllium",
+                "lithium6",
+                "tritium"
+              ]
+            },
+            "stageKind": {
+              "type": "string",
+              "enum": [
+                "mining",
+                "concentrate",
+                "refining",
+                "chemical",
+                "cathode",
+                "magnet",
+                "alloy",
+                "recycling"
+              ]
+            },
+            "producerCountryIso3": {
+              "type": "string"
+            },
+            "consumerCountryIso3": {
+              "type": "string"
+            },
+            "volumeTonnes": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

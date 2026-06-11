@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_curpus2skill_extract_evidence" targetNamespace="https://etzhayyim.ai/bpmn/curpus2skill" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="curpus2skill_extract_evidence" name="curpus2skill extractEvidence" isExecutable="true">
+    <bpmn:documentation>{ "taskType": "curpus2skill.extractEvidence", "resident": true, "defaultSource": "legal-corpus" }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 6 hours">
+      <bpmn:outgoing>Flow_Timer_Task</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT6H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_Manual_Task</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_Timer_Task" sourceRef="Start_Timer" targetRef="Task_Extract"/>
+    <bpmn:sequenceFlow id="Flow_Manual_Task" sourceRef="Start_Manual" targetRef="Task_Extract"/>
+
+    <bpmn:serviceTask id="Task_Extract" name="extract corpus skill evidence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="curpus2skill.extractEvidence" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if source = null then &quot;legal-corpus&quot; else source" target="source"/>
+          <zeebe:input source="=if limit = null then 10 else limit" target="limit"/>
+          <zeebe:input source="=if skillLimit = null then 2000 else skillLimit" target="skillLimit"/>
+          <zeebe:input source="=if minScore = null then 0.97 else minScore" target="minScore"/>
+          <zeebe:input source="=if topK = null then 5 else topK" target="topK"/>
+          <zeebe:input source="=if dryRun = null then false else dryRun" target="dryRun"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=source" target="source"/>
+          <zeebe:output source="=sourceTable" target="sourceTable"/>
+          <zeebe:output source="=documentsScanned" target="documentsScanned"/>
+          <zeebe:output source="=skillsLoaded" target="skillsLoaded"/>
+          <zeebe:output source="=matchedDocuments" target="matchedDocuments"/>
+          <zeebe:output source="=emittedEdges" target="emittedEdges"/>
+          <zeebe:output source="=sample" target="sample"/>
+          <zeebe:output source="=error" target="error"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer_Task</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual_Task</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit result">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="1"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:recruit.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;curpus2skill.extractEvidence&quot;" target="action"/>
+          <zeebe:input source="={runId: runId, source: source, sourceTable: sourceTable, documentsScanned: documentsScanned, skillsLoaded: skillsLoaded, matchedDocuments: matchedDocuments, emittedEdges: emittedEdges, error: error}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Extract" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

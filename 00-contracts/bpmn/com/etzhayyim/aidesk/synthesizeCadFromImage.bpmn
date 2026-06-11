@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  id="Definitions_aidesk_synthesize_cad_from_image"
+  targetNamespace="https://etzhayyim.ai/bpmn/aidesk"
+  exporter="hand-written"
+  exporterVersion="2.0">
+
+  <bpmn:process id="aidesk_synthesize_cad_from_image" name="aidesk synthesize CAD from image" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="aidesk.job.queued message">
+      <bpmn:outgoing>Flow_ToStatusRunning</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_JobQueued"/>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToStatusRunning" sourceRef="Start" targetRef="Task_SetRunning"/>
+
+    <!-- Mark job as running -->
+    <bpmn:serviceTask id="Task_SetRunning" name="set job status = running">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_aidesk_design_job&quot;" target="table"/>
+          <zeebe:input source="={ vertex_id: jobVertexId, status: &quot;running&quot; }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToStatusRunning</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSynthesize</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSynthesize" sourceRef="Task_SetRunning" targetRef="Task_Synthesize"/>
+
+    <!-- Zero-To-CAD inference: 8-view images → CadQuery Python code -->
+    <bpmn:serviceTask id="Task_Synthesize" name="aidesk.cad.synthesize (Zero-To-CAD)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aidesk.cad.synthesize"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=jobId" target="jobId"/>
+          <zeebe:input source="=inputB2Keys" target="inputB2Keys"/>
+          <zeebe:input source="=inputType" target="inputType"/>
+          <zeebe:output source="=cadqueryCode" target="cadqueryCode"/>
+          <zeebe:output source="=licenseTier" target="licenseTier"/>
+          <zeebe:output source="=modelId" target="modelId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSynthesize</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToExecute</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToExecute" sourceRef="Task_Synthesize" targetRef="Task_Execute"/>
+
+    <!-- Execute CadQuery Python → STEP file → upload to B2 -->
+    <bpmn:serviceTask id="Task_Execute" name="aidesk.cad.execute (CadQuery → STEP → B2)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aidesk.cad.execute"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=jobId" target="jobId"/>
+          <zeebe:input source="=cadqueryCode" target="cadqueryCode"/>
+          <zeebe:output source="=stepB2Key" target="stepB2Key"/>
+          <zeebe:output source="=format" target="format"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExecute</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsertArtifact</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToInsertArtifact" sourceRef="Task_Execute" targetRef="Task_InsertArtifact"/>
+
+    <!-- Persist artifact: license_tier immutable from model -->
+    <bpmn:serviceTask id="Task_InsertArtifact" name="insert vertex_aidesk_artifact (license_tier=apache2)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_aidesk_artifact&quot;" target="table"/>
+          <zeebe:input source="={ vertex_id: artifactVertexId, job_id: jobId, actor_did: actorDid, org_did: orgDid, at_did: atDid, format: format, b2_key: stepB2Key, license_tier: licenseTier, cadquery_code: cadqueryCode, created_at: createdAt }" target="row"/>
+          <zeebe:output source="=insertedId" target="artifactId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsertArtifact</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToStatusDone</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToStatusDone" sourceRef="Task_InsertArtifact" targetRef="Task_SetDone"/>
+
+    <!-- Mark job done -->
+    <bpmn:serviceTask id="Task_SetDone" name="set job status = done">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_aidesk_design_job&quot;" target="table"/>
+          <zeebe:input source="={ vertex_id: jobVertexId, status: &quot;done&quot; }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToStatusDone</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAutoExportGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAutoExportGateway" sourceRef="Task_SetDone" targetRef="Gateway_AutoExport"/>
+
+    <!-- Auto-export gate: only if caller requested it -->
+    <bpmn:exclusiveGateway id="Gateway_AutoExport" name="autoExportToTsukuru?">
+      <bpmn:incoming>Flow_ToAutoExportGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToHandoff</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ToHandoff" sourceRef="Gateway_AutoExport" targetRef="Task_TsukuruHandoff">
+      <bpmn:conditionExpression>=autoExportToTsukuru = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Gateway_AutoExport" targetRef="End">
+      <bpmn:conditionExpression>=autoExportToTsukuru != true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Tsukuru handoff via K8s-internal bpmn-dispatcher (license gate enforced in Python) -->
+    <bpmn:serviceTask id="Task_TsukuruHandoff" name="aidesk.tsukuru.handoff (license_tier gate + normalizePackage)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aidesk.tsukuru.handoff"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=jobId" target="jobId"/>
+          <zeebe:input source="=artifactId" target="artifactId"/>
+          <zeebe:input source="=stepB2Key" target="stepB2Key"/>
+          <zeebe:input source="=cadqueryCode" target="cadqueryCode"/>
+          <zeebe:input source="=licenseTier" target="license_tier"/>
+          <zeebe:input source="=rfqNotes" target="rfqNotes"/>
+          <zeebe:output source="=tsukuruPackageId" target="tsukuruPackageId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToHandoff</bpmn:incoming>
+      <bpmn:outgoing>Flow_HandoffToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_HandoffToEnd" sourceRef="Task_TsukuruHandoff" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="design job complete">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_HandoffToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+
+  <bpmn:message id="Message_JobQueued" name="aidesk.job.queued"/>
+
+</bpmn:definitions>

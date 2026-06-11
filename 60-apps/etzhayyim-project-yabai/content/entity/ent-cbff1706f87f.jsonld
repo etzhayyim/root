@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cbff1706f87f",
+  "entityId": "ent-cbff1706f87f",
+  "canonicalName": "акціонерне товариство \"сибнафтомаш\"",
+  "aliases": [
+    "акціонерне товариство \"сибнафтомаш\""
+  ]
+}

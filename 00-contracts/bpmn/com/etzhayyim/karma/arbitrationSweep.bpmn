@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — arbitration sweeper (R/PT15M timer-start).
+
+  Auto-finalizes arbitrations whose voting window has closed (now >
+  closes_at_ms) but were not supermajority-finalized by Task_Finalize.
+
+  Plurality wins among non-abstain votes. Tied → 'dismiss' (default
+  conservative outcome — no edge change).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_arbitration_sweep"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_arbitration_sweep" name="karma arbitration sweep" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="every 15 min">
+      <bpmn:outgoing>Flow_ToSweep</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT15M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Sweep" name="finalize windows past closes_at_ms">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.dao.sweepExpired"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=finalized" target="finalized"/>
+          <zeebe:output source="=stillOpen" target="stillOpen"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSweep</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSweep" sourceRef="StartTimer" targetRef="Task_Sweep"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.arbitrationSweep&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;finalized&quot;: finalized, &quot;stillOpen&quot;: stillOpen }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Sweep" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="swept">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,122 @@
+---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
+# lg-isin — resident LangServer for global listed-company data ingest.
+#
+# Handles incremental ingest of public company organizational data:
+#   SEC EDGAR + OpenFIGI (US)  -> vertex_isin_security
+#   OpenFIGI TSE range (JP)    -> vertex_isin_security
+#   EDGAR CIK enrichment       -> exchange_mic, sic columns
+#   EDINET filing list (JP)    -> vertex_isin_filing
+#   ISIN <-> GLEIF LEI match   -> edge_isin_lei_match
+#   RSS press-release fetch    -> on-demand
+#
+# Pre-requisites:
+#   apply migration 20260515120000_alter_vertex_isin_tables.up.sql
+#   apply migration 20260515130000_vertex_isin_ir_doc.up.sql
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-isin
+  namespace: mitama-udf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-isin
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-isin
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: isin.etzhayyim.com
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-isin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-isin
+    spec:
+      serviceAccountName: lg-isin
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: server
+          image: ghcr.io/etzhayyim/lg-isin:78ac04f8378-20260515082509-amd64
+          imagePullPolicy: Always
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mitama-udf-pool-rw
+                  key: RW_URL
+            - name: PORT
+              value: "8080"
+            - name: EDINET_SUBSCRIPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: lg-isin-secrets
+                  key: EDINET_SUBSCRIPTION_KEY
+                  optional: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 8
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-isin
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-isin
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-isin
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP

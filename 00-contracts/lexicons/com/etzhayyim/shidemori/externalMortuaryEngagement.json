@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.shidemori.externalMortuaryEngagement",
+  "description": "External licensed mortuary engagement (state-compliance legal requirements only). G5 UPL-EQUIVALENT BOUNDARY: shidemori prepares the data package; external licensed mortuary handles legal-compliance (death certificate filing / cremation permit / interment permit / autopsy coordination if applicable). 4-actor UPL-equivalent pattern (chigiri G14 + iyashi N9 + kokoro G3 + shidemori G5).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "engagementScope",
+          "externalMortuaryIdentity",
+          "publicFundSafeContractCid",
+          "councilAttestations",
+          "deceasedPseudonymDid",
+          "musubiFuneralCeremonyPerformanceCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "engagementScope": {
+            "type": "string",
+            "knownValues": [
+              "death-certificate-filing",
+              "cremation-permit",
+              "interment-permit",
+              "autopsy-coordination-mitate-paired",
+              "body-transport-jurisdictional-compliance",
+              "international-repatriation",
+              "natural-death-document-only",
+              "other-state-compliance"
+            ]
+          },
+          "engagementScopeDetail": {"type": "string", "maxLength": 4000},
+          "jurisdictionIso3": {"type": "string"},
+          "externalMortuaryIdentity": {
+            "type": "string",
+            "description": "External licensed mortuary firm name"
+          },
+          "externalMortuaryDid": {
+            "type": "string",
+            "description": "External mortuary DID (when available)"
+          },
+          "publicFundSafeContractCid": {
+            "type": "string",
+            "description": "Public Fund Safe contract CID (Council Lv6+ ≥4/7 authorization; G5 UPL-equivalent boundary — shidemori does NOT engage directly; Public Fund Safe does)"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "G5 STRUCTURAL: Council Lv6+ ≥4/7 supermajority for engagement budget approval"
+          },
+          "estimatedBudgetUsdMillicents": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Estimated cost in USD millicents"
+          },
+          "actualBudgetUsdMillicents": {"type": "integer"},
+          "deceasedPseudonymDid": {"type": "string"},
+          "musubiFuneralCeremonyPerformanceCid": {
+            "type": "string",
+            "description": "Cross-link to musubi.ceremonyPerformanceAttestation"
+          },
+          "dataPackagePreparedByShidemoriCid": {
+            "type": "string",
+            "description": "shidemori-prepared data package CID (encrypted per ADR-2605181100; jurisdictional confidentiality)"
+          },
+          "stateComplianceDocumentCid": {
+            "type": "string",
+            "description": "External mortuary state-compliance document CID. G5 INVARIANT: shidemori does NOT modify this document; shidemori ONLY records the CID."
+          },
+          "embalmingChemicalsUsed": {
+            "type": "boolean",
+            "const": false,
+            "description": "G7 STRUCTURAL: const false; even external mortuary engagement does NOT use embalming chemicals (Charter Rider §2(d)). If external mortuary requires embalming for transport, engagement is REFUSED."
+          },
+          "engagementStatus": {
+            "type": "string",
+            "knownValues": [
+              "engagement-approved",
+              "data-package-prepared",
+              "external-mortuary-in-progress",
+              "document-filed",
+              "completed",
+              "rejected",
+              "withdrawn"
+            ]
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

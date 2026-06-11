@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gov.municipality",
+  "description": "Read-side catalog record describing a municipality (市区町村 / city / borough / commune / county). Originally `vertex_gov_municipality` table. Per ADR-2605212100 the etzhayyim-side Kysely table is replaced by MST records under this collection. Cross-references `com.etzhayyim.gov.agency` (municipalities are agencies too — `branch=executive level=municipal`); this collection exists for the common case of name/code lookup without the full agency surface.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "jurisdiction",
+          "createdAt"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Authoritative municipality code. Format depends on jurisdiction: JIS X 0402 6-digit for JP (e.g. '131016' for 千代田区), FIPS-2 / FIPS-5 for US, NUTS 3 / LAU for EU, GBR ONS code for UK.",
+            "maxLength": 32
+          },
+          "name": {
+            "type": "string",
+            "description": "English-language municipality name.",
+            "maxLength": 256
+          },
+          "nameLocal": {
+            "type": "string",
+            "description": "Local-script name. Example: '千代田区'.",
+            "maxLength": 256
+          },
+          "jurisdiction": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-3 lowercase, optionally with subnational suffix. Example: 'jpn', 'usa-ca', 'gbr-eng'.",
+            "maxLength": 16
+          },
+          "prefecture": {
+            "type": "string",
+            "description": "Parent prefecture / state / region. Format: name or subnational code. Example: '東京都', 'California', 'Bavaria'.",
+            "maxLength": 128
+          },
+          "prefectureCode": {
+            "type": "string",
+            "description": "Authoritative prefecture / state code (e.g. JIS X 0401 2-digit for JP: '13' for 東京都; US state postal: 'CA').",
+            "maxLength": 16
+          },
+          "kind": {
+            "type": "string",
+            "description": "Local-government category.",
+            "enum": [
+              "city",
+              "town",
+              "village",
+              "ward",
+              "county",
+              "borough",
+              "commune",
+              "designated-city",
+              "special-ward",
+              "other"
+            ]
+          },
+          "population": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Posted population (as of record creation). Source-snapshot only; not authoritative."
+          },
+          "websiteUri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

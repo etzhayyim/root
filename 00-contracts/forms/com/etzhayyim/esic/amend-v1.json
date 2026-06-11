@@ -1,0 +1,66 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "esic-amend-v1",
+  "version": 1,
+  "title": "ESIC Contribution Amendment",
+  "regulatoryRef": { "law": "ESI Act 1948", "article": "§39" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "amendmentMeta",
+      "type": "fieldset",
+      "label": "Correction Summary",
+      "components": [
+        { "key": "amendmentDate", "label": "Effective date", "type": "datepicker", "required": true },
+        { "key": "amendmentReason", "label": "Reason", "type": "select", "required": true,
+          "options": [
+            { "value": "joinedMember", "label": "Joined member" },
+            { "value": "leftMember", "label": "Left member" },
+            { "value": "wageRevision", "label": "Wage revision" },
+            { "value": "ipCorrection", "label": "IP Number / Aadhaar correction" },
+            { "value": "wageBoundaryToggle", "label": "Crossed ₹21K threshold" },
+            { "value": "rateOverride", "label": "Rate override (rare)" }
+          ]
+        },
+        { "key": "amendmentDescription", "label": "Details", "type": "textarea", "validate": { "maxLength": 1000 } }
+      ]
+    },
+    {
+      "key": "memberChange",
+      "type": "datagrid",
+      "label": "Affected Members",
+      "x-encryptedSection": "rosterPayload",
+      "components": [
+        { "key": "operation", "label": "Operation", "type": "select", "required": true,
+          "options": [
+            { "value": "add", "label": "Add" },
+            { "value": "remove", "label": "Remove" },
+            { "value": "update", "label": "Update" }
+          ]
+        },
+        { "key": "ipNumber", "label": "IP Number", "type": "textfield",
+          "pattern": "^[0-9]{10}$", "required": true, "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "memberName", "label": "Member name", "type": "textfield", "required": true },
+        { "key": "aadhaar", "label": "Aadhaar", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "newGrossWageInrPaise", "label": "New gross wage (paise)", "type": "number" },
+        { "key": "newEmployeeContribInrPaise", "label": "New employee 0.75% (paise)", "type": "number" },
+        { "key": "newEmployerContribInrPaise", "label": "New employer 3.25% (paise)", "type": "number" },
+        { "key": "newJoinDate", "label": "Joining date (if add)", "type": "datepicker" },
+        { "key": "newExitDate", "label": "Exit date (if remove)", "type": "datepicker" }
+      ]
+    },
+    {
+      "key": "declaration",
+      "type": "fieldset",
+      "label": "Declaration",
+      "components": [
+        { "key": "consentTier3", "type": "checkbox", "required": true,
+          "label": "Amendment data may be retained for 7 years per ESI Reg §32." },
+        { "key": "filerName", "label": "Filer name", "type": "textfield", "required": true },
+        { "key": "signatureDate", "label": "Date", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

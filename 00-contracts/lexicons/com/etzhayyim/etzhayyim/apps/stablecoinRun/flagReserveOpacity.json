@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.stablecoinRun.flagReserveOpacity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reserve attestation / transparency gap (bridges cryptoMixerSanction.flagDelistingChallenge + stablecoin-reserves + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "eventVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordRedemption"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "attestation_gap",
+                "mhlk_commercial",
+                "bank_deposit_unclear",
+                "treasury_bills_only_claim",
+                "rehypothecation",
+                "cross_issuer_debt",
+                "protocol_owned_reserve_recursive",
+                "mmp_exposure",
+                "counterparty_credit",
+                "opaque_custodian"
+              ]
+            },
+            "auditorName": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

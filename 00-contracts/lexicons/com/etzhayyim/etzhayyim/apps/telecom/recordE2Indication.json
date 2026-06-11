@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordE2Indication",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "O-RAN E2 — record an E2 INDICATION message from E2 Node to xApp. headerHash + messageHash only; ASN.1 PER body never persisted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriptionId", "sequenceNumber", "indicationType", "headerHash", "messageHash", "observedAt"],
+          "properties": {
+            "indicationId": { "type": "string" },
+            "subscriptionId": { "type": "string" },
+            "sequenceNumber": { "type": "integer" },
+            "indicationType": { "type": "string", "enum": ["report", "insert", "control_outcome"] },
+            "headerHash": { "type": "string" },
+            "messageHash": { "type": "string" },
+            "messageSize": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "indicationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

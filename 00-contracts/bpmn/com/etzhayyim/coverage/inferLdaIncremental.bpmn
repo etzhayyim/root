@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  coverage.inferLdaIncremental — Phase D (daily online update) of LDA latent entity inference (ADR-0096).
+
+  Runs a lightweight incremental Gibbs update on records that arrived since the
+  last model checkpoint. Uses the existing converged topic model as a warm start;
+  runs fewer iterations than inferLdaTopics (full weekly retrain).
+
+  Designed to keep edge_record_topic_weight fresh between weekly full retrains
+  so that inferLdaEntities (P7D) operates on current topic assignments.
+
+  Per ADR-0044: Gibbs sampling is heavy Python → generic.llm.json bridges to
+  the kotodama LDA incremental module (io_threads=100 implicit via kotodama).
+
+  Pipeline:
+    1. generic.db.select   — read latest model watermark + model_slug
+    2. generic.db.select   — read new records since watermark (created_at > last_seen)
+    3. generic.db.select   — read current topic↔signal weights (φ) for warm start
+    4. generic.llm.json    — incremental Gibbs update (task: "lda_gibbs_incremental")
+    5. generic.db.bulkInsert — write updated edge_record_topic_weight for new records
+    6. generic.audit.emit  — OCEL summary
+
+  Trigger:
+    timer-start R/P1D (daily) AND XRPC (`com.etzhayyim.apps.coverage.inferLdaIncremental`).
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-incremental-v1
+  NSID:      com.etzhayyim.apps.coverage.inferLdaIncremental
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_coverage_infer_lda_incremental"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="coverage_infer_lda_incremental_v1" name="coverage infer LDA incremental" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.coverage.inferLdaIncremental", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 1 day">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P1D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="manual trigger">
+      <bpmn:outgoing>Flow_0</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_0" sourceRef="Start_Manual" targetRef="Task_ReadWatermark"/>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start_Timer"  targetRef="Task_ReadWatermark"/>
+
+    <!-- Step 1: Read latest model watermark (slug + trained_at timestamp) -->
+    <bpmn:serviceTask id="Task_ReadWatermark" name="read model watermark">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_lda_model&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, model_slug, k_topics, alpha, beta, trained_at, signal_count, record_count&quot;" target="columns"/>
+          <zeebe:input source="=&quot;status = 'converged'&quot;" target="where"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:input source="=&quot;trained_at DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="models"/>
+          <zeebe:output source="=rowCount" target="modelCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0</bpmn:incoming>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_ReadWatermark" targetRef="Task_ReadNewRecords"/>
+
+    <!-- Step 2: Read new records since the last model training (up to 2000) -->
+    <bpmn:serviceTask id="Task_ReadNewRecords" name="read new records since watermark">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_repo_record&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, collection, signal_kind, created_at&quot;" target="columns"/>
+          <zeebe:input source="=if (count(models) > 0) then &quot;created_at > '&quot; + models[1].trained_at + &quot;' AND signal_kind IS NOT NULL&quot; else &quot;signal_kind IS NOT NULL&quot;" target="where"/>
+          <zeebe:input source="=2000" target="limit"/>
+          <zeebe:input source="=&quot;created_at ASC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="newRecords"/>
+          <zeebe:output source="=rowCount" target="newRecordCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ReadNewRecords" targetRef="Gateway_HasNewRecords"/>
+    <bpmn:exclusiveGateway id="Gateway_HasNewRecords" name="has new records?">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_3a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoNewRecords</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_3a" sourceRef="Gateway_HasNewRecords" targetRef="Task_ReadPhiWeights">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=newRecordCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 3: Read current topic↔signal weights (φ) for warm start (top signals only) -->
+    <bpmn:serviceTask id="Task_ReadPhiWeights" name="read phi weights for warm start">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_topic_signal_weight&quot;" target="table"/>
+          <zeebe:input source="=&quot;src_vid, dst_vid, weight, signal_token&quot;" target="columns"/>
+          <zeebe:input source="=if (count(models) > 0) then &quot;model_vid = '&quot; + models[1].vertex_id + &quot;' AND weight > 0.01&quot; else &quot;1=0&quot;" target="where"/>
+          <zeebe:input source="=500" target="limit"/>
+          <zeebe:input source="=&quot;weight DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="phiWeights"/>
+          <zeebe:output source="=rowCount" target="phiCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3a</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ReadPhiWeights" targetRef="Task_IncrementalGibbs"/>
+
+    <!-- Step 4: Incremental Gibbs update via kotodama LDA module (warm start from existing φ) -->
+    <bpmn:serviceTask id="Task_IncrementalGibbs" name="incremental Gibbs update">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;lda_gibbs_incremental&quot;" target="task"/>
+          <zeebe:input source="=if (count(models) > 0) then models[1].k_topics else 8" target="k_topics"/>
+          <zeebe:input source="=if (count(models) > 0) then models[1].alpha else 0.1" target="alpha"/>
+          <zeebe:input source="=if (count(models) > 0) then models[1].beta else 0.01" target="beta"/>
+          <zeebe:input source="=20" target="iterations"/>
+          <zeebe:input source="=for w in phiWeights return w.signal_token" target="vocab"/>
+          <zeebe:input source="=for r in newRecords return { id: r.vertex_id, tokens: if (r.signal_kind != null) then [r.signal_kind] else [] }" target="new_corpus"/>
+          <zeebe:input source="=for w in phiWeights return { topic_vid: w.src_vid, signal_token: w.signal_token, weight: w.weight }" target="phi_prior"/>
+          <zeebe:output source="=topicAssignments"  target="topicAssignments"/>
+          <zeebe:output source="=updatedPhiDeltas"  target="updatedPhiDeltas"/>
+          <zeebe:output source="=perplexityDelta"   target="perplexityDelta"/>
+          <zeebe:output source="=recordsProcessed"  target="recordsProcessed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_IncrementalGibbs" targetRef="Task_WriteTheta"/>
+
+    <!-- Step 5: Write updated θ (record→topic) assignments for new records -->
+    <bpmn:serviceTask id="Task_WriteTheta" name="write record-topic assignments">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_record_topic_weight&quot;" target="table"/>
+          <zeebe:input source="=for a in (if (topicAssignments != null) then topicAssignments else [])
+  return {
+    &quot;edge_id&quot;:             &quot;lda-incr-&quot; + substring(a.record_vid, 60) + &quot;-&quot; + substring(a.topic_vid, 60),
+    &quot;src_vid&quot;:             a.record_vid,
+    &quot;dst_vid&quot;:             a.topic_vid,
+    &quot;_seq&quot;:                1,
+    &quot;sensitivity_ord&quot;:     0,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;weight&quot;:              a.weight,
+    &quot;source_collection&quot;:   a.collection,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;created_at&quot;:          now()
+  }" target="rows"/>
+          <zeebe:output source="=inserted" target="thetaWritten"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_WriteTheta" targetRef="Task_Audit"/>
+
+    <!-- Step 6: OCEL audit -->
+    <bpmn:serviceTask id="Task_Audit" name="emit incremental LDA OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferLdaIncremental.update&quot;" target="action"/>
+          <zeebe:input source="={
+            &quot;model_slug&quot;:         if (count(models) > 0) then models[1].model_slug else null,
+            &quot;new_records_read&quot;:   newRecordCount,
+            &quot;phi_weights_read&quot;:   phiCount,
+            &quot;records_processed&quot;:  recordsProcessed,
+            &quot;theta_written&quot;:      thetaWritten,
+            &quot;perplexity_delta&quot;:   perplexityDelta
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoNewRecords" name="audit no new records">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferLdaIncremental.abort&quot;" target="action"/>
+          <zeebe:input source="={&quot;reason&quot;: &quot;no_new_records&quot;, &quot;model_count&quot;: modelCount, &quot;new_records_read&quot;: newRecordCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoNewRecords</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoNewRecordsEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoNewRecords" sourceRef="Gateway_HasNewRecords" targetRef="Task_AuditNoNewRecords"/>
+    <bpmn:sequenceFlow id="Flow_NoNewRecordsEnd" sourceRef="Task_AuditNoNewRecords" targetRef="End"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:incoming>Flow_NoNewRecordsEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c995d6914c8c",
+  "entityId": "ent-c995d6914c8c",
+  "canonicalName": "corporacion cimex, s.a.",
+  "aliases": [
+    "corporacion cimex, s.a."
+  ]
+}

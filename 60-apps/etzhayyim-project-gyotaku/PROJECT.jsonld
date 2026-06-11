@@ -1,0 +1,29 @@
+{
+  "@context": "https://1.etzhayyim.com/project",
+  "@type": "Project",
+  "name": "etzhayyim-project-gyotaku",
+  "description": "Time-series web archive project integrated with crawler and Common Crawl range retrieval",
+  "category": "etzhayyim-project-workers",
+  "components": {
+    "app": {
+      "appId": "gyotaku-mcp",
+      "tier": "event-driven",
+      "stack": "go",
+      "keda": false,
+      "routes": [
+        {
+          "host": "etzhayyim.com",
+          "paths": [
+            "/gy0taku1/api/grpc"
+          ]
+        },
+        {
+          "host": "gyotaku.etzhayyim.com",
+          "paths": [
+            "/api/grpc"
+          ]
+        }
+      ]
+    }
+  }
+}

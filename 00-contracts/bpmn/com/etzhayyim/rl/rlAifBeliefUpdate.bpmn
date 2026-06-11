@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  rl.rlAifBeliefUpdate — Phase 1B Active Inference belief update. ADR-2604291800.
+
+  Fires every 1h. For each (actor_did, action_nsid) pair with new vertex_rl_step
+  rows, computes Bayesian belief update q(s) and Expected Free Energy G(a).
+  Writes vertex_rl_aif_belief + vertex_rl_aif_efe.
+
+  NSID: com.etzhayyim.apps.rl.aifUpdateBeliefs
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-belief-update-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_rl_aif_belief_update"
+    targetNamespace="https://etzhayyim.ai/bpmn/rl"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="rl_aif_belief_update" name="AIF Belief Update" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.rl.aifUpdateBeliefs", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1h -->
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToUpdate</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToUpdate" sourceRef="Start" targetRef="Task_Update"/>
+
+    <!-- Belief update + EFE computation -->
+    <bpmn:serviceTask id="Task_Update" name="update AIF beliefs and EFE">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rl.aif.update_beliefs" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50"  target="batch_size"/>
+          <zeebe:input source="=20"  target="max_actors"/>
+          <zeebe:output source="=ok"               target="ok"/>
+          <zeebe:output source="=actors_processed" target="actorsProcessed"/>
+          <zeebe:output source="=total_beliefs"    target="totalBeliefs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToUpdate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Update" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

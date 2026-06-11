@@ -1,0 +1,231 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "etzhayyim": "https://etzhayyim.com/ns/",
+    "cofog": "https://unstats.un.org/unsd/cr/registry/regcst.asp?Cl=4&Lg=1",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "etzhayyim:BudgetAllocation",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Budget Allocation",
+      "rdfs:comment": "A government budget allocation record with COFOG classification.",
+      "etzhayyim:properties": [
+        {
+          "name": "country",
+          "type": "xsd:string",
+          "description": "ISO 3166-1 alpha-3 country code"
+        },
+        {
+          "name": "fiscalYear",
+          "type": "xsd:integer",
+          "description": "Fiscal year"
+        },
+        {
+          "name": "phase",
+          "type": "etzhayyim:BudgetPhase",
+          "description": "Budget phase (request/draft/approved/supplementary/settlement)"
+        },
+        {
+          "name": "owner",
+          "type": "etzhayyim:BudgetOwner",
+          "description": "Ministry or agency owning the budget"
+        },
+        {
+          "name": "category",
+          "type": "etzhayyim:BudgetCategory",
+          "description": "COFOG category"
+        },
+        {
+          "name": "itemName",
+          "type": "xsd:string",
+          "description": "Budget item name"
+        },
+        {
+          "name": "amount",
+          "type": "xsd:long",
+          "description": "Allocated amount in local currency"
+        },
+        {
+          "name": "currency",
+          "type": "xsd:string",
+          "description": "ISO 4217 currency code"
+        }
+      ]
+    },
+    {
+      "@id": "etzhayyim:ProcurementRecord",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Procurement Record",
+      "rdfs:comment": "A government procurement/bidding record including award information.",
+      "etzhayyim:properties": [
+        {
+          "name": "country",
+          "type": "xsd:string"
+        },
+        {
+          "name": "caseNumber",
+          "type": "xsd:string",
+          "description": "案件番号"
+        },
+        {
+          "name": "title",
+          "type": "xsd:string",
+          "description": "Procurement title"
+        },
+        {
+          "name": "method",
+          "type": "etzhayyim:ProcurementMethod"
+        },
+        {
+          "name": "status",
+          "type": "etzhayyim:ProcurementStatus"
+        },
+        {
+          "name": "entity",
+          "type": "etzhayyim:ProcuringEntity",
+          "description": "Issuing government entity"
+        },
+        {
+          "name": "awardAmount",
+          "type": "xsd:long",
+          "description": "Contract/award amount"
+        },
+        {
+          "name": "contractor",
+          "type": "etzhayyim:Contractor",
+          "description": "Awarded contractor"
+        }
+      ]
+    },
+    {
+      "@id": "etzhayyim:CorporateProfile",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Corporate Profile",
+      "rdfs:comment": "Japanese corporate entity profile from 法人番号 system.",
+      "etzhayyim:properties": [
+        {
+          "name": "corporateNumber",
+          "type": "xsd:string",
+          "description": "13-digit 法人番号"
+        },
+        {
+          "name": "name",
+          "type": "xsd:string"
+        },
+        {
+          "name": "furigana",
+          "type": "xsd:string"
+        },
+        {
+          "name": "address",
+          "type": "xsd:string"
+        },
+        {
+          "name": "representativeName",
+          "type": "xsd:string",
+          "description": "代表者名"
+        },
+        {
+          "name": "capital",
+          "type": "xsd:long",
+          "description": "資本金 in JPY"
+        },
+        {
+          "name": "totalGovContractsAmount",
+          "type": "xsd:long",
+          "description": "Total government contract value"
+        },
+        {
+          "name": "edinetCode",
+          "type": "xsd:string",
+          "description": "EDINET company code"
+        }
+      ]
+    },
+    {
+      "@id": "etzhayyim:DocumentPreview",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Preview",
+      "rdfs:comment": "WebP preview images of government documents (PDF/Word/Excel) stored in NATS JetStream Object Store.",
+      "etzhayyim:properties": [
+        {
+          "name": "sourceHash",
+          "type": "xsd:string",
+          "description": "SHA-256 of source document"
+        },
+        {
+          "name": "objectStoreBucket",
+          "type": "xsd:string",
+          "description": "NATS Object Store bucket name"
+        },
+        {
+          "name": "totalPages",
+          "type": "xsd:integer"
+        },
+        {
+          "name": "pageKeys",
+          "type": "etzhayyim:PagePreview",
+          "description": "Object keys for each page's WebP image"
+        }
+      ]
+    },
+    {
+      "@id": "etzhayyim:DataSource",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Government Data Source",
+      "rdfs:comment": "External data source for budget/procurement data.",
+      "etzhayyim:instances": [
+        {
+          "@id": "etzhayyim:datasource-estat",
+          "name": "e-Stat API",
+          "url": "https://api.e-stat.go.jp/rest/3.0/app/",
+          "format": "JSON/XML/CSV",
+          "country": "JPN",
+          "dataType": "budget"
+        },
+        {
+          "@id": "etzhayyim:datasource-egov",
+          "name": "e-Gov Data Portal",
+          "url": "https://data.e-gov.go.jp/data/api/action/",
+          "format": "JSON (CKAN)",
+          "country": "JPN",
+          "dataType": "budget"
+        },
+        {
+          "@id": "etzhayyim:datasource-procurement-portal",
+          "name": "調達ポータル",
+          "url": "https://www.p-portal.go.jp/",
+          "format": "CSV (ZIP)",
+          "country": "JPN",
+          "dataType": "procurement"
+        },
+        {
+          "@id": "etzhayyim:datasource-kkj",
+          "name": "官公需情報ポータル",
+          "url": "https://www.kkj.go.jp/s/",
+          "format": "XML",
+          "country": "JPN",
+          "dataType": "procurement"
+        },
+        {
+          "@id": "etzhayyim:datasource-houjin-bangou",
+          "name": "法人番号 Web-API",
+          "url": "https://api.houjin-bangou.nta.go.jp/",
+          "format": "XML/CSV",
+          "country": "JPN",
+          "dataType": "corporate"
+        },
+        {
+          "@id": "etzhayyim:datasource-edinet",
+          "name": "EDINET API",
+          "url": "https://api.edinet-fsa.go.jp/api/v2/",
+          "format": "JSON/ZIP/PDF/CSV",
+          "country": "JPN",
+          "dataType": "corporate"
+        }
+      ]
+    }
+  ]
+}

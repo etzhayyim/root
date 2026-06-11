@@ -1,0 +1,13 @@
+{:lexicon 1
+ :id "com.etzhayyim.makura.fabricAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key  "tid"
+   :record
+   {:type       "object"
+    :required   ["tid" "materialDisclosure" "charterScan" "dyeSafety"]
+    :properties {:tid              {:type "string" :description "Transaction ID"}
+                 :materialDisclosure {:type "string" :description "Material disclosure details"}
+                 :charterScan      {:type "string" :description "Charter scan results"}
+                 :dyeSafety        {:type "string" :description "Dye safety attestation"}}}}}}

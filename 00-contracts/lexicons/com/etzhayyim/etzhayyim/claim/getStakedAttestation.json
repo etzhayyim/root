@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.claim.getStakedAttestation",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ADR-2604261717 Phase 1 — read a staked claim's on-chain state. Issues an eth_call to ClaimStakeEscrow.claims(bytes32) and (optionally) ClaimStakeEscrow.challenges(bytes32) and reflects the canonical state without graph mediation. Public — no session required.",
+      "parameters": {
+        "type": "params",
+        "required": ["claimId"],
+        "properties": {
+          "claimId": { "type": "string", "description": "0x-prefixed 32-byte claimId" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["claimId", "state", "bond", "chainId", "escrowAddr"],
+          "properties": {
+            "claimId":           { "type": "string" },
+            "state":             { "type": "string", "description": "none | pending | challenged | upheld | slashed | refunded" },
+            "didHash":           { "type": "string" },
+            "atRecordCid":       { "type": "string" },
+            "bond":              { "type": "string" },
+            "postedAt":          { "type": "integer" },
+            "challengePeriodSec":{ "type": "integer" },
+            "claimant":          { "type": "string" },
+            "challenger":        { "type": "string" },
+            "challengerDidHash": { "type": "string" },
+            "counterBond":       { "type": "string" },
+            "challengePostedAt": { "type": "integer" },
+            "chainId":           { "type": "integer" },
+            "escrowAddr":        { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "ConfigError" },
+        { "name": "ClaimNotFound" },
+        { "name": "RpcError" }
+      ]
+    }
+  }
+}

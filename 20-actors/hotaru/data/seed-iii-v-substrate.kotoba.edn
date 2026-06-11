@@ -1,0 +1,231 @@
+;; seed-iii-v-substrate.kotoba.edn — hotaru (蛍) bounded :representative seed
+;; ADR-2606051200 · schema: 00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn
+;;
+;; A BOUNDED illustrative seed of the OPEN-PUBLICATION III-V substrate commons,
+;; InP-first. Every :iiiv.proc/* carries a practiceable-open :source-license
+;; (INVARIANT #1 / G1); every :iiiv.crystal/* and :iiiv.wafer/* is :fabricated
+;; false (INVARIANT #2 / G2 — design/spec only through R3). The :epitaxy stage
+;; appears ONLY as a tracked :gap (INVARIANT #1 forbids a vendor recipe), which is
+;; exactly the ADR-2605265500 §2 vendor-IP-dense barrier the readiness index reports.
+;;
+;; Figures are :representative — verify against the cited primary source (G5/G7).
+
+[
+ ;; ─────────────────────────── materials ────────────────────────────────────
+ {:iiiv.material/id "inp" :iiiv.material/form :bulk-substrate :iiiv.material/name "Indium phosphide"
+  :iiiv.material/formula "InP" :iiiv.material/bandgap-ev 1.344 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 5.8687
+  :iiiv.material/substrate-for [:laser-diode :photodetector :hemt :photonic-ic :solar-cell]
+  :iiiv.material/sourcing :representative}
+ {:iiiv.material/id "gaas" :iiiv.material/form :bulk-substrate :iiiv.material/name "Gallium arsenide"
+  :iiiv.material/formula "GaAs" :iiiv.material/bandgap-ev 1.424 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 5.6533 :iiiv.material/substrate-for [:led :rf-ic :solar-cell]
+  :iiiv.material/sourcing :representative}
+ {:iiiv.material/id "gan" :iiiv.material/form :bulk-substrate :iiiv.material/name "Gallium nitride"
+  :iiiv.material/formula "GaN" :iiiv.material/bandgap-ev 3.40 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 3.189 :iiiv.material/substrate-for [:led :power-electronics :rf-ic]
+  :iiiv.material/sourcing :representative}
+ {:iiiv.material/id "ingaas" :iiiv.material/form :epitaxial-only :iiiv.material/name "Indium gallium arsenide (lattice-matched to InP)"
+  :iiiv.material/formula "In0.53Ga0.47As" :iiiv.material/bandgap-ev 0.74 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 5.8687 :iiiv.material/substrate-for [:photodetector :hemt]
+  :iiiv.material/sourcing :representative}
+ {:iiiv.material/id "gasb" :iiiv.material/form :bulk-substrate :iiiv.material/name "Gallium antimonide"
+  :iiiv.material/formula "GaSb" :iiiv.material/bandgap-ev 0.726 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 6.0959 :iiiv.material/substrate-for [:ir-detector :thermophotovoltaic]
+  :iiiv.material/sourcing :representative}
+ {:iiiv.material/id "insb" :iiiv.material/form :bulk-substrate :iiiv.material/name "Indium antimonide"
+  :iiiv.material/formula "InSb" :iiiv.material/bandgap-ev 0.17 :iiiv.material/bandgap-type :direct
+  :iiiv.material/lattice-a 6.4794 :iiiv.material/substrate-for [:ir-detector :magnetic-sensor]
+  :iiiv.material/sourcing :representative}
+
+ ;; ─────────────────── process knowledge (G1: open-license only) ─────────────
+ ;; :synthesis — In + P → polycrystalline InP feedstock
+ {:iiiv.proc/id "p-syn-hb" :iiiv.proc/name "Horizontal-Bridgman polycrystalline InP synthesis"
+  :iiiv.proc/stage :synthesis :iiiv.proc/method :horizontal-bridgman
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "US3902860A (1975, expired)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-syn-insitu" :iiiv.proc/name "In-situ phosphorus-injection synthesis"
+  :iiiv.proc/stage :synthesis :iiiv.proc/method :in-situ-injection
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Cryst. Growth (open-access)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-emerging :iiiv.proc/sourcing :representative}
+
+ ;; :bulk-growth — single-crystal boule
+ {:iiiv.proc/id "p-bulk-lec" :iiiv.proc/name "Liquid-Encapsulated Czochralski (LEC) InP"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :lec
+  :iiiv.proc/source-license :textbook-public :iiiv.proc/source-cite "Mullin et al. 1968; B2O3 encapsulant; standard crystal-growth texts"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-vgf" :iiiv.proc/name "Vertical-Gradient-Freeze (VGF) InP"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :vgf
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "Gault/Monberg VGF patents (expired)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-vb" :iiiv.proc/name "Vertical-Bridgman (VB) InP"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :vertical-bridgman
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Cryst. Growth review (open-access)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-emerging :iiiv.proc/sourcing :representative}
+
+ ;; :wafering — boule → polished wafer
+ {:iiiv.proc/id "p-waf-saw" :iiiv.proc/name "ID / wire-saw wafer slicing"
+  :iiiv.proc/stage :wafering :iiiv.proc/method :wire-saw
+  :iiiv.proc/source-license :textbook-public :iiiv.proc/source-cite "semiconductor-manufacturing texts"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-waf-cmp" :iiiv.proc/name "Lapping + double-side CMP polishing"
+  :iiiv.proc/stage :wafering :iiiv.proc/method :cmp
+  :iiiv.proc/source-license :standard-public :iiiv.proc/source-cite "SEMI M-series public standards"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+
+ ;; :surface-prep — epi-ready surface (substrate handed off to epitaxy)
+ {:iiiv.proc/id "p-surf-etch" :iiiv.proc/name "Epi-ready wet-etch + passivation"
+  :iiiv.proc/stage :surface-prep :iiiv.proc/method :wet-etch
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "Appl. Surf. Sci. (open-access)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-surf-deox" :iiiv.proc/name "Thermal-deoxidation atomic-clean surface prep"
+  :iiiv.proc/stage :surface-prep :iiiv.proc/method :thermal-deox
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "Surf. Sci. (open-access)"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :open-emerging :iiiv.proc/sourcing :representative}
+
+ ;; :epitaxy — the vendor-IP-dense GAP (ADR-2605265500 §2). Open record exists for
+ ;; fundamentals, but device-grade full stack-up is vendor-proprietary → :gap, NOT a
+ ;; practiceable commons. INVARIANT #1 forbids storing the proprietary recipe here.
+ {:iiiv.proc/id "p-epi-movpe" :iiiv.proc/name "MOVPE active-layer growth (fundamentals only; device stack-up vendor-proprietary)"
+  :iiiv.proc/stage :epitaxy :iiiv.proc/method :movpe
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "single-layer fundamentals only; full recipe NOT in commons"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :gap :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-epi-mbe" :iiiv.proc/name "MBE active-layer growth (fundamentals only; device stack-up vendor-proprietary)"
+  :iiiv.proc/stage :epitaxy :iiiv.proc/method :mbe
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "single-layer fundamentals only; full recipe NOT in commons"
+  :iiiv.proc/material "inp" :iiiv.proc/maturity :gap :iiiv.proc/sourcing :representative}
+
+ ;; ── GaAs substrate chain (extends the commons to the wider direct-bandgap family;
+ ;; LEC/VGF GaAs are textbook + expired-patent — older + more open than InP) ──
+ {:iiiv.proc/id "p-syn-gaas-hb" :iiiv.proc/name "Horizontal-Bridgman polycrystalline GaAs synthesis"
+  :iiiv.proc/stage :synthesis :iiiv.proc/method :horizontal-bridgman
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "early HB GaAs patents (expired)"
+  :iiiv.proc/material "gaas" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-lec-gaas" :iiiv.proc/name "Liquid-Encapsulated Czochralski (LEC) GaAs"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :lec
+  :iiiv.proc/source-license :textbook-public :iiiv.proc/source-cite "AuCoin/Metz LEC GaAs; standard crystal-growth texts"
+  :iiiv.proc/material "gaas" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-vgf-gaas" :iiiv.proc/name "Vertical-Gradient-Freeze (VGF) GaAs"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :vgf
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "Monberg VGF GaAs patents (expired)"
+  :iiiv.proc/material "gaas" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-waf-gaas-cmp" :iiiv.proc/name "GaAs wafer slicing + double-side CMP"
+  :iiiv.proc/stage :wafering :iiiv.proc/method :cmp
+  :iiiv.proc/source-license :standard-public :iiiv.proc/source-cite "SEMI M-series public standards"
+  :iiiv.proc/material "gaas" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-surf-gaas-etch" :iiiv.proc/name "GaAs epi-ready wet-etch + passivation"
+  :iiiv.proc/stage :surface-prep :iiiv.proc/method :wet-etch
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Electrochem. Soc. (open-access)"
+  :iiiv.proc/material "gaas" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+
+ ;; ── GaSb substrate chain (3rd full open chain; Czochralski/VGF GaSb are decades-old,
+ ;; textbook + expired-patent — IR-detector / thermophotovoltaic substrate) ──
+ {:iiiv.proc/id "p-syn-gasb-stoich" :iiiv.proc/name "Stoichiometric GaSb compound synthesis"
+  :iiiv.proc/stage :synthesis :iiiv.proc/method :direct-synthesis
+  :iiiv.proc/source-license :textbook-public :iiiv.proc/source-cite "III-V compound synthesis texts"
+  :iiiv.proc/material "gasb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-cz-gasb" :iiiv.proc/name "Czochralski GaSb single-crystal growth"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :czochralski
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "early Cz GaSb patents (expired)"
+  :iiiv.proc/material "gasb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-waf-gasb-cmp" :iiiv.proc/name "GaSb wafer slicing + CMP"
+  :iiiv.proc/stage :wafering :iiiv.proc/method :cmp
+  :iiiv.proc/source-license :standard-public :iiiv.proc/source-cite "SEMI M-series public standards"
+  :iiiv.proc/material "gasb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-surf-gasb-etch" :iiiv.proc/name "GaSb epi-ready wet-etch (oxide-sensitive)"
+  :iiiv.proc/stage :surface-prep :iiiv.proc/method :wet-etch
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Cryst. Growth (open-access)"
+  :iiiv.proc/material "gasb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+
+ ;; ── InSb substrate chain (4th full open chain; Czochralski InSb is a classic,
+ ;; decades-old IR-detector / magnetic-sensor substrate — textbook + expired-patent) ──
+ {:iiiv.proc/id "p-syn-insb-stoich" :iiiv.proc/name "Stoichiometric InSb compound synthesis"
+  :iiiv.proc/stage :synthesis :iiiv.proc/method :direct-synthesis
+  :iiiv.proc/source-license :textbook-public :iiiv.proc/source-cite "III-V compound synthesis texts"
+  :iiiv.proc/material "insb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-cz-insb" :iiiv.proc/name "Czochralski InSb single-crystal growth"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :czochralski
+  :iiiv.proc/source-license :patent-expired :iiiv.proc/source-cite "early Cz InSb patents (expired)"
+  :iiiv.proc/material "insb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-waf-insb-cmp" :iiiv.proc/name "InSb wafer slicing + CMP (soft, low-temp)"
+  :iiiv.proc/stage :wafering :iiiv.proc/method :cmp
+  :iiiv.proc/source-license :standard-public :iiiv.proc/source-cite "SEMI M-series public standards"
+  :iiiv.proc/material "insb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-surf-insb-etch" :iiiv.proc/name "InSb epi-ready wet-etch"
+  :iiiv.proc/stage :surface-prep :iiiv.proc/method :wet-etch
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Electrochem. Soc. (open-access)"
+  :iiiv.proc/material "insb" :iiiv.proc/maturity :open-mature :iiiv.proc/sourcing :representative}
+
+ ;; ── GaN bulk: HONESTLY a gap, NOT an open-mature commons. GaN has no congruent melt
+ ;; (decomposes), so free-standing substrate is HVPE-on-foreign-seed (device-grade
+ ;; vendor-dominated → :gap) or ammonothermal (academic-open but slow/emerging). Tracked
+ ;; here as explicit gaps so the gap-register surfaces them — never claimed as mature. ──
+ {:iiiv.proc/id "p-bulk-gan-hvpe" :iiiv.proc/name "HVPE free-standing GaN (foreign-seed; device-grade vendor-dominated)"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :hvpe
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "HVPE fundamentals open; thick free-standing process vendor-dense"
+  :iiiv.proc/material "gan" :iiiv.proc/maturity :gap :iiiv.proc/sourcing :representative}
+ {:iiiv.proc/id "p-bulk-gan-ammono" :iiiv.proc/name "Ammonothermal bulk GaN (open but slow; emerging)"
+  :iiiv.proc/stage :bulk-growth :iiiv.proc/method :ammonothermal
+  :iiiv.proc/source-license :academic-oa :iiiv.proc/source-cite "J. Cryst. Growth ammonothermal GaN (open-access)"
+  :iiiv.proc/material "gan" :iiiv.proc/maturity :open-emerging :iiiv.proc/sourcing :representative}
+
+ ;; ───────────── crystal growth DESIGNS (G2: fabricated false) ───────────────
+ {:iiiv.crystal/id "c-lec-s" :iiiv.crystal/name "LEC InP boule, S-doped n-type"
+  :iiiv.crystal/material "inp" :iiiv.crystal/method :lec :iiiv.crystal/dopant :sulfur
+  :iiiv.crystal/target-wafer "w-2in-n" :iiiv.crystal/in-sourcing :conflict-free-attested
+  :iiiv.crystal/fabricated false :iiiv.crystal/sourcing :representative}
+ {:iiiv.crystal/id "c-vgf-fe" :iiiv.crystal/name "VGF InP boule, Fe-doped semi-insulating"
+  :iiiv.crystal/material "inp" :iiiv.crystal/method :vgf :iiiv.crystal/dopant :iron
+  :iiiv.crystal/target-wafer "w-3in-si" :iiiv.crystal/in-sourcing :recycled
+  :iiiv.crystal/fabricated false :iiiv.crystal/sourcing :representative}
+ {:iiiv.crystal/id "c-vgf-ud" :iiiv.crystal/name "VGF InP boule, undoped reference"
+  :iiiv.crystal/material "inp" :iiiv.crystal/method :vgf :iiiv.crystal/dopant :undoped
+  :iiiv.crystal/target-wafer "w-2in-n" :iiiv.crystal/in-sourcing :recycled
+  :iiiv.crystal/fabricated false :iiiv.crystal/sourcing :representative}
+
+ ;; ───────────────── wafer SPECS (G2: fabricated false) ──────────────────────
+ {:iiiv.wafer/id "w-2in-n" :iiiv.wafer/name "2-inch InP <100> n-type (S)"
+  :iiiv.wafer/material "inp" :iiiv.wafer/diameter-mm 50.8 :iiiv.wafer/orientation "(100)"
+  :iiiv.wafer/epd-cm2 5000 :iiiv.wafer/doping :sulfur-n
+  :iiiv.wafer/fabricated false :iiiv.wafer/sourcing :representative}
+ {:iiiv.wafer/id "w-3in-si" :iiiv.wafer/name "3-inch InP <100> Fe semi-insulating"
+  :iiiv.wafer/material "inp" :iiiv.wafer/diameter-mm 76.2 :iiiv.wafer/orientation "(100)"
+  :iiiv.wafer/epd-cm2 50000 :iiiv.wafer/doping :iron-si
+  :iiiv.wafer/fabricated false :iiiv.wafer/sourcing :representative}
+
+ ;; ────────────── precursors + safety membrane (G3 + G4) ─────────────────────
+ {:iiiv.precursor/id "ph3" :iiiv.precursor/name "Phosphine"
+  :iiiv.precursor/formula "PH3" :iiiv.precursor/hazard-class :acute-toxic-pyrophoric
+  :iiiv.precursor/conflict-mineral false :iiiv.precursor/export-control :ear
+  :iiiv.precursor/used-in [:synthesis :epitaxy] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "red-p" :iiiv.precursor/name "Red phosphorus"
+  :iiiv.precursor/formula "P" :iiiv.precursor/hazard-class :flammable
+  :iiiv.precursor/conflict-mineral false :iiiv.precursor/export-control :none
+  :iiiv.precursor/used-in [:synthesis] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "in-metal" :iiiv.precursor/name "Indium (7N)"
+  :iiiv.precursor/formula "In" :iiiv.precursor/hazard-class :low
+  :iiiv.precursor/conflict-mineral true :iiiv.precursor/export-control :none
+  :iiiv.precursor/used-in [:synthesis :bulk-growth] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "ga-metal" :iiiv.precursor/name "Gallium (7N)"
+  :iiiv.precursor/formula "Ga" :iiiv.precursor/hazard-class :low
+  :iiiv.precursor/conflict-mineral true :iiiv.precursor/export-control :ear
+  :iiiv.precursor/used-in [:bulk-growth :epitaxy] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "b2o3" :iiiv.precursor/name "Boric oxide (LEC encapsulant)"
+  :iiiv.precursor/formula "B2O3" :iiiv.precursor/hazard-class :benign
+  :iiiv.precursor/conflict-mineral false :iiiv.precursor/export-control :none
+  :iiiv.precursor/used-in [:bulk-growth] :iiiv.precursor/sourcing :representative}
+ ;; metalorganic + hydride precursors (epitaxy stage; tracked for the safety membrane
+ ;; even though epitaxy itself is a GAP — In/Ga are conflict-minerals, all acute-toxic)
+ {:iiiv.precursor/id "tmin" :iiiv.precursor/name "Trimethylindium (TMIn)"
+  :iiiv.precursor/formula "C3H9In" :iiiv.precursor/hazard-class :acute-toxic-pyrophoric
+  :iiiv.precursor/conflict-mineral true :iiiv.precursor/export-control :ear
+  :iiiv.precursor/used-in [:epitaxy] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "tmga" :iiiv.precursor/name "Trimethylgallium (TMGa)"
+  :iiiv.precursor/formula "C3H9Ga" :iiiv.precursor/hazard-class :acute-toxic-pyrophoric
+  :iiiv.precursor/conflict-mineral true :iiiv.precursor/export-control :ear
+  :iiiv.precursor/used-in [:epitaxy] :iiiv.precursor/sourcing :representative}
+ {:iiiv.precursor/id "ash3" :iiiv.precursor/name "Arsine (for GaAs)"
+  :iiiv.precursor/formula "AsH3" :iiiv.precursor/hazard-class :acute-toxic-pyrophoric
+  :iiiv.precursor/conflict-mineral false :iiiv.precursor/export-control :ear
+  :iiiv.precursor/used-in [:synthesis :epitaxy] :iiiv.precursor/sourcing :representative}
+]

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/kotoba-os-oci-artifact/v1.json",
+  "title": "kotoba-os OCI Artifact (content-addressed, IPFS-pulled)",
+  "description": "ADR-2606031600 §D4. A kotoba-os unikernel image packaged as an OCI artifact whose reference IS its kotoba CID, pulled from IPFS — NOT from a commercial container registry. The OCI manifest's sha2-256 digest and the CIDv1(raw, sha2-256) are the SAME hash re-encoded: cid = multibase-base32(0x01 0x55 0x12 0x20 || digest). This keeps the k8s edge inside the blockchain-self-contained / IPFS substrate and the donation-funded mesh (no Docker Hub / GHCR). Scheduled by the Murakumo kubelet (ADR-2605214000).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "name", "imageRef", "digest", "cid", "runtimeClass", "pull", "genesisManifestCid", "placement"],
+  "properties": {
+    "schema": { "const": "https://etzhayyim.com/schemas/kotoba-os-oci-artifact/v1.json" },
+    "name": { "type": "string", "minLength": 1 },
+    "imageRef": {
+      "description": "Content-addressed reference. MUST be ipfs:// + the CIDv1 — never a registry/tag (no Docker Hub / GHCR / Quay).",
+      "type": "string",
+      "pattern": "^ipfs://bafkre[a-z2-7]{40,}$"
+    },
+    "digest": {
+      "description": "The OCI manifest digest (sha2-256). Equals the multihash inside `cid`.",
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "cid": {
+      "description": "CIDv1(raw codec 0x55, sha2-256) over the same digest. bafkrei… prefix.",
+      "type": "string",
+      "pattern": "^bafkre[a-z2-7]{40,}$"
+    },
+    "runtimeClass": {
+      "description": "How k8s runs the unikernel image. microVM (Firecracker/uhyve/Kata) or a WASM containerd shim.",
+      "enum": ["microvm-firecracker", "microvm-uhyve", "microvm-kata", "runwasi"]
+    },
+    "pull": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "gateways"],
+      "properties": {
+        "type": { "const": "ipfs" },
+        "gateways": {
+          "description": "IPFS gateways / Bitswap peers to fetch the CAR from; any will do (content re-verified against the CID).",
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "genesisManifestCid": {
+      "description": "CID of the genesis manifest this image boots (links to the D1 boot contract).",
+      "type": "string",
+      "pattern": "^b[a-z2-7]{40,}$"
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kubelet"],
+      "properties": {
+        "kubelet": { "const": "murakumo" },
+        "nodeClass": { "enum": ["donated", "operator"] }
+      }
+    }
+  }
+}

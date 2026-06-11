@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-822cc4a9a28e",
+  "entityId": "ent-822cc4a9a28e",
+  "canonicalName": "llc interresurs",
+  "aliases": [
+    "llc interresurs"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.realEstate.publishListing",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish or refresh a sale/rental/land listing linked to a property. Starts BPMN real_estate_publish_listing.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["listingId", "listingKind", "offerStatus", "countryIso2"],
+          "properties": {
+            "listingId": { "type": "string" },
+            "propertyVid": { "type": "string" },
+            "canonicalPropertyKey": { "type": "string" },
+            "listingKind": { "type": "string", "enum": ["sale", "rent", "land_sale", "auction", "lease_assignment"] },
+            "offerStatus": { "type": "string", "enum": ["active", "pending", "closed", "withdrawn", "expired", "unknown"] },
+            "countryIso2": { "type": "string" },
+            "city": { "type": "string" },
+            "postalCode": { "type": "string" },
+            "geohash": { "type": "string" },
+            "currency": { "type": "string" },
+            "price": { "type": "number" },
+            "rentPeriod": { "type": "string", "enum": ["day", "week", "month", "year"] },
+            "depositAmount": { "type": "number" },
+            "feesAmount": { "type": "number" },
+            "pricePerSqm": { "type": "number" },
+            "listedAt": { "type": "string", "format": "datetime" },
+            "firstSeenAt": { "type": "string", "format": "datetime" },
+            "lastSeenAt": { "type": "string", "format": "datetime" },
+            "sourceId": { "type": "string" },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "title": { "type": "string" },
+            "summary": { "type": "string" },
+            "mediaCount": { "type": "integer" },
+            "agentPartyVid": { "type": "string" },
+            "sellerPartyVid": { "type": "string" },
+            "landlordPartyVid": { "type": "string" },
+            "dataHash": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

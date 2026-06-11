@@ -1,0 +1,1 @@
+{{ .Files.Get "manifests/configmap-malak-pursuit-loop-config.json" }}

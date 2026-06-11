@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0051 style BPMN-as-actor example for datacenter operations.
+
+  Scope:
+    - planned maintenance / capacity work
+    - emergency incident response
+    - change approval when risk class requires it
+    - audit trail for every outcome
+
+  Variables on the instance:
+    in:
+      facilityId (str)            対象データセンター or site ID
+      operatorDid (str)           起票者 / 当番 DID
+      orgId (str)                 tenant / operator org
+      requestId (str)             運営要求 ID
+
+    middle (form output):
+      operation.kind             = "incident" | "maintenance" | "capacity" | "access"
+      operation.summary          (str)
+      operation.riskClass        = "low" | "medium" | "high" | "critical"
+      operation.requiresApproval (bool)
+      operation.windowStart      (datetime, optional)
+      operation.windowEnd        (datetime, optional)
+
+      changeDecision.decision    = "approve" | "reject"
+      changeDecision.comment     (str, optional)
+
+      executionReport.status     = "completed" | "rolledBack" | "degraded"
+      executionReport.notes      (str, optional)
+
+      healthCheck.status         = "ok" | "degraded" | "failed"
+      healthCheck.metricRef      (str, optional)
+
+    out:
+      finalStatus                = "completed" | "rejected" | "incident-stabilized"
+      auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_datacenter_operate_facility"
+    targetNamespace="https://etzhayyim.ai/bpmn/datacenter"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="datacenter_operate_facility" name="データセンター運営" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="運営要求受付">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_OpsIntake"/>
+
+    <bpmn:userTask id="Task_OpsIntake" name="運営要求を起票">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-ops-intake-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-ops"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;PT30M&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_OpsIntake" targetRef="Task_PersistOpen"/>
+
+    <bpmn:serviceTask id="Task_PersistOpen" name="運営レコードを記録 (open)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_datacenter_operation&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:          requestId,
+              facility_id:        facilityId,
+              operation_kind:     string(operation.kind),
+              summary:            string(operation.summary),
+              risk_class:         string(operation.riskClass),
+              requires_approval:  boolean(operation.requiresApproval),
+              status:             &quot;open&quot;,
+              window_start:       string(operation.windowStart),
+              window_end:         string(operation.windowEnd),
+              opened_at:          string(now()),
+              created_at:         string(now()),
+              owner_did:          operatorDid,
+              sensitivity_ord:    1,
+              org_id:             orgId,
+              user_id:            operatorDid,
+              actor_id:           &quot;sys.bpmn.datacenter&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_PersistOpen" targetRef="Gate_Incident"/>
+
+    <bpmn:exclusiveGateway id="Gate_Incident" name="緊急障害?" default="Flow_Planned">
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Incident</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Planned</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Incident" sourceRef="Gate_Incident" targetRef="Task_IncidentBridge">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=operation.kind = "incident"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Planned" sourceRef="Gate_Incident" targetRef="Gate_Approval"/>
+
+    <bpmn:serviceTask id="Task_IncidentBridge" name="オンコールへ通知">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;datacenter.incident.opened&quot;" target="action"/>
+          <zeebe:input source="={
+              requestId:      requestId,
+              facilityId:     facilityId,
+              riskClass:      string(operation.riskClass),
+              summary:        string(operation.summary)
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Incident</bpmn:incoming>
+      <bpmn:outgoing>Flow_I1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_I1" sourceRef="Task_IncidentBridge" targetRef="Task_EmergencyAction"/>
+
+    <bpmn:userTask id="Task_EmergencyAction" name="緊急復旧を実施">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-emergency-action-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-oncall"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;PT15M&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_I1</bpmn:incoming>
+      <bpmn:outgoing>Flow_I2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_I2" sourceRef="Task_EmergencyAction" targetRef="Task_VerifyHealth"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approval" name="変更承認が必要?" default="Flow_NoApproval">
+      <bpmn:incoming>Flow_Planned</bpmn:incoming>
+      <bpmn:outgoing>Flow_NeedApproval</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoApproval</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_NeedApproval" sourceRef="Gate_Approval" targetRef="Task_ChangeReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=boolean(operation.requiresApproval) = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoApproval" sourceRef="Gate_Approval" targetRef="Task_ExecutePlanned"/>
+
+    <bpmn:userTask id="Task_ChangeReview" name="変更審査">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-change-review-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-change-manager"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;PT2H&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NeedApproval</bpmn:incoming>
+      <bpmn:outgoing>Flow_R1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_R1" sourceRef="Task_ChangeReview" targetRef="Gate_Approved"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approved" name="承認?" default="Flow_Reject">
+      <bpmn:incoming>Flow_R1</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Approve" sourceRef="Gate_Approved" targetRef="Task_ExecutePlanned">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=changeDecision.decision = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Reject" sourceRef="Gate_Approved" targetRef="Task_MarkRejected"/>
+
+    <bpmn:serviceTask id="Task_MarkRejected" name="却下状態に更新">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_datacenter_operation&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:          requestId,
+              facility_id:        facilityId,
+              operation_kind:     string(operation.kind),
+              summary:            string(operation.summary),
+              risk_class:         string(operation.riskClass),
+              requires_approval:  boolean(operation.requiresApproval),
+              status:             &quot;rejected&quot;,
+              reviewed_at:        string(now()),
+              review_comment:     string(changeDecision.comment),
+              created_at:         string(now()),
+              owner_did:          operatorDid,
+              sensitivity_ord:    1,
+              org_id:             orgId,
+              user_id:            operatorDid,
+              actor_id:           &quot;sys.bpmn.datacenter&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;rejected&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Reject</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditReject</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditReject" sourceRef="Task_MarkRejected" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="audit: rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;datacenter.operation.rejected&quot;" target="action"/>
+          <zeebe:input source="={
+              requestId:      requestId,
+              facilityId:     facilityId,
+              operationKind:  string(operation.kind),
+              comment:        string(changeDecision.comment)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditReject</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndRejected</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndRejected" sourceRef="Task_AuditRejected" targetRef="End_Rejected"/>
+
+    <bpmn:userTask id="Task_ExecutePlanned" name="計画作業を実施">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-execution-report-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-ops"/>
+        <zeebe:taskSchedule dueDate="=operation.windowEnd"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoApproval</bpmn:incoming>
+      <bpmn:incoming>Flow_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_P1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_P1" sourceRef="Task_ExecutePlanned" targetRef="Task_VerifyHealth"/>
+
+    <bpmn:userTask id="Task_VerifyHealth" name="設備状態を確認">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-health-check-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-noc"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;PT10M&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_P1</bpmn:incoming>
+      <bpmn:incoming>Flow_I2</bpmn:incoming>
+      <bpmn:incoming>Flow_LoopStabilize</bpmn:incoming>
+      <bpmn:outgoing>Flow_V1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_V1" sourceRef="Task_VerifyHealth" targetRef="Gate_HealthOk"/>
+
+    <bpmn:exclusiveGateway id="Gate_HealthOk" name="健全性OK?" default="Flow_Degraded">
+      <bpmn:incoming>Flow_V1</bpmn:incoming>
+      <bpmn:outgoing>Flow_HealthyPlanned</bpmn:outgoing>
+      <bpmn:outgoing>Flow_HealthyIncident</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Degraded</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_HealthyPlanned" sourceRef="Gate_HealthOk" targetRef="Task_MarkCompleted">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=healthCheck.status = "ok" and operation.kind != "incident"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_HealthyIncident" sourceRef="Gate_HealthOk" targetRef="Task_MarkIncidentStabilized">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=healthCheck.status = "ok" and operation.kind = "incident"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Degraded" sourceRef="Gate_HealthOk" targetRef="Task_Stabilize"/>
+
+    <bpmn:userTask id="Task_Stabilize" name="暫定安定化を実施">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:datacenter-stabilization-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="dc-oncall"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;PT20M&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Degraded</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoopStabilize</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_LoopStabilize" sourceRef="Task_Stabilize" targetRef="Task_VerifyHealth"/>
+
+    <bpmn:serviceTask id="Task_MarkCompleted" name="完了状態に更新">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_datacenter_operation&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:          requestId,
+              facility_id:        facilityId,
+              operation_kind:     string(operation.kind),
+              summary:            string(operation.summary),
+              risk_class:         string(operation.riskClass),
+              requires_approval:  boolean(operation.requiresApproval),
+              status:             &quot;completed&quot;,
+              execution_status:   string(executionReport.status),
+              health_status:      string(healthCheck.status),
+              metric_ref:         string(healthCheck.metricRef),
+              completed_at:       string(now()),
+              created_at:         string(now()),
+              owner_did:          operatorDid,
+              sensitivity_ord:    1,
+              org_id:             orgId,
+              user_id:            operatorDid,
+              actor_id:           &quot;sys.bpmn.datacenter&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;completed&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HealthyPlanned</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditComplete</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditComplete" sourceRef="Task_MarkCompleted" targetRef="Task_AuditCompleted"/>
+
+    <bpmn:serviceTask id="Task_MarkIncidentStabilized" name="障害安定化状態に更新">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_datacenter_operation&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:          requestId,
+              facility_id:        facilityId,
+              operation_kind:     string(operation.kind),
+              summary:            string(operation.summary),
+              risk_class:         string(operation.riskClass),
+              requires_approval:  boolean(operation.requiresApproval),
+              status:             &quot;incident-stabilized&quot;,
+              health_status:      string(healthCheck.status),
+              metric_ref:         string(healthCheck.metricRef),
+              stabilized_at:      string(now()),
+              created_at:         string(now()),
+              owner_did:          operatorDid,
+              sensitivity_ord:    1,
+              org_id:             orgId,
+              user_id:            operatorDid,
+              actor_id:           &quot;sys.bpmn.datacenter&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;incident-stabilized&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HealthyIncident</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditStabilized</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditStabilized" sourceRef="Task_MarkIncidentStabilized" targetRef="Task_AuditStabilized"/>
+
+    <bpmn:serviceTask id="Task_AuditCompleted" name="audit: completed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;datacenter.operation.completed&quot;" target="action"/>
+          <zeebe:input source="={
+              requestId:        requestId,
+              facilityId:       facilityId,
+              operationKind:    string(operation.kind),
+              executionStatus:  string(executionReport.status),
+              healthStatus:     string(healthCheck.status)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditComplete</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndCompleted</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndCompleted" sourceRef="Task_AuditCompleted" targetRef="End_Completed"/>
+
+    <bpmn:serviceTask id="Task_AuditStabilized" name="audit: incident stabilized">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;datacenter.incident.stabilized&quot;" target="action"/>
+          <zeebe:input source="={
+              requestId:      requestId,
+              facilityId:     facilityId,
+              riskClass:      string(operation.riskClass),
+              healthStatus:   string(healthCheck.status)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditStabilized</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndIncident</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndIncident" sourceRef="Task_AuditStabilized" targetRef="End_Incident"/>
+
+    <bpmn:endEvent id="End_Completed" name="運営完了">
+      <bpmn:incoming>Flow_EndCompleted</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="End_Incident" name="障害安定化">
+      <bpmn:incoming>Flow_EndIncident</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="End_Rejected" name="変更却下">
+      <bpmn:incoming>Flow_EndRejected</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

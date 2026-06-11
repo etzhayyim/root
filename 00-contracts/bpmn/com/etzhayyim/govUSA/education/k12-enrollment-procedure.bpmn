@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="K12EnrollmentProcedure" targetNamespace="http://etzhayyim.com/gov/USA/education/k12-enrollment">
+  <bpmn:process id="Process_K12Enrollment" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Parent initiates enrollment">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_SubmitApplication" name="Submit application form + supporting docs">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DocsComplete" name="All docs received?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_RequestMissing" name="Request missing documents">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_VerifyResidency" name="Verify residency + prior records">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_Health" name="Health/immunization OK?">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_ResolveHealth" name="Resolve immunization gaps">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_AssignSchool" name="Assign school + grade">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_IssueConfirmation" name="Issue enrollment confirmation">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_1" name="Enrollment complete">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Task_SubmitApplication"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_SubmitApplication" targetRef="Gateway_DocsComplete"/>
+    <bpmn:sequenceFlow id="Flow_3" name="yes" sourceRef="Gateway_DocsComplete" targetRef="Task_VerifyResidency"/>
+    <bpmn:sequenceFlow id="Flow_4" name="no" sourceRef="Gateway_DocsComplete" targetRef="Task_RequestMissing"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_RequestMissing" targetRef="Gateway_DocsComplete"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_VerifyResidency" targetRef="Gateway_Health"/>
+    <bpmn:sequenceFlow id="Flow_7" name="yes" sourceRef="Gateway_Health" targetRef="Task_AssignSchool"/>
+    <bpmn:sequenceFlow id="Flow_8" name="no" sourceRef="Gateway_Health" targetRef="Task_ResolveHealth"/>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_ResolveHealth" targetRef="Task_AssignSchool"/>
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_AssignSchool" targetRef="Task_IssueConfirmation"/>
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Task_IssueConfirmation" targetRef="EndEvent_1"/>
+  </bpmn:process>
+</bpmn:definitions>

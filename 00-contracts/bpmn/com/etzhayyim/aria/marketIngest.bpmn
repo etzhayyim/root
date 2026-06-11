@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  aria.marketIngest — ADR-2604291800 §ARIA
+
+  Timer-start (R/PT5M): runs every 5 minutes.
+  Fetches market delta signals from CoinGecko (crypto top-10 price/volume).
+
+  NSID: com.etzhayyim.apps.aria.marketIngest (BPMN dispatcher T2 tier)
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aria-market-ingest-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_aria_market_ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/aria"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="aria_market_ingest" name="ARIA Market Ingest" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.aria.marketIngest", "version": 1, "tier": "T2" }
+    </bpmn:documentation>
+
+    <!-- R/PT5M: fires every 5 minutes indefinitely -->
+    <bpmn:startEvent id="Start_Timer" name="R/PT5M">
+      <bpmn:outgoing>Flow_ToIngest</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToIngest" sourceRef="Start_Timer" targetRef="Task_Ingest"/>
+
+    <!-- Fetch market delta signals from CoinGecko top-10 crypto -->
+    <bpmn:serviceTask id="Task_Ingest" name="Market delta ingest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aria.market.delta.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=eta"       target="marketEta"/>
+          <zeebe:output source="=entropy_h" target="marketH"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToIngest</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Ingest" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

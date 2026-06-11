@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.moldAllergy.slitCandidate",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Sublingual immunotherapy (SLIT) orodispersible-tablet formulation candidate in the Shidakure (Torii cedar) / Acitea (Shionogi HDM) lineage. Tier 1 public.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["candidateId", "species"],
+        "properties": {
+          "candidateId":        { "type": "string" },
+          "species":            { "type": "string", "description": "target fungal species, e.g. 'Alternaria alternata'" },
+          "majorAllergen":      { "type": "string", "description": "e.g. 'Alt a 1'" },
+          "allergenSource":     { "type": "string", "description": "recombinant / natural-extract-standardised" },
+          "dosageForm":         { "type": "string", "description": "freeze-dried orodispersible tablet" },
+          "buildupWeeks":       { "type": "integer" },
+          "maintenanceDoseJau": { "type": "number", "description": "JAU/SQ-U/IR-equivalent maintenance dose per tablet" },
+          "excipients":         { "type": "string", "description": "JSON array of excipients" },
+          "targetIndication":   { "type": "string", "description": "allergic rhinitis / asthma / SAFS / ABPA" },
+          "designLineage":      { "type": "string", "description": "'Shidakure/Acitea'" },
+          "phase":              { "type": "string", "description": "preclinical / phase1 / phase2 / phase3 / approved" },
+          "createdAt":          { "type": "string", "format": "datetime" },
+          "actorId":            { "type": "string" }
+        }
+      }
+    }
+  }
+}

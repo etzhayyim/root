@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_ems_fetch_compliance_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-smartphone-ems" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_smartphone_ems_fetch_compliance_delta" name="fetchComplianceDelta" isExecutable="true">
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerDef">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="fetch RBA news">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={url: &quot;https://www.responsiblebusiness.org/news/&quot;, method: &quot;GET&quot;}" target="request"/>
+          <zeebe:output source="=response.body" target="rawHtml"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_B</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_B" sourceRef="Task_Fetch" targetRef="Task_LLM"/>
+    <bpmn:serviceTask id="Task_LLM" name="extract compliance updates">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;Extract EMS/OEM factory compliance updates (RBA audit failures, conflict minerals 3TG, labor violations, ISO certifications) from the following news page. Return structured data.&quot;" target="prompt"/>
+          <zeebe:input source="=rawHtml" target="context"/>
+          <zeebe:input source="={type: &quot;object&quot;, properties: {updates: {type: &quot;array&quot;, items: {type: &quot;object&quot;, properties: {facilityName: {type: &quot;string&quot;}, country: {type: &quot;string&quot;}, issueType: {type: &quot;string&quot;}, severity: {type: &quot;string&quot;}, date: {type: &quot;string&quot;}}}}}}" target="schema"/>
+          <zeebe:output source="=result" target="parsed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B</bpmn:incoming><bpmn:outgoing>Flow_C</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Task_LLM" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-smartphone-ems.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.smartphoneEms.fetchComplianceDelta&quot;" target="action"/>
+          <zeebe:input source="={count: count(parsed.updates)}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

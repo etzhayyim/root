@@ -1,0 +1,49 @@
+;; hagukumi 育み — actor manifest (Gen-3 kotoba-native)
+;; L4 Care Tier — childcare + eldercare (multi-generational nurturing)
+;; ADR-2605261030 (R0 scaffold, 2026-05-26) · ADR-2605261000 (Labor Liberation Ladder L4 gate)
+{:actor/id        "hagukumi"
+ :actor/glyph     "育み"
+ :actor/tier      :tier-b
+ :actor/domain    "hagukumi.etzhayyim.com"
+ :actor/purpose   "L4 Care Tier — multi-generational nurturing. Childcare (infants through early childhood) + eldercare + continuity-of-care pathways. 5 Pregel cells with privacy-first, structurally encrypted care sessions. Cross-actor sibling: mitate (diagnostic routing). Constitutional gates enforce consent, caregiver vetting, human-in-loop, emergency escalation, and multi-generational ratio balance."
+ :actor/status    :r0
+ :actor/adr       "2605261030"
+ :actor/related   ["2605261000" "2605181100" "2605260100"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "consent-bound"                  :gate/rule "Per-session care recipient + guardian consent required before session start; revocable on-chain; careSessionAttestation.consentRecordCid REQUIRED field"}
+  {:gate/id "G2"  :gate/name "no-video-recording"             :gate/rule "Firmware-level. Hitogata/Yutori firmware spec includes attestation that no frame-write-to-disk code path exists; Council reviews firmware annually"}
+  {:gate/id "G3"  :gate/name "per-session-consent-window"     :gate/rule "careSessionAttestation.consentRecordCid timestamp must fall within session window; cell logic verifies before proceeding"}
+  {:gate/id "G4"  :gate/name "caregiver-council-vetting"      :gate/rule "On-chain caregiver registry; sessions REJECT if caregiver DID not in attested registry with current caregiverAttestation record"}
+  {:gate/id "G5"  :gate/name "emergency-escalation-mitate"    :gate/rule "mitate G5 emergency-keyword set is shared lexicon (com.etzhayyim.mitate.emergencyKeyword); any care-session match triggers immediate mitate XRPC POST"}
+  {:gate/id "G9"  :gate/name "human-in-loop-robotics"         :gate/rule "Yutori/Hitogata sessions require co-attestation by synchronous human caregiver DID at session start + every 30 min"}
+  {:gate/id "G10" :gate/name "caregiver-work-cap"             :gate/rule "On-chain caregiver work-log; cell logic rejects new session if caregiver shows >12 hr cumulative in past 24 hr or <12 hr recovery since last session"}
+  {:gate/id "G11" :gate/name "murakumo-only"                  :gate/rule "Care session coordination is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited"}
+  {:gate/id "G12" :gate/name "kotoba-eavt-native"             :gate/rule "All care session state is kotoba EAVT Datoms (no SQL/RisingWave/Cypher); careSessionAttestation records are first-class canonical state"}
+  {:gate/id "G13" :gate/name "tithe-non-fiat"                 :gate/rule "Care service settlements are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat); R0 stops at :intent"}
+  {:gate/id "G14" :gate/name "no-server-key"                  :gate/rule "Platform holds no key; member/caregiver/guardian signs care attestations (ADR-2605231525)"}
+  {:gate/id "G15" :gate/name "pii-encrypted-envelope"         :gate/rule "Care recipient identity + session details encrypted XChaCha20-Poly1305 per ADR-2605181100; careSessionAttestation.encryptedPayloadCid REQUIRED field"}
+  {:gate/id "G16" :gate/name "pseudonym-rotation-30d"         :gate/rule "Care-recipient identity uses 30-day rotating pseudonym DID per ADR-2605181200 (no stable identifier for adversary correlation)"}
+  {:gate/id "G17" :gate/name "guardian-consent-child"         :gate/rule "For any under-14 care-recipient, schema requires guardianConsentCid field linking to parent/legal-guardian attestation"}
+  {:gate/id "G18" :gate/name "no-surveillance"                :gate/rule "Constitutional, not adjustable. No camera-in-home, no audio recording, no location tracking, no biometric monitoring except immediate-safety mitate G5 trigger"}
+  {:gate/id "G19" :gate/name "no-guardian-replacement"        :gate/rule "Caregiver is supplement to family/legal guardian, never substitute. Enforced at enrollment + Council audit"}
+  {:gate/id "G20" :gate/name "council-privacy-attestation"    :gate/rule "Quarterly Council audit (silenCareReview.cohortRatio field); privacy + Wellbecoming + multi-gen ratio balance"}
+  ]
+
+ :actor/cells
+ [{:cell/id "child_daily_care"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "elder_companionship"     :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "chronic_continuity"      :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "respite_support"         :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "meal_delivery"           :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "caregiverAttestation"}
+  {:lex/id "careSessionAttestation"}
+  {:lex/id "consentRecord"}
+  {:lex/id "silenCareReview"}]
+ }

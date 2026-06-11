@@ -1,0 +1,31 @@
+{
+  "name": "@etzhayyim/kg-projector",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SSoT projector for the etzhayyim Knowledge Graph. Stage K1 of ADR-2605190900. Reads deps.toml + ADR front-matter + lexicon files; emits com.etzhayyim.kg.{node,edge} records as JSON files with deterministic rkeys.",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "bin": {
+    "kg-projector": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "project": "tsx src/index.ts project",
+    "check": "tsx src/index.ts project --check",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "smol-toml": "^1.3.1",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.8"
+  }
+}

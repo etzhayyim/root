@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-66b69ca93b1e",
+  "entityId": "ent-66b69ca93b1e",
+  "canonicalName": "sergei yevgenevich zubkov",
+  "aliases": [
+    "sergei yevgenevich zubkov"
+  ]
+}

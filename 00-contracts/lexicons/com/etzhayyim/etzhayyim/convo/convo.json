@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.convo",
+  "description": "Extended conversation record. Superset of chat.bsky.convo.defs#convoView — adds name, kind, group convo support.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "etzhayyim extension: human-readable conversation name (for group convos)"
+          },
+          "kind": {
+            "type": "string",
+            "description": "etzhayyim extension: conversation kind (dm, group, channel, project, etc.)",
+            "knownValues": ["dm", "group", "channel", "project"]
+          },
+          "members": {
+            "type": "array",
+            "description": "Conversation members. Uses official chat.bsky profile type.",
+            "items": {
+              "type": "ref",
+              "ref": "chat.bsky.actor.defs#profileViewBasic"
+            }
+          },
+          "muted": {
+            "type": "boolean",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.muted"
+          },
+          "status": {
+            "type": "string",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.status",
+            "knownValues": ["request", "accepted", "archived"]
+          },
+          "unreadCount": {
+            "type": "integer",
+            "description": "Compatible with chat.bsky.convo.defs#convoView.unreadCount"
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "did"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "name",
+          "createdBy",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gov.dataset.procurementRecord",
+  "description": "Per-jurisdiction procurement tender / award / modification / cancellation attestation. R0 skeleton per ADR-2605263900 §3 (GovProcurementSensor). Authored by `kotodama.organism.sensors.gov.gov_procurement_sensor` after passive-only fetch of EU TED / US SAM.gov / JP 政府調達情報 / UK Contracts Finder. Awardee fields pass-through (procurement transparency is the publication-regime reason for these data sources). Cross-links to `com.etzhayyim.corp.leiReference` used by toritate (ADR-2605262900) for recipient-vendor anti-related-party verification.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdiction",
+          "recordKind",
+          "noticeId",
+          "title",
+          "contractingAuthority",
+          "payloadCid",
+          "sourceSensor",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdiction": {"type": "string", "maxLength": 8},
+          "recordKind": {
+            "type": "string",
+            "knownValues": [
+              "tender-notice", "award", "modification", "cancellation"
+            ]
+          },
+          "noticeId": {"type": "string"},
+          "title": {"type": "string", "maxLength": 1024},
+          "contractingAuthority": {"type": "string", "maxLength": 512},
+          "awardeeName": {"type": "string", "maxLength": 512},
+          "awardeeLocalId": {"type": "string"},
+          "awardeeLei": {"type": "string", "maxLength": 20},
+          "awardAmountLocal": {
+            "type": "integer",
+            "description": "Local currency minor units (for example cents or yen)."
+          },
+          "currencyIso4217": {"type": "string", "maxLength": 3, "minLength": 3},
+          "awardDateUtc": {"type": "string", "format": "datetime"},
+          "payloadCid": {"type": "string"},
+          "sourceSensor": {
+            "type": "string",
+            "knownValues": [
+              "eu_ted", "us_sam_gov", "jp_chotatsu", "uk_contracts_finder"
+            ]
+          },
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {"type": "string", "knownValues": ["A"]},
+          "license": {"type": "string"},
+          "stateAlignedFlag": {"type": "boolean", "default": false},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

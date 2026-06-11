@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-59d91084a65d",
+  "entityId": "ent-59d91084a65d",
+  "canonicalName": "renel destina",
+  "aliases": [
+    "renel destina"
+  ]
+}

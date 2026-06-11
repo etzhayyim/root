@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cveCna.flagDisclosureGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Disclosure coordination gap / embargo leakage (bridges zeroDayBroker.flagVendorPatchLag + cyber-incident-ioc + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "cveVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "cveVid": {
+              "type": "string",
+              "description": "bridges recordAssignment"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "disputed",
+                "rej",
+                "rejected_after_assignment",
+                "embargo_leak",
+                "kev_catalog_missing",
+                "nvd_backlog",
+                "cvss_mismatch",
+                "vendor_denied",
+                "downstream_uncoordinated",
+                "severity_dispute",
+                "post_disclosure_itw"
+              ]
+            },
+            "daysEmbargoToDisclose": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

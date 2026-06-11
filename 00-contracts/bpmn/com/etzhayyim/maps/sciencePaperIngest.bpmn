@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — arXiv paper ingest → embedding → knowledge graph link.
+
+  Pipeline:
+    1. science.paper.fetchArxiv   — Query arXiv Atom API for a domain batch,
+                                    INSERT raw vertex_scientific_paper rows.
+                                    Returns papersInserted / domain / runId.
+    2. exclusive gateway          — Skip when 0 new papers.
+    3. science.paper.embedBatch   — SELECT raw papers, call Murakumo
+                                    nomic-embed-text, UPDATE embedding_norm +
+                                    ivf_cluster_id, status → 'embedded'.
+                                    Returns papersEmbedded.
+    4. science.paper.linkGraph    — NER entities from paper abstracts,
+                                    match vertex_periodic_element /
+                                    vertex_scientific_taxon, INSERT
+                                    edge_paper_element + edge_paper_taxon,
+                                    UPDATE status → 'linked'.
+                                    Returns papersLinked.
+    5. generic.audit.emit         — OCEL event with aggregate stats.
+
+  Cadence: R/PT6H. Rotates domains: physics → chemistry → biology → materials.
+  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.sciencePaperIngest.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_science_paper_ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="science_paper_ingest" name="science paper ingest" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.sciencePaperIngest", "version": 1, "resultTimeoutMs": 21600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 6 hours">
+      <bpmn:outgoing>Flow_ToFetch</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT6H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToFetch" sourceRef="Start" targetRef="Task_FetchArxiv"/>
+
+    <!-- Step 1: Fetch arXiv papers for next domain in rotation. -->
+    <bpmn:serviceTask id="Task_FetchArxiv" name="fetch arXiv paper batch">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.paper.fetchArxiv"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50"       target="limit"/>
+          <zeebe:output source="=runId"           target="runId"/>
+          <zeebe:output source="=domain"          target="domain"/>
+          <zeebe:output source="=papersInserted"  target="papersInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFetch</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_FetchArxiv" targetRef="Gateway_HasPapers"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasPapers" name="new papers?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasPapers</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoPapers</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasPapers" sourceRef="Gateway_HasPapers" targetRef="Task_EmbedBatch">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=papersInserted &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoPapers" sourceRef="Gateway_HasPapers" targetRef="End_NoPapers">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=papersInserted &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:endEvent id="End_NoPapers" name="no new papers (skip)">
+      <bpmn:incoming>Flow_NoPapers</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Step 2: Embed raw papers via Murakumo nomic-embed-text. -->
+    <bpmn:serviceTask id="Task_EmbedBatch" name="embed paper batch via Murakumo">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.paper.embedBatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId"         target="runId"/>
+          <zeebe:input source="=50"            target="batch_size"/>
+          <zeebe:output source="=papersEmbedded"  target="papersEmbedded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasPapers</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToLink</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToLink" sourceRef="Task_EmbedBatch" targetRef="Task_LinkGraph"/>
+
+    <!-- Step 3: NER + ontology match → edge_paper_element + edge_paper_taxon. -->
+    <bpmn:serviceTask id="Task_LinkGraph" name="link papers to knowledge graph">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.paper.linkGraph"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId"         target="runId"/>
+          <zeebe:input source="=domain"        target="domain"/>
+          <zeebe:input source="=3"             target="max_replan"/>
+          <zeebe:output source="=papersLinked"   target="papersLinked"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLink</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_LinkGraph" targetRef="Task_Audit"/>
+
+    <!-- Step 4: OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit science.paper.ingest OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.science.paper.ingest&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;domain&quot;: domain, &quot;papersInserted&quot;: papersInserted, &quot;papersEmbedded&quot;: papersEmbedded, &quot;papersLinked&quot;: papersLinked }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.amrSurveillance.flagBioweaponSignal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave5 (stub): 薬剤耐性 → 兵器化兆候. Starts BPMN process open_amr_surveillance_flag_bioweapon_signal.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "pathogen": { "type": "string" },
+            "resistanceProfile": { "type": "string" },
+            "country": { "type": "string" }
+          },
+          "required": ["vertexId", "pathogen"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

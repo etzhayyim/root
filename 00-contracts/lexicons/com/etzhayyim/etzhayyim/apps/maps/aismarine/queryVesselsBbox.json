@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.aismarine.queryVesselsBbox",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return the latest known position of every AIS-tracked vessel inside a WGS84 bounding box, as a GeoJSON FeatureCollection. Backed by mv_vessel_latest_position. Optionally filter by type_class ('cargo','tanker','passenger','fishing','tug','highspeed','sailing_pleasure','military','pilot','sar','lawenforcement','other','unknown'). ADR-2605011500.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "bbox": {
+            "type": "array",
+            "description": "[west,south,east,north] in WGS84 degrees. Longitudes wrap allowed (e.g. west=170, east=-170 covers Pacific antimeridian).",
+            "items": { "type": "number" },
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "types": {
+            "type": "array",
+            "description": "Optional filter by vessel_type_class (see vessel_type_class SQL UDF).",
+            "items": { "type": "string" },
+            "maxLength": 16
+          },
+          "minSog": { "type": "number", "description": "Optional minimum speed-over-ground in knots. Use 0.5 to exclude moored/anchored vessels." },
+          "limit": { "type": "integer", "description": "Max features returned (default 5000, hard cap 20000)." }
+        },
+        "required": ["bbox"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["features", "total", "bbox"],
+          "properties": {
+            "features": {
+              "type": "unknown",
+              "description": "GeoJSON FeatureCollection. Feature.properties: { mmsi, name?, type_code?, type_class, flag_iso?, sog_knot?, cog_deg?, heading_deg?, nav_status?, ts_ms }."
+            },
+            "total": { "type": "integer" },
+            "bbox": {
+              "type": "array",
+              "items": { "type": "number" }
+            },
+            "truncated": { "type": "boolean", "description": "true if total exceeded limit." }
+          }
+        }
+      }
+    }
+  }
+}

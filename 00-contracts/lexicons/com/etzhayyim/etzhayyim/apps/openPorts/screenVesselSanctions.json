@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPorts.screenVesselSanctions",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence (stub): 船舶 制裁スクリーニング. Starts BPMN process open_ports_screen_vessel_sanctions.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "vesselVid": { "type": "string" },
+            "imo": { "type": "string" },
+            "sanctionList": { "type": "string" }
+          },
+          "required": ["vertexId", "vesselVid", "imo"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

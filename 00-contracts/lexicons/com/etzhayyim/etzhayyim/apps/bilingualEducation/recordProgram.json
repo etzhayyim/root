@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bilingualEducation.recordProgram",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bilingual / mother-tongue education program (UNESCO / EAL / immersion — bridges languageEndangerment.flagRevitalization + module + accessibility-wcag)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "programId",
+            "countryIso3",
+            "regionName",
+            "modelKind",
+            "mainLanguage",
+            "partnerLanguage",
+            "launchedAt"
+          ],
+          "properties": {
+            "programId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "regionName": {
+              "type": "string"
+            },
+            "modelKind": {
+              "type": "string",
+              "enum": [
+                "dual_immersion",
+                "heritage_language",
+                "maintenance_bilingual",
+                "transitional_bilingual",
+                "esl_sheltered",
+                "submersion",
+                "content_integrated_clil",
+                "total_physical",
+                "monolingual_elective",
+                "maori_kura_kaupapa",
+                "navajo_dinA",
+                "gaelic_gaeltacht",
+                "ainu_restore"
+              ]
+            },
+            "mainLanguage": {
+              "type": "string"
+            },
+            "partnerLanguage": {
+              "type": "string"
+            },
+            "revitalizationVid": {
+              "type": "string",
+              "description": "bridges languageEndangerment.flagRevitalization"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

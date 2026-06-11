@@ -1,0 +1,20 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openJpnMynumber.health",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Liveness probe for the openJpnMynumber LG pod.",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":     { "type": "boolean" },
+            "domain": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sourceShieldLaw.recordShield",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Journalist source shield law / reporter's privilege (bridges espionageAct.flagChillingEffect + press-freedom + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "shieldId",
+            "jurisdictionIso3",
+            "regime",
+            "scope",
+            "enactedAt"
+          ],
+          "properties": {
+            "shieldId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "press_act_us",
+                "branzburg",
+                "journalist_shield_state",
+                "eu_media_freedom",
+                "uk_contempt_act",
+                "fr_art_2",
+                "de_press_law",
+                "jp_press_privilege",
+                "ca_protection_journalistic_sources",
+                "au_shield_act",
+                "br_lei_acesso"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "criminal_only",
+                "civil_only",
+                "both",
+                "qualified_privilege",
+                "absolute",
+                "subpoena",
+                "warrant",
+                "search",
+                "surveillance",
+                "national_security_carveout"
+              ]
+            },
+            "chillingEffectVid": {
+              "type": "string",
+              "description": "bridges espionageAct.flagChillingEffect"
+            },
+            "enactedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

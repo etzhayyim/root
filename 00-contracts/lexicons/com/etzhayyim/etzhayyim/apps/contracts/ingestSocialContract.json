@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.contracts.ingestSocialContract",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fresh crawl + ingest of a SocialContract (constitution / international treaty / social norm). Sources: UN Treaty Collection, Constitute Project. Writes vertex_contracts_social_contract directly to Hyperdrive (ADR-0036). Law full-text corpus (statute/article) is out of scope — delegated to houbun.etzhayyim.com (ADR-0052).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["source"],
+          "properties": {
+            "source": {
+              "type": "string",
+              "knownValues": ["un-treaty", "constitute-project"],
+              "description": "Upstream authority to crawl"
+            },
+            "docId": {
+              "type": "string",
+              "description": "Source-native identifier (e.g. UN Treaty Registration Number, Constitute country code). Omit for source-wide delta."
+            },
+            "since": {
+              "type": "string",
+              "description": "ISO 8601 date — only ingest records updated after this cutoff (delta mode)"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Max records to ingest in one call (default 100, max 1000)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "fetched": { "type": "integer" },
+            "inserted": { "type": "integer" },
+            "skipped": { "type": "integer" },
+            "errors": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

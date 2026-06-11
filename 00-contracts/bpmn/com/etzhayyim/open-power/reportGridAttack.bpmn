@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_power_report_grid_attack"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-power"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="open_power_report_grid_attack" name="送電網攻撃 報告" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_SaveEvent"/>
+
+    <bpmn:serviceTask id="Task_SaveEvent" name="defence event 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_defence_event&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              owner_did:        callerDid,
+              bpmn_process_id:  &quot;open_power_report_grid_attack&quot;,
+              nsid:             &quot;com.etzhayyim.apps.openPower.reportGridAttack&quot;,
+              project:          &quot;open-power&quot;,
+              subject_vid:      feederVid,
+              action_class:     &quot;grid.attack&quot;,
+              severity:         &quot;critical&quot;,
+              detected_at:      string(now()),
+              created_at:       string(now()),
+              sensitivity_ord:  1,
+              org_id:           callerDid,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-defence&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_SaveEvent" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit openPower.grid.reportAttack">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-power.etzhayyim.com:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openPower.grid.reportAttack&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, subjectVid: feederVid, severity: &quot;critical&quot;}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

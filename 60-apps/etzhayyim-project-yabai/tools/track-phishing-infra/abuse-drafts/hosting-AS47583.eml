@@ -1,0 +1,36 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@hostinger.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][AS47583] 9 phishing domains on your network (Etzhayyim Yabai)
+Date: Sun, 19 Apr 2026 11:22:50 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello Hostinger abuse team,
+
+We are reporting 9 domains currently resolving to your network
+(AS-HOSTINGER, CY, AS47583, CY). Full list below (domain => ip):
+
+aa-line.me => 2.57.91.93
+aw-line.me => 2.57.91.93
+bb-line.me => 2.57.91.93
+ee-line.me => 2.57.91.93
+rr-line.me => 2.57.91.93
+vv-line.me => 2.57.91.93
+xx-line.me => 2.57.91.93
+yy-line.me => 2.57.91.93
+zz-line.me => 2.57.91.93
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

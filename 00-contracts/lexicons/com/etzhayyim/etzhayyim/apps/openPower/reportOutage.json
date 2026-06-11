@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPower.reportOutage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report a power outage on a feeder. Severity = major if customers affected >= 1000 or cause = 'storm'. Starts BPMN process open_power_report_outage.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "utilityOrgId":      { "type": "string" },
+            "feederVertexId":    { "type": "string" },
+            "cause":             { "type": "string", "description": "equipment-failure / storm / scheduled-maintenance / ..." },
+            "customersAffected": { "type": "integer" },
+            "reportedAt":        { "type": "string", "format": "datetime" }
+          },
+          "required": ["utilityOrgId", "feederVertexId", "cause", "customersAffected", "reportedAt"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":                  { "type": "boolean" },
+            "vertexId":            { "type": "string" },
+            "severity":            { "type": "string", "enum": ["minor", "moderate", "major"] },
+            "requirePublicNotice": { "type": "boolean" },
+            "instanceKey":         { "type": "integer" },
+            "error":               { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

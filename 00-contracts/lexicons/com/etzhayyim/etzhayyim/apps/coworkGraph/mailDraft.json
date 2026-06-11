@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.mailDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "メール下書きを作成する。etzhayyim_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["userId", "to", "subject", "body"],
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "送信元 UPN (user@domain.com) または Graph API user ID"
+            },
+            "to": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "宛先メールアドレス一覧"
+            },
+            "cc": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "CC メールアドレス一覧"
+            },
+            "subject": { "type": "string" },
+            "body": {
+              "type": "string",
+              "description": "メール本文 (プレーンテキスト)"
+            },
+            "importance": {
+              "type": "string",
+              "knownValues": ["low", "normal", "high"],
+              "default": "normal"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["draftId", "note"],
+          "properties": {
+            "draftId": { "type": "string" },
+            "webLink": { "type": "string" },
+            "note": {
+              "type": "string",
+              "description": "draft_only であることを示すメッセージ"
+            }
+          }
+        }
+      }
+    }
+  }
+}

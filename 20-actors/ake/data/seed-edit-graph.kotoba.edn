@@ -1,0 +1,49 @@
+;; seed-edit-graph.kotoba.edn — :representative sample edit batch for 朱 (ake), ADR-2606052100.
+;; Demonstrates every route of the membrane end-to-end (analyze.py runs this batch):
+;;   e1  well-sourced KG-fact correction          → low risk      → auto-accept (optimistic)
+;;   e2  company status change (sensitive attr)    → high risk     → sbt-vote   (seed tally accepts)
+;;   e3  actor-profile description fix             → medium risk   → sbt-vote   (seed tally accepts)
+;;   e4  license/charter-adjacent attr             → invariant     → council-lv7 (pending)
+;;   e5  Charter-Rider §2 hit in proposed value    → refused (a vote cannot promote a Rider violation)
+;; Every edit is member-signed (G1), sourced (G4), append-only (G5). NOT live data.
+
+{:edit/batch
+ [{:edit/id "e1" :edit/target-kind :kg-fact :edit/target-entity "org.corp.tsmc"
+   :edit/target-attr :corp/hq-address :edit/op :assert
+   :edit/proposed-value "No. 8, Li-Hsin Rd. 6, Hsinchu Science Park, Hsinchu 300-096, Taiwan"
+   :edit/author "did:web:etzhayyim.com:member:abel" :edit/author-kind :member
+   :edit/provenance "https://www.tsmc.com/english/aboutTSMC/company_profile"
+   :edit/rationale "postal code updated to 300-096 per company profile page"
+   :edit/server-held-key false :edit/info-as-of 1000 :edit/sourcing :authoritative}
+
+  {:edit/id "e2" :edit/target-kind :kg-fact :edit/target-entity "org.corp.example-listed"
+   :edit/target-attr :status :edit/op :assert :edit/proposed-value ":delisted"
+   :edit/author "did:web:etzhayyim.com:member:beria" :edit/author-kind :member
+   :edit/provenance "https://www.jpx.co.jp/listing/stocks/delisted/"
+   :edit/rationale "delisted 2026-05; primary exchange notice"
+   :edit/server-held-key false :edit/info-as-of 1100 :edit/sourcing :authoritative
+   :review/yes 8 :review/no 1}
+
+  {:edit/id "e3" :edit/target-kind :actor-profile :edit/target-entity "mitooshi"
+   :edit/target-attr :actor/description :edit/op :assert
+   :edit/proposed-value "見通し — probabilistic forecasting observatory (distribution-only, non-speculative)."
+   :edit/author "did:web:etzhayyim.com:member:caleb" :edit/author-kind :member
+   :edit/provenance "https://github.com/etzhayyim/root/commit/abc1234"
+   :edit/rationale "tighten the one-line description; fix a typo"
+   :edit/server-held-key false :edit/info-as-of 1150 :edit/sourcing :representative
+   :review/yes 5 :review/no 0}
+
+  {:edit/id "e4" :edit/target-kind :kg-fact :edit/target-entity "org.corp.example-listed"
+   :edit/target-attr :license :edit/op :assert :edit/proposed-value "Apache-2.0"
+   :edit/author "did:web:etzhayyim.com:member:dan" :edit/author-kind :member
+   :edit/provenance "https://example.com/legal/license"
+   :edit/rationale "record the disclosed license; touches a license attr → invariant-adjacent"
+   :edit/server-held-key false :edit/info-as-of 1200 :edit/sourcing :authoritative}
+
+  {:edit/id "e5" :edit/target-kind :actor-profile :edit/target-entity "kataribe"
+   :edit/target-attr :actor/description :edit/op :assert
+   :edit/proposed-value "press + publishing actor; now also runs third-party advertising and affiliate placements"
+   :edit/author "did:web:etzhayyim.com:member:esau" :edit/author-kind :member
+   :edit/provenance "https://example.com/note"
+   :edit/rationale "add advertising line"
+   :edit/server-held-key false :edit/info-as-of 1250 :edit/sourcing :representative}]}

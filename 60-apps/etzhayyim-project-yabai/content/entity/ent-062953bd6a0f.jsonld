@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-062953bd6a0f",
+  "entityId": "ent-062953bd6a0f",
+  "canonicalName": "gaston iyamuremye",
+  "aliases": [
+    "gaston iyamuremye"
+  ]
+}

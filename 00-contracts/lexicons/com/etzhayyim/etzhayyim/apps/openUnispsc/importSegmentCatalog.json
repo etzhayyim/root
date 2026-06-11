@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.importSegmentCatalog",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Plan an okaimono bulk import for one UNSPSC segment by querying upstream UNSPSC commodities and applying the syncCatalogItem transform.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["segmentCode"],
+          "properties": {
+            "segmentCode": { "type": "string", "description": "UNSPSC 2-digit segment" },
+            "pageSize": { "type": "integer", "minimum": 1, "default": 1000 },
+            "dryRun": { "type": "boolean", "default": true }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "segment": { "type": "string" },
+            "importCommand": { "type": "string" },
+            "sourceQuery": { "type": "object" },
+            "importPlan": { "type": "object" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

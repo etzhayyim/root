@@ -1,0 +1,33 @@
+{
+  "$type": "com.etzhayyim.projection.feedDiscover",
+  "cursor": "10",
+  "items": [
+    {
+      "uri": "at://did:web:carol.etzhayyim.com/app.bsky.feed.post/3kfc",
+      "cid": "bafyrei-carol-3kfc-v1",
+      "did": "did:web:carol.etzhayyim.com",
+      "indexedAt": "2026-05-23T03:00:00.000Z",
+      "textPreview": "carol's first",
+      "verdict": "escalate"
+    },
+    {
+      "uri": "at://did:web:alice.etzhayyim.com/app.bsky.feed.post/3kfa",
+      "cid": "bafyrei-alice-3kfa-v2",
+      "did": "did:web:alice.etzhayyim.com",
+      "indexedAt": "2026-05-23T02:30:00.000Z",
+      "textPreview": "alice's first post (edited)",
+      "verdict": "unverdicted"
+    },
+    {
+      "uri": "at://did:web:bob.etzhayyim.com/app.bsky.feed.post/3kfb",
+      "cid": "bafyrei-bob-3kfb-v1",
+      "did": "did:web:bob.etzhayyim.com",
+      "indexedAt": "2026-05-23T01:00:00.000Z",
+      "textPreview": "bob's hello",
+      "verdict": "approve"
+    }
+  ],
+  "totalSeen": 5,
+  "projectionLevel": "L1",
+  "firstSeq": "1"
+}

@@ -1,0 +1,92 @@
+# KaizenObserverCell — pinned to levi (membership + council orchestration node).
+#
+# Probes the three UnispscOrganismFleetCell shards every 10 min, computes
+# observations, runs the rule registry, appends KaizenProposal NDJSON
+# lines to /var/lib/etzhayyim/kaizen-proposals/observer.ndjson. The
+# downstream PR agent (Wave 4) reads the same queue and opens PRs on
+# github.com/etzhayyim/root.
+#
+# Deployment (not DaemonSet) — only one observer per fleet.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaizen-observer
+  namespace: etzhayyim-organism
+  labels:
+    app.kubernetes.io/name: kaizen-observer
+    etzhayyim.com/role: ecosystem-self-reflection
+    etzhayyim.com/leader-node: levi
+  annotations:
+    etzhayyim.com/adr: "2605240200,2605240100,2605240000,2605232100"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kaizen-observer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kaizen-observer
+        etzhayyim.com/leader-node: levi
+    spec:
+      serviceAccountName: kaizen-observer
+      nodeSelector:
+        kubernetes.io/hostname: levinomac-mini.local
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: observer
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - python
+            - -m
+            - kotodama.organism.kaizen_cell_main
+          env:
+            - name: KAIZEN_TICK_INTERVAL_S
+              value: "600"  # 10 min
+            - name: KAIZEN_DEDUP_WINDOW_S
+              value: "7200"  # 2 hours
+            - name: KAIZEN_SHARD_URLS
+              value: "http://unispsc-organism-fleet-shard-0.etzhayyim-organism.svc:13040,http://unispsc-organism-fleet-shard-1.etzhayyim-organism.svc:13050,http://unispsc-organism-fleet-shard-2.etzhayyim-organism.svc:13060"
+            - name: KAIZEN_QUEUE_BASE
+              value: /var/lib/etzhayyim/organism-posts
+            - name: KAIZEN_PROPOSAL_PATH
+              value: /var/lib/etzhayyim/kaizen-proposals/observer.ndjson
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: organism-posts
+              mountPath: /var/lib/etzhayyim/organism-posts
+              readOnly: true
+            - name: kaizen-proposals
+              mountPath: /var/lib/etzhayyim/kaizen-proposals
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        # NB: post queues live in the shard pods' emptyDir; cross-pod read
+        # requires either a hostPath or a PVC. For Stage 4 (this ADR) the
+        # observer reads from a hostPath shared with the fleet pods on
+        # the same node. Multi-node read is Wave 5 (NFS / OBJECT_STORE).
+        - name: organism-posts
+          hostPath:
+            path: /var/lib/etzhayyim/organism-posts
+            type: DirectoryOrCreate
+        - name: kaizen-proposals
+          hostPath:
+            path: /var/lib/etzhayyim/kaizen-proposals
+            type: DirectoryOrCreate
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi

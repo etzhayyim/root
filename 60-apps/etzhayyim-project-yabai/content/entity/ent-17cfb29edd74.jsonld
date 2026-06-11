@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-17cfb29edd74",
+  "entityId": "ent-17cfb29edd74",
+  "canonicalName": "kumgang bank",
+  "aliases": [
+    "kumgang bank"
+  ]
+}

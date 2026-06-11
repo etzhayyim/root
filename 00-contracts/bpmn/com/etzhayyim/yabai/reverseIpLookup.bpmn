@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.reverseIpLookup — reverse-IP pivot for phishing coverage expansion.
+
+  Replaces (one half of): 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
+  That script iterated DISTINCT resolved_ip and fuzzy brand keywords in one
+  process. This BPMN handles the reverse-IP leg per call; callers loop.
+
+  Pipeline (minimal — BPMN is an HTTP gateway with audit trail; caller does
+  brand-match + known-dedup filtering):
+    1. generic.http.fetch  — GET https://api.hackertarget.com/reverseiplookup/?q={ip}
+                              (plain text, 1 domain per line, may be rate-limited)
+    2. scriptTask          — FEEL: split lines, detect rate-limit sentinel
+    3. generic.audit.emit  — OCEL trail
+
+  Returns: `{siblings: [...], totalSiblings, rateLimited, status}`
+  Callers filter against known phishing_url entities + brand keyword patterns.
+
+  NSID: com.etzhayyim.apps.yabai.reverseIpLookup
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yabai_reverse_ip_lookup"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yabai_reverse_ip_lookup" name="yabai reverseIpLookup" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yabai.reverseIpLookup", "version": 1, "resultTimeoutMs": 20000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToFetch</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToFetch" sourceRef="Start" targetRef="Task_Fetch"/>
+
+    <!-- Step 1: hackertarget reverse-IP lookup (plain text response) -->
+    <bpmn:serviceTask id="Task_Fetch" name="hackertarget reverseiplookup">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source='=string join(["https://api.hackertarget.com/reverseiplookup/?q=", ip], "")' target="url"/>
+          <zeebe:input source="=10" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="fetchStatus"/>
+          <zeebe:output source="=bodyText" target="fetchBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFetch</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSplit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSplit" sourceRef="Task_Fetch" targetRef="Task_Split"/>
+
+    <!-- Step 2a: split into raw lines -->
+    <bpmn:scriptTask id="Task_Split" name="split lines">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if fetchBody = null then [] else split(fetchBody, "\n")'
+            resultVariable="rawLines"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSplit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRateCheck</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToRateCheck" sourceRef="Task_Split" targetRef="Task_RateCheck"/>
+
+    <!-- Step 2b: detect hackertarget rate-limit sentinel -->
+    <bpmn:scriptTask id="Task_RateCheck" name="detect rate-limit">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if fetchBody = null then false else (contains(fetchBody, "API count exceeded") or contains(fetchBody, "error check"))'
+            resultVariable="rateLimited"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRateCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSiblings</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToSiblings" sourceRef="Task_RateCheck" targetRef="Task_Siblings"/>
+
+    <!-- Step 2c: build siblings list (lowered, non-empty). Rate-limit → empty.
+         hackertarget returns one domain per line with no leading/trailing
+         whitespace, so we skip the trim step (FEEL has no trim()). -->
+    <bpmn:scriptTask id="Task_Siblings" name="normalise siblings">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if rateLimited then [] else (for d in rawLines return lower case(d))'
+            resultVariable="siblingsAll"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSiblings</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToFilter</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToFilter" sourceRef="Task_Siblings" targetRef="Task_Filter"/>
+
+    <bpmn:scriptTask id="Task_Filter" name="filter non-empty">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=siblingsAll[string length(item) &gt; 0]'
+            resultVariable="siblings"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFilter</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Filter" targetRef="Task_Audit"/>
+
+    <!-- Step 3: OCEL audit emit -->
+    <bpmn:serviceTask id="Task_Audit" name="audit yabai.coverage.revIp">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yabcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yabai.coverage.revIp&quot;" target="action"/>
+          <zeebe:input source="={
+              ip:             ip,
+              fetchStatus:    fetchStatus,
+              totalSiblings:  count(siblings),
+              rateLimited:    rateLimited
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

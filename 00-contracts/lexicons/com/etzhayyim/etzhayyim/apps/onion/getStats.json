@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.onion.getStats",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get onion.etzhayyim.com crawl statistics.",
+      "parameters": {
+        "type": "params",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["totalSites", "totalPages", "reachableSites", "highRiskPages"],
+          "properties": {
+            "totalSites":     { "type": "integer" },
+            "totalPages":     { "type": "integer" },
+            "reachableSites": { "type": "integer" },
+            "highRiskPages":  { "type": "integer", "description": "pages with riskScore >= 70" }
+          }
+        }
+      }
+    }
+  }
+}

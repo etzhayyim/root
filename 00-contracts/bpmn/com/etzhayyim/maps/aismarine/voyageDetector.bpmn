@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — Voyage detector (R/PT5M).
+
+  Pipeline:
+    1. aismarine.voyage.detectWindow — scan last 5min vertex_vessel_position,
+                                        join against vertex_open_ports_port,
+                                        derive arrivals (nav_status ∈ {1,5,15}
+                                        + sog ≤ 0.5kn + within 5km of port).
+                                        Returns scanned/arrivals_recorded/
+                                        voyages_opened.
+    2. exclusive gateway              — short-circuit when nothing happened.
+    3. generic.audit.emit             — OCEL event with stats.
+
+  ADR-2605011500. NSID: com.etzhayyim.apps.maps.aismarine.voyageDetector.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-voyage-detector-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_aismarine_voyage_detector"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps/aismarine"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_aismarine_voyage_detector" name="maps aismarine voyage detector" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.aismarine.voyageDetector", "version": 1, "resultTimeoutMs": 240000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 5 minutes">
+      <bpmn:outgoing>Flow_ToDetect</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT5M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToDetect_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToDetect" sourceRef="Start_Timer" targetRef="Task_DetectWindow"/>
+    <bpmn:sequenceFlow id="Flow_ToDetect_Manual" sourceRef="Start_Manual" targetRef="Task_DetectWindow"/>
+
+    <bpmn:serviceTask id="Task_DetectWindow" name="detect arrivals in 5-min window">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aismarine.voyage.detectWindow"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=5"     target="window_minutes"/>
+          <zeebe:input source="=50000" target="limit"/>
+          <zeebe:output source="=scanned"           target="scanned"/>
+          <zeebe:output source="=arrivals_recorded" target="arrivalsRecorded"/>
+          <zeebe:output source="=voyages_opened"    target="voyagesOpened"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDetect</bpmn:incoming>
+      <bpmn:incoming>Flow_ToDetect_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_DetectWindow" targetRef="Gateway_HasArrivals"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasArrivals" name="anything written?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasArrivals</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoArrivals</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasArrivals" sourceRef="Gateway_HasArrivals" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(arrivalsRecorded + voyagesOpened) &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoArrivals" sourceRef="Gateway_HasArrivals" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(arrivalsRecorded + voyagesOpened) &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit voyage.detect OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.aismarine.voyage.detect&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;scanned&quot;: scanned, &quot;arrivalsRecorded&quot;: arrivalsRecorded, &quot;voyagesOpened&quot;: voyagesOpened }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasArrivals</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_NoArrivals</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

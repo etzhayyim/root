@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.srsgCoordination.flagPillarGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "R2P pillar gap / SC stalemate / intervention threshold (bridges genocideConvention.flagProvisionalMeasure + humanitarian-corridor + poc-ihl)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "frameworkVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "frameworkVid": {
+              "type": "string",
+              "description": "bridges recordFramework"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "pillar_1_state_resp",
+                "pillar_2_assistance",
+                "pillar_3_response",
+                "sc_p5_veto",
+                "general_assembly_uniting_for_peace",
+                "regional_org_reach",
+                "sanctions_tailored",
+                "sanctions_comprehensive",
+                "peacekeeping_mandate",
+                "early_action_absent",
+                "atrocity_prevention_index"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

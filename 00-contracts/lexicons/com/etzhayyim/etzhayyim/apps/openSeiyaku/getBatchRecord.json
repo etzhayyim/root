@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSeiyaku.getBatchRecord",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch one batch record by vertex ID, subject to plant / manufacturer RBAC.",
+      "parameters": {
+        "type": "params",
+        "required": ["vertexId"],
+        "properties": {
+          "vertexId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "batch": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

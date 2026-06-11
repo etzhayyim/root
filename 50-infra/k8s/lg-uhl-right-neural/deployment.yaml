@@ -1,0 +1,294 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
+# lg-uhl-right-neural — LangServer pod for the uhl_right_neural Pregel.
+#
+# Serves the 16-vertex StateGraph defined at
+#   kotodama.projects.uhl_right_neural.pregel:app
+# over the standard LangGraph CLI HTTP runtime (/invoke /batch /stream).
+#
+# Authoritative:
+#   ADR-2605181000 — uhl-right-neural project charter
+#   ADR-2605180900 — langserver four-call-surface pattern
+#   ADR-2605171800 — LangGraph → MstCheckpointSaver → MST → IPFS → L2 anchor
+#
+# Pre-requisites:
+#   - ghcr.io/etzhayyim/lg-uhl-right-neural image built with the
+#     kotodama.projects.uhl_right_neural package
+#   - ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer image (TS sidecar)
+#   - langgraph.json present in the image at the working dir
+#   - no DATABASE_URL needed — V16 institution registry is in-package YAML
+#
+# Pod topology (two-container sidecar, ADR-2605171800 §Stage 1-2):
+#
+#   ┌─────────────────────────────────────────────────────────────────┐
+#   │  Pod                                                            │
+#   │                                                                 │
+#   │  ┌─────────────────────┐    /run/etzhayyim/    ┌──────────────┐ │
+#   │  │  server (Python)    │◄──── checkpointer ─►│  checkpointer│ │
+#   │  │  lg-uhl-right-neural│        .sock         │  (TS, Node)  │ │
+#   │  │  MstCheckpointSaver │     (emptyDir)       │  @etz/sdk    │ │
+#   │  └─────────────────────┘                      └──────────────┘ │
+#   │                                                       │        │
+#   │                              /var/etzhayyim/          │        │
+#   │                              checkpointer-state ◄─────┘        │
+#   │                              (PVC, ReadWriteOnce, Retain)      │
+#   └─────────────────────────────────────────────────────────────────┘
+#
+# Both containers run as uid 65532. The sidecar accepts Unix-domain
+# connections from the langserver only — no TCP port exposed.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+---
+# PVC for the checkpointer sidecar state directory.
+#
+# Holds:
+#   - keys/<encodeURIComponent(cell_did)>.key  per-cell XChaCha20-Poly1305 key
+#   - queue/<encodeURIComponent(cell_did)>/    spooled CARs + raw payload blobs
+#   - index.json                               saver index (CID → row)
+#
+# Sized for ~1 year of uhl-right-neural cell state at conservative
+# checkpoint cadence. Increase via `kubectl edit pvc` when usage
+# crosses 70%. Reclaim policy on the underlying PV MUST be Retain
+# (configure via the StorageClass) so a `kubectl delete deployment`
+# can NEVER cascade into a key wipe — see ADR-2605181100 §SDK seam.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lg-uhl-right-neural-checkpointer-state
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+    app.kubernetes.io/component: checkpointer-state
+    app.kubernetes.io/part-of: uhl-right-neural.etzhayyim.com
+  annotations:
+    # Documenting intent at the resource level — clusters may also set
+    # PersistentVolumeReclaimPolicy=Retain on the underlying PV.
+    etzhayyim.com/key-loss-is-irreversible: "true"
+    etzhayyim.com/adr: "2605171800,2605181100"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  # storageClassName omitted on purpose — picks up the cluster default.
+  # In environments where the default class is Delete (e.g. some
+  # cloud-managed clusters) override here with a Retain class:
+  #   storageClassName: standard-retain
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+    app.kubernetes.io/component: langgraph-server
+    app.kubernetes.io/part-of: uhl-right-neural.etzhayyim.com
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lg-uhl-right-neural
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lg-uhl-right-neural
+    spec:
+      serviceAccountName: lg-uhl-right-neural
+      imagePullSecrets:
+        - name: ghcr-pull
+      securityContext:
+        # Both containers run as uid 65532 — non-root, matches the
+        # langserver Dockerfile's USER directive. fsGroup 65532 makes
+        # the shared emptyDir volumes group-rw for both processes so
+        # the Unix socket is mutually accessible without acrobatics.
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: server
+          # Production: pin a digest. Use `kubectl set image` to update.
+          image: ghcr.io/etzhayyim/lg-uhl-right-neural:main
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "8080"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            # P0 MVP: V13 outcome / V12 plasticity stubs do not need a model.
+            # When V13 PyMC + V14 trial-design come online, add ANTHROPIC_API_KEY
+            # (or local LLM endpoint) here.
+            #
+            # Checkpointer wiring (ADR-2605171800, RW-free per ADR-2605172000):
+            # The Pregel module auto-attaches MstCheckpointSaver via the
+            # env vars below. The TS sidecar in the second container reads
+            # the matching ETZ_CHECKPOINTER_* vars.
+            - name: MST_CHECKPOINT_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
+            - name: MST_CHECKPOINT_CELL_DID
+              value: "did:web:uhl-right-neural.etzhayyim.com"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ok
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ok
+              port: http
+            initialDelaySeconds: 8
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: checkpointer-socket
+              mountPath: /run/etzhayyim
+        - name: checkpointer
+          # TS sidecar — ADR-2605171800 Stage 2. Owns MST/IPFS/L2.
+          # Image source: 50-infra/etzhayyim-sdk-checkpointer/Dockerfile
+          image: ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main
+          imagePullPolicy: Always
+          env:
+            - name: ETZ_CHECKPOINTER_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
+            - name: ETZ_CHECKPOINTER_STATE_DIR
+              value: "/var/etzhayyim/checkpointer-state"
+            - name: ETZ_CHECKPOINTER_ALLOWED_DIDS
+              # Comma-separated DID allowlist. Requests with a non-listed
+              # cell_did are rejected by the sidecar.
+              value: "did:web:uhl-right-neural.etzhayyim.com"
+            - name: ETZ_CHECKPOINTER_ENCRYPT_CELLS
+              # ADR-2605181100 hard rule: uhl-right-neural Pregel state
+              # contains patient phenotype, genetic results, imaging — all
+              # PII. The sidecar AEAD-seals every payload with a per-cell
+              # XChaCha20-Poly1305 key (lazy-generated, persisted at
+              # <stateDir>/keys/) before MST projection. Stages 3-4 only
+              # ever address ciphertext.
+              value: "did:web:uhl-right-neural.etzhayyim.com"
+            # Stage 3 (IPFS pin) — enabled. Every CAR file produced by
+            # #commitMst is pinned via kubo HTTP API. The endpoint points
+            # at the fleet kubo node registered in deps.toml [platform.ipfs]
+            # (simeonnomac-mini.local:5001, kubo 0.41.0, status: live).
+            # Safe because F encrypts every payload before MST projection,
+            # so the pinned bytes are ciphertext per ADR-2605181100.
+            - name: ETZ_IPFS_API_URL
+              value: "http://simeonnomac-mini.local:5001"
+            # Stage 4 (Base L2 anchor) — implementation ready, deploy
+            # pending. The anchor-cron CronJob at
+            # 50-infra/anchor-cron/k8s/cronjob.yaml drives submission via
+            # msgpack IPC to this sidecar's anchor_pending / anchor_commit
+            # ops. Once EtzhayyimAnchor lands at
+            # deps.toml [platform.l2.anchor_contract].address_testnet,
+            # kubectl apply that CronJob and uncomment the chain id below.
+            # - name: ETZ_ANCHOR_CHAIN_ID
+            #   value: "84532"  # Base sepolia
+          # No HTTP port — listens on the Unix socket in the shared volume.
+          livenessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('fs').statSync(process.env.ETZ_CHECKPOINTER_SOCKET)"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('fs').statSync(process.env.ETZ_CHECKPOINTER_SOCKET)"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: "500m"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: checkpointer-socket
+              mountPath: /run/etzhayyim
+            - name: checkpointer-state
+              mountPath: /var/etzhayyim/checkpointer-state
+            - name: tmp-sidecar
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: tmp-sidecar
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: checkpointer-socket
+          # Tiny — only holds the Unix domain socket node. fsGroup makes
+          # it group-rw between server and checkpointer.
+          emptyDir:
+            sizeLimit: 1Mi
+        - name: checkpointer-state
+          # PVC durability. The sidecar's per-cell symmetric keys live
+          # here (<stateDir>/keys/<cell_did>.key). Losing this volume
+          # = losing the keys = every prior ciphertext on IPFS becomes
+          # unrecoverable. Bound to a named claim with Retain reclaim
+          # policy so accidental Deployment delete does not nuke the
+          # keys. ADR-2605171800 + ADR-2605181100.
+          persistentVolumeClaim:
+            claimName: lg-uhl-right-neural-checkpointer-state
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lg-uhl-right-neural
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: lg-uhl-right-neural
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: lg-uhl-right-neural
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP

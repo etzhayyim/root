@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_oshinobi_reportContent"
+    targetNamespace="https://etzhayyim.ai/bpmn/oshinobi"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="oshinobi_report_content" name="oshinobi reportContent" isExecutable="true">
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_Triage</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Triage" sourceRef="Start" targetRef="Task_Triage"/>
+
+    <bpmn:serviceTask id="Task_Triage" name="LLM triage: severity 判定">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;murakumo/gemma-4-e2b&quot;" target="model"/>
+          <zeebe:input source="=&quot;You are a content moderation triage assistant for an adult creator platform. Assign one severity label from the enum based on the category + reason. critical: CSAM, non_consensual, minor_depicted, any sexualized content involving a minor. high: copyright with identifiable rightsholder, credible impersonation. medium: spam, policy-adjacent. low: vague or empty reports.&quot;" target="system"/>
+          <zeebe:input source="=&quot;category=&quot; + category + &quot; reason=&quot; + reason" target="prompt"/>
+          <zeebe:input source="={
+              type: &quot;object&quot;,
+              required: [&quot;severity&quot;, &quot;recommendation&quot;],
+              properties: {
+                severity:       { type: &quot;string&quot;, enum: [&quot;critical&quot;, &quot;high&quot;, &quot;medium&quot;, &quot;low&quot;] },
+                recommendation: { type: &quot;string&quot; }
+              }
+          }" target="jsonSchema"/>
+          <zeebe:input source="=&quot;triage&quot;" target="resultKey"/>
+          <zeebe:input source="=10000" target="timeoutMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Triage</bpmn:incoming>
+      <bpmn:outgoing>Flow_Force</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Force" sourceRef="Task_Triage" targetRef="Gate_CsamForce"/>
+
+    <bpmn:exclusiveGateway id="Gate_CsamForce" name="category ∈ CSAM-like?" default="Flow_NoForce">
+      <bpmn:incoming>Flow_Force</bpmn:incoming>
+      <bpmn:outgoing>Flow_ForceCritical</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoForce</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ForceCritical" sourceRef="Gate_CsamForce" targetRef="Task_InsertCritical">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=category = "csam" or category = "non_consensual" or category = "minor_depicted"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoForce" sourceRef="Gate_CsamForce" targetRef="Task_InsertReport"/>
+
+    <bpmn:serviceTask id="Task_InsertCritical" name="report 保存 (critical)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_oshinobi_report&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:       reportVertexId,
+              report_id:       reportId,
+              reporter_did:    callerDid,
+              target_uri:      targetUri,
+              target_kind:     targetKind,
+              category:        category,
+              reason:          reason,
+              severity:        &quot;critical&quot;,
+              status:          &quot;escalated&quot;,
+              triage_json:     string(triage),
+              created_at:      string(now()),
+              owner_did:       callerDid,
+              sensitivity_ord: 2,
+              org_id:          callerDid,
+              user_id:         callerDid,
+              actor_id:        &quot;sys.bpmn.oshinobi&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ForceCritical</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditCritical</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditCritical" sourceRef="Task_InsertCritical" targetRef="Task_AuditCritical"/>
+
+    <bpmn:serviceTask id="Task_AuditCritical" name="audit report.escalated (critical)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;oshinobi.report.escalated&quot;" target="action"/>
+          <zeebe:input source="={
+              reportId:   reportId,
+              targetUri:  targetUri,
+              category:   category,
+              severity:   &quot;critical&quot;
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditCritical</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndCritical</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndCritical" sourceRef="Task_AuditCritical" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_InsertReport" name="report 保存 (triage severity)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_oshinobi_report&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:       reportVertexId,
+              report_id:       reportId,
+              reporter_did:    callerDid,
+              target_uri:      targetUri,
+              target_kind:     targetKind,
+              category:        category,
+              reason:          reason,
+              severity:        triage.severity,
+              status:          if triage.severity = &quot;critical&quot; then &quot;escalated&quot; else &quot;queued&quot;,
+              triage_json:     string(triage),
+              created_at:      string(now()),
+              owner_did:       callerDid,
+              sensitivity_ord: 2,
+              org_id:          callerDid,
+              user_id:         callerDid,
+              actor_id:        &quot;sys.bpmn.oshinobi&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoForce</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditNormal</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditNormal" sourceRef="Task_InsertReport" targetRef="Task_AuditNormal"/>
+
+    <bpmn:serviceTask id="Task_AuditNormal" name="audit report.queued">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;oshinobi.report.queued&quot;" target="action"/>
+          <zeebe:input source="={
+              reportId:   reportId,
+              targetUri:  targetUri,
+              category:   category,
+              severity:   triage.severity
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditNormal</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndNormal</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndNormal" sourceRef="Task_AuditNormal" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="reported">
+      <bpmn:incoming>Flow_EndCritical</bpmn:incoming>
+      <bpmn:incoming>Flow_EndNormal</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

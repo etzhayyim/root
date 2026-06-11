@@ -1,0 +1,24 @@
+{
+  "formatKey": "ind.esic.monthlyContribution.portal",
+  "jurisdiction": "esic",
+  "actorDid": "did:web:ind-payroll.etzhayyim.com:esic",
+  "formatKind": "official_portal_or_integrator_payload",
+  "officialSourceUrl": "https://www.esic.gov.in/",
+  "lastVerified": "2026-04-26",
+  "status": "adapter_required",
+  "internalFormKeys": ["esic-monthly-form-v1", "esic-review-v1", "esic-amend-v1"],
+  "fieldMap": [
+    { "internal": "establishment.establishmentEsiCode", "official": "employer / establishment ESI code" },
+    { "internal": "wageMonth", "official": "contribution period" },
+    { "internal": "members[].ipNumber", "official": "insured person number" },
+    { "internal": "members[].grossWageInrPaise", "official": "gross wages" },
+    { "internal": "members[].employeeContribInrPaise", "official": "employee contribution" },
+    { "internal": "members[].employerContribInrPaise", "official": "employer contribution" },
+    { "internal": "challanReference", "official": "bank challan reference" }
+  ],
+  "notes": [
+    "Public machine-readable ESIC contribution upload schema was not available from official sources during 2026-04-26 verification.",
+    "Live submission remains gated behind authorized_esic_integrator."
+  ],
+  "liveFilingGate": "ind.efiling.submit with providerKind=authorized_esic_integrator"
+}

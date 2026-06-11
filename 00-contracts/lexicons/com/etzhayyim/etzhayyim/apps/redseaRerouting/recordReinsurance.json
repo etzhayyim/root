@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.redseaRerouting.recordReinsurance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "再保険率調整",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reinsuranceId",
+            "vesselType",
+            "originalPremiumBps",
+            "adjustedPremiumBps",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "reinsuranceId": {
+              "type": "string"
+            },
+            "insurerLei": {
+              "type": "string"
+            },
+            "vesselType": {
+              "type": "string"
+            },
+            "originalPremiumBps": {
+              "type": "number"
+            },
+            "adjustedPremiumBps": {
+              "type": "number"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "premiumDeltaBps": {
+              "type": "number"
+            },
+            "rateShockTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "severe",
+                "extreme"
+              ]
+            },
+            "requireMarketNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

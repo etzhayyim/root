@@ -1,0 +1,55 @@
+{
+  "@context": ["https://www.w3.org/ns/did/v1", "https://schema.org"],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:nusa",
+  "name": "nusa",
+  "displayName": "幣 — Ritual/Industrial Hemp Heritage + Low-THC Cultivation",
+  "tier": "Tier-B",
+  "status": "R0",
+  "adr": { "master": "etzhayyim:adr:2606039800" },
+  "labor": {
+    "isic": "A0116",
+    "isco": ["6111", "7318"],
+    "unspsc": ["10", "11"],
+    "lpsRank": null
+  },
+  "purpose": "Ritual + industrial hemp (麻) heritage knowledge graph + low-THC cultivation-revival design. Datafies Japan's ritual-hemp heritage (Shinto purification 注連縄/祓串/大幣, the imperial 麁服 aratae + 阿波忌部 lineage) and the low-THC fibre cultivars whose licensed cultivation the 2023 reform reopened, into the kotoba Datom log. Charter-clean by construction: fibre + ritual + heritage only; recreational THC excluded by the thc-class invariant; cannabis-derived medicine out of scope; no legalization-advocacy stance.",
+  "cells": [
+    { "name": "heritage_ingest", "module": "nusa.cells.heritage_ingest", "murakumoNode": "dan" },
+    { "name": "fiber_provenance", "module": "nusa.cells.fiber_provenance", "murakumoNode": "naphtali" },
+    { "name": "cultivation_license_plan", "module": "nusa.cells.cultivation_license_plan", "murakumoNode": "gad" },
+    { "name": "rite_supply", "module": "nusa.cells.rite_supply", "murakumoNode": "asher" },
+    { "name": "observation_bridge", "module": "nusa.cells.observation_bridge", "murakumoNode": "issachar" }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.nusa.heritageRecord",
+    "com.etzhayyim.nusa.hempCultivar",
+    "com.etzhayyim.nusa.ritualArtifact",
+    "com.etzhayyim.nusa.cultivationLicensePlan",
+    "com.etzhayyim.nusa.fiberProvenance"
+  ],
+  "constitutionalGates": {
+    "G1": "low-thc-fiber-and-ritual-only — cultivar thc-class is :fiber|:low-thc only; :psychoactive not representable; recreational/high-THC excluded by construction",
+    "G2": "non-recreational — never facilitates recreational use; no consumption/dosing guidance; respects the 使用罪",
+    "G3": "non-adjudicating / political-neutral — records facts only; legal characterization → danjo/chigiri; no 推進/反対 stance (1 SBT = 1 vote)",
+    "G4": "member-principal / no-fiat-inflow — licence fees never from religious-corp funds; okaimono member-principal (ADR-2606012100); nusa never licensee/funder",
+    "G5": "no-server-key — authorization = member signature; server signature refused (ADR-2605231525)",
+    "G6": "Murakumo-only inference (ADR-2605215000)",
+    "G7": "sourcing-honesty — :representative seed; legal/heritage figures flagged + primary-source-citing",
+    "G8": "outward-gated — real cultivation / live licence filing / live ingest / publish Council Lv6+ + operator",
+    "G9": "PII-consent — cultivator personal data encrypted (com.etzhayyim.encrypted.*, ADR-2605181100)",
+    "G10": "medical-boundary — cannabis-derived medicine out of scope (薬機法/医師法 → yakushi/iyashi/mitate)"
+  },
+  "nonGoals": {
+    "N1": "no recreational cannabis / THC intoxicant production or advocacy",
+    "N2": "not a legalization-advocacy political/lobbying organization",
+    "N3": "not a cannabis-derived-medicine manufacturer (→ yakushi)",
+    "N4": "never facilitates unlicensed cultivation",
+    "N5": "no trafficking of high-THC seed / strains"
+  },
+  "vocabulary": "00-contracts/schemas/ritual-hemp-ontology.kotoba.edn",
+  "directionTwoBridge": {
+    "danjo": "etzhayyim:adr:2605301600 — cannabis-policy legislative observation (non-adjudicating)",
+    "moushibumi": "etzhayyim:adr:2605312400 — neutral public-comment / petition support"
+  }
+}

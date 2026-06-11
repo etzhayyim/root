@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — Filecoin storage deal propose (R/PT24H autonomous).
+
+  Daily sweep over IPFS-pinned CIDs without active Filecoin deals.
+  Proposes deals at N=5 SPs each (configurable). Records each
+  proposal as a vertex_karma_filecoin_deal row with status='proposed'.
+  The actual sealing happens off-chain on the SP side; karma.filecoin
+  .checkSealed (R/P7D in K4) will poll for sealed status.
+
+  Phase K3: stub Estuary/Lighthouse HTTP call — record intent +
+  deterministic deal_proposal_cid so the BPMN flow is end-to-end.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_filecoin_propose"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_filecoin_propose" name="karma filecoin propose" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="every 24h">
+      <bpmn:outgoing>Flow_ToPropose</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Propose" name="propose deals for new pinned CIDs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.filecoin.proposeBatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=200" target="batchSize"/>
+          <zeebe:input source="=5" target="spCount"/>
+          <zeebe:input source="=540" target="durationDays"/>
+          <zeebe:output source="=proposed" target="proposed"/>
+          <zeebe:output source="=skipped" target="skipped"/>
+          <zeebe:output source="=failed" target="failed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPropose</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPropose" sourceRef="StartTimer" targetRef="Task_Propose"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.filecoinPropose&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;proposed&quot;: proposed, &quot;skipped&quot;: skipped, &quot;failed&quot;: failed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Propose" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="proposed">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

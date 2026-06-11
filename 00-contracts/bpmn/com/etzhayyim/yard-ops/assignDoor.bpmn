@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Assign a checked-in trailer to a dock door and trigger a loading-robot mission.
+
+  Inputs:
+    requestId
+    trailerVertexId
+    direction        (inbound | outbound)
+    loadPlanRef      (warehouse pick or putaway batch)
+
+  Outputs:
+    dockJobVertexId
+    dockDoorCode
+    loadingRobotMissionId
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yard_ops_assign_door"
+    targetNamespace="https://etzhayyim.ai/bpmn/yard-ops"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yard_ops_assign_door" name="Yard dock-door assignment" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Door assignment requested">
+      <bpmn:outgoing>Flow_Start_Pick</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Pick" sourceRef="Start" targetRef="Task_PickDoor"/>
+
+    <bpmn:serviceTask id="Task_PickDoor" name="Select dock door">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yardOps.dockDoor.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=trailerVertexId" target="trailerVertexId"/>
+          <zeebe:input source="=direction" target="direction"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Pick</bpmn:incoming>
+      <bpmn:outgoing>Flow_Pick_Job</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Pick_Job" sourceRef="Task_PickDoor" targetRef="Task_PersistJob"/>
+
+    <bpmn:serviceTask id="Task_PersistJob" name="Persist dock job vertex">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yardOps.dockJob.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=trailerVertexId" target="trailerVertexId"/>
+          <zeebe:input source="=dockDoorCode" target="dockDoorCode"/>
+          <zeebe:input source="=direction" target="direction"/>
+          <zeebe:input source="=loadPlanRef" target="loadPlanRef"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Pick_Job</bpmn:incoming>
+      <bpmn:outgoing>Flow_Job_Mission</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Job_Mission" sourceRef="Task_PersistJob" targetRef="Task_TriggerMission"/>
+
+    <bpmn:serviceTask id="Task_TriggerMission" name="Trigger loading-robot mission">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="loadingRobot.mission.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=dockJobVertexId" target="dockJobVertexId"/>
+          <zeebe:input source="=loadPlanRef" target="loadingRobotLoadPlan"/>
+          <zeebe:input source="=dockDoorCode" target="loadingRobotCellDesign"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Job_Mission</bpmn:incoming>
+      <bpmn:outgoing>Flow_Mission_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Mission_Audit" sourceRef="Task_TriggerMission" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit door-assignment audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yard-ops.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yardOps.dockDoor.assigned&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, dockJobVertexId: dockJobVertexId, door: dockDoorCode, mission: loadingRobotMissionId }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Mission_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Door assigned">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "datacenter-capacity-review-v1",
+  "version": 1,
+  "title": "データセンター容量審査",
+  "tier": 1,
+  "actorRole": "dc-capacity-manager",
+  "components": [
+    {
+      "key": "summary",
+      "type": "fieldset",
+      "label": "申請サマリ",
+      "components": [
+        { "key": "facilityId", "label": "施設 ID", "type": "textfield", "readOnly": true },
+        { "key": "reservationType", "label": "予約種別", "type": "textfield", "readOnly": true },
+        { "key": "requestedLoad", "label": "要求容量", "type": "textfield", "readOnly": true },
+        { "key": "currentReserved", "label": "現行予約容量", "type": "textfield", "readOnly": true }
+      ]
+    },
+    {
+      "key": "checks",
+      "type": "fieldset",
+      "label": "確認チェック",
+      "components": [
+        { "key": "rackHeadroomChecked", "label": "ラック余力を確認", "type": "checkbox", "required": true },
+        { "key": "powerHeadroomChecked", "label": "電力余力を確認", "type": "checkbox", "required": true },
+        { "key": "coolingHeadroomChecked", "label": "冷却余力を確認", "type": "checkbox", "required": true },
+        { "key": "timelineFeasible", "label": "希望時期が実現可能", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "review",
+      "type": "fieldset",
+      "label": "審査結果",
+      "components": [
+        { "key": "decision", "label": "判定", "type": "select", "required": true,
+          "options": [
+            { "value": "approve", "label": "承認" },
+            { "value": "reject", "label": "却下" }
+          ]
+        },
+        { "key": "comment", "label": "コメント", "type": "textarea", "validate": { "maxLength": 1000 } }
+      ]
+    }
+  ]
+}

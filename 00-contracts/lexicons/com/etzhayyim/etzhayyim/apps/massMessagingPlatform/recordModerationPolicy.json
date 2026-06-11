@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.massMessagingPlatform.recordModerationPolicy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WhatsApp / Telegram / Signal moderation policy update (bridges deepfakeTakedown.flagDistributionVector + dsa-vlop + cross-border-transfer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "policyId",
+            "platform",
+            "policyKind",
+            "effectiveAt"
+          ],
+          "properties": {
+            "policyId": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string",
+              "enum": [
+                "whatsapp",
+                "telegram",
+                "signal",
+                "wechat",
+                "kakaotalk",
+                "line",
+                "viber",
+                "threema",
+                "element",
+                "matrix_protocol",
+                "facebook_messenger",
+                "instagram_dm"
+              ]
+            },
+            "policyKind": {
+              "type": "string",
+              "enum": [
+                "forwarding_limit",
+                "group_size_cap",
+                "content_blur",
+                "csam_hash_match",
+                "aml_kyc_groups",
+                "government_request_cooperation",
+                "public_channel_takedown",
+                "bot_invitation",
+                "client_side_scanning",
+                "non_chat_features"
+              ]
+            },
+            "distributionVid": {
+              "type": "string",
+              "description": "bridges deepfakeTakedown.flagDistributionVector"
+            },
+            "effectiveAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

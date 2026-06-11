@@ -1,0 +1,166 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:manabi",
+  "name": "manabi",
+  "displayName": "学び — Education",
+  "displayNameJa": "学び",
+  "displayNameEn": "Manabi",
+  "description": "Education Tier-B actor — open-curriculum literacy + numeracy + civics/charter + vocational + lifelong inquiry. Anti-credentialism (§2(e)) + anti-addiction UX (§2(d)) + minor privacy (G6) + comparative religion (G14) constitutional invariants. Delivers L4 (literacy/civics) and L5 (vocational/advanced) tiers of the Liberation Ladder.",
+  "descriptionJa": "教育 Tier-B アクター — オープン教育課程 (識字 + 数理 + 公民/憲章 + 職能 + 生涯探究)。反資格主義 + 反依存性 UX + 未成年プライバシー + 比較宗教の憲法的不変条項。労働解放ラダー L4 (識字/公民) と L5 (職能/上級) を担う。",
+  "adr": {
+    "master": "etzhayyim:adr:2605261045",
+    "parent": "etzhayyim:adr:2605261000",
+    "r0": "etzhayyim:adr:2605261045",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "liberationLadderGate": "L4 + L5",
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "Open-curriculum knowledge transmission",
+    "exclusions": [
+      "formal accreditation / state-recognized diplomas",
+      "degree issuance (anti-credentialism)",
+      "examination-as-gatekeeper / high-stakes proctored testing",
+      "behavioral conditioning applied to learners",
+      "for-profit textbook publishing",
+      "proprietary LMS / closed-source learning platform",
+      "surveillance edtech (keystroke / gaze / behavior tracking)",
+      "replacement of family / cultural / religious-of-origin transmission",
+      "advertising / sponsored content / corporate partnerships",
+      "political party content / electoral mobilization"
+    ]
+  },
+  "roboticsClasses": [
+    "(none R0-R2; human tutors only)",
+    "Yutori (R3+; hagukumi telepresence inheritance)",
+    "Hitogata-A (R3+ optional; vocational physical-skill demonstration)"
+  ],
+  "cells": [
+    {
+      "name": "literacy",
+      "module": "manabi.cells.literacy",
+      "murakumoNode": "levi",
+      "phase": "reading + writing"
+    },
+    {
+      "name": "numeracy",
+      "module": "manabi.cells.numeracy",
+      "murakumoNode": "levi",
+      "phase": "counting → calculus"
+    },
+    {
+      "name": "civics_charter",
+      "module": "manabi.cells.civics_charter",
+      "murakumoNode": "levi",
+      "phase": "charter + comparative governance/religion"
+    },
+    {
+      "name": "vocational",
+      "module": "manabi.cells.vocational",
+      "murakumoNode": "levi",
+      "phase": "practical skill (mitsuho/tatekata/hikari/yakushi aligned)"
+    },
+    {
+      "name": "lifelong_inquiry",
+      "module": "manabi.cells.lifelong_inquiry",
+      "murakumoNode": "levi",
+      "phase": "open-ended questioning"
+    },
+    {
+      "name": "cert_prep",
+      "module": "manabi.cells.cert_prep",
+      "murakumoNode": "levi",
+      "phase": "IT audit / infosec CBK knowledge domain (CISA D1-D5 / CISSP D1-D8) — sub-cell per ADR-2605264400; manabi never issues credentials (G7 + N12); G15 no pass-rate KPI; G16 no official past-question reproduction; G17 no credential body partnership"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.manabi.curriculumAttestation",
+    "com.etzhayyim.manabi.learningSessionAttestation",
+    "com.etzhayyim.manabi.charterUnderstandingAttestation",
+    "com.etzhayyim.manabi.silenEducationReview",
+    "com.etzhayyim.manabi.certPrepSession",
+    "com.etzhayyim.manabi.personalMaterialImport",
+    "com.etzhayyim.manabi.domainMasteryAttestation"
+  ],
+  "constitutionalGates": {
+    "description": "14 immutable gates per ADR-2605261045. Council Lv6+ supermajority + new ADR to amend.",
+    "gates": {
+      "G1": "All curriculum content open-source (Apache 2.0 + Charter Rider) on IPFS",
+      "G2": "No advertising / sponsored content / commercial-product placement",
+      "G3": "No algorithmic addiction (no streaks/rewards/FOMO/leaderboards/badges-as-status)",
+      "G4": "Charter alignment — Council Lv6+ ≥3 per module: multi-gen + anti-individualism + Wellbecoming + non-eschatology",
+      "G5": "Multilingual — minimum EN + JA; expand at ≥10-adherent-per-language threshold",
+      "G6": "Zero data collection on minors — aggregate-only attestations + 30-day rotating pseudonym DID",
+      "G7": "Anti-credentialism — no degrees/transcripts/GPA; only skillAttestation",
+      "G8": "No proprietary curriculum — CC-BY-SA or Apache 2.0 + Rider only",
+      "G9": "No for-profit textbook royalties — TitheRouter 10% to Public Fund; never purchase-gated",
+      "G10": "No examination-as-coercion — self-paced demonstration; no proctoring; no ID-gating",
+      "G11": "Lifelong — no age-out, no age-floor except minor privacy G6",
+      "G12": "No political indoctrination — comparative governance only; no electoral mobilization",
+      "G13": "Inquiry-based pedagogy — ≥30% learner-led per module",
+      "G14": "Family/cultural transmission primary; comparative-religion mandated (etzhayyim included)"
+    }
+  },
+  "nonGoals": {
+    "description": "10 explicitly excluded scopes",
+    "goals": {
+      "N1": "No formal accreditation (state domain)",
+      "N2": "No degree issuance (anti-credentialism)",
+      "N3": "No examination-as-gatekeeper / high-stakes proctored testing",
+      "N4": "No behavioral conditioning (operant/classical/social)",
+      "N5": "No for-profit textbook publishing",
+      "N6": "No proprietary LMS / closed-source platform",
+      "N7": "No surveillance edtech",
+      "N8": "No replacement of family / cultural transmission",
+      "N9": "No advertising",
+      "N10": "No political party content / electoral mobilization"
+    }
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-05-26",
+      "scope": "Scaffold only. 5 cells import-time RuntimeError.",
+      "murakumoFleet": "No deployment",
+      "gate": "ADR-2605261045 (PROPOSED)"
+    },
+    {
+      "phase": "R1",
+      "date": "post-Council",
+      "scope": "IPFS-pinned curriculum library (literacy + civics_charter + numeracy starter). ≤100 adherent learners (advisory consumption only; no live tutoring).",
+      "murakumoFleet": "levi (single node, low compute)",
+      "gate": "Future ADR + ≥1 inquiry-pedagogy practitioner on Council + curriculum Council-reviewed"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1",
+      "scope": "Live human tutor sessions + vocational scaffolding aligned to mitsuho/tatekata/hikari/yakushi R2 work. ≤25,000 learner ceiling. L4 gate eligibility.",
+      "murakumoFleet": "levi (single node)",
+      "gate": "Future ADR + 30-day public comment + ≥3 community-attested tutor cohort"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2",
+      "scope": "Full vocational pipeline + lifelong inquiry mesh + Yutori telepresence (hagukumi inheritance). ≤100,000 learner ceiling. Required for L4→L5.",
+      "murakumoFleet": "levi + (Yutori-mediated) joseph for vocational demonstration",
+      "gate": "Future ADR + 60-day public review + Council multi-domain vote"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2605261045-manabi-education-tier-b-actor-r0.md",
+      "ladder": "/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md",
+      "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
+    },
+    "minorPrivacy": "/90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md",
+    "hanamiPrecedent": "/90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
+  }
+}

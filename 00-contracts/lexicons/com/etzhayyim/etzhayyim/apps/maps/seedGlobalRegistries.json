@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.seedGlobalRegistries",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Seed global registry data (GLEIF LEI, JP NTA, Wikidata corps, OpenAddresses)",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

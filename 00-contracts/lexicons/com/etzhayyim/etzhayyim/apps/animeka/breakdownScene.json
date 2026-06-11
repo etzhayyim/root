@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.breakdownScene",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 2/12 — Break a scene into 3-8 cuts via Qwen 7B (mid tier). Persists a sceneBreakdown plan row (cuts array in description). UI/caller fanouts addCut per entry. Backed by BPMN animeka_breakdown_scene (ADR-2604231328).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sceneId", "sceneSummary"],
+          "properties": {
+            "sceneId": { "type": "string" },
+            "sceneSummary": { "type": "string" },
+            "fps": { "type": "integer", "default": 24 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "plan": { "type": "unknown", "description": "{cuts:[{cutNum,durationFrames,cameraMode,cameraNote,dialogueSummary}]}" },
+            "inserted": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.instantiateNetworkService",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NFVO — instantiate a Network Service from an onboarded NSD against one or more VIMs. parameters carry instantiation knobs (string-encoded TOSCA inputs).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["nsdId", "nfvoNfId", "vimIds", "deploymentFlavor", "observedAt"],
+          "properties": {
+            "nsId": { "type": "string" },
+            "nsdId": { "type": "string" },
+            "nfvoNfId": { "type": "string" },
+            "vimIds": { "type": "array", "items": { "type": "string" } },
+            "snssai": { "type": "string" },
+            "dnn": { "type": "string" },
+            "deploymentFlavor": { "type": "string" },
+            "parameters": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "nsId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

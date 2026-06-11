@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "app.openmail.message",
+  "description": "Open Email message record. Public-content email-equivalent over atproto MST. Per ADR-2605172200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["from", "to", "subject", "createdAt"],
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "did:plc:... | did:web:... for atproto-native sender, OR smtp:<rfc5322-addr> for bridge-in.",
+            "maxLength": 512
+          },
+          "to": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 100,
+            "items": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "description": "Recipient DIDs or smtp:<addr> URIs."
+          },
+          "subject": {
+            "type": "string",
+            "maxLength": 998
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 65536,
+            "description": "Inline body (text/plain or text/markdown). For larger bodies, use bodyBlob."
+          },
+          "bodyBlob": {
+            "type": "blob",
+            "accept": ["text/plain", "text/markdown", "text/html"],
+            "maxSize": 5242880
+          },
+          "attachments": {
+            "type": "array",
+            "maxLength": 32,
+            "items": {
+              "type": "blob",
+              "maxSize": 26214400
+            }
+          },
+          "replyTo": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "at-URI of the message being replied to."
+          },
+          "threadRoot": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "at-URI of the thread root. Equals replyTo for direct replies; equals the original root for deeper threads."
+          },
+          "postage": {
+            "type": "ref",
+            "ref": "app.openmail.postageReceipt"
+          },
+          "bridgedBy": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the SMTP bridge that authored this record. Present only for bridge-in messages."
+          },
+          "attestation": {
+            "type": "ref",
+            "ref": "app.openmail.smtpAttestation",
+            "description": "DKIM/SPF/DMARC verification results. Present only for bridge-in messages."
+          },
+          "legacyHeaders": {
+            "type": "ref",
+            "ref": "app.openmail.legacyHeaders",
+            "description": "RFC 5322 headers preserved for threading. Present only for bridge-in messages."
+          },
+          "anchor": {
+            "type": "ref",
+            "ref": "app.openmail.anchorRef",
+            "description": "Optional Base L2 certified-mail anchor (ADR-2605171800)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

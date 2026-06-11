@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.colorModel",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a character color model (色指定). Defines per-character palette × lighting-condition mapping used by the finisher actor for automatic color tracing. Status=approved triggers `colorModel-ready-autoTrace` derive rule against all keyframes of matching characters.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["characterRef", "palette", "createdAt"],
+        "properties": {
+          "characterRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "lightingCondition": {
+            "type": "string",
+            "enum": ["normal", "dusk", "night", "monoBlue", "monoRed", "backlight", "underwater", "fire"],
+            "description": "Color set is per lighting condition. Multiple colorModel records per character allowed (one per condition)."
+          },
+          "palette": {
+            "type": "array",
+            "description": "Color stops for each body part / material.",
+            "items": { "type": "ref", "ref": "#colorStop" }
+          },
+          "materialMap": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the material index image (each pixel = material ID, used by AI segmentation)."
+          },
+          "refSheetCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the painted reference sheet."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "rejected"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "colorStop": {
+      "type": "object",
+      "required": ["part", "base"],
+      "properties": {
+        "part": {
+          "type": "string",
+          "description": "Body part / material name (hair / skin / eye / clothing.primary / clothing.shadow1 ...)."
+        },
+        "base": {
+          "type": "string",
+          "description": "Base color as '#RRGGBB'."
+        },
+        "shadow1": { "type": "string" },
+        "shadow2": { "type": "string" },
+        "highlight": { "type": "string" },
+        "rim": { "type": "string", "description": "Rim / outline color." }
+      }
+    }
+  }
+}

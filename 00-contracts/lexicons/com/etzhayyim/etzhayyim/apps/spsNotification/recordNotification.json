@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spsNotification.recordNotification",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WTO SPS notification (emergency / regular / addendum — bridges importRefusal.flagRecurringOrigin + rasff-food-safety + codex)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "notificationId",
+            "notifyingMemberIso3",
+            "notificationKind",
+            "productScope",
+            "notifiedAt"
+          ],
+          "properties": {
+            "notificationId": {
+              "type": "string"
+            },
+            "notifyingMemberIso3": {
+              "type": "string"
+            },
+            "notificationKind": {
+              "type": "string",
+              "enum": [
+                "regular",
+                "emergency",
+                "addendum",
+                "corrigendum",
+                "revision",
+                "supplement"
+              ]
+            },
+            "productScope": {
+              "type": "string",
+              "enum": [
+                "animal_health",
+                "plant_health",
+                "food_safety",
+                "human_health",
+                "veterinary_drugs",
+                "pesticide_mrl",
+                "gmo_food",
+                "microbial",
+                "allergen",
+                "feed",
+                "all_food"
+              ]
+            },
+            "recurringOriginVid": {
+              "type": "string",
+              "description": "bridges importRefusal.flagRecurringOrigin"
+            },
+            "standardReference": {
+              "type": "string",
+              "enum": [
+                "oie",
+                "ippc",
+                "codex",
+                "iso",
+                "national",
+                "none_international"
+              ]
+            },
+            "notifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

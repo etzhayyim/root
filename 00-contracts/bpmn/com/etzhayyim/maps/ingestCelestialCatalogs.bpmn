@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — celestial catalog ingest (HYG + OpenNGC).
+
+  Pipeline (R/P30D — celestial positions don't change quickly):
+    1. celestial.hyg.refresh — naked-eye stars (mag ≤ 6.5)
+    2. celestial.ngc.refresh — galaxies / nebulae / clusters
+
+  com.etzhayyim.apps.maps.ingestCelestialCatalogs.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_ingest_celestial"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_ingest_celestial_catalogs" name="maps ingest celestial catalogs" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.ingestCelestialCatalogs", "version": 1, "resultTimeoutMs": 1800000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 30 days">
+      <bpmn:outgoing>Flow_ToHyg</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P30D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P30D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToHyg_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToHyg" sourceRef="Start_Timer" targetRef="Task_Hyg"/>
+    <bpmn:sequenceFlow id="Flow_ToHyg_Manual" sourceRef="Start_Manual" targetRef="Task_Hyg"/>
+
+    <bpmn:serviceTask id="Task_Hyg" name="HYG naked-eye stars">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="celestial.hyg.refresh"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=6.5" target="mag_max"/>
+          <zeebe:input source="=12000" target="max_rows"/>
+          <zeebe:output source="=runId" target="hygRunId"/>
+          <zeebe:output source="=ingested" target="hygIngested"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToHyg</bpmn:incoming>
+      <bpmn:incoming>Flow_ToHyg_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToNgc</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToNgc" sourceRef="Task_Hyg" targetRef="Task_Ngc"/>
+
+    <bpmn:serviceTask id="Task_Ngc" name="OpenNGC deep-sky">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="celestial.ngc.refresh"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=5000" target="max_rows"/>
+          <zeebe:output source="=ingested" target="ngcIngested"/>
+          <zeebe:output source="=messierCount" target="messierCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToNgc</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Ngc" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit celestial-ingest OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.ingestCelestialCatalogs&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;hygIngested&quot;: hygIngested, &quot;ngcIngested&quot;: ngcIngested, &quot;messierCount&quot;: messierCount }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.commissionDeployment",
+  "description": "Deployment lifecycle commissioning event — terminal record for either the entry-to-service moment (`commissioning-active`) OR the deliberate end-of-service moment (`decommissioned`). Emitted by CommissioningCell (phase 4, leaderNode simeon) for activation events and DecommissionCell (phase 6, leaderNode dan, cron-triggered) for retirement events. The lifecycle stage is the discriminator. Per ADR-2605201400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "commissionEventId",
+          "siteId",
+          "planId",
+          "lifecycleStage",
+          "effectiveAt",
+          "councilSignatures",
+          "commissionDeploymentCellAttestationCid",
+          "charterRiderComplianceAttested"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "commissionEventId": {"type": "string"},
+          "siteId": {"type": "string"},
+          "planId": {"type": "string"},
+          "lifecycleStage": {
+            "type": "string",
+            "knownValues": [
+              "commissioning-active",
+              "decommissioned"
+            ],
+            "description": "Discriminator. `commissioning-active` = site enters service (phase 4 output). `decommissioned` = deliberate end-of-service (phase 6 output)."
+          },
+          "effectiveAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Timestamp the lifecycle transition becomes effective."
+          },
+          "lastProgressId": {
+            "type": "string",
+            "description": "REQUIRED when lifecycleStage is `commissioning-active`. Final recordConstructionProgress.progressId at phase `commissioning-ready`."
+          },
+          "lastAuditEventId": {
+            "type": "string",
+            "description": "REQUIRED when lifecycleStage is `decommissioned`. Final recordPhysicalAuditEvent.auditEventId at scope `decommission-pre-check` with outcome `pass-*`."
+          },
+          "councilSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#councilSignature"
+            },
+            "minLength": 3,
+            "description": "≥3 Council Lv6+ signatures REQUIRED for both commissioning-active (entering service) and decommissioned (retiring) — symmetric governance lifecycle. Per ADR-2605201400 §7."
+          },
+          "handoffDocumentIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the handoff document. For commissioning-active: operations runbook. For decommissioned: disposal/transition plan."
+          },
+          "charterRiderComplianceAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural G5."
+          },
+          "commissionDeploymentCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "councilSignature": {
+      "type": "object",
+      "required": ["councilDid", "councilLevel", "signedAt", "signature"],
+      "properties": {
+        "councilDid": {"type": "string"},
+        "councilLevel": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 7
+        },
+        "signedAt": {"type": "string", "format": "datetime"},
+        "signature": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.authFull",
+  "description": "Full W Protocol access. Superset of app.bsky.authFullApp — includes all official AT Protocol collections/methods plus etzhayyim extensions.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Full W Protocol Access",
+      "title:lang": {
+        "ja": "W Protocol 全機能アクセス"
+      },
+      "detail": "Full access to all AT Protocol + W Protocol features. Superset: includes all app.bsky, chat.bsky, com.atproto collections and RPCs, plus com.etzhayyim extensions.",
+      "detail:lang": {
+        "ja": "AT Protocol + W Protocol全機能へのアクセス。app.bsky, chat.bsky, com.atprotoの全コレクション・RPCに加え、com.etzhayyim拡張を含むスーパーセット。"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "Official AT Protocol record collections",
+          "collection": [
+            "app.bsky.actor.profile",
+            "app.bsky.actor.status",
+            "app.bsky.feed.post",
+            "app.bsky.feed.like",
+            "app.bsky.feed.repost",
+            "app.bsky.feed.threadgate",
+            "app.bsky.feed.postgate",
+            "app.bsky.feed.generator",
+            "app.bsky.graph.follow",
+            "app.bsky.graph.block",
+            "app.bsky.graph.list",
+            "app.bsky.graph.listblock",
+            "app.bsky.graph.listitem",
+            "app.bsky.graph.starterpack",
+            "app.bsky.graph.verification",
+            "app.bsky.labeler.service",
+            "app.bsky.notification.declaration",
+            "chat.bsky.actor.declaration"
+          ],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official AT Protocol RPCs",
+          "lxm": [
+            "app.bsky.*",
+            "chat.bsky.*",
+            "com.atproto.*",
+            "tools.ozone.*"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "etzhayyim extension record collections",
+          "collection": ["com.etzhayyim.*"],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim extension RPCs",
+          "lxm": ["com.etzhayyim.*"]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  malak.createThreatOrg — migrates cmdCreateThreatOrg.
+
+  Flow:
+    Start (slug, name, orgType?, country?, description?, tlp?)
+      → generic.db.insert (vertex_threat, category="org")
+      → generic.audit.emit
+      → End
+
+  NSID: com.etzhayyim.apps.malak.createThreatOrg
+  vid:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-create-threat-org-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_malak_create_threat_org"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="malak_create_threat_org" name="malak createThreatOrg" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.malak.createThreatOrg", "version": 1, "resultTimeoutMs": 15000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Start" targetRef="Task_Insert"/>
+
+    <!-- Step 1: INSERT org into vertex_threat (label=ThreatOrg, category=org) -->
+    <bpmn:serviceTask id="Task_Insert" name="vertex_threat INSERT (org)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_threat&quot;" target="table"/>
+          <zeebe:input source='={
+              vertex_id:       string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.threatOrg/", string(slug)], ""),
+              rkey:            string(slug),
+              repo:            "did:web:malak.etzhayyim.com",
+              did:             "did:web:malak.etzhayyim.com",
+              code:            string join(["org-", string(slug)], ""),
+              label:           "ThreatOrg",
+              name:            string(name),
+              display_name:    string(name),
+              description:     if description = null then "" else string(description),
+              category:        if orgType = null then "cybercrime" else string(orgType),
+              url:             if country = null then "" else string join(["country:", string(country)], ""),
+              source:          "malak.bpmn.create-org",
+              sensitivity_ord: 100,
+              owner_did:       "did:web:malak.etzhayyim.com",
+              created_date:    substring(string(now()), 1, 10)
+          }' target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="orgInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: malak.org.created">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:malak.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;malak.org.created&quot;"     target="action"/>
+          <zeebe:input source="={ slug: string(slug), name: string(name), orgInserted: orgInserted }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

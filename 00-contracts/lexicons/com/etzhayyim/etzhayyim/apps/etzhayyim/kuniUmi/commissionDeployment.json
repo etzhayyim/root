@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Commission a completed deployment: register commissioned assets with the relevant open-* utility lexicons + open-ot defineLoop, run the acceptance test, and transition site state to 'operational'. After commissioning, kuni-umi is observer-only for that site; open-ot WASM PLC owns steady-state operation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["planDid", "siteDid", "utilityAssetDids", "openOtLoopDids", "acceptanceTest"],
+          "properties": {
+            "planDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "utilityAssetDids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "DIDs of the open-* utility records created during commissioning (defineGenerationNode / defineSubstation / defineFeeder / registerSmartMeter / defineRegulator / definePipeSegment / defineReservoir / defineMain / defineSite / defineLink etc.)"
+            },
+            "openOtLoopDids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "DIDs of the open-ot defineLoop records that will run steady-state control"
+            },
+            "acceptanceTest": {
+              "type": "object",
+              "required": ["passed", "testReportCid"],
+              "properties": {
+                "passed": { "type": "boolean" },
+                "testReportCid": { "type": "string", "description": "IPFS CID of acceptance test report" },
+                "openOtCellFingerprints": { "type": "array", "items": { "type": "string" }, "description": "WASM AOT module hashes that ran during acceptance" }
+              }
+            },
+            "stewardOperatorDid": { "type": "string", "description": "Steward DID that takes day-to-day operational responsibility" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "commissionDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "siteState": { "type": "string", "enum": ["operational", "punch-list", "rejected"] },
+            "commissionedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

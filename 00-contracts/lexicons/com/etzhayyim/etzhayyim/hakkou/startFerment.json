@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hakkou.startFerment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a fermentation job in the hakkou pipeline. Accepts raw input and enqueues it for irreversible transformation into structured knowledge (ethanol) + audit trail (CO2). Triggers hakkou BPMN ferment-pipeline.bpmn.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agentDid": { "type": "string", "description": "Fermenting agent DID" },
+            "inputKind": { "type": "string", "description": "text | record | stream" },
+            "inputRef": { "type": "string", "description": "AT URI or external ref to raw input" },
+            "outputKind": { "type": "string", "description": "summary | embedding | graph-fragment | classification" }
+          },
+          "required": ["agentDid", "inputKind", "inputRef", "outputKind"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fermentVertexId": { "type": "string" },
+            "status": { "type": "string", "description": "pending | running | done | failed" },
+            "error": { "type": "string" }
+          },
+          "required": ["fermentVertexId", "status"]
+        }
+      }
+    }
+  }
+}

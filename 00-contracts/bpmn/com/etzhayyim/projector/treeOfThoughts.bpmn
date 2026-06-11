@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  projector.treeOfThoughts (ToT, Yao et al. 2023) — explore N candidate
+  thoughts, self-evaluate each, rank, and emit the best. Implemented as
+  one LangGraph StateGraph in `projector.tot.expand`. The BPMN layer
+  exists so the OCEL audit (`tot.thought.expanded` × N + `tot.thought.evaluated`
+  + `tot.thought.ranked`) sits at the same boundary as every other
+  projector flow.
+
+  NSID:      com.etzhayyim.apps.projector.treeOfThoughts
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_projector_tree_of_thoughts"
+    targetNamespace="https://etzhayyim.ai/bpmn/projector"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="projector_tree_of_thoughts" name="projector treeOfThoughts" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.projector.treeOfThoughts", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="explore">
+      <bpmn:outgoing>Flow_ToExpand</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToExpand" sourceRef="Start" targetRef="Task_TotExpand"/>
+
+    <bpmn:serviceTask id="Task_TotExpand" name="LangGraph ToT (expand → evaluate → rank)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="projector.tot.expand"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convoId" target="convoId"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:input source="=argText" target="question"/>
+          <zeebe:input source="=4" target="branchCount"/>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:output source="=reply" target="reply"/>
+          <zeebe:output source="=approaches" target="approaches"/>
+          <zeebe:output source="=scores" target="scores"/>
+          <zeebe:output source="=bestIndex" target="bestIndex"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExpand</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_TotExpand" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="best path picked">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

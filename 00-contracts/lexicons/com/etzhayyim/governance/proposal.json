@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.governance.proposal",
+  "description": "Council deliberation proposal. Typically transmitted as the plaintext body of an com.etzhayyim.encrypted.record (innerType=this NSID) so council membership scopes who can read. Per ADR-2605181100 + uhl-right-neural council pattern.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "body", "author", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Short human-readable subject line.",
+            "maxLength": 256
+          },
+          "body": {
+            "type": "string",
+            "description": "Discussion body. Markdown allowed. Larger documents should be referenced by `attachments` IPFS CID instead of inlined.",
+            "maxLength": 65536
+          },
+          "author": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the council member who proposed."
+          },
+          "category": {
+            "type": "string",
+            "description": "Project-specific category. For uhl-right-neural: 'medical-referral' | 'ethics-review' | 'data-export' | 'protocol-amendment' | 'other'.",
+            "maxLength": 64
+          },
+          "refs": {
+            "type": "array",
+            "description": "Related AT URIs (prior proposals, evidence records, etc.).",
+            "maxLength": 32,
+            "items": {
+              "type": "string",
+              "format": "at-uri"
+            }
+          },
+          "attachments": {
+            "type": "array",
+            "description": "IPFS CIDs for large attachments. Encryption of the attachment payload is the caller's responsibility (typically same symmetric key as the envelope, separately AEAD'd).",
+            "maxLength": 16,
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            }
+          },
+          "dueAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Optional voting deadline."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

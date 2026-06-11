@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_payment_intake"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_payment_intake"
+                name="lawfirm Payment Intake (Stripe webhook)"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.lawfirm.stripeWebhook", "version": 1, "resultTimeoutMs": 60000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="Stripe webhook POST">
+      <bpmn:outgoing>Flow_start_to_persist</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_persist" sourceRef="Start_XRPC" targetRef="Task_StripePersist"/>
+
+    <bpmn:serviceTask id="Task_StripePersist" name="Verify + persist Stripe event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.payment.stripeWebhook"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=event_id"         target="event_id"/>
+          <zeebe:input source="=type"             target="type"/>
+          <zeebe:input source="=livemode"         target="livemode"/>
+          <zeebe:input source="=stripe_account"   target="stripe_account"/>
+          <zeebe:input source="=data"             target="data"/>
+          <zeebe:input source="=signature_header" target="signature_header"/>
+          <zeebe:output source="=ok"           target="ok"/>
+          <zeebe:output source="=matter_uri"   target="matter_uri"/>
+          <zeebe:output source="=amount_minor" target="amount_minor"/>
+          <zeebe:output source="=currency"     target="currency"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_persist</bpmn:incoming>
+      <bpmn:outgoing>Flow_persist_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_persist_to_audit" sourceRef="Task_StripePersist" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.payment.received&quot;" target="event_type"/>
+          <zeebe:input source="={ok: ok, matter_uri: matter_uri, amount_minor: amount_minor, currency: currency, stripe_event_id: event_id}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_persist_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

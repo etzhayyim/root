@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCargo.createCargoBooking",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a cargo booking for a shipment.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["shipper_name", "consignee_name", "origin", "dest"],
+          "properties": {
+            "shipper_name": { "type": "string" },
+            "consignee_name": { "type": "string" },
+            "origin": { "type": "string" },
+            "dest": { "type": "string" },
+            "commodity": { "type": "string" },
+            "gross_weight_kg": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

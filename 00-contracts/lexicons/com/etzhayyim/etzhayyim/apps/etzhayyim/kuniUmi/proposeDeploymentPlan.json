@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Propose a deployment plan: BoM (UNSPSC code list + qty + estimated USDC cost), target topology (FK ↔ open-* CIM record DIDs), timeline, and fleet allocation. BoM / cost / supplier identities are XChaCha20-Poly1305-enveloped per ADR-2605181100 (envelope payload only; this lexicon describes the public envelope shape). Triggers governance vote when proportionality-check DMN flags requiresGovernance=true.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteDid", "surveyDid", "planCode", "targetTopologyDids", "bomEnvelopeCid", "fleetAllocation", "paymentPlanCid"],
+          "properties": {
+            "siteDid": { "type": "string" },
+            "surveyDid": { "type": "string" },
+            "planCode": { "type": "string", "description": "Unique plan code, A-Z0-9-, 2..64" },
+            "targetTopologyDids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "DIDs of open-* utility records this plan will create (open-denki / open-gas / open-water / open-network / open-power / etc.)"
+            },
+            "bomEnvelopeCid": { "type": "string", "description": "IPFS CID of the XChaCha20-Poly1305 envelope containing the BoM (UNSPSC commodity codes + qty + estimated USDC cost + supplier DIDs). Recipients: Council Lv6+ (3+) + plan steward + assigned construction-cell leader." },
+            "fleetAllocation": {
+              "type": "object",
+              "required": ["robotCount", "estimatedRobotHours"],
+              "properties": {
+                "robotCount": { "type": "integer", "description": "Number of Giemon units required (Otete arms + crawlers + Hitogata humanoid + future Quad)" },
+                "estimatedRobotHours": { "type": "integer" },
+                "fleetDid": { "type": "string", "description": "Pre-allocated fleet DID if available" }
+              }
+            },
+            "paymentPlanCid": { "type": "string", "description": "IPFS CID of payment schedule (Etzhayyim.pay() calls with TitheRouter 90/10 split). Encrypted same as bomEnvelope." },
+            "timeline": {
+              "type": "object",
+              "properties": {
+                "startISO": { "type": "string", "format": "datetime" },
+                "endISO": { "type": "string", "format": "datetime" },
+                "slackDays": { "type": "integer" }
+              }
+            },
+            "lifespanYears": { "type": "integer", "description": "Operational lifespan post-commission (default 30)" },
+            "requiresGovernance": { "type": "boolean", "description": "From proportionality-check DMN — when true, plan acceptance blocked on governance vote" },
+            "governanceProposalUri": { "type": "string", "description": "URI of the governance proposal record (when requiresGovernance=true)" },
+            "councilThirdPartyReviewCid": { "type": "string", "description": "Required when ecologyImpactScore > 30: ecologist third-party review IPFS CID" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "planDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "planCode": { "type": "string" },
+            "accepted": { "type": "boolean" },
+            "decision": { "type": "string", "enum": ["accept", "reject", "awaiting-governance", "awaiting-force-authorization", "awaiting-public-fund"] },
+            "rejectionReason": { "type": "string" },
+            "proposedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

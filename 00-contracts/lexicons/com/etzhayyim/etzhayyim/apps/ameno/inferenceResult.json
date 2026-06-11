@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ameno.inferenceResult",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Browser-side WebGPU inference result. ADR-2605111200 persistence: inserted into vertex_ameno_inferenceresult by the LangServer pod. PII-free public AT Record. Private outputs use signal:v1:{ciphertext} field encryption (Vault zero-knowledge invariant).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["modelId", "prompt", "output", "createdAt"],
+        "properties": {
+          "modelId": { "type": "string", "description": "Engine model id (gemma-4-e2b-it, gemma-4-e4b-it, baien-bitnet-2b)" },
+          "actorDid": { "type": "string" },
+          "loraAdapters": { "type": "array", "items": { "type": "string" } },
+          "prompt": { "type": "string", "maxLength": 32000 },
+          "output": { "type": "string", "maxLength": 65535, "description": "Plain or signal:v1:{ciphertext}" },
+          "promptTokens": { "type": "integer" },
+          "outputTokens": { "type": "integer" },
+          "elapsedMs": { "type": "integer" },
+          "tokensPerSec": { "type": "integer", "description": "decode tokens/sec × 1000 (integer-only)" },
+          "webgpuAdapter": { "type": "string" },
+          "ragContextUsed": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

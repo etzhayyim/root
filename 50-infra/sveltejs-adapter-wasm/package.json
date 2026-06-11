@@ -1,0 +1,26 @@
+{
+  "name": "sveltejs-adapter-wasm",
+  "version": "2.0.0",
+  "private": true,
+  "description": "SvelteKit adapter for WebAssembly (WASI 0.2) targeting wasmCloud",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "adapter",
+    "wasm",
+    "wasi",
+    "wasmcloud",
+    "ssr",
+    "ssg"
+  ],
+  "author": "etzhayyim",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etzhayyim/root.git"
+  },
+  "packageManager": "pnpm@10.18.2"
+}

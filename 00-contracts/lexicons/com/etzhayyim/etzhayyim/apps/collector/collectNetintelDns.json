@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.collector.collectNetintelDns",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "domain"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "ts": {
+              "type": "string"
+            },
+            "registrar": {
+              "type": "string"
+            },
+            "nameservers": {
+              "type": "string"
+            },
+            "dnssec": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "expirationDate": {
+              "type": "string"
+            },
+            "records": {
+              "type": "object"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

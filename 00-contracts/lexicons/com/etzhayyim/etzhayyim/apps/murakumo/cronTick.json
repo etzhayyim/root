@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.murakumo.cronTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Scheduled cron tick — invoked by BPMN contract timer BPMN (R/PT5M) per ADR-0056 + ADR-2604251801. Replaces wrangler triggers.crons.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {} }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":         {"type": "boolean"},
+            "dispatched": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

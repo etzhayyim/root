@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0051 — fuyou_purge.
+
+  7 年経過 (所得税基本通達 196-1) を超えた Tier 3 PII を hard delete し、
+  Tier 1 メタデータは status=purged に更新して audit chain を維持する。
+
+  起動方法:
+    - timer start (毎日 03:00) — Operate / Tasklist でスケジュール起動
+    - manual: dispatcher から POST /xrpc/com.etzhayyim.apps.fuyou.purge
+
+  Variables:
+    out:
+      purgedCount (int)   削除した Tier 3 row 数
+      auditRkey
+
+  Notes:
+    - generic.db.select で対象 row を取得し、generic.db.insert を
+      onConflict=replace で叩いて Tier 1 を status=purged に更新する。
+    - generic 系には db.delete primitive がまだ無い (F1 で意図的にスキップ)
+      ので、Tier 3 の hard delete は専用の generic.db.purgeFuyouPii primitive を
+      worker 側に追加する必要がある。Phase 1 では暫定的に
+      generic.db.insert(table=vertex_fuyou_declaration_pii, replace) で
+      payload を空文字に上書きする (= zeroize)。
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_fuyou_purge"
+    targetNamespace="https://etzhayyim.ai/bpmn/fuyou"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="fuyou_purge" name="扶養控除等申告書 — 7年保管期限 purge" isExecutable="true">
+
+    <!-- Two start events feed the same flow: a daily timer (cron) and a
+         plain none-start so dispatcher can invoke it manually via
+         POST /xrpc/com.etzhayyim.apps.fuyou.purge. -->
+    <bpmn:startEvent id="StartTimer" name="03:00 daily">
+      <bpmn:outgoing>Flow_T</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 3 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_T" sourceRef="StartTimer" targetRef="Task_FindExpired"/>
+
+    <bpmn:startEvent id="StartManual" name="manual purge">
+      <bpmn:outgoing>Flow_M</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_M" sourceRef="StartManual" targetRef="Task_FindExpired"/>
+
+    <!-- 1. Find expired Tier 1 rows whose Tier 3 mirror should be purged. -->
+    <bpmn:serviceTask id="Task_FindExpired" name="期限切れ申告を検索">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_fuyou_declaration&quot;" target="table"/>
+          <zeebe:input source="=&quot;status != %s AND created_at &lt; %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;purged&quot;, string(now() - duration(&quot;P2557D&quot;))]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, employee_did, employer_org_id, tax_year&quot;" target="columns"/>
+          <zeebe:input source="=200" target="limit"/>
+          <zeebe:input source="=&quot;created_at ASC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="expiredRows"/>
+          <zeebe:output source="=rowCount" target="purgedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_T</bpmn:incoming>
+      <bpmn:incoming>Flow_M</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_FindExpired" targetRef="Gate_HasRows"/>
+
+    <bpmn:exclusiveGateway id="Gate_HasRows" name="対象あり?" default="Flow_NoRows">
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasRows</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoRows</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_HasRows" sourceRef="Gate_HasRows" targetRef="Task_PurgeBatch">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=purgedCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoRows" sourceRef="Gate_HasRows" targetRef="Task_AuditNoOp"/>
+
+    <!-- 2. Purge each row (multi-instance). The worker-side
+         generic.db.purgeFuyouPii primitive issues:
+            DELETE FROM vertex_fuyou_declaration_pii WHERE vertex_id = $1;
+            UPDATE vertex_fuyou_declaration SET status='purged' WHERE vertex_id = $1;
+         atomically per row.
+
+         Until the dedicated primitive lands we fall back to
+         generic.db.insert(replace) on the Tier 1 row to mark purged
+         and rely on the daily admin DELETE for Tier 3. -->
+    <bpmn:serviceTask id="Task_PurgeBatch" name="Tier 3 を hard delete + Tier 1 を purged 化">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.purgeFuyouPii"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=expiredRows" target="rows"/>
+          <zeebe:output source="=deleted" target="deletedCount"/>
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="fallbackPrimitive" value="generic.db.insert"/>
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasRows</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_PurgeBatch" targetRef="Task_AuditPurged"/>
+
+    <!-- 3. Audit. -->
+    <bpmn:serviceTask id="Task_AuditPurged" name="audit: purged">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;fuyou.purge&quot;" target="action"/>
+          <zeebe:input source="={
+              purgedCount:  purgedCount,
+              deletedCount: deletedCount,
+              cutoff:       string(now() - duration(&quot;P2557D&quot;))
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditPurged" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoOp" name="audit: noop">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;fuyou.purge.noop&quot;" target="action"/>
+          <zeebe:input source="={
+              purgedCount:  0,
+              cutoff:       string(now() - duration(&quot;P2557D&quot;))
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoRows</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoOpEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoOpEnd" sourceRef="Task_AuditNoOp" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="完了">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_NoOpEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.isbn.list",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List books with optional language / registration group / source / PD filter.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "language": {"type": "string"},
+          "registrationGroup": {"type": "string"},
+          "source": {"type": "string"},
+          "publicDomainOnly": {"type": "boolean", "default": false},
+          "offset": {"type": "integer", "default": 0, "minimum": 0},
+          "limit": {"type": "integer", "default": 50, "minimum": 1, "maximum": 200}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "offset", "limit", "total"],
+          "properties": {
+            "items": {"type": "array", "items": {"type": "unknown"}},
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

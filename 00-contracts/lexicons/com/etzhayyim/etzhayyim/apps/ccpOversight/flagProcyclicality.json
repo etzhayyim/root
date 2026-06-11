@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ccpOversight.flagProcyclicality",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Margin procyclicality / dash for collateral (bridges nbfiStress.flagResolutionGap + liquidity-facility + stablecoin-reserves)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "exposureVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "exposureVid": {
+              "type": "string",
+              "description": "bridges recordExposure"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "margin_spike",
+                "stress_based_margin_lag",
+                "add_on_surge",
+                "concentration_margin",
+                "wrong_way_mtm",
+                "novation_breakdown",
+                "default_fund_fill",
+                "sa_cva_spike",
+                "pre_fmi_insolvent",
+                "collateral_silo",
+                "repo_leverage"
+              ]
+            },
+            "affectedLcrPct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

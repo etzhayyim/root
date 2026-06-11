@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:matsurigoto",
+  "handle": "matsurigoto.etzhayyim.com",
+  "displayName": "Matsurigoto — e-Government Execution Commons (COFOG service standard)",
+  "description": "ooyake(観測アトラス)の EXECUTION 兄弟。ooyake が行政の who/where/how を read-only でミラーするのに対し、matsurigoto は UN COFOG 機能分類をバックボーンに、公式仕様から導いた kotoba-wasm 実行可能な普遍サービス標準を定義し各国向けに調整する。etzhayyim IS a government — 神の王国(Charter §0.1)で統治機構を持つ。二つの principal: (A) :etzhayyim-sovereign(王国が信者を Council Lv7+/1 SBT=1 vote/Public Fund Safe で統治、Transparent §1.12)、(B) :nation-state-adopter(既存国家が自国の鍵で同標準を運用)。三つの構造不変条件: G1 no-operator-master-key(:server-held-authority const false; 権威は常に Council multisig か採用国家の鍵、platform key 不可、ADR-2605231525)/ G2 spec-derived-only(COFOG/ICAO 9303/eIDAS/ISO 20022/OpenCRVS/ISO 17442; proprietary GovTech は表現不能)/ G3 authority-bearing(:operated-by ∈ council|state)。R0+R1: 4 実行スライス(tax-assess=JP速算表 / civil-registry=UN CRVS / corp-registry=ISO 17442 LEI / credential-issue=ICAO 9303 MRZ)が公式仕様の検証ベクタを完全再現、WIT 契約 + kotoba Datom 永続化 + 署名権威層(verify-only)。live deploy は Council+operator gated。invariant 改正ゼロ — no-server-key/kotoba-canonical/Transparent Force を強化。",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-06T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "政",
+  "displayNameJa": "政 — 電子政府実行 commons (神の王国の統治機構 + 各国採用)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606062300"
+    ],
+    "primaryLexicon": "com.etzhayyim.matsurigoto",
+    "primarySchema": "00-contracts/schemas/egov-execution-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/matsurigoto/did.json",
+    "source": "kotoba"
+  }
+}

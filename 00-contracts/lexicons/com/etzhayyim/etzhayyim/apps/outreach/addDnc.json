@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.outreach.addDnc",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Add an email address to the Do Not Contact list. Checked before every send step in BPMN.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["email", "reason"],
+          "properties": {
+            "email": { "type": "string", "format": "email" },
+            "reason": { "type": "string", "enum": ["unsubscribe", "bounce", "complaint", "manual"], "default": "unsubscribe" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

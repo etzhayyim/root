@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.narou.generateChapter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AI-generate chapter text for an existing chapter draft",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "prompt_hint": { "type": "string" },
+            "word_count_target": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id", "word_count"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "word_count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

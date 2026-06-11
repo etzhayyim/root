@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.homeVisit",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Single 訪問診療 / 訪問看護 visit within a homecareEpisode. Specialization of Encounter (encounterClass='home'). Inner type of com.etzhayyim.encrypted.record envelope.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "episodeDid", "visitorDid", "occurredAt", "visitType"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Encounter"},
+          "encounterClass": {"type": "string", "const": "home"},
+          "patientDid": {"type": "string"},
+          "episodeDid": {"type": "string", "description": "AT URI of parent homecareEpisode"},
+          "visitorDid": {"type": "string", "description": "did:web of clinician who performed the visit"},
+          "visitType": {
+            "type": "string",
+            "enum": ["scheduled-md", "scheduled-rn", "scheduled-pt", "scheduled-ot", "scheduled-st", "scheduled-pharm", "emergency-md", "emergency-rn", "after-hours-rn", "death-confirmation"]
+          },
+          "occurredAt": {"type": "string", "format": "datetime"},
+          "endedAt": {"type": "string", "format": "datetime"},
+          "lengthMinutes": {"type": "integer"},
+          "locationGeo": {
+            "type": "object",
+            "description": "Coarse-grained geo for billing (JP 在宅医療 distance-based fees). Full address is on the patient record only.",
+            "properties": {
+              "prefectureCode": {"type": "string"},
+              "municipalityCode": {"type": "string", "description": "JIS X 0402"},
+              "distanceFromFacilityKm": {"type": "integer"}
+            }
+          },
+          "interventions": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#intervention"},
+            "description": "Drips / dressing changes / catheter exchange / oxygen titration / counselling — specific procedures performed during the visit"
+          },
+          "vitalsObservationRefs": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of Observation records recorded during this visit"},
+          "soapNoteRef": {"type": "string", "description": "AT URI of the SOAP note for this visit (1:1)"},
+          "nextVisitScheduledFor": {"type": "string", "format": "datetime"},
+          "escalation": {
+            "type": "object",
+            "description": "If the visit ended with an escalation (call MD / transfer to hospital / death confirmation)",
+            "properties": {
+              "triggered": {"type": "boolean"},
+              "type": {"type": "string", "enum": ["md-callback", "hospital-transfer", "death-confirmation", "family-meeting", "none"]},
+              "details": {"type": "string"}
+            }
+          },
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "intervention": {
+      "type": "object",
+      "required": ["code", "display"],
+      "properties": {
+        "code": {"type": "string", "description": "JP-shinryo-code or SNOMED CT procedure"},
+        "system": {"type": "string"},
+        "display": {"type": "string"},
+        "performedByDid": {"type": "string"},
+        "doseQuantity": {
+          "type": "object",
+          "properties": {
+            "valueScaled": {"type": "integer"},
+            "scale": {"type": "integer", "enum": [1, 10, 100, 1000]},
+            "unit": {"type": "string"}
+          }
+        },
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

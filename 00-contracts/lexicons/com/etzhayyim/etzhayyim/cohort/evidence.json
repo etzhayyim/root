@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cohort.evidence",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "cohortDid": {
+            "type": "string"
+          },
+          "evidenceHash": {
+            "type": "string"
+          },
+          "signalKind": {
+            "type": "string"
+          },
+          "syntheticConsentRef": {
+            "type": "string"
+          },
+          "posterior": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "judgeAgreement": {
+            "type": "boolean"
+          },
+          "tier": {
+            "type": "string",
+            "const": "tier1-hashed"
+          },
+          "observedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cohortDid",
+          "evidenceHash",
+          "signalKind",
+          "tier",
+          "observedAt"
+        ]
+      }
+    }
+  }
+}

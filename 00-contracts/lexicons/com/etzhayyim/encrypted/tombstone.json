@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.encrypted.tombstone",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tombstone for a logical record that has been rekeyed or 'deleted'. AT Protocol MST is append-only — a tombstone is the only operationally meaningful 'delete' on the substrate. It binds the prior envelope CID to either (a) a successor envelope CID (rekey), (b) a 'redacted' marker (logical delete; no successor), or (c) a 'sealed' marker (key destroyed; ciphertext intentionally orphaned). Per ADR-2605231603.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["version", "supersededCid", "reason", "tombstoneType", "tombstoneAt", "actorDid", "signature"],
+        "properties": {
+          "version": {"type": "integer", "const": 1},
+          "supersededCid": {"type": "string", "description": "CID of the previous com.etzhayyim.encrypted.record envelope being tombstoned"},
+          "supersededKeyId": {"type": "string", "description": "keyId of the previous envelope (matches keyWrap.keyId)"},
+          "supersededAtUri": {"type": "string", "description": "AT URI of the previous envelope record"},
+          "tombstoneType": {
+            "type": "string",
+            "enum": ["rekey", "redact", "sealed"],
+            "description": "rekey: a successor envelope with a fresh sym_key exists. redact: logical delete, no successor. sealed: key intentionally destroyed (e.g. revocation of all key-wraps + sender forgets the sym_key)."
+          },
+          "successorCid": {"type": "string", "description": "CID of the successor envelope (REQUIRED when tombstoneType='rekey')"},
+          "successorAtUri": {"type": "string"},
+          "reason": {
+            "type": "string",
+            "enum": [
+              "scheduled-rekey",
+              "member-removal",
+              "key-compromise",
+              "patient-request-redaction",
+              "regulator-order",
+              "data-correction",
+              "consent-revocation-flush"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["single-record", "channel-window", "group-rekey"],
+            "description": "single-record tombstones one envelope. channel-window tombstones every envelope written by `actorDid` in the inclusive time window [windowStart, windowEnd]. group-rekey tombstones every envelope whose recipient set included the removed member."
+          },
+          "windowStart": {"type": "string", "format": "datetime"},
+          "windowEnd": {"type": "string", "format": "datetime"},
+          "removedRecipientDid": {"type": "string", "description": "When scope='group-rekey'"},
+          "actorDid": {"type": "string", "description": "DID issuing the tombstone — MUST be the original sender for rekey/sealed, or a charter-authorized actor (e.g. Council) for regulator-order"},
+          "tombstoneAt": {"type": "string", "format": "datetime"},
+          "auditWebhookDids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "DIDs that should receive an com.etzhayyim.audit.event for this tombstone"
+          },
+          "signature": {
+            "type": "object",
+            "required": ["alg", "value", "keyId"],
+            "properties": {
+              "alg": {"type": "string", "const": "ed25519"},
+              "value": {"type": "string"},
+              "keyId": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

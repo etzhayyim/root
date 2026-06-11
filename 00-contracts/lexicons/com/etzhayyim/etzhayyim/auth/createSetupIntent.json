@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.createSetupIntent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a Stripe SetupIntent for Telecom tier payment method registration. Returns client secret for Stripe.js confirmSetupIntent().",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["clientSecret", "setupIntentId"],
+          "properties": {
+            "clientSecret": { "type": "string", "description": "Stripe client secret for confirmSetupIntent()" },
+            "setupIntentId": { "type": "string", "description": "Stripe SetupIntent ID" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "ServiceUnavailable", "description": "Stripe not configured" },
+        { "name": "StripeError", "description": "Stripe API call failed" }
+      ]
+    }
+  }
+}

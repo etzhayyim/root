@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.frameAttestation",
+  "description": "Motorcycle frame welding attestation (L1). Material lot + jig + weld passes + dimensional QA. Per ADR-2605261330 L1 (G1 + G3 + G13).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "materialLot": {
+            "type": "object",
+            "properties": {
+              "alloy": {"type": "string", "knownValues": ["6061-T6-Al", "5052-Al", "mild-steel-1020", "CrMo-4130"]},
+              "lotId": {"type": "string"},
+              "sourceActor": {"type": "string"},
+              "recycledContentPct": {"type": "integer"},
+              "g13MinRecycledPctR3": {"type": "integer", "const": 10},
+              "g13Compliant": {"type": "boolean"},
+              "certCid": {"type": "string"}
+            }
+          },
+          "jig": {"type": "unknown"},
+          "weldPasses": {"type": "array", "items": {"type": "unknown"}},
+          "dimensionalQa": {
+            "type": "object",
+            "properties": {
+              "wheelbaseMm": {"type": "integer"},
+              "wheelbaseTolMm": {"type": "integer"},
+              "rakeAngleDeg": {"type": "integer"},
+              "trailMm": {"type": "integer"},
+              "headstockSquareMm": {"type": "integer"},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "g13RecycledContentCompliant": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "materialLot", "dimensionalQa", "attestingRobots"]
+      }
+    }
+  }
+}

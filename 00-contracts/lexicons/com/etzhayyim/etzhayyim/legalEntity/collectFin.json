@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectFin",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Finnish corporate data from PRH/YTJ (Business Information System). Business ID (Y-tunnus) as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "companyForm": { "type": "string", "description": "Filter by form (OY, OYJ, KY, AY, etc.)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1b7742bcf45a",
+  "entityId": "ent-1b7742bcf45a",
+  "canonicalName": "махмуд алимжанович рахимов",
+  "aliases": [
+    "махмуд алимжанович рахимов"
+  ]
+}

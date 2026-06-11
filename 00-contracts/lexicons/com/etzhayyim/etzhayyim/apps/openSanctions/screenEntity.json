@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSanctions.screenEntity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Screen a candidate entity against sanctions lists. FEEL decides: block (score >= 0.9), manual-review (>= 0.5), pass. Starts BPMN open_sanctions_screen_entity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["callerOrgId","candidateName","matchScore","screenedAt"],
+          "properties": {
+            "callerOrgId":       { "type": "string" },
+            "candidateName":     { "type": "string" },
+            "candidateCountry":  { "type": "string" },
+            "candidateLei":      { "type": "string" },
+            "bestMatchName":     { "type": "string" },
+            "bestMatchProgram":  { "type": "string" },
+            "matchScore":        { "type": "number", "minimum": 0, "maximum": 1, "description": "0-1 normalized name / ID match confidence computed upstream" },
+            "screenedAt":        { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "decision": { "type": "string", "enum": ["block","manual-review","pass"] },
+            "requireManualReview": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

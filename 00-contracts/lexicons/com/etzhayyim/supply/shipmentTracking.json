@@ -1,0 +1,115 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.supply.shipmentTracking",
+  "description": "Shipment tracking record emitted by the yoro-supply shipment Pregel cell. Captures the carrier reference, ETA, route waypoints, and any customs documents (G2 IPFS-pinned). One record per shipment leg (origin-to-port / port-to-destination-port / port-to-site). Multiple legs for international shipments. Per ADR-2605250850 + gates G2 (customs docs IPFS-pinned), G5 (Charter Rider §2(g) — no flag-of-convenience carriers without third-party audit).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "shipmentId",
+          "purchaseOrderId",
+          "legIndex",
+          "originCoords",
+          "destinationCoords",
+          "carrierReference",
+          "carrierTrackingNumber",
+          "departedAt",
+          "estimatedArrivalAt",
+          "shipmentCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "shipmentId": {
+            "type": "string",
+            "description": "Stable shipment-leg identifier; usually `<purchaseOrderId>:leg-<n>`."
+          },
+          "purchaseOrderId": {
+            "type": "string",
+            "description": "Parent purchaseOrder this shipment fulfills."
+          },
+          "legIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Zero-based shipment leg index within the parent PO."
+          },
+          "originCoords": {
+            "type": "ref",
+            "ref": "#geoCoords"
+          },
+          "destinationCoords": {
+            "type": "ref",
+            "ref": "#geoCoords"
+          },
+          "carrierReference": {
+            "type": "string",
+            "description": "Opaque jurisdiction-recognized carrier ID (DID or registered company ID)."
+          },
+          "carrierTrackingNumber": {
+            "type": "string",
+            "description": "Carrier-issued tracking number for the leg."
+          },
+          "modeOfTransport": {
+            "type": "string",
+            "knownValues": [
+              "truck",
+              "rail",
+              "sea",
+              "air",
+              "intermodal"
+            ]
+          },
+          "departedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "estimatedArrivalAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "actualArrivalAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Populated when the leg completes."
+          },
+          "customsDocumentIpfsCids": {
+            "type": "array",
+            "items": {"type": "string", "format": "cid"},
+            "description": "G2: IPFS CIDs of customs documents for cross-border legs (commercial invoice, packing list, certificate of origin, bill of lading)."
+          },
+          "carrierAuditCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G5: IPFS CID of a third-party carrier audit if the carrier is flag-of-convenience or otherwise requires Charter Rider §2(g) verification."
+          },
+          "shipmentCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "geoCoords": {
+      "type": "object",
+      "required": ["latE7", "lonE7"],
+      "properties": {
+        "latE7": {
+          "type": "integer",
+          "minimum": -900000000,
+          "maximum": 900000000
+        },
+        "lonE7": {
+          "type": "integer",
+          "minimum": -1800000000,
+          "maximum": 1800000000
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sendaiDrr.flagPolicyCoherence",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sendai-Paris-SDG coherence policy breach (bridges unfccc-gst + sdg-reporting + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "progressVid",
+            "coherenceIssue",
+            "flaggedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "progressVid": {
+              "type": "string",
+              "description": "bridges recordIndicatorProgress"
+            },
+            "coherenceIssue": {
+              "type": "string",
+              "enum": [
+                "sendai_paris_gap",
+                "drr_development",
+                "adaptation_drr",
+                "sdg_drr",
+                "budget_fragmentation"
+              ]
+            },
+            "recommendationSummary": {
+              "type": "string"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

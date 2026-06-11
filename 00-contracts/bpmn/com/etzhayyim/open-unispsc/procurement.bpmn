@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_unispsc_procurement"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-unispsc"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_unispsc_procurement" name="UNSPSC 調達" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+
+    <!--
+      totalAmount = quantity * unitPrice
+      approvalTier:
+        enterprise : totalAmount >= 1e6 OR dangerousGoods = true
+        department : totalAmount >= 50000
+        routine    : < 50000
+      requireCab = enterprise
+    -->
+    <bpmn:serviceTask id="Task_Classify" name="tier 分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=quantity * unitPrice" target="totalAmount"/>
+          <zeebe:output source="=if quantity * unitPrice &gt;= 1000000 or dangerousGoods = true then &quot;enterprise&quot;
+                                else if quantity * unitPrice &gt;= 50000 then &quot;department&quot;
+                                else &quot;routine&quot;" target="approvalTier"/>
+          <zeebe:output source="=quantity * unitPrice &gt;= 1000000 or dangerousGoods = true" target="requireCab"/>
+          <zeebe:output source="=&quot;did:web:unispsc.etzhayyim.com:seg&quot; + substring(string(commodityCode),1,2) + &quot;:commodity:c&quot; + string(commodityCode)" target="commodityDst"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="procurement 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_unispsc_procurement&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, buyer_org_id: buyerOrgId,
+              commodity_code: commodityCode, quantity: quantity, unit_price: unitPrice,
+              currency: currency, total_amount: totalAmount,
+              dangerous_goods: dangerousGoods, sanctions_check: sanctionsCheck,
+              approval_tier: approvalTier, require_cab: requireCab,
+              status: &quot;submitted&quot;, submitted_at: submittedAt,
+              created_at: string(now()), owner_did: callerDid,
+              sensitivity_ord: 2, org_id: buyerOrgId,
+              user_id: callerDid, actor_id: &quot;sys.bpmn.open-unispsc&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Edge</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Edge" sourceRef="Task_Save" targetRef="Task_Edge"/>
+
+    <bpmn:serviceTask id="Task_Edge" name="procurement → commodity edge">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_unispsc_procurement_commodity&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:commodity&quot;,
+              src_vid: vertexId, dst_vid: commodityDst, role: &quot;for_commodity&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 2,
+              org_id: buyerOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-unispsc&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Edge</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Edge" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_AutoApprove">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Cab</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AutoApprove</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Cab" sourceRef="Gate" targetRef="Task_AuditCab">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireCab = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AutoApprove" sourceRef="Gate" targetRef="Task_AuditAuto"/>
+
+    <bpmn:serviceTask id="Task_AuditCab" name="audit procurement.cabRequest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openUnispsc.procurement.cabRequest&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, totalAmount: totalAmount, currency: currency, commodityCode: commodityCode, approvalTier: approvalTier}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Cab</bpmn:incoming><bpmn:outgoing>Flow_EC</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EC" sourceRef="Task_AuditCab" targetRef="End_C"/>
+
+    <bpmn:serviceTask id="Task_AuditAuto" name="audit procurement.autoApprove">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openUnispsc.procurement.autoApprove&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, totalAmount: totalAmount, commodityCode: commodityCode, approvalTier: approvalTier}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AutoApprove</bpmn:incoming><bpmn:outgoing>Flow_EA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EA" sourceRef="Task_AuditAuto" targetRef="End_A"/>
+
+    <bpmn:endEvent id="End_A"><bpmn:incoming>Flow_EA</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_C"><bpmn:incoming>Flow_EC</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

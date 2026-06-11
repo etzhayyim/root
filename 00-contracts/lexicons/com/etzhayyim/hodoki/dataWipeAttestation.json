@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.dataWipeAttestation",
+  "description": "CONSTITUTIONAL FIRST: G8 ECU + infotainment + telematics cryptographic data destruction attestation. MANDATORY before any vehicle disassembly. Cryptographic wipe + physical chip-shred fallback. §2(c) anti-surveillance operationalized for consumer vehicles (parallel to makura G14 + N9 for pillows). Per ADR-2605261215 G8.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "ecuWipes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ecu": {"type": "string"},
+                "method": {"type": "string", "knownValues": ["factory-reset-api", "cryptographic-destruction", "physical-chip-shred"]},
+                "verified": {"type": "boolean"},
+                "shredCertCid": {"type": "string"}
+              },
+              "required": ["ecu", "method", "verified"]
+            }
+          },
+          "g8Compliant": {"type": "boolean", "const": true},
+          "witnessQuorumCount": {"type": "integer", "minimum": 2},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "ecuWipes", "g8Compliant", "witnessQuorumCount", "attestingRobots"]
+      }
+    }
+  }
+}

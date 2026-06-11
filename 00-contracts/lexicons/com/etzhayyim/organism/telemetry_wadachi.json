@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.organism.telemetryWadachi",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A telemetry observation for a wadachi, a Tier-B autonomous mobility organism.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "actorDid",
+          "vehicleSerial",
+          "landsParcelCid",
+          "pose",
+          "batterySocPct",
+          "mileageKm",
+          "runtimeHours",
+          "faultCodes",
+          "observedAt",
+          "provenanceHash",
+          "internal_only"
+        ],
+        "properties": {
+          "actorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "The DID of the embodied organism."
+          },
+          "vehicleSerial": {
+            "type": "string",
+            "description": "The serial number of the vehicle, e.g., 'WAD-001234'."
+          },
+          "landsParcelCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "The CID of the LANDS.md parcel this observation is bound to."
+          },
+          "pose": {
+            "type": "object",
+            "properties": {
+              "lat": { "type": "integer", "description": "Latitude in microdegrees" },
+              "lon": { "type": "integer", "description": "Longitude in microdegrees" },
+              "headingDeg": { "type": "integer", "description": "Heading in degrees * 100" },
+              "speedMps": { "type": "integer", "description": "Speed in cm/s" }
+            },
+            "required": ["lat", "lon", "headingDeg", "speedMps"]
+          },
+          "batterySocPct": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "State of charge of the battery in basis points (0-10000)."
+          },
+          "mileageKm": {
+            "type": "integer",
+            "description": "Total mileage in meters."
+          },
+          "runtimeHours": {
+            "type": "integer",
+            "description": "Total runtime in seconds."
+          },
+          "faultCodes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "A list of active fault codes."
+          },
+          "observedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "The timestamp of the observation."
+          },
+          "provenanceHash": {
+            "type": "string",
+            "description": "The hash of the E memory L4 chain head for provenance."
+          },
+          "internal_only": {
+            "type": "boolean",
+            "description": "If true, this telemetry is for internal use and subject to Tier-B coverage. Typically false."
+          }
+        }
+      }
+    }
+  }
+}

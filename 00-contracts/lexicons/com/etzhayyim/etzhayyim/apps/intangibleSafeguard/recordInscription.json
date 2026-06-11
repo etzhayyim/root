@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.intangibleSafeguard.recordInscription",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Intangible cultural heritage inscription (UNESCO 2003 Convention — bridges unescoInDanger.flagDegradationDriver + cultural-heritage + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "inscriptionId",
+            "elementName",
+            "listKind",
+            "domain",
+            "countriesIso3",
+            "inscribedAt"
+          ],
+          "properties": {
+            "inscriptionId": {
+              "type": "string"
+            },
+            "elementName": {
+              "type": "string"
+            },
+            "listKind": {
+              "type": "string",
+              "enum": [
+                "representative_list",
+                "urgent_safeguarding",
+                "register_good_practice",
+                "multi_national_serial"
+              ]
+            },
+            "domain": {
+              "type": "string",
+              "enum": [
+                "oral_tradition",
+                "performing_arts",
+                "social_practices",
+                "knowledge_universe",
+                "craftsmanship",
+                "sports_rituals",
+                "medicinal_knowledge",
+                "linguistic"
+              ]
+            },
+            "countriesIso3": {
+              "type": "string"
+            },
+            "degradationVid": {
+              "type": "string",
+              "description": "bridges unescoInDanger.flagDegradationDriver"
+            },
+            "inscribedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a321e86d5dc0",
+  "entityId": "ent-a321e86d5dc0",
+  "canonicalName": "limited liability company river park",
+  "aliases": [
+    "limited liability company river park"
+  ]
+}

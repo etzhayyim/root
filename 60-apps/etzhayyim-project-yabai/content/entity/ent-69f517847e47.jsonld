@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-69f517847e47",
+  "entityId": "ent-69f517847e47",
+  "canonicalName": "chunpeng su",
+  "aliases": [
+    "chunpeng su"
+  ]
+}

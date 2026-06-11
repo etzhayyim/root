@@ -1,0 +1,112 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "fuyou-amend-v1",
+  "version": 1,
+  "title": "扶養控除等異動申告 (delta only)",
+  "regulatoryRef": { "law": "所得税法", "article": "§194" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "amendmentMeta",
+      "type": "fieldset",
+      "label": "異動の概要",
+      "components": [
+        { "key": "amendmentDate",   "label": "異動年月日", "type": "datepicker", "required": true },
+        { "key": "amendmentReason", "label": "異動事由",   "type": "select",     "required": true,
+          "options": [
+            { "value": "marriage",     "label": "婚姻" },
+            { "value": "divorce",      "label": "離婚" },
+            { "value": "birth",        "label": "出生" },
+            { "value": "death",        "label": "死亡" },
+            { "value": "incomeChange", "label": "扶養親族の所得超過/減少" },
+            { "value": "statusChange", "label": "障害認定 / 同居・別居変更 / その他認定変更" }
+          ]
+        },
+        { "key": "amendmentDescription", "label": "詳細",
+          "type": "textarea", "validate": { "maxLength": 1000 } }
+      ]
+    },
+    {
+      "key": "spouseChange",
+      "type": "fieldset",
+      "label": "配偶者の追加/削除/変更",
+      "x-encryptedSection": "spousePayload",
+      "conditional": "=amendmentMeta.amendmentReason in ('marriage', 'divorce', 'death', 'incomeChange', 'statusChange')",
+      "components": [
+        { "key": "operation", "label": "操作", "type": "select",
+          "options": [
+            { "value": "add",    "label": "追加" },
+            { "value": "remove", "label": "削除" },
+            { "value": "update", "label": "変更" }
+          ]
+        },
+        { "key": "fullName", "label": "氏名", "type": "textfield" },
+        { "key": "myNumber", "label": "個人番号", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "estimatedIncomeJpy", "label": "本年中の所得見積額 (円)", "type": "number" }
+      ]
+    },
+    {
+      "key": "dependentChanges",
+      "type": "datagrid",
+      "label": "扶養親族の追加/削除/変更",
+      "x-encryptedSection": "dependentsPayload",
+      "components": [
+        { "key": "operation", "label": "操作", "type": "select", "required": true,
+          "options": [
+            { "value": "add",    "label": "追加" },
+            { "value": "remove", "label": "削除" },
+            { "value": "update", "label": "変更" }
+          ]
+        },
+        { "key": "fullName", "label": "氏名", "type": "textfield", "required": true },
+        { "key": "myNumber", "label": "個人番号", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "relation", "label": "続柄", "type": "select",
+          "options": [
+            { "value": "child",       "label": "子" },
+            { "value": "parent",      "label": "父母" },
+            { "value": "grandparent", "label": "祖父母" },
+            { "value": "sibling",     "label": "兄弟姉妹" },
+            { "value": "other",       "label": "その他" }
+          ]
+        },
+        { "key": "birthDate",          "label": "生年月日",   "type": "datepicker" },
+        { "key": "estimatedIncomeJpy", "label": "本年中の所得見積額 (円)", "type": "number" },
+        { "key": "category", "label": "控除区分", "type": "select",
+          "options": [
+            { "value": "general",        "label": "一般 (38 万)" },
+            { "value": "specific",       "label": "特定扶養 (63 万)" },
+            { "value": "elderly",        "label": "老人扶養 (48 万)" },
+            { "value": "elderlyCohabit", "label": "同居老親 (58 万)" },
+            { "value": "minor",          "label": "16 歳未満 (所得税控除外)" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "specialStatusChange",
+      "type": "fieldset",
+      "label": "申告者本人の特別控除変更",
+      "x-encryptedSection": "specialStatusPayload",
+      "conditional": "=amendmentMeta.amendmentReason = 'statusChange'",
+      "components": [
+        { "key": "isDisabled",        "label": "障害者",     "type": "checkbox" },
+        { "key": "isSpecialDisabled", "label": "特別障害者", "type": "checkbox" },
+        { "key": "isWidow",           "label": "寡婦",       "type": "checkbox" },
+        { "key": "isSingleParent",    "label": "ひとり親",   "type": "checkbox" }
+      ]
+    },
+    {
+      "key": "declaration",
+      "type": "fieldset",
+      "label": "誓約",
+      "components": [
+        { "key": "consentTier3",  "type": "checkbox", "required": true,
+          "label": "上記異動内容を雇用主が源泉徴収再計算目的で 7 年間保管することに同意します" },
+        { "key": "signatureDate", "type": "datepicker", "required": true, "label": "署名日" }
+      ]
+    }
+  ]
+}

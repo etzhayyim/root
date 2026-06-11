@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.taxTransparency.flagDisclosureGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Non-compliance / disclosure gap finding (GFTAx / Common Transmission System)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "jurisdictionIso3",
+            "gapKind",
+            "flaggedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "exchangeVid": {
+              "type": "string",
+              "description": "bridges recordAeoiExchange"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "late_filing",
+                "missing_jurisdictions",
+                "data_quality",
+                "mandatory_disclosure_rules",
+                "beneficial_owner"
+              ]
+            },
+            "globalForumRating": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "largely_compliant",
+                "partially_compliant",
+                "non_compliant"
+              ]
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "elevated",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

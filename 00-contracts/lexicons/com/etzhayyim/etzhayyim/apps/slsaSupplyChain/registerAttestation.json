@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.slsaSupplyChain.registerAttestation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SLSA / in-toto / sigstore provenance attestation (bridges oss-vuln + ai-supply-chain + cyber-compliance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "attestationId",
+            "builderId",
+            "artifactDigest",
+            "predicateType",
+            "slsaLevel",
+            "generatedAt"
+          ],
+          "properties": {
+            "attestationId": {
+              "type": "string"
+            },
+            "builderId": {
+              "type": "string"
+            },
+            "artifactDigest": {
+              "type": "string",
+              "description": "sha256:..."
+            },
+            "predicateType": {
+              "type": "string",
+              "enum": [
+                "slsa_provenance_v1",
+                "in_toto_spdx",
+                "in_toto_cyclonedx",
+                "vsa",
+                "vcs_compromise"
+              ]
+            },
+            "slsaLevel": {
+              "type": "integer",
+              "description": "1-4"
+            },
+            "sigstoreBundle": {
+              "type": "boolean"
+            },
+            "publisherLei": {
+              "type": "string"
+            },
+            "generatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "trustTier": {
+              "type": "string",
+              "enum": [
+                "documented",
+                "reproducible",
+                "hardened",
+                "hermetic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

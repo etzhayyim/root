@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.bulkRefreshFerryRoutes",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger the maps-bulk-ingest-ferry-routes K8s pod to (re)ingest OSM Overpass relation[route=ferry] across 7 continent bboxes + ferry_terminal / harbour nodes into vertex_spatial as SeaRoute / Port. Usually fired by the timer-start BPMN of the same name (R/P7D). ODbL.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "continents": {
+              "type": "string",
+              "description": "Comma-separated continent slugs (asia,europe,africa,na,sa,oceania,jp) or ALL. Default = ALL."
+            },
+            "overpassTimeoutSec": { "type": "integer" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "accepted":  { "type": "boolean" },
+            "startedAt": { "type": "string" },
+            "podStatus": { "type": "integer" }
+          },
+          "required": ["accepted"]
+        }
+      }
+    }
+  }
+}

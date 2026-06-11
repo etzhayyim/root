@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordSeppMessage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G SEPP — record an N32-c (control) or N32-f (forwarding) message exchange. Payload hash + security verification result only; payload body never persisted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["contextId", "direction", "n32Channel", "payloadHash", "securityResult", "observedAt"],
+          "properties": {
+            "messageId": { "type": "string" },
+            "contextId": { "type": "string" },
+            "direction": { "type": "string", "enum": ["inbound", "outbound"] },
+            "n32Channel": { "type": "string", "enum": ["n32c", "n32f"] },
+            "modificationPolicyApplied": { "type": "boolean" },
+            "payloadHash": { "type": "string" },
+            "payloadSize": { "type": "integer" },
+            "securityResult": { "type": "string", "enum": ["verified", "modification_detected", "decryption_failed", "signature_invalid", "timeout"] },
+            "latencyMs": { "type": "number" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "messageId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

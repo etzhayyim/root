@@ -1,0 +1,3381 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "animeka XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://animeka.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.animeka.addCut": {
+      "post": {
+        "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
+        "operationId": "com.etzhayyim.animeka.addCut",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sceneId": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "episodeId": {
+                    "type": "string",
+                    "description": "Optional; derived from scene if omitted.",
+                    "format": "at-uri"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "cutNum": {
+                    "type": "integer",
+                    "description": "Auto-incremented within the episode if omitted."
+                  },
+                  "durationFrames": {
+                    "type": "integer"
+                  },
+                  "fps": {
+                    "type": "integer"
+                  },
+                  "cameraMode": {
+                    "type": "string",
+                    "enum": [
+                      "still",
+                      "pan",
+                      "tu",
+                      "tb",
+                      "follow",
+                      "handheld",
+                      "crane",
+                      "dolly"
+                    ]
+                  },
+                  "cameraNote": {
+                    "type": "string"
+                  },
+                  "charactersAppearing": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "dialogueSummary": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "sceneId",
+                  "durationFrames"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    },
+                    "did": {
+                      "type": "string",
+                      "description": "Path-based cut DID."
+                    },
+                    "cutNum": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.addEpisode": {
+      "post": {
+        "summary": "Create an episode record (com.etzhayyim.apps.animeka.episode) and bootstrap its project (convoId). The episode inherits work.fps unless overridden. Emits social announcement via derive rule on status transition.",
+        "operationId": "com.etzhayyim.animeka.addEpisode",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workId": {
+                    "type": "string",
+                    "description": "AT URI of parent work.",
+                    "format": "at-uri"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Optional rkey."
+                  },
+                  "episodeNum": {
+                    "type": "integer"
+                  },
+                  "titleJP": {
+                    "type": "string"
+                  },
+                  "titleEN": {
+                    "type": "string"
+                  },
+                  "durationSec": {
+                    "type": "integer"
+                  },
+                  "fps": {
+                    "type": "integer"
+                  },
+                  "airDate": {
+                    "type": "string",
+                    "format": "datetime"
+                  },
+                  "thumbCid": {
+                    "type": "string",
+                    "format": "cid"
+                  },
+                  "teamDids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "workId",
+                  "episodeNum",
+                  "titleJP"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    },
+                    "convoId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uri",
+                    "cid",
+                    "convoId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.autoTrace": {
+      "post": {
+        "summary": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces com.etzhayyim.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
+        "operationId": "com.etzhayyim.animeka.autoTrace",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "frameUri": {
+                    "type": "string",
+                    "description": "keyframe or inbetween AT URI.",
+                    "format": "at-uri"
+                  },
+                  "colorModelUris": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "at-uri"
+                    }
+                  },
+                  "lightingCondition": {
+                    "type": "string",
+                    "enum": [
+                      "normal",
+                      "dusk",
+                      "night",
+                      "monoBlue",
+                      "monoRed",
+                      "backlight",
+                      "underwater",
+                      "fire"
+                    ]
+                  }
+                },
+                "required": [
+                  "frameUri"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    },
+                    "elapsedMs": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "uri"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.breakdownScene": {
+      "post": {
+        "summary": "Stage 2/12 — Break a scene into 3-8 cuts via Qwen 7B (mid tier). Persists a sceneBreakdown plan row (cuts array in description). UI/caller fanouts addCut per entry. Backed by BPMN animeka_breakdown_scene (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.breakdownScene",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sceneId": {
+                    "type": "string"
+                  },
+                  "sceneSummary": {
+                    "type": "string"
+                  },
+                  "fps": {
+                    "type": "integer",
+                    "default": 24
+                  }
+                },
+                "required": [
+                  "sceneId",
+                  "sceneSummary"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plan": {},
+                    "inserted": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.chat": {
+      "post": {
+        "summary": "Send a chat message to one of the 12 animeka actors (or broadcast to director when actorSlug omitted). Writes the user turn + the actor reply as com.etzhayyim.apps.animeka.chatMessage records scoped to the episode convoId, and returns the reply synchronously for UI rendering.",
+        "operationId": "com.etzhayyim.animeka.chat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "actorSlug": {
+                    "type": "string",
+                    "description": "One of: director, screenwriter, storyboarder, layout, keyAnimator, inbetweener, colorDesigner, finisher, bgArtist, compositor, soundDesigner, editor. Omit for broadcast (director)."
+                  },
+                  "episodeId": {
+                    "type": "string",
+                    "description": "Episode rkey; defaults to 'latest'."
+                  },
+                  "convoId": {
+                    "type": "string",
+                    "description": "Optional: project convoId override. Defaults to episode convoId lookup or the slug itself."
+                  }
+                },
+                "required": [
+                  "message"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reply": {
+                      "type": "string"
+                    },
+                    "sender": {
+                      "type": "string",
+                      "description": "Display name of the responding actor."
+                    },
+                    "actorSlug": {
+                      "type": "string"
+                    },
+                    "actorDid": {
+                      "type": "string"
+                    },
+                    "userMsgUri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "replyMsgUri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "elapsedMs": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "reply",
+                    "sender"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.createWork": {
+      "post": {
+        "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
+        "operationId": "com.etzhayyim.animeka.createWork",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Optional rkey; server-generated if omitted."
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "titleEN": {
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "genre": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "planning",
+                      "production",
+                      "airing",
+                      "completed",
+                      "archived"
+                    ]
+                  },
+                  "synopsis": {
+                    "type": "string"
+                  },
+                  "episodeCount": {
+                    "type": "integer"
+                  },
+                  "fps": {
+                    "type": "integer"
+                  },
+                  "resolution": {
+                    "type": "string"
+                  },
+                  "coverCid": {
+                    "type": "string",
+                    "format": "cid"
+                  },
+                  "coverAlt": {
+                    "type": "string"
+                  },
+                  "trailerUri": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "studioName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string",
+                      "description": "Registered path-based work DID."
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.designColorModel": {
+      "post": {
+        "summary": "Stage 7/12 — Design a color model (palette + character color chart) for a character. Typically invoked once per character. Backed by BPMN animeka_design_color_model (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.designColorModel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "characterId": {
+                    "type": "string"
+                  },
+                  "characterDescription": {
+                    "type": "string"
+                  },
+                  "referenceCid": {
+                    "type": "string",
+                    "format": "cid"
+                  }
+                },
+                "required": [
+                  "characterId",
+                  "characterDescription"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    },
+                    "palette": {}
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateBackground": {
+      "post": {
+        "summary": "Stage 9/12 — Generate a painterly anime background (FLUX.1-dev, 1920x1080). Derive rule fires on layout.status=approved in parallel with keyframe gen. Backed by BPMN animeka_generate_background (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateBackground",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string"
+                  },
+                  "layoutUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "timeOfDay": {
+                    "type": "string"
+                  },
+                  "lightingMood": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "layoutUri",
+                  "location",
+                  "timeOfDay",
+                  "lightingMood"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    },
+                    "bgPrompt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateInbetween": {
+      "post": {
+        "summary": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates com.etzhayyim.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
+        "operationId": "com.etzhayyim.animeka.generateInbetween",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prevKeyUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "nextKeyUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "description": "Number of in-between frames to generate."
+                  },
+                  "easing": {
+                    "type": "string",
+                    "description": "Temporal interpolation curve.",
+                    "enum": [
+                      "linear",
+                      "easeIn",
+                      "easeOut",
+                      "easeInOut",
+                      "anticipation"
+                    ]
+                  },
+                  "videoBackend": {
+                    "type": "string",
+                    "description": "Video generation backend on the RunPod GPU pod (ADR-2604231328). Default seedance2 — ByteDance Seedance 2 i2v retains character identity across long interpolations better than WAN 5B.",
+                    "enum": [
+                      "seedance2",
+                      "wan5b",
+                      "animatediff",
+                      "svd"
+                    ],
+                    "default": "seedance2"
+                  }
+                },
+                "required": [
+                  "prevKeyUri",
+                  "nextKeyUri",
+                  "count"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uris": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "at-uri"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "elapsedMs": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "uris"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateKeyframe": {
+      "post": {
+        "summary": "Stage 5/12 — Generate a single anime keyframe (Animagine XL + ControlNet-pose + IPAdapter character ref). Caller fanouts per key pose. Backed by BPMN animeka_generate_keyframe (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateKeyframe",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string"
+                  },
+                  "layoutUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "frameNum": {
+                    "type": "integer"
+                  },
+                  "poseDescription": {
+                    "type": "string"
+                  },
+                  "characterRefCid": {
+                    "type": "string",
+                    "format": "cid"
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "layoutUri",
+                  "frameNum",
+                  "poseDescription"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    },
+                    "renderMs": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateLayout": {
+      "post": {
+        "summary": "Stage 4/12 — Generate a layout paper from an approved storyboard (ControlNet-depth + Animagine 1024x1024). HITL: produces status=draft, director approves downstream. Backed by BPMN animeka_generate_layout (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateLayout",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string"
+                  },
+                  "storyboardUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "cutSummary": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "storyboardUri",
+                  "cutSummary"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    },
+                    "layoutPlan": {},
+                    "renderMs": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateScript": {
+      "post": {
+        "summary": "Stage 1/12 — Draft an episode script with Claude Sonnet 4.5 (deep tier), structure scenes via Qwen 7B (mid tier), and persist a script row. Backed by BPMN animeka_generate_script (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateScript",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "episodeId": {
+                    "type": "string"
+                  },
+                  "episodeTitle": {
+                    "type": "string"
+                  },
+                  "synopsis": {
+                    "type": "string"
+                  },
+                  "targetSceneCount": {
+                    "type": "integer",
+                    "default": 10
+                  }
+                },
+                "required": [
+                  "episodeId",
+                  "episodeTitle",
+                  "synopsis"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "scriptVertexId": {
+                      "type": "string"
+                    },
+                    "draftModel": {
+                      "type": "string"
+                    },
+                    "inserted": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateSoundCue": {
+      "post": {
+        "summary": "Stage 11/12 — Generate one sound cue (dialogue via Style-Bert-VITS2 JP / SFX via Stable Audio Open / BGM via MusicGen medium). Caller fanouts per cue. Backed by BPMN animeka_generate_sound_cue (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateSoundCue",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string"
+                  },
+                  "trackType": {
+                    "type": "string",
+                    "enum": [
+                      "dialogue",
+                      "sfx",
+                      "bgm"
+                    ]
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Dialogue text (trackType=dialogue). Empty for sfx/bgm."
+                  },
+                  "voiceOrPrompt": {
+                    "type": "string",
+                    "description": "Voice name for dialogue; prompt for sfx/bgm."
+                  },
+                  "durationSec": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "trackType",
+                  "voiceOrPrompt",
+                  "durationSec"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.generateStoryboard": {
+      "post": {
+        "summary": "Stage 3/12 — Generate one storyboard candidate image (Animagine XL 512x512). Caller invokes 3 times (candidateNum=1,2,3); director picks 1 via status=approved gate. Backed by BPMN animeka_generate_storyboard (ADR-2604231328).",
+        "operationId": "com.etzhayyim.animeka.generateStoryboard",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string"
+                  },
+                  "cutSummary": {
+                    "type": "string"
+                  },
+                  "candidateNum": {
+                    "type": "integer"
+                  },
+                  "characters": {
+                    "type": "string",
+                    "description": "Comma-separated character names."
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "cutSummary",
+                  "candidateNum"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blobCid": {
+                      "type": "string"
+                    },
+                    "visualPrompt": {
+                      "type": "string"
+                    },
+                    "renderMs": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.getCut": {
+      "get": {
+        "summary": "Get a cut with its full layer tree (storyboard, layout, keyframes, inbetweens, colorTrace, background, composite, soundCue, retakes). Drives the Cut Detail view.",
+        "operationId": "com.etzhayyim.animeka.getCut",
+        "parameters": [
+          {
+            "name": "cutId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cut": {},
+                    "storyboards": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "layouts": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "keyframes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "inbetweens": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "colorTraces": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "backgrounds": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "composites": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "soundCues": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "retakes": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.health": {
+      "post": {
+        "summary": "Health check. Returns app identity + timestamp.",
+        "operationId": "com.etzhayyim.animeka.health",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "agent": {
+                      "type": "string"
+                    },
+                    "nanoid": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "ts": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.listCuts": {
+      "get": {
+        "summary": "List cuts. Powers the Pipeline Board (episode-scoped) and the flat Cuts browser (cross-episode when only workId is given).",
+        "operationId": "com.etzhayyim.animeka.listCuts",
+        "parameters": [
+          {
+            "name": "episodeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sceneId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "script",
+                "storyboard",
+                "layout",
+                "keyAnim",
+                "inbetween",
+                "colorDesign",
+                "finish",
+                "background",
+                "composite",
+                "edit",
+                "sound",
+                "delivery"
+              ]
+            }
+          },
+          {
+            "name": "stageStatus",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "none",
+                "pending",
+                "in_progress",
+                "review",
+                "approved",
+                "retake"
+              ]
+            }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "normal",
+                "high",
+                "retake"
+              ]
+            }
+          },
+          {
+            "name": "assigneeDid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "cutNum": {
+                            "type": "integer"
+                          },
+                          "sceneNum": {
+                            "type": "integer"
+                          },
+                          "durationFrames": {
+                            "type": "integer"
+                          },
+                          "fps": {
+                            "type": "integer"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "dialogueSummary": {
+                            "type": "string"
+                          },
+                          "stageStatus": {
+                            "type": "object",
+                            "description": "Map of 12 stages to status."
+                          },
+                          "assignees": {
+                            "type": "object"
+                          },
+                          "thumbCid": {
+                            "type": "string",
+                            "format": "cid"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.listEpisodes": {
+      "get": {
+        "summary": "List episodes of a work. Uses edge_contains graph traversal from work.",
+        "operationId": "com.etzhayyim.animeka.listEpisodes",
+        "parameters": [
+          {
+            "name": "workId",
+            "in": "query",
+            "required": true,
+            "description": "Work rkey or at-uri.",
+            "schema": {
+              "type": "string",
+              "description": "Work rkey or at-uri."
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "episodeNum": {
+                            "type": "integer"
+                          },
+                          "titleJP": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "cutCount": {
+                            "type": "integer"
+                          },
+                          "progress": {
+                            "type": "object",
+                            "description": "Per-stage completion ratio [0,1].",
+                            "properties": {
+                              "storyboard": {
+                                "type": "number"
+                              },
+                              "layout": {
+                                "type": "number"
+                              },
+                              "keyAnim": {
+                                "type": "number"
+                              },
+                              "inbetween": {
+                                "type": "number"
+                              },
+                              "finish": {
+                                "type": "number"
+                              },
+                              "background": {
+                                "type": "number"
+                              },
+                              "composite": {
+                                "type": "number"
+                              },
+                              "sound": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "airDate": {
+                            "type": "string",
+                            "format": "datetime"
+                          },
+                          "thumbCid": {
+                            "type": "string",
+                            "format": "cid"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.listRetakes": {
+      "get": {
+        "summary": "List retakes. Powers the Review Room queue and per-cut retake panel. Default filter is status='open'.",
+        "operationId": "com.etzhayyim.animeka.listRetakes",
+        "parameters": [
+          {
+            "name": "episodeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cutId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "open",
+                "acknowledged",
+                "inProgress",
+                "resolved",
+                "wontFix"
+              ]
+            }
+          },
+          {
+            "name": "assignee",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "targetUri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "cutUri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "stage": {
+                            "type": "string"
+                          },
+                          "severity": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "comment": {
+                            "type": "string"
+                          },
+                          "timecodeFrame": {
+                            "type": "integer"
+                          },
+                          "author": {
+                            "type": "string"
+                          },
+                          "assignee": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "datetime"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.listWorks": {
+      "get": {
+        "summary": "List anime works (series).",
+        "operationId": "com.etzhayyim.animeka.listWorks",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "planning",
+                "production",
+                "airing",
+                "completed",
+                "archived"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uri": {
+                            "type": "string",
+                            "format": "at-uri"
+                          },
+                          "did": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "episodeCount": {
+                            "type": "integer"
+                          },
+                          "coverCid": {
+                            "type": "string",
+                            "format": "cid"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.publishEpisode": {
+      "post": {
+        "summary": "Publish or update an episode. Transitions status (typically 'review' → 'delivered' → 'published') and sets masterCid. Transition to 'published' fires the `episode-published-social` derive rule to emit Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID.",
+        "operationId": "com.etzhayyim.animeka.publishEpisode",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "episodeId": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "titleJP": {
+                    "type": "string"
+                  },
+                  "titleEN": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "planning",
+                      "scripting",
+                      "storyboarding",
+                      "layout",
+                      "keyAnim",
+                      "inbetween",
+                      "color",
+                      "composite",
+                      "review",
+                      "delivered",
+                      "published",
+                      "archived"
+                    ]
+                  },
+                  "airDate": {
+                    "type": "string",
+                    "format": "datetime"
+                  },
+                  "masterCid": {
+                    "type": "string",
+                    "format": "cid"
+                  },
+                  "thumbCid": {
+                    "type": "string",
+                    "format": "cid"
+                  },
+                  "announcementText": {
+                    "type": "string",
+                    "description": "Optional override for the derived social post body."
+                  }
+                },
+                "required": [
+                  "episodeId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "episodeId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "emitted": {
+                      "type": "integer"
+                    },
+                    "postUri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    }
+                  },
+                  "required": [
+                    "episodeId",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.renderComposite": {
+      "post": {
+        "summary": "Invoke the compositor AI actor to render the final composite for a cut. Combines colorTrace frames + background + fxStack + camera move into outputCid. Creates com.etzhayyim.apps.animeka.composite record.",
+        "operationId": "com.etzhayyim.animeka.renderComposite",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "outputFormat": {
+                    "type": "string",
+                    "enum": [
+                      "mp4",
+                      "mov",
+                      "pngSeq",
+                      "exrSeq"
+                    ]
+                  },
+                  "previewOnly": {
+                    "type": "boolean",
+                    "description": "If true, renders low-res preview and sets status='draft'."
+                  },
+                  "videoBackend": {
+                    "type": "string",
+                    "description": "Video backend on the RunPod GPU pod (ADR-2604231328). Default seedance2 for faithful camera-move rendering.",
+                    "enum": [
+                      "seedance2",
+                      "wan5b",
+                      "animatediff"
+                    ],
+                    "default": "seedance2"
+                  }
+                },
+                "required": [
+                  "cutId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "outputCid": {
+                      "type": "string",
+                      "format": "cid"
+                    },
+                    "renderSeconds": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "uri"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.resolveRetake": {
+      "post": {
+        "summary": "Mark a retake resolved by pointing at the new record that addresses it. Un-flips cut.priority if no open retakes remain.",
+        "operationId": "com.etzhayyim.animeka.resolveRetake",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "retakeId": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "acknowledged",
+                      "inProgress",
+                      "resolved",
+                      "wontFix"
+                    ]
+                  },
+                  "resolvedByUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  }
+                },
+                "required": [
+                  "retakeId",
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "retakeId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "cutPriority": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "retakeId",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.submitRetake": {
+      "post": {
+        "summary": "Submit a retake (リテイク) against a target record. Creates com.etzhayyim.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
+        "operationId": "com.etzhayyim.animeka.submitRetake",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "targetUri": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "cutId": {
+                    "type": "string",
+                    "description": "Parent cut (derived from targetUri if omitted).",
+                    "format": "at-uri"
+                  },
+                  "stage": {
+                    "type": "string",
+                    "enum": [
+                      "script",
+                      "storyboard",
+                      "layout",
+                      "keyAnim",
+                      "inbetween",
+                      "colorDesign",
+                      "finish",
+                      "background",
+                      "composite",
+                      "edit",
+                      "sound",
+                      "delivery"
+                    ]
+                  },
+                  "comment": {
+                    "type": "string"
+                  },
+                  "severity": {
+                    "type": "string",
+                    "enum": [
+                      "nit",
+                      "minor",
+                      "major",
+                      "blocker"
+                    ]
+                  },
+                  "timecodeFrame": {
+                    "type": "integer"
+                  },
+                  "region": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "w": {
+                        "type": "number"
+                      },
+                      "h": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "assignee": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "targetUri",
+                  "stage",
+                  "comment"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.animeka.updateCutStage": {
+      "post": {
+        "summary": "Update cut.stageStatus and/or cut.assignees for a single pipeline stage. Drives the Pipeline Board kanban. Stage transition to 'approved' may cascade via derive rules (e.g. storyboard→layout, layout→keyAnim+bg).",
+        "operationId": "com.etzhayyim.animeka.updateCutStage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cutId": {
+                    "type": "string",
+                    "format": "at-uri"
+                  },
+                  "stage": {
+                    "type": "string",
+                    "enum": [
+                      "script",
+                      "storyboard",
+                      "layout",
+                      "keyAnim",
+                      "inbetween",
+                      "colorDesign",
+                      "finish",
+                      "background",
+                      "composite",
+                      "edit",
+                      "sound",
+                      "delivery"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "pending",
+                      "in_progress",
+                      "review",
+                      "approved",
+                      "retake"
+                    ]
+                  },
+                  "assigneeDid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cutId",
+                  "stage"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cutId": {
+                      "type": "string"
+                    },
+                    "stage": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "derivedCount": {
+                      "type": "integer",
+                      "description": "Number of derive rules fired."
+                    }
+                  },
+                  "required": [
+                    "cutId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_animeka_asset": {
+        "type": "object",
+        "properties": {
+          "workRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "effect",
+              "refSheet",
+              "lut",
+              "brush",
+              "bgLibrary",
+              "soundLibrary",
+              "template",
+              "styleGuide"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "blobCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "author": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "kind",
+          "name",
+          "blobCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_background": {
+        "type": "object",
+        "properties": {
+          "layoutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "sceneRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "bgCid": {
+            "type": "string",
+            "description": "Blob CID of the background image (typ. higher resolution than frame for PAN/TU headroom).",
+            "format": "cid"
+          },
+          "bgWidth": {
+            "type": "integer"
+          },
+          "bgHeight": {
+            "type": "integer"
+          },
+          "lightingMood": {
+            "type": "string",
+            "description": "Matches cut.scene.mood + timeOfDay (morning-warm / night-cool / golden-hour ...)."
+          },
+          "layeredCid": {
+            "type": "string",
+            "description": "Blob CID of the layered BG doc (sky / mid / fore + book layers).",
+            "format": "cid"
+          },
+          "reuseCutRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+            }
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "bgCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_character": {
+        "type": "object",
+        "properties": {
+          "workRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug. Used for did:web:animeka.etzhayyim.com:character:{slug}."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name (JP primary)."
+          },
+          "nameEN": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "protagonist",
+              "deuteragonist",
+              "supporting",
+              "antagonist",
+              "background",
+              "mob"
+            ]
+          },
+          "refSheetCid": {
+            "type": "string",
+            "description": "Blob CID of the character reference sheet (front/side/back + expressions).",
+            "format": "cid"
+          },
+          "turnaroundCids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "cid"
+            }
+          },
+          "expressionsCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "heightCm": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "voiceCast": {
+            "type": "string",
+            "description": "Voice actor DID or name (public credit — Tier 2 ok; private contract data → Tier 3)."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "workRef",
+          "slug",
+          "name",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_chatMessage": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string",
+            "description": "Episode project convoId."
+          },
+          "authorDid": {
+            "type": "string",
+            "description": "Sender DID (human or AI actor)."
+          },
+          "replyToUri": {
+            "type": "string",
+            "description": "Parent message for threading.",
+            "format": "at-uri"
+          },
+          "body": {
+            "type": "string",
+            "description": "Message body. If prefixed 'signal:v1:' the content is Signal-encrypted (e.g. personal critique)."
+          },
+          "mentionDids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recordRefs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "at-uri"
+            }
+          },
+          "tool": {
+            "type": "string",
+            "description": "Invoked AI tool name (if this message is an actor response, e.g. 'storyboarder.propose')."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "authorDid",
+          "body",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_colorModel": {
+        "type": "object",
+        "properties": {
+          "characterRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "lightingCondition": {
+            "type": "string",
+            "description": "Color set is per lighting condition. Multiple colorModel records per character allowed (one per condition).",
+            "enum": [
+              "normal",
+              "dusk",
+              "night",
+              "monoBlue",
+              "monoRed",
+              "backlight",
+              "underwater",
+              "fire"
+            ]
+          },
+          "palette": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/_colorStop"
+            }
+          },
+          "materialMap": {
+            "type": "string",
+            "description": "Blob CID of the material index image (each pixel = material ID, used by AI segmentation).",
+            "format": "cid"
+          },
+          "refSheetCid": {
+            "type": "string",
+            "description": "Blob CID of the painted reference sheet.",
+            "format": "cid"
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "characterRef",
+          "palette",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_colorTrace": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "frameRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "colorModelRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+            }
+          },
+          "colorLayersCid": {
+            "type": "string",
+            "description": "Blob CID of the layered color doc (base / shadow1 / shadow2 / highlight / rim).",
+            "format": "cid"
+          },
+          "flatCid": {
+            "type": "string",
+            "description": "Blob CID of the flattened colored frame (for preview / composite input).",
+            "format": "cid"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "aiAutoTrace",
+              "floodFill",
+              "hybrid"
+            ]
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "frameRef",
+          "colorLayersCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_composite": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "outputCid": {
+            "type": "string",
+            "description": "Blob CID of the composited cut (mp4 or image sequence).",
+            "format": "cid"
+          },
+          "outputFormat": {
+            "type": "string",
+            "enum": [
+              "mp4",
+              "mov",
+              "pngSeq",
+              "exrSeq"
+            ]
+          },
+          "fxStack": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/_fxNode"
+            }
+          },
+          "cameraMove": {
+            "$ref": "#/components/schemas/_cameraKeys"
+          },
+          "sourceFrames": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+            }
+          },
+          "bgRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "renderSeconds": {
+            "type": "number",
+            "description": "Render wall-clock seconds (for telemetry)."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "outputCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_cut": {
+        "type": "object",
+        "properties": {
+          "sceneRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "episodeRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "cutNum": {
+            "type": "integer",
+            "description": "Cut number within the episode (1-indexed, globally unique per episode regardless of scene)."
+          },
+          "durationFrames": {
+            "type": "integer",
+            "description": "Cut length in frames. Duration in seconds = durationFrames / fps."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Frame rate for this cut (24 full / 12 limited / 8 super-limited). Overrides episode.fps."
+          },
+          "camera": {
+            "$ref": "#/components/schemas/_cameraSpec"
+          },
+          "charactersAppearing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dialogueSummary": {
+            "type": "string",
+            "description": "One-line dialogue/action summary for board display."
+          },
+          "stageStatus": {
+            "$ref": "#/components/schemas/_stageStatus"
+          },
+          "assignees": {
+            "$ref": "#/components/schemas/_stageAssignees"
+          },
+          "priority": {
+            "type": "string",
+            "description": "'retake' = outstanding retake exists; board highlights red.",
+            "enum": [
+              "low",
+              "normal",
+              "high",
+              "retake"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "sceneRef",
+          "cutNum",
+          "durationFrames",
+          "fps",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_episode": {
+        "type": "object",
+        "properties": {
+          "workRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "episodeNum": {
+            "type": "integer",
+            "description": "Episode number within the work (1-indexed)."
+          },
+          "titleJP": {
+            "type": "string"
+          },
+          "titleEN": {
+            "type": "string"
+          },
+          "convoId": {
+            "type": "string",
+            "description": "Project convoId (= roomId). Knowledge graph records in this episode are scoped by this id."
+          },
+          "durationSec": {
+            "type": "integer",
+            "description": "Target duration in seconds (typ. 1410 = 23m30s for TV)."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Episode default fps (24 full, 12 limited). Overrides work.fps."
+          },
+          "status": {
+            "type": "string",
+            "description": "Pipeline stage indicator (coarse). Per-cut progress lives in `cut.status`.",
+            "enum": [
+              "planning",
+              "scripting",
+              "storyboarding",
+              "layout",
+              "keyAnim",
+              "inbetween",
+              "color",
+              "composite",
+              "review",
+              "delivered",
+              "published",
+              "archived"
+            ]
+          },
+          "airDate": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "masterCid": {
+            "type": "string",
+            "description": "Blob CID of the final master video (mp4/mov). Set on delivery.",
+            "format": "cid"
+          },
+          "thumbCid": {
+            "type": "string",
+            "description": "Episode thumbnail. Consumed by derive rule as embed.images[0].",
+            "format": "cid"
+          },
+          "teamDids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "workRef",
+          "episodeNum",
+          "titleJP",
+          "status",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_inbetween": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "frameNum": {
+            "type": "integer",
+            "description": "Frame number within the cut (0-indexed). Must be strictly between prevKey.frameNum and nextKey.frameNum."
+          },
+          "imageCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "layersCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "layerRole": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "book",
+              "effect"
+            ]
+          },
+          "prevKeyRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "nextKeyRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "method": {
+            "type": "string",
+            "description": "How this frame was produced. 'reuse' = copy of adjacent frame (holdout).",
+            "enum": [
+              "manual",
+              "aiInterp",
+              "reuse"
+            ]
+          },
+          "author": {
+            "type": "string",
+            "description": "Human DID or inbetweener actor DID."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "frameNum",
+          "imageCid",
+          "prevKeyRef",
+          "nextKeyRef",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_keyframe": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "frameNum": {
+            "type": "integer",
+            "description": "Frame number within the cut (0-indexed)."
+          },
+          "imageCid": {
+            "type": "string",
+            "description": "Blob CID of the keyframe drawing.",
+            "format": "cid"
+          },
+          "layersCid": {
+            "type": "string",
+            "description": "Blob CID of the KAMI layered doc (line + tie-down layers).",
+            "format": "cid"
+          },
+          "layerRole": {
+            "type": "string",
+            "description": "X-sheet layer column (A = foreground / main char, B/C/D = secondary, book = static overlay).",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "book",
+              "effect"
+            ]
+          },
+          "tiePose": {
+            "type": "string",
+            "description": "Pose / expression tag for cross-frame consistency check."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "rough",
+              "cleanup",
+              "tiedown",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "frameNum",
+          "imageCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_layout": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "storyboardRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "layoutCid": {
+            "type": "string",
+            "description": "Blob CID of the layout drawing (KAMI layered format preferred).",
+            "format": "cid"
+          },
+          "bgRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "charPositions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/_charPosition"
+            }
+          },
+          "cameraFrame": {
+            "$ref": "#/components/schemas/_cameraFrame"
+          },
+          "lightingDirection": {
+            "type": "string",
+            "description": "Lighting direction note for finishers (e.g. '上手 45°', 'モノトーン')."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "layoutCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_project": {
+        "type": "object",
+        "properties": {
+          "episodeRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "convoId": {
+            "type": "string",
+            "description": "Project convo / room id. All knowledge-graph records scoped by this id."
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "memberDids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "milestones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/_milestone"
+            }
+          },
+          "indexCid": {
+            "type": "string",
+            "description": "Optional R2 index blob CID for fast project tree load.",
+            "format": "cid"
+          },
+          "archivedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "episodeRef",
+          "convoId",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_retake": {
+        "type": "object",
+        "properties": {
+          "targetUri": {
+            "type": "string",
+            "description": "AT URI of the record being retaken.",
+            "format": "at-uri"
+          },
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "stage": {
+            "type": "string",
+            "description": "Pipeline stage the retake applies to.",
+            "enum": [
+              "script",
+              "storyboard",
+              "layout",
+              "keyAnim",
+              "inbetween",
+              "colorDesign",
+              "finish",
+              "background",
+              "composite",
+              "edit",
+              "sound",
+              "delivery"
+            ]
+          },
+          "timecodeFrame": {
+            "type": "integer",
+            "description": "Frame pin within the cut (for per-frame comments). Omit for cut-level retake."
+          },
+          "region": {
+            "$ref": "#/components/schemas/_regionPin"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Review comment text."
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "nit",
+              "minor",
+              "major",
+              "blocker"
+            ]
+          },
+          "author": {
+            "type": "string",
+            "description": "Reviewer DID (typ. director or episode director)."
+          },
+          "assignee": {
+            "type": "string",
+            "description": "DID expected to fix (overrides cut.assignees if set)."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "acknowledged",
+              "inProgress",
+              "resolved",
+              "wontFix"
+            ]
+          },
+          "resolvedByUri": {
+            "type": "string",
+            "description": "AT URI of the new record that resolves this retake (e.g. updated keyframe).",
+            "format": "at-uri"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "targetUri",
+          "stage",
+          "comment",
+          "status",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_scene": {
+        "type": "object",
+        "properties": {
+          "episodeRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "scriptRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "sceneNum": {
+            "type": "integer",
+            "description": "Scene number within the episode (1-indexed)."
+          },
+          "headingJP": {
+            "type": "string",
+            "description": "Scene heading (e.g. 'S#12 / 夜 / 校舎屋上')."
+          },
+          "location": {
+            "type": "string"
+          },
+          "timeOfDay": {
+            "type": "string",
+            "enum": [
+              "dawn",
+              "morning",
+              "day",
+              "evening",
+              "night",
+              "unspecified"
+            ]
+          },
+          "mood": {
+            "type": "string",
+            "description": "Emotional tone (tense / calm / heroic / melancholy ...). Used by bgArtist lighting design."
+          },
+          "charactersAppearing": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/_characterAppearance"
+            }
+          },
+          "estimatedDurationSec": {
+            "type": "number"
+          },
+          "cutCount": {
+            "type": "integer",
+            "description": "Realized cut count (set after cut breakdown)."
+          },
+          "status": {
+            "type": "string",
+            "description": "'ready' triggers storyboarder invocation.",
+            "enum": [
+              "draft",
+              "ready",
+              "storyboarding",
+              "locked"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "episodeRef",
+          "sceneNum",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_script": {
+        "type": "object",
+        "properties": {
+          "episodeRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "revision": {
+            "type": "integer",
+            "description": "Script revision number (1 = first draft)."
+          },
+          "bodyCid": {
+            "type": "string",
+            "description": "Blob CID of the script body (.txt / .fountain / .fdx).",
+            "format": "cid"
+          },
+          "format": {
+            "type": "string",
+            "description": "Script format. 'hakoden' = Japanese anime 箱書き format.",
+            "enum": [
+              "plain",
+              "fountain",
+              "fdx",
+              "hakoden"
+            ]
+          },
+          "sceneCount": {
+            "type": "integer",
+            "description": "Parsed scene count (set after scene split)."
+          },
+          "writer": {
+            "type": "string",
+            "description": "Writer DID or handle."
+          },
+          "status": {
+            "type": "string",
+            "description": "'ready' triggers scene-split derive rule.",
+            "enum": [
+              "draft",
+              "review",
+              "ready",
+              "locked"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "episodeRef",
+          "status",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_soundCue": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "trackType": {
+            "type": "string",
+            "enum": [
+              "voice",
+              "se",
+              "bgm",
+              "foley",
+              "ambience"
+            ]
+          },
+          "assetCid": {
+            "type": "string",
+            "description": "Blob CID of the audio asset (wav/ogg/mp3).",
+            "format": "cid"
+          },
+          "durationSec": {
+            "type": "number"
+          },
+          "inFrame": {
+            "type": "integer",
+            "description": "Start frame within the cut (cue-in)."
+          },
+          "outFrame": {
+            "type": "integer",
+            "description": "End frame within the cut (cue-out)."
+          },
+          "speaker": {
+            "type": "string",
+            "description": "Character slug for voice tracks."
+          },
+          "line": {
+            "type": "string",
+            "description": "Dialogue text for voice tracks (from script)."
+          },
+          "volumeDb": {
+            "type": "number",
+            "description": "Mix level in dB."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "'slot' = auto-generated empty placeholder awaiting assignment.",
+            "enum": [
+              "slot",
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "trackType",
+          "inFrame",
+          "outFrame",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_storyboard": {
+        "type": "object",
+        "properties": {
+          "cutRef": {
+            "$ref": "#/components/schemas/com_atproto_repo_strongRef"
+          },
+          "thumbCid": {
+            "type": "string",
+            "description": "Blob CID of the storyboard thumbnail sketch.",
+            "format": "cid"
+          },
+          "candidateNum": {
+            "type": "integer",
+            "description": "1..3 if this is one of the AI-proposed candidates; omitted for human-authored single board."
+          },
+          "dialogue": {
+            "type": "string",
+            "description": "Dialogue text (JP primary, spoken lines + character attribution)."
+          },
+          "action": {
+            "type": "string",
+            "description": "Action / stage direction (ト書き)."
+          },
+          "cameraNote": {
+            "type": "string",
+            "description": "Camera instruction in board-style shorthand (e.g. 'PAN→', 'TU 2秒')."
+          },
+          "soundNote": {
+            "type": "string",
+            "description": "SE / BGM hint (e.g. 'SE: 扉を開ける')."
+          },
+          "durationFramesHint": {
+            "type": "integer",
+            "description": "Proposed cut length in frames (refines cut.durationFrames on approval)."
+          },
+          "author": {
+            "type": "string",
+            "description": "Authoring DID (human or storyboarder actor)."
+          },
+          "status": {
+            "type": "string",
+            "description": "'approved' triggers layout derive rule.",
+            "enum": [
+              "draft",
+              "review",
+              "approved",
+              "rejected"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "cutRef",
+          "thumbCid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_animeka_work": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Work display title (JP primary)."
+          },
+          "titleEN": {
+            "type": "string",
+            "description": "English title (optional)."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug. Used to construct did:web:animeka.etzhayyim.com:work:{slug}."
+          },
+          "genre": {
+            "type": "string",
+            "description": "Primary genre (action / drama / slice-of-life / sci-fi etc.)."
+          },
+          "status": {
+            "type": "string",
+            "description": "Production lifecycle.",
+            "enum": [
+              "planning",
+              "production",
+              "airing",
+              "completed",
+              "archived"
+            ]
+          },
+          "synopsis": {
+            "type": "string"
+          },
+          "episodeCount": {
+            "type": "integer",
+            "description": "Planned total episode count (informational; actual episodes are separate com.etzhayyim.apps.animeka.episode records)."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Default fps for this work (24 for full animation, 12 for limited). Can be overridden per-cut."
+          },
+          "resolution": {
+            "type": "string",
+            "description": "Master resolution (e.g. '1920x1080', '3840x2160')."
+          },
+          "coverCid": {
+            "type": "string",
+            "description": "Blob CID of the key visual image. Consumed by derive rule as embed.recordWithMedia.media.images[0].image.",
+            "format": "cid"
+          },
+          "coverAlt": {
+            "type": "string"
+          },
+          "trailerUri": {
+            "type": "string",
+            "description": "PV / trailer URL. Emitted as facet#link in the derived post.",
+            "format": "uri"
+          },
+          "studioName": {
+            "type": "string",
+            "description": "Producing studio display name."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "title",
+          "status",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

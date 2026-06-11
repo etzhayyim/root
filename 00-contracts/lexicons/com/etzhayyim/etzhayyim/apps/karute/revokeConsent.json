@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.revokeConsent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Revoke a previously-issued consent capability. Sets revokedAt/revokedBy/revocationReason on the record. Auditor webhook (when configured) receives a revocation event. Note: revocation is observable but cannot un-distribute already-fetched ciphertext; the assumption is that the grantee cooperates (and is bound by purpose-specific contractual / legal terms — e.g. iryo billing actor's clinician agreement).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["capabilityUri", "reason"],
+          "properties": {
+            "capabilityUri": {"type": "string"},
+            "reason": {"type": "string"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "revokedAt": {"type": "string", "format": "datetime"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

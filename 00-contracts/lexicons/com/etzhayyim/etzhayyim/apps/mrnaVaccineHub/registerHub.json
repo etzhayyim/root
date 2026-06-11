@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mrnaVaccineHub.registerHub",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "mRNA vaccine technology transfer hub (WHO / Afrigen / BioNTainer — bridges vaccine-equity + pandemic-preparedness + pharma-supply + pandemic-treaty)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "hubId",
+            "countryIso3",
+            "hostInstitution",
+            "commissionedAt"
+          ],
+          "properties": {
+            "hubId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "hostInstitution": {
+              "type": "string"
+            },
+            "spokeCountriesIso3": {
+              "type": "string",
+              "description": "comma"
+            },
+            "capacityDosesPerYear": {
+              "type": "integer"
+            },
+            "technologyBasis": {
+              "type": "string",
+              "enum": [
+                "afrigen",
+                "biontainer",
+                "cureVac",
+                "selfamplifying"
+              ]
+            },
+            "commissionedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

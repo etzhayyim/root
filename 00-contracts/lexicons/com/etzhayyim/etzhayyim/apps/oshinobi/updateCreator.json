@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshinobi.updateCreator",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Update creator profile. Only the creator DID itself may mutate. contentPolicy downgrade (adult_allowed → sfw_only) cascades to new posts only; existing posts retain their label.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "displayName":   { "type": "string", "maxLength": 120 },
+            "bio":           { "type": "string", "maxLength": 2000 },
+            "contentPolicy": { "type": "string", "enum": ["sfw_only", "suggestive_allowed", "adult_allowed"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri"],
+          "properties": { "uri": { "type": "string", "format": "at-uri" } }
+        }
+      },
+      "errors": [
+        { "name": "NotCreator", "description": "caller DID has no creator record" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-97e61686a1c7",
+  "entityId": "ent-97e61686a1c7",
+  "canonicalName": "loanna",
+  "aliases": [
+    "loanna"
+  ]
+}

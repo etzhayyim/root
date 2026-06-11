@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dsaVlop.flagSystemicRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Systemic risk / amplification / electoral integrity (bridges socialMediaInfluenceOp.flagPlatformResponse + transnational-repression + press-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "designationVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "designationVid": {
+              "type": "string",
+              "description": "bridges recordDesignation"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "fundamental_rights",
+                "civic_discourse",
+                "electoral",
+                "gender_violence",
+                "minor_protect",
+                "mental_health",
+                "public_health",
+                "human_dignity",
+                "disinfo_amplify",
+                "crisis_response",
+                "crisis_protocol_failure",
+                "commission_request",
+                "article_36_request"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

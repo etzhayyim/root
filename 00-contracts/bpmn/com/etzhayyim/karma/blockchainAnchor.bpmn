@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — daily Merkle root anchor (cron 00:00 UTC).
+
+  Computes Merkle root of all karma edge IPFS CIDs from the previous
+  24h window, submits a single tx to ERC725 contract on ETH L2 (Base
+  preferred). The tx hash becomes the immutable record of all karma
+  emitted in the window.
+
+  Lean axiom: Karma.lean karma_5_layer_persistence requires this run
+  to keep edges at full 5-layer redundancy.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_blockchain_anchor"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_blockchain_anchor" name="karma blockchain anchor" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="cron 00:00 UTC daily">
+      <bpmn:outgoing>Flow_ToCompute</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 0 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Compute" name="compute Merkle root over 24h CIDs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.anchor.computeRoot"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=merkleRoot" target="merkleRoot"/>
+          <zeebe:output source="=edgeCount" target="edgeCount"/>
+          <zeebe:output source="=windowStartMs" target="windowStartMs"/>
+          <zeebe:output source="=windowEndMs" target="windowEndMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCompute</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCompute" sourceRef="StartTimer" targetRef="Task_Compute"/>
+
+    <bpmn:exclusiveGateway id="Gate_HasEdges">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Submit</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoEdges</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Compute" targetRef="Gate_HasEdges"/>
+    <bpmn:sequenceFlow id="Flow_Submit" sourceRef="Gate_HasEdges" targetRef="Task_Submit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=edgeCount > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoEdges" sourceRef="Gate_HasEdges" targetRef="EndIdle">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=edgeCount = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Submit" name="submit anchor tx (ERC725 on Base L2)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.anchor.submitTx"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=merkleRoot" target="merkleRoot"/>
+          <zeebe:input source="=edgeCount" target="edgeCount"/>
+          <zeebe:input source="=windowStartMs" target="windowStartMs"/>
+          <zeebe:input source="=windowEndMs" target="windowEndMs"/>
+          <zeebe:output source="=anchorId" target="anchorId"/>
+          <zeebe:output source="=txHash" target="txHash"/>
+          <zeebe:output source="=blockNumber" target="blockNumber"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Submit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBacklink</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Backlink" name="backlink edges to anchor">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.anchor.backlinkEdges"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=anchorId" target="anchorId"/>
+          <zeebe:input source="=windowStartMs" target="windowStartMs"/>
+          <zeebe:input source="=windowEndMs" target="windowEndMs"/>
+          <zeebe:output source="=updated" target="updated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBacklink</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBacklink" sourceRef="Task_Submit" targetRef="Task_Backlink"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.blockchainAnchor&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;anchorId&quot;: anchorId, &quot;txHash&quot;: txHash, &quot;edgeCount&quot;: edgeCount, &quot;updated&quot;: updated }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Backlink" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="anchored">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndIdle" name="empty-window">
+      <bpmn:incoming>Flow_NoEdges</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

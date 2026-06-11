@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openLei.registerLegalEntity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register (mirror) a GLEIF Legal Entity Identifier record (ISO 17442). Starts BPMN open_lei_register_legal_entity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["lei","legalName","registrationStatus","issuedAt"],
+          "properties": {
+            "lei":            { "type": "string", "description": "20-character LEI" },
+            "legalName":      { "type": "string" },
+            "country":        { "type": "string" },
+            "legalForm":      { "type": "string" },
+            "registrationAuthority": { "type": "string" },
+            "registrationStatus":    { "type": "string", "description": "ISSUED / LAPSED / RETIRED / MERGED / PENDING_TRANSFER / DUPLICATE" },
+            "issuedAt":       { "type": "string", "format": "datetime" },
+            "nextRenewalAt":  { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "lifecycleState": { "type": "string", "enum": ["active","lapsed","retired"] },
+            "requireRenewal": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

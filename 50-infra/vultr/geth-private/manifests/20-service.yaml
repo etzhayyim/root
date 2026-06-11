@@ -1,0 +1,24 @@
+# ClusterIP for the etzhayyim private-chain RPC.
+#
+# Public exposure goes through `caddy-geth-tls` (40-tls-proxy.yaml) on a
+# Vultr LoadBalancer — that's the canonical Worker path via
+# `https://geth.etzhayyim.com`. This Service stays internal-only.
+#
+# From inside the cluster:
+#   http://geth-private.geth-private.svc.cluster.local:8545
+# Local dev port-forward:
+#   kubectl -n geth-private port-forward svc/geth-private 8545:8545
+apiVersion: v1
+kind: Service
+metadata:
+  name: geth-private
+  namespace: geth-private
+  labels:
+    app.kubernetes.io/name: geth-private
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: geth-private
+  ports:
+    - { name: rpc, port: 8545, targetPort: rpc, protocol: TCP }
+    - { name: ws,  port: 8546, targetPort: ws,  protocol: TCP }

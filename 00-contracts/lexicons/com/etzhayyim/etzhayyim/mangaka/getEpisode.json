@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.getEpisode",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from RisingWave via Hyperdrive (ADR-0036).",
+      "parameters": {
+        "type": "params",
+        "required": ["episodeUri"],
+        "properties": {
+          "episodeUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the com.etzhayyim.apps.mangaka.work record."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["work", "pages"],
+          "properties": {
+            "work": {
+              "type": "object",
+              "properties": {
+                "uri": { "type": "string", "format": "at-uri" },
+                "title": { "type": "string" },
+                "genre": { "type": "string" },
+                "protagonist": { "type": "string" },
+                "protagonistDid": { "type": "string" },
+                "setting": { "type": "string" },
+                "pageCount": { "type": "integer" },
+                "panelCount": { "type": "integer" },
+                "status": { "type": "string" },
+                "coverCid": { "type": "string", "format": "cid" },
+                "createdAt": { "type": "string", "format": "datetime" }
+              }
+            },
+            "pages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": { "type": "string", "format": "at-uri" },
+                  "pageNum": { "type": "integer" },
+                  "act": { "type": "string" },
+                  "panelCount": { "type": "integer" },
+                  "imageCid": { "type": "string", "format": "cid" },
+                  "width": { "type": "integer" },
+                  "height": { "type": "integer" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

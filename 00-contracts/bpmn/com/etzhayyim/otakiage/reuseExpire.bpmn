@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  otakiage.reuseExpire - daily TTL sweep over reuse_open items
+
+  Flow:
+    1. otakiage.reuse.expireOpen (TTL 30d, category-aware transition)
+       - reuse_then_ritual category → ritual_pending (matsuri auto-assign)
+       - reuse_only category (kagu/kaden) → reuse_expired (留まる)
+    2. generic.audit.emit
+
+  Trigger: timer-start R/PT24H.
+
+  NSID (informational): com.etzhayyim.apps.otakiage.reuseExpire
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-reuse-expire-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_otakiage_reuse_expire"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="otakiage_reuse_expire" name="otakiage reuseExpire" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.otakiage.reuseExpire", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="daily">
+      <bpmn:outgoing>Flow_ToExpire</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_24h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToExpire" sourceRef="Start" targetRef="Task_Expire"/>
+
+    <bpmn:serviceTask id="Task_Expire" name="expire reuse_open older than 30d">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="otakiage.reuse.expireOpen"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=30" target="ttlDays"/>
+          <zeebe:input source="=500" target="maxItems"/>
+          <zeebe:output source="=expiredCount" target="expiredCount"/>
+          <zeebe:output source="=movedToRitualPending" target="movedToRitualPending"/>
+          <zeebe:output source="=stayedReuseExpired" target="stayedReuseExpired"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExpire</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Expire" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:reuse&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.reuseExpire&quot;" target="nsid"/>
+          <zeebe:input source="={ expiredCount: expiredCount, movedToRitualPending: movedToRitualPending, stayedReuseExpired: stayedReuseExpired }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

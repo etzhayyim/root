@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List open arbitrage opportunities, optionally filtered by kind.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "opportunityKind": { "type": "string", "description": "Filter by opportunity kind (optional)" },
+          "limit":           { "type": "integer", "description": "Max results (default 20)" },
+          "offset":          { "type": "integer", "description": "Pagination offset" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["opportunities", "total"],
+          "properties": {
+            "opportunities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "arbId":            { "type": "string" },
+                  "opportunityKind":  { "type": "string" },
+                  "gapDescription":   { "type": "string" },
+                  "estimatedValue":   { "type": "number" },
+                  "confidenceScore":  { "type": "number" },
+                  "recommendedAction":{ "type": "string" },
+                  "status":           { "type": "string" },
+                  "createdAt":        { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "limit":  { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

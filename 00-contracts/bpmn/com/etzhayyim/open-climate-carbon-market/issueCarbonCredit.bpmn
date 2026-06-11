@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_climate_carbon_market_issue_carbon_credit" targetNamespace="https://etzhayyim.ai/bpmn/open-climate-carbon-market" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_climate_carbon_market_issue_carbon_credit" name="issueCarbonCredit" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_climate_carbon_market&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, credit_id: creditId, registry: registry, vintage: vintage, tonnes_co2e: tonnesCo2e, project_type: projectType, project_lei: projectLei, cofog_expenditure_vid: cofogExpenditureVid, issued_at: issuedAt, quality_tier: if registry = &quot;EU_ETS&quot; or registry = &quot;VCM_GOLDSTANDARD&quot; then &quot;tier_1&quot; else if registry = &quot;VCM_VERRA&quot; or registry = &quot;CORSIA&quot; then &quot;tier_2&quot; else &quot;tier_3&quot;, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-climate-carbon-market&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-climate-carbon-market.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.climateCarbonMarket.issueCarbonCredit&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

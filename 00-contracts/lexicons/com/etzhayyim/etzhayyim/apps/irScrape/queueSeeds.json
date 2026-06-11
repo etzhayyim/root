@@ -1,0 +1,40 @@
+{
+  "$type": "lexicon",
+  "id": "com.etzhayyim.apps.irScrape.queueSeeds",
+  "revision": 1,
+  "description": "Seed vertex_ir_company from the built-in listed-company registry and queue scraper runs for companies not recently crawled.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "maxSeeds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 200,
+              "description": "Maximum number of seed companies to process per invocation."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "queued", "skipped", "companiesAdded"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "queued": { "type": "integer", "description": "New scraper runs enqueued." },
+            "skipped": { "type": "integer", "description": "Companies skipped (recent run exists)." },
+            "companiesAdded": { "type": "integer", "description": "New vertex_ir_company rows inserted." },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

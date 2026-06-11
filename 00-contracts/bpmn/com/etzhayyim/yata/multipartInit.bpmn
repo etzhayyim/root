@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_multipart_init"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_multipart_init" name="yata multipart init" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yata.multipartInit", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="multipartInit">
+      <bpmn:outgoing>Flow_ToInit</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Init" name="open provider multipart upload + INSERT vertex_yata_multipart">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.multipart.init"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=bucketName" target="bucketName"/>
+          <zeebe:input source="=objectKey" target="objectKey"/>
+          <zeebe:input source="=contentType" target="contentType"/>
+          <zeebe:input source="=encryption" target="encryption"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=uploadId" target="uploadId"/>
+          <zeebe:output source="=expiresAt" target="expiresAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToInit" sourceRef="Start" targetRef="Task_Init"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Init" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.deactivateInterceptTarget",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "LICF (X1) — deactivate interception against a previously-activated target. Updates the existing target row in place.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["targetId", "deactivationReason", "deactivatedAt"],
+          "properties": {
+            "targetId": { "type": "string" },
+            "deactivationReason": { "type": "string", "enum": ["warrant_expired", "warrant_revoked", "target_resolved", "court_order", "operator_request"] },
+            "deactivatedAt": { "type": "string", "format": "datetime" },
+            "licfNfId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "targetId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

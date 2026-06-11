@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dsaVlop.recordDesignation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DSA VLOP / VLOSE designation (bridges socialMediaInfluenceOp.flagPlatformResponse + cross-border-transfer + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "designationId",
+            "platformKind",
+            "scope",
+            "designatedAt"
+          ],
+          "properties": {
+            "designationId": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "platformKind": {
+              "type": "string",
+              "enum": [
+                "vlop_45m",
+                "vlose_45m",
+                "platform_intermediary",
+                "host",
+                "cloud_iaas",
+                "marketplace",
+                "gig",
+                "short_video",
+                "livestream",
+                "encrypted",
+                "dating",
+                "review",
+                "payment_within_platform"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "search",
+                "social",
+                "short_video",
+                "marketplace",
+                "app_store",
+                "cloud",
+                "ride_sharing",
+                "food_delivery",
+                "ecommerce",
+                "music",
+                "gaming",
+                "short_form_streaming",
+                "live_commerce"
+              ]
+            },
+            "platformResponseVid": {
+              "type": "string",
+              "description": "bridges socialMediaInfluenceOp.flagPlatformResponse"
+            },
+            "designatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

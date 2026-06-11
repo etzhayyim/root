@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  etzhayyim.ai chat — scheduleReport (XRPC com.etzhayyim.apps.chat.scheduleReport).
+
+  Side-effect tool example: LangGraph agent calls this when the user asks
+  for a deferred report. The BPMN runs Murakumo deep research, persists
+  result as vertex_chat_artifact, and posts a follow-up assistant message
+  back into the original conv via generic.pds.dispatch.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_chat_schedule_report"
+    targetNamespace="https://etzhayyim.ai/bpmn/chat"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="chat_schedule_report" name="chat schedule report" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.chat.scheduleReport", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="scheduleReport">
+      <bpmn:outgoing>Flow_ToCompose</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Compose" name="compose report (LLM, deep research)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="chat.report.compose"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convId" target="convId"/>
+          <zeebe:input source="=msgId" target="msgId"/>
+          <zeebe:input source="=title" target="title"/>
+          <zeebe:input source="=prompt" target="prompt"/>
+          <zeebe:input source="=deliverAt" target="deliverAt"/>
+          <zeebe:input source="=deliverChannel" target="deliverChannel"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=artifactId" target="artifactId"/>
+          <zeebe:output source="=scheduledAt" target="scheduledAt"/>
+          <zeebe:output source="=deliveryChannel" target="deliveryChannel"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCompose</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCompose" sourceRef="Start" targetRef="Task_Compose"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.chat.scheduleReport&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;convId&quot;: convId, &quot;runId&quot;: runId, &quot;artifactId&quot;: artifactId, &quot;deliverChannel&quot;: deliveryChannel }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Compose" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open SaaS Salesforce CRM</title>
+    <style>
+      :root { color-scheme: dark; --accent: #1d4ed8; --bg: #0b1020; --fg: #e5e7eb; --muted: #94a3b8; --card: #111827; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+      header { padding: 32px; border-bottom: 1px solid #1f2937; }
+      h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+      .sub { color: var(--muted); font-size: 13px; }
+      main { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; padding: 24px; }
+      section { background: var(--card); border: 1px solid #1f2937; border-radius: 10px; padding: 16px; }
+      h2 { margin: 0 0 12px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+      .kv { display: flex; justify-content: space-between; padding: 6px 0; border-top: 1px solid #1f2937; }
+      .kv:first-child { border-top: 0; }
+      .kv span:last-child { color: var(--accent); font-variant-numeric: tabular-nums; }
+      pre { background: #0b1020; padding: 12px; border-radius: 6px; overflow: auto; font-size: 12px; margin: 0; max-height: 260px; }
+      .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; background: #1f2937; color: var(--fg); margin-right: 6px; }
+      a { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>◎ Open SaaS Salesforce CRM</h1>
+      <div class="sub">
+        <span class="badge">did:web:salesforce.opensaas.etzhayyim.com</span>
+        <span class="badge">project: open-saas</span>
+        <span class="badge">ts-native</span>
+      </div>
+      <p class="sub" style="margin-top: 8px; max-width: 72ch;">
+        AT Protocol / W Protocol 上で動く Salesforce 相当の OSS CRM。Account / Contact / Lead / Opportunity / Case / Activity を 6 つの Lexicon で表現し、Activity は PDS commit pipeline の derive rule で自動生成する (Write-Only Derived η=100%)。
+      </p>
+    </header>
+    <main>
+      <section>
+        <h2>Overview</h2>
+        <div id="overview"><em class="sub">loading…</em></div>
+      </section>
+      <section>
+        <h2>Pipeline by stage</h2>
+        <div id="pipeline"><em class="sub">loading…</em></div>
+      </section>
+      <section>
+        <h2>Lexicons</h2>
+        <div id="blueprint"><em class="sub">loading…</em></div>
+      </section>
+      <section>
+        <h2>Endpoints</h2>
+        <ul class="sub" style="padding-left: 18px; margin: 0;">
+          <li><code>GET /api/salesforce/overview</code></li>
+          <li><code>GET /api/salesforce/pipeline?tenantDid=…</code></li>
+          <li><code>GET /api/salesforce/{accounts,contacts,leads,cases,activities}</code></li>
+          <li><code>POST /api/salesforce/leads</code> — createLead</li>
+          <li><code>POST /api/salesforce/leads/convert</code> — convertLead</li>
+          <li><code>POST /api/salesforce/opportunities/:uri/stage</code></li>
+        </ul>
+      </section>
+    </main>
+    <script>
+      async function j(url) { const r = await fetch(url); return r.json(); }
+      (async () => {
+        const ov = await j("/api/salesforce/overview");
+        document.getElementById("overview").innerHTML = Object.entries(ov.counts)
+          .map(([k, v]) => `<div class="kv"><span>${k}</span><span>${v}</span></div>`)
+          .join("") +
+          `<div class="kv"><span>openPipelineJpy</span><span>¥${ov.openPipelineJpy.toLocaleString()}</span></div>` +
+          `<div class="kv"><span>weightedPipelineJpy</span><span>¥${ov.weightedPipelineJpy.toLocaleString()}</span></div>`;
+
+        const pipe = await j("/api/salesforce/pipeline?tenantDid=" + encodeURIComponent(ov.tenantDid));
+        document.getElementById("pipeline").innerHTML = pipe.stageRollup
+          .filter((r) => r.count > 0)
+          .map((r) => `<div class="kv"><span>${r.stage} (${r.count})</span><span>¥${r.weightedAmountJpy.toLocaleString()} <em class="sub">/ ¥${r.amountJpy.toLocaleString()}</em></span></div>`)
+          .join("") || '<em class="sub">no open opportunities</em>';
+
+        const bp = await j("/api/salesforce/blueprint");
+        document.getElementById("blueprint").innerHTML =
+          bp.lexicons.map((l) => `<div class="kv"><span>${l.split(".").slice(-1)[0]}</span><span class="sub" style="color:var(--muted);font-size:11px">${l}</span></div>`).join("");
+      })().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<pre style="margin:24px;color:#f87171">${e}</pre>`); });
+    </script>
+  </body>
+</html>

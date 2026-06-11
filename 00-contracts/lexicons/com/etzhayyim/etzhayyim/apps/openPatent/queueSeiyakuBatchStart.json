@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.queueSeiyakuBatchStart",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Queue a validated expired-patent batch draft as an openSeiyaku.startBatchRecord request.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["batchDraftVid", "batchPayload"],
+          "properties": {
+            "batchDraftVid": { "type": "string" },
+            "validationVid": { "type": "string" },
+            "validationPassed": { "type": "boolean" },
+            "batchPayload": { "type": "object" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "startNsid": { "type": "string" },
+            "bpmnProcessId": { "type": "string" },
+            "status": { "type": "string" },
+            "requestPayload": { "type": "object" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

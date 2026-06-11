@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-eb07858613be",
+  "entityId": "ent-eb07858613be",
+  "canonicalName": "banco nacional de cuba",
+  "aliases": [
+    "banco nacional de cuba"
+  ]
+}

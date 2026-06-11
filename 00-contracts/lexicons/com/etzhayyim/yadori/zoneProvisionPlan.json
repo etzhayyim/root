@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yadori.zoneProvisionPlan",
+  "description": "Post-acquisition DNS zone + did:web wiring PLAN (ADR-2606013800; cutover pattern ADR-2605211757). G7: planOnly const true (no live zone write at R0). N5: prohibitedContentFree const true.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fqdn", "didwebTarget", "records", "planOnly", "createdAt"],
+        "properties": {
+          "fqdn": {"type": "string"},
+          "didwebTarget": {"type": "string"},
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "value"],
+              "properties": {
+                "type": {"type": "string", "knownValues": ["A", "AAAA", "TXT", "CNAME", "MX", "NS"]},
+                "name": {"type": "string"},
+                "value": {"type": "string"}
+              }
+            }
+          },
+          "planOnly": {"type": "boolean", "const": true},
+          "prohibitedContentFree": {"type": "boolean", "const": true},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yadoya.createReservation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a hotel reservation. guestSummary is field-encrypted (signal:v1:) at write time before hitting Hyperdrive. amount is bucketed for Repo; raw amount stays Tier 3 (Preferences). Idempotent on (hotelId, guestDid, checkin) — duplicate returns existing rkey.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hotelId", "checkin", "checkout", "guests"],
+          "properties": {
+            "hotelId":      { "type": "string", "description": "vertex_id of vertex_yadoya_hotel" },
+            "checkin":      { "type": "string", "description": "YYYY-MM-DD" },
+            "checkout":     { "type": "string", "description": "YYYY-MM-DD" },
+            "guests":       { "type": "integer", "minimum": 1, "maximum": 16 },
+            "guestDid":     { "type": "string", "format": "did", "description": "Booking party. Defaults to caller JWT sub." },
+            "guestSummary": { "type": "string", "description": "Tier 3 — names / contact text. Server applies signal:v1: envelope before write." },
+            "amountJpy":    { "type": "number", "description": "Tier 3 raw — bucketed to amountBucket for Repo." },
+            "currency":     { "type": "string", "default": "JPY" },
+            "channel":      { "type": "string", "enum": ["ai-agent","b2c","b2b","corp"], "default": "ai-agent" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["reservationId", "uri", "status"],
+          "properties": {
+            "reservationId": { "type": "string" },
+            "uri":           { "type": "string", "format": "at-uri" },
+            "status":        { "type": "string", "enum": ["pending","confirmed","duplicate"] }
+          }
+        }
+      },
+      "errors": [
+        { "name": "HotelNotFound",  "description": "hotelId 不在 / 非公開" },
+        { "name": "InvalidPeriod",  "description": "checkout <= checkin、または過去日" },
+        { "name": "GuestMismatch",  "description": "caller JWT sub と guestDid が不一致 (B2C 自己予約のみの場合)" }
+      ]
+    }
+  }
+}

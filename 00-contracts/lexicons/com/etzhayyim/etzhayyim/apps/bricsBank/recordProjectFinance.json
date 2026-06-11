@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bricsBank.recordProjectFinance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "New Development Bank / AIIB / NDB BRICS project financing (bridges mbridgeSettlement.flagDedollarization + sovereign-debt + world-bank-dpf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "projectId",
+            "institution",
+            "borrowerCountryIso3",
+            "sectorKind",
+            "approvedAt"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "institution": {
+              "type": "string",
+              "enum": [
+                "ndb_new_dev_bank",
+                "aiib_asian_infra",
+                "crdp_russia",
+                "ciab_china",
+                "brics_pay_network",
+                "brics_grain_ex",
+                "brics_reinsurance",
+                "brics_rating_agency",
+                "brics_satellite"
+              ]
+            },
+            "borrowerCountryIso3": {
+              "type": "string"
+            },
+            "sectorKind": {
+              "type": "string",
+              "enum": [
+                "transport",
+                "energy",
+                "water",
+                "urban",
+                "social",
+                "industrial",
+                "digital",
+                "climate",
+                "health",
+                "sovereign_bond",
+                "local_currency_bond",
+                "local_currency_swap",
+                "covid_facility",
+                "bridge_finance"
+              ]
+            },
+            "dedollarizationVid": {
+              "type": "string",
+              "description": "bridges mbridgeSettlement.flagDedollarization"
+            },
+            "localCurrencyPct": {
+              "type": "number"
+            },
+            "approvedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

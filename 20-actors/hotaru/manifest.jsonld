@@ -1,0 +1,100 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:hotaru",
+  "name": "hotaru",
+  "displayName": "蛍 — III-V / InP Substrate Open-Commons",
+  "displayNameJa": "蛍",
+  "displayNameEn": "Hotaru",
+  "description": "Open-publication knowledge commons for III-V compound-semiconductor SUBSTRATE generation + manufacturing — indium phosphide (InP) first, then the adjacent direct-bandgap III-V family (GaAs/GaN/InGaAs/GaSb). Datafies the substrate chain (synthesis → single-crystal bulk-growth LEC/VGF/VB → wafering → epi-ready surface-prep) into the kotoba Datom log. Charter-clean by construction: only practiceable-OPEN process knowledge (source-license invariant, G1 — vendor-proprietary MOCVD recipes unrepresentable); crystals + wafers are design/spec ONLY (fabricated=false, G2). hotaru IS the construction of the 'open-source III-V wafer IP commons' that ADR-2605265500 §2's R4+ re-evaluation gate references; III-V fabrication remains PROHIBITED through R3 (inherited) and hotaru is NON-ADJUDICATING on the gate (G3 — it reports, Council decides). The light-emitting direct-bandgap sibling of the iwakura/fuigo indirect-bandgap silicon track (ADR-2605242500).",
+  "descriptionJa": "III-V 化合物半導体 基板の生成・製造のための open-publication 知識 commons。インジウムリン (InP) を起点に、隣接する直接遷移 III-V 族 (GaAs/GaN/InGaAs/GaSb) へ。基板チェーン (合成 → 単結晶育成 LEC/VGF/VB → ウェハ加工 → エピ面処理) を kotoba Datom log に as-of で datafy。構造的に charter-clean: 実施可能な OPEN 工程知識のみ (source-license 不変条件 G1 — vendor-proprietary な MOCVD レシピは表現不能)、結晶・ウェハは設計/仕様のみ (fabricated=false, G2)。hotaru は ADR-2605265500 §2 の R4+ 再評価ゲートが前提とする『open-source III-V ウェハ IP commons』の構築そのもの。III-V 製造は R3 まで PROHIBITED のまま (継承)、ゲートには非裁定 (G3 — hotaru は報告し、Council が決める)。蛍 (直接遷移発光) = シリコンの間接遷移が III-V 族の存在理由。iwakura/fuigo シリコン (間接遷移) トラックの兄弟。",
+  "adr": {
+    "master": "etzhayyim:adr:2606051200",
+    "gateParent": "etzhayyim:adr:2605265500",
+    "siliconSibling": "etzhayyim:adr:2605242500",
+    "r0": "etzhayyim:adr:2606051200",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "siblingActor": "did:web:etzhayyim.com:iwakura",
+  "scope": {
+    "phase": "R0 — 5 cells (all 5 coded state machines; .solve() wrappers still raise at R0) + 6 lexicons + ontology + analyzer (maturity-score + per-material chain-completeness metrics). 53 tests green (25 methods + 28 cells). Design/datafication/simulation only; NO fabrication.",
+    "scopeBoundary": "Open-publication III-V/InP substrate commons (生成 + 製造 knowledge) + readiness reporting",
+    "exclusions": [
+      "III-V fabrication — PROHIBITED through R3 (ADR-2605265500 §2)",
+      "vendor-proprietary MOCVD/epitaxy recipes — unrepresentable (G1)",
+      "physically grown crystals / manufactured wafers — fabricated=false (G2)",
+      "silicon logic/compute ASIC fab — iwakura/fuigo/tsukuru track (ADR-2605242500)",
+      "silicon solar PV — himawari (ADR-2606021200)",
+      "military / fire-control / weapons-seeker III-V designs (Charter §2(a), N1)",
+      "In/Ga sourced without conflict-free/recycled attestation (G4)",
+      "deciding or advocating the ADR-2605265500 R4+ gate (G3 — Council Lv7+ only)"
+    ]
+  },
+  "cells": [
+    { "name": "commons_ingest", "module": "hotaru.cells.commons_ingest", "murakumoNode": "dan", "phase": "open-publication process-knowledge ingest + open-IP license screen (G1)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.processKnowledge", "gates": ["G1", "G5", "G7", "G8"] },
+    { "name": "bulk_crystal_design", "module": "hotaru.cells.bulk_crystal_design", "murakumoNode": "naphtali", "phase": "single-crystal InP boule growth design + thermal-field sim (LEC/VGF/VB)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.crystalGrowthDesign", "gates": ["G2", "G4", "G8", "N2"] },
+    { "name": "wafer_fab_design", "module": "hotaru.cells.wafer_fab_design", "murakumoNode": "gad", "phase": "boule → saw → lap → CMP → epi-ready surface spec design", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.waferSpec", "gates": ["G2", "G8", "N2"] },
+    { "name": "precursor_safety", "module": "hotaru.cells.precursor_safety", "murakumoNode": "asher", "phase": "toxic-precursor + conflict-mineral + export-control refusal gate (G3/G4/G9/G11)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.precursorSafetyAttestation", "gates": ["G4", "G9", "G11"] },
+    { "name": "commons_readiness", "module": "hotaru.cells.commons_readiness", "murakumoNode": "issachar", "phase": "per-stage open-coverage index → ADR-2605265500 §2 R4+ gate input (non-adjudicating)", "status": "coded-state-machine (logic mirrored in methods/analyze.py)", "emitsLexicon": "com.etzhayyim.hotaru.commonsReadinessReport", "gates": ["G3", "G8"] }
+  ],
+  "lexiconNamespaces": [
+    { "id": "com.etzhayyim.hotaru.processKnowledge", "status": "implemented", "emittedBy": ["commons_ingest"] },
+    { "id": "com.etzhayyim.hotaru.crystalGrowthDesign", "status": "implemented", "emittedBy": ["bulk_crystal_design"] },
+    { "id": "com.etzhayyim.hotaru.waferSpec", "status": "implemented", "emittedBy": ["wafer_fab_design"] },
+    { "id": "com.etzhayyim.hotaru.precursorSafetyAttestation", "status": "implemented", "emittedBy": ["precursor_safety"] },
+    { "id": "com.etzhayyim.hotaru.commonsReadinessReport", "status": "implemented", "emittedBy": ["commons_readiness"] },
+    { "id": "com.etzhayyim.hotaru.silenHotaruReview", "status": "implemented", "emittedBy": ["Council attestation flow (Lv7+; never opens fabrication)"] }
+  ],
+  "constitutionalGates": {
+    "description": "11 immutable gates per ADR-2606051200. G1 (open-IP-only) + G2 (design-only/not-fabricated) + G3 (non-adjudicating on the R4+ gate) are the structural anchors; G4 (conflict-mineral) inherits hikari/himawari §G2.",
+    "gates": {
+      "G1": "Open-IP only — :source-license ∈ {academic-oa, patent-expired, textbook-public, standard-public, own-rnd}; vendor-proprietary/patent-active/trade-secret unrepresentable (schema + lexicon enum + code)",
+      "G2": "Design-only/not-fabricated — :fabricated allowed [false]; III-V fabrication PROHIBITED through R3 (ADR-2605265500 §2)",
+      "G3": "Non-adjudicating on the gate — hotaru reports the R4+ gate facts; Council Lv7+ decides; silenHotaruReview never opens fabrication",
+      "G4": "Conflict-mineral sourcing — In/Ga consumed requires :in-sourcing clean (recycled/conflict-free-attested); inherits hikari/himawari §G2",
+      "G5": "No-server-key — future authorization member/operator-signed; server signature refused (ADR-2605231525)",
+      "G6": "Murakumo-only inference (ADR-2605215000)",
+      "G7": "Sourcing-honesty — :representative seed; primary-source verification before outward use",
+      "G8": "Outward-gated — real growth/fab/live-ingest/publish all Council Lv7+ + operator (Lv7+, not Lv6+, because III-V is constitutionally gated through R3)",
+      "G9": "Export-control-honest — ITAR/EAR posture recorded for ADR-2605265500 §2 jurisdictional-risk attestation",
+      "G10": "Civilian-only — no fire-control/weapons/military RF-seeker designs (Charter §2(a) force-separation)",
+      "G11": "Process-safety — acute-toxic-pyrophoric precursors (PH3) acknowledged via precursor_safety refusal gate before any design clears"
+    }
+  },
+  "nonGoals": {
+    "description": "6 explicitly excluded scopes",
+    "goals": {
+      "N1": "No military/fire-control/weapons-seeker III-V designs (civilian only)",
+      "N2": "NOT a III-V fab — design/datafication/sim only; fabrication PROHIBITED through R3",
+      "N3": "No vendor-proprietary MOCVD/epitaxy recipe ingest or reverse-engineering",
+      "N4": "Not the silicon iwakura/fuigo logic-ASIC track nor himawari solar-Si PV",
+      "N5": "No In/Ga sourced without conflict-free/recycled attestation",
+      "N6": "Does NOT decide or advocate the ADR-2605265500 R4+ gate (Council Lv7+ only)"
+    }
+  },
+  "roadmap": [
+    { "phase": "R0", "date": "2026-06-05", "scope": "This ADR. Ontology + 6 lexicons + 5 cells (all 5 coded state machines) + analyzer (maturity-score + per-material chain-completeness) + :representative seed. Substrate commons READY (4/4 stages open-mature, maturity 1.00); epitaxy GAP; R4+ gate NOT satisfiable from the commons alone → fabrication stays prohibited. 53 tests green. No runtime/sim/live-kotoba.", "gate": "ADR-2606051200 (PROPOSED) + ADR-2605265500 §2 inherited" },
+    { "phase": "R1", "date": "post-Council", "scope": "Expand the open commons (more open-publication processes; close :open-emerging → :open-mature); bulk-growth thermal-field simulation (kami-genesis); honest epitaxy-gap map. Still design/sim only.", "gate": "Future ADR + ≥1 compound-semiconductor crystal-growth engineer on Council technical advisory" },
+    { "phase": "R2", "date": "post-R1", "scope": "Simulation-validated substrate process designs; export-control/jurisdiction attestation framework; commons-readiness as a standing input to the ADR-2605265500 R4+ re-evaluation. NO fabrication.", "gate": "Future ADR + ADR-2605265500 R4+ gate evaluation reopened by Council Lv7+" },
+    { "phase": "R3", "date": "deferred", "scope": "RESERVED — only reachable if the ADR-2605265500 R4+ gate opens (open-source III-V wafer + epitaxy IP commons complete AND religious-corp-owned capability AND jurisdictional-risk cleared). Fabrication is OUT of hotaru's R0..R2 scope by construction.", "gate": "ADR-2605265500 R4+ gate (Council Lv7+ unanimity)" }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2606051200-hotaru-inp-iii-v-substrate-commons-r0.md",
+      "gateParent": "/90-docs/adr/2605265500-concentrated-pv-d-gate-evaluation-r0.md",
+      "siliconSibling": "/90-docs/adr/2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md",
+      "himawariSolarSi": "/90-docs/adr/2606021200-himawari-solar-pv-manufacturing-r0.md",
+      "conflictMineralG2": "/90-docs/adr/2605261100-hikari-energy-tier-b-actor-r0.md",
+      "noServerKey": "/90-docs/adr/2605231525-server-side-signing-capability-boundary.md",
+      "murakumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
+    },
+    "schema": "/00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
+    "seed": "/20-actors/hotaru/data/seed-iii-v-substrate.kotoba.edn"
+  }
+}

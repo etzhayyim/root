@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/hayate-model-artifact.schema.json",
+  "title": "Hayate Model Artifact Manifest",
+  "description": "Canonical deploy artifact for Hayate models. Sharded safetensors plus manifest metadata for Murakumo, Kotodama, and YATA.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version",
+    "artifact_id",
+    "model_id",
+    "variant",
+    "format",
+    "runtime",
+    "storage",
+    "files"
+  ],
+  "properties": {
+    "manifestVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "artifactId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "modelId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "variant": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "train",
+        "export",
+        "deploy",
+        "runtime"
+      ],
+      "default": "deploy"
+    },
+    "format": {
+      "type": "string",
+      "const": "safetensors+manifest"
+    },
+    "baseArtifactId": {
+      "type": "string"
+    },
+    "quantization": {
+      "$ref": "#/$defs/quantization"
+    },
+    "runtime": {
+      "$ref": "#/$defs/runtime"
+    },
+    "storage": {
+      "$ref": "#/$defs/storage"
+    },
+    "tokenizer": {
+      "$ref": "#/$defs/tokenizer"
+    },
+    "yata": {
+      "$ref": "#/$defs/yata"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/file"
+      }
+    },
+    "tensorIndex": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "hf_safetensors_index_json",
+            "arrow_ipc",
+            "yata_lance"
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "format"
+      ],
+      "additionalProperties": false
+    },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "kotodamaInferenceMin": {
+          "type": "string"
+        },
+        "murakumoCliMin": {
+          "type": "string"
+        },
+        "guestAbi": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hydrate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "const": true
+        },
+        "layout": {
+          "type": "string",
+          "enum": [
+            "local_immutable_tree"
+          ]
+        },
+        "cacheScope": {
+          "type": "string",
+          "enum": [
+            "host_local",
+            "browser_local",
+            "pod_local"
+          ]
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "role",
+        "size_bytes"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "manifest",
+            "config",
+            "tokenizer",
+            "tokenizer_config",
+            "special_tokens_map",
+            "index",
+            "weights_shard",
+            "weights_single"
+          ]
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "digestBlake3": {
+          "type": "string"
+        },
+        "cid": {
+          "type": "string"
+        },
+        "blobRef": {
+          "type": "string"
+        },
+        "storageClass": {
+          "type": "string",
+          "enum": [
+            "lance_blob",
+            "object_store",
+            "cid"
+          ]
+        },
+        "hydrateTarget": {
+          "type": "string"
+        },
+        "logicalGroup": {
+          "type": "string",
+          "enum": [
+            "backbone",
+            "router",
+            "experts",
+            "vision",
+            "audio",
+            "lm_head",
+            "shared"
+          ]
+        }
+      }
+    },
+    "quantization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": [
+            "none",
+            "q4",
+            "q5",
+            "q6",
+            "q8",
+            "fp16",
+            "bf16"
+          ]
+        },
+        "groupSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "backendLayout": {
+          "type": "string"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host",
+        "backend"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "enum": [
+            "kotodama"
+          ]
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "wgpu",
+            "webgpu",
+            "mlx"
+          ]
+        },
+        "maxContextLen": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry",
+        "payload_mode",
+        "runtime_access"
+      ],
+      "properties": {
+        "registry": {
+          "type": "string",
+          "enum": [
+            "yata_lancedb"
+          ]
+        },
+        "payloadMode": {
+          "type": "string",
+          "enum": [
+            "blob_ref",
+            "cid",
+            "mixed"
+          ]
+        },
+        "runtimeAccess": {
+          "type": "string",
+          "enum": [
+            "local_hydrate_then_execute"
+          ]
+        }
+      }
+    },
+    "tokenizer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "vocabSize": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "yata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifestRef": {
+          "type": "string"
+        },
+        "manifestCid": {
+          "type": "string"
+        },
+        "manifestBlobRef": {
+          "type": "string"
+        },
+        "artifactTable": {
+          "type": "string"
+        },
+        "artifactFilesTable": {
+          "type": "string"
+        },
+        "tensorIndexTable": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

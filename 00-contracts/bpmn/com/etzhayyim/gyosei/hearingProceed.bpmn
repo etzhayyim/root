@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  id="Definitions_gyosei_hearing_proceed"
+  targetNamespace="https://etzhayyim.ai/bpmn/gyosei"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="gyosei_hearing_proceed" name="聴聞実施" isExecutable="true">
+    <bpmn:startEvent id="Start_Hearing" name="聴聞開始">
+      <bpmn:outgoing>Flow_H1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_H1" sourceRef="Start_Hearing" targetRef="Task_RecordNotice"/>
+
+    <bpmn:serviceTask id="Task_RecordNotice" name="通知記録">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_H1</bpmn:incoming>
+      <bpmn:outgoing>Flow_H2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_H2" sourceRef="Task_RecordNotice" targetRef="Task_HearingRecord"/>
+
+    <bpmn:userTask id="Task_HearingRecord" name="実施記録入力">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:gyosei-hearing-record-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="hearing-officer"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_H2</bpmn:incoming>
+      <bpmn:outgoing>Flow_H3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_H3" sourceRef="Task_HearingRecord" targetRef="Task_HearingAudit"/>
+
+    <bpmn:serviceTask id="Task_HearingAudit" name="聴聞記録保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_H3</bpmn:incoming>
+      <bpmn:outgoing>Flow_H4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_H4" sourceRef="Task_HearingAudit" targetRef="End_Hearing"/>
+
+    <bpmn:endEvent id="End_Hearing" name="聴聞完了">
+      <bpmn:incoming>Flow_H4</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

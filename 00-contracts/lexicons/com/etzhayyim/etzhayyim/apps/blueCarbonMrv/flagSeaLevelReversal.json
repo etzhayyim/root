@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.blueCarbonMrv.flagSeaLevelReversal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sea-level-rise / storm surge permanence risk (bridges forestryMrv.flagBaselineDrift + climate-adaptation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "projectVid",
+            "driverKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "projectVid": {
+              "type": "string",
+              "description": "bridges registerBlueCarbonProject"
+            },
+            "baselineDriftVid": {
+              "type": "string",
+              "description": "bridges forestryMrv.flagBaselineDrift"
+            },
+            "driverKind": {
+              "type": "string",
+              "enum": [
+                "slr_submergence",
+                "storm_surge",
+                "cyclone",
+                "coastal_squeeze",
+                "dieback_disease",
+                "upstream_sediment_loss",
+                "aquaculture_conversion",
+                "oil_spill"
+              ]
+            },
+            "reversalTco2e": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "significant",
+                "catastrophic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

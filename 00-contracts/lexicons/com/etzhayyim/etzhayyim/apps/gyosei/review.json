@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gyosei.review",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Agency / review officer verdict for gyosei procedure or appeal.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "caseId": { "type": "string" },
+            "decision": { "type": "string" },
+            "comment": { "type": "string" },
+            "sourceIds": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["caseId", "decision"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "reviewedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

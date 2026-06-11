@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-577944f38157",
+  "entityId": "ent-577944f38157",
+  "canonicalName": "comercializacion de productos varios",
+  "aliases": [
+    "comercializacion de productos varios"
+  ]
+}

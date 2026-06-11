@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSales.getPipelineHealth",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get pipeline health KPIs by stage from mv_open_sales_pipeline_health. Returns weighted pipeline value and per-stage breakdown.",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["stages", "totalWeightedUsd"],
+          "properties": {
+            "stages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "stage":              { "type": "string" },
+                  "oppCount":           { "type": "integer" },
+                  "totalPipelineUsd":   { "type": "number" },
+                  "avgProbabilityPct":  { "type": "number" },
+                  "weightedUsd":        { "type": "number" }
+                }
+              }
+            },
+            "totalWeightedUsd": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

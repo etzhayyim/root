@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openIsco.classifyWorker",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assign a worker DID to an ISCO-08 occupation code (1/2/3/4 digit = major/submajor/minor/unit). FEEL derives codeLevel from length and verification from confidence. Starts BPMN open_isco_classify_worker.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["workerDid","iscoCode","confidence","classifiedAt"],
+          "properties": {
+            "workerDid":      { "type": "string" },
+            "iscoCode":       { "type": "string", "description": "1-4 digit ISCO-08 code" },
+            "employerDid":    { "type": "string" },
+            "certificateUrl": { "type": "string" },
+            "yearsExperience":{ "type": "number" },
+            "confidence":     { "type": "number", "minimum": 0, "maximum": 1 },
+            "classifiedAt":   { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "codeLevel": { "type": "string", "enum": ["major","submajor","minor","unit"] },
+            "verification": { "type": "string", "enum": ["authoritative","community","candidate"] },
+            "requireReview": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

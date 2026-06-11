@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.electricalAttestation",
+  "description": "Electrical integration attestation (L5b). Harness routing + ECU flash + diagnostics. G1 + N8 enforcement: firmware Apache 2.0 + Charter Rider mandatory. Per ADR-2605252500 L5b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "harnessLayout": {"type": "unknown"},
+          "ecuFlash": {
+            "type": "object",
+            "properties": {
+              "ecuModel": {"type": "string"},
+              "firmwareCid": {"type": "string"},
+              "firmwareLicense": {"type": "string", "description": "G1 + N8: must include 'Apache 2.0' and 'Charter Compliance Rider'"},
+              "flashTimestamp": {"type": "string", "format": "datetime"}
+            },
+            "required": ["ecuModel", "firmwareCid", "firmwareLicense"]
+          },
+          "openSourceVerification": {
+            "type": "object",
+            "properties": {
+              "g1Enforcement": {"type": "string", "const": "active"},
+              "n8Enforcement": {"type": "string", "const": "active"},
+              "proprietaryNdaPresent": {"type": "boolean", "const": false},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["g1Enforcement", "n8Enforcement", "accept"]
+          },
+          "diagnostics": {"type": "unknown"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "ecuFlash", "openSourceVerification"]
+      }
+    }
+  }
+}

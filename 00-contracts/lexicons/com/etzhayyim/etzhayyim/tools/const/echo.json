@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tools.const.echo",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generic constant-return / identity primitive for LangGraph topology nodes (ADR-2605082000 §2.6 PoC follow-up). Returns whatever is in `constant` verbatim. Lets identity / no-op nodes (e.g. ki.cycle.skip_bloom) live as data without requiring per-actor code. Inputs other than `constant` are ignored.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "constant": {
+              "type": "object",
+              "description": "Object returned verbatim under the result envelope. Required."
+            }
+          },
+          "required": ["constant"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "description": "Echoes the input `constant` field as the response object.",
+          "properties": {
+            "constant": {
+              "type": "object",
+              "description": "The same object that was supplied in the input."
+            }
+          }
+        }
+      }
+    }
+  }
+}

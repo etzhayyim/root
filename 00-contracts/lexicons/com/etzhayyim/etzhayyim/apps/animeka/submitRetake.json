@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.submitRetake",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a retake (リテイク) against a target record. Creates com.etzhayyim.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["targetUri", "stage", "comment"],
+          "properties": {
+            "targetUri": { "type": "string", "format": "at-uri" },
+            "cutId": { "type": "string", "format": "at-uri", "description": "Parent cut (derived from targetUri if omitted)." },
+            "stage": {
+              "type": "string",
+              "enum": ["script", "storyboard", "layout", "keyAnim", "inbetween", "colorDesign", "finish", "background", "composite", "edit", "sound", "delivery"]
+            },
+            "comment": { "type": "string" },
+            "severity": {
+              "type": "string",
+              "enum": ["nit", "minor", "major", "blocker"]
+            },
+            "timecodeFrame": { "type": "integer" },
+            "region": {
+              "type": "object",
+              "properties": {
+                "x": { "type": "number" },
+                "y": { "type": "number" },
+                "w": { "type": "number" },
+                "h": { "type": "number" }
+              }
+            },
+            "assignee": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "cid"],
+          "properties": {
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" }
+          }
+        }
+      }
+    }
+  }
+}

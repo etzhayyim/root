@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carrierFleet.registerVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Carrier fleet vessel 登録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "imo",
+            "carrierCode",
+            "registeredAt"
+          ],
+          "properties": {
+            "imo": {
+              "type": "string"
+            },
+            "mmsi": {
+              "type": "string"
+            },
+            "carrierCode": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "teuCapacity": {
+              "type": "integer"
+            },
+            "dwtTonnes": {
+              "type": "number"
+            },
+            "buildYear": {
+              "type": "integer"
+            },
+            "vesselClass": {
+              "type": "string",
+              "enum": [
+                "feeder",
+                "panamax",
+                "neopanamax",
+                "post-panamax",
+                "ulcv",
+                "mega-container"
+              ]
+            },
+            "flag": {
+              "type": "string"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

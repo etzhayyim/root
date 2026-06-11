@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-88a36c8af11f",
+  "entityId": "ent-88a36c8af11f",
+  "canonicalName": "armed islamic group",
+  "aliases": [
+    "armed islamic group"
+  ]
+}

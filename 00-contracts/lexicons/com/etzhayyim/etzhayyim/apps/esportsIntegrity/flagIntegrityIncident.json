@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.esportsIntegrity.flagIntegrityIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Match-fixing / doping / DDoS / smurfing / AI-assist incident",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "competitionVid",
+            "incidentType",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "competitionVid": {
+              "type": "string",
+              "description": "bridges logCompetition"
+            },
+            "incidentType": {
+              "type": "string",
+              "enum": [
+                "match_fixing",
+                "doping",
+                "ddos",
+                "account_sharing",
+                "ai_assist",
+                "smurfing",
+                "collusion",
+                "sponsor_breach"
+              ]
+            },
+            "playerHandle": {
+              "type": "string"
+            },
+            "aiModelVid": {
+              "type": "string",
+              "description": "bridges open-ai-governance"
+            },
+            "investigationStatus": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "confirmed",
+                "dismissed",
+                "pending"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

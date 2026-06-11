@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.otakiage.issueCertificate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matsuriUri"],
+          "properties": {
+            "matsuriUri": {"type": "string"},
+            "ceremonyDate": {"type": "string", "format": "date-time", "description": "実施日時"},
+            "ceremonyPhotoBlobKey": {"type": "string", "description": "供養祭の様子の写真"},
+            "displayText": {"type": "string", "maxLength": 4000, "description": "証跡本文 (省略時は item 集計から auto-generate)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "certificateUri", "ritualUri", "itemCount"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "certificateUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com:ritual/com.etzhayyim.apps.otakiage.certificate/{rkey}"},
+            "ritualUri": {"type": "string"},
+            "itemCount": {"type": "integer"},
+            "categoryBreakdown": {"type": "string", "description": "JSON {category: count}"},
+            "anchorTokenId": {"type": "string", "description": "Phase 2 ERC725 anchor (Phase 1 では空)"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  checkoutTool — XRPC com.etzhayyim.apps.kogu.checkoutTool で起動。
+  工具の貸出 (action=checkout) または返却 (action=return) を処理。
+  返却時 conditionOnReturn=damaged → inspection レコードを自動起票。
+  二重貸出は Gate_Available でブロック (status != available → error audit)。
+
+  Inputs:
+    toolId
+    action          (checkout | return)
+    borrowerDid
+    checkedOutAt    (checkout 時)
+    expectedReturnAt
+    returnedAt      (return 時)
+    conditionOnReturn
+-->
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_kogu_checkout_tool"
+  targetNamespace="https://etzhayyim.ai/bpmn/kogu"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="kogu_checkout_tool" name="kogu Checkout Tool" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="checkout/return">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_FetchStatus"/>
+
+    <bpmn:serviceTask id="Task_FetchStatus" name="fetch current tool status">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_item&quot;" target="table"/>
+          <zeebe:input source="=&quot;tool_id = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[toolId]" target="whereParams"/>
+          <zeebe:input source="=&quot;tool_id, status&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:output source="=rows" target="toolRows"/>
+          <zeebe:output source="=rowCount" target="toolFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_FetchStatus" targetRef="Gate_Available"/>
+
+    <bpmn:exclusiveGateway id="Gate_Available" name="available for checkout?" default="Flow_Blocked">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Ok</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Blocked</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Ok" sourceRef="Gate_Available" targetRef="Task_WriteCheckout">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolFound > 0 and (action = "return" or toolRows[1].status = "available")</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Blocked" sourceRef="Gate_Available" targetRef="Task_AuditBlocked"/>
+
+    <bpmn:serviceTask id="Task_WriteCheckout" name="write checkout record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_checkout&quot;" target="table"/>
+          <zeebe:input source="={ tool_id: toolId, borrower_did: borrowerDid, checked_out_at: checkedOutAt, expected_return_at: expectedReturnAt, returned_at: returnedAt, condition_on_return: conditionOnReturn, status: if(action = &quot;checkout&quot;, &quot;checked-out&quot;, &quot;returned&quot;) }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Ok</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_WriteCheckout" targetRef="Task_UpdateItemStatus"/>
+
+    <bpmn:serviceTask id="Task_UpdateItemStatus" name="update item status">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_item&quot;" target="table"/>
+          <zeebe:input source="={ tool_id: toolId, status: if(action = &quot;checkout&quot;, &quot;checked-out&quot;, &quot;available&quot;) }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_UpdateItemStatus" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit checkout audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=if(action = &quot;checkout&quot;, &quot;toolCheckedOut&quot;, &quot;toolReturned&quot;)" target="action"/>
+          <zeebe:input source="={ toolId: toolId, borrowerDid: borrowerDid, conditionOnReturn: conditionOnReturn }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_DmgGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_DmgGate" sourceRef="Task_Audit" targetRef="Gate_Damaged"/>
+
+    <bpmn:exclusiveGateway id="Gate_Damaged" name="damaged?" default="Flow_NoDamage">
+      <bpmn:incoming>Flow_DmgGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Damaged</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoDamage</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Damaged" sourceRef="Gate_Damaged" targetRef="Task_CreateInspection">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=action = "return" and conditionOnReturn = "damaged"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoDamage" sourceRef="Gate_Damaged" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_CreateInspection" name="auto-create inspection record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_inspection&quot;" target="table"/>
+          <zeebe:input source="={ tool_id: toolId, inspected_at: returnedAt, inspector_did: &quot;did:web:kogu.etzhayyim.com&quot;, inspection_type: &quot;post-use&quot;, result: &quot;fail&quot;, repair_required: true, notes: &quot;Auto-created: damaged on return&quot; }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Damaged</bpmn:incoming>
+      <bpmn:outgoing>Flow_DmgEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_DmgEnd" sourceRef="Task_CreateInspection" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditBlocked" name="emit blocked audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;checkoutBlocked&quot;" target="action"/>
+          <zeebe:input source="={ toolId: toolId, borrowerDid: borrowerDid, reason: &quot;tool not available&quot; }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Blocked</bpmn:incoming>
+      <bpmn:outgoing>Flow_BlkEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_BlkEnd" sourceRef="Task_AuditBlocked" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_NoDamage</bpmn:incoming>
+      <bpmn:incoming>Flow_DmgEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_BlkEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

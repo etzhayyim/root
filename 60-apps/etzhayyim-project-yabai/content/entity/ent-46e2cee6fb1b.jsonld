@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-46e2cee6fb1b",
+  "entityId": "ent-46e2cee6fb1b",
+  "canonicalName": "angel daniel balestrini jaramillo",
+  "aliases": [
+    "angel daniel balestrini jaramillo"
+  ]
+}

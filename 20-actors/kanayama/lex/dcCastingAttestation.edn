@@ -1,0 +1,24 @@
+;; com.etzhayyim.kanayama.dcCastingAttestation — lexicon (EDN form)
+;; ADR-2605252400 · Phase 2 — L4 DC slab cast + homogenization
+{:lexicon 1
+ :id "com.etzhayyim.kanayama.dcCastingAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["castingId" "meltingId" "slabWeight"]
+    :properties
+    {:castingId          {:type "string"}
+     :meltingId          {:type "string" :description "→ meltingAttestation"}
+     :slabDims           {:type "string" :description "L x W x H, e.g. 1m x 2m x 8m"}
+     :slabWeight         {:type "number" :description "kg, post-DC cast slab weight"}
+     :castTemp           {:type "number" :description "°C, casting temperature"}
+     :homogenTempRamp    {:type "string" :description "540-580°C x 12-24h profile"}
+     :homogenStartTime   {:type "string" :format "datetime" :description "homogenization start"}
+     :homogenEndTime     {:type "string" :format "datetime" :description "homogenization end"}
+     :grainStructure     {:type "string" :description "post-homogen grain size (visual/UT)"}
+     :ipfsPhoto          {:type "string" :description "IPFS CID slab photo (G3)"}
+     :ipfsUltrasonics    {:type "string" :description "IPFS CID UT scan (G3)"}
+     :timestamp          {:type "string" :format "datetime"}}}}}}

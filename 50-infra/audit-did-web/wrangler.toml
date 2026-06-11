@@ -1,0 +1,22 @@
+name = "audit-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-23"
+
+# Routes audit.etzhayyim.com — audit-event subject DID + emitter XRPC entrypoint.
+# Per ADR-2605231700.
+[[routes]]
+pattern = "audit.etzhayyim.com/*"
+zone_name = "etzhayyim.com"
+
+[vars]
+# Upstream — the audit aggregator service (k3s pod or future serverless
+# function). Receives /xrpc/com.etzhayyim.audit.emitAuditEvent and writes
+# the signed event record into the subject's PDS. Empty = 503.
+AUDIT_AGGREGATOR_UPSTREAM = ""
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"

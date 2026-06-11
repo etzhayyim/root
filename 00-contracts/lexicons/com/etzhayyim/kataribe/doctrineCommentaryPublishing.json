@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kataribe.doctrineCommentaryPublishing",
+  "description": "Doctrine commentary publication (cross-doctrinal Wellbecoming priority). G6 STRUCTURAL: doctrinalMonopolyAttested const false (cross-doctrinal accommodation per musubi G9+N12). G9 STRUCTURAL: licenseAttested const apache-2.0-with-charter-rider-v2.0. Cross-doctrinal reviewer attestations required (≥2 from distinct traditions).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "commentaryTitle",
+          "commentaryBodyCid",
+          "primaryDoctrinalTradition",
+          "crossDoctrinalReviewerAttestations",
+          "doctrinalMonopolyAttested",
+          "kataribeOfficiantDid",
+          "licenseAttested",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "commentaryTitle": {"type": "string", "maxLength": 200},
+          "commentaryBodyCid": {
+            "type": "string",
+            "description": "IPFS CID of commentary full text"
+          },
+          "primaryDoctrinalTradition": {
+            "type": "string",
+            "knownValues": [
+              "reformed",
+              "presbyterian",
+              "baptist",
+              "methodist",
+              "anglican-low-church",
+              "nondenominational",
+              "cross-tradition",
+              "other-protestant",
+              "ecumenical"
+            ],
+            "description": "Author's primary tradition declaration (transparency; NOT gatekeeping)"
+          },
+          "scriptureReferences": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Biblical references (Sola Scriptura discipline)"
+          },
+          "crossDoctrinalReviewerAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 2,
+            "description": "≥2 reviewers from distinct doctrinal traditions; G6 cross-doctrinal Wellbecoming discipline"
+          },
+          "doctrinalMonopolyAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "G6 STRUCTURAL: const false; NO single-doctrinal monopoly (cross-doctrinal Wellbecoming priority per musubi G9+N12)"
+          },
+          "kataribeOfficiantDid": {
+            "type": "string",
+            "description": "Kataribe officiant DID; vocation-flow L5 verified"
+          },
+          "licenseAttested": {
+            "type": "string",
+            "const": "apache-2.0-with-charter-rider-v2.0",
+            "description": "G9 STRUCTURAL: const apache-2.0-with-charter-rider-v2.0"
+          },
+          "transubstantiationDoctrineImposed": {
+            "type": "boolean",
+            "const": false,
+            "description": "musubi G9 cross-reference: const false; Sola Scriptura + Reformed memorial view; cross-doctrinal priority"
+          },
+          "translationCidsAvailable": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "charterRiderScanRunCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

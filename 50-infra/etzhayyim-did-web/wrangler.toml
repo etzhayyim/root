@@ -1,0 +1,135 @@
+name = "etzhayyim-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-17"
+
+# ── Static assets (ADR-2606013600 / kabuto G6 browser-native render) ─────────
+# Serves the kotoba-wasm browser-node bundle at
+#   /kotoba/kotoba_wasm.js  +  /kotoba/kotoba_wasm_bg.wasm
+# so pages like the kabuto supply-chain viz can `import('/kotoba/kotoba_wasm.js')`,
+# hydrate the Datom log with loadDatoms(), and query it via datomicQ() entirely
+# client-side (zero server round-trip, no platform-held key — ADR-2605231525).
+# Cloudflare serves matching files from ./public FIRST; every other path falls
+# through to the Worker (DID issuance / IPFS gateway / XRPC / yoro proxy).
+# `.wasm` is served as `application/wasm` automatically.
+# Repopulate after a kotoba bump:  ./scripts/build-kotoba-wasm.sh
+[assets]
+directory = "./public"
+
+# Catch-all routes. Worker handles:
+#   - /.well-known/did.json  → DID Document (local)
+#   - /*                     → reverse-proxy to yoro.etzhayyim.com
+# zone_name binds to the etzhayyim.com zone in the Cloudflare account that
+# registered etzhayyim.com via Cloudflare Registrar (2026-05-15).
+[[routes]]
+pattern = "etzhayyim.com/*"
+zone_name = "etzhayyim.com"
+
+# Also catch www.etzhayyim.com so visitors who type the full hostname land
+# on the proxied app instead of an unanswered DNS.
+[[routes]]
+pattern = "www.etzhayyim.com/*"
+zone_name = "etzhayyim.com"
+
+# Service binding — direct Worker→Worker call to kotodama-yoro avoids the
+# CF Bot Management block that public-HTTP fetch hits inside the same zone.
+[[services]]
+binding = "YORO"
+service = "kotodama-yoro"
+
+# Substrate-side XRPC adapter (rw-free reference impl). Per ADR-2605172000,
+# reads under SUBSTRATE_NSID_ALIASES (worker.ts) MUST resolve through this
+# adapter (MST/IPFS/L2) rather than the etzhayyim.com PDS+AppView+Kotoba/Datomic chain.
+# Deploy `60-apps/etzhayyim-project-yoro/xrpc-adapter` first; this binding will
+# resolve to the deployed Worker named `yoro-xrpc-adapter`.
+[[services]]
+binding = "YORO_XRPC"
+service = "yoro-xrpc-adapter"
+
+# Per-NSID upstream map for /xrpc/* routing. Values are public HTTPS origins
+# (CF Tunnel or LoadBalancer) reachable from the Worker via fetch().
+# Empty string = upstream not yet provisioned → Worker returns a clean 503
+# UpstreamNotConfigured JSON instead of the CF edge's HTML 530.
+# Replace with the actual hostname once `kubectl apply -k 50-infra/k8s/lg-open-unispsc`
+# + CF Tunnel to the lg-open-unispsc Service are live.
+# Add new actors as separate vars; never introduce a new subdomain unless
+# wildcard handle DNS is provisioned per ADR-2605212030 §D2.
+
+# ── Actor-profile dynamic did.json issuance (ADR-2606013800) ──────────────
+# ACTOR_KV holds the materialized ActorRecord JSON per actor (`actor:<handle>`),
+# pushed by `scripts/publish-actor-records.mjs` from the kotoba `actors-v1`
+# graph. The Worker reads KV first (fast, origin-independent), then falls back
+# to a kotoba pull (KOTOBA_ENDPOINT), then to the compiled INFRA_ACTORS
+# registry — so did:web resolution stays live even with KV + kotoba both down.
+#
+# ENABLE (operator, once): create the namespace, paste its id below, publish:
+#   wrangler kv namespace create ACTOR_KV
+#   node scripts/publish-actor-records.mjs --put-kv
+# Until enabled the binding is absent and the Worker serves the compiled
+# fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
+# behaviour is identical; KV just promotes kotoba to live source of truth.
+#
+[[kv_namespaces]]
+binding = "ACTOR_KV"
+id = "d33de8e083874cf5b8e2dbdb637ccdb4"
+
+[vars]
+XRPC_UNISPSC_UPSTREAM = ""
+# kotoba actors-v1 pull endpoint (best-effort tier-2). Empty until a public
+# read surface for the kotoba server is provisioned (operator/CF-Tunnel gated;
+# Murakumo-mesh-internal today). Empty → Worker skips the pull and uses KV /
+# compiled. NEVER a commercial endpoint — kotoba substrate only (ADR-2605215000).
+KOTOBA_ENDPOINT = ""
+# Trustless IPFS gateway (ADR-2606014600) — UNTRUSTED upstream gateways for
+# GET /ipfs/<cid>; fetched bytes are CID-verified (sha256→CIDv1) before serving.
+# Comma-separated; `{cid}` substituted, else `<gw>/ipfs/<cid>`. Default (empty)
+# uses dweb.link + ipfs.io. Point at the etzhayyim kotoba/IPFS pin once live.
+IPFS_GATEWAYS = ""
+# AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
+# etzhayyim-xrpc-proxy worker, which forwards via service binding to the
+# upstream etzhayyim-pds / etzhayyim-appview workers without hitting the
+# public-HTTP Bot Management blocks).
+XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
+# kotoba graph query surface — INTENTIONALLY EMPTY: kotoba is browser-only
+# (IPFS blocks + kotoba-wasm in the page/SW), NOT a server. block.put/has/root are
+# handled locally by this Worker (KV, keyless); every other com.etzhayyim.apps.kotoba.*
+# NSID now returns 503 UpstreamNotConfigured instead of proxying to a kotoba server.
+# (The route entry is kept so these NSIDs do NOT fall through to the com.etzhayyim.*
+# atproto catch-all.) Build-time ingest tooling talks to the kotoba node directly,
+# not through the apex. Per the browser-only-kotoba directive + ADR-2605262130/2605312345.
+XRPC_KOTOBA_UPSTREAM = ""
+
+# Durable Objects are NOT used (browser-complete kotoba + IPFS + WASM design; no
+# operated server-state primitive — ADR-2605262130 / 2605312345). The
+# member-signed publish path advances the root under KV check-and-set. The v1
+# migration briefly created a KotobaRoot DO; v2 deletes it so the class + its
+# instances are removed from the deployed Worker (Cloudflare requires a delete
+# migration to drop a previously-created DO class).
+# Durable Objects are NOT used (ADR-2605262130 / 2605312345). kotoba is the
+# canonical, content-addressed substrate: genesis blocks are static files under
+# public/kotoba/blocks/<cid> (served by CF assets), post-genesis member-signed
+# deltas land in the content-addressed KV CAS, and the browser kotoba-wasm
+# resolves blocks directly — there is no operated server-state primitive. There
+# is intentionally NO [[durable_objects.bindings]] block (the worker entrypoint
+# exports no Durable Object class).
+#
+# An earlier deploy briefly created a KotobaRoot DO; the v1 (create) + v2
+# (delete) migration pair below tells Cloudflare to tear down that prior class +
+# its instances on the next deploy. Cloudflare requires the delete migration to
+# remain even though no binding exists.
+[[migrations]]
+tag = "v1"
+new_classes = ["KotobaRoot"]
+
+[[migrations]]
+tag = "v2"
+deleted_classes = ["KotobaRoot"]
+
+# Observability — capture failed resolution attempts in CF Logs.
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"

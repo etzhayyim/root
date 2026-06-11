@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-80f52b4e1fc9",
+  "entityId": "ent-80f52b4e1fc9",
+  "canonicalName": "ali kony",
+  "aliases": [
+    "ali kony"
+  ]
+}

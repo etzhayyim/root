@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airYield.applyDynamicPrice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Apply dynamic pricing to a flight based on a trigger.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "dep_date", "trigger", "new_price"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "trigger": { "type": "string" },
+            "new_price": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

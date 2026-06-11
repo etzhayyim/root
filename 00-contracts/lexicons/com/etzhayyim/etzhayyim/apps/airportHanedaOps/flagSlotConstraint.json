@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airportHanedaOps.flagSlotConstraint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Slot constraint / capacity / curfew exception (bridges airplane-airport + ports-port + airline-jal-ops)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "allocationVid",
+            "constraintKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "allocationVid": {
+              "type": "string",
+              "description": "bridges recordSlotAllocation"
+            },
+            "constraintKind": {
+              "type": "string",
+              "enum": [
+                "full_capacity",
+                "peak_hour_max",
+                "mctd_overshoot",
+                "go_around_chain",
+                "atc_holding",
+                "wind_runway_change",
+                "noise_complaint",
+                "curfew_breach_extra",
+                "emergency_landing",
+                "disabled_aircraft",
+                "wildlife_strike",
+                "drone_intrusion",
+                "apron_conflict",
+                "mass_diversion"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

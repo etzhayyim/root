@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.bmcBlockHealth",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "9-row rollup per BMC block for the Studio left pane (mv_bmc_block_health). Returns hypothesis counts by status + the latest iteration timestamp per block.",
+      "parameters": {
+        "type": "params",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["blocks"],
+          "properties": {
+            "blocks": {"type": "array", "items": {"type": "ref", "ref": "#blockRow"}}
+          }
+        }
+      }
+    },
+    "blockRow": {
+      "type": "object",
+      "required": ["block", "hypTotal", "hypActive", "hypCompleted", "hypKilled"],
+      "properties": {
+        "block":        {"type": "string", "knownValues": ["customerSegments", "valuePropositions", "channels", "customerRelationships", "revenueStreams", "keyResources", "keyActivities", "keyPartnerships", "costStructure"]},
+        "hypTotal":     {"type": "integer"},
+        "hypActive":    {"type": "integer"},
+        "hypCompleted": {"type": "integer"},
+        "hypKilled":    {"type": "integer"},
+        "avgMeasured":  {"type": "string", "description": "decimal string, null if no iterations yet"},
+        "lastIterAt":   {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

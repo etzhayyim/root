@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.commodityTrade.settleContract",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Futures settlement linked to physical delivery",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "settlementId",
+            "tradeVid",
+            "settledAt",
+            "settlementPriceUsd",
+            "deliveryType"
+          ],
+          "properties": {
+            "settlementId": {
+              "type": "string"
+            },
+            "tradeVid": {
+              "type": "string",
+              "description": "bridges recordTrade"
+            },
+            "settledAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "settlementPriceUsd": {
+              "type": "number"
+            },
+            "realizedPnlUsd": {
+              "type": "number"
+            },
+            "deliveryType": {
+              "type": "string",
+              "enum": [
+                "physical",
+                "cash"
+              ]
+            },
+            "deliveryRefinerVid": {
+              "type": "string",
+              "description": "if physical delivery to refiner"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "pnlTier": {
+              "type": "string",
+              "enum": [
+                "large_loss",
+                "neutral",
+                "large_win"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

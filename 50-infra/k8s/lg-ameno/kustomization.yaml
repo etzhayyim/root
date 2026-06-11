@@ -1,0 +1,21 @@
+# Kustomize entry — lg-ameno (Path B) on etzhayyim K3s Murakumo fleet.
+# ADR-2605191257 + ADR-2605191346.
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: etzhayyim-langserver
+
+resources:
+  - deployment.yaml
+
+commonLabels:
+  app.kubernetes.io/managed-by: kustomize
+  etzhayyim.com/component: lg-ameno
+  etzhayyim.com/adr: "2605191257_2605191346"
+
+images:
+  # Pin a digest in production. Leaving `:main` here is acceptable for
+  # the dry-run cluster; flip to `@sha256:…` before M5 (geth migration).
+  - name: ghcr.io/etzhayyim/lg-ameno
+    newTag: main

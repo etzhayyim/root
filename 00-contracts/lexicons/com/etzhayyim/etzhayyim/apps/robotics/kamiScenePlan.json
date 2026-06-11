@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.kami.scene.plan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a KAMI Engine SDK review scene for robot workcells, route nodes, safety zones, and operator checks.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cellId": { "type": "string" },
+            "assetKind": { "type": "string" },
+            "routeId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsKamiScene": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

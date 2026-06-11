@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Image-analysis-driven loading robot design workflow.
+
+  Inputs:
+    requestId
+    imageUri
+    imageAnalysis or detections
+    cargoItems
+    container
+    siteConstraints
+    robot
+
+  Outputs:
+    loadingRobotVision
+    loadingRobotLoadPlan
+    loadingRobotCellDesign
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_loading_robot_analyze_design"
+    targetNamespace="https://etzhayyim.ai/bpmn/loading-robot"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="loading_robot_analyze_design" name="Loading robot image analysis and design" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Design request received">
+      <bpmn:outgoing>Flow_Start_Analyze</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Analyze" sourceRef="Start" targetRef="Task_AnalyzeVision"/>
+
+    <bpmn:serviceTask id="Task_AnalyzeVision" name="Analyze loading image">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="loadingRobot.vision.analyze"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=imageUri" target="imageUri"/>
+          <zeebe:input source="=imageAnalysis" target="imageAnalysis"/>
+          <zeebe:input source="=detections" target="detections"/>
+          <zeebe:input source="=scene" target="scene"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Analyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_Analyze_Plan</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Analyze_Plan" sourceRef="Task_AnalyzeVision" targetRef="Task_PlanLoad"/>
+
+    <bpmn:serviceTask id="Task_PlanLoad" name="Plan stable loading layout">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="loadingRobot.plan.load"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=cargoItems" target="cargoItems"/>
+          <zeebe:input source="=container" target="container"/>
+          <zeebe:input source="=loadingRobotVision" target="loadingRobotVision"/>
+          <zeebe:input source="=safetyMarginMm" target="safetyMarginMm"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Analyze_Plan</bpmn:incoming>
+      <bpmn:outgoing>Flow_Plan_Design</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Plan_Design" sourceRef="Task_PlanLoad" targetRef="Task_DesignRobot"/>
+
+    <bpmn:serviceTask id="Task_DesignRobot" name="Design robot cell and interfaces">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="loadingRobot.robot.design"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=loadingRobotLoadPlan" target="loadingRobotLoadPlan"/>
+          <zeebe:input source="=siteConstraints" target="siteConstraints"/>
+          <zeebe:input source="=robot" target="robot"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Plan_Design</bpmn:incoming>
+      <bpmn:outgoing>Flow_Design_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Design_Audit" sourceRef="Task_DesignRobot" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit design audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robot.etzhayyim.com:loading-robot&quot;" target="actor"/>
+          <zeebe:input source="=&quot;loadingRobot.design.completed&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, vision: loadingRobotVision, loadPlan: loadingRobotLoadPlan, cellDesign: loadingRobotCellDesign }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Design_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Design completed">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

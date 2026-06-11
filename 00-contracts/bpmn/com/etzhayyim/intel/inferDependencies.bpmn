@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_intel_infer_dependencies" targetNamespace="https://etzhayyim.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="intel_infer_dependencies" name="inferDependencies" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Run</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Run" sourceRef="Start" targetRef="Task_CreateRun"/>
+    <bpmn:serviceTask id="Task_CreateRun" name="create inference run">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.run.create"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=scope" target="scope"/>
+          <zeebe:input source="=triggerKind" target="triggerKind"/>
+          <zeebe:input source="=dryRun" target="dryRun"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Run</bpmn:incoming><bpmn:outgoing>Flow_Run_Scan</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Run_Scan" sourceRef="Task_CreateRun" targetRef="Task_ScanCandidates"/>
+    <bpmn:serviceTask id="Task_ScanCandidates" name="scan SQL candidates">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.candidate.scan"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=scope" target="scope"/>
+          <zeebe:input source="=maxCandidates" target="maxCandidates"/>
+          <zeebe:output source="=candidates" target="candidates"/>
+          <zeebe:output source="=candidateCount" target="candidateCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Run_Scan</bpmn:incoming><bpmn:outgoing>Flow_Scan_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Scan_Gate" sourceRef="Task_ScanCandidates" targetRef="Gateway_HasCandidates"/>
+    <bpmn:exclusiveGateway id="Gateway_HasCandidates" name="has candidates?">
+      <bpmn:incoming>Flow_Scan_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Scan_Validate</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoCandidates</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Scan_Validate" sourceRef="Gateway_HasCandidates" targetRef="Task_Validate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=candidateCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoCandidates" sourceRef="Gateway_HasCandidates" targetRef="Task_AuditNoCandidates"/>
+    <bpmn:serviceTask id="Task_Validate" name="OWL/SHACL validate">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.owl.validate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=candidates" target="candidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Scan_Validate</bpmn:incoming><bpmn:outgoing>Flow_Validate_Resolve</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Validate_Resolve" sourceRef="Task_Validate" targetRef="Task_Resolve"/>
+    <bpmn:serviceTask id="Task_Resolve" name="LangGraph resolve ambiguous links">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.langgraph.resolve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=validCandidates" target="validCandidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Validate_Resolve</bpmn:incoming><bpmn:outgoing>Flow_Resolve_Materialize</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Resolve_Materialize" sourceRef="Task_Resolve" targetRef="Task_Materialize"/>
+    <bpmn:serviceTask id="Task_Materialize" name="materialize or queue review">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.edge.materialize"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=resolvedEdges" target="resolvedEdges"/>
+          <zeebe:input source="=dryRun" target="dryRun"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Resolve_Materialize</bpmn:incoming><bpmn:outgoing>Flow_Materialize_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Materialize_Audit" sourceRef="Task_Materialize" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;intel.inferDependencies&quot;" target="action"/>
+          <zeebe:input source="={runId: runId, candidateCount: candidateCount, activeCount: activeCount, reviewCount: reviewCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Materialize_Audit</bpmn:incoming><bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:serviceTask id="Task_AuditNoCandidates" name="audit no candidates">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;intel.inferDependencies.abort&quot;" target="action"/>
+          <zeebe:input source="={runId: runId, reason: &quot;no_candidates&quot;, candidateCount: candidateCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoCandidates</bpmn:incoming><bpmn:outgoing>Flow_NoCandidatesEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoCandidatesEnd" sourceRef="Task_AuditNoCandidates" targetRef="End"/>
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+      <bpmn:incoming>Flow_NoCandidatesEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

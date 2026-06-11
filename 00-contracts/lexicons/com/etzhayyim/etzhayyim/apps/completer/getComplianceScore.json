@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.completer.getComplianceScore",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get the latest compliance score (0-100) and effect for an actor DID.",
+      "parameters": {
+        "type": "params",
+        "required": ["actor_did"],
+        "properties": {
+          "actor_did": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "actor_did": { "type": "string" },
+            "score": { "type": "integer" },
+            "effect": { "type": "string" },
+            "total_findings": { "type": "integer" },
+            "evaluated_at": { "type": "string" },
+            "evaluated": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

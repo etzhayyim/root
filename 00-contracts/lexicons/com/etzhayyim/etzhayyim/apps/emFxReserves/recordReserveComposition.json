@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.emFxReserves.recordReserveComposition",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMF COFER / ARA metric / FX reserve composition (bridges fxSwapLines.flagLineStress + sovereign-debt + imf-sdr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "snapshotId",
+            "countryIso3",
+            "asOfDate"
+          ],
+          "properties": {
+            "snapshotId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "usdShareBusd": {
+              "type": "number"
+            },
+            "eurShareBusd": {
+              "type": "number"
+            },
+            "cnyShareBusd": {
+              "type": "number"
+            },
+            "jpyShareBusd": {
+              "type": "number"
+            },
+            "goldTroyOz": {
+              "type": "number"
+            },
+            "sdrHoldingsBusd": {
+              "type": "number"
+            },
+            "araCoverage": {
+              "type": "number",
+              "description": "IMF ARA metric multiple"
+            },
+            "asOfDate": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

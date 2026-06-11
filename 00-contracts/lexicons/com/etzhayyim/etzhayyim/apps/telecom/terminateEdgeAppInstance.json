@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.terminateEdgeAppInstance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC orchestrator — terminate an EAS instance. Mutates the existing EAS row in place and computes lifetime_seconds.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["easId", "terminationKind", "terminatedBy", "terminatedAt"],
+          "properties": {
+            "easId": { "type": "string" },
+            "terminationKind": { "type": "string", "enum": ["graceful", "forceful", "scheduled", "host_decommission", "operator_request"] },
+            "terminationReason": { "type": "string" },
+            "terminatedBy": { "type": "string" },
+            "terminatedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "easId": { "type": "string" },
+          "lifetimeSeconds": { "type": "number" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

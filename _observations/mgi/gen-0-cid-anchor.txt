@@ -1,0 +1,27 @@
+# Gen 0 Constitutional Invariant Drift (CID) anchor
+#
+# Per 90-docs/2605220110-multi-generation-index-design.md §Implementation Plan #2,
+# this file pins the SHA-256 of the "Constitutional invariants" section of
+# FORK-BOOTSTRAP.md at Gen 0 epoch start. Future MGI computations (first
+# observable: 2027-02-09, Gen 3 start) compare canonical surfaces against
+# this hash to detect constitutional drift.
+#
+# Generated: 2026-05-22 01:40 JST (active-inference cycle 05)
+# Source section delimiters: "^## Constitutional invariants" .. "^## Mutable layer"
+# Source file: FORK-BOOTSTRAP.md (cycle 03 authored, committed to repo root)
+#
+# Recompute with:
+#   awk '/^## Constitutional invariants/,/^## Mutable layer/' \
+#     FORK-BOOTSTRAP.md | shasum -a 256
+#
+# Any change to the SHA-256 below indicates a constitutional invariant edit
+# and MUST be paired with a superseding ADR per ADR-2605192100 amendment
+# procedure (constitutional invariants are non-amendable except by
+# Council 5-of-5 unanimous + 30-day public objection + 1 SBT = 1 vote
+# ratification).
+
+GEN_0_EPOCH_START=2026-05-15
+GEN_0_EPOCH_END=2026-08-13
+GEN_0_CID_SHA256=300b12f881aa4f774e1738b97f5ebd8f56e8948a85a3e414df79ddeb76ce1a9a
+GEN_0_CID_ALGO=sha256
+GEN_0_CID_SOURCE=FORK-BOOTSTRAP.md§Constitutional-invariants

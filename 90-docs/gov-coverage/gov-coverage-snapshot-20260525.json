@@ -1,0 +1,44 @@
+{
+  "total": 100,
+  "timestamp": "2026-05-25T04:28:46.177Z",
+  "metrics": {
+    "l1IsoCoverage": 100,
+    "l2CofogDensity": 100,
+    "l3SubstratePort": 100,
+    "l4IngestRecords": 100,
+    "l5CellActivation": 100
+  },
+  "breakdown": {
+    "l1": {
+      "label": "ISO-3 completeness",
+      "value": 100,
+      "weight": 0.2,
+      "contribution": 20
+    },
+    "l2": {
+      "label": "COFOG×country density",
+      "value": 100,
+      "weight": 0.25,
+      "contribution": 25
+    },
+    "l3": {
+      "label": "substrate-port coverage",
+      "value": 100,
+      "weight": 0.2,
+      "contribution": 20
+    },
+    "l4": {
+      "label": "ingest records / target",
+      "value": 100,
+      "weight": 0.2,
+      "contribution": 20
+    },
+    "l5": {
+      "label": "cell activation gating",
+      "value": 100,
+      "weight": 0.15,
+      "contribution": 15
+    }
+  },
+  "gaps": []
+}

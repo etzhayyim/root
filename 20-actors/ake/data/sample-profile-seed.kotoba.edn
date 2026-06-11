@@ -1,0 +1,39 @@
+;; sample-profile-seed.kotoba.edn — committed FIXTURE for 朱 (ake) ingest tests (ADR-2606052100).
+;;
+;; A tiny, self-contained stand-in for 00-contracts/schemas/actor-profile-seed.kotoba.edn, in the
+;; SAME {:graph … :seed […]} shape. ingest.py's genesis-revision bridge is asserted against THIS
+;; (hermetic, exact counts) so ake's suite is green in any checkout, independent of whether the
+;; shared repo seed has yet been (coordinated-)committed with ake's record. The bridge is ALSO run
+;; over the real repo SSoT by a soft test that validates only when ake is registered there.
+;;
+;; Field coverage is deliberate: ake + sample-corp carry all three GENESIS_FIELDS (description +
+;; display-name-ja + display-name-en → 3 revisions each); sample-svc carries description only
+;; (→ 1 revision), exercising the "skip missing field" path. Total = 7 genesis revisions / 3 records.
+
+{:graph {:name "actors-v1-sample" :visibility :public}
+
+ :seed
+ [{:actor/handle "ake"
+   :actor/did "did:web:etzhayyim.com:actor:ake"
+   :actor/kind :tier-b
+   :actor/status :r0
+   :actor/glyph "朱"
+   :actor/display-name-ja "朱 — コミュニティ編集 membrane"
+   :actor/display-name-en "Ake — Community-Edit Membrane"
+   :actor/description "community-edit membrane (sample fixture record)"
+   :actor/primary-lexicon "com.etzhayyim.ake"}
+
+  {:actor/handle "sample-corp"
+   :actor/did "did:web:etzhayyim.com:actor:sample-corp"
+   :actor/kind :tier-b
+   :actor/status :r0
+   :actor/glyph "標"
+   :actor/display-name-ja "標本法人"
+   :actor/display-name-en "Sample Corp"
+   :actor/description "fixture corp record"}
+
+  {:actor/handle "sample-svc"
+   :actor/did "did:web:etzhayyim.com:actor:sample-svc"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/description "fixture service record — description only, exercises the skip-missing-field path"}]}

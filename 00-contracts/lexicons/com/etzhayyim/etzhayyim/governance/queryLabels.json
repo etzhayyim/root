@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.governance.queryLabels",
+  "description": "Query governance labels. Output uses official com.atproto.label.defs#label schema. Superset of com.atproto.label.queryLabels.",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "uriPatterns": {
+            "type": "array",
+            "description": "List of AT URI patterns to match. Compatible with com.atproto.label.queryLabels.",
+            "items": { "type": "string" }
+          },
+          "sources": {
+            "type": "array",
+            "description": "Optional list of label source DIDs.",
+            "items": { "type": "string", "format": "did" }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250,
+            "default": 50
+          },
+          "cursor": {
+            "type": "string"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "com.atproto.label.defs#label"
+              }
+            },
+            "cursor": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "labels"
+          ]
+        }
+      }
+    }
+  }
+}

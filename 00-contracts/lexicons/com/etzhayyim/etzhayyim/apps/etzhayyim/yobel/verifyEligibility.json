@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.yobel.verifyEligibility",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Rite type 別の eligibility 判定 (e.g. shmita = community membership / yobel = land-tenure / tokusei = jurisdiction match / political_amnesty = sovereign decree scope)。strict=false で warning-only mode。",
+      "parameters": {
+        "type": "params",
+        "required": [
+          "riteId",
+          "debtorDid"
+        ],
+        "properties": {
+          "riteId": {
+            "type": "string"
+          },
+          "debtorDid": {
+            "type": "string"
+          },
+          "strict": {
+            "type": "boolean",
+            "default": true,
+            "description": "false = return reasons as warnings even if technically eligible"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eligible",
+            "riteType"
+          ],
+          "properties": {
+            "eligible": {
+              "type": "boolean"
+            },
+            "riteType": {
+              "type": "string"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Human-readable reasons for eligibility / ineligibility"
+            },
+            "warnings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tax / legal warnings (e.g. US IRC §61(a)(11), tithe disclosure)"
+            }
+          }
+        }
+      }
+    }
+  }
+}

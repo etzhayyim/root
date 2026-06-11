@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.itemFlagCompliance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Apply arms and dual-use BPMN compliance references for a concrete UNSPSC item.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodityCode"],
+          "properties": {
+            "commodityCode": { "type": "string" },
+            "commodityName": { "type": "string" },
+            "dualUseCategory": { "type": "string" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object" } }
+    }
+  }
+}

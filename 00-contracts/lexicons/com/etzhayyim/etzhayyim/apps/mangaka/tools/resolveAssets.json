@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.resolveAssets",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pregel step 2 of com.etzhayyim.apps.mangaka.composeScene3d. Resolves character / environment / prop vertices referenced by panel_plan to their VRM/glTF blob keys + display metadata. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_resolve_assets.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelPlan"],
+          "properties": {
+            "panelPlan": { "type": "ref", "ref": "com.etzhayyim.apps.mangaka.tools.loadPanelPlan#panelPlan" },
+            "rwUrl":     { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "assetRefs": { "type": "ref", "ref": "#assetRefs" },
+            "error":     { "type": "string" }
+          }
+        }
+      }
+    },
+    "assetRefs": {
+      "type": "object",
+      "properties": {
+        "characters":  { "type": "unknown", "description": "Map rkey → {vrm_blob_key, name, appearance, expressions}." },
+        "environment": { "type": "ref", "ref": "#environmentRef" },
+        "props":       { "type": "unknown", "description": "Map rkey → {gltf_blob_key, name}." }
+      }
+    },
+    "environmentRef": {
+      "type": "object",
+      "properties": {
+        "rkey":        { "type": "string" },
+        "biome":       { "type": "string" },
+        "weather":     { "type": "string" },
+        "basePrompt":  { "type": "string" },
+        "layout":      { "type": "array", "items": { "type": "unknown" } },
+        "seed":        { "type": "integer" }
+      }
+    }
+  }
+}

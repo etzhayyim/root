@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dataAdequacy.recordTransferMechanism",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cross-border data transfer mechanism (GDPR adequacy / APEC CBPR / PIPL Standard Contract — bridges mica-crypto + data-broker-registry + tax-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "mechanismId",
+            "originRegime",
+            "destinationIso3",
+            "mechanism",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "mechanismId": {
+              "type": "string"
+            },
+            "originRegime": {
+              "type": "string",
+              "enum": [
+                "eu_gdpr",
+                "uk_gdpr",
+                "swiss_fadp",
+                "cn_pipl",
+                "kr_pipa",
+                "jp_appi",
+                "br_lgpd",
+                "ca_pipeda",
+                "us_state"
+              ]
+            },
+            "destinationIso3": {
+              "type": "string"
+            },
+            "mechanism": {
+              "type": "string",
+              "enum": [
+                "adequacy",
+                "sccs",
+                "bcrs",
+                "cbpr",
+                "csa",
+                "approved_certification",
+                "exception_consent",
+                "exception_vital_interest"
+              ]
+            },
+            "dataCategories": {
+              "type": "string",
+              "description": "comma: personal,sensitive,financial,health,biometric,children,employee"
+            },
+            "dataVolumeMonthly": {
+              "type": "integer"
+            },
+            "effectiveFrom": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

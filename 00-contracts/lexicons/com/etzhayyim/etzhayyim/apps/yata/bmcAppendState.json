@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.bmcAppendState",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Append a new BMC state row (v+1). Single writer is lg-yatabase pod; the yatabase Worker forwards this request HMAC-signed. canvasJson must be valid JSON shaped like {block: {bullets:[], notes?}} for all 9 BMC blocks. operator or agent:lg-bmc may author.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["canvasJson", "rationale", "source"],
+          "properties": {
+            "canvasJson": {"type": "string", "maxLength": 65536},
+            "rationale":  {"type": "string", "maxLength": 4096},
+            "source":     {"type": "string", "maxLength": 128, "description": "seed | operator | iteration:{vertexId} | llm-proposal"},
+            "createdBy":  {"type": "string", "maxLength": 256, "description": "Optional override. Defaults to caller actor_did."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "vertexId", "version"],
+          "properties": {
+            "ok":       {"type": "boolean"},
+            "vertexId": {"type": "string"},
+            "version":  {"type": "integer", "minimum": 1},
+            "error":    {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.urbanAirMobility.registerVertiport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "eVTOL vertiport / UAM stop (bridges aviation-safety + uas-traffic-management + urban-mobility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertiportId",
+            "locationIso3",
+            "locationLat",
+            "locationLon",
+            "commissionedAt"
+          ],
+          "properties": {
+            "vertiportId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "locationIso3": {
+              "type": "string"
+            },
+            "locationLat": {
+              "type": "number"
+            },
+            "locationLon": {
+              "type": "number"
+            },
+            "padCount": {
+              "type": "integer"
+            },
+            "chargerKwMax": {
+              "type": "number"
+            },
+            "certificationBody": {
+              "type": "string",
+              "enum": [
+                "faa",
+                "easa",
+                "jcab",
+                "caac",
+                "caa_uk",
+                "dgca"
+              ]
+            },
+            "designCategory": {
+              "type": "string",
+              "enum": [
+                "vfr_pilot",
+                "ifr_pilot",
+                "autonomous_simplified",
+                "autonomous_complex"
+              ]
+            },
+            "commissionedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  news.intelBrief — zeebee/Zeebe actor process for news.etzhayyim.com.
+
+  Purpose:
+    Convert global primary/official-source evidence into an attributed intel brief.
+
+  Input variables:
+    title, url, sourceId, sourceType, region, topic, text, publishedAt, publish
+
+  Flow:
+    Start
+      -> generic.http.fetch          source fetch / verification
+      -> generic.llm.json            extraction + claims + implications
+      -> news.udf.scoreIntel         UDF-backed source credibility / priority scoring
+      -> com.etzhayyim.apps.news.analyzeIntel XRPC/MCP command
+      -> optional com.etzhayyim.apps.news.publishIntel
+      -> generic.audit.emit
+      -> End
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_news_intel_brief"
+    targetNamespace="https://etzhayyim.ai/bpmn/news"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="news_intel_brief" name="news intel brief" isExecutable="true">
+    <bpmn:startEvent id="Start" name="evidence submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Fetch"/>
+
+    <bpmn:serviceTask id="Task_Fetch" name="fetch primary source">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(url)" target="url"/>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=20" target="timeoutSec"/>
+          <zeebe:output source="=status" target="fetchStatus"/>
+          <zeebe:output source="=bodyText" target="fetchedBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Fetch" targetRef="Task_Extract"/>
+
+    <bpmn:serviceTask id="Task_Extract" name="extract claims and implications">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;analyst&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are an OSINT editor. Output one JSON object with keys: facts:string[], findings:string[], entities:object[], summary:string. Use only supplied source text. No unsupported claims.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Title: &quot; + string(title) + &quot;\nURL: &quot; + string(url) + &quot;\nSource text:\n&quot; + string(fetchedBody)" target="user"/>
+          <zeebe:input source="=700" target="maxTokens"/>
+          <zeebe:input source="=0.1" target="temperature"/>
+          <zeebe:output source="=data" target="extracted"/>
+          <zeebe:output source="=model" target="llmModel"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Extract" targetRef="Task_Score"/>
+
+    <bpmn:serviceTask id="Task_Score" name="UDF score intel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="news.udf.scoreIntel"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(sourceType)" target="sourceType"/>
+          <zeebe:input source="=true" target="official"/>
+          <zeebe:input source="=count(extracted.facts)" target="evidenceCount"/>
+          <zeebe:input source="=count(extracted.findings)" target="findingCount"/>
+          <zeebe:output source="=credibility" target="sourceCredibility"/>
+          <zeebe:output source="=priority" target="intelPriority"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Score" targetRef="Task_Analyze"/>
+
+    <bpmn:serviceTask id="Task_Analyze" name="XRPC analyze intel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.news.analyzeIntel"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="={ title: string(title), url: string(url), sourceId: string(sourceId), sourceType: string(sourceType), region: string(region), topic: string(topic), text: string(fetchedBody), summary: string(extracted.summary), publishedAt: string(publishedAt), publish: false }" target="input"/>
+          <zeebe:output source="=result" target="intelReport"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Analyze" targetRef="Gate_Publish"/>
+
+    <bpmn:exclusiveGateway id="Gate_Publish" name="publish?" default="Flow_AuditOnly">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_Publish</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AuditOnly</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Publish" sourceRef="Gate_Publish" targetRef="Task_Publish">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=publish = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AuditOnly" sourceRef="Gate_Publish" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Publish" name="XRPC publish intel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.news.publishIntel"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=intelReport.report" target="input"/>
+          <zeebe:output source="=result" target="publishResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Publish</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Publish" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit intel brief">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;news.intelBrief&quot;" target="action"/>
+          <zeebe:input source="={ url: string(url), sourceId: string(sourceId), fetchStatus: fetchStatus, llmModel: llmModel, sourceCredibility: sourceCredibility, intelPriority: intelPriority, report: intelReport, publishResult: publishResult }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditOnly</bpmn:incoming>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="intel ready">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

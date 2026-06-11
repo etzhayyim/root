@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.otakiage.listItems",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "物品一覧。state / category / h3Cell でフィルタ。reuse 候補探索の主たる経路。Phase 1 = schema-only (generic.db.select BPMN で実装)。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "state": {"type": "string", "enum": ["submitted", "reuse_open", "reuse_matched", "reuse_expired", "ritual_pending", "ritualized", "handed_over"]},
+          "category": {"type": "string", "enum": ["ehon", "jidousho", "nuigurumi", "ningyo", "omocha", "kagu", "kaden"]},
+          "h3Cell": {"type": "string", "description": "中心 H3 res-5 cell。指定時は当該 cell + 隣接 6 cells に絞り込み"},
+          "ownerDid": {"type": "string", "description": "寄贈者で絞る (自分の出品一覧)"},
+          "limit": {"type": "integer", "default": 50, "minimum": 1, "maximum": 200},
+          "offset": {"type": "integer", "default": 0, "minimum": 0}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total", "offset", "limit"],
+          "properties": {
+            "total": {"type": "integer"},
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"},
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": {"type": "string"},
+                  "category": {"type": "string"},
+                  "title": {"type": "string"},
+                  "state": {"type": "string"},
+                  "mode": {"type": "string"},
+                  "h3Cell": {"type": "string"},
+                  "weightKgClass": {"type": "string"},
+                  "photoBlobKey": {"type": "string", "description": "代表写真 1 枚 (photoBlobKeys[0])"},
+                  "createdAt": {"type": "string", "format": "date-time"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.amnesty.getRestructuring",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Restructuring 詳細 + class voting tallies + settlement instruments の集約 view。",
+      "parameters": {
+        "type": "params",
+        "required": [
+          "restructuringId"
+        ],
+        "properties": {
+          "restructuringId": {
+            "type": "string"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restructuringId"
+          ],
+          "properties": {
+            "restructuringId": {
+              "type": "string"
+            },
+            "riteType": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "doctrinalBasis": {
+              "type": "string"
+            },
+            "effectiveDate": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiryDate": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "issuerDid": {
+              "type": "string"
+            },
+            "debtorDid": {
+              "type": "string"
+            },
+            "debtorJurisdictionIso3": {
+              "type": "string"
+            },
+            "totalLiabilitiesMicroUsdc": {
+              "type": "integer"
+            },
+            "totalReducedLiabilityMicroUsdc": {
+              "type": "integer"
+            },
+            "consentThresholdPermille": {
+              "type": "integer"
+            },
+            "consentAchievedPermille": {
+              "type": "integer"
+            },
+            "creditorClassCount": {
+              "type": "integer"
+            },
+            "totalVotesCast": {
+              "type": "integer"
+            },
+            "settlementInstrumentCount": {
+              "type": "integer"
+            },
+            "councilRatificationHash": {
+              "type": "string"
+            },
+            "councilLv9SignerCount": {
+              "type": "integer",
+              "description": "Number of distinct Lv9 chair signers (≥ 3 required per ADR-2605202000)"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

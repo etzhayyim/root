@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judiciaryIndependence.flagCourtPackingEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Court packing / judge removal / constitutional reform (bridges religious-freedom + press-freedom + climate-litigation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "countryIso3",
+            "eventKind",
+            "occurredAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "indexVid": {
+              "type": "string",
+              "description": "bridges recordIndex"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "eventKind": {
+              "type": "string",
+              "enum": [
+                "court_packing",
+                "mandatory_retirement",
+                "judge_dismissal",
+                "jurisdiction_stripping",
+                "amnesty_law",
+                "extraordinary_court"
+              ]
+            },
+            "affectedJudges": {
+              "type": "integer"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

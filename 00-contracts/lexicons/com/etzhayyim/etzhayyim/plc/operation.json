@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.plc.operation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "PLC operation event emitted to atproto.etzhayyim.com firehose each time plc.etzhayyim.com accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) to mirror etzhayyim-originated DIDs.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["did", "seq", "opCid", "createdAt"],
+        "properties": {
+          "did": {
+            "type": "string",
+            "format": "did",
+            "description": "did:plc being updated"
+          },
+          "seq": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "monotonic per-DID sequence number (1 = genesis)"
+          },
+          "opCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "dag-cbor CID of the operation"
+          },
+          "prevCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "null for genesis, otherwise CID of previous op"
+          },
+          "opType": {
+            "type": "string",
+            "enum": ["plc_operation", "plc_tombstone"],
+            "description": "op type (tombstone finalizes the DID)"
+          },
+          "signedByKey": {
+            "type": "string",
+            "format": "did",
+            "description": "did:key of rotation key that signed this op"
+          },
+          "directory": {
+            "type": "string",
+            "format": "uri",
+            "description": "origin directory (e.g. https://plc.etzhayyim.com)"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  rl.rlAifAttributeOutcomes — Phase 3 causal attribution. ADR-2605061200.
+
+  Fires every 1h. For each dispatched BPMN action (dispatch_ok=True,
+  outcome_step_id IS NULL) finds the nearest vertex_rl_step within a 2h
+  window and links both tables bidirectionally:
+    vertex_rl_aif_dispatch_log.outcome_step_id  -> vertex_rl_step.vertex_id
+    vertex_rl_step.triggered_by_dispatch        -> vertex_rl_aif_dispatch_log.vertex_id
+
+  This closes the RL feedback loop so that _learn_model_for_pair can use
+  real causal action->state transitions for B-matrix learning.
+
+  NSID: com.etzhayyim.apps.rl.aifAttributeOutcomes
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_rl_aif_attribute_outcomes"
+    targetNamespace="https://etzhayyim.ai/bpmn/rl"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="rl_aif_attribute_outcomes" name="AIF Outcome Attribution" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.rl.aifAttributeOutcomes", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1h -->
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToAttribute</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToAttribute" sourceRef="Start" targetRef="Task_Attribute"/>
+
+    <!-- Causal attribution: link dispatch -> outcome step -->
+    <bpmn:serviceTask id="Task_Attribute" name="attribute outcomes to dispatches">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rl.aif.attribute_outcomes" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50"  target="batch_size"/>
+          <zeebe:input source="=2.0" target="window_hours"/>
+          <zeebe:output source="=ok"      target="ok"/>
+          <zeebe:output source="=linked"  target="linked"/>
+          <zeebe:output source="=skipped" target="skipped"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAttribute</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Attribute" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

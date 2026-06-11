@@ -1,0 +1,22 @@
+{
+  "type": "mount",
+  "mounts": [
+    {
+      "child": {
+        "type": "flatfs",
+        "path": "blocks",
+        "shardFunc": "/repo/flatfs/shard/v1/next-to-last/2",
+        "sync": true
+      },
+      "mountpoint": "/blocks",
+      "type": "measure",
+      "prefix": "flatfs.datastore"
+    },
+    {
+      "child": { "type": "levelds", "path": "datastore" },
+      "mountpoint": "/",
+      "type": "measure",
+      "prefix": "leveldb.datastore"
+    }
+  ]
+}

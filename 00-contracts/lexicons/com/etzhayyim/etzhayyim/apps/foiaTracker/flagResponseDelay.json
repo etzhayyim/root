@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.foiaTracker.flagResponseDelay",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Agency response delay / redaction overreach / Glomar (bridges igAudit.flagRecommendationStall + press-freedom + whistleblower-protect)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "requestVid",
+            "delayKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "requestVid": {
+              "type": "string",
+              "description": "bridges recordRequest"
+            },
+            "delayKind": {
+              "type": "string",
+              "enum": [
+                "past_20_day_deadline",
+                "past_30_day",
+                "still_processing",
+                "redacted_heavily",
+                "glomar",
+                "exemption_b5",
+                "exemption_b7",
+                "rocket_docket_gaming",
+                "no_tracking",
+                "pattern_fee_waiver_denial",
+                "appeal_stall"
+              ]
+            },
+            "daysPending": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

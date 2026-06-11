@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.wtoDispute.recordPanelRuling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DSB panel or AB ruling outcome",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "rulingId",
+            "disputeVid",
+            "rulingBody",
+            "outcome",
+            "ruledAt"
+          ],
+          "properties": {
+            "rulingId": {
+              "type": "string"
+            },
+            "disputeVid": {
+              "type": "string",
+              "description": "bridges fileDispute"
+            },
+            "rulingBody": {
+              "type": "string",
+              "enum": [
+                "panel",
+                "appellate_body",
+                "arbitration",
+                "compliance_panel"
+              ]
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "violation",
+                "no_violation",
+                "non_violation",
+                "mutually_agreed",
+                "withdrawn"
+              ]
+            },
+            "ruledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "consequenceTier": {
+              "type": "string",
+              "enum": [
+                "neutral",
+                "recommending",
+                "binding"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

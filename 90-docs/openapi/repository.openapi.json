@@ -1,0 +1,1107 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "repository XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://repository.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.repository.blame": {
+      "get": {
+        "summary": "Per-line blame for a blob at a given ref or commit. Each line is attributed to the commit that last introduced it.",
+        "operationId": "com.etzhayyim.repository.blame",
+        "parameters": [
+          {
+            "name": "ownerDid",
+            "in": "query",
+            "required": false,
+            "description": "Required when startRef is set.",
+            "schema": {
+              "type": "string",
+              "description": "Required when startRef is set.",
+              "format": "did"
+            }
+          },
+          {
+            "name": "startRef",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startCommit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": true,
+            "description": "Path within the tree at startRef/startCommit.",
+            "schema": {
+              "type": "string",
+              "description": "Path within the tree at startRef/startCommit."
+            }
+          },
+          {
+            "name": "lineStart",
+            "in": "query",
+            "required": false,
+            "description": "Optional 1-based range start.",
+            "schema": {
+              "type": "integer",
+              "description": "Optional 1-based range start."
+            }
+          },
+          {
+            "name": "lineEnd",
+            "in": "query",
+            "required": false,
+            "description": "Optional 1-based range end (inclusive).",
+            "schema": {
+              "type": "integer",
+              "description": "Optional 1-based range end (inclusive)."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "blobHash": {
+                      "type": "string"
+                    },
+                    "lines": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/_blameLine"
+                      }
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "blobHash",
+                    "lines"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.createBlob": {
+      "post": {
+        "summary": "Insert a content-addressed blob (sha256 keyed). Idempotent — re-insert of same content returns existing hash. Large bytes tiered to B2; small bytes stored inline in vertex_repository_blob.",
+        "operationId": "com.etzhayyim.repository.createBlob",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ownerDid": {
+                    "type": "string",
+                    "description": "Owning Actor DID. Used for authorization scope; blobs themselves are globally deduplicated.",
+                    "format": "did"
+                  },
+                  "content": {
+                    "type": "bytes",
+                    "description": "Blob bytes. Base64url-encoded on the wire. No size cap here — runtime tiers >16KB to B2."
+                  },
+                  "mimeType": {
+                    "type": "string",
+                    "description": "Optional hint used only for editor preview. Not part of the hash input."
+                  }
+                },
+                "required": [
+                  "ownerDid",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hash": {
+                      "type": "string",
+                      "description": "sha256 hex of content"
+                    },
+                    "sizeBytes": {
+                      "type": "integer"
+                    },
+                    "tier": {
+                      "type": "string",
+                      "description": "inline = stored in vertex_repository_blob.inline_text; r2 = vertex_repository_blob.bytes_ref",
+                      "x-knownValues": [
+                        "inline",
+                        "r2"
+                      ]
+                    },
+                    "deduplicated": {
+                      "type": "boolean",
+                      "description": "true if identical hash already existed (INSERT was no-op)."
+                    }
+                  },
+                  "required": [
+                    "hash",
+                    "sizeBytes",
+                    "tier"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.createCommit": {
+      "post": {
+        "summary": "Insert a commit object. commitHash = sha256 over canonical-encoded {treeHash, parentHashes, authorDid, committerDid, message, timestamp}. Signature field is NOT included in the hash input so the same commit can be re-signed by key rotation without hash drift. Immutable once written.",
+        "operationId": "com.etzhayyim.repository.createCommit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "treeHash": {
+                    "type": "string"
+                  },
+                  "parentHashes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "authorDid": {
+                    "type": "string",
+                    "format": "did"
+                  },
+                  "committerDid": {
+                    "type": "string",
+                    "description": "Defaults to authorDid. Differs only for CI / bot commits pushed on behalf of a human author.",
+                    "format": "did"
+                  },
+                  "message": {
+                    "type": "string",
+                    "maxLength": 8192
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "description": "Author timestamp. Server stamps committer timestamp independently.",
+                    "format": "datetime"
+                  },
+                  "signatureEs256": {
+                    "type": "string",
+                    "description": "Base64url ES256 signature over commitHash by authorDid signing key (ADR-0010). Required; bootstrap literal 'bootstrap' accepted only for the very first commit of a freshly created DID."
+                  }
+                },
+                "required": [
+                  "treeHash",
+                  "authorDid",
+                  "message",
+                  "signatureEs256"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "commitHash": {
+                      "type": "string"
+                    },
+                    "committerTimestamp": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "deduplicated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "commitHash",
+                    "committerTimestamp"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.createRef": {
+      "post": {
+        "summary": "Create a ref (branch / tag / HEAD) pointing to an initial commit. Ref names are unique per (ownerDid, kind).",
+        "operationId": "com.etzhayyim.repository.createRef",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ownerDid": {
+                    "type": "string",
+                    "description": "Actor DID that owns this ref (= Repository identity per ADR-0039).",
+                    "format": "did"
+                  },
+                  "refName": {
+                    "type": "string",
+                    "description": "Branch/tag name. Slashes allowed (e.g. 'feat/new-block'). 'HEAD' reserved for kind=head."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "branch = mutable via updateRef; tag = immutable (updateRef rejects); head = symbolic pointer to another branch.",
+                    "x-knownValues": [
+                      "branch",
+                      "tag",
+                      "head"
+                    ]
+                  },
+                  "initialCommit": {
+                    "type": "string",
+                    "description": "commitHash this ref starts pointing at. Required for branch/tag; symbolic target for head."
+                  },
+                  "description": {
+                    "type": "string",
+                    "maxLength": 512
+                  }
+                },
+                "required": [
+                  "ownerDid",
+                  "refName",
+                  "kind",
+                  "initialCommit"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "refId": {
+                      "type": "string",
+                      "description": "Vertex id of vertex_repository_ref row."
+                    },
+                    "ownerDid": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "refName": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "headCommitHash": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "refId",
+                    "ownerDid",
+                    "refName",
+                    "kind",
+                    "headCommitHash"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.createTree": {
+      "post": {
+        "summary": "Insert a tree (directory snapshot). Hash is sha256 over canonical-sorted (path ASC) entry list. Idempotent.",
+        "operationId": "com.etzhayyim.repository.createTree",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ownerDid": {
+                    "type": "string",
+                    "format": "did"
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/_treeEntry"
+                    }
+                  }
+                },
+                "required": [
+                  "ownerDid",
+                  "entries"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "treeHash": {
+                      "type": "string",
+                      "description": "sha256 hex of canonical entry list"
+                    },
+                    "entryCount": {
+                      "type": "integer"
+                    },
+                    "deduplicated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "treeHash",
+                    "entryCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.diff": {
+      "get": {
+        "summary": "Compute tree diff between two commits. Supports path-scoped and binary-aware output.",
+        "operationId": "com.etzhayyim.repository.diff",
+        "parameters": [
+          {
+            "name": "baseCommit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "headCommit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pathPrefix",
+            "in": "query",
+            "required": false,
+            "description": "Scope diff to entries under this path prefix.",
+            "schema": {
+              "type": "string",
+              "description": "Scope diff to entries under this path prefix."
+            }
+          },
+          {
+            "name": "unified",
+            "in": "query",
+            "required": false,
+            "description": "Context lines per hunk. 0 = no context. -1 = full file.",
+            "schema": {
+              "type": "integer",
+              "description": "Context lines per hunk. 0 = no context. -1 = full file.",
+              "default": 3
+            }
+          },
+          {
+            "name": "includeContent",
+            "in": "query",
+            "required": false,
+            "description": "If false, returns only file-level add/delete/modify summary (fast).",
+            "schema": {
+              "type": "boolean",
+              "description": "If false, returns only file-level add/delete/modify summary (fast).",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "baseCommit": {
+                      "type": "string"
+                    },
+                    "headCommit": {
+                      "type": "string"
+                    },
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/_fileDiff"
+                      }
+                    }
+                  },
+                  "required": [
+                    "baseCommit",
+                    "headCommit",
+                    "files"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.getBlob": {
+      "get": {
+        "summary": "Fetch blob bytes by sha256 hash. Global dedup — no owner scope in read path.",
+        "operationId": "com.etzhayyim.repository.getBlob",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hash": {
+                      "type": "string"
+                    },
+                    "sizeBytes": {
+                      "type": "integer"
+                    },
+                    "content": {
+                      "type": "bytes",
+                      "description": "Full blob bytes. Transparent R2 pull when tier = r2."
+                    },
+                    "mimeType": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "hash",
+                    "sizeBytes",
+                    "content"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.getCommit": {
+      "get": {
+        "summary": "Fetch a commit object by hash.",
+        "operationId": "com.etzhayyim.repository.getCommit",
+        "parameters": [
+          {
+            "name": "commitHash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "commitHash": {
+                      "type": "string"
+                    },
+                    "treeHash": {
+                      "type": "string"
+                    },
+                    "parentHashes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "authorDid": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "committerDid": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "authorTimestamp": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "committerTimestamp": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "signatureEs256": {
+                      "type": "string"
+                    },
+                    "signatureValid": {
+                      "type": "boolean",
+                      "description": "Server verifies on read. True if signature verifies against authorDid's signing key at authorTimestamp."
+                    }
+                  },
+                  "required": [
+                    "commitHash",
+                    "treeHash",
+                    "authorDid",
+                    "message",
+                    "authorTimestamp",
+                    "committerTimestamp"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.getTree": {
+      "get": {
+        "summary": "Fetch a tree by hash, returning canonical-sorted entry list.",
+        "operationId": "com.etzhayyim.repository.getTree",
+        "parameters": [
+          {
+            "name": "treeHash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recursive",
+            "in": "query",
+            "required": false,
+            "description": "If true, inline nested trees up to maxDepth.",
+            "schema": {
+              "type": "boolean",
+              "description": "If true, inline nested trees up to maxDepth.",
+              "default": false
+            }
+          },
+          {
+            "name": "maxDepth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 32,
+              "default": 16
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "treeHash": {
+                      "type": "string"
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ai_etzhayyim_repository_createTree_treeEntry"
+                      }
+                    },
+                    "truncated": {
+                      "type": "boolean",
+                      "description": "True if recursive expansion hit maxDepth."
+                    }
+                  },
+                  "required": [
+                    "treeHash",
+                    "entries"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.listRefs": {
+      "get": {
+        "summary": "List refs owned by a single DID, or by all DIDs in a path-DID subtree (ADR-0019). Subtree mode gives Project/App-level 'repo view' without a Repository container.",
+        "operationId": "com.etzhayyim.repository.listRefs",
+        "parameters": [
+          {
+            "name": "ownerDid",
+            "in": "query",
+            "required": false,
+            "description": "Exact DID scope. Mutually exclusive with subtreeRootDid.",
+            "schema": {
+              "type": "string",
+              "description": "Exact DID scope. Mutually exclusive with subtreeRootDid.",
+              "format": "did"
+            }
+          },
+          {
+            "name": "subtreeRootDid",
+            "in": "query",
+            "required": false,
+            "description": "Traverse edge_path_child* from this DID. Returns refs for the root and all descendants. Mutually exclusive with ownerDid.",
+            "schema": {
+              "type": "string",
+              "description": "Traverse edge_path_child* from this DID. Returns refs for the root and all descendants. Mutually exclusive with ownerDid.",
+              "format": "did"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "x-knownValues": [
+                "branch",
+                "tag",
+                "head"
+              ]
+            }
+          },
+          {
+            "name": "namePrefix",
+            "in": "query",
+            "required": false,
+            "description": "Filter by ref name prefix (e.g. 'feat/').",
+            "schema": {
+              "type": "string",
+              "description": "Filter by ref name prefix (e.g. 'feat/')."
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/_refView"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "refs",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.log": {
+      "get": {
+        "summary": "Walk commit ancestry from a ref or commit. Returns linearized history (first-parent by default) or full DAG.",
+        "operationId": "com.etzhayyim.repository.log",
+        "parameters": [
+          {
+            "name": "ownerDid",
+            "in": "query",
+            "required": false,
+            "description": "Required when startRef is set.",
+            "schema": {
+              "type": "string",
+              "description": "Required when startRef is set.",
+              "format": "did"
+            }
+          },
+          {
+            "name": "startRef",
+            "in": "query",
+            "required": false,
+            "description": "Ref name to start from. Mutually exclusive with startCommit.",
+            "schema": {
+              "type": "string",
+              "description": "Ref name to start from. Mutually exclusive with startCommit."
+            }
+          },
+          {
+            "name": "startCommit",
+            "in": "query",
+            "required": false,
+            "description": "Commit hash to start from. Mutually exclusive with startRef.",
+            "schema": {
+              "type": "string",
+              "description": "Commit hash to start from. Mutually exclusive with startRef."
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "description": "firstParent = linearize via parent[0]; fullDag = topological order including merges.",
+            "schema": {
+              "type": "string",
+              "description": "firstParent = linearize via parent[0]; fullDag = topological order including merges.",
+              "x-knownValues": [
+                "firstParent",
+                "fullDag"
+              ],
+              "default": "firstParent"
+            }
+          },
+          {
+            "name": "pathFilter",
+            "in": "query",
+            "required": false,
+            "description": "Only include commits whose tree diff touches this path prefix.",
+            "schema": {
+              "type": "string",
+              "description": "Only include commits whose tree diff touches this path prefix."
+            }
+          },
+          {
+            "name": "authorDid",
+            "in": "query",
+            "required": false,
+            "description": "Only include commits authored by this DID.",
+            "schema": {
+              "type": "string",
+              "description": "Only include commits authored by this DID.",
+              "format": "did"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "Opaque pagination cursor (commitHash of last returned entry).",
+            "schema": {
+              "type": "string",
+              "description": "Opaque pagination cursor (commitHash of last returned entry)."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "commits": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ai_etzhayyim_repository_getCommit_main"
+                      }
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "commits"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.repository.updateRef": {
+      "post": {
+        "summary": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose com.etzhayyim.repository.refUpdate record.",
+        "operationId": "com.etzhayyim.repository.updateRef",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ownerDid": {
+                    "type": "string",
+                    "format": "did"
+                  },
+                  "refName": {
+                    "type": "string"
+                  },
+                  "expectedCurrent": {
+                    "type": "string",
+                    "description": "Current head commit hash the caller expects. Server rejects with RefOutOfDate if mismatch. Omit only with force=true."
+                  },
+                  "newCommit": {
+                    "type": "string"
+                  },
+                  "force": {
+                    "type": "boolean",
+                    "description": "If true, skip fast-forward/ancestry check. Generates OCEL event ref:forcePushed.",
+                    "default": false
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Human-readable reason. Required when force=true or when newCommit is an ancestor of current (= rollback). Logged to OCEL event payload."
+                  }
+                },
+                "required": [
+                  "ownerDid",
+                  "refName",
+                  "newCommit"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ownerDid": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "refName": {
+                      "type": "string"
+                    },
+                    "previousCommit": {
+                      "type": "string"
+                    },
+                    "newCommit": {
+                      "type": "string"
+                    },
+                    "updateKind": {
+                      "type": "string",
+                      "description": "fastForward = new is descendant of previous; rolledBack = new is ancestor; forcePushed = neither (requires force=true).",
+                      "x-knownValues": [
+                        "fastForward",
+                        "rolledBack",
+                        "forcePushed"
+                      ]
+                    },
+                    "firehoseCid": {
+                      "type": "string",
+                      "description": "CID of the com.etzhayyim.repository.refUpdate record written to the owner DID's AT Repo."
+                    }
+                  },
+                  "required": [
+                    "ownerDid",
+                    "refName",
+                    "previousCommit",
+                    "newCommit",
+                    "updateKind"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_repository_refUpdate": {
+        "type": "object",
+        "properties": {
+          "refName": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "x-knownValues": [
+              "branch",
+              "tag",
+              "head"
+            ]
+          },
+          "previousCommit": {
+            "type": "string",
+            "description": "Omitted on initial createRef."
+          },
+          "newCommit": {
+            "type": "string"
+          },
+          "updateKind": {
+            "type": "string",
+            "x-knownValues": [
+              "created",
+              "fastForward",
+              "rolledBack",
+              "forcePushed",
+              "deleted"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Required when updateKind in {rolledBack, forcePushed}. Free text logged to audit trail."
+          },
+          "pushedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "committerDid": {
+            "type": "string",
+            "description": "DID that invoked updateRef. May differ from the commit's authorDid.",
+            "format": "did"
+          }
+        },
+        "required": [
+          "refName",
+          "kind",
+          "newCommit",
+          "updateKind",
+          "pushedAt"
+        ]
+      }
+    }
+  }
+}

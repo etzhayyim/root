@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.soxBounty.flagAwardDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bounty award dispute / gag / clawback (bridges whistleblowerProtect.flagRetaliation + enforcementAction + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "programVid",
+            "disputeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "programVid": {
+              "type": "string",
+              "description": "bridges recordBountyProgram"
+            },
+            "disputeKind": {
+              "type": "string",
+              "enum": [
+                "denied_claim",
+                "gagged_by_confidentiality",
+                "award_reduction",
+                "multiple_claimant",
+                "pro_rata_split",
+                "clawback",
+                "ambush_counterclaim",
+                "tax_gross_up",
+                "nda_violation_pursued",
+                "interpleader"
+              ]
+            },
+            "awardedMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

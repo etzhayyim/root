@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — refreshes maps coverage statistics every 15 minutes.
+
+  Pairs with advanceCoverage.bpmn (PT2M frontier advance):
+
+    advanceCoverage    (PT2M)  → creates MapsJob for top gap, bumps last_fetched_at
+    refreshCoverageStats (PT15M) → re-counts vertex_spatial → UPDATE collected_count
+
+  Without this loop, `vertex_maps_coverage_target.collected_count` would
+  stay at the seed value forever and `advanceCoverage` would keep picking
+  the same top gap in a spin. 15-minute cadence is ~7× slower than the
+  advance cadence, so real ingest progress is reflected within 1-2 cycles
+  of the next advance without trashing hot-path latency.
+
+  NSID: com.etzhayyim.apps.maps.refreshCoverageStats
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refresh-coverage-stats-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_refresh_coverage_stats"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_refresh_coverage_stats" name="maps refresh coverage stats" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.refreshCoverageStats", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 15 minutes">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT15M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_Refresh"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_Refresh"/>
+
+    <!-- Single-call XRPC; all aggregation happens server-side via the MV. -->
+    <bpmn:serviceTask id="Task_Refresh" name="refreshCoverageStats XRPC">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"                target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;"    target="contentType"/>
+          <zeebe:input source="={}"                              target="body"/>
+          <zeebe:input source="=45000"                           target="timeoutMs"/>
+          <zeebe:output source="=status"   target="refreshStatus"/>
+          <zeebe:output source="=bodyJson" target="refreshResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Refresh" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit coverage.stats OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.coverage.stats&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;status&quot;: refreshStatus, &quot;scanned&quot;: refreshResult.scanned, &quot;updated&quot;: refreshResult.updated, &quot;totalCollected&quot;: refreshResult.totalCollectedAcrossTargets }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

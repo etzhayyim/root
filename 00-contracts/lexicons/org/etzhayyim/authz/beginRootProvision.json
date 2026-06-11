@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "org.etzhayyim.authz.beginRootProvision",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Begin provisioning an etzhayyim ERC725 root identity. Returns a digest the caller must sign with their intended activeKey (EOA or smart-wallet-recovered P256 via WebAuthn) and submit to completeRootProvision. Per ADR-2605212030 §D4. Phase α: provisioning is Council-gated; the digest binds to a Council proposal nonce that only Council can finalize.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["dwebHandle", "activeKey"],
+          "properties": {
+            "dwebHandle": {
+              "type": "string",
+              "description": "Public handle of the form `<handle>.etzhayyim.com` — becomes the did:web facade for this root.",
+              "minLength": 3,
+              "maxLength": 253
+            },
+            "activeKey": {
+              "type": "string",
+              "description": "0x-prefixed 20-byte Ethereum address that will own the new root (EOA or Smart Wallet)."
+            },
+            "purposeNarrow": {
+              "type": "string",
+              "description": "Optional human-readable purpose statement embedded in the digest for audit."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["digest", "dwebHandleHash", "nonce", "expiresAt", "chainId", "contractAddress"],
+          "properties": {
+            "digest": {
+              "type": "string",
+              "description": "0x-prefixed 32-byte digest the caller must sign with `activeKey` (EIP-191 personal_sign)."
+            },
+            "dwebHandleHash": {
+              "type": "string",
+              "description": "0x-prefixed 32-byte keccak256 of the canonical `dwebHandle`. Provided so the client can verify the digest derivation."
+            },
+            "nonce": {
+              "type": "string",
+              "description": "Single-use server nonce, valid for this provisioning attempt only."
+            },
+            "expiresAt": {
+              "type": "integer",
+              "description": "Unix epoch seconds; the nonce is rejected after this time."
+            },
+            "chainId": {
+              "type": "integer",
+              "description": "Target chain id (Base mainnet 8453 or Base Sepolia 84532)."
+            },
+            "contractAddress": {
+              "type": "string",
+              "description": "0x-prefixed address of the deployed EtzhayyimAuthz contract on the target chain."
+            }
+          }
+        }
+      },
+      "errors": [
+        {"name": "DwebHandleInvalid", "description": "dwebHandle is not a valid `<handle>.etzhayyim.com` form or contains disallowed characters."},
+        {"name": "DwebHandleTaken", "description": "dwebHandle is already bound to an existing active root."},
+        {"name": "ActiveKeyInvalid", "description": "activeKey is not a valid 20-byte 0x-prefixed Ethereum address."},
+        {"name": "ConfigError", "description": "etzhayyim authz backend is not configured for the requested chain."}
+      ]
+    }
+  }
+}

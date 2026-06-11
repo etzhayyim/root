@@ -1,0 +1,12 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gamePlayUploader.createUploadSession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a gameplay upload session and return an upload intent for backend object storage signing.",
+      "input": { "encoding": "application/json", "schema": { "type": "object", "required": ["participantDid", "gameTitle"], "properties": { "participantDid": { "type": "string" }, "gameTitle": { "type": "string" }, "platform": { "type": "string" }, "durationSec": { "type": "integer" }, "captureStartedAt": { "type": "string" } } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["sessionId", "uploadIntent"], "properties": { "sessionId": { "type": "string" }, "uploadIntent": { "type": "object" } } } }
+    }
+  }
+}

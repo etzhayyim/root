@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3758f1ec5140",
+  "entityId": "ent-3758f1ec5140",
+  "canonicalName": "rafi abd-al-latif tilfah",
+  "aliases": [
+    "rafi abd-al-latif tilfah"
+  ]
+}

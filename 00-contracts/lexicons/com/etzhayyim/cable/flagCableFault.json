@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cable.flagCableFault",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Append an OBSERVED public fault/repair bulletin to the kotoba Datom log (:cable.fault/*). Wellbecoming = as-of history: faults are appended, never overwritten (非終末論). CONSTITUTIONAL (watatsuna G4): :kind mirrors only the public bulletin's OWN classification — watatsuna NEVER asserts sabotage intent (a state matter). kotoba-native successor to telecom.recordSubmarineCableRepair + telecomInfra.flagCableFault.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["faultId", "cableId", "kind", "detectedAt", "sourcing"],
+          "properties": {
+            "faultId": { "type": "string" },
+            "cableId": { "type": "string", "description": ":cable/id affected" },
+            "segmentId": { "type": "string", "description": ":cable.seg/id if localized" },
+            "kind": {
+              "type": "string",
+              "enum": ["anchor_drag", "fishing", "earthquake", "landslide", "abrasion", "equipment", "shunt_fault", "fiber_cut", "repeater_fault", "power_feed_fault", "planned_maintenance", "unknown", "under_investigation"],
+              "description": "the public BULLETIN's own classification; NOT an intent adjudication by watatsuna"
+            },
+            "locationLatMicrodeg": { "type": "integer", "description": "WGS84 latitude × 1e6 (microdegrees); public bulletin's stated position only (G1)" },
+            "locationLonMicrodeg": { "type": "integer", "description": "WGS84 longitude × 1e6 (microdegrees); public bulletin's stated position only (G1)" },
+            "repairVessel": { "type": "string", "description": "public AIS-named cable ship if disclosed; live position beyond public AIS is out of scope (G1)" },
+            "detectedAt": { "type": "string", "format": "datetime" },
+            "restoredAt": { "type": "string", "format": "datetime", "description": "omit / null while open" },
+            "bulletinUri": { "type": "string", "description": "public source URI for the classification" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "faultId": { "type": "string" },
+            "status": { "type": "string", "enum": ["open", "restored"] },
+            "txCid": { "type": "string" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

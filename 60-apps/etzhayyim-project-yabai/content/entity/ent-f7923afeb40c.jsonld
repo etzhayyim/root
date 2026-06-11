@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f7923afeb40c",
+  "entityId": "ent-f7923afeb40c",
+  "canonicalName": "husayn tajideen",
+  "aliases": [
+    "husayn tajideen"
+  ]
+}

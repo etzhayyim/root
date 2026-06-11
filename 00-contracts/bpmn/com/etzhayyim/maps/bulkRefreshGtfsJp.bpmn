@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — triggers maps-bulk-ingest-gtfs-jp K8s pod every 24h.
+  Resident dumper downloads each GTFS-JP feed (zip) listed in its feed
+  index, parses routes/stops/trips/stop_times/calendar, writes parquet
+  shards to B2, INSERTs into RisingWave vertex_spatial as
+  Railway / BusRoute / Station / BusStop with timetable summary in props.
+
+  NSID: com.etzhayyim.apps.maps.bulkRefreshGtfsJp
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_bulk_refresh_gtfs_jp"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_bulk_refresh_gtfs_jp" name="maps bulk refresh gtfs jp" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.bulkRefreshGtfsJp", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 24 hours">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT24H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_Trigger"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_Trigger"/>
+
+    <bpmn:serviceTask id="Task_Trigger" name="POST /trigger to gtfs-jp dumper pod">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;http://bulk-ingest-gtfs-jp.maps-bulk-ingest.svc.cluster.local:8080/trigger&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"                target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;"    target="contentType"/>
+          <zeebe:input source="={}"                              target="body"/>
+          <zeebe:input source="=30000"                           target="timeoutMs"/>
+          <zeebe:output source="=status"   target="triggerStatus"/>
+          <zeebe:output source="=bodyJson" target="triggerResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Trigger" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit bulk.refresh OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.bulk.refresh.triggered&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;source&quot;: &quot;gtfs-jp&quot;, &quot;status&quot;: triggerStatus, &quot;startedAt&quot;: triggerResult.started_at }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

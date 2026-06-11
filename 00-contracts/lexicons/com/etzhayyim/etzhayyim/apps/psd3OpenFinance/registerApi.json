@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.psd3OpenFinance.registerApi",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "PSD3 / FIDA / open banking API registration (bridges mica-crypto + data-adequacy + gig-worker + mergerReview)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "apiId",
+            "regime",
+            "apiKind",
+            "registeredAt"
+          ],
+          "properties": {
+            "apiId": {
+              "type": "string"
+            },
+            "providerLei": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "eu_psd3",
+                "eu_fida",
+                "uk_oban",
+                "us_cfpb_1033",
+                "au_cdr",
+                "br_ofb",
+                "in_aa",
+                "jp_apis",
+                "sg_sgfinDex"
+              ]
+            },
+            "apiKind": {
+              "type": "string",
+              "enum": [
+                "ais",
+                "pis",
+                "cbpii",
+                "insurance",
+                "pension",
+                "investment",
+                "mortgage",
+                "sme_lending",
+                "savings"
+              ]
+            },
+            "authMechanism": {
+              "type": "string",
+              "enum": [
+                "strong_customer_auth",
+                "fapi",
+                "fapi2",
+                "openid_for_finance",
+                "oauth_hybrid",
+                "vrp"
+              ]
+            },
+            "uptime99PctMs": {
+              "type": "number"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

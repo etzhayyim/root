@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_orcid_register_researcher"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-orcid"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_orcid_register_researcher" name="研究者登録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+
+    <bpmn:serviceTask id="Task_Classify" name="verification 決定">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if 0.9 &gt;= 0.9 then &quot;authoritative&quot; else if 0.9 &gt;= 0.5 then &quot;community&quot; else &quot;candidate&quot;" target="verification"/>
+          <zeebe:output source="=0.9 &lt; 0.5" target="requireReview"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="researcher 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_orcid_researcher&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, orcid_id: orcidId,
+              given_name: givenName, family_name: familyName,
+              primary_email: primaryEmail, country: country, biography: biography,
+              verification: verification, status: &quot;active&quot;,
+              registered_at: registeredAt, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 2,
+              org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-orcid&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Auto">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Review</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Auto</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Review" sourceRef="Gate" targetRef="Task_AuditReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireReview = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Auto" sourceRef="Gate" targetRef="Task_AuditAuto"/>
+
+    <bpmn:serviceTask id="Task_AuditReview" name="audit researcher.register.reviewPending">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-orcid.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrcid.researcher.register.reviewPending&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, orcidId: orcidId, country: country, verification: verification}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Review</bpmn:incoming><bpmn:outgoing>Flow_ER</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ER" sourceRef="Task_AuditReview" targetRef="End_R"/>
+
+    <bpmn:serviceTask id="Task_AuditAuto" name="audit researcher.register.accept">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-orcid.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrcid.researcher.register.accept&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, orcidId: orcidId, country: country, verification: verification}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Auto</bpmn:incoming><bpmn:outgoing>Flow_EA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EA" sourceRef="Task_AuditAuto" targetRef="End_A"/>
+
+    <bpmn:endEvent id="End_A"><bpmn:incoming>Flow_EA</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_R"><bpmn:incoming>Flow_ER</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

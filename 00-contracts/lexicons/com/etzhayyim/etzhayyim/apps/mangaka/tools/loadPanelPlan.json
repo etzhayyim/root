@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.loadPanelPlan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pregel step 1 of com.etzhayyim.apps.mangaka.composeScene3d. Reads a kind='panel' row from vertex_mangaka and emits a normalised panel_plan ({rkey, shot, characters[], environment, action, mood, props[]}). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_load_panel_plan.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelRkey"],
+          "properties": {
+            "panelRkey": { "type": "string", "description": "vertex_mangaka.rkey for the kind='panel' row." },
+            "rwUrl":     { "type": "string", "description": "Override for RW_URL env (test path only)." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "panelPlan": { "type": "ref", "ref": "#panelPlan" },
+            "error":     { "type": "string" }
+          }
+        }
+      }
+    },
+    "panelPlan": {
+      "type": "object",
+      "required": ["rkey", "shot"],
+      "properties": {
+        "rkey":         { "type": "string" },
+        "pageNumber":   { "type": "integer" },
+        "panelNumber":  { "type": "integer" },
+        "shot":         { "type": "string", "description": "FullShot / MediumShot / Closeup / OverShoulder / Dutch / BirdsEye / WormsEye." },
+        "characters":   { "type": "array", "items": { "type": "string" } },
+        "environment":  { "type": "string", "description": "vertex_mangaka.rkey for the linked kind='environment' row." },
+        "action":       { "type": "string" },
+        "mood":         { "type": "string" },
+        "props":        { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

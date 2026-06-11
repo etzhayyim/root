@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Internet demand polling — ADR 2605011300 (∇φ generation through internet space).
+
+  Every 30 minutes, call the bpmn-dispatcher-resident sidecar at
+  market-demand-poll.market.svc.cluster.local:8080/trigger which
+  performs the fetch (Bluesky AppView + HN Algolia), classifier-tier
+  LLM tagging, and batched INSERT into vertex_market_demand_signal.
+  Mirror of maps/bulkRefreshWikipedia.bpmn shape.
+
+  Standalone CLI fallback while sidecar is not yet provisioned:
+    python3 70-tools/scripts/cron/market-demand-poll.py
+  This is the script that runs today (1-shot) to drive ∇φ.
+
+  NSID:      com.etzhayyim.market.internetDemandPoll
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1
+  binding allowlist: vertex_market_demand_signal
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_market_internet_demand_poll"
+    targetNamespace="https://etzhayyim.ai/bpmn/market"
+    exporter="hand-written"
+    exporterVersion="1.1">
+  <bpmn:process id="market_internet_demand_poll" name="market internet demand poll" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.market.internetDemandPoll", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 30 minutes">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT30M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT30M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_Trigger"/>
+
+    <!--
+      Trigger the K8s-resident sidecar that owns the actual fetch + classify + INSERT.
+      Until the sidecar is provisioned, the python CLI script in 70-tools/scripts/cron/
+      drives the same path on a host cron.
+    -->
+    <bpmn:serviceTask id="Task_Trigger" name="trigger market demand poll sidecar">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;http://market-demand-poll.market.svc.cluster.local:8080/trigger&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"             target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
+          <zeebe:input source="={}"                            target="body"/>
+          <zeebe:input source="=60000"                         target="timeoutMs"/>
+          <zeebe:output source="=ok"   target="triggerOk"/>
+          <zeebe:output source="=data" target="triggerData"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:outgoing>Flow_Trigger_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Trigger_Audit" sourceRef="Task_Trigger" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit market.demand.poll OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.market.demand.poll&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;triggerOk&quot;: triggerOk }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Trigger_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

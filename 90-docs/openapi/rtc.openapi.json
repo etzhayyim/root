@@ -1,0 +1,1004 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "rtc XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://rtc.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.rtc.admitParticipant": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.admitParticipant",
+        "operationId": "com.etzhayyim.rtc.admitParticipant",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  },
+                  "participantDid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "meetingId",
+                  "participantDid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.createBreakout": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.createBreakout",
+        "operationId": "com.etzhayyim.rtc.createBreakout",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "meetingId",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.getVAPIDPublicKey": {
+      "get": {
+        "summary": "com.etzhayyim.rtc.getVAPIDPublicKey",
+        "operationId": "com.etzhayyim.rtc.getVAPIDPublicKey",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "publicKey": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "publicKey"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.hangupCall": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.hangupCall",
+        "operationId": "com.etzhayyim.rtc.hangupCall",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "callId": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "signalType": {
+                      "type": "string"
+                    },
+                    "convoId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "signalType",
+                    "convoId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.joinMeeting": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.joinMeeting",
+        "operationId": "com.etzhayyim.rtc.joinMeeting",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "meetingId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.openHuddle": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.openHuddle",
+        "operationId": "com.etzhayyim.rtc.openHuddle",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.raiseHand": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.raiseHand",
+        "operationId": "com.etzhayyim.rtc.raiseHand",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  },
+                  "raised": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "meetingId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.scheduleMeeting": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.scheduleMeeting",
+        "operationId": "com.etzhayyim.rtc.scheduleMeeting",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "scheduledAt": {
+                    "type": "string"
+                  },
+                  "participants": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.sendCallAnswer": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.sendCallAnswer",
+        "operationId": "com.etzhayyim.rtc.sendCallAnswer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "callId": {
+                    "type": "string"
+                  },
+                  "sdp": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "sdp"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "signalType": {
+                      "type": "string"
+                    },
+                    "convoId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "signalType",
+                    "convoId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.sendCallICE": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.sendCallICE",
+        "operationId": "com.etzhayyim.rtc.sendCallICE",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "callId": {
+                    "type": "string"
+                  },
+                  "candidate": {
+                    "type": "string"
+                  },
+                  "sdpMid": {
+                    "type": "string"
+                  },
+                  "sdpMLineIndex": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "convoId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "signalType": {
+                      "type": "string"
+                    },
+                    "convoId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "signalType",
+                    "convoId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.sendCallOffer": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.sendCallOffer",
+        "operationId": "com.etzhayyim.rtc.sendCallOffer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "convoId": {
+                    "type": "string"
+                  },
+                  "targetDid": {
+                    "type": "string"
+                  },
+                  "sdp": {
+                    "type": "string"
+                  },
+                  "callId": {
+                    "type": "string"
+                  },
+                  "mediaType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "convoId",
+                  "targetDid",
+                  "sdp"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "signalType": {
+                      "type": "string"
+                    },
+                    "convoId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "signalType",
+                    "convoId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.shareScreen": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.shareScreen",
+        "operationId": "com.etzhayyim.rtc.shareScreen",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  },
+                  "sharing": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "meetingId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.startRecording": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.startRecording",
+        "operationId": "com.etzhayyim.rtc.startRecording",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meetingId": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "meetingId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.subscribePush": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.subscribePush",
+        "operationId": "com.etzhayyim.rtc.subscribePush",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subscription": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "subscription"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string"
+                    },
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.rtc.unsubscribePush": {
+      "post": {
+        "summary": "com.etzhayyim.rtc.unsubscribePush",
+        "operationId": "com.etzhayyim.rtc.unsubscribePush",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "endpoint": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "unsubscribed": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "unsubscribed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_rtc_breakout": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meetingId",
+          "name"
+        ]
+      },
+      "ai_etzhayyim_rtc_hand": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "raised": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "meetingId",
+          "raised"
+        ]
+      },
+      "ai_etzhayyim_rtc_huddle": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId"
+        ]
+      },
+      "ai_etzhayyim_rtc_meeting": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "scheduledAt": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "status"
+        ]
+      },
+      "ai_etzhayyim_rtc_meetingAdmit": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "participantDid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meetingId",
+          "participantDid"
+        ]
+      },
+      "ai_etzhayyim_rtc_meetingJoin": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "participantDid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meetingId",
+          "participantDid"
+        ]
+      },
+      "ai_etzhayyim_rtc_pushSubscription": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string"
+          },
+          "keys": {}
+        },
+        "required": [
+          "endpoint",
+          "keys"
+        ]
+      },
+      "ai_etzhayyim_rtc_recording": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meetingId",
+          "action"
+        ]
+      },
+      "ai_etzhayyim_rtc_screenShare": {
+        "type": "object",
+        "properties": {
+          "meetingId": {
+            "type": "string"
+          },
+          "sharing": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "meetingId",
+          "sharing"
+        ]
+      }
+    }
+  }
+}

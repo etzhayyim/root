@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openNetwork.reportCyberIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence (stub): サイバー事案 報告. Starts BPMN process open_network_report_cyber_incident.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "assetVid": { "type": "string" },
+            "category": { "type": "string" },
+            "severity": { "type": "string" },
+            "cveId": { "type": "string" }
+          },
+          "required": ["vertexId", "assetVid", "category", "severity"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

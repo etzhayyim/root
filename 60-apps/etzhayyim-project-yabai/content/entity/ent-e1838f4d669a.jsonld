@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e1838f4d669a",
+  "entityId": "ent-e1838f4d669a",
+  "canonicalName": "limited liability company specialized developer alabuga south park",
+  "aliases": [
+    "limited liability company specialized developer alabuga south park"
+  ]
+}

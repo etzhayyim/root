@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-464445e83a38",
+  "entityId": "ent-464445e83a38",
+  "canonicalName": "comercial iberoamericana, s.a.",
+  "aliases": [
+    "comercial iberoamericana, s.a."
+  ]
+}

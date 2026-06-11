@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mirror.mirrorActor",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "An entity-as-actor MIRROR record (ADR-2606042330). One public/power entity datafied by a knowledge-graph actor (ooyake / kabuto / tsumugi / kanjo / watatsuna / watari) → one keyless did:web mirror-actor. This is etzhayyim's public-fact record of the entity, NOT the entity itself and NOT an official channel (no impersonation, G1). Natural persons are NOT representable here (G3): there is no person-subject field, and performerType cannot be 'person'.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["handle", "namespace", "displayName", "isMirror", "serverHeldKey", "performerType", "sourcing"],
+        "properties": {
+          "handle": {
+            "type": "string",
+            "description": "single-label actor handle, e.g. 'corp-tw-tsmc' / 'gov-afg-adm1-af-bal'. Resolves did:web:etzhayyim.com:actor:<handle>."
+          },
+          "namespace": {
+            "type": "string",
+            "enum": ["gov", "corp", "cable", "station", "craft"],
+            "description": "entity namespace; selects the owning KG actor + ontology"
+          },
+          "entityId": {
+            "type": "string",
+            "description": "source kotoba entity id, e.g. ':company/id org.corp.tw.tsmc' — the dotted id the handle is derived from"
+          },
+          "displayName": { "type": "string", "description": "the entity's public name (organization/system label — never a person)" },
+          "isMirror": {
+            "type": "boolean",
+            "const": true,
+            "description": "G1 — ALWAYS a mirror; an entity-actor never speaks AS the entity"
+          },
+          "serverHeldKey": {
+            "type": "boolean",
+            "const": false,
+            "description": "G5 — the server holds NO key for this actor; verificationMethod is empty (mirror of on-chain ERC725, never server-minted, ADR-2605231525)"
+          },
+          "performerType": {
+            "type": "string",
+            "enum": ["organization", "system"],
+            "description": "G3 — organization or system ONLY. 'person' is deliberately excluded (a public organ / legal person / craft, never a natural person)"
+          },
+          "ownerActors": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "KG actor handle(s) that maintain this mirror (e.g. ['kabuto','tsumugi','kanjo'])"
+          },
+          "sourcing": {
+            "type": "string",
+            "enum": ["authoritative", "representative", "synthesized"],
+            "description": "G7 sourcing honesty — most seed entities are :representative"
+          },
+          "disclaimer": {
+            "type": "string",
+            "description": "G1 observation-only disclaimer; MUST open the profile description"
+          }
+        }
+      }
+    }
+  }
+}

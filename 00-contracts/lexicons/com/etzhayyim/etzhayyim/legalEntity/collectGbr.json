@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectGbr",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect UK corporate data from Companies House REST API. Company number as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100, CH default 100)" },
+            "startIndex": { "type": "integer", "description": "Starting index (default 0)" },
+            "companyStatus": { "type": "string", "description": "Filter: active, dissolved, liquidation, receivership" },
+            "companyType": { "type": "string", "description": "Filter: ltd, plc, llp, etc." },
+            "incorporatedFrom": { "type": "string", "description": "Incorporated from date (YYYY-MM-DD)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

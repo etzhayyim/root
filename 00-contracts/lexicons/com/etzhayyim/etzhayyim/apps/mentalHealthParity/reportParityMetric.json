@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mentalHealthParity.reportParityMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WHO mhGAP + Atlas + MHPAEA / insurance parity metric (bridges universal-health-coverage + pharma-supply)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "jurisdictionIso3",
+            "indicator",
+            "valueNumeric",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "indicator": {
+              "type": "string",
+              "enum": [
+                "mh_budget_pct",
+                "psychiatrists_per_100k",
+                "beds_per_100k",
+                "mh_workforce_density",
+                "service_coverage_pct",
+                "depression_coverage_pct",
+                "psychosis_coverage_pct",
+                "suicide_rate_100k"
+              ]
+            },
+            "valueNumeric": {
+              "type": "number"
+            },
+            "parityReference": {
+              "type": "number",
+              "description": "comparable physical-health metric"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "gapTier": {
+              "type": "string",
+              "enum": [
+                "approaching",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

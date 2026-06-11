@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0f20671d97ec",
+  "entityId": "ent-0f20671d97ec",
+  "canonicalName": "ibrahim ahmad abd al-sattar muhammed",
+  "aliases": [
+    "ibrahim ahmad abd al-sattar muhammed"
+  ]
+}

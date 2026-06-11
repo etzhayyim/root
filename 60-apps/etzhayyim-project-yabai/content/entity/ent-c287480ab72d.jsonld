@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c287480ab72d",
+  "entityId": "ent-c287480ab72d",
+  "canonicalName": "digital marketing awards fz llc",
+  "aliases": [
+    "digital marketing awards fz llc"
+  ]
+}

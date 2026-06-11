@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps3d.visionAnnotate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run Murakumo Vision (qwen3-vl-8b) over the curated Mapillary images for a tile, extracting visible entities (Building, Storefront, Sign, Vehicle, Person...) plus OCR text. Emits one VisionResult per detected entity with bbox, label, confidence, and OCR. Re-uses the maps `analyze_image` / `vision_import_entities` pipeline (`60-apps/etzhayyim-project-maps/CLAUDE.md` §Vision Intelligence). Output is consumed by `linkActor` to bind detected entities to legal-entity DIDs.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "imageRefs"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "imageRefs": {
+              "type": "array",
+              "description": "Mapillary image URLs (or B2 URIs of cached copies).",
+              "items": { "type": "string" }
+            },
+            "minConfidence": { "type": "number", "description": "Drop detections below this confidence. Default 0.55." },
+            "kindAllowlist": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Restrict to these entity kinds. Empty = all."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "detections"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "detections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["kind", "label", "confidence"],
+                "properties": {
+                  "detectionId": { "type": "string", "description": "Stable ID for cross-task referencing." },
+                  "imageRef": { "type": "string" },
+                  "kind": { "type": "string", "description": "Building | Storefront | Sign | Vehicle | Person | Spot | Place | ..." },
+                  "label": { "type": "string", "description": "Free-form description from the VLM." },
+                  "ocr": { "type": "string", "description": "Concatenated OCR text within the bbox." },
+                  "bbox": {
+                    "type": "array",
+                    "items": { "type": "number" },
+                    "description": "[x,y,w,h] in normalized 0..1 image coords."
+                  },
+                  "confidence": { "type": "number" },
+                  "approxLat": { "type": "number" },
+                  "approxLng": { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

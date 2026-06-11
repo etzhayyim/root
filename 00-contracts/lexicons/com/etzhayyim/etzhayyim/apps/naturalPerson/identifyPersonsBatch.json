@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.naturalPerson.identifyPersonsBatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourceApp": { "type": "string" },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "country": { "type": "string" },
+                  "role": { "type": "string" },
+                  "organization": { "type": "string" },
+                  "sourceRecordId": { "type": "string" }
+                },
+                "required": ["name"]
+              }
+            }
+          },
+          "required": ["sourceApp", "persons"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identified": { "type": "integer" },
+            "deduplicated": { "type": "integer" },
+            "newDids": { "type": "integer" },
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "personHash": { "type": "string" },
+                  "did": { "type": "string" },
+                  "isNew": { "type": "boolean" }
+                }
+              }
+            }
+          },
+          "required": ["identified", "deduplicated", "newDids"]
+        }
+      }
+    }
+  }
+}

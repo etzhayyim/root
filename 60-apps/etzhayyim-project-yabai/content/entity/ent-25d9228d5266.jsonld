@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-25d9228d5266",
+  "entityId": "ent-25d9228d5266",
+  "canonicalName": "mathieu, chui ngudjolo",
+  "aliases": [
+    "mathieu, chui ngudjolo"
+  ]
+}

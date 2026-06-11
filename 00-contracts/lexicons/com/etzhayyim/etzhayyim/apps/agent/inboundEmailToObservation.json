@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.inboundEmailToObservation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Convert a mailer inbound email item into an agent observation row.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "object" },
+            "agentDid": { "type": "string" }
+          },
+          "required": ["email"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "observation": { "type": "object" },
+            "payload": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

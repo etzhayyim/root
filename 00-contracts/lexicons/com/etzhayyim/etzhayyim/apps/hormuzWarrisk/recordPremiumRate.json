@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzWarrisk.recordPremiumRate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "船体戦争保険料率記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "quoteId",
+            "flag",
+            "vesselType",
+            "hullValueUsd",
+            "premiumRateBps",
+            "premiumUsd",
+            "quotedAt"
+          ],
+          "properties": {
+            "quoteId": {
+              "type": "string"
+            },
+            "insurerLei": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string"
+            },
+            "vesselType": {
+              "type": "string",
+              "enum": [
+                "vlcc",
+                "suezmax",
+                "aframax",
+                "mr",
+                "lng",
+                "container"
+              ]
+            },
+            "hullValueUsd": {
+              "type": "number"
+            },
+            "premiumRateBps": {
+              "type": "number",
+              "description": "basis points; hull war risk"
+            },
+            "premiumUsd": {
+              "type": "number"
+            },
+            "coveragePeriodDays": {
+              "type": "integer"
+            },
+            "quotedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "rateTier": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "elevated",
+                "spike",
+                "suspended"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

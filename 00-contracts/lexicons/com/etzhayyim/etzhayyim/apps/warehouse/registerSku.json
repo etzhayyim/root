@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.warehouse.registerSku",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a SKU / item master record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["skuCode", "description"],
+          "properties": {
+            "skuCode": { "type": "string" },
+            "description": { "type": "string" },
+            "unitOfMeasure": { "type": "string" },
+            "weightKg": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

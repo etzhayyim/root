@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.createCondition",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Add a Condition to problem list. Encrypted-write inner type com.etzhayyim.karute.condition.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["record", "recipientDids", "publicMeta"],
+          "properties": {
+            "record": {"type": "unknown"},
+            "recipientDids": {"type": "array", "items": {"type": "string"}},
+            "publicMeta": {
+              "type": "object",
+              "required": ["patientDid", "icd10", "clinicalStatus"],
+              "properties": {
+                "patientDid": {"type": "string"},
+                "encounterDid": {"type": "string"},
+                "icd10": {"type": "string"},
+                "snomedCt": {"type": "string"},
+                "clinicalStatus": {"type": "string"},
+                "category": {"type": "string"},
+                "onsetDateTime": {"type": "string", "format": "datetime"}
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {"type": "string"},
+            "encryptedCid": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

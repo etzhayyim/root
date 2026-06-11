@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.aircraftTrack",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return the recent compacted track (LineString) for a specific aircraft by icao24. Falls back to live state vectors when no compacted track exists.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "icao24": { "type": "string" },
+          "callsign": { "type": "string" },
+          "windowH": { "type": "integer", "default": 6, "minimum": 1, "maximum": 48 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tracks", "count"],
+          "properties": {
+            "tracks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "icao24": { "type": "string" },
+                  "callsign": { "type": "string" },
+                  "flightStartMs": { "type": "integer" },
+                  "flightEndMs": { "type": "integer" },
+                  "originIata": { "type": "string" },
+                  "destIata": { "type": "string" },
+                  "pathGeoJson": { "type": "string" },
+                  "maxAltitudeM": { "type": "number" },
+                  "maxVelocityMs": { "type": "number" },
+                  "pointCount": { "type": "integer" }
+                }
+              }
+            },
+            "count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

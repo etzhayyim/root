@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  L3 XRPC-triggered: generate full Well-Becoming coaching plan.
+  Reads jocho scores + trust from RW, produces action roadmap.
+  Requires scored wellbecoming plan (run scoreJocho first).
+  Input: targetDid
+  Updates vertex_ossekai_wellbecoming_plan with action_items + next_review_at.
+  NSID: com.etzhayyim.apps.openOssekai.generateWellBecomingPlan
+-->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_generate_wellbecoming_plan" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_ossekai_generate_wellbecoming_plan" name="generateWellBecomingPlan" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.openOssekai.generateWellBecomingPlan", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ReadPlan"/>
+
+    <bpmn:serviceTask id="Task_ReadPlan" name="read latest scored plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT current_kyu_dan, target_kyu_dan, jocho_score, engagement_delta, competence_delta, contribution_delta, growth_delta, resilience_delta FROM vertex_ossekai_wellbecoming_plan WHERE target_did = '&quot; + targetDid + &quot;' AND status = 'scored' ORDER BY created_at DESC LIMIT 1&quot;" target="query"/>
+          <zeebe:output source="=rows" target="planRows"/>
+          <zeebe:output source="=rowCount" target="planCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_LLM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_LLM" sourceRef="Task_ReadPlan" targetRef="Task_LLM"/>
+
+    <bpmn:serviceTask id="Task_LLM" name="LLM Well-Becoming roadmap">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;You are a Well-Becoming (よく生きる) coach specializing in kyu/dan rank progression. Given the actor's 5-axis scores and current rank, produce a concrete 30-day action plan to advance their rank. Keep action_items concise (max 5 items, separated by |). Respond ONLY with JSON: {action_items, target_kyu_dan, next_review_days (integer 7-30)}&quot;" target="systemPrompt"/>
+          <zeebe:input source="=&quot;Actor: &quot; + targetDid + &quot;\nCurrent rank: &quot; + (if planCount &gt; 0 then planRows[1].current_kyu_dan else &quot;6kyu&quot;) + &quot;\nJocho score: &quot; + (if planCount &gt; 0 then string(planRows[1].jocho_score) else &quot;0.0&quot;) + &quot;\nEngagement: &quot; + (if planCount &gt; 0 then string(planRows[1].engagement_delta) else &quot;0.0&quot;) + &quot;\nCompetence: &quot; + (if planCount &gt; 0 then string(planRows[1].competence_delta) else &quot;0.0&quot;) + &quot;\nContribution: &quot; + (if planCount &gt; 0 then string(planRows[1].contribution_delta) else &quot;0.0&quot;) + &quot;\nGrowth: &quot; + (if planCount &gt; 0 then string(planRows[1].growth_delta) else &quot;0.0&quot;) + &quot;\nResilience: &quot; + (if planCount &gt; 0 then string(planRows[1].resilience_delta) else &quot;0.0&quot;)" target="userPrompt"/>
+          <zeebe:output source="=action_items" target="actionItems"/>
+          <zeebe:output source="=target_kyu_dan" target="targetKyuDan"/>
+          <zeebe:output source="=next_review_days" target="nextReviewDays"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_LLM</bpmn:incoming>
+      <bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_LLM" targetRef="Task_SavePlan"/>
+
+    <bpmn:serviceTask id="Task_SavePlan" name="save well-becoming plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_ossekai_wellbecoming_plan&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-ossekcom.etzhayyim.ai/com.etzhayyim.apps.openOssekai.wellBecomingPlan/plan-&quot; + targetDid + &quot;-&quot; + string(now()), plan_id: &quot;wbp-plan-&quot; + targetDid + &quot;-&quot; + string(now()), target_did: targetDid, consent_did: targetDid, current_kyu_dan: if planCount &gt; 0 then planRows[1].current_kyu_dan else &quot;6kyu&quot;, target_kyu_dan: targetKyuDan, jocho_score: if planCount &gt; 0 then planRows[1].jocho_score else 0.0, engagement_delta: if planCount &gt; 0 then planRows[1].engagement_delta else 0.0, competence_delta: if planCount &gt; 0 then planRows[1].competence_delta else 0.0, contribution_delta: if planCount &gt; 0 then planRows[1].contribution_delta else 0.0, growth_delta: if planCount &gt; 0 then planRows[1].growth_delta else 0.0, resilience_delta: if planCount &gt; 0 then planRows[1].resilience_delta else 0.0, action_items: actionItems, next_review_at: string(today() + duration(&quot;P&quot; + string(if nextReviewDays != null then nextReviewDays else 14) + &quot;D&quot;)), status: &quot;active&quot;, created_at: string(now()), sensitivity_ord: 3, actor_id: &quot;sys.bpmn.open-ossekai&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming>
+      <bpmn:outgoing>Flow_Lead</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Lead" sourceRef="Task_SavePlan" targetRef="Task_SaveLead"/>
+
+    <!-- High-value L3 lead → sales pipeline -->
+    <bpmn:serviceTask id="Task_SaveLead" name="upsert high-value sales lead">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_sales_lead&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-ossekcom.etzhayyim.ai/com.etzhayyim.apps.openSales.lead/ossekai-wb-&quot; + targetDid, lead_id: &quot;ossekai-wb-&quot; + targetDid, full_name: targetDid, source: &quot;ossekai.wellbecoming&quot;, lead_score: if planCount &gt; 0 then planRows[1].jocho_score * 100.0 else 50.0, status: &quot;qualified&quot;, notes: actionItems, created_at: string(now()), sensitivity_ord: 1, actor_id: &quot;sys.bpmn.open-ossekai&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Lead</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_SaveLead" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit generateWellBecomingPlan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ossekcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.ossekai.generateWellBecomingPlan&quot;" target="action"/>
+          <zeebe:input source="={targetDid: targetDid, targetKyuDan: targetKyuDan}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.signal.registerPrekeys",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identityKey": {
+              "type": "string"
+            },
+            "signedPrekey": {
+              "type": "object"
+            },
+            "oneTimePrekeys": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "deviceId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "identityKey",
+            "signedPrekey",
+            "oneTimePrekeys"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {
+              "type": "string"
+            },
+            "registered": {
+              "type": "boolean"
+            },
+            "otkCount": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "rkey",
+            "registered",
+            "otkCount"
+          ]
+        }
+      }
+    }
+  }
+}

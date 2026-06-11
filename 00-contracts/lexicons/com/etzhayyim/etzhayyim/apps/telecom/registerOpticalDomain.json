@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerOpticalDomain",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "TIP Phoenix MUST optical domain — controller scope (TransportPCE / Goldstone / GNPy / vendor controller). Phase 16 transport plane.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerOrgId", "displayName", "controllerKind", "jurisdiction", "observedAt"],
+          "properties": {
+            "domainId": { "type": "string" },
+            "ownerOrgId": { "type": "string" },
+            "displayName": { "type": "string" },
+            "controllerKind": { "type": "string", "enum": ["transport_pce", "goldstone", "gnpy_planner", "ietf_actn", "vendor_proprietary"] },
+            "controllerEndpoint": { "type": "string" },
+            "southboundProtocols": { "type": "array", "items": { "type": "string", "enum": ["netconf_openconfig", "netconf_openroadm", "tapi", "openroadm_yang", "vendor_cli"] } },
+            "jurisdiction": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "domainId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

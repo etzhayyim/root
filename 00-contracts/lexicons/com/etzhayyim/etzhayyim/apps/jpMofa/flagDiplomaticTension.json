@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMofa.flagDiplomaticTension",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Diplomatic tension / triangle drift / domestic backlash (bridges transnationalRepression + extraditionTreaty + universalJurisdiction)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "tensionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "tensionKind": {
+              "type": "string",
+              "enum": [
+                "us_japan_friction",
+                "cn_japan_friction",
+                "kr_japan_history",
+                "ru_japan_islands",
+                "kp_north_korea_abductee",
+                "prc_taiwan_strait",
+                "wto_dispute",
+                "uss_oss_japan_signal",
+                "arms_export_dispute",
+                "nuclear_weapons_treaty_pressure",
+                "ukraine_aid_political",
+                "oda_recipient_dispute"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "https://etzhayyim.com/schemas/kotoba-os-genesis-manifest/v1.json",
+  "name": "plc-bangbang-controller-r0",
+  "edge": "unikernel",
+  "kernel": {
+    "imageCid": "bafkreigh2akiscaildc2labcdefghijklmnopqrstuvwxyz234567abcd",
+    "arch": "aarch64"
+  },
+  "userland": [
+    {
+      "actorCid": "bafybeibangbangplccontrolactorabcdefghijklmnopqrstuvwxyz2345",
+      "validationRuleCid": "bafybeimembranerulebangbangabcdefghijklmnopqrstuvwxyz2345ru",
+      "world": "plc-control"
+    }
+  ],
+  "capabilities": {
+    "interfaces": ["io-analog", "io-digital", "datom"],
+    "channelAllowlist": {
+      "io-analog": [0],
+      "io-digital": [10]
+    }
+  },
+  "identity": {
+    "didCapability": "cacao:bafyreidelegationcapabilitybangbangoperatorabcdefghijklmn",
+    "serverKey": false
+  },
+  "neighbourhood": {
+    "peers": ["did:web:etzhayyim.com:actor:hikari"],
+    "witnessQuorum": 2
+  },
+  "safety": {
+    "realtimeClass": "soft",
+    "liveActuation": false,
+    "civilianOnly": true
+  }
+}

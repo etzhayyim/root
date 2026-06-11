@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.form.submit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit form data for a pending FormTask. Updates the task status to 'submitted' and stores variable mappings.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "taskId": { "type": "string", "description": "FormTask DID (from form.collect pipeline step)" },
+            "data": { "type": "object", "description": "Form field values keyed by component key" }
+          },
+          "required": ["taskId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "submitted": { "type": "boolean" },
+            "taskId": { "type": "string" }
+          },
+          "required": ["submitted", "taskId"]
+        }
+      }
+    }
+  }
+}

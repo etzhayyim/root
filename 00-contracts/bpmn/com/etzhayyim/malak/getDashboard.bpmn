@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  malak.getDashboard — migrates cmdGetDashboard.
+
+  Reads mv_malak_dashboard_counts (4-row streaming MV) and pivots
+  into a typed dashboard object.  No wallet TODOs remain — the MV
+  now includes walletAddresses + threatOrgs after migration
+  20260428170000_mv_malak_dashboard_counts_v2.
+
+  Flow:
+    Start (no inputs)
+      → generic.db.select (mv_malak_dashboard_counts — all 4 metric rows)
+      → scriptTask: pivot rows[] into dashboard object
+      → End
+
+  Output variable: dashboard { threatActors, walletAddresses, btcRiskSignals, threatOrgs }
+
+  NSID: com.etzhayyim.apps.malak.getDashboard
+  vid:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-get-dashboard-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_malak_get_dashboard"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="malak_get_dashboard" name="malak getDashboard" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.malak.getDashboard", "version": 1, "resultTimeoutMs": 10000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToSelect</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSelect" sourceRef="Start" targetRef="Task_Select"/>
+
+    <!-- Step 1: read all rows from the 4-metric dashboard MV -->
+    <bpmn:serviceTask id="Task_Select" name="select mv_malak_dashboard_counts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;mv_malak_dashboard_counts&quot;" target="table"/>
+          <zeebe:input source="=10"                                    target="limit"/>
+          <zeebe:output source="=rows"     target="mvRows"/>
+          <zeebe:output source="=rowCount" target="mvCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSelect</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPivot</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPivot" sourceRef="Task_Select" targetRef="Task_Pivot"/>
+
+    <!-- Step 2: pivot metric rows into a typed dashboard context -->
+    <bpmn:scriptTask id="Task_Pivot" name="pivot metrics into dashboard">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='={
+              threatActors:    if (mvRows[metric = "threatActors"])[1] = null then 0 else (mvRows[metric = "threatActors"])[1].cnt,
+              walletAddresses: if (mvRows[metric = "walletAddresses"])[1] = null then 0 else (mvRows[metric = "walletAddresses"])[1].cnt,
+              btcRiskSignals:  if (mvRows[metric = "btcRiskSignals"])[1] = null then 0 else (mvRows[metric = "btcRiskSignals"])[1].cnt,
+              threatOrgs:      if (mvRows[metric = "threatOrgs"])[1] = null then 0 else (mvRows[metric = "threatOrgs"])[1].cnt
+            }'
+            resultVariable="dashboard"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPivot</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Pivot" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

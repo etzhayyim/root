@@ -1,0 +1,376 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "sbom XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://sbom.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.sbom.cveIngestOsv": {
+      "post": {
+        "summary": "Ingest open-source vulnerabilities from osv.dev into vertex_cve_entry. Optionally restricted to a single OSV ecosystem (npm / PyPI / crates.io / Maven / Go / RubyGems / Hex / NuGet / Packagist / Pub / cargo) for incremental refresh. Synthesizes affected_purl_pattern (e.g. pkg:cargo/serde@%) per affected package. Idempotent: same vulnerability id overwrites by PK.",
+        "operationId": "com.etzhayyim.sbom.cveIngestOsv",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ecosystem": {
+                    "type": "string",
+                    "description": "OSV ecosystem name. Omit for all. See https://ossf.github.io/osv-schema/#affectedpackage-field"
+                  },
+                  "modifiedSince": {
+                    "type": "string",
+                    "description": "ISO-8601 timestamp. Only ingest vulnerabilities modified after this time."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000,
+                    "default": 1000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ingested": {
+                      "type": "integer"
+                    },
+                    "ecosystem": {
+                      "type": "string"
+                    },
+                    "modifiedSince": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ingested",
+                    "ecosystem"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.sbom.health": {
+      "get": {
+        "summary": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
+        "operationId": "com.etzhayyim.sbom.health",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "app": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "ts": {
+                      "type": "string"
+                    },
+                    "phase": {
+                      "type": "string",
+                      "description": "0-stub | B-persist | C-vuln-match | D-recall"
+                    },
+                    "note": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "did",
+                    "ts",
+                    "phase"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.sbom.recall": {
+      "get": {
+        "summary": "Blast-radius query for a supplier (and optionally MPN). Returns every SBOM artifact whose components reference the supplier — Takata-style hardware recall surface for vehicle BOMs and the equivalent software-side query for cargo SBOMs. Filters by kind (software | vehicle).",
+        "operationId": "com.etzhayyim.sbom.recall",
+        "parameters": [
+          {
+            "name": "supplier",
+            "in": "query",
+            "required": true,
+            "description": "Manufacturer / supplier name. Matched against vertex_sbom_component.supplier_name.",
+            "schema": {
+              "type": "string",
+              "description": "Manufacturer / supplier name. Matched against vertex_sbom_component.supplier_name."
+            }
+          },
+          {
+            "name": "mpn",
+            "in": "query",
+            "required": false,
+            "description": "Manufacturer part number. Optional. When set, only components whose supplier_mpn equals this value are returned.",
+            "schema": {
+              "type": "string",
+              "description": "Manufacturer part number. Optional. When set, only components whose supplier_mpn equals this value are returned."
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "description": "Restrict results to software or vehicle artifacts. Omit for both.",
+            "schema": {
+              "type": "string",
+              "description": "Restrict results to software or vehicle artifacts. Omit for both.",
+              "enum": [
+                "software",
+                "vehicle"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 50
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "matches": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "artifactUri": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string"
+                          },
+                          "vehicleId": {
+                            "type": "string"
+                          },
+                          "vehicleRevision": {
+                            "type": "string"
+                          },
+                          "sourceUri": {
+                            "type": "string"
+                          },
+                          "componentBomRef": {
+                            "type": "string"
+                          },
+                          "componentName": {
+                            "type": "string"
+                          },
+                          "componentVersion": {
+                            "type": "string"
+                          },
+                          "supplier": {
+                            "type": "string"
+                          },
+                          "supplierMpn": {
+                            "type": "string"
+                          },
+                          "vulnCount": {
+                            "type": "integer"
+                          },
+                          "registeredAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "artifactUri",
+                          "kind",
+                          "componentBomRef",
+                          "supplier"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "matches",
+                    "total",
+                    "limit",
+                    "offset"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.sbom.registerArtifact": {
+      "post": {
+        "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/etzhayyim-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
+        "operationId": "com.etzhayyim.sbom.registerArtifact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "format": {
+                    "type": "string",
+                    "description": "Wire format. CycloneDX 1.5 is the default for both software and vehicle BOMs.",
+                    "enum": [
+                      "CycloneDX",
+                      "SPDX"
+                    ]
+                  },
+                  "specVersion": {
+                    "type": "string",
+                    "description": "Format spec version (e.g. 1.5, 1.6, 3.0)."
+                  },
+                  "vehicleId": {
+                    "type": "string",
+                    "description": "Stable vehicle id (e.g. mx5-na-1989). Present for vehicle BOMs only — software SBOMs leave this unset."
+                  },
+                  "vehicleRevision": {
+                    "type": "string",
+                    "description": "Vehicle revision tag (e.g. 0.1.0, 2026-MY-1)."
+                  },
+                  "totalMassKg": {
+                    "type": "integer",
+                    "description": "Vehicle BOMs only — sum of effective_mass_kg across parts."
+                  },
+                  "partCount": {
+                    "type": "integer",
+                    "description": "Vehicle BOMs only — number of CDX components.[type=device]."
+                  },
+                  "sourceUri": {
+                    "type": "string",
+                    "description": "URI of the source artifact that produced this SBOM (e.g. scad://etzhayyim/roadster-na/v0.1.0, b2://drive/cad/...)."
+                  },
+                  "sourceSha256": {
+                    "type": "string",
+                    "description": "SHA-256 hex of the source artifact. Used for deterministic SBOM serial number."
+                  },
+                  "license": {
+                    "type": "string",
+                    "description": "SPDX expression covering the source artifact (e.g. MIT, CC-BY-4.0, proprietary)."
+                  },
+                  "cdxJson": {
+                    "type": "string",
+                    "description": "Full CycloneDX 1.5 (or SPDX 3.0) document, encoded as a JSON string. Validated server-side against the upstream schema."
+                  }
+                },
+                "required": [
+                  "format",
+                  "specVersion",
+                  "sourceUri",
+                  "sourceSha256",
+                  "license",
+                  "cdxJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "artifactUri": {
+                      "type": "string",
+                      "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/com.etzhayyim.sbom.artifact/<rkey>)."
+                    },
+                    "componentCount": {
+                      "type": "integer",
+                      "description": "Number of CDX components ingested into the SbomComponent graph."
+                    },
+                    "vulnMatchCount": {
+                      "type": "integer",
+                      "description": "Number of vulnerability matches detected synchronously against the existing CveEntry graph."
+                    }
+                  },
+                  "required": [
+                    "artifactUri",
+                    "componentCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

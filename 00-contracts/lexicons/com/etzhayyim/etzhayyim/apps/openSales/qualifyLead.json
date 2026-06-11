@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSales.qualifyLead",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Qualify a sales lead using LLM scoring. Returns lead_score (0-100) and qualification (hot/warm/cold). Starts BPMN open_sales_qualify_lead.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["leadId"],
+          "properties": {
+            "leadId":  { "type": "string" },
+            "company": { "type": "string" },
+            "email":   { "type": "string" },
+            "source":  { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId":      { "type": "string" },
+            "status":        { "type": "string" },
+            "leadScore":     { "type": "number" },
+            "qualification": { "type": "string", "knownValues": ["hot", "warm", "cold"] },
+            "instanceKey":   { "type": "integer" },
+            "error":         { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

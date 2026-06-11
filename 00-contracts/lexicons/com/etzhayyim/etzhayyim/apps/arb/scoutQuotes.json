@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.arb.scoutQuotes",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fetch live public market quotes for one asset class and bulk-ingest them into vertex_arb_quote. Sources: CoinGecko (cr), Frankfurter.app (fx), Yahoo Finance v7 (eq/fut/com/re). EDUCATIONAL ONLY — public delayed/EOD feeds. No execution path.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["assetClass"],
+          "properties": {
+            "assetClass": {
+              "type": "string",
+              "description": "Asset class to scout: eq fut fx com re cr",
+              "enum": ["eq", "fut", "fx", "com", "re", "cr"]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["count", "assetClass"],
+          "properties": {
+            "count": { "type": "integer", "description": "Number of quotes ingested" },
+            "assetClass": { "type": "string" },
+            "ts": { "type": "string", "format": "datetime" },
+            "source": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidAssetClass" },
+        { "name": "FetchError" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.closeInterceptWarrant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Close an intercept warrant (auto on validUntil expiry, manual on revocation, or on closure of investigation). Sets retention_until per jurisdiction-specific evidence retention rules.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["warrantId", "closureReason", "closedAt", "retentionUntil"],
+          "properties": {
+            "warrantId": { "type": "string" },
+            "closureReason": { "type": "string", "enum": ["expired", "revoked", "investigation_complete", "operator_request", "court_order"] },
+            "closedAt": { "type": "string", "format": "datetime" },
+            "retentionUntil": { "type": "string", "format": "datetime" },
+            "finalReportRef": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "warrantId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

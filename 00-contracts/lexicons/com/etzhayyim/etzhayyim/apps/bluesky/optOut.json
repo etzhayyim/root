@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.optOut",
+  "description": "Bluesky DID の ingest opt-out 記録。`!no-unauthenticated` label 検知、user request、labeler service verdict のいずれかで登録。以後その DID の post/profile/follow を cascade purge + ingest 停止 (ADR-0037 §2)。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sourceDid", "reason", "detectedAt"],
+        "properties": {
+          "sourceDid": { "type": "string" },
+          "handle": { "type": "string" },
+          "reason": { "type": "string", "enum": ["no-unauthenticated", "no-search", "self-labeler", "user-request", "labeler-verdict", "takedown"] },
+          "labelerDid": { "type": "string", "description": "labeler service DID (reason=labeler-verdict 時)" },
+          "detectedAt": { "type": "string", "format": "datetime" },
+          "purgedAt": { "type": "string", "format": "datetime", "description": "cascade purge 完了時刻" },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

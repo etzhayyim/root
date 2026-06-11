@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.outreach.listSequences",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List outreach sequences with optional status filter.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "status": { "type": "string", "description": "Filter by status: active|completed|replied|paused" },
+          "prospectId": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sequences", "total", "offset", "limit"],
+          "properties": {
+            "sequences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sequenceId": { "type": "string" },
+                  "prospectId": { "type": "string" },
+                  "sequenceName": { "type": "string" },
+                  "status": { "type": "string" },
+                  "currentStep": { "type": "integer" },
+                  "replyDetected": { "type": "boolean" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6046a6f25083",
+  "entityId": "ent-6046a6f25083",
+  "canonicalName": "gazprom geologorazvedka, ooo",
+  "aliases": [
+    "gazprom geologorazvedka, ooo"
+  ]
+}

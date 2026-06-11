@@ -1,0 +1,197 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:kataribe.etzhayyim.com",
+  "name": "kataribe",
+  "displayName": "語部 — Press + Publishing + Translation",
+  "displayNameJa": "語部",
+  "displayNameEn": "Kataribe",
+  "description": "Non-profit religious-corp press + publishing + translation substrate. Community journalism + doctrine commentary + multilingual translation + community historical chronicle + whistleblower channel. Etymology: 古代日本 oral historian / storyteller / chronicler class; 万人祭司 + Sola Scriptura + Charter §1.7 多世代 + §1.15 non-eschatological. NO ad-supported revenue (G3: Charter §1.13+§1.15). NO clickbait/apocalyptic (G4: §1.15 non-eschatological; toneAttestation enum excludes apocalyptic/clickbait/engagement-optimized). NO commercial publishing platform (G5: Substack/Medium/News Corp/The Atlantic/NYTimes-as-vendor/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c)). NO single-doctrinal monopoly (G6: cross-doctrinal Wellbecoming). NO commercial AI translation (G12: DeepL Pro/Google Translate API/Grammarly PROHIBITED). NO surveillance investigative journalism (G8: Charter §2(c)). 6 cells / 5 Lexicons / 13 gates / 12 non-goals.",
+  "descriptionJa": "非営利 religious-corp の報道 + 出版 + 翻訳 substrate。地域ジャーナリズム + 教義注解 + 多言語翻訳 + 地域歴史記録 + 内部告発チャネル。Etymology: 古代日本 口承歴史家 / 語り部 / 編年史家階級; 万人祭司 + Sola Scriptura + Charter §1.7 多世代 + §1.15 非終末論。広告収入禁止 (G3: Charter §1.13+§1.15)。クリックベイト / 終末論的フレーミング禁止 (G4: §1.15 非終末論)。商業出版プラットフォーム禁止 (G5: Substack/Medium/News Corp/The Atlantic/NYTimes/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c))。単一教義独占禁止 (G6: 教派横断ウェルビカミング優先)。商業 AI 翻訳禁止 (G12: DeepL Pro/Google Translate API/Grammarly PROHIBITED)。",
+  "adr": {
+    "master": "etzhayyim:adr:2605263600",
+    "parent": "etzhayyim:adr:2605192100",
+    "r0": "etzhayyim:adr:2605263600",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "form": "任意団体 internal press + publishing + translation substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT a state-licensed press entity — Preamble §0.4 Lv7+ unanimity lock)",
+  "culturalLineage": "古代日本 語部 class (oral historian); 万人祭司 priesthood of all believers (Charter §1.7); Sola Scriptura (scripture-access-through-translation); Charter §1.7 多世代 chronicle preservation; Charter §1.15 non-eschatological tone",
+  "crossActor": {
+    "chigiri.ipLicenseClaim": "Whistleblower channel for Charter Rider violation; G10 encrypted envelope MANDATORY per ADR-2605181100",
+    "chigiri.stewardLaborAttestation": "(read) Kataribe L5 vocation-flow classification (G11)",
+    "musubi": "Cross-doctrinal Wellbecoming pattern shared (G6 + musubi G9+N12); officiant doctrinal-tradition transparency cross-link",
+    "toritate": "(read) Public Fund grant accounting if applicable",
+    "kazaori": "Post-emergency community chronicle (after silenKazaoriReview)",
+    "manabi": "(future) Translated curriculum cross-link for education",
+    "iyashi": "(← clinical-grade publication review when medical content)"
+  },
+  "constitutionalDiscipline": {
+    "noAdSupportedRevenue": "G3 — Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible with both",
+    "noClickbaitApocalypticFraming": "G4 — Charter §1.15 non-eschatological invariant; toneAttestation enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; nonEschatologicalAttested const true",
+    "noCommercialPublishingPlatform": "G5 — Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c)",
+    "noSingleDoctrinalMonopoly": "G6 — cross-doctrinal Wellbecoming priority per musubi G9+N12; doctrinalMonopolyAttested const false",
+    "translationCommunityNeedBased": "G7 — NOT commercial-market-driven; member-population + Wellbecoming need governs",
+    "noSurveillanceInvestigativeJournalism": "G8 — Charter §2(c) covert-ops avoidance extends to journalism; whistleblower channel encrypted (G10)",
+    "openSourceAllPublications": "G9 — Apache 2.0 + Charter Rider on all publications; no proprietary; no mandatory paywall (N12)",
+    "whistleblowerChannelEncrypted": "G10 — ADR-2605181100 envelope MANDATORY; chigiri.ipLicenseClaim cross-link",
+    "noPayrollForKataribe": "G11 — vocation-flow L5 stewards",
+    "muragumoOnlyTranslation": "G12 — DeepL Pro / Google Translate API / Grammarly / Anthropic-direct-translation PROHIBITED; translationProvider const murakumo-only"
+  },
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "Community chronicle + doctrine commentary + multilingual translation + external press relations + whistleblower channel + annual history compendium",
+    "exclusions": [
+      "commercial journalism / paid press",
+      "ad-supported revenue (Charter §1.13 + §1.15)",
+      "clickbait / apocalyptic / engagement-optimized framing",
+      "commercial publishing platform integration",
+      "single-doctrinal monopoly",
+      "commercial-market-driven translation priority",
+      "surveillance investigative journalism",
+      "closed-source publication",
+      "state-licensed press entity status",
+      "payroll-based kataribe",
+      "commercial AI translation/grammar tools",
+      "mandatory subscription paywall"
+    ]
+  },
+  "cells": [
+    {
+      "name": "community_chronicle",
+      "module": "kotodama.cells.kataribe_community_chronicle",
+      "murakumoNode": "issachar",
+      "phase": "quarterly",
+      "io": "community events + tone attestation → communityChronicleAttestation"
+    },
+    {
+      "name": "doctrine_commentary",
+      "module": "kotodama.cells.kataribe_doctrine_commentary",
+      "murakumoNode": "issachar",
+      "phase": "event",
+      "io": "commentary draft + cross-doctrinal review → doctrineCommentaryPublishing",
+      "crossActorPair": "musubi (cross-doctrinal Wellbecoming pattern)"
+    },
+    {
+      "name": "translation",
+      "module": "kotodama.cells.kataribe_translation",
+      "murakumoNode": "issachar",
+      "phase": "continuous (need-driven)",
+      "io": "source doc + community-need attestation + Murakumo translate → translationAttestation"
+    },
+    {
+      "name": "external_press_relations",
+      "module": "kotodama.cells.kataribe_external_press_relations",
+      "murakumoNode": "issachar",
+      "phase": "event",
+      "io": "external press request + consent-capability + Council Lv6+ ≥3 review → external response coordination"
+    },
+    {
+      "name": "whistleblower_channel",
+      "module": "kotodama.cells.kataribe_whistleblower_channel",
+      "murakumoNode": "issachar",
+      "phase": "event (encrypted)",
+      "io": "encrypted report → whistleblowerReport + chigiri.ipLicenseClaim cross-emit",
+      "crossActorPair": "chigiri.ipLicenseClaim"
+    },
+    {
+      "name": "annual_history_compendium",
+      "module": "kotodama.cells.kataribe_annual_history_compendium",
+      "murakumoNode": "issachar",
+      "phase": "annual (event)",
+      "io": "aggregate community chronicles → compendium IPFS pin + Council ≥3 attestation"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.kataribe.communityChronicleAttestation",
+    "com.etzhayyim.kataribe.doctrineCommentaryPublishing",
+    "com.etzhayyim.kataribe.translationAttestation",
+    "com.etzhayyim.kataribe.whistleblowerReport",
+    "com.etzhayyim.kataribe.silenKataribeReview"
+  ],
+  "constitutionalGates": {
+    "description": "13 immutable gates per ADR-2605263600. Council Lv6+ supermajority + new ADR to amend.",
+    "gates": {
+      "G1": "Charter Rider §2(a)-(h) scan",
+      "G2": "kotoba-datomic attestation lineage",
+      "G3": "NO ad-supported revenue (Charter §1.13 anti-addictive + §1.15 non-eschatological)",
+      "G4": "NO clickbait / apocalyptic / engagement-optimized framing (toneAttestation enum excludes; nonEschatologicalAttested const true)",
+      "G5": "NO commercial publishing platform (Substack/Medium/News Corp/The Atlantic/NYTimes/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv PROHIBITED)",
+      "G6": "NO single-doctrinal monopoly (cross-doctrinal Wellbecoming; doctrinalMonopolyAttested const false)",
+      "G7": "Translation prioritization community-need-based (NOT commercial-market-driven)",
+      "G8": "NO surveillance investigative journalism (Charter §2(c))",
+      "G9": "All publications Apache 2.0 + Charter Rider",
+      "G10": "Whistleblower channel encrypted (ADR-2605181100); chigiri.ipLicenseClaim cross-link",
+      "G11": "NO payroll for kataribe (vocation-flow L5)",
+      "G12": "Murakumo-only translation (DeepL Pro / Google Translate API / Grammarly / Anthropic-direct PROHIBITED; translationProvider const murakumo-only)",
+      "G13": "NO mandatory subscription paywall (all publications open access)"
+    }
+  },
+  "nonGoals": {
+    "description": "12 explicitly excluded scopes",
+    "goals": {
+      "N1": "NOT commercial journalism",
+      "N2": "NOT ad-supported revenue",
+      "N3": "NOT clickbait / apocalyptic framing",
+      "N4": "NOT commercial publishing platform",
+      "N5": "NOT single-doctrinal monopoly",
+      "N6": "NOT commercial-market-driven translation priority",
+      "N7": "NOT surveillance investigative journalism",
+      "N8": "NOT closed-source publication",
+      "N9": "NOT state-licensed press entity",
+      "N10": "NOT payroll-based kataribe",
+      "N11": "NOT commercial AI translation/grammar integrator",
+      "N12": "NOT mandatory subscription paywall"
+    }
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-05-26",
+      "scope": "Scaffold only. 6 cells path-reserved. 5 Lexicons schema skeleton.",
+      "murakumoFleet": "No deployment",
+      "gate": "ADR-2605263600 (PROPOSED)"
+    },
+    {
+      "phase": "R1",
+      "date": "post-Council + ≥3 community chronicler baseline + cross-doctrinal advisory on Council",
+      "scope": "2 core cells (community_chronicle + translation); quarterly chronicle ≤5 sites; ≥3 languages (JA+EN+community-need)",
+      "murakumoFleet": "issachar (single node)",
+      "gate": "Future ADR + Council Lv6+ ≥3 + ≥3 chronicler baseline + cross-doctrinal advisor"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1 + 30-day public objection + 5 community-site Council attestations",
+      "scope": "+3 cells (doctrine_commentary + whistleblower_channel chigiri-pair + external_press_relations consent-capability)",
+      "murakumoFleet": "issachar + zebulun (2 nodes)",
+      "gate": "Council Lv6+ ≥4 + 30-day public + 5 site attestations"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2 + Council Lv7+ unanimity + ≥1 full annual cycle + silenKataribeReview cycle established",
+      "scope": "+1 cell (annual_history_compendium); multi-site community-scale + ≥10 languages + cross-religious-corp federation potential",
+      "murakumoFleet": "issachar + zebulun + asher (3 nodes)",
+      "gate": "Council Lv7+ unanimity + annual cycle completed"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md",
+      "missionCharter": "/90-docs/adr/2605192100-etzhayyim-mission-charter.md",
+      "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
+      "publicFund": "/90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md",
+      "encryptedEnvelope": "/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md",
+      "muragumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
+      "liberation": "/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md",
+      "crossActorChigiri": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
+      "crossActorMusubi": "/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md",
+      "crossActorToritate": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
+    }
+  }
+}

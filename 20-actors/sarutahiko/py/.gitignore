@@ -1,0 +1,12 @@
+# Byte-code files
+*.pyc
+__pycache__/
+
+# Environments
+.venv/
+env/
+venv/
+.env
+
+# Build artifacts
+*.wasm

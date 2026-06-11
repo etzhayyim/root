@@ -1,0 +1,32 @@
+{
+  "name": "@etzhayyim/mst-projector",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PDS firehose → MST shard projector. Stage 3 of ADR-2605171800.",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "bin": {
+    "mst-projector": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/*.test.ts test/*.test.ts"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.20.7",
+    "@atproto/repo": "^0.10.0",
+    "cborg": "^5.1.1",
+    "multiformats": "^14.0.0",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/ws": "^8.5.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

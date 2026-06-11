@@ -1,0 +1,76 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ndc XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://ndc.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.ndc.lookupByCode": {
+      "get": {
+        "summary": "Lookup drug by NDC code or WHO ATC code. Auto-generated stub (coverage expansion 2026-04-17).",
+        "operationId": "com.etzhayyim.ndc.lookupByCode",
+        "parameters": [
+          {
+            "name": "ndc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "atc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ndc": {
+                      "type": "string"
+                    },
+                    "atc": {
+                      "type": "string"
+                    },
+                    "ddd": {
+                      "type": "number"
+                    },
+                    "genericName": {
+                      "type": "string"
+                    },
+                    "brandName": {
+                      "type": "string"
+                    },
+                    "dosageForm": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

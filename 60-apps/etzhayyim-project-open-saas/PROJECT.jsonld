@@ -1,0 +1,92 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "capabilities": "etzhayyim:capabilities",
+      "survivalIndicators": "etzhayyim:survivalIndicators",
+      "scheduler": "etzhayyim:scheduler",
+      "milestones": "etzhayyim:milestones",
+      "blockers": "etzhayyim:blockers",
+      "dependsOn": {
+        "@id": "etzhayyim:dependsOn",
+        "@type": "@id"
+      },
+      "ingestKey": "etzhayyim:ingestKey",
+      "window": "etzhayyim:window",
+      "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
+    }
+  ],
+  "@type": "Project",
+  "identifier": "etzhayyim-open-saas",
+  "name": "ai etzhayyim open saas",
+  "status": "Active",
+  "description": "Open-source-first SaaS baseline for multi-tenant product delivery, billing, governance, and operator visibility.",
+  "capabilities": {
+    "@type": "DefinedTermSet",
+    "name": "Capabilities",
+    "description": "Summary of project responsibilities.",
+    "terms": [
+      {
+        "@type": "DefinedTerm",
+        "identifier": "tenant-control-plane",
+        "name": "Tenant Control Plane",
+        "description": "Tenant, workspace, seat, and environment management."
+      },
+      {
+        "@type": "DefinedTerm",
+        "identifier": "billing-metering",
+        "name": "Billing and Metering",
+        "description": "Plan, usage, invoice, credit, and overage policy modeling."
+      },
+      {
+        "@type": "DefinedTerm",
+        "identifier": "audit-observability",
+        "name": "Audit and Observability",
+        "description": "Open audit log, operator visibility, and change provenance."
+      },
+      {
+        "@type": "DefinedTerm",
+        "identifier": "salesforce-crm",
+        "name": "Salesforce-equivalent CRM",
+        "description": "Account, Contact, Lead, Opportunity, Case, and derived Activity over AT / W Protocol. Implemented by appview salesforce-crm-sfcrm9x3."
+      }
+    ]
+  },
+  "survivalIndicators": [
+    {
+      "@type": "PropertyValue",
+      "identifier": "activeTenants",
+      "name": "Active Tenants",
+      "description": "Count of tenants with at least one active workspace in the last 30 days.",
+      "unitText": "count",
+      "value": null,
+      "ingestKey": "activeTenants",
+      "window": "30d",
+      "valueUpdatedAt": null
+    },
+    {
+      "@type": "PropertyValue",
+      "identifier": "mrr",
+      "name": "MRR",
+      "description": "Monthly recurring revenue or recurring credit equivalent.",
+      "unitText": "JPY",
+      "value": null,
+      "ingestKey": "mrr",
+      "window": "30d",
+      "valueUpdatedAt": null
+    },
+    {
+      "@type": "PropertyValue",
+      "identifier": "automationCoverage",
+      "name": "Automation Coverage",
+      "description": "Share of tenant lifecycle operations covered by API or worker automation.",
+      "unitText": "percent",
+      "value": null,
+      "ingestKey": "automationCoverage",
+      "window": "30d",
+      "valueUpdatedAt": null
+    }
+  ],
+  "scheduler": "scheduler.jsonld"
+}

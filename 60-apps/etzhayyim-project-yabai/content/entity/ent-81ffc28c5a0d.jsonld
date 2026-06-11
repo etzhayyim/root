@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-81ffc28c5a0d",
+  "entityId": "ent-81ffc28c5a0d",
+  "canonicalName": "tars global group fze",
+  "aliases": [
+    "tars global group fze"
+  ]
+}

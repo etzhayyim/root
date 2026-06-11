@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectUsa",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the Zeebe Python SEC EDGAR collection pipeline. The edge worker only returns workflow metadata; state SOS registry work remains a future actor slice.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "sourceRegistry": { "type": "string", "description": "Source: sec_edgar (default), delaware, opencorporates_us" },
+            "sic": { "type": "string", "description": "Filter by SIC industry code" },
+            "state": { "type": "string", "description": "Filter by state of incorporation (2-letter code)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "movedToZeebe": { "type": "boolean" },
+            "processId": { "type": "string" },
+            "taskTypes": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "variables": { "type": "object" },
+            "commitCommand": { "type": "string" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.esmaConvergence.recordReview",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ESMA peer review / thematic review / common supervisory action (bridges micaLicense.flagPassportAbuse + dpa-authority + mica-crypto)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reviewId",
+            "workKind",
+            "topic",
+            "publishedAt"
+          ],
+          "properties": {
+            "reviewId": {
+              "type": "string"
+            },
+            "workKind": {
+              "type": "string",
+              "enum": [
+                "peer_review",
+                "csa_common",
+                "mystery_shopping",
+                "thematic",
+                "q_a",
+                "guidelines_update",
+                "opinion",
+                "breach_of_law",
+                "cpa_cross_panel",
+                "strategic_plan",
+                "mandate_review"
+              ]
+            },
+            "topic": {
+              "type": "string",
+              "enum": [
+                "mica_casp",
+                "mifid_ii_review",
+                "emir_3",
+                "sfdr",
+                "ucits",
+                "aifmd",
+                "psr_psd3",
+                "prospectus",
+                "csrd",
+                "benchmarks_bmr",
+                "amld",
+                "transparency"
+              ]
+            },
+            "passportAbuseVid": {
+              "type": "string",
+              "description": "bridges micaLicense.flagPassportAbuse"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

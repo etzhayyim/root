@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMhlw.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "厚生労働省 action / health / labor / social security (bridges drugPriceNegotiation + universalHealthCoverage + socialInsuranceProcedure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "bureau",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bureau": {
+              "type": "string",
+              "enum": [
+                "honsho",
+                "health_policy",
+                "medical_safety",
+                "pharma_food",
+                "kenpoku_seikatsu_safe",
+                "health_insurance",
+                "employment",
+                "labor_standards",
+                "equal_employment",
+                "kankoku_pension",
+                "child_family",
+                "welfare_disability",
+                "emergency_disaster",
+                "hwf_health_workforce"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "pharma_approval",
+                "drug_price_revision",
+                "health_insurance_revision",
+                "oeshi_negotiation",
+                "kanri_insurance_subsidy",
+                "kosei_pension_revision",
+                "kokumin_pension",
+                "employment_law_amend",
+                "minimum_wage_revise",
+                "work_style_reform",
+                "care_insurance",
+                "child_allowance_law",
+                "heisei_disaster_response",
+                "mers_covid_imhe",
+                "oimon_health_workforce_recruit",
+                "oba_iryouho"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges drugPriceNegotiation / universalHealthCoverage"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

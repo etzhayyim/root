@@ -1,0 +1,31 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "datacenter-capacity-request-v1",
+  "version": 1,
+  "title": "データセンター容量予約申請",
+  "tier": 1,
+  "actorRole": "dc-planner",
+  "components": [
+    {
+      "key": "capacityRequest",
+      "type": "fieldset",
+      "label": "予約内容",
+      "components": [
+        { "key": "reservationType", "label": "予約種別", "type": "select", "required": true,
+          "options": [
+            { "value": "rack-expansion", "label": "ラック増設" },
+            { "value": "power-upsize", "label": "電力増強" },
+            { "value": "cooling-upsize", "label": "冷却増強" },
+            { "value": "temporary-burst", "label": "一時バースト" }
+          ]
+        },
+        { "key": "rackUnits", "label": "必要ラックユニット", "type": "number" },
+        { "key": "powerKw", "label": "必要電力 kW", "type": "number" },
+        { "key": "coolingKw", "label": "必要冷却 kW", "type": "number" },
+        { "key": "reservationStart", "label": "予約開始", "type": "textfield", "required": true, "description": "ISO-8601 datetime" },
+        { "key": "reservationEnd", "label": "予約終了", "type": "textfield", "required": true, "description": "ISO-8601 datetime" },
+        { "key": "businessJustification", "label": "業務上の理由", "type": "textarea", "required": true, "validate": { "maxLength": 2000 } }
+      ]
+    }
+  ]
+}

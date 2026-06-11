@@ -1,0 +1,15 @@
+name = "etzhayyim-legal-clinic"
+main = "src/worker.ts"
+compatibility_date = "2026-05-30"
+
+# Free legal-aid intake front-end for etzhayyim.com (ADR-2605302345 §D1).
+# XRPC base: https://legal.etzhayyim.com/xrpc/com.etzhayyim.chigiri.legalAid.*
+# DNS + route binding deferred to deploy.
+# [[routes]]
+# pattern = "legal.etzhayyim.com/*"
+# zone_name = "etzhayyim.com"
+
+# no-server-key: this Worker holds NO signing key. Adherent intake writes are
+# member-signed (passkey-derived ES256 session, ADR-2605231525); the Worker
+# only relays the member-authenticated write through @etzhayyim/sdk. Reads are
+# anonymous. No KV secret holding a platform credential is bound.

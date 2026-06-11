@@ -1,0 +1,41 @@
+# Prometheus scrape config for religious-corp stack
+# Per fleet.toml monitoring.prometheus_endpoint setup.
+
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: mst-projector
+    static_configs:
+      - targets:
+          - simeon.local:8765
+    metrics_path: /metrics
+
+  - job_name: cell-runner
+    static_configs:
+      - targets:
+          - naphtali.local:13000
+          - simeon.local:13000
+          - judah.local:13000
+          - zebulun.local:13000
+          - levi.local:13000
+          - joseph.local:13000
+          - issachar.local:13000
+          - dan.local:13000
+          - benjamin.local:13000
+          - asher.local:13000
+    metrics_path: /metrics
+
+  # EVO-X2 inference pod (LAN-only, no AT membership)
+  - job_name: evo-x2-litellm
+    static_configs:
+      - targets: [192.168.1.70:4000]
+    metrics_path: /metrics
+
+  - job_name: prometheus
+    static_configs:
+      - targets: [localhost:9090]
+
+rule_files:
+  - alerts.yml

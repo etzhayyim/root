@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalRunRisk.flagContagionRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Contagion / peer bank stress / off-exchange depeg (bridges depositInsurance.flagCoverageRisk + mica-crypto + stablecoin-reserves)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "eventVid",
+            "contagionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordOutflowEvent"
+            },
+            "contagionKind": {
+              "type": "string",
+              "enum": [
+                "peer_bank_stress",
+                "industry_concentration",
+                "dealer_cancel",
+                "money_market_shift",
+                "fdic_sre_activation",
+                "fed_bxl_bank_liquidity",
+                "stablecoin_offexchange_depeg",
+                "global_nbfi_stress",
+                "scary_cross_border",
+                "dusd_cross_run"
+              ]
+            },
+            "peerInstitutionCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.23"   # exact-pinned by Coinbase Smart Wallet's pragma
+# Our genesis (50-infra/vultr/geth-private/manifests/genesis.json) doesn't
+# activate Shanghai/Cancun (no `shanghaiTime` / `cancunTime` field), so the
+# chain rejects PUSH0 (introduced in Shanghai). Compiling to `paris` makes
+# solc emit PUSH1 0x00 instead — slightly larger bytecode but compatible
+# with the London-level chain we shipped. To upgrade later: add
+# `"shanghaiTime": 0, "cancunTime": 0` to genesis, wipe PVC, re-init,
+# and bump this back to `cancun`.
+evm_version = "paris"
+optimizer = true
+optimizer_runs = 999_999
+via_ir = true
+remappings = [
+  # etzhayyim
+  "@etzhayyim/=src/",
+  # vendored top-level
+  "forge-std/=lib/forge-std/src/",
+  "solady/=lib/solady/src/",
+  # smart-wallet (Coinbase) tree — vendored as-is, MIT
+  "smart-wallet/=lib/smart-wallet/src/",
+  "account-abstraction/=lib/smart-wallet/lib/account-abstraction/contracts/",
+  "p256-verifier/=lib/smart-wallet/lib/p256-verifier/src/",
+  "webauthn-sol/=lib/smart-wallet/lib/webauthn-sol/src/",
+  # EntryPoint v0.6 was authored against OpenZeppelin v4 (`@openzeppelin/...`
+  # path layout, e.g. `security/ReentrancyGuard.sol`). Smart-wallet itself is
+  # OZ-free, so a single v4 install satisfies the whole tree.
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts-v4/contracts/",
+  "safe-singleton-deployer-sol/=lib/smart-wallet/lib/safe-singleton-deployer-sol/src/",
+  # Safe v1.4.1 sources are NOT remapped here — Safe is solc-0.7.6-pinned and
+  # 0.8.23 hits stack-too-deep on `Safe.execTransaction`. We deploy from
+  # prebuilt hardhat artifacts under `node_modules/@safe-global/safe-contracts`
+  # via `vm.readFile + vm.parseJsonBytes` in `script/DeploySafe.s.sol`.
+]
+
+# Allow `vm.readFile` on the Safe artifact path. fs_permissions is opt-in
+# per-path, so this is the minimum surface — Safe artifacts only.
+fs_permissions = [
+  { access = "read", path = "./node_modules/@safe-global/safe-contracts/build/" },
+]
+
+[fmt]
+sort_imports = true
+wrap_comments = true

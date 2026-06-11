@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-976e4a15c161",
+  "entityId": "ent-976e4a15c161",
+  "canonicalName": "korea united development bank",
+  "aliases": [
+    "korea united development bank"
+  ]
+}

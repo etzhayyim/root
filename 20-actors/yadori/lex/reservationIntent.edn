@@ -1,0 +1,20 @@
+{:lexicon 1
+ :id "com.etzhayyim.yadori.reservationIntent"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["fqdn" "registrar" "registrantPrincipal" "payer" "serverHeldKey" "signed" "createdAt"]
+    :properties
+    {:fqdn {:type "string"}
+     :registrar {:type "string"}
+     :registrantPrincipal {:type "string" :const "member" :description "G2 invariant — the member is registrant-of-record, never yadori/the org"}
+     :payer {:type "string" :const "member" :description "G2 invariant — member-principal (okaimono assisted-checkout); yadori never the buyer"}
+     :fundingSource {:type "string" :enum ["member-okaimono"] :description "G2: no fiat processor, no org treasury"}
+     :serverHeldKey {:type "boolean" :const false :description "G5 invariant — no platform-held signing key (ADR-2605231525)"}
+     :signed {:type "boolean" :description "false until member-signed"}
+     :signedBy {:type "string" :enum ["member"] :description "G5: server signature refused"}
+     :outwardGated {:type "boolean" :const true :description "G7 invariant — live registrar mutate requires operator + Council Lv6+"}
+     :createdAt {:type "string" :format "datetime"}}}}}}

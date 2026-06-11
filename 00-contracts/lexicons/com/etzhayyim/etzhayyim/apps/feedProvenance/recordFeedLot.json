@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.feedProvenance.recordFeedLot",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Aquaculture / livestock feed lot provenance (bridges aquacultureCert.flagCertificationRisk + eudr-deforestation + forestry-mrv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lotId",
+            "feedType",
+            "sourceCountryIso3",
+            "producedAt"
+          ],
+          "properties": {
+            "lotId": {
+              "type": "string"
+            },
+            "millLei": {
+              "type": "string"
+            },
+            "feedType": {
+              "type": "string",
+              "enum": [
+                "fishmeal",
+                "fish_oil",
+                "soy_meal",
+                "soy_protein_concentrate",
+                "palm_kernel",
+                "corn_ddgs",
+                "insect_meal",
+                "algal_oil",
+                "single_cell_protein",
+                "krill_meal",
+                "plant_protein_blend"
+              ]
+            },
+            "sourceCountryIso3": {
+              "type": "string"
+            },
+            "volumeTonnes": {
+              "type": "number"
+            },
+            "certificationRiskVid": {
+              "type": "string",
+              "description": "bridges aquacultureCert.flagCertificationRisk"
+            },
+            "deforestationRiskFlag": {
+              "type": "boolean"
+            },
+            "producedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

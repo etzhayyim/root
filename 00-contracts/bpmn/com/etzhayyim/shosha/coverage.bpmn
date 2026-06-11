@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — coverage snapshot (XRPC com.etzhayyim.apps.shosha.coverage).
+
+  Phase 3 step 1: wire the Phase 1 schema-only coverage lexicon to a real
+  BPMN + primitive. Returns aggregated metrics over all shosha tables for
+  external soak monitors / dashboards / RemoteTrigger probes.
+
+  Pipeline:
+    1. shosha.coverage.snapshot   reads count(*) over each vertex_shosha_*
+                                   table + max(ts_ms) intel; returns
+                                   asOf / tradesOpen / tradesClosed /
+                                   counterpartiesActive / atRiskTrades /
+                                   lastIntelTsMs (lexicon-required)
+                                   plus extras (sanctionsActiveCount /
+                                   approvalsTotal / reactionsTotal /
+                                   settlementsTotal)
+    2. generic.audit.emit         optional but kept for OCEL trail
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_coverage" name="shosha coverage snapshot" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shosha.coverage", "version": 1, "resultTimeoutMs": 15000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="coverage">
+      <bpmn:outgoing>Flow_ToSnap</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Coverage is a high-frequency probe (soak monitor / dashboards).
+         Audit step intentionally OMITTED so we don't pile up
+         vertex_repo_commit rows on every probe (would be ~hourly).
+         Use the underlying refreshSanctionsList / submitTrade audit
+         events to get OCEL traffic; coverage stays stateless. -->
+    <bpmn:serviceTask id="Task_Snap" name="snapshot all shosha tables">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.coverage.snapshot"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=asOf" target="asOf"/>
+          <zeebe:output source="=tradesOpen" target="tradesOpen"/>
+          <zeebe:output source="=tradesClosed" target="tradesClosed"/>
+          <zeebe:output source="=tradesPending" target="tradesPending"/>
+          <zeebe:output source="=tradesCancelled" target="tradesCancelled"/>
+          <zeebe:output source="=counterpartiesActive" target="counterpartiesActive"/>
+          <zeebe:output source="=atRiskTrades" target="atRiskTrades"/>
+          <zeebe:output source="=lastIntelTsMs" target="lastIntelTsMs"/>
+          <zeebe:output source="=sanctionsActiveCount" target="sanctionsActiveCount"/>
+          <zeebe:output source="=approvalsTotal" target="approvalsTotal"/>
+          <zeebe:output source="=reactionsTotal" target="reactionsTotal"/>
+          <zeebe:output source="=settlementsTotal" target="settlementsTotal"/>
+          <zeebe:output source="=intelRows24h" target="intelRows24h"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSnap</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSnap" sourceRef="Start" targetRef="Task_Snap"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Snap" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

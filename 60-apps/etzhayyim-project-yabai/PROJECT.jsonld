@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://yabai.etzhayyim.com",
+  "name": "etzhayyim-project-yabai",
+  "description": "YABAI risk intelligence platform for anti-social forces, AML, sanctions, and illegal/criminal behavior scoring.",
+  "applicationCategory": "RiskManagement",
+  "operatingSystem": "Cloudflare Workers",
+  "author": {
+    "@type": "Organization",
+    "name": "etzhayyim",
+    "url": "https://etzhayyim.com"
+  },
+  "keywords": [
+    "AML",
+    "Sanctions",
+    "Anti-Social Forces",
+    "Fraud",
+    "Public Risk Intelligence",
+    "Well-Becoming",
+    "W Protocol",
+    "CQRS"
+  ],
+  "component": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "etzhayyim-wasm-yabai-y8b41k0x",
+      "description": "Single Worker: risk scoring, entity management, graph contagion, enforcement decisions, self-evolution.",
+      "applicationCategory": "Backend",
+      "programmingLanguage": "TinyGo",
+      "runtimePlatform": "KotodamaWorker"
+    }
+  ]
+}

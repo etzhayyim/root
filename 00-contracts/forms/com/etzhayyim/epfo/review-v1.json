@@ -1,0 +1,53 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "epfo-review-v1",
+  "version": 1,
+  "title": "EPFO ECR Review",
+  "regulatoryRef": { "law": "EPF Scheme 1952", "article": "§38" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "actorRole": "finance-controller",
+  "components": [
+    {
+      "key": "summary",
+      "type": "fieldset",
+      "label": "Submission Summary",
+      "components": [
+        { "key": "establishmentPfCode", "label": "PF code", "type": "textfield", "readOnly": true },
+        { "key": "wageMonth", "label": "Wage month", "type": "textfield", "readOnly": true },
+        { "key": "submittedAt", "label": "Submitted at", "type": "textfield", "readOnly": true },
+        { "key": "totalMembers", "label": "Total members", "type": "number", "readOnly": true },
+        { "key": "totalEmployerPfInrPaise", "label": "Employer PF (paise)", "type": "number", "readOnly": true },
+        { "key": "totalEmployeePfInrPaise", "label": "Employee PF (paise)", "type": "number", "readOnly": true },
+        { "key": "totalEpsInrPaise", "label": "EPS (paise)", "type": "number", "readOnly": true }
+      ]
+    },
+    {
+      "key": "checks",
+      "type": "fieldset",
+      "label": "Control Checks",
+      "components": [
+        { "key": "sumMatches", "label": "Roster sums match monthly totals", "type": "checkbox", "required": true },
+        { "key": "uanFormatValid", "label": "UAN values are 12 digits", "type": "checkbox", "required": true },
+        { "key": "pfFormulaValid", "label": "PF/EPS calculations are correct", "type": "checkbox", "required": true },
+        { "key": "bankDataValidated", "label": "Bank and DBT details reconciled", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "verdict",
+      "type": "fieldset",
+      "label": "Decision",
+      "components": [
+        { "key": "decision", "label": "Decision", "type": "select", "required": true,
+          "options": [
+            { "value": "approve", "label": "Approve" },
+            { "value": "reject", "label": "Reject" }
+          ]
+        },
+        { "key": "trrn", "label": "TRRN", "type": "textfield", "description": "Required when the portal filing has completed." },
+        { "key": "comment", "label": "Comment", "type": "textarea", "validate": { "maxLength": 1000 } },
+        { "key": "reviewedAt", "label": "Reviewed at", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

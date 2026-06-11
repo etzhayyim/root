@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.wakai.publicFundBackstopRequest",
+  "description": "Public Fund backstop request when wakai pool insufficient. G10 STRUCTURAL: councilAttestations minLength 4 (Council Lv6+ ≥4/7 supermajority per ADR-2605192145). Cross-actor toritate.ledgerEntry cross-link required for backstop disbursement transparency.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "triggeringDistributionAttestationCid",
+          "currentPoolBalanceUsdMillicents",
+          "shortfallUsdMillicents",
+          "councilAttestations",
+          "publicFundSafeContractCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "triggeringDistributionAttestationCid": {
+            "type": "string",
+            "description": "mutualAidDistributionAttestation CID that triggered backstop request (pool insufficient)"
+          },
+          "currentPoolBalanceUsdMillicents": {"type": "integer", "minimum": 0},
+          "requestedDistributionUsdMillicents": {"type": "integer", "minimum": 0},
+          "shortfallUsdMillicents": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "requestedDistribution - currentPoolBalance; the amount Public Fund backstop must cover"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "G10 STRUCTURAL: Council Lv6+ ≥4/7 supermajority per ADR-2605192145"
+          },
+          "publicFundSafeContractCid": {
+            "type": "string",
+            "description": "Public Fund Safe disbursement transaction contract CID"
+          },
+          "publicFundDisbursementTxCid": {
+            "type": "string",
+            "description": "On-chain Public Fund Safe disbursement transaction CID"
+          },
+          "toritateLedgerEntryCid": {
+            "type": "string",
+            "description": "Cross-actor toritate.ledgerEntry CID (category=public-fund-grant-disbursement)"
+          },
+          "backstopApprovedAtUtc": {"type": "string", "format": "datetime"},
+          "backstopDisbursedAtUtc": {"type": "string", "format": "datetime"},
+          "backstopStatus": {
+            "type": "string",
+            "knownValues": ["pending-council-attestation", "approved-pending-disbursement", "disbursed", "rejected", "withdrawn"]
+          },
+          "rejectionReasonCid": {"type": "string"},
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

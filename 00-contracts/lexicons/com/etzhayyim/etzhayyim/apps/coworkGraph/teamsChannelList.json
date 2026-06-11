@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.teamsChannelList",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Teams チームのチャンネル一覧を取得する。Graph API /teams/{teamId}/channels をラップ。",
+      "parameters": {
+        "type": "params",
+        "required": ["teamId"],
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "description": "Teams チーム ID (Graph API team ID または group ID)"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "displayName": { "type": "string" },
+                  "description": { "type": "string" },
+                  "membershipType": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

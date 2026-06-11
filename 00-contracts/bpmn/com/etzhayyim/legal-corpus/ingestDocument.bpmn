@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_ingest_document" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="legal_corpus_ingest_document" name="ingestDocument" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Dedupe"/>
+    <bpmn:serviceTask id="Task_Dedupe" name="dedupe by canonical uri">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT vertex_id FROM vertex_legal_corpus_document WHERE source_id = $1 AND canonical_uri = $2 LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[sourceId, canonicalUri]" target="params"/>
+          <zeebe:output source="=rows" target="dedupeRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_I</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_I" sourceRef="Task_Dedupe" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="insert document">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_legal_corpus_document&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:legal-corpus.etzhayyim.com/com.etzhayyim.apps.legal-corpus.document/&quot; + sourceId + &quot;:&quot; + canonicalUri, source_id: sourceId, canonical_uri: canonicalUri, document_type: documentType, jurisdiction: jurisdiction, court: court, court_did: courtDid, language_code: languageCode, title: title, citation: citation, decided_at: decidedAt, published_at: publishedAt, fetched_at: fetchedAt, body_text: bodyText, body_uri: bodyUri, topic_tags_csv: topicTags, sensitivity_ord: sensitivityOrd, owner_did: &quot;did:web:legal-corpus.etzhayyim.com&quot;, created_at: fetchedAt}" target="row"/>
+          <zeebe:input source="=&quot;skip&quot;" target="onConflict"/>
+          <zeebe:output source="=vertex_id" target="vertexId"/>
+          <zeebe:output source="=already_known" target="alreadyKnown"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_I</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:legal-corpus.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;legal-corpus.ingestDocument&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, sourceId: sourceId, canonicalUri: canonicalUri, alreadyKnown: alreadyKnown}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

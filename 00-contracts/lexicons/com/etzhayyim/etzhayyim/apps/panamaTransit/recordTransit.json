@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.panamaTransit.recordTransit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "パナマ運河通過",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "transitId",
+            "imo",
+            "direction",
+            "lane",
+            "enteredAt"
+          ],
+          "properties": {
+            "transitId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "northbound",
+                "southbound"
+              ]
+            },
+            "lane": {
+              "type": "string",
+              "enum": [
+                "panamax",
+                "neopanamax"
+              ]
+            },
+            "reservationId": {
+              "type": "string"
+            },
+            "enteredAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "clearedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

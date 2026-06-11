@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kouza.syncConnection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run a read-only sync for an institution connection. Writes kouza account, transaction, document, and syncRun records only.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["connectionDid"],
+          "properties": {
+            "connectionDid": { "type": "string", "format": "did" },
+            "since": { "type": "string", "format": "datetime" },
+            "until": { "type": "string", "format": "datetime" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["syncRunDid", "status"],
+          "properties": {
+            "syncRunDid": { "type": "string", "format": "did" },
+            "status": { "type": "string" },
+            "accountsImported": { "type": "integer" },
+            "transactionsImported": { "type": "integer" },
+            "documentsImported": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

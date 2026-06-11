@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agOpinion.flagDivergenceFromCourt",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AG diverges from Court / influence pattern (bridges prejudicialReference.flagWithdrawal + grand-chamber-ruling + amicus-brief)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "opinionVid",
+            "divergenceKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "opinionVid": {
+              "type": "string",
+              "description": "bridges recordOpinion"
+            },
+            "divergenceKind": {
+              "type": "string",
+              "enum": [
+                "court_followed",
+                "court_diverged",
+                "partial_agreement",
+                "narrower",
+                "broader",
+                "more_restrictive",
+                "cited_in_concurrence",
+                "cited_in_dissent",
+                "ignored",
+                "textual_overruled",
+                "systemic_overruled"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

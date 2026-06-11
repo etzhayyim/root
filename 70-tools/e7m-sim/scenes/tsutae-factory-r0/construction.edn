@@ -1,0 +1,113 @@
+;; tsutae-factory-r0 — 建築手順 (construction procedure / 4D施工シーケンス),
+;; Datomic-style EDN. SSoT for the ORDER in which the cleanroom is built — shell +
+;; MEP + cleanroom envelope + 外構, each step assigned a 施工ロボット (:step/robot →
+;; robots.edn). Same shape + toolchain as sarutahiko-factory-r0/construction.edn
+;; (ADR-2606013100). The plant is BUILT by the tatekata 建方 fleet (ADR-2605250715).
+;;
+;; `kotoba_gen.py` emits one kotoba entity per step (kg/claim/step/* datoms, EAVT),
+;; with :step/depends-on / :step/consumes as ENTITY-REF claims + :step/robot, and a
+;; flat construction.order.json consumed by kami-app-tsutae-factory's 4D viewer.
+;;
+;; :step/robot       施工ロボット id (robots.edn :robot/registry)
+;; :step/depends-on  vector of prior :step/id (predecessors → entity refs)
+;; :step/consumes    vector of :part/id from building.edn (materials drawn)
+;; :step/reveals     vector of render element ids in factory.scene.json
+;; :step/duration-d  nominal duration in working days
+;; :step/trade       responsible trade / 工種
+
+{:proc/meta
+ {:proc/of        "tsutae-factory-r0"
+  :proc/revision  "v1"
+  :proc/title     "伝え cleanroom — R0 construction sequence (4D, shell + cleanroom HVAC + MEP + 外構)"
+  :proc/method    "robotic design-build, single 48x30m steel portal bay, ISO-8 (Class 100k) cleanroom + class-A sub-cell"
+  :proc/note      "R0 design sequence. depends-on encodes hard logic; :step/robot assigns the construction robot per trade (robots.edn). Durations nominal; the buildability check estimates robot cycle-time vs these. Small light-load bay — NOT a heavy steel plant (anti-mass-production G12)."}
+
+ :proc/steps
+ [{:step/id "step:01-siteprep"  :step/seq 1  :step/name "敷地造成・地業 Site prep + earthworks"
+   :step/trade "earthworks" :step/robot "robot:doboku" :step/zone "site" :step/duration-d 6
+   :step/depends-on [] :step/consumes ["bld:A1-subbase"] :step/reveals ["ground"]}
+
+  {:step/id "step:02-incoming"  :step/seq 2  :step/name "引込工事 (電気/水/通信) Service connections"
+   :step/trade "utility-service" :step/robot "robot:mep" :step/zone "site" :step/duration-d 7
+   :step/depends-on ["step:01-siteprep"]
+   :step/consumes ["bld:G1-cubicle"] :step/reveals ["svc_elec"]}
+
+  {:step/id "step:03-foundation" :step/seq 3 :step/name "基礎・土間 + ESDトッピング Foundation + ESD slab"
+   :step/trade "concrete" :step/robot "robot:printer" :step/zone "all" :step/duration-d 12
+   :step/depends-on ["step:02-incoming"]
+   :step/consumes ["bld:A2-slab" "bld:A3-rebar" "bld:L1-readymix"] :step/reveals ["floor"]}
+
+  {:step/id "step:04-steel"     :step/seq 4  :step/name "鉄骨建方 Steel column erection"
+   :step/trade "steel-erection" :step/robot "robot:crane" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:03-foundation"]
+   :step/consumes ["bld:B1-column" "bld:B2-baseplate"]
+   :step/reveals ["col_0" "col_1" "col_2" "col_3" "col_4" "col_5"]}
+
+  {:step/id "step:05-roofsteel" :step/seq 5  :step/name "屋根鉄骨・30mスパントラス Roof trusses"
+   :step/trade "steel-erection" :step/robot "robot:crane" :step/zone "all" :step/duration-d 7
+   :step/depends-on ["step:04-steel"]
+   :step/consumes ["bld:C1-truss"] :step/reveals ["beam_0" "beam_1" "beam_2"]}
+
+  {:step/id "step:06-envelope"  :step/seq 6  :step/name "屋根葺き + 外装パネル + 建具 Roof + cladding"
+   :step/trade "cladding" :step/robot "robot:panel" :step/zone "all" :step/duration-d 10
+   :step/depends-on ["step:05-roofsteel"]
+   :step/consumes ["bld:C2-deck" "bld:D1-panel" "bld:D4-door"]
+   :step/reveals ["wall_s" "wall_n" "wall_w" "wall_e"]}
+
+  {:step/id "step:07-cleanroom" :step/seq 7  :step/name "クリーンルーム構築 (FFU天井 + 隔壁 + エアシャワー) Cleanroom build"
+   :step/trade "cleanroom" :step/robot "robot:panel" :step/zone "all" :step/duration-d 12
+   :step/depends-on ["step:06-envelope"]
+   :step/consumes ["bld:D2-cleanwall" "bld:D3-airlock" "bld:E1-ffu"]
+   :step/reveals ["wall_clean" "lighting"]}
+
+  {:step/id "step:08-hvac"      :step/seq 8  :step/name "メイクアップAHU + チラー + N2 Cleanroom HVAC"
+   :step/trade "mechanical" :step/robot "robot:mep" :step/zone "all" :step/duration-d 9
+   :step/depends-on ["step:07-cleanroom"]
+   :step/consumes ["bld:E2-ahu" "bld:E3-air" "bld:E4-n2"]
+   :step/reveals ["svc_hvac" "util_air_ring" "util_n2"]}
+
+  {:step/id "step:09-elec"      :step/seq 9  :step/name "電気配線 (受電→busway→分電盤) + PV Electrical"
+   :step/trade "electrical" :step/robot "robot:mep" :step/zone "all" :step/duration-d 10
+   :step/depends-on ["step:06-envelope"]
+   :step/consumes ["bld:G2-dboard" "bld:G3-pv"]
+   :step/reveals ["util_busway" "svc_pv"]}
+
+  {:step/id "step:10-water"     :step/seq 10 :step/name "DI水 + 衛生 + 排水 Water + sanitary"
+   :step/trade "plumbing" :step/robot "robot:mep" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:03-foundation" "step:07-cleanroom"]
+   :step/consumes ["bld:H1-di" "bld:H2-sanitary"]
+   :step/reveals ["util_water" "util_drainage"]}
+
+  {:step/id "step:11-fire"      :step/seq 11 :step/name "消防設備 (clean-agent/火報/誘導灯) Fire + life-safety"
+   :step/trade "fire-protection" :step/robot "robot:mep" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:09-elec" "step:07-cleanroom"]
+   :step/consumes ["bld:J1-alarm" "bld:J2-suppress"]
+   :step/reveals ["util_fire" "exit_lights"]}
+
+  {:step/id "step:12-equip"     :step/seq 12 :step/name "ライン装置据付 (SMT/組立/検査機 + コンベア) Line equipment install"
+   :step/trade "machine-install" :step/robot "robot:fitout" :step/zone "all" :step/duration-d 14
+   :step/depends-on ["step:08-hvac" "step:09-elec" "step:11-fire"]
+   :step/consumes ["bld:F1-stencil" "bld:F2-pnp" "bld:F3-reflow" "bld:F4-aoi" "bld:F5-xray"
+                   "bld:F6-chassisbench" "bld:F7-laminator" "bld:F8-flashrack" "bld:F9-rfchamber"
+                   "bld:F10-qcbench" "bld:F11-packstation" "bld:F12-eolbench" "bld:F15-conveyor"]
+   :step/reveals ["stencil_printer" "pnp_1" "reflow_oven" "aoi_1" "xray_1" "chassis_bench"
+                  "laminator" "flash_rack" "rf_chamber" "qc_bench" "pack_station" "eol_bench"
+                  "conv_main"]}
+
+  {:step/id "step:13-robots"    :step/seq 13 :step/name "ラインロボットセル設置 (Tedama/Otete/Hitogata/Mimi + AGV)"
+   :step/trade "robotics" :step/robot "robot:fitout" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:12-equip"]
+   :step/consumes ["bld:F13-cell" "bld:F14-agv"]
+   :step/reveals ["cell_smt_1" "cell_chassis_1" "cell_display_1" "cell_qc_1" "agv_1"]}
+
+  {:step/id "step:14-site"      :step/seq 14 :step/name "外構 (舗装/フェンス/門扉/外灯/植栽/サイン) Site works"
+   :step/trade "civil-site" :step/robot "robot:doboku" :step/zone "site" :step/duration-d 8
+   :step/depends-on ["step:06-envelope"]
+   :step/consumes ["bld:K1-pave" "bld:K2-fence" "bld:K3-landscape"]
+   :step/reveals ["site_road" "site_apron" "site_parking" "site_fence" "site_gate"
+                  "site_poles" "site_landscape" "site_sign"]}
+
+  {:step/id "step:15-commission" :step/seq 15 :step/name "通電・通水 + クリーン検証 + 試運転 Commissioning + go-live"
+   :step/trade "commissioning" :step/robot "robot:fitout" :step/zone "all" :step/duration-d 10
+   :step/depends-on ["step:10-water" "step:11-fire" "step:13-robots" "step:14-site"]
+   :step/consumes [] :step/reveals []}]}

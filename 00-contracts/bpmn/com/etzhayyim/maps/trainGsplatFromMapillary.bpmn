@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Message-start BPMN — Mapillary → COLMAP+gsplat (RunPod) → B2 → RW.
+
+  ADR-2605092800. The maps-ui CF Worker publishes the start message
+  (`com.etzhayyim.apps.maps.trainGsplatFromMapillary`) from the
+  `cmdTrainGsplatFromMapillary` XRPC handler. correlationKey = tileH3
+  so concurrent requests for the same tile collapse to one job.
+
+  NSID: com.etzhayyim.apps.maps.trainGsplatFromMapillary
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-train-gsplat-from-mapillary-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_train_gsplat_from_mapillary"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_train_gsplat_from_mapillary"
+                name="maps train gsplat from mapillary" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.trainGsplatFromMapillary", "version": 1, "resultTimeoutMs": 1800000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Message" name="com.etzhayyim.apps.maps.trainGsplatFromMapillary">
+      <bpmn:outgoing>Flow_Start</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MsgDef_Start"
+                                   messageRef="Msg_TrainGsplatFromMapillary"/>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start" sourceRef="Start_Message" targetRef="Task_Trigger"/>
+
+    <bpmn:serviceTask id="Task_Trigger" name="POST /trigger to gsplat-train dumper pod">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;http://bulk-ingest-gsplat-train.maps-bulk-ingest.svc.cluster.local:8080/trigger&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"                target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;"    target="contentType"/>
+          <zeebe:input source="={ trainJobId: trainJobId, tileH3: tileH3, lat: lat, lng: lng, radiusM: radiusM, h3Resolution: h3Resolution, mapillaryImageIds: mapillaryImageIds, maxImages: maxImages, priority: priority }" target="body"/>
+          <zeebe:input source="=30000"                           target="timeoutMs"/>
+          <zeebe:output source="=status"   target="triggerStatus"/>
+          <zeebe:output source="=bodyJson" target="triggerResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Trigger" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit gsplat.train.triggered OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.gsplat.train.triggered&quot;" target="eventType"/>
+          <zeebe:input source="={ trainJobId: trainJobId, tileH3: tileH3, lat: lat, lng: lng, radiusM: radiusM, status: triggerStatus }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="dispatched">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+
+  <bpmn:message id="Msg_TrainGsplatFromMapillary"
+                name="com.etzhayyim.apps.maps.trainGsplatFromMapillary">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=tileH3"/>
+    </bpmn:extensionElements>
+  </bpmn:message>
+</bpmn:definitions>

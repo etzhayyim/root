@@ -1,0 +1,12 @@
+;; nusa (幣) kotoba seed pointer (R0).
+;; The canonical :representative heritage graph lives in
+;;   ../data/seed-ritual-hemp.kotoba.edn
+;; (rites + ritual artifacts + Imbe lineage + low-THC cultivars + cultivation-license design).
+;; It is loaded by ../methods/analyze.py and ingested (operator-gated, G8) by the
+;; heritage_ingest cell. This file is kept as the per-actor kqe seed entry point;
+;; it intentionally re-points rather than duplicating, so the heritage graph has one SSoT.
+{:seed-ref "20-actors/nusa/data/seed-ritual-hemp.kotoba.edn"
+ :schema-ref "20-actors/nusa/kotoba/schema.edn"
+ :ontology-ref "00-contracts/schemas/ritual-hemp-ontology.kotoba.edn"
+ :graph "ritual-hemp-v1"
+ :note "G1: every :hemp/* record is :thc-class :fiber or :low-thc by construction."}

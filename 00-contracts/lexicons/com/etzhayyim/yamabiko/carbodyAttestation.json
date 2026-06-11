@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yamabiko.carbodyAttestation",
+  "description": "Carbody fabrication attestation (L1). FSW (Friction Stir Welding) Al 6N01/A6005C double-skin extrusion. ≥2 robot witness. Per ADR-2605252600 L1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "trainsetId": {"type": "string"},
+          "carIndex": {"type": "integer"},
+          "extrusionLot": {"type": "unknown"},
+          "fswSeams": {"type": "array", "items": {"type": "unknown"}, "minItems": 2},
+          "spotWelds": {"type": "unknown"},
+          "dimensionalQa": {"type": "unknown"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["trainsetId", "carIndex", "extrusionLot", "attestingRobots"]
+      }
+    }
+  }
+}

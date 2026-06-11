@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.orgTakeda.gmpBatchRelease",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the Takeda-facing GMP batch release BPMN workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "organizationId", "siteId", "productCode", "batchNumber"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "organizationId": { "type": "string" },
+            "siteId": { "type": "string" },
+            "productCode": { "type": "string" },
+            "batchNumber": { "type": "string" },
+            "bmrComplete": { "type": "boolean" },
+            "qcReleased": { "type": "boolean" },
+            "deviationOpenCount": { "type": "integer" },
+            "exportControlled": { "type": "boolean" },
+            "destinationIso3": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

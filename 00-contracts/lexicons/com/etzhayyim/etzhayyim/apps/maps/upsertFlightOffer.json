@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.upsertFlightOffer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Upsert one flight fare offer record with booking/deeplink URLs.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "originIata",
+            "destinationIata",
+            "outboundDate",
+            "totalPrice",
+            "currency",
+            "bookingUrl"
+          ],
+          "properties": {
+            "offerId": { "type": "string" },
+            "provider": { "type": "string" },
+            "airline": { "type": "string" },
+            "flightNumber": { "type": "string" },
+            "originIata": { "type": "string" },
+            "destinationIata": { "type": "string" },
+            "outboundDate": { "type": "string", "description": "YYYY-MM-DD" },
+            "returnDate": { "type": "string", "description": "YYYY-MM-DD" },
+            "basePrice": { "type": "number" },
+            "taxes": { "type": "number" },
+            "totalPrice": { "type": "number" },
+            "currency": { "type": "string" },
+            "bookingUrl": { "type": "string", "format": "uri" },
+            "deeplinkUrl": { "type": "string", "format": "uri" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "sourceUrl": { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["offerId", "status"],
+          "properties": {
+            "offerId": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

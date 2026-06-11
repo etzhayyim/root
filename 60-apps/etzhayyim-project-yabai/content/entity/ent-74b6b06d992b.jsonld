@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-74b6b06d992b",
+  "entityId": "ent-74b6b06d992b",
+  "canonicalName": "alex mashinsky",
+  "aliases": [
+    "alex mashinsky"
+  ]
+}

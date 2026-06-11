@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3ddca554bf2c",
+  "entityId": "ent-3ddca554bf2c",
+  "canonicalName": "empresa cubana de aviacion",
+  "aliases": [
+    "empresa cubana de aviacion"
+  ]
+}

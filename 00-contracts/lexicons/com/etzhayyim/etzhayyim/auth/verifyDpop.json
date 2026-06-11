@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.verifyDpop",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Verify a DPoP proof (RFC 9449). Validates ES256 signature, JWK thumbprint, and jti replay protection.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proof", "htm", "htu"],
+          "properties": {
+            "proof": { "type": "string", "description": "DPoP proof JWT" },
+            "htm": { "type": "string", "description": "HTTP method" },
+            "htu": { "type": "string", "description": "HTTP target URI" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["valid", "jkt", "claims"],
+          "properties": {
+            "valid": { "type": "boolean" },
+            "jkt": { "type": "string", "description": "JWK thumbprint" },
+            "claims": { "type": "object" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "DpopVerificationFailed" }
+      ]
+    }
+  }
+}

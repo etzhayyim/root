@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.unfcccGst.recordNdcProgress",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UNFCCC NDC / biennial transparency report (bridges climate-carbon-market + eu-cbam + sdg-reporting + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "partyIso3",
+            "ndcCycle",
+            "submittedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "partyIso3": {
+              "type": "string"
+            },
+            "ndcCycle": {
+              "type": "integer"
+            },
+            "gwpBasis": {
+              "type": "string",
+              "enum": [
+                "ar5",
+                "ar6"
+              ]
+            },
+            "reductionTargetPct": {
+              "type": "number"
+            },
+            "baselineYear": {
+              "type": "integer"
+            },
+            "sectorCoverage": {
+              "type": "string",
+              "description": "comma: energy,industry,agriculture,forestry,waste,transport,buildings"
+            },
+            "financeNeedUsdBn": {
+              "type": "number"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "ambitionTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high_ambition"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

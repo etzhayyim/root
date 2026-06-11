@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.realEstate.getProperty",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a real-estate property by vertex id or canonical property key.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "propertyVid": { "type": "string" },
+          "canonicalPropertyKey": { "type": "string" },
+          "includeListings": { "type": "boolean" },
+          "includeTransactions": { "type": "boolean" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "property": { "type": "object" },
+            "listings": { "type": "array", "items": { "type": "object" } },
+            "transactions": { "type": "array", "items": { "type": "object" } },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ncmecCsam.flagEnforcementGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU CSAM regulation / UK OSA / US EARN IT enforcement gap (bridges misinformation-observatory + antitrust-dma + digital-accessibility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "jurisdictionIso3",
+            "regime",
+            "gapKind",
+            "flaggedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordReportVolume"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "eu_csam_reg",
+                "uk_osa",
+                "us_earn_it",
+                "us_kosa",
+                "au_osa",
+                "sg_online_safety",
+                "jp_code"
+              ]
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "hash_list",
+                "scanning_obligation",
+                "proactive_detection",
+                "age_gate",
+                "appeals",
+                "transparency",
+                "platform_liability"
+              ]
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

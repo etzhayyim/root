@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.tombstone",
+  "description": "Bluesky 側削除イベント (GDPR Art 17 / 個情法 30条 cascade trigger)。subscribeRepos の #tombstone / #delete event を検知して記録 → erasure cascade pipeline が vertex / MV / RAG index を hard delete (ADR-0037 §3)。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sourceDid", "detectedAt"],
+        "properties": {
+          "sourceDid": { "type": "string" },
+          "sourceRkey": { "type": "string", "description": "null の場合は repo 全体 tombstone (account 削除)" },
+          "sourceCollection": { "type": "string", "description": "例 app.bsky.feed.post" },
+          "eventKind": { "type": "string", "enum": ["delete", "tombstone", "account-deletion", "takedown"] },
+          "detectedAt": { "type": "string", "format": "datetime" },
+          "cascadeCompletedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

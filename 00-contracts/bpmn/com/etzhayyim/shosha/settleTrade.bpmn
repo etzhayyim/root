@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — settleTrade workflow (XRPC com.etzhayyim.apps.shosha.settleTrade).
+
+  Pipeline:
+    1. shosha.trade.settle           validate (status=open, comply_ok=true)
+                                      → INSERT vertex_shosha_settlement
+                                      → UPDATE vertex_shosha_trade SET status='closed'
+                                      → INSERT edge_shosha_trade_settlement
+                                      → returns settlementId / tradeStatus / amountUsd
+    2. generic.audit.emit            OCEL trail
+
+  XRPC-bound (ADR-0056). Phase 2c (2026-05-07).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_settle_trade"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_settle_trade" name="shosha settle trade" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shosha.settleTrade", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="settleTrade">
+      <bpmn:outgoing>Flow_ToSettle</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Settle" name="settle trade record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.trade.settle"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=tradeId" target="tradeId"/>
+          <zeebe:input source="=settlementId" target="settlementId"/>
+          <zeebe:input source="=method" target="method"/>
+          <zeebe:input source="=bankRef" target="bankRef"/>
+          <zeebe:input source="=valueDate" target="valueDate"/>
+          <zeebe:input source="=amountOverride" target="amountOverride"/>
+          <zeebe:input source="=remarks" target="remarks"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=settlementId" target="settlementId"/>
+          <zeebe:output source="=vertexId" target="vertexId"/>
+          <zeebe:output source="=tradeId" target="tradeId"/>
+          <zeebe:output source="=tradeStatus" target="tradeStatus"/>
+          <zeebe:output source="=amountUsd" target="amountUsd"/>
+          <zeebe:output source="=settledAt" target="settledAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSettle</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSettle" sourceRef="Start" targetRef="Task_Settle"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.settleTrade&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;settlementId&quot;: settlementId, &quot;tradeId&quot;: tradeId, &quot;tradeStatus&quot;: tradeStatus, &quot;amountUsd&quot;: amountUsd }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Settle" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

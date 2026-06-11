@@ -1,0 +1,83 @@
+;; wasm-sbom.kotoba.edn
+;;
+;; Claim/relation VOCABULARY SSoT for the SBOM attached to every WASM actor
+;; deployed to a kotoba node. Per ADR-2606036000.
+;;
+;; A deployed WASM actor is content-addressed by its kotoba PROGRAM CID
+;; (= KotobaCid::from_bytes(wasm) → to_multibase; CIDv1 dag-cbor sha2-256, see
+;; 40-engine/kotoba/crates/kotoba-core/src/cid.rs). Before this ADR the deployed
+;; binary carried CID + agent DID + (optionally) a self-certifying did.json
+;; attestation — identity and authenticity, but NOT composition. This vocabulary
+;; binds a CycloneDX 1.5 SBOM to that program CID so the wasm supply chain is
+;; first-class, queryable, and CVE-matchable in the EAVT log.
+;;
+;; INGEST PATH (NOT `kotoba transact`): the SBOM is written via
+;;   POST /xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch
+;; into the multi-tenant `kotobase-kg-v1` named graph as generic
+;; `kg/claim/<pred>` + `kg/relation/<pred>` quads — the same schemaless KG model
+;; the giemon hardware SBOMs use (ADR-2605312330). This file is therefore a
+;; predicate REFERENCE (the canonical pred set), not a `:db/ident` schema. The
+;; generator that emits the ingest body is
+;; 70-tools/scripts/wasm-sbom/wasm_sbom_gen.py.
+;;
+;; WHY this reuses `cdx/*` for components: component entities carry `cdx/purl`,
+;; the exact join key the existing purl↔CVE matcher
+;; (70-tools/scripts/sbom/purl_vuln_match.py) scans — so a deployed wasm's
+;; dependencies join the SAME VulnMatch surface as the giemon parts, with no
+;; change to that tool.
+;;
+;; Canonical state per ADR-2605262130 / 2605312345 (Datom log is first-class;
+;; no RW/SQL/Lance). Murakumo-only; no server signing key (ADR-2605231525) — the
+;; SBOM is content-addressed and member/operator-signed, never platform-signed.
+
+{:vocab/id   "wasm-sbom"
+ :vocab/adr  "2606036000"
+ :vocab/graph "kotobase-kg-v1"
+ :vocab/ingest "com.etzhayyim.apps.kotobase.kg.ingest_batch"
+
+ ;; ── entity types ──────────────────────────────────────────────────────────
+ :vocab/entity-types
+ [{:type "WasmActorImage"
+   :doc  "one deployed wasm binary, keyed by its kotoba program CID (entity id = the multibase CID)"}
+  {:type "SbomComponent"
+   :doc  "one dependency in the image's SBOM (entity id = purl); shared type with giemon/RW SBOMs"}]
+
+ ;; ── image claims (kg/claim/<pred>) on a WasmActorImage ──────────────────────
+ :vocab/image-claims
+ [{:pred "wasm/programCid"  :doc "multibase kotoba program CID = KotobaCid::from_bytes(wasm); also the entity id"}
+  {:pred "wasm/actor"       :doc "actor id, e.g. sumitsubo"}
+  {:pred "wasm/programType" :doc "wasm-node | wasm-udf | datalog (mirrors invoke.run program_type)"}
+  {:pred "wasm/world"       :doc "componentize-py WIT world, e.g. kotoba-actor (absent for rust actors)"}
+  {:pred "wasm/sha256"      :doc "hex sha2-256 of the wasm bytes (the multihash inside the CID)"}
+  {:pred "wasm/byteSize"    :doc "wasm byte length"}
+  {:pred "wasm/builtBy"     :doc "build toolchain, e.g. componentize-py@0.23.0 | cargo-cyclonedx@0.5.9"}
+  {:pred "wasm/sbomSerial"  :doc "CycloneDX serialNumber (urn:uuid, deterministic from the CID)"}
+  {:pred "wasm/sbomFormat"  :doc "CycloneDX-1.5"}
+  {:pred "wasm/sourcing"    :doc "representative | authoritative (G7 honesty; lock-resolved deps = authoritative)"}
+  {:pred "wasm/adr"         :doc "authoring ADR id"}]
+
+ ;; ── component claims — reuse the cdx/* namespace (VulnMatch-compatible) ──────
+ :vocab/component-claims
+ [{:pred "cdx/sbom"        :doc "owning SBOM name (provenance), e.g. sumitsubo-agent.wasm"}
+  {:pred "cdx/type"        :doc "CycloneDX component type, e.g. library"}
+  {:pred "cdx/version"     :doc "component version"}
+  {:pred "cdx/purl"        :doc "package URL — THE purl↔CVE join key (purl_vuln_match.py)"}
+  {:pred "cdx/scope"       :doc "required | optional | excluded"}
+  {:pred "cdx/supplier"    :doc "supplier name"}
+  {:pred "cdx/publisher"   :doc "publisher name"}
+  {:pred "cdx/prop/wasm:versionSource"
+   :doc  "lock | pin | constraint | unspecified — HONEST provenance of the version (a >= requirement is a constraint, not a resolved lock)"}]
+
+ ;; ── relation edges (kg/relation/<pred>) ─────────────────────────────────────
+ :vocab/relations
+ [{:pred "wasm/componentOf"
+   :doc  "SbomComponent → WasmActorImage (dst = program CID); the binding edge that makes a component part of a specific deployed image"}]
+
+ ;; ── canonical queries (kotoba SPARQL over kotobase-kg-v1) ───────────────────
+ :vocab/queries
+ {:components-of-image
+  "SELECT ?c WHERE { ?c <kg/relation/wasm/componentOf> ?img . ?img <kg/claim/wasm/programCid> \"<CID>\" }"
+  :image-of-deployed-cid
+  "SELECT ?img WHERE { ?img <kg/claim/wasm/programCid> \"<CID>\" }"
+  :vuln-match-join
+  "component <kg/claim/cdx/purl> ⋈ CVE <kg/claim/cve/affectsPurl>  (materialized by purl_vuln_match.py)"}}

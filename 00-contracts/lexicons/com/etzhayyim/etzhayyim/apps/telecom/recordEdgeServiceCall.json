@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordEdgeServiceCall",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC — record a UE/AC ↔ EAS service call (HTTP/gRPC method + status + latency + IO byte counts). UE identifier persisted only as sha256 hash; EAS payload body never persisted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["easId", "ueIdHash", "methodKind", "statusCode", "observedAt"],
+          "properties": {
+            "callId": { "type": "string" },
+            "easId": { "type": "string" },
+            "ueIdHash": { "type": "string" },
+            "sessionVid": { "type": "string" },
+            "methodKind": { "type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "GRPC_UNARY", "GRPC_STREAM"] },
+            "statusCode": { "type": "integer" },
+            "latencyMs": { "type": "number" },
+            "payloadInBytes": { "type": "integer" },
+            "payloadOutBytes": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "callId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

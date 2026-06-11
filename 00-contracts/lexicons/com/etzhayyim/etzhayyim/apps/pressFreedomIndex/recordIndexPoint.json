@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pressFreedomIndex.recordIndexPoint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Press Freedom Index / V-Dem / CPJ / IFJ ranking (bridges sourceShieldLaw.flagCompulsoryProcess + press-freedom + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "pointId",
+            "countryIso3",
+            "indexKind",
+            "scoreTier",
+            "publishedAt"
+          ],
+          "properties": {
+            "pointId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "indexKind": {
+              "type": "string",
+              "enum": [
+                "rsf_world",
+                "cpj_press_freedom",
+                "ifj",
+                "freedom_house",
+                "article_19",
+                "vdem",
+                "reporters_borders",
+                "eu_media_pluralism",
+                "crpd_disability",
+                "rsf_digital"
+              ]
+            },
+            "scoreTier": {
+              "type": "string",
+              "enum": [
+                "good",
+                "satisfactory",
+                "problematic",
+                "difficult",
+                "very_serious"
+              ]
+            },
+            "compulsoryProcessVid": {
+              "type": "string",
+              "description": "bridges sourceShieldLaw.flagCompulsoryProcess"
+            },
+            "scoreNumeric": {
+              "type": "number"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

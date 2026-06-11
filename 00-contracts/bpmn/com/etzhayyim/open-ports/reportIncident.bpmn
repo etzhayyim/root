@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_ports_report_incident"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-ports"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_ports_report_incident" name="港湾事故 報告" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+
+    <!--
+      major   : category = collision OR spillVolumeTonnes >= 7 (MARPOL notifiable)
+      moderate: category = spill OR fire
+      minor   : otherwise
+    -->
+    <bpmn:serviceTask id="Task_Classify" name="severity 分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if category = &quot;collision&quot; or spillVolumeTonnes &gt;= 7 then &quot;major&quot;
+                                else if list contains([&quot;spill&quot;,&quot;fire&quot;], category) then &quot;moderate&quot;
+                                else &quot;minor&quot;" target="severity"/>
+          <zeebe:output source="=category = &quot;collision&quot; or spillVolumeTonnes &gt;= 7" target="requirePublicNotice"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="incident 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_ports_incident&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, authority_org_id: authorityOrgId,
+              port_vid: portVid, vessel_vid: vesselVid, call_vid: callVid,
+              category: category, narrative: narrative, spill_volume_tonnes: spillVolumeTonnes,
+              severity: severity, require_public_notice: requirePublicNotice,
+              status: &quot;open&quot;, reported_at: reportedAt, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 1,
+              org_id: authorityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-ports&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Silent">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Notice</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Silent</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Notice" sourceRef="Gate" targetRef="Task_AuditMajor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requirePublicNotice = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Silent" sourceRef="Gate" targetRef="Task_AuditSilent"/>
+
+    <bpmn:serviceTask id="Task_AuditMajor" name="audit incident.major">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openPorts.incident.major&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, severity: severity, portVid: portVid, category: category}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Notice</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditMajor" targetRef="End_M"/>
+
+    <bpmn:serviceTask id="Task_AuditSilent" name="audit incident.log">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openPorts.incident.log&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, severity: severity, portVid: portVid, category: category}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Silent</bpmn:incoming><bpmn:outgoing>Flow_ES</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ES" sourceRef="Task_AuditSilent" targetRef="End_S"/>
+
+    <bpmn:endEvent id="End_S"><bpmn:incoming>Flow_ES</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

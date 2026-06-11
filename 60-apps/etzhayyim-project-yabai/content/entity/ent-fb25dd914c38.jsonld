@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fb25dd914c38",
+  "entityId": "ent-fb25dd914c38",
+  "canonicalName": "viajes guama, s.a.",
+  "aliases": [
+    "viajes guama, s.a."
+  ]
+}

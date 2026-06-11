@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.disarmamentTreaties.flagViolationEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Alleged violation / OPCW / BWC ISU / ATT Secretariat concern",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "statusVid",
+            "violationType",
+            "allegedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "statusVid": {
+              "type": "string",
+              "description": "bridges recordTreatyStatus"
+            },
+            "violationType": {
+              "type": "string",
+              "enum": [
+                "stockpile",
+                "use",
+                "transfer",
+                "production",
+                "inspection_refusal",
+                "non_reporting"
+              ]
+            },
+            "weaponCategory": {
+              "type": "string",
+              "enum": [
+                "chemical",
+                "biological",
+                "nuclear",
+                "cluster_munitions",
+                "cw_agent",
+                "landmines",
+                "small_arms"
+              ]
+            },
+            "victimsCount": {
+              "type": "integer"
+            },
+            "allegedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "concern",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

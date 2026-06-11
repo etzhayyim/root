@@ -1,0 +1,320 @@
+[
+  {
+    "app": "kiyome",
+    "status": "no_vitest"
+  },
+  {
+    "app": "harai",
+    "status": "has_coverage",
+    "statements": "91.55"
+  },
+  {
+    "app": "gmail",
+    "status": "no_vitest"
+  },
+  {
+    "app": "outlook",
+    "status": "no_vitest"
+  },
+  {
+    "app": "drive",
+    "status": "no_vitest"
+  },
+  {
+    "app": "organizer",
+    "status": "no_vitest"
+  },
+  {
+    "app": "sheets",
+    "status": "no_vitest"
+  },
+  {
+    "app": "docs",
+    "status": "no_vitest"
+  },
+  {
+    "app": "mailer",
+    "status": "no_vitest"
+  },
+  {
+    "app": "calendar",
+    "status": "no_vitest"
+  },
+  {
+    "app": "forms",
+    "status": "no_vitest"
+  },
+  {
+    "app": "news",
+    "status": "has_coverage",
+    "statements": "84.12"
+  },
+  {
+    "app": "oshikatsu",
+    "status": "no_vitest"
+  },
+  {
+    "app": "videos",
+    "status": "no_vitest"
+  },
+  {
+    "app": "music",
+    "status": "no_vitest"
+  },
+  {
+    "app": "manga",
+    "status": "has_coverage",
+    "statements": "51.28"
+  },
+  {
+    "app": "anime",
+    "status": "has_coverage",
+    "statements": "45.29"
+  },
+  {
+    "app": "games",
+    "status": "no_vitest"
+  },
+  {
+    "app": "narou",
+    "status": "has_coverage",
+    "statements": "41"
+  },
+  {
+    "app": "search",
+    "status": "no_vitest"
+  },
+  {
+    "app": "translate",
+    "status": "no_vitest"
+  },
+  {
+    "app": "images",
+    "status": "no_vitest"
+  },
+  {
+    "app": "aima",
+    "status": "has_coverage",
+    "statements": "84.35"
+  },
+  {
+    "app": "robot",
+    "status": "has_coverage",
+    "statements": "88.76"
+  },
+  {
+    "app": "manimani",
+    "status": "has_coverage",
+    "statements": "89.84"
+  },
+  {
+    "app": "6ir",
+    "status": "has_coverage",
+    "statements": "84.15"
+  },
+  {
+    "app": "maps",
+    "status": "no_vitest"
+  },
+  {
+    "app": "kareyanagi",
+    "status": "no_vitest"
+  },
+  {
+    "app": "oshinobi",
+    "status": "not_found"
+  },
+  {
+    "app": "matrix",
+    "status": "not_found"
+  },
+  {
+    "app": "gameya",
+    "status": "no_vitest"
+  },
+  {
+    "app": "cards",
+    "status": "no_vitest"
+  },
+  {
+    "app": "tenki",
+    "status": "no_vitest"
+  },
+  {
+    "app": "yadoya",
+    "status": "test_failed"
+  },
+  {
+    "app": "fleamarket",
+    "status": "has_coverage",
+    "statements": "78.98"
+  },
+  {
+    "app": "shopping",
+    "status": "test_failed"
+  },
+  {
+    "app": "briefing",
+    "status": "has_coverage",
+    "statements": "88.66"
+  },
+  {
+    "app": "tsukuru",
+    "status": "test_failed"
+  },
+  {
+    "app": "cowork",
+    "status": "has_coverage",
+    "statements": "93.05"
+  },
+  {
+    "app": "shigotoba",
+    "status": "has_coverage",
+    "statements": "82.5"
+  },
+  {
+    "app": "web4",
+    "status": "has_coverage",
+    "statements": "88.4"
+  },
+  {
+    "app": "society6",
+    "status": "has_coverage",
+    "statements": "90.52"
+  },
+  {
+    "app": "lawfirm",
+    "status": "no_vitest"
+  },
+  {
+    "app": "lawyer",
+    "status": "no_vitest"
+  },
+  {
+    "app": "ekyc",
+    "status": "no_vitest"
+  },
+  {
+    "app": "global",
+    "status": "no_vitest"
+  },
+  {
+    "app": "worlds",
+    "status": "has_coverage",
+    "statements": "83.8"
+  },
+  {
+    "app": "pachinko",
+    "status": "no_vitest"
+  },
+  {
+    "app": "casino",
+    "status": "no_vitest"
+  },
+  {
+    "app": "oshiete",
+    "status": "no_vitest"
+  },
+  {
+    "app": "webpage",
+    "status": "has_coverage",
+    "statements": "81.66"
+  },
+  {
+    "app": "marketer",
+    "status": "no_vitest"
+  },
+  {
+    "app": "omikuji",
+    "status": "no_vitest"
+  },
+  {
+    "app": "wire",
+    "status": "has_coverage",
+    "statements": "90.42"
+  },
+  {
+    "app": "lawfirm-admin",
+    "status": "no_vitest"
+  },
+  {
+    "app": "hub",
+    "status": "has_coverage",
+    "statements": "91.35"
+  },
+  {
+    "app": "scheduler",
+    "status": "has_coverage",
+    "statements": "90.52"
+  },
+  {
+    "app": "performers",
+    "status": "no_vitest"
+  },
+  {
+    "app": "analytics",
+    "status": "has_coverage",
+    "statements": "83.11"
+  },
+  {
+    "app": "ops",
+    "status": "has_coverage",
+    "statements": "86.71"
+  },
+  {
+    "app": "sre",
+    "status": "no_vitest"
+  },
+  {
+    "app": "os",
+    "status": "no_vitest"
+  },
+  {
+    "app": "po",
+    "status": "no_vitest"
+  },
+  {
+    "app": "gov",
+    "status": "has_coverage",
+    "statements": "84"
+  },
+  {
+    "app": "resources",
+    "status": "no_vitest"
+  },
+  {
+    "app": "completer",
+    "status": "has_coverage",
+    "statements": "81.08"
+  },
+  {
+    "app": "har",
+    "status": "no_vitest"
+  },
+  {
+    "app": "provider",
+    "status": "not_found"
+  },
+  {
+    "app": "ge",
+    "status": "has_coverage",
+    "statements": "84.21"
+  },
+  {
+    "app": "lo",
+    "status": "no_vitest"
+  },
+  {
+    "app": "tia",
+    "status": "has_coverage",
+    "statements": "89.81"
+  },
+  {
+    "app": "wvme",
+    "status": "no_vitest"
+  },
+  {
+    "app": "tasklist",
+    "status": "no_vitest"
+  }
+]

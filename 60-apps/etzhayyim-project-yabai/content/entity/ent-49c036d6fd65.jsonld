@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-49c036d6fd65",
+  "entityId": "ent-49c036d6fd65",
+  "canonicalName": "oleg yuryevich nesterov",
+  "aliases": [
+    "oleg yuryevich nesterov"
+  ]
+}

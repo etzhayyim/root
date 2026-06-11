@@ -1,0 +1,31 @@
+# UNSPSC organism fleet — Wave 2 mass-deploy (ADR-2605240000)
+#
+# 18,342 UNSPSC actors as ecosystem organisms, sharded across joseph /
+# issachar / dan Mac mini nodes. Each shard is its own DaemonSet (per
+# ADR-2605232100 — religious-corp cells on k3s as DaemonSet).
+#
+# Apply:
+#   kubectl apply -k 50-infra/k8s/unispsc-organism-fleet/
+#
+# Verify:
+#   kubectl get daemonsets -n etzhayyim-organism
+#   kubectl logs -n etzhayyim-organism -l app.kubernetes.io/name=unispsc-organism-fleet -f
+#   kubectl exec -n etzhayyim-organism deploy/... -- curl -s localhost:13040/healthz | jq
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: etzhayyim-organism
+
+resources:
+  - namespace.yaml
+  - shard-0
+  - shard-1
+  - shard-2
+  - kaizen-observer
+  - kaizen-pr-agent
+
+commonLabels:
+  app.kubernetes.io/part-of: etzhayyim-religious-corp
+  app.kubernetes.io/component: organism-fleet
+  etzhayyim.com/wave: "2"

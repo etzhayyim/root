@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.normalization.registerJapanReleasedFromSeed",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register Japan-release candidate games from seed catalog into normalization records.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "game_slugs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "mode": { "type": "string" },
+            "target_games": { "type": "integer" },
+            "writes_total": { "type": "integer" },
+            "writes_ok": { "type": "integer" },
+            "writes_failed": { "type": "integer" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

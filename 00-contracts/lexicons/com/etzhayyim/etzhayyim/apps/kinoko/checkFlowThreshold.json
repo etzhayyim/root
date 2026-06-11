@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kinoko.checkFlowThreshold",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Check whether cumulative nutrient flow in the active kabi network has reached the PoNF (Proof of Nutrient Flow) threshold required to form a new block.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "networkRootDid": { "type": "string", "description": "Root DID of the kabi network" }
+        },
+        "required": ["networkRootDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "totalFlow": { "type": "number" },
+            "threshold": { "type": "number" },
+            "participantCount": { "type": "integer" },
+            "minEta": { "type": "number" },
+            "eligible": { "type": "boolean" },
+            "error": { "type": "string" }
+          },
+          "required": ["totalFlow", "threshold", "eligible"]
+        }
+      }
+    }
+  }
+}

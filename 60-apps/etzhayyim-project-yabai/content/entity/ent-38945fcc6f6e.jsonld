@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-38945fcc6f6e",
+  "entityId": "ent-38945fcc6f6e",
+  "canonicalName": "lucien nzambamwita",
+  "aliases": [
+    "lucien nzambamwita"
+  ]
+}

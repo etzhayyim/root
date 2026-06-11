@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — maps 建物 3D model ingest + coverage.
+
+  Pipeline (Phase 1):
+
+    1. maps.building.claimCells   — Pick next batch of H3 res10 cells from
+                                    vertex_spatial (label='Building') that
+                                    haven't been ingested yet or are stale
+                                    (> 7 days). Returns cells[] + runId.
+    2. exclusive gateway          — Short-circuit when 0 cells.
+    3. maps.building.enrichFromOsm — For each cell: fetch building rows from
+                                    vertex_spatial, compute 3D AABB from
+                                    centroid lat/lng, upsert into
+                                    vertex_maps_building_3d (WHERE NOT EXISTS).
+                                    Returns buildingsIngested / cellsProcessed.
+    4. maps.building.updateCoverage — Upsert vertex_maps_building_coverage per
+                                    cell (building_count, has_sentinel,
+                                    has_mapraly, status). Returns coverageUpdated.
+    5. generic.audit.emit         — OCEL event with aggregate stats.
+
+  Cadence: R/PT1H. Processes up to 200 H3 cells per run.
+  Sentinel coverage flag comes from vertex_satellite_scene bbox intersection.
+  Mapraly coverage flag is reserved (has_mapraly=false until Phase 2).
+
+  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.buildingIngest3d.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_building_ingest_3d"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_building_ingest_3d" name="maps building ingest 3d" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.buildingIngest3d", "version": 1, "resultTimeoutMs": 3600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 1 hour">
+      <bpmn:outgoing>Flow_ToClaim</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT1H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToClaim" sourceRef="Start" targetRef="Task_ClaimCells"/>
+
+    <!-- Step 1: Claim next H3 cell batch from vertex_spatial buildings. -->
+    <bpmn:serviceTask id="Task_ClaimCells" name="claim H3 cells from vertex_spatial">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="maps.building.claimCells"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=200"   target="max_cells"/>
+          <zeebe:input source="=7"     target="stale_days"/>
+          <zeebe:output source="=runId"        target="runId"/>
+          <zeebe:output source="=cells"        target="cells"/>
+          <zeebe:output source="=cellCount"    target="cellCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToClaim</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_ClaimCells" targetRef="Gateway_HasCells"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasCells" name="any cells?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasCells</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoCells</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasCells" sourceRef="Gateway_HasCells" targetRef="Task_EnrichFromOsm">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=cellCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoCells" sourceRef="Gateway_HasCells" targetRef="End_NoCells">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=cellCount &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:endEvent id="End_NoCells" name="no cells (skip)">
+      <bpmn:incoming>Flow_NoCells</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Step 2: Fetch buildings + compute 3D AABBs + upsert vertex_maps_building_3d. -->
+    <bpmn:serviceTask id="Task_EnrichFromOsm" name="enrich buildings from vertex_spatial → 3D">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="maps.building.enrichFromOsm"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=cells"         target="cells"/>
+          <zeebe:input source="=runId"         target="runId"/>
+          <zeebe:output source="=buildingsIngested"  target="buildingsIngested"/>
+          <zeebe:output source="=cellsProcessed"     target="cellsProcessed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasCells</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCoverage</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCoverage" sourceRef="Task_EnrichFromOsm" targetRef="Task_UpdateCoverage"/>
+
+    <!-- Step 3: Upsert coverage summary per H3 cell. -->
+    <bpmn:serviceTask id="Task_UpdateCoverage" name="update coverage per H3 cell">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="maps.building.updateCoverage"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=cells"              target="cells"/>
+          <zeebe:input source="=runId"              target="runId"/>
+          <zeebe:input source="=buildingsIngested"  target="buildingsIngested"/>
+          <zeebe:output source="=coverageUpdated"   target="coverageUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCoverage</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_UpdateCoverage" targetRef="Task_Audit"/>
+
+    <!-- Step 4: OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit building.ingest OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.building.ingest3d&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;cellCount&quot;: cellCount, &quot;cellsProcessed&quot;: cellsProcessed, &quot;buildingsIngested&quot;: buildingsIngested, &quot;coverageUpdated&quot;: coverageUpdated }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

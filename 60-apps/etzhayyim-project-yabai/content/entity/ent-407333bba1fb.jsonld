@@ -1,0 +1,14 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "WebSite",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-407333bba1fb",
+  "entityId": "ent-407333bba1fb",
+  "canonicalName": "www.twitch.tv",
+  "aliases": [
+    "Twitch",
+    "www.twitch.tv"
+  ],
+  "websites": [
+    "https://www.twitch.tv"
+  ]
+}

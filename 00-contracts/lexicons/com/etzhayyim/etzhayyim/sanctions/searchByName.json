@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanctions.searchByName",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Tranche F stub — fuzzy name search across all sanctions lists. Full schema pending Phase 3 content copy.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 25 },
+          "minScorePermille": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "default": 700,
+            "description": "Minimum match score in permille (700 = 0.70)"
+          }
+        },
+        "required": ["name"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#match" }
+            }
+          },
+          "required": ["results"]
+        }
+      }
+    },
+    "match": {
+      "type": "object",
+      "description": "One sanctions list hit.",
+      "properties": {
+        "sourceList": {
+          "type": "string",
+          "knownValues": ["ofac-sdn", "un-consolidated", "eu-restrictive"]
+        },
+        "entryId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "scorePermille": { "type": "integer", "minimum": 0, "maximum": 1000 }
+      },
+      "required": ["sourceList", "entryId", "displayName", "scorePermille"]
+    }
+  }
+}

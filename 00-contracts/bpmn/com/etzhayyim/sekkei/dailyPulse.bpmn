@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sekkei daily pulse — 毎日 00:40 に設計図ステータスを集計し audit emit。
+  review 状態で 3 日以上滞留している図面があれば alertStaleReview を追加出力。
+-->
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_sekkei_daily_pulse"
+  targetNamespace="https://etzhayyim.ai/bpmn/sekkei"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="sekkei_daily_pulse" name="sekkei Daily Pulse" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="daily pulse">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 40 0 * * *</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_CountByStatus"/>
+
+    <bpmn:serviceTask id="Task_CountByStatus" name="count drawings by status">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_drawing&quot;" target="table"/>
+          <zeebe:input source="=&quot;status != %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;obsolete&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;status, count(*) as cnt&quot;" target="columns"/>
+          <zeebe:input source="=10" target="limit"/>
+          <zeebe:output source="=rows" target="statusRows"/>
+          <zeebe:output source="=rowCount" target="statusCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_CountByStatus" targetRef="Task_CheckStaleReview"/>
+
+    <bpmn:serviceTask id="Task_CheckStaleReview" name="find stale reviews">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_sekkei_revision&quot;" target="table"/>
+          <zeebe:input source="=&quot;status = %s AND revised_at &lt;= CURRENT_DATE - INTERVAL '3' DAY&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;pending-approval&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;drawing_id, rev_no, revised_by_did, revised_at&quot;" target="columns"/>
+          <zeebe:input source="=25" target="limit"/>
+          <zeebe:output source="=rows" target="staleRows"/>
+          <zeebe:output source="=rowCount" target="staleCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_CheckStaleReview" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit daily audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>
+          <zeebe:input source="={ statusRows: statusRows, staleReviewCount: staleCount, bpmnProcessId: &quot;sekkei_daily_pulse&quot; }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Audit" targetRef="Gate_Stale"/>
+
+    <bpmn:exclusiveGateway id="Gate_Stale" name="stale reviews?" default="Flow_NoStale">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Stale</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoStale</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Stale" sourceRef="Gate_Stale" targetRef="Task_AlertStale">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=staleCount > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoStale" sourceRef="Gate_Stale" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AlertStale" name="emit stale review alert">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;staleReviewAlert&quot;" target="action"/>
+          <zeebe:input source="={ staleCount: staleCount, staleRows: staleRows }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Stale</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AlertStale" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_NoStale</bpmn:incoming>
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

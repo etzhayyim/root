@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8aa06a5e34c2",
+  "entityId": "ent-8aa06a5e34c2",
+  "canonicalName": "yong su kim",
+  "aliases": [
+    "yong su kim"
+  ]
+}

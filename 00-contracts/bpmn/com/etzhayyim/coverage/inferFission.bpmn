@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  coverage.inferFission — Phase E of LDA latent entity inference (ADR-0096 + ADR-0026).
+
+  Reads fission-eligible latent entities (existence_probability >= 0.95) and
+  calls com.etzhayyim.cohort.fission to promote them into observable individual actors
+  via the ADR-0026 cohort fission gate.
+
+  Processes 1 entity per execution; the R/P7D timer processes the backlog
+  incrementally over time.
+
+  Pipeline:
+    1. generic.db.select   — read first fission-eligible entity
+    2. generic.db.select   — read evidence URIs for that entity (edge_entity_evidence)
+    3. generic.db.select   — read cohort link (edge_entity_cohort_link → cohortDid)
+    4. generic.xrpc.invoke — com.etzhayyim.cohort.fission (posterior, judgeAgreement, evidenceUris)
+    5. generic.db.insert   — mark entity status = 'fissioned'
+    6. generic.audit.emit  — OCEL summary
+
+  Trigger:
+    timer-start R/P7D (weekly, after inferLdaEntities) AND XRPC (`com.etzhayyim.apps.coverage.inferFission`).
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-fission-v1
+  NSID:      com.etzhayyim.apps.coverage.inferFission
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_coverage_infer_fission"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="coverage_infer_fission_v1" name="coverage infer fission" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.coverage.inferFission", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 7 days">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P7D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="manual trigger">
+      <bpmn:outgoing>Flow_0</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_0" sourceRef="Start_Manual" targetRef="Task_ReadCandidate"/>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start_Timer"  targetRef="Task_ReadCandidate"/>
+
+    <!-- Step 1: Read first fission-eligible entity (existence_probability >= 0.95, not yet fissioned) -->
+    <bpmn:serviceTask id="Task_ReadCandidate" name="read fission candidate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_latent_entity&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, entity_kind, canonical_label, existence_probability, k_evidence_count, primary_topic_vid&quot;" target="columns"/>
+          <zeebe:input source="=&quot;fission_eligible = true AND existence_probability >= 0.95 AND status != 'fissioned'&quot;" target="where"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:input source="=&quot;existence_probability DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="candidates"/>
+          <zeebe:output source="=rowCount" target="candidateCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0</bpmn:incoming>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_ReadCandidate" targetRef="Gateway_HasCandidate"/>
+    <bpmn:exclusiveGateway id="Gateway_HasCandidate" name="has fission candidate?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_2a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoCandidate</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_2a" sourceRef="Gateway_HasCandidate" targetRef="Task_ReadEvidence">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=candidateCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 2: Read evidence URIs for the candidate entity -->
+    <bpmn:serviceTask id="Task_ReadEvidence" name="read evidence URIs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_entity_evidence&quot;" target="table"/>
+          <zeebe:input source="=&quot;src_vid, dst_vid, evidence_weight&quot;" target="columns"/>
+          <zeebe:input source="=if (count(candidates) > 0) then &quot;dst_vid = '&quot; + candidates[1].vertex_id + &quot;'&quot; else &quot;1=0&quot;" target="where"/>
+          <zeebe:input source="=50" target="limit"/>
+          <zeebe:input source="=&quot;evidence_weight DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="evidenceEdges"/>
+          <zeebe:output source="=rowCount" target="evidenceCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2a</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ReadEvidence" targetRef="Task_ReadCohortLink"/>
+
+    <!-- Step 3: Read cohort DID from edge_entity_cohort_link (entity → ADR-0026 cohort) -->
+    <bpmn:serviceTask id="Task_ReadCohortLink" name="read cohort link">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_entity_cohort_link&quot;" target="table"/>
+          <zeebe:input source="=&quot;src_vid, dst_vid, link_confidence&quot;" target="columns"/>
+          <zeebe:input source="=if (count(candidates) > 0) then &quot;src_vid = '&quot; + candidates[1].vertex_id + &quot;'&quot; else &quot;1=0&quot;" target="where"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:input source="=&quot;link_confidence DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="cohortLinks"/>
+          <zeebe:output source="=rowCount" target="cohortLinkCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ReadCohortLink" targetRef="Task_CallFission"/>
+
+    <!-- Step 4: Call com.etzhayyim.cohort.fission (ADR-0026 gate: posterior >= 0.95, judgeAgreement=true) -->
+    <bpmn:serviceTask id="Task_CallFission" name="call cohort fission">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.xrpc.invoke"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.cohort.fission&quot;" target="nsid"/>
+          <zeebe:input source="=if (count(candidates) > 0 and count(cohortLinks) > 0) then {
+            cohortDid:       cohortLinks[1].dst_vid,
+            posterior:       candidates[1].existence_probability,
+            judgeAgreement:  true,
+            evidenceUris:    for e in evidenceEdges return e.src_vid
+          } else {
+            cohortDid:       &quot;&quot;,
+            posterior:       0,
+            judgeAgreement:  false,
+            evidenceUris:    []
+          }" target="payload"/>
+          <zeebe:output source="=response.individualDid"    target="individualDid"/>
+          <zeebe:output source="=response.individualHandle" target="individualHandle"/>
+          <zeebe:output source="=response.fissionAt"        target="fissionAt"/>
+          <zeebe:output source="=response"                  target="fissionResponse"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_CallFission" targetRef="Task_MarkFissioned"/>
+
+    <!-- Step 5: Mark entity status = 'fissioned' + record individual_did -->
+    <bpmn:serviceTask id="Task_MarkFissioned" name="mark entity fissioned">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_latent_entity&quot;" target="table"/>
+          <zeebe:input source="=if (count(candidates) > 0 and individualDid != null) then {
+            &quot;vertex_id&quot;:      candidates[1].vertex_id,
+            &quot;status&quot;:         &quot;fissioned&quot;,
+            &quot;actor_did&quot;:      &quot;did:web:coverage.etzhayyim.com&quot;,
+            &quot;org_did&quot;:        &quot;did:web:coverage.etzhayyim.com&quot;,
+            &quot;created_at&quot;:     now()
+          } else null" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_MarkFissioned" targetRef="Task_Audit"/>
+
+    <!-- Step 6: OCEL audit -->
+    <bpmn:serviceTask id="Task_Audit" name="emit fission OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferFission.promote&quot;" target="action"/>
+          <zeebe:input source="={
+            &quot;candidates_found&quot;: candidateCount,
+            &quot;evidence_count&quot;:  evidenceCount,
+            &quot;cohort_link_found&quot;: cohortLinkCount,
+            &quot;individual_did&quot;:  individualDid,
+            &quot;individual_handle&quot;: individualHandle,
+            &quot;fission_at&quot;:     fissionAt
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoCandidate" name="audit no fission candidate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;coverage.inferFission.abort&quot;" target="action"/>
+          <zeebe:input source="={&quot;reason&quot;: &quot;no_fission_candidate&quot;, &quot;candidates_found&quot;: candidateCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoCandidate</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoCandidateEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoCandidate" sourceRef="Gateway_HasCandidate" targetRef="Task_AuditNoCandidate"/>
+    <bpmn:sequenceFlow id="Flow_NoCandidateEnd" sourceRef="Task_AuditNoCandidate" targetRef="End"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:incoming>Flow_NoCandidateEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

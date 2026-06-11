@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.artMarketAml.flagMoneyLaundering",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Money laundering / sanctions evasion via art (bridges provenanceResearch.flagProvenanceGap + ofac-sanctions-sdn + beneficial-ownership)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "transactionVid",
+            "typology",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "transactionVid": {
+              "type": "string",
+              "description": "bridges recordTransaction"
+            },
+            "typology": {
+              "type": "string",
+              "enum": [
+                "overvaluation",
+                "back_to_back",
+                "freeport_hiding",
+                "shell_lbo",
+                "nft_washtrading",
+                "fractionalization_opaque",
+                "consigner_chain_opaque",
+                "export_sanctions",
+                "forged_provenance",
+                "commingled_invest"
+              ]
+            },
+            "suspectedValueEur": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.demo-fixture.greet",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Print a greeting for NAME.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "bin:demo-fixture",
+      "x-yorishiro-transport": "binary-cli",
+      "x-yorishiro-binary": {
+        "binary": "demo-fixture",
+        "argv": [
+          {
+            "kind": "positional",
+            "name": "name",
+            "position": 0,
+            "required": true,
+            "type": "string"
+          },
+          {
+            "kind": "flag",
+            "name": "shout",
+            "flag": "--shout",
+            "type": "boolean",
+            "description": "Uppercase the greeting."
+          },
+          {
+            "kind": "flag",
+            "name": "lang",
+            "flag": "--lang",
+            "type": "string",
+            "default": "en",
+            "description": "Language code (en|jp)."
+          }
+        ],
+        "stdout_capture": true,
+        "stderr_capture": true,
+        "exit_code_ok": [
+          0
+        ],
+        "timeout_seconds": 300
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "shout": {
+              "type": "boolean",
+              "description": "Uppercase the greeting."
+            },
+            "lang": {
+              "type": "string",
+              "description": "Language code (en|jp).",
+              "default": "en"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exitCode"
+          ],
+          "properties": {
+            "exitCode": {
+              "type": "integer",
+              "description": "Exit code of the binary."
+            },
+            "stdout": {
+              "type": "string",
+              "description": "Captured stdout (UTF-8 best-effort)."
+            },
+            "stderr": {
+              "type": "string",
+              "description": "Captured stderr (UTF-8 best-effort)."
+            },
+            "error": {
+              "type": "string",
+              "description": "Set when the binary could not be launched at all."
+            }
+          }
+        }
+      }
+    }
+  }
+}

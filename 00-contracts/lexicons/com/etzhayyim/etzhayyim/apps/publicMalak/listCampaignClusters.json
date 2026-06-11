@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.listCampaignClusters",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List public ad campaign clusters produced from observed creatives. Reads vertex_ads_campaign_cluster.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "platformScope": { "type": "string", "knownValues": ["platform", "cross_platform"] },
+          "advertiserVertexId": { "type": "string" },
+          "landingDomain": { "type": "string" },
+          "minCreativeCount": { "type": "integer", "minimum": 1, "default": 1 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["clusters"],
+          "properties": {
+            "clusters": { "type": "array", "items": { "type": "ref", "ref": "#campaignClusterView" } },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    },
+    "campaignClusterView": {
+      "type": "object",
+      "required": ["vertexId", "campaignKey", "platformScope"],
+      "properties": {
+        "vertexId": { "type": "string" },
+        "campaignKey": { "type": "string" },
+        "platformScope": { "type": "string" },
+        "advertiserVertexId": { "type": "string" },
+        "advertiserName": { "type": "string" },
+        "landingDomain": { "type": "string" },
+        "claimToken": { "type": "string" },
+        "sampleHeadline": { "type": "string" },
+        "sampleBodyText": { "type": "string" },
+        "creativeCount": { "type": "integer" },
+        "platformCount": { "type": "integer" },
+        "firstSeenAt": { "type": "string" },
+        "lastSeenAt": { "type": "string" },
+        "riskScorePermille": { "type": "integer" },
+        "summary": { "type": "string" }
+      }
+    },
+    "clusterCreativeView": {
+      "type": "object",
+      "required": ["vertexId", "platform", "platformAdId"],
+      "properties": {
+        "vertexId": { "type": "string" },
+        "platform": { "type": "string" },
+        "platformAdId": { "type": "string" },
+        "advertiserName": { "type": "string" },
+        "headline": { "type": "string" },
+        "bodyText": { "type": "string" },
+        "landingUrl": { "type": "string" },
+        "lastSeenAt": { "type": "string" },
+        "matchBasis": { "type": "string" }
+      }
+    }
+  }
+}

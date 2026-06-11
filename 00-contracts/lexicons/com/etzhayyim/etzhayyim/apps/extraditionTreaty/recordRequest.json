@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.extraditionTreaty.recordRequest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bilateral / multilateral extradition request (bridges universalJurisdiction.flagExecutiveInterference + legal-document + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "requestId",
+            "requestingCountryIso3",
+            "requestedCountryIso3",
+            "treatyBasis",
+            "offenceCategory",
+            "submittedAt"
+          ],
+          "properties": {
+            "requestId": {
+              "type": "string"
+            },
+            "requestingCountryIso3": {
+              "type": "string"
+            },
+            "requestedCountryIso3": {
+              "type": "string"
+            },
+            "treatyBasis": {
+              "type": "string",
+              "enum": [
+                "bilateral_treaty",
+                "european_convention",
+                "schengen_arrest",
+                "interpol_red",
+                "uncat_aut_dedere",
+                "commonwealth_london",
+                "unidroit",
+                "ad_hoc",
+                "comity"
+              ]
+            },
+            "offenceCategory": {
+              "type": "string",
+              "enum": [
+                "fraud",
+                "corruption",
+                "organized_crime",
+                "drug",
+                "terrorism",
+                "war_crimes",
+                "torture",
+                "sanctions",
+                "trafficking_persons",
+                "trafficking_weapons",
+                "cyber",
+                "environmental",
+                "kleptocracy"
+              ]
+            },
+            "ujCaseVid": {
+              "type": "string",
+              "description": "bridges universalJurisdiction.flagExecutiveInterference"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

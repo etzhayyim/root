@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c2cc57e93ae0",
+  "entityId": "ent-c2cc57e93ae0",
+  "canonicalName": "finrost limited",
+  "aliases": [
+    "finrost limited"
+  ]
+}

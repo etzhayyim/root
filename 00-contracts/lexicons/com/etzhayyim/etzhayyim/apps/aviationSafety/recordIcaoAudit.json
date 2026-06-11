@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aviationSafety.recordIcaoAudit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ICAO USOAP / IOSA / FAA IASA audit (bridges airplane + lei)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "auditId",
+            "stateIso3",
+            "auditType",
+            "conductedAt"
+          ],
+          "properties": {
+            "auditId": {
+              "type": "string"
+            },
+            "stateIso3": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "auditType": {
+              "type": "string",
+              "enum": [
+                "USOAP",
+                "USOAP_CMA",
+                "IOSA",
+                "IASA",
+                "ICVM"
+              ]
+            },
+            "effectiveImplementationPct": {
+              "type": "number",
+              "description": "USOAP EI score 0-100"
+            },
+            "significantSafetyConcern": {
+              "type": "boolean",
+              "description": "USOAP SSC flag"
+            },
+            "category1or2": {
+              "type": "string",
+              "enum": [
+                "category_1",
+                "category_2"
+              ],
+              "description": "FAA IASA category"
+            },
+            "conductedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complianceTier": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "improving",
+                "deficient"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

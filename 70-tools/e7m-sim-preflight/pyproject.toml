@@ -1,0 +1,23 @@
+[project]
+name = "e7m-sim-preflight"
+version = "0.0.1"
+description = "Stack-validation harness for ADR-2605261600 e7m-sim substrate charter. Not the operational sim — preflight evidence companion."
+requires-python = ">=3.12,<3.14"
+license = { text = "Apache-2.0 WITH Charter-Rider-v2.0" }
+
+dependencies = [
+  "mujoco>=3.8.0,<4.0",
+  "mujoco-mjx>=3.8.0,<4.0",
+  "jax>=0.10.0",
+  "mitsuba>=3.8.0,<4.0",
+  "usd-core>=26.5",
+  "numpy>=2.0",
+]
+
+[project.urls]
+charter_adr = "https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605261600-robotics-simulation-substrate-r0.md"
+robot_adr = "https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605252615-kusawake-autonomous-agri-mobile-r0.md"
+evidence = "https://github.com/etzhayyim/root/blob/main/90-docs/baien/sim-substrate-scoring-260526.md"
+
+[tool.uv]
+managed = true

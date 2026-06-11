@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-436415bf7262",
+  "entityId": "ent-436415bf7262",
+  "canonicalName": "al-zomor, abboud abdul latif hassan",
+  "aliases": [
+    "al-zomor, abboud abdul latif hassan"
+  ]
+}

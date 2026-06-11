@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.scaleVnf",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "VNFM — scale a VNF horizontally (instance count) or vertically (resource per instance). triggerVid may reference Phase 7 capacity_forecast or Phase 8 NWDAF NF_LOAD.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vnfId", "scaleKind", "scaleDirection", "fromInstanceCount", "toInstanceCount", "triggerKind", "observedAt"],
+          "properties": {
+            "scaleEventId": { "type": "string" },
+            "vnfId": { "type": "string" },
+            "scaleKind": { "type": "string", "enum": ["horizontal", "vertical"] },
+            "scaleDirection": { "type": "string", "enum": ["scale_out", "scale_in", "scale_up", "scale_down"] },
+            "aspectId": { "type": "string" },
+            "fromInstanceCount": { "type": "integer" },
+            "toInstanceCount": { "type": "integer" },
+            "triggerKind": { "type": "string", "enum": ["manual", "policy", "capacity_forecast", "nwdaf_load", "alarm"] },
+            "triggerVid": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "scaleEventId": { "type": "string" },
+          "delta": { "type": "integer" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.subordinatedDebt.recordInstrument",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Subordinated debt / AT1 / CoCo / PIK note (bridges receiverBankruptcy.flagCramDown + sovereign-debt + insurance-policy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "instrumentId",
+            "subordinationTier",
+            "triggersWriteDown",
+            "issuedAt"
+          ],
+          "properties": {
+            "instrumentId": {
+              "type": "string"
+            },
+            "issuerLei": {
+              "type": "string"
+            },
+            "subordinationTier": {
+              "type": "string",
+              "enum": [
+                "at1",
+                "tier2",
+                "senior_non_pref",
+                "pik",
+                "mezzanine",
+                "subordinated_tlac",
+                "contingent_convertible",
+                "hybrid",
+                "perpetual",
+                "soe_hybrid",
+                "pir_subdebt"
+              ]
+            },
+            "triggersWriteDown": {
+              "type": "string",
+              "enum": [
+                "cet1_threshold",
+                "pon_resolution",
+                "distressed_exchange",
+                "sweetener",
+                "cram_down",
+                "mandatory_convert",
+                "statutory_bail_in",
+                "governmental_action"
+              ]
+            },
+            "cramDownVid": {
+              "type": "string",
+              "description": "bridges receiverBankruptcy.flagCramDown"
+            },
+            "principalBusd": {
+              "type": "number"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_malak_export_agency_referral_package" targetNamespace="https://etzhayyim.ai/bpmn/malak" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="malak_export_agency_referral_package" name="malak exportAgencyReferralPackage" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Run"/>
+    <bpmn:serviceTask id="Task_Run" name="exportAgencyReferralPackage">
+      <bpmn:extensionElements><zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.malak.exportAgencyReferralPackage"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Run" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-74b016afa3d5",
+  "entityId": "ent-74b016afa3d5",
+  "canonicalName": "tarabar-gorous trust transportation",
+  "aliases": [
+    "tarabar-gorous trust transportation"
+  ]
+}

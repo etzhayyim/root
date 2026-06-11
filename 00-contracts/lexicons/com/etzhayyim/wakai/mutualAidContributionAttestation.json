@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.wakai.mutualAidContributionAttestation",
+  "description": "Per-member contribution attestation. G6 STRUCTURAL: investmentReturnPromised const false (Charter Rider §2(b) speculative finance prohibition). G8 STRUCTURAL: voluntary + ability-scaled; no premium-as-contract. Contribution amounts stored encrypted (member-by-amount linkage is PII); aggregate published only.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "contributorPseudonymDid",
+          "contributionAmountEncryptedCid",
+          "memberConsentCid",
+          "investmentReturnPromised",
+          "contributionMethod",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "contributorPseudonymDid": {
+            "type": "string",
+            "description": "30-day rotating pseudonym DID per ADR-2605181200; member-by-amount linkage avoided"
+          },
+          "contributionAmountEncryptedCid": {
+            "type": "string",
+            "description": "ADR-2605181100 encrypted envelope CID containing contribution amount (PII; not exposed publicly)"
+          },
+          "memberConsentCid": {
+            "type": "string",
+            "description": "Member consent record for contribution + privacy posture"
+          },
+          "investmentReturnPromised": {
+            "type": "boolean",
+            "const": false,
+            "description": "G6 STRUCTURAL: const false; Charter Rider §2(b) speculative finance prohibition; mutual aid pool is solidarity reserve, NOT investment vehicle"
+          },
+          "abilityScaledAttested": {
+            "type": "boolean",
+            "description": "G8: member self-attests ability-scaled contribution"
+          },
+          "contributionMethod": {
+            "type": "string",
+            "knownValues": ["usdc-base-l2-direct", "usdc-base-l2-erc4337-paymaster", "in-kind-attested", "labor-equivalent-attested"]
+          },
+          "contributionTxCid": {
+            "type": "string",
+            "description": "On-chain USDC transaction CID (when applicable; in-kind/labor variants attested separately)"
+          },
+          "stewardLaborAttestationCid": {
+            "type": "string",
+            "description": "When labor-equivalent contribution, cross-link to chigiri.stewardLaborAttestation"
+          },
+          "charterRiderScanPass": {"type": "boolean"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

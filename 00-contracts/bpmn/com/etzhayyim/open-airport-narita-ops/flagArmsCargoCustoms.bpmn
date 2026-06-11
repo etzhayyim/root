@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_airport_narita_ops_flag_arms_cargo_customs"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-airport-narita-ops"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_airport_narita_ops_flag_arms_cargo_customs" name="成田 武器貨物 通関" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_SaveEvent"/>
+
+    <bpmn:serviceTask id="Task_SaveEvent" name="defence event 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_defence_event&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              owner_did:        callerDid,
+              bpmn_process_id:  &quot;open_airport_narita_ops_flag_arms_cargo_customs&quot;,
+              nsid:             &quot;com.etzhayyim.apps.airportNaritaOps.flagArmsCargoCustoms&quot;,
+              project:          &quot;open-airport-narita-ops&quot;,
+              subject_vid:      cargoVid,
+              action_class:     &quot;customs.armsCargo&quot;,
+              severity:         &quot;high&quot;,
+              detected_at:      string(now()),
+              created_at:       string(now()),
+              sensitivity_ord:  1,
+              org_id:           callerDid,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-defence&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_SaveEvent" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit customs.armsCargo">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-airport-narita-ops.etzhayyim.com:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;customs.armsCargo&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, subjectVid: cargoVid, severity: &quot;high&quot;}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

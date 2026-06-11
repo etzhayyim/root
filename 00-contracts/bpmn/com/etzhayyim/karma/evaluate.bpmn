@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — karma evaluation agent (XRPC entry).
+
+  LangGraph state machine + Pregel-style graph propagation + actor
+  mailbox semantics consolidated into a single `karma.agent.evaluate`
+  pyzeebe task. The BPMN side is intentionally thin (1 call + audit)
+  because the agent's internal state machine is owned by LangGraph
+  inside the worker — re-decomposing it as BPMN service tasks would
+  duplicate the topology and hide LangGraph's checkpointer semantics.
+
+  Internal LangGraph nodes (executed inside `karma.agent.evaluate`):
+    load_organism → load_recent_edges → vulnerability_assess
+                  → tier_classify (LLM)
+                  → axiom_verify (Karma.lean predicates inlined)
+                  → witness_search (Pregel BFS over edge_karma_dependency)
+                  → recommend (LLM synthesis)
+                  → emit_event → END
+
+    Conditional:
+      - floor_violated  → skip to emit_event with reject
+      - low_confidence  → refine_response loop (max N=2)
+      - witness_needed  → branch to witness_search
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_evaluate"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_evaluate" name="karma evaluation agent" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.evaluate", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToEvaluate</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Evaluate" name="karma agent (LangGraph + Pregel)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.agent.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=edgeId" target="edgeId"/>
+          <zeebe:input source="=candidate" target="candidate"/>
+          <zeebe:input source="=witnessHops" target="witnessHops"/>
+          <zeebe:input source="=agentTier" target="agentTier"/>
+          <zeebe:output source="=recommendation" target="recommendation"/>
+          <zeebe:output source="=resolvedTier" target="resolvedTier"/>
+          <zeebe:output source="=signedWeight" target="signedWeight"/>
+          <zeebe:output source="=vulnerabilityNote" target="vulnerabilityNote"/>
+          <zeebe:output source="=axiomCheck" target="axiomCheck"/>
+          <zeebe:output source="=witnessCandidates" target="witnessCandidates"/>
+          <zeebe:output source="=rationale" target="rationale"/>
+          <zeebe:output source="=supersteps" target="supersteps"/>
+          <zeebe:output source="=llmTokensUsed" target="llmTokensUsed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEvaluate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEvaluate" sourceRef="StartXrpc" targetRef="Task_Evaluate"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.evaluate&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;edgeId&quot;: edgeId, &quot;recommendation&quot;: recommendation, &quot;tier&quot;: resolvedTier, &quot;supersteps&quot;: supersteps, &quot;llmTokens&quot;: llmTokensUsed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Evaluate" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="evaluated">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

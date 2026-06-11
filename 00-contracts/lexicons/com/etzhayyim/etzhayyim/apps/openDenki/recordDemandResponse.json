@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.recordDemandResponse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a demand response event on a feeder (voluntary / mandatory / emergency DR activation).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["feederDid", "drType", "startedAt", "targetKw"],
+          "properties": {
+            "feederDid":  { "type": "string" },
+            "drType":     { "type": "string", "enum": ["voluntary","mandatory","emergency"] },
+            "startedAt":  { "type": "string", "format": "datetime" },
+            "endedAt":    { "type": "string", "format": "datetime" },
+            "targetKw":   { "type": "number", "description": "Requested demand reduction in kW" },
+            "achievedKw": { "type": "number", "description": "Actual demand reduction achieved (reported after event)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "drDid":      { "type": "string" },
+            "feederDid":  { "type": "string" },
+            "drType":     { "type": "string" },
+            "startedAt":  { "type": "string", "format": "datetime" },
+            "endedAt":    { "type": "string", "format": "datetime" },
+            "targetKw":   { "type": "number" },
+            "achievedKw": { "type": "number" },
+            "reportedAt": { "type": "string", "format": "datetime" },
+            "error":      { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

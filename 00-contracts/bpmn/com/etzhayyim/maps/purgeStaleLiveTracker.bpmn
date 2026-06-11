@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — purge stale live tracker rows.
+
+  RisingWave has no native TTL. This BPMN runs daily and deletes rows older
+  than the per-table retention window:
+
+    vertex_aircraft_state  : 24h (state vectors are 1-tick snapshots)
+    vertex_satellite_pass  : 48h (los_ms in the past, no longer visible)
+    vertex_satellite_tle   : 14d (keep 2-week catalog history, fresh
+                                   epoch always wins via PK overwrite)
+
+  vertex_aircraft_track is NOT purged here — flight trajectories are
+  long-term archive (history.etzhayyim.com may consume these).
+
+  Cadence: R/PT24H. Single instance per day.
+
+  com.etzhayyim.apps.maps.purgeStaleLiveTracker.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_purge_stale_live_tracker"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_purge_stale_live_tracker" name="maps purge stale live tracker" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.purgeStaleLiveTracker", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 24 hours">
+      <bpmn:outgoing>Flow_ToPurge</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT24H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToPurge_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToPurge" sourceRef="Start_Timer" targetRef="Task_PurgeState"/>
+    <bpmn:sequenceFlow id="Flow_ToPurge_Manual" sourceRef="Start_Manual" targetRef="Task_PurgeState"/>
+
+    <bpmn:serviceTask id="Task_PurgeState" name="purge vertex_aircraft_state &gt;24h">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.delete"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_aircraft_state&quot;" target="table"/>
+          <zeebe:input source="=&quot;ts_ms &lt; (extract(epoch from now() - INTERVAL '24 hours') * 1000)::bigint&quot;" target="whereExpr"/>
+          <zeebe:output source="=rowsDeleted" target="aircraftStateDeleted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPurge</bpmn:incoming>
+      <bpmn:incoming>Flow_ToPurge_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPurgePass</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPurgePass" sourceRef="Task_PurgeState" targetRef="Task_PurgePass"/>
+
+    <bpmn:serviceTask id="Task_PurgePass" name="purge vertex_satellite_pass los_ms&lt;now-48h">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.delete"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_satellite_pass&quot;" target="table"/>
+          <zeebe:input source="=&quot;los_ms &lt; (extract(epoch from now() - INTERVAL '48 hours') * 1000)::bigint&quot;" target="whereExpr"/>
+          <zeebe:output source="=rowsDeleted" target="satellitePassDeleted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPurgePass</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPurgeTle</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPurgeTle" sourceRef="Task_PurgePass" targetRef="Task_PurgeTle"/>
+
+    <bpmn:serviceTask id="Task_PurgeTle" name="purge vertex_satellite_tle epoch&gt;14d old">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.delete"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_satellite_tle&quot;" target="table"/>
+          <zeebe:input source="=&quot;epoch_ms &lt; (extract(epoch from now() - INTERVAL '14 days') * 1000)::bigint&quot;" target="whereExpr"/>
+          <zeebe:output source="=rowsDeleted" target="satelliteTleDeleted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPurgeTle</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_PurgeTle" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit purge OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.purgeStaleLiveTracker&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;aircraftStateDeleted&quot;: aircraftStateDeleted, &quot;satellitePassDeleted&quot;: satellitePassDeleted, &quot;satelliteTleDeleted&quot;: satelliteTleDeleted }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

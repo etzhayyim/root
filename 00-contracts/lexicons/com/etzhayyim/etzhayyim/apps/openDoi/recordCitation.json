@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDoi.recordCitation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DOI 引用記録 - Starts BPMN open_doi_record_citation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "citingDoi",
+            "citedDoi"
+          ],
+          "properties": {
+            "citingDoi": {
+              "type": "string"
+            },
+            "citedDoi": {
+              "type": "string"
+            },
+            "citationType": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number"
+            },
+            "source": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

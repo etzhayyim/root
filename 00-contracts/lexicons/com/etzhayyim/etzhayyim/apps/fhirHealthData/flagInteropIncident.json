@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fhirHealthData.flagInteropIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FHIR incident / IHE gap / privacy breach (bridges data-adequacy + cyber-incident + cyber-compliance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "terminologyVid",
+            "incidentKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "terminologyVid": {
+              "type": "string",
+              "description": "bridges registerTerminology"
+            },
+            "incidentKind": {
+              "type": "string",
+              "enum": [
+                "mapping_error",
+                "null_flavor_leak",
+                "unsupported_extension",
+                "phi_breach",
+                "conformance_fail",
+                "performance_slow",
+                "security_ssl"
+              ]
+            },
+            "patientRecordsAffected": {
+              "type": "integer"
+            },
+            "dataAdequacyVid": {
+              "type": "string",
+              "description": "bridges open-data-adequacy"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_site_corpus2skill_distill"
+                  targetNamespace="https://etzhayyim.ai/bpmn/site"
+                  exporter="hand-written"
+                  exporterVersion="2.0">
+
+  <bpmn:process id="site_corpus2skill_distill" name="site Corpus2Skill Distill" isExecutable="true">
+    <bpmn:documentation>{ "taskType": "site.corpus2skill.distill", "resident": true }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 7 days">
+      <bpmn:outgoing>Flow_Timer_Health</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P7D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_Manual_Health</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_Timer_Health"  sourceRef="Start_Timer"  targetRef="Task_HealthProbe"/>
+    <bpmn:sequenceFlow id="Flow_Manual_Health" sourceRef="Start_Manual" targetRef="Task_HealthProbe"/>
+
+    <!-- RisingWave health gate -->
+    <bpmn:serviceTask id="Task_HealthProbe" name="rw health probe">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rw.health.probe" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=healthy"  target="healthy"/>
+          <zeebe:output source="=degraded" target="degraded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer_Health</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual_Health</bpmn:incoming>
+      <bpmn:outgoing>Flow_Health_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="GW_Health" name="healthy?">
+      <bpmn:incoming>Flow_Health_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Health_OK</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Health_Degraded</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Health_Gate"    sourceRef="Task_HealthProbe" targetRef="GW_Health"/>
+    <bpmn:sequenceFlow id="Flow_Health_OK"      sourceRef="GW_Health" targetRef="Task_ListDomains">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=healthy = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Health_Degraded" sourceRef="GW_Health" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=healthy = false or degraded = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- List distinct domains with embedded chunks -->
+    <bpmn:serviceTask id="Task_ListDomains" name="list domains with embeddings">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT DISTINCT domain FROM vertex_wet_chunk WHERE embedding IS NOT NULL LIMIT 50&quot;" target="query"/>
+          <zeebe:output source="=rows" target="domains"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Health_OK</bpmn:incoming>
+      <bpmn:outgoing>Flow_List_MI</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_List_MI" sourceRef="Task_ListDomains" targetRef="Task_DistillDomain"/>
+
+    <!-- Multi-instance distill per domain (sequential to avoid OOM on faiss) -->
+    <bpmn:serviceTask id="Task_DistillDomain" name="distill domain skill tree">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="site.corpus2skill.distillDomain" retries="1"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=domain_item.domain"                                target="domain"/>
+          <zeebe:input  source="=if branch_k = null then 8 else branch_k"           target="branch_k"/>
+          <zeebe:input  source="=if dry_run = null then false else dry_run"          target="dry_run"/>
+          <zeebe:output source="=nodes_created"  target="domain_nodes_created"/>
+          <zeebe:output source="=edges_created"  target="domain_edges_created"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_List_MI</bpmn:incoming>
+      <bpmn:outgoing>Flow_MI_Audit</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true">
+        <bpmn:extensionElements>
+          <zeebe:loopCharacteristics inputCollection="=domains" inputElement="domain_item"/>
+        </bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_MI_Audit" sourceRef="Task_DistillDomain" targetRef="Task_Audit"/>
+
+    <!-- Audit emit -->
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;site.corpus2skill.distill&quot;" target="event_type"/>
+          <zeebe:input source="=if healthy = false then &quot;degraded&quot; else &quot;ok&quot;" target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Health_Degraded</bpmn:incoming>
+      <bpmn:incoming>Flow_MI_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End_Event"/>
+
+    <bpmn:endEvent id="End_Event" name="done">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

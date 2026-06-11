@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.recordKozanHandoff",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bridge a flagged-dead-stock surplus lot into the toshiKozan (都市鉱山) e-waste recovery stream. Per ADR-2605211241. The handoff is 1:1 with a subsequent com.etzhayyim.apps.toshiKozan.registerEwasteStream record. Transitions lot state flagged-dead-stock -> kozan-handoff. The downstream urban-mining cell (60-apps/etzhayyim-project-open-robo/) actually performs the recycling and ultimately reports final material recovery, after which the lot may be transitioned to 'recycled' by a follow-up call.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lotDid",
+            "flagUri",
+            "recoveryFacilityDid",
+            "kozanStreamType",
+            "handedOverAt"
+          ],
+          "properties": {
+            "lotDid": { "type": "string", "format": "did" },
+            "flagUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the prior flagDeadStock event."
+            },
+            "recoveryFacilityDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the urban-mining cell / recovery facility receiving the lot. Must be an attested religious-corp downstream actor."
+            },
+            "kozanStreamType": {
+              "type": "string",
+              "enum": [
+                "smartphone",
+                "pc",
+                "server",
+                "battery-li-ion",
+                "battery-lead",
+                "pv-panel",
+                "auto-pcb",
+                "white-goods",
+                "mixed-pcb",
+                "rare-earth-magnet"
+              ],
+              "description": "Maps 1:1 to com.etzhayyim.apps.toshiKozan.registerEwasteStream.streamType."
+            },
+            "targetMaterials": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["au", "ag", "pt", "pd", "rh", "cu", "nd", "dy", "co", "li", "ni", "in"]
+              }
+            },
+            "expectedYieldGramsPerTonne": {
+              "type": "object",
+              "additionalProperties": { "type": "number" },
+              "description": "Predicted recovery yield by material (g/tonne). Audited later against actual recovery."
+            },
+            "co2eKgPerTonneEstimate": {
+              "type": "number",
+              "description": "Estimated CO2e per tonne recovered. Same units as toshiKozan.registerEwasteStream.co2eKgPerTonneRecovered."
+            },
+            "carrierDid": { "type": "string", "format": "did" },
+            "handedOverAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "handoffUri": { "type": "string", "format": "at-uri" },
+            "lotState": { "type": "string", "enum": ["kozan-handoff"] },
+            "kozanStreamRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the auto-emitted com.etzhayyim.apps.toshiKozan.registerEwasteStream record."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

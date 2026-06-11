@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.redseaTransit.recordTransit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "紅海/Bab el-Mandeb 通過",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "imo",
+            "waypoint",
+            "direction",
+            "observedAt"
+          ],
+          "properties": {
+            "imo": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string"
+            },
+            "waypoint": {
+              "type": "string",
+              "enum": [
+                "bab-el-mandeb",
+                "hanish-islands",
+                "brothers-islands",
+                "suez-gulf-entry"
+              ]
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "northbound",
+                "southbound"
+              ]
+            },
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            },
+            "sogKnots": {
+              "type": "number"
+            },
+            "cargoType": {
+              "type": "string"
+            },
+            "laden": {
+              "type": "boolean"
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

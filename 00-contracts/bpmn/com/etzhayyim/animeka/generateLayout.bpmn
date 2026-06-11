@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 4 / 12 — レイアウト. ADR-2604231328.
+  in:  cutId, storyboardUri (approved), cutSummary
+  out: layoutVertexId, blobCid
+  HITL: layout.status=approved gate on downstream stages.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_generate_layout"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_generate_layout" name="animeka generate layout" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Plan"/>
+    <bpmn:serviceTask id="Task_Plan" name="layout plan (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a layout artist. Output ONE JSON object {prompt:string,negativePrompt:string,charPositions:[{id:string,x:float,y:float,depth:string}],bgMood:string}. prompt is Animagine XL english, &lt;=120 words, no text overlays.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Approved storyboard: &quot; + string(storyboardUri) + &quot;\nCut summary: &quot; + string(cutSummary)" target="user"/>
+          <zeebe:input source="=900" target="maxTokens"/>
+          <zeebe:input source="=0.3" target="temperature"/>
+          <zeebe:output source="=data" target="layoutPlan"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Plan" targetRef="Task_Render"/>
+    <bpmn:serviceTask id="Task_Render" name="render layout paper (L40S)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/images/generations&quot;" target="route"/>
+          <zeebe:input source="={
+              model: &quot;animagine-xl-4&quot;,
+              prompt: layoutPlan.prompt + &quot;, anime layout paper, production key drawing, clean lineart, flat shading&quot;,
+              negative_prompt: layoutPlan.negativePrompt,
+              size: &quot;1024x1024&quot;,
+              steps: 28,
+              cfg_scale: 6.0,
+              n: 1
+          }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=180" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+          <zeebe:output source="=latencyMs" target="renderMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Render" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist layout">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.layout/&quot; + string(cutId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.animeka.layout&quot;,
+              rkey:       string(cutId),
+              kind:       &quot;layout&quot;,
+              cut_id:     string(cutId),
+              stage:      &quot;layout&quot;,
+              method:     &quot;aiDraft&quot;,
+              priority:   &quot;draft&quot;,
+              description: layoutPlan.prompt,
+              lighting_mood: layoutPlan.bgMood,
+              image_cid:    string(blobCid),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateLayout&quot;" target="action"/>
+          <zeebe:input source="={cutId: string(cutId), blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

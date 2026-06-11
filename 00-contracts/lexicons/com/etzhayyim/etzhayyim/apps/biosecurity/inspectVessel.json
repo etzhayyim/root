@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biosecurity.inspectVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Biosecurity inspection at port (ballast water / hull fouling / IAS)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "inspectionId",
+            "portVid",
+            "imo",
+            "inspectedAt"
+          ],
+          "properties": {
+            "inspectionId": {
+              "type": "string"
+            },
+            "portVid": {
+              "type": "string",
+              "description": "bridges open-ports"
+            },
+            "imo": {
+              "type": "string",
+              "description": "vessel IMO, bridges open-carrier-fleet"
+            },
+            "customsClearanceVid": {
+              "type": "string",
+              "description": "bridges open-customs-clearance"
+            },
+            "ballastSource": {
+              "type": "string"
+            },
+            "hullFoulingPct": {
+              "type": "number"
+            },
+            "iasDetected": {
+              "type": "boolean",
+              "description": "invasive alien species"
+            },
+            "inspectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "clear",
+                "cleaning_ordered",
+                "quarantine"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

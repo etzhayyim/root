@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.council-objection",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Objection filed by an Adherent SBT holder against a Council candidate application. Per ADR-2605192300 §1. Three (3) objections from distinct SBT holders during the 30-day window triggers founder re-proposal for that seat. Public record.",
+      "record": {
+        "type": "object",
+        "required": [
+          "applicationUri",
+          "objectorDid",
+          "objectorSbtTokenId",
+          "objectionGrounds",
+          "objectionNarrative",
+          "objectorSignature",
+          "submittedAt"
+        ],
+        "properties": {
+          "applicationUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the com.etzhayyim.apps.etzhayyim.council-candidate-application being objected to."
+          },
+          "objectorDid": {
+            "type": "string",
+            "description": "Objector's DID. Must control an active Adherent SBT (AdherentRegistry.isActive)."
+          },
+          "objectorSbtTokenId": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Objector's Adherent SBT tokenId. Each SBT can file at most one objection per application."
+          },
+          "objectionGrounds": {
+            "type": "string",
+            "enum": [
+              "rider-violation-disclosure",
+              "conflict-of-interest-undisclosed",
+              "qualification-fabrication",
+              "doctrinal-incompatibility",
+              "axis-mismatch",
+              "ethical-misconduct",
+              "other"
+            ],
+            "description": "Category of objection. Specific gravity weighting may apply when triaging founder re-proposal trigger."
+          },
+          "objectionNarrative": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Detailed objection. Public + permanent record. Defamatory or evidence-free objections themselves may trigger Council Lv6+ review of the objector under the same Charter Compliance framework."
+          },
+          "evidenceUris": {
+            "type": "array",
+            "maxLength": 20,
+            "items": { "type": "string" },
+            "description": "Optional supporting evidence URIs (URL / IPFS CID / AT URI)."
+          },
+          "objectorSignature": {
+            "type": "string",
+            "description": "DID-bound signature over (applicationUri, objectionGrounds, objectionNarrative) digest."
+          },
+          "submittedAt": { "type": "string", "format": "datetime" },
+          "founderResponseUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional founder response (re-proposal, dismissal with rationale, or referral to adherent-wide vote per ADR-2605192300 Open Question 2)."
+          }
+        }
+      }
+    }
+  }
+}

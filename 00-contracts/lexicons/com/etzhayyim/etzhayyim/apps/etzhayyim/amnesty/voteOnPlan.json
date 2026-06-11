@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.amnesty.voteOnPlan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enrolled creditor が restructuring plan に for / against / abstain で投票。voting weight は creditor class enrollment 時に確定済の claimMicroUsdc 比例。Chapter 11 §1126(c) heuristic に matching ≥ 2/3 of each impaired class が consent threshold (rite type 別の override 可)。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restructuringId",
+            "creditorClassId",
+            "creditorDid",
+            "vote",
+            "signedVote",
+            "votedAt"
+          ],
+          "properties": {
+            "restructuringId": {
+              "type": "string"
+            },
+            "creditorClassId": {
+              "type": "string"
+            },
+            "creditorDid": {
+              "type": "string",
+              "description": "Voting creditor's DID. Must be a member of the named creditorClassId (verified by cross-check against enrollCreditorClass record)."
+            },
+            "vote": {
+              "type": "string",
+              "enum": [
+                "for",
+                "against",
+                "abstain"
+              ]
+            },
+            "signedVote": {
+              "type": "string",
+              "description": "EIP-712 typed-data signature over (restructuringId | creditorClassId | creditorDid | vote | votedAt) using the creditor's ERC725-registered key.",
+              "maxLength": 4000
+            },
+            "votedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "rationale": {
+              "type": "string",
+              "maxLength": 4000
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "voteId": {
+              "type": "string"
+            },
+            "classTallyAfterVote": {
+              "type": "ref",
+              "ref": "#classTally"
+            },
+            "consentThresholdMet": {
+              "type": "boolean",
+              "description": "True if this vote tipped the class over the consent threshold (caller observes the transition)."
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "classTally": {
+      "type": "object",
+      "required": [
+        "creditorClassId",
+        "totalClaimMicroUsdc",
+        "claimForMicroUsdc",
+        "claimAgainstMicroUsdc",
+        "claimAbstainMicroUsdc",
+        "claimNotVotedMicroUsdc"
+      ],
+      "properties": {
+        "creditorClassId": {
+          "type": "string"
+        },
+        "totalClaimMicroUsdc": {
+          "type": "integer"
+        },
+        "claimForMicroUsdc": {
+          "type": "integer"
+        },
+        "claimAgainstMicroUsdc": {
+          "type": "integer"
+        },
+        "claimAbstainMicroUsdc": {
+          "type": "integer"
+        },
+        "claimNotVotedMicroUsdc": {
+          "type": "integer"
+        },
+        "consentPermille": {
+          "type": "integer",
+          "description": "claimForMicroUsdc * 1000 / (claimForMicroUsdc + claimAgainstMicroUsdc) — abstain + not-voted excluded from denominator per §1126(c)"
+        }
+      }
+    }
+  }
+}

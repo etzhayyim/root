@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yoro.shinkaEvolution",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "nanoid": {
+            "type": "string"
+          },
+          "evolutionData": {
+            "type": "unknown"
+          }
+        },
+        "required": [
+          "nanoid",
+          "evolutionData"
+        ]
+      }
+    }
+  }
+}

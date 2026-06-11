@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8d0db7c086b0",
+  "entityId": "ent-8d0db7c086b0",
+  "canonicalName": "taha yassin ramadan",
+  "aliases": [
+    "taha yassin ramadan"
+  ]
+}

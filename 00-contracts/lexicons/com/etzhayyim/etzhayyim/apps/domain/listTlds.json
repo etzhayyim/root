@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.domain.listTlds",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List catalogued TLDs with operator, restriction status, and registrar count (joined from mv_domain_registrable_via).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "restricted": {"type": "boolean", "description": "Filter by registry restriction status."},
+          "limit": {"type": "integer", "default": 50, "minimum": 1, "maximum": 200}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tlds"],
+          "properties": {
+            "tlds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["tld", "operator", "restricted", "verificationRequired", "registrarCount"],
+                "properties": {
+                  "tld": {"type": "string"},
+                  "operator": {"type": "string"},
+                  "restricted": {"type": "boolean"},
+                  "verificationRequired": {"type": "boolean"},
+                  "eligibilitySummary": {"type": "string"},
+                  "registrarCount": {"type": "integer"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

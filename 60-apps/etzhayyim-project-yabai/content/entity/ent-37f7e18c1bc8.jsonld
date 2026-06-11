@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-37f7e18c1bc8",
+  "entityId": "ent-37f7e18c1bc8",
+  "canonicalName": "vinales tours",
+  "aliases": [
+    "vinales tours"
+  ]
+}

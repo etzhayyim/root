@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.naturalPerson.seedLatentEntities",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Idempotently seed frontier latent-entity pointers for natural-person cohorts.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of missing cohort latent entities to materialize in one run."
+            },
+            "emitAudit": {
+              "type": "boolean",
+              "description": "When true, emit an OCEL audit event for the seed run."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "evaluatedAt": { "type": "string", "format": "datetime" },
+            "plannedEntities": { "type": "integer" },
+            "insertedEntities": { "type": "integer" },
+            "insertedCohortLinks": { "type": "integer" },
+            "insertedEvidenceLinks": { "type": "integer" },
+            "totalLatentEntities": { "type": "integer" }
+          },
+          "required": ["evaluatedAt", "plannedEntities", "totalLatentEntities"]
+        }
+      }
+    }
+  }
+}

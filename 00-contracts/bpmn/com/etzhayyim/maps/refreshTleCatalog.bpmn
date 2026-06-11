@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — TLE catalog refresh (CelesTrak primary).
+
+  Pipeline:
+    1. satellite.tle.refresh — fetch CelesTrak gp.php?GROUP={active,starlink,
+       gnss,iss}&FORMAT=tle, parse two-line elements, write vertex_satellite_tle.
+       Idempotent on (norad_id, epoch_ms) PK.
+
+  Cadence: R/PT6H. CelesTrak refreshes ~every 4-8h, our cycle stays fresh.
+
+  com.etzhayyim.apps.maps.refreshTleCatalog.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_refresh_tle_catalog"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_refresh_tle_catalog" name="maps refresh tle catalog" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.refreshTleCatalog", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 6 hours">
+      <bpmn:outgoing>Flow_ToRefresh</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT6H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToRefresh_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToRefresh" sourceRef="Start_Timer" targetRef="Task_Refresh"/>
+    <bpmn:sequenceFlow id="Flow_ToRefresh_Manual" sourceRef="Start_Manual" targetRef="Task_Refresh"/>
+
+    <bpmn:serviceTask id="Task_Refresh" name="CelesTrak fetch + persist TLE">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="satellite.tle.refresh"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=null" target="groups"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=tleIngested" target="tleIngested"/>
+          <zeebe:output source="=byGroup" target="byGroup"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRefresh</bpmn:incoming>
+      <bpmn:incoming>Flow_ToRefresh_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Refresh" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit tle-refresh OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.refreshTleCatalog&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;tleIngested&quot;: tleIngested, &quot;byGroup&quot;: byGroup }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

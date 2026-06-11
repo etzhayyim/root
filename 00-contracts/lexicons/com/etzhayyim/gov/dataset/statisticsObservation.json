@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gov.dataset.statisticsObservation",
+  "description": "Per-IGO statistics indicator observation attestation. R0 skeleton per ADR-2605263900 §3 (GovStatisticsSensor). Authored by `kotodama.organism.sensors.gov.gov_statistics_sensor` after passive-only fetch of Eurostat SDMX / OECD.Stat / World Bank Open Data / IMF SDMX / UN data. Powers manabi civic-literacy curriculum + baien-distill civic-reasoning specialist. Dimensions captured as ordered (dim_code, dim_value) pairs preserving SDMX semantics.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "source",
+          "indicatorCode",
+          "indicatorTitle",
+          "dimensions",
+          "observationPeriod",
+          "payloadCid",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "source": {
+            "type": "string",
+            "knownValues": [
+              "eurostat", "oecd-stat", "worldbank", "imf-sdmx", "un-data"
+            ]
+          },
+          "indicatorCode": {"type": "string"},
+          "indicatorTitle": {"type": "string", "maxLength": 1024},
+          "dimensions": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#dimensionEntry"},
+            "description": "Ordered (dim_code, dim_value) pairs preserving SDMX dimension semantics."
+          },
+          "value": {
+            "type": "integer",
+            "description": "Source-defined scaled integer; valueUnit records the scale/unit."
+          },
+          "valueUnit": {"type": "string"},
+          "observationPeriod": {
+            "type": "string",
+            "description": "ISO-8601 period (e.g. '2025-Q3' / '2025-12')."
+          },
+          "payloadCid": {"type": "string"},
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {"type": "string", "knownValues": ["A"]},
+          "license": {"type": "string"},
+          "stateAlignedFlag": {"type": "boolean", "default": false},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "dimensionEntry": {
+      "type": "object",
+      "required": ["code", "value"],
+      "properties": {
+        "code": {"type": "string", "maxLength": 64},
+        "value": {"type": "string", "maxLength": 256}
+      }
+    }
+  }
+}

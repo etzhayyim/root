@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.judiciary.judgeReference",
+  "description": "A FACTUAL reference record for a member of the judiciary (name, court, role, official public biography) ingested from pre-published public records into the etzhayyim global judiciary corpus. R0 skeleton per ADR-2605302345 §D4/§D5. CONSTITUTIONAL (G19 — judge-analytics prohibition): this record exists for factual reference ONLY (who presides where). The system MUST NOT evaluate, analyse, compare, score, rank or predict a named judge's practices or decisions. France magistrates fall under loi n°2019-222 art. 33, which makes such reuse a CRIME (Code pénal art. 226-18, up to 5y); `noAnalytics` is the GLOBAL default and is hard-locked true for France. No analytics property (winRate / rulingPrediction / reversalRate / leanScore / decisionTendency / judgeScore / predictedOutcome) is representable at the schema layer. Ingestion is passive-only (danjo G3); litigant/third-party PII is pseudonymized (G6/D6).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdiction",
+          "courtId",
+          "judgeName",
+          "role",
+          "sourceRecordCids",
+          "noAnalytics",
+          "pseudonymizationApplied",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "ISO jurisdiction, e.g. fra. For fra, noAnalytics is criminally mandated (loi 2019-222 art.33)."
+          },
+          "courtId": {
+            "type": "string",
+            "description": "Reference to com.etzhayyim.judiciary.court record."
+          },
+          "judgeName": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Public name as published. Factual identity only."
+          },
+          "role": {
+            "type": "string",
+            "knownValues": [
+              "presiding",
+              "associate",
+              "magistrate",
+              "appellate",
+              "supreme",
+              "registrar"
+            ],
+            "description": "Factual role. NOT a performance metric."
+          },
+          "publicBioCid": {
+            "type": "string",
+            "description": "Optional CID of the official public biography (court-published)."
+          },
+          "sourceRecordCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "≥1 pre-published public-record CID (passive-ingestion provenance, danjo G3/G5)."
+          },
+          "noAnalytics": {
+            "type": "boolean",
+            "const": true,
+            "description": "G19 anchor — MUST be true. Profiling/scoring/prediction of this judge is prohibited (criminal in France)."
+          },
+          "pseudonymizationApplied": {
+            "type": "boolean",
+            "const": true,
+            "description": "Litigant/third-party PII in associated decisions is pseudonymized before projection (D6)."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

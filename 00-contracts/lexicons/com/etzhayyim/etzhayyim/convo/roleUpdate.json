@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.roleUpdate",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "memberDid": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId",
+          "memberDid",
+          "role",
+          "updatedAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.provenanceResearch.flagProvenanceGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provenance gap / spoliation / stolen art flag (bridges culturalRepatriation.flagDeaccessioning + cultural-heritage + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "dossierVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "dossierVid": {
+              "type": "string",
+              "description": "bridges recordDossier"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "unknown_1933_45",
+                "forced_sale",
+                "escape_value",
+                "post_war_aryanized",
+                "colonial_looting",
+                "illicit_trade",
+                "limitation_trumps",
+                "indirect_chain",
+                "unclear_ownership_transfer",
+                "unsubstantiated_gift"
+              ]
+            },
+            "confidenceTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "confirmed_illicit"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

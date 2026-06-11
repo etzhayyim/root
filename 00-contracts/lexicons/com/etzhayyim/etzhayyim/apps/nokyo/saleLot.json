@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.nokyo.saleLot",
+  "description": "共販ロット (JA 集荷 → 全農 → 卸売市場 / 輸出 / 直販)。米・青果・畜産の規格 (等級) と数量を記録。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["lotId", "cropPlanId", "productName", "quantityKg"],
+        "properties": {
+          "lotId": { "type": "string" },
+          "cropPlanId": { "type": "string" },
+          "memberId": { "type": "string" },
+          "coopPath": { "type": "string" },
+          "productName": { "type": "string" },
+          "grade": { "type": "string", "description": "等級 (例 秀 / 優 / 良 / 1等米 / 2等米)" },
+          "quantityKg": { "type": "number" },
+          "harvestDate": { "type": "string", "format": "date" },
+          "shippedDate": { "type": "string", "format": "date" },
+          "destination": { "type": "string", "enum": ["market", "export", "direct", "processing"], "description": "卸売市場 / 輸出 / 直販 / 加工" },
+          "buyerName": { "type": "string" },
+          "priceJpyPerKg": { "type": "number" }
+        }
+      }
+    }
+  }
+}

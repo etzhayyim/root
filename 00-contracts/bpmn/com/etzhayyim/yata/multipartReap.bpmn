@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yatabase.etzhayyim.com — abandoned multipart upload reap (autonomous, R/PT6H).
+
+  Find vertex_yata_multipart rows where status='active' AND expires_at < now,
+  call provider AbortMultipartUpload to free the in-progress part bytes,
+  then UPDATE status='aborted'. Without this, B2 / Vultr OS hold parts
+  forever (and bill the customer for them) when a client crashes mid-upload.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_multipart_reap"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_multipart_reap" name="yata multipart reap (6h)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 6 hours">
+      <bpmn:outgoing>Flow_ToReap</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Reap" name="abort expired multipart uploads">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.multipart.reap"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=aborted" target="aborted"/>
+          <zeebe:output source="=bytesFreed" target="bytesFreed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToReap</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToReap" sourceRef="StartTimer" targetRef="Task_Reap"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.yata.multipartReap&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;aborted&quot;: aborted, &quot;bytesFreed&quot;: bytesFreed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Reap" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

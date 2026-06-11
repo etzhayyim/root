@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  id="Definitions_gyosei_stay_urgency"
+  name="gyosei_stay_urgency"
+  namespace="https://etzhayyim.ai/dmn/gyosei">
+  <decision id="gyosei_stay_urgency" name="gyosei_stay_urgency">
+    <decisionTable id="DecisionTable_gyosei_stay_urgency" hitPolicy="FIRST">
+      <input id="Input_irreparableHarmLevel">
+        <inputExpression id="InputExpression_irreparableHarmLevel" typeRef="string"><text>irreparableHarmLevel</text></inputExpression>
+      </input>
+      <input id="Input_urgencyLevel">
+        <inputExpression id="InputExpression_urgencyLevel" typeRef="string"><text>urgencyLevel</text></inputExpression>
+      </input>
+      <input id="Input_publicInterestRisk">
+        <inputExpression id="InputExpression_publicInterestRisk" typeRef="string"><text>publicInterestRisk</text></inputExpression>
+      </input>
+      <output id="Output_recommendation" label="recommendation" typeRef="string" name="recommendation"/>
+      <output id="Output_priority" label="priority" typeRef="string" name="priority"/>
+      <rule id="StayRule_1">
+        <inputEntry id="StayRule_1_ie1"><text>"high"</text></inputEntry>
+        <inputEntry id="StayRule_1_ie2"><text>"high"</text></inputEntry>
+        <inputEntry id="StayRule_1_ie3"><text>"low"</text></inputEntry>
+        <outputEntry id="StayRule_1_oe1"><text>"seek-stay-immediately"</text></outputEntry>
+        <outputEntry id="StayRule_1_oe2"><text>"urgent"</text></outputEntry>
+      </rule>
+      <rule id="StayRule_2">
+        <inputEntry id="StayRule_2_ie1"><text>"high"</text></inputEntry>
+        <inputEntry id="StayRule_2_ie2"><text>"medium"</text></inputEntry>
+        <inputEntry id="StayRule_2_ie3"><text>"medium"</text></inputEntry>
+        <outputEntry id="StayRule_2_oe1"><text>"seek-stay-with-balancing-note"</text></outputEntry>
+        <outputEntry id="StayRule_2_oe2"><text>"high"</text></outputEntry>
+      </rule>
+      <rule id="StayRule_3">
+        <inputEntry id="StayRule_3_ie1"><text>-</text></inputEntry>
+        <inputEntry id="StayRule_3_ie2"><text>-</text></inputEntry>
+        <inputEntry id="StayRule_3_ie3"><text>"high"</text></inputEntry>
+        <outputEntry id="StayRule_3_oe1"><text>"manual-public-interest-check"</text></outputEntry>
+        <outputEntry id="StayRule_3_oe2"><text>"high"</text></outputEntry>
+      </rule>
+      <rule id="StayRule_4">
+        <inputEntry id="StayRule_4_ie1"><text>-</text></inputEntry>
+        <inputEntry id="StayRule_4_ie2"><text>-</text></inputEntry>
+        <inputEntry id="StayRule_4_ie3"><text>-</text></inputEntry>
+        <outputEntry id="StayRule_4_oe1"><text>"standard-review"</text></outputEntry>
+        <outputEntry id="StayRule_4_oe2"><text>"normal"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

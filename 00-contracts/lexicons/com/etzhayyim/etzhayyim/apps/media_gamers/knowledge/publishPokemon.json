@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.knowledge.publishPokemon",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a Pokémon pokedex entry scoped by game_slug. Moves & evolutions should be emitted separately via graph edges (edge_pokemon_has_move / edge_pokemon_evolves_to) — not part of this record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["game_slug", "slug", "name", "types"],
+          "properties": {
+            "game_slug": { "type": "string" },
+            "slug": { "type": "string" },
+            "name": { "type": "string" },
+            "dex_no": { "type": "integer" },
+            "form": { "type": "string" },
+            "types": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "abilities": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "base_stats": { "type": "ref", "ref": "com.etzhayyim.apps.media_gamers.record.pokemon#stats" },
+            "habitat": { "type": "string" },
+            "catch_rate": { "type": "integer" },
+            "base_exp": { "type": "integer" },
+            "generation": { "type": "integer" },
+            "is_mega": { "type": "boolean" },
+            "mega_base_slug": { "type": "string" },
+            "height_cm": { "type": "integer" },
+            "weight_hg": { "type": "integer" },
+            "lang": { "type": "string", "default": "en" },
+            "sources": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "pokemon_id": { "type": "string" },
+            "record": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

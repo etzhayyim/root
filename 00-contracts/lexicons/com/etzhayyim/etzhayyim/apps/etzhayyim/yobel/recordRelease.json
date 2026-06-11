@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.yobel.recordRelease",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "個別 debt の release を記録する。releaseMethod=base_l2_transfer の場合は baseL2TxHash 必須 (USDC settlement)。voluntary_bookkeeping は creditor の帳簿上 forgiveness のみ。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "releaseId",
+            "riteId",
+            "debtId",
+            "debtorDid",
+            "creditorDid",
+            "releaseMethod",
+            "releasedMicroUsdc",
+            "releasedAt"
+          ],
+          "properties": {
+            "releaseId": {
+              "type": "string"
+            },
+            "riteId": {
+              "type": "string"
+            },
+            "debtId": {
+              "type": "string",
+              "description": "Refers to debtItem.debtId from enrollCreditor"
+            },
+            "debtorDid": {
+              "type": "string"
+            },
+            "creditorDid": {
+              "type": "string"
+            },
+            "releaseMethod": {
+              "type": "string",
+              "enum": [
+                "voluntary_bookkeeping",
+                "base_l2_transfer",
+                "court_order",
+                "sovereign_decree",
+                "ecclesiastical_indulgence"
+              ]
+            },
+            "baseL2TxHash": {
+              "type": "string",
+              "description": "Required when releaseMethod=base_l2_transfer. Hex tx hash on Base L2."
+            },
+            "releasedMicroUsdc": {
+              "type": "integer",
+              "description": "Amount released in micro-USDC (1 USDC = 1_000_000)"
+            },
+            "releasedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "releaseId": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

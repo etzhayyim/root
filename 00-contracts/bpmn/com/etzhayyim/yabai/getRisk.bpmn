@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.getRisk — migration of cmdGetRisk.
+
+  Flow:
+    Start (entityId)
+      → generic.db.select (vertex_yabai_risk WHERE entity_id=?
+                           ORDER BY scored_at DESC LIMIT 1)
+      → End
+
+  Output shape note: TS handler returns the row directly. BPMN returns
+  `{ rows: [row], rowCount: 1 }`. Callers read `variables.rows[0]`.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yabai_get_risk"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="yabai_get_risk" name="yabai get risk" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Select"/>
+    <bpmn:serviceTask id="Task_Select" name="select latest risk score">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_risk&quot;" target="table"/>
+          <zeebe:input source="=&quot;entity_id = %s&quot;"    target="whereExpr"/>
+          <zeebe:input source="=[string(entityId)]"            target="whereParams"/>
+          <zeebe:input source="=1"                             target="limit"/>
+          <zeebe:input source="=&quot;scored_at DESC&quot;"    target="orderBy"/>
+          <zeebe:output source="=rows"     target="rows"/>
+          <zeebe:output source="=rowCount" target="rowCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Select" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

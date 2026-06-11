@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.arxiv.searchPapers",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search arXiv for papers matching a structured query. Returns an Atom 1.0 feed. Either `searchQuery` or `idList` (or both) must be supplied. The Atom XML is returned verbatim — parsing belongs to the caller cell.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "arxiv.org",
+      "x-yorishiro-transport": "openapi-v3",
+      "x-yorishiro-http": {
+        "method": "GET",
+        "pathTemplate": "/query",
+        "responseContentType": "application/atom+xml",
+        "pathParams": [],
+        "queryParams": [
+          "search_query",
+          "id_list",
+          "start",
+          "max_results",
+          "sortBy",
+          "sortOrder"
+        ],
+        "bodyParams": []
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "search_query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "arXiv structured query (e.g. `cat:cs.AI AND ti:transformer`). At least one of `search_query` or `id_list` must be present."
+          },
+          "id_list": {
+            "type": "string",
+            "maxLength": 4096,
+            "description": "Comma-separated list of arXiv ids (e.g. `2310.06825,2401.04088`)."
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Result offset for paging (0-based)."
+          },
+          "max_results": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2000,
+            "default": 10,
+            "description": "Page size. arXiv caps this near 2000; the public API recommends ≤100 per call."
+          },
+          "sortBy": {
+            "type": "string",
+            "enum": [
+              "relevance",
+              "lastUpdatedDate",
+              "submittedDate"
+            ],
+            "default": "relevance",
+            "description": "Sort key."
+          },
+          "sortOrder": {
+            "type": "string",
+            "enum": [
+              "ascending",
+              "descending"
+            ],
+            "default": "descending",
+            "description": "Sort direction."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "httpStatus"
+          ],
+          "properties": {
+            "httpStatus": {
+              "type": "integer"
+            },
+            "body": {
+              "type": "string",
+              "description": "Raw application/atom+xml body from kami."
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

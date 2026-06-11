@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package aima.concierge.v1;
+
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-concierge/gen/aima/concierge/v1;conciergev1";
+
+service ConciergeService {
+  // Provides conversational advice and ice-breakers
+  rpc GetAdvice(GetAdviceRequest) returns (GetAdviceResponse);
+  
+  // Suggests date venues and activities based on matched profiles
+  rpc SuggestDate(SuggestDateRequest) returns (SuggestDateResponse);
+  
+  // Coordinates schedules between two users for a date
+  rpc CoordinateSchedule(CoordinateScheduleRequest) returns (CoordinateScheduleResponse);
+
+  // Performs a fashion check using AGI vision
+  rpc FashionCheck(FashionCheckRequest) returns (FashionCheckResponse);
+
+  // Analyzes speaking style and personality traits in conversation
+  rpc AnalyzeSpeakingStyle(AnalyzeSpeakingStyleRequest) returns (AnalyzeSpeakingStyleResponse);
+
+  // Provides "Well-becoming" coaching tips
+  rpc GetWellBecomingTips(GetWellBecomingTipsRequest) returns (GetWellBecomingTipsResponse);
+}
+
+message GetAdviceRequest {
+  string user_id = 1;
+  string match_id = 2;
+  string context = 3; 
+}
+
+message GetAdviceResponse {
+  string advice_text = 1;
+  repeated string ice_breakers = 2;
+}
+
+message SuggestDateRequest {
+  string user_a_id = 1;
+  string user_b_id = 2;
+  string preferred_area = 3;
+}
+
+message SuggestDateResponse {
+  repeated Venue options = 1;
+}
+
+message CoordinateScheduleRequest {
+  string user_a_id = 1;
+  string user_b_id = 2;
+  string venue_id = 3;
+}
+
+message CoordinateScheduleResponse {
+  bool success = 1;
+  string scheduled_time = 2;
+  string meeting_point = 3;
+}
+
+message FashionCheckRequest {
+  string user_id = 1;
+  bytes image_data = 2; // User photo for fashion check
+  string context = 3; // e.g., "First date at a cafe"
+}
+
+message FashionCheckResponse {
+  string evaluation = 1;
+  repeated string improvement_tips = 2;
+  int32 confidence_score = 3;
+}
+
+message AnalyzeSpeakingStyleRequest {
+  string user_id = 1;
+  string audio_url = 2; // Link to voice record or real-time stream
+}
+
+message AnalyzeSpeakingStyleResponse {
+  string clarity_score = 1;
+  string emotional_tone = 2; // e.g., "Warm", "Anxious", "Confident"
+  repeated string personality_notes = 3; // "You tend to interrupt slightly, try pausing"
+  repeated string coaching_exercises = 4;
+}
+
+message GetWellBecomingTipsRequest {
+  string user_id = 1;
+  string category = 2; // e.g., "General", "Fashion", "Speaking"
+}
+
+message GetWellBecomingTipsResponse {
+  repeated string daily_habits = 1;
+  string inspirational_message = 2;
+}
+
+message Venue {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string location = 4;
+  string image_url = 5;
+}

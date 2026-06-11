@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.copyright.socialCoverageReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate and post a delta-aware copyright coverage social post. Skips if total count delta < minDelta.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "minDelta": {"type": "integer", "default": 10, "minimum": 0, "description": "Minimum new works since last post to trigger a post"},
+            "forcePost": {"type": "boolean", "default": false, "description": "Skip delta check and always post"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "posted", "skipped"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "posted": {"type": "boolean"},
+            "skipped": {"type": "boolean"},
+            "totalWorks": {"type": "integer"},
+            "delta": {"type": "integer"},
+            "postText": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

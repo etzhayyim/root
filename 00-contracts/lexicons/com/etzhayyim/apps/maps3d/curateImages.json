@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps3d.curateImages",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "LangGraph multi-step image curation. Input is the full Mapillary candidate set; output is 20-40 selected image IDs ordered by SfM utility. Nodes: score_quality (heuristic resolution + blur EXIF) → score_coverage (azimuthal + baseline diversity) → llm_dedupe (Murakumo Vision LLM near-dup collapse) → decide_count. Selected count caps COLMAP memory at ~16 GiB on a single CPU pod.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "candidates"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "candidates": { "type": "array", "items": { "type": "unknown" } },
+            "targetCount": { "type": "integer", "description": "Soft target for selected image count. Default 30." },
+            "minCount": { "type": "integer", "description": "Below this, mark tile as unreconstructable. Default 8." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "selectedIds", "reason"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "selectedIds": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Mapillary image IDs picked for COLMAP, ordered by descending utility."
+            },
+            "selectedCount": { "type": "integer" },
+            "reason": { "type": "string", "description": "Human-readable rationale; surfaced into vertex_langgraph_state.audit_json." },
+            "abort": { "type": "boolean", "description": "True if minCount not met; downstream tasks must short-circuit." }
+          }
+        }
+      }
+    }
+  }
+}

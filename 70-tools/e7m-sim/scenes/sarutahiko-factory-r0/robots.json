@@ -1,0 +1,116 @@
+{
+  "robots": [
+    {
+      "id": "robot:doboku",
+      "name": "自動運転建機 (掘削/造成/転圧/舗装)",
+      "type": "earthworks-uev",
+      "reach_m": 9.0,
+      "base": [
+        7.0,
+        3.4
+      ],
+      "cycle_min": 30.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "field-trial"
+    },
+    {
+      "id": "robot:crane",
+      "name": "自律タワー/クローラクレーン (重量鉄骨建方)",
+      "type": "heavy-lift-crane",
+      "reach_m": 24.0,
+      "base": [
+        8.0,
+        8.0
+      ],
+      "cycle_min": 18.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "human-collab"
+    },
+    {
+      "id": "robot:rebar",
+      "name": "鉄筋結束ロボット",
+      "type": "rebar-tier",
+      "reach_m": 1.4,
+      "base": [
+        1.6,
+        1.1
+      ],
+      "cycle_min": 2.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:printer",
+      "name": "コンクリート3Dプリンタ/均しロボ",
+      "type": "concrete-deposition",
+      "reach_m": 6.0,
+      "base": [
+        9.0,
+        9.0
+      ],
+      "cycle_min": 1.0,
+      "mobile": true,
+      "process": "deposition",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:bolter",
+      "name": "鉄骨ボルト締め/溶接ロボット",
+      "type": "steel-fastening",
+      "reach_m": 3.0,
+      "base": [
+        2.4,
+        2.4
+      ],
+      "cycle_min": 6.0,
+      "mobile": true,
+      "process": "thermal-weld",
+      "maturity": "human-collab"
+    },
+    {
+      "id": "robot:panel",
+      "name": "外装/屋根パネル設置ロボット",
+      "type": "panel-placement",
+      "reach_m": 4.0,
+      "base": [
+        3.4,
+        2.4
+      ],
+      "cycle_min": 12.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:mep",
+      "name": "MEP設置/天井穿孔ロボット",
+      "type": "mep-install",
+      "reach_m": 3.4,
+      "base": [
+        1.9,
+        1.9
+      ],
+      "cycle_min": 8.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    },
+    {
+      "id": "robot:fitout",
+      "name": "重量機械据付ロボット + AGV",
+      "type": "fitout-agv",
+      "reach_m": 2.6,
+      "base": [
+        2.6,
+        1.6
+      ],
+      "cycle_min": 15.0,
+      "mobile": true,
+      "process": "none",
+      "maturity": "partial"
+    }
+  ]
+}

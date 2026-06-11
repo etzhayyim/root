@@ -1,0 +1,85 @@
+;; tsutae-factory-r0 — 生産工程 (manufacturing line / 製造プロセス),
+;; Datomic-style EDN. SSoT for HOW a finished 伝え handheld is MADE — the ordered
+;; line stations a device flows through, station-by-station, from component receiving
+;; to ship-out + EOL. PRODUCTION counterpart of `construction.edn` (which builds the
+;; CLEANROOM); the two are distinct layers (ADR-2606013100 §1 pattern).
+;;
+;; Each station maps to one of the 8 tsutae Pregel cells (20-actors/tsutae/cells):
+;;   print+place+reflow+aoi → pcb_smt · chassis → chassis_assembly ·
+;;   display → display_attachment · firmware → firmware_load · qc → final_qc ·
+;;   pack → packaging · attest → device_attestation · eol → recycling_intake.
+;;
+;; `production_gen.py` validates this against the scene + building BOM and emits:
+;;   - production.order.json — flat station list consumed by the kami-app
+;;     `run_tsutae_factory_produce_v1` entry (a device advances through these
+;;     stations on the conveyor; the assigned line robot works it).
+;;   - production_ingest.json — prod/* + mfgop/* kotoba EAVT datoms.
+;;
+;; :station/op      receive | smt-print | smt-place | reflow | aoi | chassis |
+;;                  display | firmware | qc | pack | attest | eol
+;; :station/cell    line robot servicing the station (scene cell id)
+;; :station/x :station/y  plan position the device occupies AT this station
+;; :station/cycle-s nominal takt dwell (seconds)
+;; :station/consumes building.edn :part/id drawn here (device dev:* or supply bld:*)
+;; :station/maps-cell  the tsutae Pregel cell that governs this station
+
+{:prod/meta
+ {:prod/of      "tsutae-factory-r0"
+  :prod/revision "v1"
+  :prod/title   "伝え handheld — R0 production line (受入→SMT→筐体→ディスプレイ→FW→QC→梱包→出荷 / EOL)"
+  :prod/takt-s  144
+  :prod/rate-note "≤200 devices / 8-hr line (G12 anti-mass-production; NOT Samsung-class scale)"
+  :prod/note    "R0 design line for the ADR-2605261300 8-cell process. The device flows along the conveyor spine; the EOL bench is a separate take-back path. Cycle times are representative takt figures, NOT a balanced-line study. Capability inactive (cells are R0 scaffold); this is the production-flow SIMULATION."}
+
+ :prod/stations
+ [{:station/id "st:01-recv"     :station/seq 1  :station/op "receive"
+   :station/name "受入 Component receiving" :station/x -23 :station/y 0 :station/cycle-s 10
+   :station/consumes ["dev:P01-soc" "dev:P02-pmic" "dev:P03-dram" "dev:P04-storage" "dev:P05-pcb"
+                      "dev:P06-passives" "dev:P13-wifi" "dev:P20-imu"]}
+
+  {:station/id "st:02-print"    :station/seq 2  :station/op "smt-print" :station/maps-cell "pcb_smt"
+   :station/name "ソルダーペースト印刷 Stencil print" :station/x -20 :station/y 0 :station/cycle-s 12
+   :station/consumes ["bld:F1-stencil" "bld:L2-solderpaste" "dev:P05-pcb"]}
+
+  {:station/id "st:03-place"    :station/seq 3  :station/op "smt-place" :station/maps-cell "pcb_smt"
+   :station/name "実装 Pick-and-place (Tedama)" :station/x -15 :station/y 0 :station/cell "cell_smt_1" :station/cycle-s 30
+   :station/consumes ["bld:F2-pnp" "dev:P01-soc" "dev:P02-pmic" "dev:P03-dram" "dev:P04-storage"
+                      "dev:P06-passives" "dev:P13-wifi" "dev:P20-imu"]}
+
+  {:station/id "st:04-reflow"   :station/seq 4  :station/op "reflow" :station/maps-cell "pcb_smt"
+   :station/name "リフロー Reflow (N2)" :station/x -10 :station/y 0 :station/cycle-s 16
+   :station/consumes ["bld:F3-reflow" "bld:E4-n2"]}
+
+  {:station/id "st:05-aoi"      :station/seq 5  :station/op "aoi" :station/maps-cell "pcb_smt"
+   :station/name "AOI + X線検査 (Mimi)" :station/x -5 :station/y 0 :station/cell "cell_qc_1" :station/cycle-s 14
+   :station/consumes ["bld:F4-aoi" "bld:F5-xray"]}
+
+  {:station/id "st:06-chassis"  :station/seq 6  :station/op "chassis" :station/maps-cell "chassis_assembly"
+   :station/name "筐体組立 Chassis assembly (Otete)" :station/x 3 :station/y 0 :station/cell "cell_chassis_1" :station/cycle-s 34
+   :station/consumes ["bld:F6-chassisbench" "dev:P07-battery" "dev:P10-camera" "dev:P11-usbc"
+                      "dev:P12-cellular" "dev:P14-speaker" "dev:P15-mic" "dev:P16-chassis"
+                      "dev:P17-fasteners" "dev:P18-antenna" "dev:P19-haptic"]}
+
+  {:station/id "st:07-display"  :station/seq 7  :station/op "display" :station/maps-cell "display_attachment"
+   :station/name "ディスプレイ貼合 Display lamination (Hitogata, class-A)" :station/x 10 :station/y 0 :station/cell "cell_display_1" :station/cycle-s 24
+   :station/consumes ["bld:F7-laminator" "dev:P08-display" "dev:P09-touch"]}
+
+  {:station/id "st:08-firmware" :station/seq 8  :station/op "firmware" :station/maps-cell "firmware_load"
+   :station/name "ファームウェア書込 Firmware flash (open, unlock-default)" :station/x 14 :station/y 0 :station/cycle-s 18
+   :station/consumes ["bld:F8-flashrack"]}
+
+  {:station/id "st:09-qc"       :station/seq 9  :station/op "qc" :station/maps-cell "final_qc"
+   :station/name "最終QC + RF (cellular-off, G8 UX audit)" :station/x 19 :station/y 0 :station/cell "cell_qc_1" :station/cycle-s 20
+   :station/consumes ["bld:F9-rfchamber" "bld:F10-qcbench"]}
+
+  {:station/id "st:10-pack"     :station/seq 10 :station/op "pack" :station/maps-cell "packaging"
+   :station/name "梱包 Packaging (plastic-free + 日英 iFixit 手引)" :station/x 22 :station/y 6 :station/cycle-s 12
+   :station/consumes ["bld:F11-packstation" "bld:L3-pulp"]}
+
+  {:station/id "st:11-attest"   :station/seq 11 :station/op "attest" :station/maps-cell "device_attestation"
+   :station/name "デバイス認証 Device DID + BoM lineage (≥2 robot sig)" :station/x 22 :station/y 10 :station/cycle-s 8
+   :station/consumes []}
+
+  {:station/id "st:12-eol"      :station/seq 12 :station/op "eol" :station/maps-cell "recycling_intake"
+   :station/name "EOL 回収・解体 Take-back dismantle → kanayama" :station/x 22 :station/y -8 :station/cell "cell_chassis_1" :station/cycle-s 20
+   :station/consumes ["bld:F12-eolbench"]}]}

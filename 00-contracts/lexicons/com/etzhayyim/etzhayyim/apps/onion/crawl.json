@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.onion.crawl",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A crawl session record for a .onion host.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["onionHost", "startedAt"],
+        "properties": {
+          "onionHost":  { "type": "string" },
+          "sessionId":  { "type": "string" },
+          "startedAt":  { "type": "string", "format": "datetime" },
+          "finishedAt": { "type": "string", "format": "datetime" },
+          "pageCount":  { "type": "integer" },
+          "errorCount": { "type": "integer" },
+          "reachable":  { "type": "boolean" },
+          "errorMsg":   { "type": "string" }
+        }
+      }
+    }
+  }
+}

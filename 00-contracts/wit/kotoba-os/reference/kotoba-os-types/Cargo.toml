@@ -1,0 +1,19 @@
+# kotoba-os reference types crate (ADR-2606031600 R1 scaffold).
+# Standalone (own [workspace] table) so the parent monorepo's Rust workspaces
+# never adopt it; this is a spec/reference crate, not the production kotoba-os
+# crate (which lands in the 40-engine/kotoba subrepo via upstream coordination).
+[package]
+name = "kotoba-os-types"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Reference Rust types for the kotoba-os genesis manifest + LowerEdge trait (ADR-2606031600)"
+
+[workspace]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+blake3 = "1"
+
+[dev-dependencies]
+serde_json = "1.0"

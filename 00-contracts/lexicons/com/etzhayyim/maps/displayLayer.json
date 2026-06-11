@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.displayLayer",
+  "description": "Operator-defined display layer for KAMI rendering. One record per logical layer that overlays the base map (e.g., 'tokyo-real-estate-heatmap', 'jp-seismic-7day'). The layer references a source DID and a MapLibre style spec. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{layerId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "layerId",
+          "name",
+          "sourceDid",
+          "kind",
+          "createdAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "layerId": {
+            "type": "string",
+            "description": "Operator-chosen kebab-case identifier.",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name.",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Source DID this layer derives from (matches an com.etzhayyim.maps.source record)."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Render kind — drives the KAMI shader path.",
+            "knownValues": [
+              "fill",
+              "line",
+              "circle",
+              "symbol",
+              "extrude",
+              "heatmap",
+              "raster",
+              "gsplat"
+            ]
+          },
+          "zoomMin": {
+            "type": "integer",
+            "description": "Minimum zoom level at which the layer is visible.",
+            "minimum": 0,
+            "maximum": 24
+          },
+          "zoomMax": {
+            "type": "integer",
+            "description": "Maximum zoom level at which the layer is visible.",
+            "minimum": 0,
+            "maximum": 24
+          },
+          "styleSpec": {
+            "type": "unknown",
+            "description": "MapLibre style spec object for the layer (paint, layout, filter). Free-form to avoid lockstep with MapLibre version."
+          },
+          "labelCoordinatorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Optional reference to the KAMI layer coordinator that hosts this display layer (com.etzhayyim.maps.layerCoordinator)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesLayerId": {
+            "type": "string",
+            "description": "If this layer revises an earlier definition (style change, source swap), name the prior layerId. Old layer remains rkey-addressable for replay."
+          }
+        }
+      }
+    }
+  }
+}

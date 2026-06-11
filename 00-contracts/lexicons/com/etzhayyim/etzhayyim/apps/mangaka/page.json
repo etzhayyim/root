@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.page",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a single manga page. Carries the facet/embed source fields consumed by the derive rule `page-published-social` in kotodama.jsonld to auto-emit a thread-reply app.bsky.feed.post. The page image is carried as app.bsky.embed.recordWithMedia (record = strongRef to self; media = embed.images with compositedImageCid); charactersAppearing[] becomes facet#mention entries; the chapterRef is resolved via the derive engine's {{derived(record.chapterRef).strongRef}} expression to set reply.root / reply.parent for thread continuity.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["chapterRef", "pageNum", "compositedImageCid", "altText", "createdAt"],
+        "properties": {
+          "chapterRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "strongRef to com.etzhayyim.apps.mangaka.chapter. Resolved by derive engine to set reply.root/parent on the derived post (threaded after the chapter-published post)."
+          },
+          "pageNum": {
+            "type": "integer",
+            "description": "Page number within the chapter (1-indexed)."
+          },
+          "compositedImageCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the composited full-page image (layers flattened, uploaded via com.atproto.repo.uploadBlob). Consumed by derive rule as embed.recordWithMedia.media.images[0].image. Target dimensions: portrait PNG, W=1080 H≈1920 for mobile-comfortable reading."
+          },
+          "altText": {
+            "type": "string",
+            "description": "Alt text for the page image (a11y). Recommended to include speaker-attributed dialogue + panel-order summary."
+          },
+          "width": {
+            "type": "integer",
+            "description": "Pixel width of compositedImageCid. Used for embed.images[].aspectRatio.width."
+          },
+          "height": {
+            "type": "integer",
+            "description": "Pixel height of compositedImageCid. Used for embed.images[].aspectRatio.height."
+          },
+          "panels": {
+            "type": "array",
+            "description": "Per-panel geometry + dialogue. Not exposed in the derived post directly; used by the full-screen reader (mangaka.etzhayyim.com/at/...) for panel-level navigation, and by yabai-style LLM downstream workers for per-panel analysis.",
+            "items": { "type": "ref", "ref": "#panel" }
+          },
+          "charactersAppearing": {
+            "type": "array",
+            "description": "Characters appearing on this page (subset of chapter.charactersAppearing). Derive rule expands each into app.bsky.richtext.facet#mention with did = did:web:mangaka.etzhayyim.com:character:{slug}. Keep the list tight (page-scope) to avoid mention spam in the thread reply.",
+            "items": { "type": "ref", "ref": "com.etzhayyim.apps.mangaka.chapter#characterAppearance" }
+          },
+          "layersCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the KAMI Engine native layered document (ink / tone / color / sketch). Consumed by the full-screen reader for editable load; not used by the derived social post."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "panel": {
+      "type": "object",
+      "description": "Inline panel geometry within a page. Mirrors com.etzhayyim.apps.mangaka.panel record fields for embedded read models; panel records may still be created separately if per-panel federated addressing is needed.",
+      "required": ["x", "y", "w", "h", "order"],
+      "properties": {
+        "x":     { "type": "number", "description": "Top-left x in normalized [0,1] page coordinates." },
+        "y":     { "type": "number", "description": "Top-left y in normalized [0,1] page coordinates." },
+        "w":     { "type": "number", "description": "Panel width in normalized [0,1] page coordinates." },
+        "h":     { "type": "number", "description": "Panel height in normalized [0,1] page coordinates." },
+        "order": { "type": "integer", "description": "Read order within the page (1-indexed, right-to-left JP convention honored by reader)." },
+        "speakers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Character slugs speaking in this panel (subset of page.charactersAppearing). Used by alt-text generator + per-panel LLM analysis."
+        },
+        "contentCid": {
+          "type": "string",
+          "format": "cid",
+          "description": "Optional blob CID of the panel-only cropped image (for per-panel federated sharing)."
+        }
+      }
+    }
+  }
+}

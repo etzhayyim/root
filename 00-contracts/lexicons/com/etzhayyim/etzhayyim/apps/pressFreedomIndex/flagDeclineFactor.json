@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pressFreedomIndex.flagDeclineFactor",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Decline factor / harassment / license revocation (bridges sourceShieldLaw.flagCompulsoryProcess + transnational-repression + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "pointVid",
+            "factorKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "pointVid": {
+              "type": "string",
+              "description": "bridges recordIndexPoint"
+            },
+            "factorKind": {
+              "type": "string",
+              "enum": [
+                "journalist_killed",
+                "imprisoned",
+                "detained",
+                "harassed_online",
+                "license_revoked",
+                "state_takeover",
+                "defamation_laws",
+                "foreign_agent_laws",
+                "spyware_targeting",
+                "surveillance_legal",
+                "newsroom_raided",
+                "internet_shutdown",
+                "opensrc_seized"
+              ]
+            },
+            "incidentsCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

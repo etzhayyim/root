@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.storage.putObject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Put an object to the storage satellite (bucket/key addressed).",
+      "x-hostImportsMethod": "storagePutObject",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "bucket": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "data": {
+              "type": "string",
+              "description": "base64-encoded bytes"
+            },
+            "contentType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "bucket",
+            "key",
+            "data",
+            "contentType"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "etag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "etag"
+          ]
+        }
+      }
+    }
+  }
+}

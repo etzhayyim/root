@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.script",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for an episode script (脚本). Body is stored as blob; metadata + scene breakdown lives in graph. Derive rule `script-ready-scene-split` auto-creates com.etzhayyim.apps.animeka.scene records when status=ready, invoking the screenwriter actor.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["episodeRef", "status", "createdAt"],
+        "properties": {
+          "episodeRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "strongRef to com.etzhayyim.apps.animeka.episode."
+          },
+          "revision": {
+            "type": "integer",
+            "description": "Script revision number (1 = first draft)."
+          },
+          "bodyCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the script body (.txt / .fountain / .fdx)."
+          },
+          "format": {
+            "type": "string",
+            "enum": ["plain", "fountain", "fdx", "hakoden"],
+            "description": "Script format. 'hakoden' = Japanese anime 箱書き format."
+          },
+          "sceneCount": {
+            "type": "integer",
+            "description": "Parsed scene count (set after scene split)."
+          },
+          "writer": {
+            "type": "string",
+            "description": "Writer DID or handle."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "ready", "locked"],
+            "description": "'ready' triggers scene-split derive rule."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

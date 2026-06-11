@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.climateAdaptationFinance.approveProject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GCF / GEF / AF / LDN climate adaptation project (bridges cofog + water-scarcity + agri-food-security)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "projectId",
+            "fund",
+            "recipientIso3",
+            "sector",
+            "fundingUsd",
+            "approvedAt"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "fund": {
+              "type": "string",
+              "enum": [
+                "GCF",
+                "GEF",
+                "AF",
+                "LDN",
+                "IDA",
+                "IDB",
+                "EBRD",
+                "AIIB",
+                "BILATERAL_ODA"
+              ]
+            },
+            "recipientIso3": {
+              "type": "string"
+            },
+            "implementingLei": {
+              "type": "string"
+            },
+            "sector": {
+              "type": "string",
+              "enum": [
+                "water",
+                "agriculture",
+                "coastal",
+                "forestry",
+                "energy",
+                "infra",
+                "health",
+                "urban"
+              ]
+            },
+            "adaptationPct": {
+              "type": "number",
+              "description": "% allocated to adaptation vs mitigation"
+            },
+            "fundingUsd": {
+              "type": "number"
+            },
+            "waterBasinVid": {
+              "type": "string",
+              "description": "bridges open-water-scarcity"
+            },
+            "harvestVid": {
+              "type": "string",
+              "description": "bridges open-agri-food-security"
+            },
+            "approvedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "scaleTier": {
+              "type": "string",
+              "enum": [
+                "small",
+                "medium",
+                "large"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

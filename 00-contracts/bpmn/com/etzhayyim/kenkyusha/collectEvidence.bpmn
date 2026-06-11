@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_kenkyusha_collect_evidence" targetNamespace="https://etzhayyim.ai/bpmn/kenkyusha">
+  <bpmn:process id="kenkyusha_collect_evidence" name="kenkyusha.collectEvidence" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Task</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Task" sourceRef="Start" targetRef="Task_collectEvidence" />
+    <bpmn:serviceTask id="Task_collectEvidence" name="kenkyusha.collectEvidence">
+      <bpmn:extensionElements><zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kenkyusha.collectEvidence" retries="2" /></bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Task_End" sourceRef="Task_collectEvidence" targetRef="End" />
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

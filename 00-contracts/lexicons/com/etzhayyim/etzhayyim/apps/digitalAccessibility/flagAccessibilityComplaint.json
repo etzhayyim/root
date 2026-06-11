@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalAccessibility.flagAccessibilityComplaint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EAA / ADA / JIS complaint / structured negotiation (bridges antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "complaintId",
+            "complainantCategory",
+            "filedAt"
+          ],
+          "properties": {
+            "complaintId": {
+              "type": "string"
+            },
+            "auditVid": {
+              "type": "string",
+              "description": "bridges recordConformance"
+            },
+            "complainantCategory": {
+              "type": "string",
+              "enum": [
+                "individual",
+                "ngo",
+                "enforcement_body",
+                "competitor"
+              ]
+            },
+            "disabilityCategory": {
+              "type": "string",
+              "enum": [
+                "visual",
+                "hearing",
+                "motor",
+                "cognitive",
+                "speech",
+                "multiple"
+              ]
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "remediated",
+                "settled",
+                "fined",
+                "dismissed",
+                "escalated",
+                "ongoing"
+              ]
+            },
+            "fineUsd": {
+              "type": "number"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_get_reservation" targetNamespace="https://etzhayyim.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="yadoya_get_reservation" name="getReservation" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Lookup"/>
+    <bpmn:serviceTask id="Task_Lookup" name="lookup reservation (Tier 1/2 only)">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <bpmn:documentation>Tier-3 columns (guest_summary_signal_v1, amount_bucket) are
+          intentionally NOT projected here. The yadoya Worker is the
+          authoritative redaction layer for getReservation (XRPC) — this
+          BPMN path mirrors the same column set so an alternate caller
+          (e.g. another BPMN flow) cannot bypass the redaction by going
+          through Zeebe.</bpmn:documentation>
+          <zeebe:input source="=&quot;SELECT vertex_id, reservation_id, hotel_vid, guest_did, checkin, checkout, guests, nights, currency, channel, status, cancelled_at, cancel_reason FROM vertex_yadoya_reservation WHERE reservation_id = $1 LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[reservationId]" target="params"/>
+          <zeebe:output source="=rows" target="reservationRows"/>
+          <zeebe:output source="=rows[1]" target="reservation"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Lookup" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit read">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yadoya.reservation.read&quot;" target="action"/>
+          <zeebe:input source="={reservationId: reservationId, found: reservationRows[1] != null}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

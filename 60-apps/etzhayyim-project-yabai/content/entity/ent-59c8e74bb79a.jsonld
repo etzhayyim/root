@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-59c8e74bb79a",
+  "entityId": "ent-59c8e74bb79a",
+  "canonicalName": "iruta douglas mpamo",
+  "aliases": [
+    "iruta douglas mpamo"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openLei.queryOrgSubtree",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return all org units under a given root (org unit or LEI entity). Uses materialized path prefix scan.",
+      "parameters": {
+        "type": "params",
+        "required": ["lei"],
+        "properties": {
+          "lei":            { "type": "string" },
+          "rootOrgVid":     { "type": "string", "description": "Restrict to subtree of this org unit. Omit for entire LEI." },
+          "orgType":        { "type": "string", "description": "Filter by org_type (division|department|project|committee|team|board|task_force|workgroup|office|bureau)." },
+          "statusFilter":   { "type": "string", "description": "active|dissolved|all — default active." },
+          "maxDepth":       { "type": "integer", "description": "Maximum depth relative to root. Omit for unlimited." },
+          "limit":          { "type": "integer", "default": 100 },
+          "offset":         { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "units"],
+          "properties": {
+            "ok":     { "type": "boolean" },
+            "units":  {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId":      { "type": "string" },
+                  "lei":           { "type": "string" },
+                  "orgType":       { "type": "string" },
+                  "name":          { "type": "string" },
+                  "nameEn":        { "type": "string" },
+                  "code":          { "type": "string" },
+                  "path":          { "type": "string" },
+                  "level":         { "type": "integer" },
+                  "status":        { "type": "string" },
+                  "parentOrgVid":  { "type": "string" },
+                  "purpose":       { "type": "string" },
+                  "validFrom":     { "type": "string" },
+                  "validUntil":    { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "limit":  { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

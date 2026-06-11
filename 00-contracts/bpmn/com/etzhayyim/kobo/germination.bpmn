@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kobo_germination" targetNamespace="https://etzhayyim.ai/bpmn/kobo" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="kobo_germination" name="germination" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Germinate"/>
+    <bpmn:serviceTask id="Task_Germinate" name="germinate">
+      <bpmn:extensionElements><zeebe:taskDefinition type="kobo.germinate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=sporeVertexId" target="sporeVertexId"/>
+          <zeebe:input source="=quorumN" target="quorumN"/>
+          <zeebe:input source="=newAgentDid" target="newAgentDid"/>
+          <zeebe:input source="=newAgentVertexId" target="newAgentVertexId"/>
+          <zeebe:input source="=originAgentDid" target="originAgentDid"/>
+          <zeebe:input source="=restoredEta" target="restoredEta"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:output source="=germinated" target="germinated"/>
+          <zeebe:output source="=confirmedCount" target="confirmedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Q" sourceRef="Task_Germinate" targetRef="Gate_Germinated"/>
+    <bpmn:exclusiveGateway id="Gate_Germinated" name="germinated?">
+      <bpmn:incoming>Flow_Q</bpmn:incoming>
+      <bpmn:outgoing>Flow_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Yes" sourceRef="Gate_Germinated" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=germinated = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_No" sourceRef="Gate_Germinated" targetRef="End_Reject"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;kobo.germinate&quot;" target="action"/>
+          <zeebe:input source="={sporeVertexId: sporeVertexId, newAgentDid: newAgentDid, confirmedCount: confirmedCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Yes</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_Reject" name="quorum-not-met"><bpmn:incoming>Flow_No</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

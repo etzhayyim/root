@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mitate.diagnosticConsentReceipt",
+  "description": "Per-order immutable consent receipt for 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法 / GDPR Art. 9 special category / HIPAA PHI equivalent) transfer to an external clinical laboratory or to iyashi internal phlebotomy. Binds 1:1 to a `mitate.diagnosticOrder` via `orderRefCid`. Per ADR-2605281950 GC (mandatory, non-back-datable, revocable until 30d after result delivery) + ADR-2605181100 (encrypted envelope substrate) + ADR-2605260100 G7 (sealed-recipient set structurally excludes insurance / employer / advertiser / state-aligned entities). Template version is annually reviewed by chigiri (ADR-2605262700) per ADR-2605281950 §D2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "consentReceiptId",
+          "patientPseudonymDid",
+          "orderRefCid",
+          "templateVersion",
+          "jurisdictions",
+          "senderRecipientDids",
+          "dataCategoriesShared",
+          "revocableUntilUtc",
+          "consentingAdherentDid",
+          "digitalSignatureAlg",
+          "signedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "consentReceiptId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Client-supplied id; immutable once signed."
+          },
+          "patientPseudonymDid": {
+            "type": "string",
+            "format": "did",
+            "description": "30-day-rotating mitate patient pseudonym DID. Distinct from `consentingAdherentDid` (the underlying Adherent SBT signer). Reinforces ADR-2605260100 G2 (mitate sealed-recipient set)."
+          },
+          "orderRefCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Binds 1:1 to a `mitate.diagnosticOrder` record. Validators MUST verify the bound order's `consentReceiptCid` resolves back to this receipt."
+          },
+          "templateVersion": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Semver of the chigiri-stewarded consent template (`major.minor.patch`). Template changes require chigiri annual review (ADR-2605281950 GC)."
+          },
+          "jurisdictions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            },
+            "minLength": 1,
+            "description": "ISO-3166-1 alpha-3. Permitted patient jurisdiction(s) + receiving lab jurisdiction. Cross-border consent surfaces (multiple values) trigger chigiri multi-juris review path."
+          },
+          "senderRecipientDids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "minLength": 2,
+            "description": "Sealed-recipient registry. Permitted DID prefixes: patient passkey DID, licensed MD attestor DID (`did:web:etzhayyim.com:mitate:physician:*`), receiving external lab DID (must be in EXTERNAL_LAB_DID_REGISTRY), Council medical advisory DIDs. EXCLUDED by structural enforcement (ADR-2605260100 G7 + ADR-2605281950 GD): insurance / employer / advertiser / state-aligned entities."
+          },
+          "dataCategoriesShared": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "identity-pseudonym-only",
+                "clinical-context",
+                "specimen-result",
+                "narrative-symptom"
+              ]
+            },
+            "minLength": 1,
+            "description": "Per ADR-2605281950 §D2. At R2 the categories `family-history` / `genetic-marker` are NOT permitted (out of scope per N1, N3). Extension requires Council Lv7+ unanimity per non-goal status."
+          },
+          "revocableUntilUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Hard revocation deadline. Default: result delivery + 30 days. Revocation triggers downstream deletion request to external lab DID; per ADR-2605281950 GC."
+          },
+          "consentingAdherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Patient's underlying Adherent SBT DID. Distinct from `patientPseudonymDid`; signature surface for the consent receipt."
+          },
+          "digitalSignatureAlg": {
+            "type": "string",
+            "knownValues": [
+              "ed25519",
+              "webauthn-passkey-es256"
+            ]
+          },
+          "signedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

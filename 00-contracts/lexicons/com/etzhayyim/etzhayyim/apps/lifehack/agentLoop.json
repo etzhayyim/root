@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.lifehack.agentLoop",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls kotodama.llm.call_tier, and returns a Japanese-friendly response.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["prompt"],
+          "properties": {
+            "prompt": {"type": "string", "maxLength": 4000},
+            "tier": {"type": "string", "enum": ["fast", "balanced", "deep", "reasoning", "classifier"], "default": "balanced"},
+            "topicFocus": {"type": "string"},
+            "maxTokens": {"type": "integer", "minimum": 64, "maximum": 4000, "default": 1500}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "content"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "content": {"type": "string"},
+            "model": {"type": "string"},
+            "latencyMs": {"type": "integer"},
+            "topicsUsed": {"type": "integer"},
+            "tipsUsed": {"type": "integer"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.evChargingOcpp.flagReliabilityMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Station reliability / uptime metric",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "stationVid",
+            "measurementMonth",
+            "uptimePct",
+            "recordedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "stationVid": {
+              "type": "string",
+              "description": "bridges registerStation"
+            },
+            "measurementMonth": {
+              "type": "string"
+            },
+            "uptimePct": {
+              "type": "number"
+            },
+            "sessionSuccessPct": {
+              "type": "number"
+            },
+            "meanSessionKwh": {
+              "type": "number"
+            },
+            "reasonFailures": {
+              "type": "string",
+              "description": "comma: connector,payment,network,authorization,power,hardware"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "reliabilityTier": {
+              "type": "string",
+              "enum": [
+                "poor",
+                "fair",
+                "good",
+                "excellent"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

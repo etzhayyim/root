@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.reinsuranceTreaty.flagCapacityCrunch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Capacity crunch / hardening cycle / climate exit (bridges shadowFleetInsurance.flagGapOrFraud + climate-adaptation-finance + cat-bond-ils)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "treatyVid",
+            "crunchKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "treatyVid": {
+              "type": "string",
+              "description": "bridges recordTreaty"
+            },
+            "crunchKind": {
+              "type": "string",
+              "enum": [
+                "hard_market_pricing",
+                "capacity_withdrawal",
+                "retro_squeeze",
+                "ils_outflow",
+                "wildfire_exit_california",
+                "flood_exit",
+                "climate_attribution",
+                "fronting_collapse",
+                "monoline_failure",
+                "s_p_bbb_drop",
+                "mga_capacity_pull"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

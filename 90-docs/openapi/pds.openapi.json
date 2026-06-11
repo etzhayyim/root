@@ -1,0 +1,724 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "pds XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://pds.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.pds.exportRepo": {
+      "get": {
+        "summary": "com.etzhayyim.pds.exportRepo",
+        "operationId": "com.etzhayyim.pds.exportRepo",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.getActorProfile": {
+      "get": {
+        "summary": "com.etzhayyim.pds.getActorProfile",
+        "operationId": "com.etzhayyim.pds.getActorProfile",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          {
+            "name": "handle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "handle"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "handle": {
+                      "type": "string",
+                      "format": "handle"
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "maxLength": 640
+                    },
+                    "description": {
+                      "type": "string",
+                      "maxLength": 2560
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "banner": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com_atproto_label_defs_label"
+                      }
+                    },
+                    "viewer": {
+                      "$ref": "#/components/schemas/app_bsky_actor_defs_viewerState"
+                    },
+                    "indexedAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "runtime": {
+                      "type": "string",
+                      "description": "etzhayyim extension: actor business runtime placement",
+                      "x-knownValues": [
+                        "k8s-langserver"
+                      ]
+                    },
+                    "edge": {
+                      "type": "string",
+                      "description": "etzhayyim extension: public edge placement",
+                      "x-knownValues": [
+                        "sveltekit-proxy"
+                      ]
+                    },
+                    "legacyExecutionTier": {
+                      "type": "string",
+                      "description": "etzhayyim extension: historical migration inventory only",
+                      "x-knownValues": [
+                        "T1",
+                        "T2",
+                        "T3"
+                      ]
+                    },
+                    "actorStatus": {
+                      "type": "string",
+                      "description": "etzhayyim extension",
+                      "x-knownValues": [
+                        "active",
+                        "suspended",
+                        "archived"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "handle"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.getAppPreview": {
+      "get": {
+        "summary": "com.etzhayyim.pds.getAppPreview",
+        "operationId": "com.etzhayyim.pds.getAppPreview",
+        "parameters": [
+          {
+            "name": "nanoid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "app": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "app"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.getEntityGraph": {
+      "get": {
+        "summary": "com.etzhayyim.pds.getEntityGraph",
+        "operationId": "com.etzhayyim.pds.getEntityGraph",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "depth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "edges": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "nodes",
+                    "edges"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.getProfile": {
+      "get": {
+        "summary": "com.etzhayyim.pds.getProfile",
+        "operationId": "com.etzhayyim.pds.getProfile",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "handle": {
+                      "type": "string",
+                      "format": "handle"
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "maxLength": 640
+                    },
+                    "description": {
+                      "type": "string",
+                      "maxLength": 2560
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "banner": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "followersCount": {
+                      "type": "integer"
+                    },
+                    "followsCount": {
+                      "type": "integer"
+                    },
+                    "postsCount": {
+                      "type": "integer"
+                    },
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com_atproto_label_defs_label"
+                      }
+                    },
+                    "viewer": {
+                      "$ref": "#/components/schemas/app_bsky_actor_defs_viewerState"
+                    },
+                    "verification": {
+                      "$ref": "#/components/schemas/app_bsky_actor_defs_verificationState"
+                    },
+                    "indexedAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    },
+                    "runtime": {
+                      "type": "string",
+                      "description": "etzhayyim extension: actor business runtime placement",
+                      "x-knownValues": [
+                        "k8s-langserver"
+                      ]
+                    },
+                    "edge": {
+                      "type": "string",
+                      "description": "etzhayyim extension: public edge placement",
+                      "x-knownValues": [
+                        "sveltekit-proxy"
+                      ]
+                    },
+                    "legacyExecutionTier": {
+                      "type": "string",
+                      "description": "etzhayyim extension: historical migration inventory only",
+                      "x-knownValues": [
+                        "T1",
+                        "T2",
+                        "T3"
+                      ]
+                    },
+                    "actorStatus": {
+                      "type": "string",
+                      "description": "etzhayyim extension: actor platform status",
+                      "x-knownValues": [
+                        "active",
+                        "suspended",
+                        "archived"
+                      ]
+                    },
+                    "entityGraph": {}
+                  },
+                  "required": [
+                    "did",
+                    "handle"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.importRepo": {
+      "post": {
+        "summary": "com.etzhayyim.pds.importRepo",
+        "operationId": "com.etzhayyim.pds.importRepo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "description": "Base64-encoded CAR file data. Compatible with com.atproto.repo.importRepo input."
+                  },
+                  "did": {
+                    "type": "string",
+                    "description": "etzhayyim extension: target DID for import",
+                    "format": "did"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "imported": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "imported"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.invoke": {
+      "post": {
+        "summary": "com.etzhayyim.pds.invoke",
+        "operationId": "com.etzhayyim.pds.invoke",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "did",
+                  "method"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.listHeartbeatApps": {
+      "get": {
+        "summary": "com.etzhayyim.pds.listHeartbeatApps",
+        "operationId": "com.etzhayyim.pds.listHeartbeatApps",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apps": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "apps"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.putProfile": {
+      "post": {
+        "summary": "com.etzhayyim.pds.putProfile",
+        "operationId": "com.etzhayyim.pds.putProfile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": {
+                    "type": "string",
+                    "maxLength": 640
+                  },
+                  "description": {
+                    "type": "string",
+                    "maxLength": 2560
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "labels": {
+                    "$ref": "#/components/schemas/com_atproto_label_defs_selfLabels"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.query": {
+      "get": {
+        "summary": "com.etzhayyim.pds.query",
+        "operationId": "com.etzhayyim.pds.query",
+        "parameters": [
+          {
+            "name": "statement",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parameters",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "required": [
+                    "rows"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.pds.registerSyncApp": {
+      "post": {
+        "summary": "com.etzhayyim.pds.registerSyncApp",
+        "operationId": "com.etzhayyim.pds.registerSyncApp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nanoid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "nanoid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "registered": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "registered"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_pds_profileIncomplete": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "did",
+          "reason"
+        ]
+      }
+    }
+  }
+}

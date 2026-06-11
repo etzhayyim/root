@@ -1,0 +1,14 @@
+{
+  "tool_tier_documentation": {
+    "passive": ["dns", "whois", "tls"],
+    "safe-active": ["http-head"],
+    "intrusive": ["nmap", "nuclei", "zap", "sqlmap"]
+  },
+  "rejected_tools_documentation": [
+    "metasploit",
+    "cobalt-strike",
+    "any-rce-weaponizer",
+    "any-dos-tool"
+  ],
+  "adr": "2605151400-akuma-authorized-redteam-actor"
+}

@@ -1,0 +1,107 @@
+# tsutae R1 urban-street sim scene — Shibuya crossing 200m×200m.
+# ADR-2605262500 W4 cross-actor (handheld comms device handover scenarios).
+# Geographically overlaps wadachi-r1-shibuya-1km but at finer resolution,
+# focused on pedestrian-level density rather than vehicle dynamics.
+
+adr: ADR-2605262500
+phase: W4
+sim_consumer: tsutae-r1
+nv_compat_target: isaacsim.core.api.World
+
+world:
+  crs: "EPSG:4326"
+  bbox: [139.6995, 35.6592, 139.7015, 35.6612]
+  output_subdataset: "sim-scenes/tsutae/r1/shibuya-crossing-200m/261015/"
+
+  layers:
+    - kind: terrain
+      source_subdataset: "geo/srtm/n35e139"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      shader: "kami-pbrt:Concrete_Grey"
+      mesh:
+        triangulation: "regular_grid"
+        target_edge_m: 2.0
+
+    - kind: raster_overlay
+      source_subdataset: "geo/sentinel2/T54SUE/261001"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      band_mix: "RGB-B432"
+      uv_projection: "from_terrain_xy"
+
+    - kind: vector_roads
+      source_subdataset: "geo/overture/transportation/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      material: "kami-pbrt:Asphalt"
+      ribbon:
+        default_lane_count: 6              # Shibuya 5-way scramble
+        default_lane_width_m: 3.0
+        z_offset_m: 0.02
+
+    - kind: vector_buildings
+      source_subdataset: "geo/overture/buildings/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      extrude:
+        height_attr: "height"
+        default_height_m: 30.0     # taller commercial buildings
+        material: "kami-pbrt:Concrete_Grey"
+
+scene:
+  num_envs: 16
+  env_spacing: 300.0
+  gravity: [0.0, 0.0, -9.81]
+  dt: 0.01
+  decimation: 2
+
+robot:
+  urdf: ./tsutae-handheld-r1.urdf
+  base_link: device_body
+  spawn:
+    pos: [0.0, 0.0, 1.5]                  # pedestrian-hand height
+    rot: [1.0, 0.0, 0.0, 0.0]
+
+observation:
+  device_state:
+    - gps_signal_strength
+    - cellular_signal_strength
+    - accelerometer_3axis
+    - gyroscope_3axis
+
+action:
+  device_command:
+    - cellular_kill_switch_engaged        # G6 ADR-2605261300
+    - mic_kill_switch_engaged             # G6 ADR-2605261300
+    - bootloader_locked
+
+reward:
+  handover_complete: 1.0
+  surveillance_avoidance: 0.5             # §2(c) alignment
+
+termination:
+  time_out:
+    max_episode_length_s: 60.0
+
+quality_gate:
+  reference_baseline: "isaac_sim_shibuya_crossing_200m_v1"
+  metrics:
+    psnr_min_db: 25.0
+    ssim_min: 0.85
+    chamfer_max_m: 0.05
+    iou_min_at_0p1m_voxel: 0.75
+  combined_target: 0.75
+
+charter:
+  max_tier: A
+  charter_rider_scan: required
+  pii_filter: not_applicable               # not Mapillary (Tier A only at W4)
+  replication_min: 2
+  physics_backend: kami-genesis
+  render_backend: kami-pbrt
+  inference_substrate: murakumo-only
+
+budget:
+  phase: R1
+  gpu_hr_eq_per_day_max: 1.0

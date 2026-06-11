@@ -1,0 +1,126 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.yobel.listReleases",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "個別 release 一覧 (rite / debtor / creditor / releaseMethod filter)。pagination 必須。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "riteId": {
+            "type": "string"
+          },
+          "debtorDid": {
+            "type": "string"
+          },
+          "creditorDid": {
+            "type": "string"
+          },
+          "releaseMethod": {
+            "type": "string",
+            "enum": [
+              "voluntary_bookkeeping",
+              "base_l2_transfer",
+              "court_order",
+              "sovereign_decree",
+              "ecclesiastical_indulgence"
+            ]
+          },
+          "releasedFrom": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "releasedTo": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "limit": {
+            "type": "integer",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 200
+          },
+          "offset": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "releases",
+            "total",
+            "offset",
+            "limit"
+          ],
+          "properties": {
+            "releases": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "#releaseItem"
+              }
+            },
+            "total": {
+              "type": "integer"
+            },
+            "offset": {
+              "type": "integer"
+            },
+            "limit": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "releaseItem": {
+      "type": "object",
+      "required": [
+        "releaseId",
+        "riteId",
+        "debtId",
+        "debtorDid",
+        "creditorDid",
+        "releaseMethod",
+        "releasedMicroUsdc",
+        "releasedAt"
+      ],
+      "properties": {
+        "releaseId": {
+          "type": "string"
+        },
+        "riteId": {
+          "type": "string"
+        },
+        "debtId": {
+          "type": "string"
+        },
+        "debtorDid": {
+          "type": "string"
+        },
+        "creditorDid": {
+          "type": "string"
+        },
+        "releaseMethod": {
+          "type": "string"
+        },
+        "baseL2TxHash": {
+          "type": "string"
+        },
+        "releasedMicroUsdc": {
+          "type": "integer"
+        },
+        "releasedAt": {
+          "type": "string",
+          "format": "datetime"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airOps.submitPirep",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a pilot report (PIREP) during or after a flight.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "dep_date", "report_type"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "report_type": { "type": "string" },
+            "latitude": { "type": "string" },
+            "longitude": { "type": "string" },
+            "altitude_ft": { "type": "string" },
+            "condition": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ef4092ba68c6",
+  "entityId": "ent-ef4092ba68c6",
+  "canonicalName": "izzat ibrahim al-duri",
+  "aliases": [
+    "izzat ibrahim al-duri"
+  ]
+}

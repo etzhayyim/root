@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hagukumi.consentRecord",
+  "description": "Care-recipient (≥14) or family-guardian (<14) consent attestation. Revocable on-chain. G3 default-deny structural gate. Per ADR-2605261030.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "consentId": {"type": "string"},
+          "careRecipientDidOrPseudonym": {"type": "string"},
+          "careRecipientAgeBucket": {"type": "string", "knownValues": ["under-14-guardian-consent", "14-17-co-consent", "adult-self-consent", "elder-self-consent-with-capacity-attestation"]},
+          "guardianConsentCid": {"type": "string", "description": "REQUIRED for under-14; N8: caregiver supplement not substitute"},
+          "scopeCells": {"type": "array", "items": {"type": "string"}, "description": "Which hagukumi cells permitted"},
+          "consentTimestamp": {"type": "string"},
+          "validUntil": {"type": "string", "description": "Time-limited; renewal required"},
+          "revokedAt": {"type": "string"}
+        },
+        "required": ["consentId", "careRecipientDidOrPseudonym", "careRecipientAgeBucket", "scopeCells", "consentTimestamp", "validUntil"]
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.post",
+  "description": "Bluesky 公開 post の yoro 側 search index re-record (ADR-0037)。著作権法 47条の5 検索サービス例外範囲内。snippet 200 char 上限、原典 bsky.app への link back 必須。source_did / source_rkey で原典特定、tombstone cascade で hard delete される。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sourceDid", "sourceRkey", "text", "indexedAt"],
+        "properties": {
+          "sourceDid": { "type": "string", "description": "原典 Bluesky DID (did:plc:* / did:web:*)" },
+          "sourceRkey": { "type": "string", "description": "原典 rkey (app.bsky.feed.post)" },
+          "sourceUri": { "type": "string", "format": "uri", "description": "at:// URI (例 at://did:plc:abc/app.bsky.feed.post/xyz)" },
+          "sourceCid": { "type": "string", "description": "原典 record CID" },
+          "handle": { "type": "string", "description": "snapshot 時の handle" },
+          "text": { "type": "string", "description": "post 本文 (検索 index 対象、表示は 200 char snippet)" },
+          "lang": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime", "description": "原典 post createdAt" },
+          "indexedAt": { "type": "string", "format": "datetime", "description": "yoro 側 index 時刻" },
+          "replyRootUri": { "type": "string", "format": "uri" },
+          "replyParentUri": { "type": "string", "format": "uri" },
+          "embedKind": { "type": "string", "enum": ["none", "images", "video", "external", "record", "recordWithMedia"] },
+          "embedMediaCids": { "type": "array", "items": { "type": "string" }, "description": "media blob CID のみ保持 (本体は Bluesky CDN 側、yoro は 301 redirect)" },
+          "embedAltText": { "type": "string", "description": "accessibility alt text (全文)" },
+          "embedExternalUri": { "type": "string", "format": "uri" },
+          "labels": { "type": "array", "items": { "type": "string" }, "description": "原典 labels snapshot (opt-out-gate 判定用)" },
+          "langDetected": { "type": "string" }
+        }
+      }
+    }
+  }
+}

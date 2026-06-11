@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOssekai.generateIntelBrief",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "L1: Generate LLM intel brief for a target actor. Writes to vertex_ossekai_brief and propagates to vertex_open_sales_lead.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["targetDid"],
+          "properties": {
+            "targetDid":    { "type": "string", "description": "DID of the actor to analyze" },
+            "targetHandle": { "type": "string", "description": "Handle of the actor (optional)" },
+            "contextHint":  { "type": "string", "description": "Additional context for the LLM (optional)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "string" },
+            "briefId":     { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

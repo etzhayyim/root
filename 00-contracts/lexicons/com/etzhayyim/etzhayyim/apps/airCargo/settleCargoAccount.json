@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCargo.settleCargoAccount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Settle cargo account through CASS for a carrier period.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["carrier_code", "period", "cass_amount"],
+          "properties": {
+            "carrier_code": { "type": "string" },
+            "period": { "type": "string" },
+            "cass_amount": { "type": "string" },
+            "currency": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

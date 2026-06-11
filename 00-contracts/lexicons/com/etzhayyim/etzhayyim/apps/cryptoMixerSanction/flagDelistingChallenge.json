@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cryptoMixerSanction.flagDelistingChallenge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Delisting challenge / Van Loon v Treasury / Fifth Circuit (bridges ransomwarePay.flagSanctionsHit + federal-court-docket + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "sanctionVid",
+            "challengeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "sanctionVid": {
+              "type": "string",
+              "description": "bridges recordSanction"
+            },
+            "challengeKind": {
+              "type": "string",
+              "enum": [
+                "apa_ultra_vires",
+                "code_is_speech",
+                "first_amendment",
+                "due_process",
+                "vagueness_void",
+                "non_person_sanction",
+                "immutable_code",
+                "open_source_contrib",
+                "ownership_concept",
+                "technology_neutral",
+                "fifth_circuit_van_loon"
+              ]
+            },
+            "rulingOutcome": {
+              "type": "string",
+              "enum": [
+                "delisted",
+                "upheld",
+                "remanded",
+                "cert_grant",
+                "cert_denied",
+                "partial_relief",
+                "preliminary_injunction"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

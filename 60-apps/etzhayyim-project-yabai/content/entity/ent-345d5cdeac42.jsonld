@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-345d5cdeac42",
+  "entityId": "ent-345d5cdeac42",
+  "canonicalName": "sistemy avtonomnoi energii",
+  "aliases": [
+    "sistemy avtonomnoi energii"
+  ]
+}

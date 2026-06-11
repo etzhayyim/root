@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.recyclingCertificate",
+  "description": "G13 take-back recycling certificate. Closes the circular-material chain for a returned pillow → shred → blend percentage in new fills. Per ADR-2605261115 G13 (≥10% recycled crumb mass by R3).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "certificateId": {"type": "string"},
+          "returnedPillowDid": {"type": "string"},
+          "returnedPillowSerial": {"type": "string"},
+          "returnedFromAdherentDid": {"type": "string"},
+          "returnedMassKg": {"type": "number"},
+          "intakeCenterDid": {"type": "string"},
+          "intakeTimestamp": {"type": "string", "format": "datetime"},
+          "shredOutputBatchId": {"type": "string"},
+          "recycledBlend": {
+            "type": "object",
+            "properties": {
+              "destinationBatchId": {"type": "string"},
+              "recycledMassKg": {"type": "number"},
+              "virginMassKg": {"type": "number"},
+              "recycledMassPct": {"type": "number"},
+              "g13TargetPctByR3": {"type": "number", "const": 10.0},
+              "g13CompliantThisLot": {"type": "boolean"}
+            }
+          },
+          "chainEntryCid": {"type": "string"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["certificateId", "returnedPillowDid", "intakeCenterDid", "recycledBlend", "chainEntryCid"]
+      }
+    }
+  }
+}

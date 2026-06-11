@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kouza.externalTransaction",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Immutable external bank/card/securities transaction imported from a read-only institution connection. Derives kaikei.bankTransaction after account mapping.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "financialAccountDid", "externalTxnId", "postedAt", "amountMinor", "currency", "accountingStatus", "createdAt"],
+        "properties": {
+          "ownerDid": { "type": "string", "format": "did" },
+          "financialAccountDid": { "type": "string", "format": "did" },
+          "externalTxnId": { "type": "string", "description": "Provider transaction id or content hash for imported files" },
+          "postedAt": { "type": "string", "format": "datetime" },
+          "valueAt": { "type": "string", "format": "datetime" },
+          "amountMinor": { "type": "integer", "description": "Amount in currency minor units. Positive = inflow/credit from account perspective, negative = outflow/debit" },
+          "currency": { "type": "string" },
+          "counterpartyName": { "type": "string" },
+          "description": { "type": "string" },
+          "categoryHint": { "type": "string" },
+          "documentDid": { "type": "string", "format": "did" },
+          "kaikeiBankTransactionDid": { "type": "string", "format": "did" },
+          "accountingStatus": { "type": "string", "enum": ["pending", "derived", "ignored", "manualReview"] },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

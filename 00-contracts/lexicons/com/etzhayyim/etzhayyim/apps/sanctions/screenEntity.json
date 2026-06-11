@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sanctions.screenEntity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "entityType": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "entryId": {
+              "type": "integer"
+            },
+            "entityName": {
+              "type": "string"
+            },
+            "listSource": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "program": {
+              "type": "string"
+            },
+            "query": {
+              "type": "string"
+            },
+            "entityType": {
+              "type": "string"
+            },
+            "matchCount": {
+              "type": "integer"
+            },
+            "matches": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

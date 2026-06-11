@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.threads.post",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Religious-corp social post. AT Protocol record under the writer's DID (typically an SBT-holding adherent), carrying short-form text + optional reply chain. The substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) anchors the writer's MST root including these posts, so any third party can verify the post existed at a given moment without trusting this operator. Distinct from `app.bsky.feed.post`: religious-corp namespace lives at `com.etzhayyim.apps.threads.*`, SBT-gated write policy is enforced at the PDS layer (not in this lexicon), and the embed surface is intentionally narrow in v1 — no media, no external link unfurl, no quote-post — to bias the medium toward attestation and study over performance. Per ADR-2605172000 substrate posture.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["text", "createdAt"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 3000,
+            "maxGraphemes": 500,
+            "description": "Primary post content. May be empty when `reply` is present (e.g. silent witness)."
+          },
+          "reply": {
+            "type": "ref",
+            "ref": "#replyRef",
+            "description": "Reply target — required `root` (thread origin) + `parent` (immediate parent). Both fields point to existing com.etzhayyim.apps.threads.post records."
+          },
+          "langs": {
+            "type": "array",
+            "description": "BCP-47 language tags for the primary text (e.g. 'ja', 'en'). Empty = unspecified.",
+            "maxLength": 3,
+            "items": { "type": "string", "format": "language" }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Author-chosen tags. Distinct from hashtags inline in text. Bounded so the substrate doesn't carry unbounded payloads.",
+            "maxLength": 8,
+            "items": { "type": "string", "maxLength": 64, "maxGraphemes": 32 }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when the post was originally written."
+          }
+        }
+      }
+    },
+    "replyRef": {
+      "type": "object",
+      "required": ["root", "parent"],
+      "properties": {
+        "root": {
+          "type": "ref",
+          "ref": "com.atproto.repo.strongRef",
+          "description": "Root of the thread — the first post in the conversation."
+        },
+        "parent": {
+          "type": "ref",
+          "ref": "com.atproto.repo.strongRef",
+          "description": "Immediate parent post — the one this post is replying to. May equal `root` when replying to the thread origin."
+        }
+      }
+    }
+  }
+}

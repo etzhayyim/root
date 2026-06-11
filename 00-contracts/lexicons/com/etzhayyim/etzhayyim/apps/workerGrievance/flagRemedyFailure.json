@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.workerGrievance.flagRemedyFailure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Grievance remedy failure / UNGP pillar 3 gap (bridges iloLaborRights.flagNonCompliance + indigenous-rights + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "grievanceVid",
+            "failureKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "grievanceVid": {
+              "type": "string",
+              "description": "bridges recordGrievance"
+            },
+            "failureKind": {
+              "type": "string",
+              "enum": [
+                "no_response",
+                "inadequate_remedy",
+                "retaliation_post_filing",
+                "process_delayed",
+                "non_binding_outcome",
+                "grievant_intimidation",
+                "confidentiality_breach",
+                "no_operational_change"
+              ]
+            },
+            "affectedWorkers": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

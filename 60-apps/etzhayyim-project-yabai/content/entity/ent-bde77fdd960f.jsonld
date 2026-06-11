@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-bde77fdd960f",
+  "entityId": "ent-bde77fdd960f",
+  "canonicalName": "galax trading co., ltd.",
+  "aliases": [
+    "galax trading co., ltd."
+  ]
+}

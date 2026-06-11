@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.correspondentBanking.flagDerisking",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "De-risking / wire transparency gap / SWIFT GPI outlier (bridges kycOnboarding.flagSuspiciousActivity + fatf-travel-rule + debt-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "relationVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "relationVid": {
+              "type": "string",
+              "description": "bridges recordNostroRelation"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "wholesale_derisking",
+                "remittance_corridor_close",
+                "cbr_discontinued",
+                "fintech_sponsor_exit",
+                "sanctions_over_comply",
+                "msb_unbanked",
+                "humanitarian_corridor",
+                "mm_forex_gap",
+                "gpi_non_compliant",
+                "hidden_intermediary"
+              ]
+            },
+            "affectedCorridorsCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.baminiku.getStreamState",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Read the latest Baminiku stream state, including KAMI scene, profile, queue, chat, and tip summaries.",
+      "parameters": {
+        "type": "params",
+        "required": ["streamId"],
+        "properties": {
+          "streamId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["streamId"],
+          "properties": {
+            "streamId": { "type": "string" },
+            "stream": { "type": "object" },
+            "profile": { "type": "object" },
+            "queue": { "type": "array", "items": { "type": "object" } },
+            "recentChats": { "type": "array", "items": { "type": "object" } },
+            "recentTips": { "type": "array", "items": { "type": "object" } }
+          }
+        }
+      }
+    }
+  }
+}

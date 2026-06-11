@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  scheduleCalibration — XRPC com.etzhayyim.apps.kogu.scheduleCalibration で起動。
+  測定器の次回校正日を設定し、item.status=calibration に更新。
+
+  Inputs:
+    toolId
+    scheduledDate
+    calibratorDid
+    accreditedCalibration  (boolean)
+-->
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_kogu_schedule_calibration"
+  targetNamespace="https://etzhayyim.ai/bpmn/kogu"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="kogu_schedule_calibration" name="kogu Schedule Calibration" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="calibration scheduled">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_FetchTool"/>
+
+    <bpmn:serviceTask id="Task_FetchTool" name="fetch tool record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_item&quot;" target="table"/>
+          <zeebe:input source="=&quot;tool_id = %s AND calibration_required = true&quot;" target="whereExpr"/>
+          <zeebe:input source="=[toolId]" target="whereParams"/>
+          <zeebe:input source="=&quot;tool_id, name, status, custodian_did&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:output source="=rows" target="toolRows"/>
+          <zeebe:output source="=rowCount" target="toolFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_FetchTool" targetRef="Gate_Found"/>
+
+    <bpmn:exclusiveGateway id="Gate_Found" name="tool found?" default="Flow_NotFound">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Found</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NotFound</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Found" sourceRef="Gate_Found" targetRef="Task_UpdateCalibDate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolFound > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NotFound" sourceRef="Gate_Found" targetRef="Task_AuditError"/>
+
+    <bpmn:serviceTask id="Task_UpdateCalibDate" name="set status=calibration + next date">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_kogu_item&quot;" target="table"/>
+          <zeebe:input source="={ tool_id: toolId, status: &quot;calibration&quot;, next_calibration_date: scheduledDate }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Found</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_UpdateCalibDate" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit calibration scheduled audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;calibrationScheduled&quot;" target="action"/>
+          <zeebe:input source="={ toolId: toolId, scheduledDate: scheduledDate, calibratorDid: calibratorDid, accreditedCalibration: accreditedCalibration }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditError" name="emit error audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;calibrationScheduleError&quot;" target="action"/>
+          <zeebe:input source="={ toolId: toolId, error: &quot;tool not found or calibration not required&quot; }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NotFound</bpmn:incoming>
+      <bpmn:outgoing>Flow_ErrEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ErrEnd" sourceRef="Task_AuditError" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_ErrEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

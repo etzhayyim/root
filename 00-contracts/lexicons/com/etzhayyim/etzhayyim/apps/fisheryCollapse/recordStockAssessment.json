@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fisheryCollapse.recordStockAssessment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FAO SOFIA / ICES / RAM Legacy stock assessment (bridges marineHeatwave.flagEcosystemImpact + fisheries-iuu + bbnj-highseas)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assessmentId",
+            "stockId",
+            "species",
+            "oceanBasin",
+            "status",
+            "assessedAt"
+          ],
+          "properties": {
+            "assessmentId": {
+              "type": "string"
+            },
+            "stockId": {
+              "type": "string"
+            },
+            "species": {
+              "type": "string"
+            },
+            "oceanBasin": {
+              "type": "string",
+              "enum": [
+                "ne_atlantic",
+                "sw_atlantic",
+                "ne_pacific",
+                "nw_pacific",
+                "sw_pacific",
+                "indian",
+                "southern",
+                "mediterranean",
+                "caribbean",
+                "bering"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "underfished",
+                "fully_fished",
+                "overfished",
+                "collapsed",
+                "rebuilding",
+                "unknown"
+              ]
+            },
+            "bbmsy": {
+              "type": "number",
+              "description": "B/Bmsy"
+            },
+            "ecosystemImpactVid": {
+              "type": "string",
+              "description": "bridges marineHeatwave.flagEcosystemImpact"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

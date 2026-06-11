@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — EDINET 大量保有報告書 daily ingest (ADR-0035 T2 migration).
+
+  Pipeline:
+    1. jpFiscal.ingest.edinet     — fetch EDINET v2 documents.json for today's date,
+                                    filter docTypeCode 140/350/4xx (大量保有報告書 family),
+                                    write to vertex_jp_fiscal_beneficial_owner.
+    2. generic.audit.emit         — OCEL event with aggregate write counts.
+
+  Cadence: R/P1D (daily at midnight UTC approx — Zeebe timer-start).
+
+  NSID: com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_jp_fiscal_edinet_daily"
+    targetNamespace="https://etzhayyim.ai/bpmn/jp-fiscal"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="jp_fiscal_edinet_daily" name="JP Fiscal EDINET daily" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="daily">
+      <bpmn:outgoing>Flow_ToIngest</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P1D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToIngest_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_ToIngest"        sourceRef="Start_Timer"   targetRef="Task_Ingest"/>
+    <bpmn:sequenceFlow id="Flow_ToIngest_Manual" sourceRef="Start_Manual"  targetRef="Task_Ingest"/>
+    <bpmn:sequenceFlow id="Flow_ToAudit"         sourceRef="Task_Ingest"   targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End"             sourceRef="Task_Audit"    targetRef="End"/>
+
+    <!-- Step 1: Ingest EDINET 大量保有報告書 for today (default date). limit=500. -->
+    <bpmn:serviceTask id="Task_Ingest" name="ingest EDINET 大量保有報告書">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="jpFiscal.ingest.edinet"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=500"  target="limit"/>
+          <zeebe:output source="=written" target="edinetWritten"/>
+          <zeebe:output source="=total"   target="edinetTotal"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <!-- Step 2: Emit OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit EDINET ingest audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily&quot;"  target="event_type"/>
+          <zeebe:input source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"                 target="actor_did"/>
+          <zeebe:input source="={ edinetWritten: edinetWritten, edinetTotal: edinetTotal }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="done"/>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — coverage snapshot (XRPC entry).
+
+  Aggregates edges, organisms, pin completeness, floor violations,
+  last anchor. Multiple lightweight selects → one composite response.
+  Uses a custom karma.coverage.snapshot primitive (single transaction,
+  bounded constant-time queries against narrow MVs).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_coverage" name="karma coverage" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.coverage", "version": 1, "resultTimeoutMs": 15000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToSnapshot</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Snapshot" name="aggregate coverage">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.coverage.snapshot"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=asOf" target="asOf"/>
+          <zeebe:output source="=edgesTotal" target="edgesTotal"/>
+          <zeebe:output source="=edgesLast24h" target="edgesLast24h"/>
+          <zeebe:output source="=organismsActive" target="organismsActive"/>
+          <zeebe:output source="=organismsDissolved" target="organismsDissolved"/>
+          <zeebe:output source="=pinComplete" target="pinComplete"/>
+          <zeebe:output source="=pinPartial" target="pinPartial"/>
+          <zeebe:output source="=pinUnstarted" target="pinUnstarted"/>
+          <zeebe:output source="=floorViolations24h" target="floorViolations24h"/>
+          <zeebe:output source="=lastAnchorAtMs" target="lastAnchorAtMs"/>
+          <zeebe:output source="=lastAnchorTxHash" target="lastAnchorTxHash"/>
+          <zeebe:output source="=axes" target="axes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSnapshot</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSnapshot" sourceRef="StartXrpc" targetRef="Task_Snapshot"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.coverage&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;edgesTotal&quot;: edgesTotal, &quot;floorViolations24h&quot;: floorViolations24h }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Snapshot" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="snapshot">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

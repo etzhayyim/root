@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-61816429cb63",
+  "entityId": "ent-61816429cb63",
+  "canonicalName": "abu sayyaf group",
+  "aliases": [
+    "abu sayyaf group"
+  ]
+}

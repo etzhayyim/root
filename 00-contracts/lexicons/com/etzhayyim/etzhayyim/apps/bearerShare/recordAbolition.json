@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bearerShare.recordAbolition",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bearer share / nominee director abolition (FATF R24 / G20 Sherpa — bridges freeportRegistry.flagOpacityIssue + beneficial-ownership + debarmentList)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recordId",
+            "jurisdictionIso3",
+            "instrumentKind",
+            "status",
+            "legislatedAt"
+          ],
+          "properties": {
+            "recordId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "bearer_share",
+                "nominee_shareholder",
+                "nominee_director",
+                "custodian_bearer",
+                "opaque_trust",
+                "private_ib",
+                "partial_ibc",
+                "offshore_found",
+                "bvi_ubo_share",
+                "panama_nominee"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "abolished",
+                "immobilized",
+                "phased_out",
+                "registered_only",
+                "stayed",
+                "grandfathered",
+                "active_still"
+              ]
+            },
+            "opacityIssueVid": {
+              "type": "string",
+              "description": "bridges freeportRegistry.flagOpacityIssue"
+            },
+            "legislatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

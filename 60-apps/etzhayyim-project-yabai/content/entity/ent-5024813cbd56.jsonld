@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5024813cbd56",
+  "entityId": "ent-5024813cbd56",
+  "canonicalName": "júlio nhate",
+  "aliases": [
+    "júlio nhate"
+  ]
+}

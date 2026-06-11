@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bim.getStoreyScene",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.etzhayyim.com`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectable element ids for anchored annotations. Consumed by kami-app-bim (run_bim_v2) or any Threlte client.",
+      "parameters": {
+        "type": "params",
+        "required": ["storeyId"],
+        "properties": {
+          "storeyId": { "type": "string" },
+          "lod": {
+            "type": "string",
+            "enum": ["schematic", "shaded", "detailed"],
+            "default": "shaded"
+          },
+          "includeSpaces": { "type": "boolean", "default": true },
+          "includeMeshBlobRefs": { "type": "boolean", "default": true },
+          "elementKinds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["wall", "slab", "roof", "column", "beam", "door", "window", "stair", "railing", "curtain", "furniture", "mepSegment", "opening"]
+            },
+            "description": "optional filter by element kind"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["storeyId", "storeyName", "elevation", "bounds", "items"],
+          "properties": {
+            "storeyId": { "type": "string" },
+            "storeyName": { "type": "string" },
+            "buildingId": { "type": "string" },
+            "elevation": { "type": "number", "description": "metres above building datum" },
+            "height": { "type": "number", "description": "storey height in metres" },
+            "bounds": {
+              "type": "object",
+              "properties": {
+                "min": { "type": "array", "items": { "type": "number" }, "minLength": 3, "maxLength": 3 },
+                "max": { "type": "array", "items": { "type": "number" }, "minLength": 3, "maxLength": 3 }
+              }
+            },
+            "items": {
+              "type": "array",
+              "description": "renderable element entries with kind + transform + mesh / blob ref + highlight state",
+              "items": { "type": "unknown" }
+            },
+            "spaces": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            },
+            "materials": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "StoreyNotFound" },
+        { "name": "NotReady" }
+      ]
+    }
+  }
+}

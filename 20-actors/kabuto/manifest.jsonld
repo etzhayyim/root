@@ -1,0 +1,93 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:kabuto",
+  "type": "Actor",
+  "name": "kabuto",
+  "glyph": "兜",
+  "displayNameJa": "兜 (かぶと)",
+  "displayNameEn": "Kabuto — World Public-Company Supply-Chain Knowledge Graph",
+  "purpose": "World public-company (listed-company) supply-chain knowledge graph — datafies LISTED companies, their registered HQ address + public contact, the first-class SUPPLY edges (supplier → customer) that wire the global supply chain, and BPMN process templates into the kotoba Datom log; surfaces single-source / sector / jurisdiction CONCENTRATION routed to redundancy + accountability. Posts aggregate-first findings as atproto-compatible social posts; renders entirely in the in-browser kotoba-wasm node. A resilience + corporate-power-transparency map, never a target-list.",
+  "purposeJa": "全世界の公開（上場）企業のサプライチェーン知識グラフ。上場企業・登記本社住所・公開連絡先・サプライ辺（供給者→需要者）・BPMN を kotoba Datom 化し、単一供給源/業種/法域への集中を可視化して冗長化・説明責任へ routing。集計優先の所見を atproto 互換 social post として投稿し、ブラウザ内 kotoba-wasm node のみで描画。標的リストではなく resilience + 企業権力透明化の地図。",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606022000",
+  "dependsOnAdr": ["2606011800", "2606012600", "2605301600", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"],
+  "schema": ["00-contracts/schemas/public-company-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — IPFS block backend, MST ingress, Base L2 anchor",
+    "largeAssets": "DataLad → IPFS (80-data/public-company) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)",
+    "render": "in-browser kotoba-wasm node (ADR-2606013600) — /search + /actors + supply-chain viz query the Datom log client-side, no server round-trip"
+  },
+  "integrates": ["actor:tsumugi", "actor:watatsuna", "actor:danjo", "actor:kanae", "actor:tadori", "actor:himawari"],
+  "cells": [
+    {
+      "id": "cell:kabuto.ingest",
+      "method": "methods/ingest.py",
+      "input": "data/ingest/*.json (GLEIF LEI / SEC EDGAR / exchange-listing-shaped public dataset) or seed",
+      "output": ["data/companies.merged.kotoba.edn"],
+      "pipeline": "public registry → normalize to :company/:supply.edge → dedup-merge with seed (seed wins)",
+      "gate": "G7 — live full-universe fetch (GLEIF/EDGAR/exchanges, millions of LEIs) requires KABUTO_OPERATOR_GATE (Council); offline/seed mode default, tagged :representative (G5)"
+    },
+    {
+      "id": "cell:kabuto.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/companies.merged.kotoba.edn (or data/seed-public-companies.kotoba.edn)",
+      "output": ["out/intel-report.md", "out/supply-criticality.kotoba.edn"],
+      "pipeline": "classify → supply in/out degree → single-source detection → sector × commodity concentration → jurisdiction load (aggregate-first)"
+    },
+    {
+      "id": "cell:kabuto.bpmn",
+      "method": "methods/bpmn.py",
+      "input": "data/seed-public-companies.kotoba.edn",
+      "output": ["out/bpmn/*.bpmn", "out/processes.kotoba.edn"],
+      "pipeline": "company → generic procurement + disclosure BPMN 2.0 XML (well-formed, bpmn-js renderable) → content-CID → :company.process datoms. G5: :synthesized GENERIC templates, never asserted as a company's actual process."
+    },
+    {
+      "id": "cell:kabuto.social",
+      "method": "methods/social.py",
+      "input": "data/seed-public-companies.kotoba.edn + out/intel-report.md",
+      "output": ["app.bsky.feed.post records via kotoba-server com.etzhayyim.apps.kotoba.atproto.repo.write"],
+      "pipeline": "aggregate-first company/edge/report → app.bsky.feed.post → Charter Rider §2 scan → atproto.repo.write (kotoba Datom log + AT Protocol federation)",
+      "gate": "G11 — live posting requires KABUTO_LIVE_POST=1 + KOTOBA_ENDPOINT + operator auth; default dry-run"
+    },
+    {
+      "id": "cell:kabuto.viz",
+      "method": "viz/build_viz_data.py",
+      "input": "data/seed-public-companies.kotoba.edn",
+      "output": ["viz/supply-chain.json", "viz/supply-chain.htm"],
+      "pipeline": "graph → payload → self-contained canvas force-graph (companies colored by sector, edges by criticality, click → HQ/contact). Browser-native: served at etzhayyim.com the in-browser kotoba-wasm node queries the live supply graph (ADR-2606013600); inlined payload = offline data contract."
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.kabuto.registerCompany",
+    "com.etzhayyim.kabuto.registerSupplyEdge",
+    "com.etzhayyim.kabuto.publishIntelReport",
+    "com.etzhayyim.kabuto.publishSupplyChainViz",
+    "com.etzhayyim.kabuto.socialPost"
+  ],
+  "display": {
+    "did": "did:web:etzhayyim.com:actor:kabuto",
+    "didDoc": "https://etzhayyim.com/actor/kabuto/did.json",
+    "search": "https://etzhayyim.com/search (in-browser kotoba-wasm node)",
+    "registry": "50-infra/etzhayyim-did-web/src/registry/infra-actors.ts (INFRA_ACTORS.kabuto)"
+  },
+  "gates": {
+    "G1": "public companies + public-record data only — name/ticker/exchange/LEI/registered HQ/IR contact/sector/DISCLOSED supplier relationships are public record; private PII, non-public commercial terms, trade secrets = OUT OF SCOPE",
+    "G2": "resilience-not-interdiction — concentration ranking routed to diversification + accountability; NEVER a target-list / raid map (Charter Rider §2(d))",
+    "G3": "aggregate-first + claimed-first output",
+    "G4": "no adjudication — kabuto states public facts + computed concentration; it does not rule on legality (UPL boundary, sibling of danjo)",
+    "G5": "sourcing honesty (:authoritative | :representative | :synthesized) on every node/edge; supplier edges :representative (disclosed, not exhaustive BOM); criticality is a bounded estimate, never a contract figure; no fabricated coverage",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated INGEST — live full-universe registry fetch (GLEIF/EDGAR/exchanges) = Council + operator",
+    "G8": "no git-lfs; large assets (filings, org charts) DataLad → IPFS (80-data/public-company)",
+    "G9": "no personal PII — corporate graph only; contacts are corporate/IR only; any incidental personal data → encrypted envelope, excluded by default",
+    "G10": "browser-native render — /search + /actors + viz run in the in-browser kotoba-wasm node, no server query round-trip (ADR-2606013600)",
+    "G11": "outward-gated PUBLISH — live atproto social posting = KABUTO_LIVE_POST + operator auth; every post body passes a Charter Rider §2(a)-(h) scan",
+    "G12": "read-only — never mutates upstream company records, filings, or contracts"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "gyosei-appeal-form-v1",
+  "version": 1,
+  "title": "審査請求フォーム",
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "appeal",
+      "type": "fieldset",
+      "label": "審査請求情報",
+      "components": [
+        { "key": "caseId", "type": "textfield", "label": "対象 caseId", "required": true },
+        { "key": "specialRouteCode", "type": "select", "label": "個別法 route code", "options": [
+          { "value": "tax.national.general-disposition", "label": "tax.national.general-disposition" },
+          { "value": "social-insurance.health-pension.disposition", "label": "social-insurance.health-pension.disposition" },
+          { "value": "licensing.construction.permit-revocation", "label": "licensing.construction.permit-revocation" }
+        ]},
+        { "key": "statutoryAppealAvailability", "type": "select", "label": "個別法上の審査請求可否 override", "options": [
+          { "value": "allowed", "label": "可" },
+          { "value": "excluded", "label": "不可・除外" },
+          { "value": "unknown", "label": "未確認" }
+        ]},
+        { "key": "specialAppealDeadlineDays", "type": "number", "label": "個別法の申立期間(日) override" },
+        { "key": "dispositionNotifiedAt", "type": "date", "label": "処分を知った日", "required": true },
+        { "key": "appealFiledAt", "type": "date", "label": "審査請求日", "required": true },
+        { "key": "appealType", "type": "select", "label": "申立類型", "required": true, "options": [
+          { "value": "revocation", "label": "取消し" },
+          { "value": "modification", "label": "変更" },
+          { "value": "inaction", "label": "不作為" },
+          { "value": "other", "label": "その他" }
+        ]},
+        { "key": "daysSinceNotice", "type": "number", "label": "通知からの経過日数", "required": true },
+        { "key": "hasJustifiableReason", "type": "checkbox", "label": "徒過に正当理由がある" },
+        { "key": "justifiableReasonSummary", "type": "textarea", "label": "正当理由の要約", "conditional": "=hasJustifiableReason = true" },
+        { "key": "grounds", "type": "textarea", "label": "不服理由", "required": true },
+        { "key": "newEvidence", "type": "textarea", "label": "新証拠・補充主張" },
+        { "key": "hasNewEvidence", "type": "checkbox", "label": "新証拠あり" },
+        { "key": "requestedRelief", "type": "textarea", "label": "求める裁決", "required": true }
+      ]
+    }
+  ]
+}

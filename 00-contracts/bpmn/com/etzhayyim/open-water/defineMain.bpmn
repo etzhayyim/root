@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_water_define_main"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-water"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_water_define_main" name="配水本管 登録" isExecutable="true">
+    <bpmn:startEvent id="Start" name="開始">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_SaveMain"/>
+
+    <bpmn:serviceTask id="Task_SaveMain" name="main 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_water_main&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:        vertexId,
+              utility_org_id:   utilityOrgId,
+              from_vertex_id:   fromVertexId,
+              to_vertex_id:     toVertexId,
+              diameter_mm:      diameterMm,
+              material:         material,
+              length_m:         lengthM,
+              installed_at:     installedAt,
+              pressure_zone:    pressureZone,
+              status:           &quot;active&quot;,
+              created_at:       string(now()),
+              owner_did:        callerDid,
+              sensitivity_ord:  1,
+              org_id:           utilityOrgId,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-water&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_EdgeFrom</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EdgeFrom" sourceRef="Task_SaveMain" targetRef="Task_EdgeFrom"/>
+
+    <bpmn:serviceTask id="Task_EdgeFrom" name="endpoint edge (from)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_water_main_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id:          string(vertexId) + &quot;:from&quot;,
+              src_vid:          vertexId,
+              dst_vid:          fromVertexId,
+              role:             &quot;from&quot;,
+              created_at:       string(now()),
+              owner_did:        callerDid,
+              sensitivity_ord:  1,
+              org_id:           utilityOrgId,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-water&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EdgeFrom</bpmn:incoming>
+      <bpmn:outgoing>Flow_EdgeTo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EdgeTo" sourceRef="Task_EdgeFrom" targetRef="Task_EdgeTo"/>
+
+    <bpmn:serviceTask id="Task_EdgeTo" name="endpoint edge (to)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_water_main_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id:          string(vertexId) + &quot;:to&quot;,
+              src_vid:          vertexId,
+              dst_vid:          toVertexId,
+              role:             &quot;to&quot;,
+              created_at:       string(now()),
+              owner_did:        callerDid,
+              sensitivity_ord:  1,
+              org_id:           utilityOrgId,
+              user_id:          callerDid,
+              actor_id:         &quot;sys.bpmn.open-water&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EdgeTo</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_EdgeTo" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit main.define">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:network&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openWater.main.define&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:       vertexId,
+              utilityOrgId:   utilityOrgId,
+              fromVertexId:   fromVertexId,
+              toVertexId:     toVertexId,
+              diameterMm:     diameterMm,
+              material:       material,
+              lengthM:        lengthM
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="完了">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

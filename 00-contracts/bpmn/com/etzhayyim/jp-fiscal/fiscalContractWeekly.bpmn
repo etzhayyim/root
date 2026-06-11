@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — e-GOV 省庁契約公表 weekly ingest (ADR-0035 T2 migration).
+
+  Pipeline:
+    1. jpFiscal.ingest.egovContracts — fetch contract CSV for 5 ministries
+                                       (mof/mlit/meti/mext/mhlw),
+                                       write to vertex_jp_fiscal_contract.
+    2. generic.audit.emit            — OCEL event with aggregate write counts.
+
+  Cadence: R/P7D (weekly; Zeebe timer-start fires once per 7 days).
+
+  NSID: com.etzhayyim.apps.jpFiscal.fiscalContractWeekly
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_jp_fiscal_contract_weekly"
+    targetNamespace="https://etzhayyim.ai/bpmn/jp-fiscal"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="jp_fiscal_contract_weekly" name="JP Fiscal contract weekly" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.jpFiscal.fiscalContractWeekly", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="weekly">
+      <bpmn:outgoing>Flow_ToIngest</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P7D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToIngest_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_ToIngest"        sourceRef="Start_Timer"   targetRef="Task_Ingest"/>
+    <bpmn:sequenceFlow id="Flow_ToIngest_Manual" sourceRef="Start_Manual"  targetRef="Task_Ingest"/>
+    <bpmn:sequenceFlow id="Flow_ToAudit"         sourceRef="Task_Ingest"   targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End"             sourceRef="Task_Audit"    targetRef="End"/>
+
+    <!-- Step 1: Ingest e-GOV contracts for all 5 ministries (mof/mlit/meti/mext/mhlw). limit=50 per ministry. -->
+    <bpmn:serviceTask id="Task_Ingest" name="ingest e-GOV 省庁契約公表 CSV (5 ministries)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="jpFiscal.ingest.egovContracts"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50"   target="limit"/>
+          <zeebe:output source="=written"   target="contractWritten"/>
+          <zeebe:output source="=errors"    target="contractErrors"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <!-- Step 2: Emit OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit contract ingest audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.jpFiscal.fiscalContractWeekly&quot;"  target="event_type"/>
+          <zeebe:input source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"                    target="actor_did"/>
+          <zeebe:input source="={ contractWritten: contractWritten, contractErrors: contractErrors }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="done"/>
+
+  </bpmn:process>
+</bpmn:definitions>

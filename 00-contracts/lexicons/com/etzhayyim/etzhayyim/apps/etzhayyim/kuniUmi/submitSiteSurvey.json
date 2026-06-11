@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit the result of a Giemon scout fleet survey of a deployment site. N >= 2 independent robot DID signatures REQUIRED (witness invariant per ADR-2605201400 §9). Sensor blob CIDs are IPFS-pinned; the survey record itself is public (ecology baseline is open data).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteDid", "surveyBlobCids", "witnessAttestations", "ecologyBaseline"],
+          "properties": {
+            "siteDid": { "type": "string" },
+            "surveyBlobCids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "IPFS CIDs of survey sensor blobs (RGB-D / LIDAR / chem-sensor / multispectral)"
+            },
+            "witnessAttestations": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "required": ["robotDid", "blobHash", "signature"],
+                "properties": {
+                  "robotDid": { "type": "string", "description": "did:web:etzhayyim.com:kuniumi:robot:<serial>" },
+                  "blobHash": { "type": "string", "description": "keccak256 over surveyBlobCids" },
+                  "signature": { "type": "string", "description": "Ed25519 signature, base64url" }
+                }
+              }
+            },
+            "ecologyBaseline": {
+              "type": "object",
+              "required": ["impactScore"],
+              "properties": {
+                "impactScore": { "type": "integer", "description": "Estimated ecology impact 0..100 (used in proportionality-check DMN)", "minimum": 0, "maximum": 100 },
+                "protectedSpeciesDetected": { "type": "boolean" },
+                "culturalHeritageDetected": { "type": "boolean" },
+                "notesCid": { "type": "string", "description": "Optional IPFS CID for detailed ecologist notes" }
+              }
+            },
+            "populationImpacted": { "type": "integer", "description": "Estimated population in the affected area" },
+            "reversibilityScore": { "type": "integer", "description": "0 (irreversible) … 100 (fully restorable)", "minimum": 0, "maximum": 100 },
+            "accepted": { "type": "boolean", "description": "Survey-level acceptance (after DMN re-check); false means site progressed to rejected" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "surveyDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "accepted": { "type": "boolean" },
+            "witnessCount": { "type": "integer" },
+            "submittedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCrew.trackQualification",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Track crew qualification, type rating, and expiry.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["crew_did", "qual_type", "expiry_date"],
+          "properties": {
+            "crew_did": { "type": "string" },
+            "qual_type": { "type": "string" },
+            "expiry_date": { "type": "string" },
+            "aircraft_type": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

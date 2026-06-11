@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-b3dae586349d5af4",
+  "evidenceId": "evidence-b3dae586349d5af4",
+  "entityId": "ent-dc51bf520002",
+  "category": "AntiSocialAssociation",
+  "source": "internal/etzhayyim-hostile",
+  "sourceReliability": "A",
+  "occurredAt": "2026-04-05T00:00:00Z",
+  "confidence": 1.0,
+  "severity": 5,
+  "probability": 0.001,
+  "jurisdiction": "JP",
+  "summary": "Etzhayyim に対する敵対関係"
+}

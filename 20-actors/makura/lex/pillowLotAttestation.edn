@@ -1,0 +1,14 @@
+{:lexicon 1
+ :id "com.etzhayyim.makura.pillowLotAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key  "tid"
+   :record
+   {:type       "object"
+    :required   ["tid" "fillWeight" "closureDetails" "labelDetails" "lotDid"]
+    :properties {:tid            {:type "string" :description "Transaction ID"}
+                 :fillWeight     {:type "string" :description "Fill weight details"}
+                 :closureDetails {:type "string" :description "Closure details"}
+                 :labelDetails   {:type "string" :description "Labeling details"}
+                 :lotDid         {:type "string" :description "Pillow lot DID"}}}}}}

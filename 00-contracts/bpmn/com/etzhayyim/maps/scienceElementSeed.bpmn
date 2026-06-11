@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — periodic element seed + material def bootstrap.
+
+  Pipeline:
+    1. science.element.seedElements — INSERT first 118 periodic elements
+                                      with CPK colors into vertex_periodic_element.
+                                      Idempotent PK overwrite. Returns seeded count.
+    2. science.element.seedMaterials — Bootstrap common PBR material defs
+                                      (metals, ceramics, organics) into
+                                      vertex_kami_material_def linked to elements.
+                                      Returns materialsSeeded.
+    3. generic.audit.emit           — OCEL event.
+
+  Cadence: R/P1D (once per day, idempotent).
+  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.scienceElementSeed.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-element-seed-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_science_element_seed"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="science_element_seed" name="science element seed" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.scienceElementSeed", "version": 1, "resultTimeoutMs": 86400000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="once per day">
+      <bpmn:outgoing>Flow_ToSeed</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P1D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSeed" sourceRef="Start" targetRef="Task_SeedElements"/>
+
+    <!-- Step 1: Seed all 118 periodic elements with CPK colors. -->
+    <bpmn:serviceTask id="Task_SeedElements" name="seed periodic elements (118)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.element.seedElements"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=20"      target="batch_size"/>
+          <zeebe:output source="=seeded"       target="elementsSeeded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSeed</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToMaterials</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToMaterials" sourceRef="Task_SeedElements" targetRef="Task_SeedMaterials"/>
+
+    <!-- Step 2: Bootstrap PBR material defs linked to element DIDs. -->
+    <bpmn:serviceTask id="Task_SeedMaterials" name="seed PBR material defs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.element.seedMaterials"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=materialsSeeded"  target="materialsSeeded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToMaterials</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_SeedMaterials" targetRef="Task_Audit"/>
+
+    <!-- Step 3: OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit science.element.seed OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.science.element.seed&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;elementsSeeded&quot;: elementsSeeded, &quot;materialsSeeded&quot;: materialsSeeded }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

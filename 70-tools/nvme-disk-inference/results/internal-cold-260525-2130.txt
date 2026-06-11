@@ -1,0 +1,60 @@
+--no-conversation is not supported by llama-cli
+please use llama-completion instead
+
+Loading model... 
+
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9290-bcfd1989e
+model      : gemma-4-26B-A4B-it-UD-Q3_K_M.gguf
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+> Mac mini M4 16GB で 26B MoE モデルを動かす最大の制約を 3 行で。
+
+[Start thinking]
+*   Hardware: Mac mini M4, 16GB RAM.
+*   Task: Running a 26B MoE (Mixture of Experts) model.
+*   Constraint: Identify the *maximum* constraint.
+*   Format: Exactly 3 lines.
+*   Language: Japanese.
+
+    *   Model Size: 26B parameters.
+    *   Parameter type: Usually FP16 (2 bytes per param) or quantized (4-bit, 3-bit, etc.).
+    *   Calculation for 2
+
+[ Prompt: 3.2 t/s | Generation: 7.7 t/s ]
+
+Exiting...
+      119.04 real        63.39 user        27.65 sys
+         10300866560  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2383473  page reclaims
+             2348015  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 959  voluntary context switches
+             1975621  involuntary context switches
+       1312780987969  instructions retired
+        331947443805  cycles elapsed
+          7195376208  peak memory footprint

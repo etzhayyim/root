@@ -1,0 +1,117 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanae.fundFlowEdge",
+  "description": "One typed FACTUAL fiscal flow edge in the kanae fund-flow graph, assembled by kanae_flow_assembler (domestic chain) or kanae_intergov_flow (inter-governmental). R0 skeleton per ADR-2605302300 §3/§4; ref-typed nesting added (R1 hardening = additionalProperties:false + required-field enforcement). CONSTITUTIONAL: this record describes a FACTUAL fund movement only — it MUST NOT assert that a crime / 不正 / violation occurred (G4 UPL-equivalent). The `flowClass` enum is DESCRIPTIVE and carries NO crime/violation/guilt value (a legal verdict is unrepresentable at the schema layer). `sourceRecordCids` MUST contain ≥2 upstream gov.dataset.* / danjo record CIDs (G5). Persisted in kotoba EAVT (G2; NO RisingWave / Postgres / Lance). `stateAlignedFlag` passes through from source (G13). Named endpoints (G10) are structured via #endpointRef: an endpoint may be a named party ONLY by citing the public source record that already names it.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourceCellDid",
+          "flowClass",
+          "fromEndpoint",
+          "toEndpoint",
+          "amount",
+          "currency",
+          "period",
+          "jurisdiction",
+          "sourceRecordCids",
+          "methodNoteCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourceCellDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the kanae cell that assembled the edge (kanae_flow_assembler / kanae_intergov_flow)"
+          },
+          "flowClass": {
+            "type": "string",
+            "description": "DESCRIPTIVE fiscal-flow category ONLY. No crime/violation/guilt value exists (G4).",
+            "knownValues": [
+              "appropriation",
+              "outlay",
+              "subaward",
+              "procurement-award",
+              "intergovernmental-transfer",
+              "aid-disbursement",
+              "loan",
+              "repayment"
+            ]
+          },
+          "fromEndpoint": {
+            "type": "ref",
+            "ref": "#endpointRef",
+            "description": "Source side: a fiscal authority / appropriation line / donor jurisdiction"
+          },
+          "toEndpoint": {
+            "type": "ref",
+            "ref": "#endpointRef",
+            "description": "Target side: a recipient entity (LEI) / program / recipient jurisdiction"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Decimal string (avoids float drift). The reported magnitude; NOT an audited figure."
+          },
+          "currency": {"type": "string", "maxLength": 8, "description": "ISO-4217, e.g. USD / EUR / JPY"},
+          "normalizedAmountUsd": {
+            "type": "string",
+            "description": "Optional decimal string normalized to USD at a disclosed period rate (for cross-jurisdiction visualization); the rate basis is recorded in the methodNote"
+          },
+          "period": {"type": "string", "description": "Fiscal period, e.g. FY2024 / 2024-Q3 / 2024"},
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "ISO-3 (domestic) OR supra (EU / OECD / UN / WB / IMF) for the edge's reporting context"
+          },
+          "sourceRecordCids": {
+            "type": "array",
+            "minLength": 2,
+            "items": {"type": "string"},
+            "description": "≥2 upstream gov.dataset.* / danjo record CIDs that ground this edge (G5)"
+          },
+          "methodNoteCid": {
+            "type": "string",
+            "description": "kanae.methodNote record CID defining the open, versioned assembly heuristic (G6)"
+          },
+          "stateAlignedFlag": {
+            "type": "boolean",
+            "default": false,
+            "description": "Pass-through from source (G13); CN-class / state-aligned figures are NOT treated as independently verified"
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "endpointRef": {
+      "type": "object",
+      "description": "A fund-flow endpoint. An endpoint is a named party ONLY where the public source record already names it (G10). Aggregate endpoints (recipient class, program total, jurisdiction) are the R0/R1 default.",
+      "required": ["endpointKind"],
+      "properties": {
+        "endpointKind": {
+          "type": "string",
+          "knownValues": [
+            "fiscal-authority",
+            "appropriation-line",
+            "program",
+            "recipient-class",
+            "recipient-entity-lei",
+            "donor-jurisdiction",
+            "recipient-jurisdiction"
+          ]
+        },
+        "label": {"type": "string", "maxLength": 512, "description": "Aggregate / class label (G10 aggregate-first)"},
+        "lei": {"type": "string", "description": "GLEIF LEI when endpointKind=recipient-entity-lei (corp.leiReference resolution)"},
+        "jurisdiction": {"type": "string", "maxLength": 8},
+        "publiclyNamedBasis": {
+          "type": "string",
+          "description": "REQUIRED when this endpoint names a specific party: the source record CID that already names them publicly (G10). Absent for aggregate endpoints."
+        }
+      }
+    }
+  }
+}

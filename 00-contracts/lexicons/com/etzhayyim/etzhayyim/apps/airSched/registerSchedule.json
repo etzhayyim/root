@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airSched.registerSchedule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a flight schedule for a carrier.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "carrier_code", "origin", "dest"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "carrier_code": { "type": "string" },
+            "origin": { "type": "string" },
+            "dest": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "dep_iata": { "type": "string" },
+            "arr_iata": { "type": "string" },
+            "dep_time": { "type": "string" },
+            "arr_time": { "type": "string" },
+            "aircraft_type": { "type": "string" },
+            "season": { "type": "string" },
+            "frequency_days": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

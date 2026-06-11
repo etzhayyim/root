@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.record.gameItem",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "In-game item (tool, consumable, material, key item). Scoped by game_slug.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["id", "slug", "game_slug", "name", "item_type", "lang"],
+        "properties": {
+          "id": { "type": "string", "description": "Canonical item id, e.g. item:pokemon-legends-z-a:frying-pan" },
+          "slug": { "type": "string", "description": "kebab-case slug unique within game_slug" },
+          "game_slug": { "type": "string", "description": "FK to GameTitle.slug (primary lang)" },
+          "name": { "type": "string", "description": "Display name (primary lang = en unless item is jp-only)" },
+          "description": { "type": "string" },
+          "item_type": {
+            "type": "string",
+            "enum": [
+              "consumable",
+              "material",
+              "tool",
+              "equipment",
+              "key-item",
+              "cooking-ingredient",
+              "cooking-tool",
+              "recipe-output",
+              "currency",
+              "other"
+            ]
+          },
+          "rarity": { "type": "string", "description": "common / uncommon / rare / legendary / etc." },
+          "stackable": { "type": "boolean" },
+          "lang": { "type": "string", "default": "en" },
+          "acquisition": {
+            "type": "array",
+            "description": "How to obtain. Each entry is a short sentence.",
+            "items": { "type": "string" }
+          },
+          "effects": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "sources": {
+            "type": "array",
+            "description": "Authority refs (URLs) per authority-chain-compliance-design",
+            "items": { "type": "string", "format": "uri" }
+          },
+          "drop_rate_permille": {
+            "type": "integer",
+            "description": "Drop probability in permille (0-1000; 50 = 5%). Optional. AT Lexicon does not support float types."
+          },
+          "found_at": {
+            "type": "array",
+            "description": "Location slugs where item appears on the overworld. Optional.",
+            "items": { "type": "string" }
+          },
+          "sell_price": {
+            "type": "integer",
+            "description": "In-game shop sell price. Optional."
+          },
+          "buy_price": {
+            "type": "integer",
+            "description": "In-game shop buy price. Optional."
+          },
+          "org_id": { "type": "string", "default": "anon" },
+          "user_id": { "type": "string", "default": "anon" },
+          "actor_id": { "type": "string" },
+          "created_at": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

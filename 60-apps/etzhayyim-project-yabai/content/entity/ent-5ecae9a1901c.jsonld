@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5ecae9a1901c",
+  "entityId": "ent-5ecae9a1901c",
+  "canonicalName": "司忍 (tsukasa shinobu)",
+  "aliases": [
+    "司忍 (tsukasa shinobu)"
+  ]
+}

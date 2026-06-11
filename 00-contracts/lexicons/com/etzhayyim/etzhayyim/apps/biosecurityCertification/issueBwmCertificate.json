@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biosecurityCertification.issueBwmCertificate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMO BWM / AFS / ISPP certificate (biosecurity+carrier-fleet bridge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "certId",
+            "imo",
+            "certType",
+            "issuedAt",
+            "expiresAt"
+          ],
+          "properties": {
+            "certId": {
+              "type": "string"
+            },
+            "biosecurityInspectionVid": {
+              "type": "string",
+              "description": "bridges open-biosecurity"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "certType": {
+              "type": "string",
+              "enum": [
+                "BWM",
+                "AFS",
+                "ISPP",
+                "SOPEP",
+                "IOPP"
+              ]
+            },
+            "issuingAuthorityLei": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

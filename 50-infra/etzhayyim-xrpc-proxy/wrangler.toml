@@ -1,0 +1,57 @@
+name = "etzhayyim-xrpc-proxy"
+main = "src/worker.ts"
+compatibility_date = "2026-05-22"
+
+# Route bindings — one per subdomain. `custom_domain = true` makes wrangler
+# auto-provision the DNS record for each Custom Domain so the subdomain
+# resolves to Cloudflare edge.
+#
+# Each request is forwarded via service binding to the corresponding
+# upstream worker (which still owns the etzhayyim.com routes). This lets the
+# etzhayyim.com zone reuse the existing PDS / AppView / Auth / MCP
+# workers without redeploying them.
+[[routes]]
+pattern = "atproto.etzhayyim.com"
+zone_name = "etzhayyim.com"
+custom_domain = true
+
+[[routes]]
+pattern = "bsky.etzhayyim.com"
+zone_name = "etzhayyim.com"
+custom_domain = true
+
+[[routes]]
+pattern = "authn.etzhayyim.com"
+zone_name = "etzhayyim.com"
+custom_domain = true
+
+[[routes]]
+pattern = "mcp.etzhayyim.com"
+zone_name = "etzhayyim.com"
+custom_domain = true
+
+# Service bindings — Worker→Worker calls within etzhayyim-cloud account.
+# These bypass the CF Bot Management blocks at the public HTTP edge that
+# affect *.etzhayyim.com requests.
+[[services]]
+binding = "PDS"
+service = "etzhayyim-pds-2603241700"
+
+[[services]]
+binding = "APPVIEW"
+service = "etzhayyim-appview"
+
+[[services]]
+binding = "AUTHN"
+service = "etzhayyim-auth"
+
+[[services]]
+binding = "MCP"
+service = "etzhayyim-agentgateway"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-54913d95da4b",
+  "entityId": "ent-54913d95da4b",
+  "canonicalName": "elektroradioavtomatika jsc",
+  "aliases": [
+    "elektroradioavtomatika jsc"
+  ]
+}

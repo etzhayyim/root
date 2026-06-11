@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.stockActAmendment.flagStallPattern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stall pattern / committee hold / vote dodging (bridges congressionalStock.flagLateFiling + judicialInfluence + ethicsDisclosure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "proposalVid",
+            "stallKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "proposalVid": {
+              "type": "string",
+              "description": "bridges recordProposal"
+            },
+            "stallKind": {
+              "type": "string",
+              "enum": [
+                "committee_hold",
+                "leadership_block",
+                "markup_delay",
+                "rider_weakening",
+                "filibuster",
+                "denied_floor",
+                "discharge_petition_failed",
+                "compromise_dilution",
+                "grandfather_wide",
+                "enforcement_gutted",
+                "exempt_spouse"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

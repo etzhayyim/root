@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_lawfirm_run_conflict_check" targetNamespace="https://etzhayyim.ai/bpmn/lawfirm" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="lawfirm_run_conflict_check" name="runConflictCheck" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_LoadParties"/>
+    <bpmn:serviceTask id="Task_LoadParties" name="load past matters by party">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT vertex_id, matter_type, opened_at, status FROM vertex_lawfirm_matter WHERE firm_did = $1 AND (client_did = ANY($2) OR EXISTS (SELECT 1 FROM edge_lawfirm_counterparty e WHERE e.src_vid = vertex_lawfirm_matter.vertex_id AND e.dst_vid = ANY($2))) LIMIT 200&quot;" target="sql"/>
+          <zeebe:input source="=[firmDid, partyDids]" target="params"/>
+          <zeebe:output source="=rows" target="pastMatters"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_E</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_E" sourceRef="Task_LoadParties" targetRef="Task_Embed"/>
+    <bpmn:serviceTask id="Task_Embed" name="embed subject matter">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;POST&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://api.cloudflare.com/client/v4/accounts/&quot; + cfAccountId + &quot;/ai/run/@cf/baai/bge-m3&quot;" target="url"/>
+          <zeebe:input source="={Authorization: &quot;Bearer &quot; + cfApiToken}" target="headers"/>
+          <zeebe:input source="={text: subjectMatter}" target="body"/>
+          <zeebe:output source="=response.result.data[1]" target="queryEmbedding"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_E</bpmn:incoming><bpmn:outgoing>Flow_C</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Task_Embed" targetRef="Task_Precedent"/>
+    <bpmn:callActivity id="Task_Precedent" name="search legal-corpus precedent">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_search_document"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=subjectMatter" target="queryText"/>
+          <zeebe:input source="=firmJurisdiction" target="jurisdiction"/>
+          <zeebe:input source="=null" target="documentType"/>
+          <zeebe:input source="=null" target="languageCode"/>
+          <zeebe:input source="=null" target="decidedAfter"/>
+          <zeebe:input source="=null" target="decidedBefore"/>
+          <zeebe:input source="=10" target="limit"/>
+          <zeebe:output source="=hits" target="precedentHits"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:outgoing>Flow_D</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_D" sourceRef="Task_Precedent" targetRef="Task_Classify"/>
+    <bpmn:businessRuleTask id="Task_Classify" name="apply conflict dmn">
+      <bpmn:extensionElements><zeebe:calledDecision decisionId="lawfirm_conflict_severity" resultVariable="conflictResult"/></bpmn:extensionElements>
+      <bpmn:incoming>Flow_D</bpmn:incoming><bpmn:outgoing>Flow_W</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_W" sourceRef="Task_Classify" targetRef="Task_Write"/>
+    <bpmn:serviceTask id="Task_Write" name="write conflict-check record">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO vertex_lawfirm_conflict_check (vertex_id, firm_did, requested_by_did, party_dids_csv, subject_matter, severity, status, past_matter_count, precedent_uris_csv, precedent_top_score, checked_at, owner_did, sensitivity_ord, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)&quot;" target="sql"/>
+          <zeebe:input source="=[&quot;at://&quot; + firmDid + &quot;/com.etzhayyim.apps.lawfirm.conflictCheck/&quot; + checkId, firmDid, callerDid, partyDids, subjectMatter, conflictResult.severity, conflictResult.status, count(pastMatters), string join([for h in precedentHits return h.canonical_uri], &quot;,&quot;), if precedentHits != null and precedentHits[1] != null then precedentHits[1].score else null, now, firmDid, 2, now]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_W</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Write" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

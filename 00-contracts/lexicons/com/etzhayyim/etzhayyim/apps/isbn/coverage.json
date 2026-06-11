@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isbn.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Coverage report — books per language / jurisdiction / PD ratio.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "groupBy": {"type": "string", "enum": ["language", "jurisdiction"], "default": "language"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "totalBooks", "pdBooks"],
+          "properties": {
+            "items": {"type": "array", "items": {"type": "unknown"}},
+            "totalBooks": {"type": "integer"},
+            "pdBooks": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

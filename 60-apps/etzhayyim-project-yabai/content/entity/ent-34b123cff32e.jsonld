@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-34b123cff32e",
+  "entityId": "ent-34b123cff32e",
+  "canonicalName": "tcham na man",
+  "aliases": [
+    "tcham na man"
+  ]
+}

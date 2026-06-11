@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.datacenterEnergy.registerFacility",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Hyperscale / colocation DC registry (Uptime Institute / iMasons / LBNL — bridges ai-supply-chain + water-scarcity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "facilityId",
+            "locationIso3",
+            "itCapacityMw",
+            "commissionedAt"
+          ],
+          "properties": {
+            "facilityId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "locationIso3": {
+              "type": "string"
+            },
+            "itCapacityMw": {
+              "type": "number"
+            },
+            "tier": {
+              "type": "string",
+              "enum": [
+                "I",
+                "II",
+                "III",
+                "IV"
+              ],
+              "description": "Uptime Institute tier"
+            },
+            "pueAnnual": {
+              "type": "number",
+              "description": "Power Usage Effectiveness"
+            },
+            "werAnnual": {
+              "type": "number",
+              "description": "Water Usage Effectiveness L/kWh"
+            },
+            "primaryCooling": {
+              "type": "string",
+              "enum": [
+                "air",
+                "liquid",
+                "immersion",
+                "free_air",
+                "adiabatic"
+              ]
+            },
+            "powerSource": {
+              "type": "string"
+            },
+            "commissionedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "efficiencyTier": {
+              "type": "string",
+              "enum": [
+                "legacy",
+                "standard",
+                "efficient",
+                "exemplary"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+/target
+# 1744-line wasmtime dep tree; the runner is a test harness, not a
+# content-addressed artifact, so the lockfile is not pinned here.
+Cargo.lock

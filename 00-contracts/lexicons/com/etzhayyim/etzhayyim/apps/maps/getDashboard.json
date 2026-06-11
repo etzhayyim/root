@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.getDashboard",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "places": {
+              "type": "string"
+            },
+            "routes": {
+              "type": "string"
+            },
+            "buildings": {
+              "type": "string"
+            },
+            "sensors": {
+              "type": "string"
+            },
+            "roads": {
+              "type": "string"
+            },
+            "railways": {
+              "type": "string"
+            },
+            "airports": {
+              "type": "string"
+            },
+            "ports": {
+              "type": "string"
+            },
+            "stations": {
+              "type": "string"
+            },
+            "spots": {
+              "type": "string"
+            },
+            "rivers": {
+              "type": "string"
+            },
+            "lakes": {
+              "type": "string"
+            },
+            "mountains": {
+              "type": "string"
+            },
+            "infraNetworks": {
+              "type": "string"
+            },
+            "infraIncidents": {
+              "type": "string"
+            },
+            "simulations": {
+              "type": "string"
+            },
+            "spatialEvents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "displayLayers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "visionResults": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "satelliteScenes": {
+              "type": "string"
+            },
+            "collectionJobs": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

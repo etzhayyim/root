@@ -1,0 +1,161 @@
+apiVersion: etzhayyim.com/v1alpha1
+kind: MurakumoMeshPlacementContract
+metadata:
+  name: etzhayyim-murakumo-placement
+  labels:
+    etzhayyim.com/topology: murakumo-mesh
+  adr:
+    - "2605191346"
+    - "2605192415"
+    - "2605182312"
+    - "2605201400"
+spec:
+  fleetSource: 50-infra/murakumo/fleet.toml
+  cellCatalogSource: 40-engine/kotoba/crates/kotoba-kotodama/cells/
+  k8sResourcesAllowed: false        # no Deployment/CronJob/DaemonSet/StatefulSet authoritative here
+
+  # ─── Cell placement (mirrors fleet.toml, kept as multicluster-readable contract) ───
+  cellGroups:
+    - name: charter-and-survey
+      node: naphtali
+      cells:
+        - CharterAttestationRequestCell
+        - CharterAttestationFinalizationCell
+        - CharterRehabilitationCell
+        - SiteSurveyCell                       # witness_min=2 (ADR-2605201400 §9, never reduce)
+      labels:
+        etzhayyim.com/cell-role: charter-leader
+
+    - name: steward-and-pin
+      node: simeon
+      cells:
+        - LandStewardshipMonitoringCell
+        - CommissioningCell
+      colocatedInfrastructure:
+        - ipfs-pinner                          # existing, ADR-2605171800
+      labels:
+        etzhayyim.com/cell-role: steward-leader
+
+    - name: land-trust
+      node: judah
+      cells:
+        - LandDonationProcessingCell
+        - LandDisputeResolutionCell
+        - StewardSuccessionCell
+      labels:
+        etzhayyim.com/cell-role: land-leader
+
+    - name: economic-and-planning
+      node: zebulun
+      cells:
+        - EligibilityCell
+        - TreasuryRebalanceCell
+        - PublicFundGrantCell
+        - TitheRoutingCell
+        - DeploymentPlanningCell
+      labels:
+        etzhayyim.com/cell-role: economic-leader
+
+    - name: membership-and-council
+      node: levi
+      cells:
+        - AdherentAttestationCell
+        - CouncilLevelAdvancementCell
+        - CouncilDeliberationCell
+        - AuditWitnessCell                     # witness_min=2 (constitutional)
+      labels:
+        etzhayyim.com/cell-role: council-leader
+
+    - name: phenotype-shard-0
+      node: joseph
+      cells:
+        - PhenotypeAgent
+        - ConstructionOrchestrationCell        # witness_min=2 (constitutional)
+      shard:
+        index: 0
+        total: 3
+      labels:
+        etzhayyim.com/cell-role: phenotype-shard-0 + construction-leader
+
+    - name: phenotype-shard-1
+      node: issachar
+      cells:
+        - PhenotypeAgent
+      shard:
+        index: 1
+        total: 3
+      labels:
+        etzhayyim.com/cell-role: phenotype-shard-1
+
+    - name: phenotype-shard-2
+      node: dan
+      cells:
+        - PhenotypeAgent
+        - DecommissionCell
+      shard:
+        index: 2
+        total: 3
+      labels:
+        etzhayyim.com/cell-role: phenotype-shard-2 + decommission-leader
+
+    - name: force-and-ethics
+      node: benjamin
+      cells:
+        - ForceAuthorizationCell
+        - ForceLogMonitoringCell
+        - EthicsContentClassifierCell
+      labels:
+        etzhayyim.com/cell-role: force-leader + ethics-leader
+
+    - name: replica
+      node: asher
+      cells: []                                # dynamic — picks up leader role on failover
+      replicas_of: ["*"]
+      labels:
+        etzhayyim.com/cell-role: replica
+        etzhayyim.com/standing-replica: "true"
+
+  # ─── Inference pod binding (LAN-only, no AT membership) ───
+  inferenceBindings:
+    - cell: EthicsContentClassifierCell
+      primary: claude-sonnet-4-6           # external API
+      fallback_local: llama3.2:3b @ evo-x2 # ADR-2605202345
+      fallback_local_secondary: gemma3:4b @ own-node ollama
+      heavy_review: llama3.3:70b @ evo-x2 (batch-only)
+
+  # ─── Forbidden patterns (no-VKE invariant) ───
+  forbidden:
+    - apiVersion: karmada.io/*
+    - apiVersion: helm.toolkit.fluxcd.io/*
+    - apiVersion: apps/v1
+      kinds: [Deployment, DaemonSet, StatefulSet, ReplicaSet]
+      reason: K8s workload primitives — etzhayyim uses launchd + cell-runner per ADR-2605191346
+    - apiVersion: batch/v1
+      kinds: [Job, CronJob]
+      reason: K8s batch primitives — etzhayyim uses launchd cron triggers per cell config in fleet.toml
+    - tool: tailscale
+      reason: replaced by self-hosted tailmesh
+    - tool: wireguard
+      reason: replaced by self-hosted tailmesh
+    - tool: vke-loadbalancer
+      reason: no commercial K8s per ADR-2605191346
+    - tool: runpod
+      reason: vendor-only (etzhayyim.com); etzhayyim uses on-LAN evo-x2 per ADR-2605202345
+
+  # ─── Migration history ───
+  migrationFromVendor:
+    fromPath: etzhayyim-apps-etzhayyimcojp/50-infra/multicluster/murakumo-vke/
+    droppedComponents:
+      - karmada-pull-mode-runbook.md          # Karmada hub control plane
+      - placement-contract.yaml (karmada)     # PropagationPolicy shape
+      - murakumo-system/llama-vulkan-fleet.yaml  # K8s DaemonSet (replaced by per-node Ollama + EVO-X2)
+      - yoro-actors/                          # K8s CronJob actors (now kotodama cells on each node)
+      - shinka-actors/                        # K8s LangServer workers (now in 40-engine/kotoba/crates/kotoba-kotodama)
+      - malak-actors/                         # K8s pursuit-loop (vendor surveillance — not migrated)
+      - telecom-actors/                       # vendor telecom (not migrated)
+    redesignedAs:
+      - 50-infra/murakumo/fleet.toml          # cell placement SSoT (10 nodes × 15 cells)
+      - 50-infra/cluster/murakumo/             # Rust runtime (node CLI, tailmesh, worker, daemon)
+      - 50-infra/cluster/murakumo/cell-runner/ # kotodama-cell-runner launchd plist
+      - 50-infra/k8s/murakumo-kubelet/         # custom kubelet (no K8s control plane)
+      - 50-infra/multicluster/murakumo-mesh/   # this dir

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.lifehack.submitEnvironmentReading",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a humidity / temperature / PM2.5 reading. Used by the staticAlert BPMN to detect static-electricity risk (humidity < 35%) and post warnings.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["humidityPct"],
+          "properties": {
+            "locationH3": {"type": "string", "description": "H3 res-7 cell (auto-derived if lat/lon supplied)"},
+            "lat": {"type": "number"},
+            "lon": {"type": "number"},
+            "humidityPct": {"type": "number", "minimum": 0, "maximum": 100},
+            "tempC": {"type": "number"},
+            "pm25Ugm3": {"type": "number"},
+            "source": {"type": "string", "default": "user-submit"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "readingId", "vertexId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "readingId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "staticRisk": {"type": "boolean", "description": "true if humidity < 35"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

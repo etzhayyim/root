@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.provisionNtnCell",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NTN — provision a non-terrestrial cell on a satellite (3GPP TS 38.821). cellPattern = moving (LEO sweep) / earth_fixed (steered) / quasi_earth_fixed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["satelliteId", "ranNodeId", "cellPattern", "beamCount", "plmnId", "frequencyBand", "payloadKind", "validFrom", "observedAt"],
+          "properties": {
+            "ntnCellId": { "type": "string" },
+            "satelliteId": { "type": "string" },
+            "ranNodeId": { "type": "string" },
+            "cellPattern": { "type": "string", "enum": ["moving", "earth_fixed", "quasi_earth_fixed"] },
+            "beamCount": { "type": "integer" },
+            "plmnId": { "type": "string" },
+            "snssai": { "type": "string" },
+            "frequencyBand": { "type": "string" },
+            "payloadKind": { "type": "string", "enum": ["transparent", "regenerative_gnb", "regenerative_ng_ran", "regenerative_full"] },
+            "jurisdiction": { "type": "string" },
+            "validFrom": { "type": "string", "format": "datetime" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "ntnCellId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

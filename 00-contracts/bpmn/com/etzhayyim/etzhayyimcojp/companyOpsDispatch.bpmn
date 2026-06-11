@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_etzhayyimcojp_ops_dispatch"
+                  targetNamespace="https://etzhayyim.ai/bpmn/etzhayyimcojp"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="etzhayyimcojp_company_ops_dispatch"
+                name="etzhayyimcojp Company Ops Dispatch"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.etzhayyimcojp.companyOpsDispatch", "version": 1, "resultTimeoutMs": 180000 }</bpmn:documentation>
+
+    <!-- XRPC-triggered: POST /xrpc/com.etzhayyim.apps.etzhayyimcojp.companyOpsDispatch -->
+    <bpmn:startEvent id="Start_XRPC" name="XRPC Triggered">
+      <bpmn:outgoing>Flow_start_to_ops</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_ops" sourceRef="Start_XRPC" targetRef="Task_OpsSubmit"/>
+
+    <!-- Submit to LangGraph etzhayyimcojp-company-ops via POST /runs -->
+    <bpmn:serviceTask id="Task_OpsSubmit" name="Submit to LangGraph">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="etzhayyimcojp.ops.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=task_type" target="task_type"/>
+          <zeebe:input source="=payload" target="payload"/>
+          <zeebe:input source="=requester_did" target="requester_did"/>
+          <zeebe:output source="=result" target="result"/>
+          <zeebe:output source="=action_items" target="action_items"/>
+          <zeebe:output source="=ok" target="ok"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_ops</bpmn:incoming>
+      <bpmn:outgoing>Flow_ops_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_ops_to_audit" sourceRef="Task_OpsSubmit" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:etzhayyimcojp.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=task_type" target="event_type"/>
+          <zeebe:input source="={ok: ok, action_items: action_items}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ops_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

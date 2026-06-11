@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-205f01bd8414",
+  "entityId": "ent-205f01bd8414",
+  "canonicalName": "msn 550",
+  "aliases": [
+    "msn 550"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.process.dependencies",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return dependency edges between robotics business processes and missing prerequisites for a selected process slice.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "processes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional process ids to filter."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "dependencies": { "type": "array", "items": { "type": "unknown" } },
+            "missingPrerequisites": { "type": "array", "items": { "type": "unknown" } }
+          }
+        }
+      }
+    }
+  }
+}

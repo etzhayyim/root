@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-118c65c7c400",
+  "entityId": "ent-118c65c7c400",
+  "canonicalName": "eric badege",
+  "aliases": [
+    "eric badege"
+  ]
+}

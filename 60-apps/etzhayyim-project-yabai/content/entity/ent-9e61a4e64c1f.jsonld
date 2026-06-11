@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9e61a4e64c1f",
+  "entityId": "ent-9e61a4e64c1f",
+  "canonicalName": "beijing shuoke zhongkexin electronic equipment co., ltd.",
+  "aliases": [
+    "beijing shuoke zhongkexin electronic equipment co., ltd."
+  ]
+}

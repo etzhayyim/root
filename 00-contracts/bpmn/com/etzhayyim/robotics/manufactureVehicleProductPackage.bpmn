@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Automotive manufacturing package orchestration for vehicle programs. -->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_robotics_manufacture_vehicle_product_package"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="robotics_manufacture_vehicle_product_package" name="Vehicle manufacturing package" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Vehicle package received">
+      <bpmn:outgoing>Flow_Start_Profile</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Profile" sourceRef="Start" targetRef="Task_Profile"/>
+
+    <bpmn:serviceTask id="Task_Profile" name="Normalize vehicle manufacturing profile">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.package.profile"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=vehicleProgram" target="vehicleProgram"/>
+          <zeebe:input source="=modelCode" target="modelCode"/>
+          <zeebe:input source="=plantId" target="plantId"/>
+          <zeebe:input source="=lineId" target="lineId"/>
+          <zeebe:input source="=vehicleKind" target="vehicleKind"/>
+          <zeebe:input source="=packageManifest" target="packageManifest"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Profile</bpmn:incoming>
+      <bpmn:outgoing>Flow_Profile_Validate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Profile_Validate" sourceRef="Task_Profile" targetRef="Task_ValidatePackage"/>
+
+    <bpmn:serviceTask id="Task_ValidatePackage" name="Validate vehicle package">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.product.package.validate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=&quot;autonomous_vehicle&quot;" target="assetKind"/>
+          <zeebe:input source="=packageManifest" target="packageManifest"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Profile_Validate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Validate_Catalog</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Validate_Catalog" sourceRef="Task_ValidatePackage" targetRef="Task_FileCatalog"/>
+
+    <bpmn:serviceTask id="Task_FileCatalog" name="Catalog vehicle manufacturing files">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.file.catalog"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=packageManifest" target="packageManifest"/>
+          <zeebe:input source="=automotiveManufacturingProfile" target="vehicleProfile"/>
+          <zeebe:input source="=roboticsProductPackageValidation" target="packageValidation"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Validate_Catalog</bpmn:incoming>
+      <bpmn:outgoing>Flow_Catalog_SupplyLink</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Catalog_SupplyLink" sourceRef="Task_FileCatalog" targetRef="Task_SupplyProcessLink"/>
+
+    <bpmn:serviceTask id="Task_SupplyProcessLink" name="Link materials, suppliers, intermediate process, people, and patents">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.supply.process.link"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=vehicleProgram" target="vehicleProgram"/>
+          <zeebe:input source="=roboticsProductFileCatalog" target="fileCatalog"/>
+          <zeebe:input source="=automotiveManufacturingProfile" target="vehicleProfile"/>
+          <zeebe:input source="=supplyProcessLinks" target="links"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Catalog_SupplyLink</bpmn:incoming>
+      <bpmn:outgoing>Flow_SupplyLink_Routing</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_SupplyLink_Routing" sourceRef="Task_SupplyProcessLink" targetRef="Task_Routing"/>
+
+    <bpmn:serviceTask id="Task_Routing" name="Plan MBOM, routing, tooling, and line balance">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.routing.plan"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=automotiveManufacturingProfile" target="vehicleProfile"/>
+          <zeebe:input source="=roboticsProductFileCatalog" target="fileCatalog"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SupplyLink_Routing</bpmn:incoming>
+      <bpmn:outgoing>Flow_Routing_Quality</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Routing_Quality" sourceRef="Task_Routing" targetRef="Task_QualityGate"/>
+
+    <bpmn:serviceTask id="Task_QualityGate" name="Evaluate automotive quality gate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.quality.gate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=vehicleProgram" target="vehicleProgram"/>
+          <zeebe:input source="=qualityGate" target="qualityGate"/>
+          <zeebe:input source="={ profile: automotiveManufacturingProfile, catalog: roboticsProductFileCatalog, routing: automotiveRoutingPlan, supplyProcess: automotiveSupplyProcessGraph }" target="evidence"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Routing_Quality</bpmn:incoming>
+      <bpmn:outgoing>Flow_Quality_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Quality_Gate" sourceRef="Task_QualityGate" targetRef="Gate_QualityPass"/>
+
+    <bpmn:exclusiveGateway id="Gate_QualityPass" name="Gate passed?" default="Flow_Block">
+      <bpmn:incoming>Flow_Quality_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Pass_EOL</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Block</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Pass_EOL" sourceRef="Gate_QualityPass" targetRef="Task_EOL">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=automotiveQualityGateResult.status != "block"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_EOL" name="Plan EOL, flashing, DPP, and RFQ exports">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="automotive.eol.plan"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=packageId" target="packageId"/>
+          <zeebe:input source="=automotiveManufacturingProfile" target="vehicleProfile"/>
+          <zeebe:input source="=roboticsProductFileCatalog" target="fileCatalog"/>
+          <zeebe:input source="=automotiveRoutingPlan" target="routingPlan"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Pass_EOL</bpmn:incoming>
+      <bpmn:outgoing>Flow_EOL_AuditReady</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EOL_AuditReady" sourceRef="Task_EOL" targetRef="Task_AuditReady"/>
+
+    <bpmn:serviceTask id="Task_AuditReady" name="Emit vehicle manufacturing-ready audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;automotive.manufacturing.package.ready&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, packageId: packageId, profile: automotiveManufacturingProfile, supplyProcess: automotiveSupplyProcessGraph, quality: automotiveQualityGateResult, eol: automotiveEolPlan }" target="payload"/>
+          <zeebe:output source="=&quot;ready&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EOL_AuditReady</bpmn:incoming>
+      <bpmn:outgoing>Flow_Ready_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Ready_End" sourceRef="Task_AuditReady" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditBlock" name="Emit vehicle manufacturing-blocked audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;automotive.manufacturing.package.blocked&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, packageId: packageId, profile: automotiveManufacturingProfile, supplyProcess: automotiveSupplyProcessGraph, quality: automotiveQualityGateResult }" target="payload"/>
+          <zeebe:output source="=&quot;blocked&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Block</bpmn:incoming>
+      <bpmn:outgoing>Flow_Block_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Block" sourceRef="Gate_QualityPass" targetRef="Task_AuditBlock"/>
+    <bpmn:sequenceFlow id="Flow_Block_End" sourceRef="Task_AuditBlock" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Vehicle manufacturing package handled">
+      <bpmn:incoming>Flow_Ready_End</bpmn:incoming>
+      <bpmn:incoming>Flow_Block_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

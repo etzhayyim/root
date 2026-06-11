@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_seiyaku_register_batch"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-seiyaku"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="seiyaku_register_batch" name="製薬バッチ登録" isExecutable="true">
+    <bpmn:startEvent id="Start" name="開始">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Form"/>
+
+    <bpmn:userTask id="Task_Form" name="バッチ記録入力">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:open-seiyaku-batch-form-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="plant-operator"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P7D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:incoming>Flow_LoopBack</bpmn:incoming>
+      <bpmn:incoming>Flow_ValidationLoopBack</bpmn:incoming>
+      <bpmn:incoming>Flow_QAReworkLoop</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_Form" targetRef="Task_ValidateSubmission"/>
+
+    <bpmn:serviceTask id="Task_ValidateSubmission" name="GMP 必須項目検証">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-seiyaku.batch.register.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:             vertexId,
+              manufacturerOrgId:    manufacturerOrgId,
+              plantOrgId:           plantOrgId,
+              productCode:          productCode,
+              batchNumber:          batchNumber,
+              dosageForm:           string(batchIdentity.dosageForm),
+              masterFormulaPayload: string(masterFormulaPayload),
+              materialPayload:      string(materialPayload),
+              batchRecordPayload:   string(batchRecordPayload),
+              qualityPayload:       string(qualityPayload),
+              deviationPayload:     string(deviationPayload)
+          }" target="facts"/>
+          <zeebe:output source="=passed" target="validationPassed"/>
+          <zeebe:output source="=findings" target="validationFindings"/>
+          <zeebe:output source="=coalesce(riskTier, &quot;standard&quot;)" target="batchRiskTier"/>
+          <zeebe:output source="=coalesce(exportControlled, false)" target="exportControlled"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidationGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ValidationGate" sourceRef="Task_ValidateSubmission" targetRef="Gate_ValidationPassed"/>
+
+    <bpmn:exclusiveGateway id="Gate_ValidationPassed" name="検証 OK?" default="Flow_ValidationFailed">
+      <bpmn:incoming>Flow_ValidationGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidationPassed</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ValidationFailed</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ValidationPassed" sourceRef="Gate_ValidationPassed" targetRef="Task_SaveConfidential">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=validationPassed = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ValidationFailed" sourceRef="Gate_ValidationPassed" targetRef="Task_AuditValidationFailed"/>
+
+    <bpmn:serviceTask id="Task_AuditValidationFailed" name="audit validation failed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSeiyaku.batch.validationFailed&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:           vertexId,
+              manufacturerOrgId:  manufacturerOrgId,
+              plantOrgId:         plantOrgId,
+              productCode:        productCode,
+              batchNumber:        batchNumber,
+              findings:           validationFindings
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ValidationFailed</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidationLoopBack</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ValidationLoopBack" sourceRef="Task_AuditValidationFailed" targetRef="Task_Form"/>
+
+    <bpmn:serviceTask id="Task_SaveConfidential" name="confidential payload 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_seiyaku_batch_confidential&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:              vertexId,
+              manufacturer_org_id:    manufacturerOrgId,
+              plant_org_id:           plantOrgId,
+              master_formula_payload: string(masterFormulaPayload),
+              material_payload:       string(materialPayload),
+              batch_record_payload:   string(batchRecordPayload),
+              quality_payload:        string(qualityPayload),
+              deviation_payload:      string(deviationPayload),
+              amendment_log:          &quot;[]&quot;,
+              retention_until:        string(now() + duration(&quot;P3650D&quot;)),
+              created_at:             string(now()),
+              owner_did:              callerDid,
+              sensitivity_ord:        2,
+              org_id:                 manufacturerOrgId,
+              user_id:                callerDid,
+              actor_id:               &quot;sys.bpmn.open-seiyaku&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ValidationPassed</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_SaveConfidential" targetRef="Task_SaveMeta"/>
+
+    <bpmn:serviceTask id="Task_SaveMeta" name="Tier 1 メタ保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_seiyaku_batch&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:             vertexId,
+              manufacturer_org_id:   manufacturerOrgId,
+              plant_org_id:          plantOrgId,
+              product_code:          productCode,
+              batch_number:          batchNumber,
+              dosage_form:           string(batchIdentity.dosageForm),
+              process_type:          &quot;register&quot;,
+              status:                &quot;submitted&quot;,
+              batch_hash:            string(batchHash),
+              qa_required:           true,
+              amendment_count:       0,
+              submitted_at:          string(now()),
+              created_at:            string(now()),
+              owner_did:             callerDid,
+              sensitivity_ord:       1,
+              org_id:                manufacturerOrgId,
+              user_id:               callerDid,
+              actor_id:              &quot;sys.bpmn.open-seiyaku&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_SaveMeta" targetRef="Gate_ExportScreenNeeded"/>
+
+    <bpmn:exclusiveGateway id="Gate_ExportScreenNeeded" name="輸出管理確認要?" default="Flow_NoExportScreen">
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_ExportScreen</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoExportScreen</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ExportScreen" sourceRef="Gate_ExportScreenNeeded" targetRef="Task_ExportControlReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=exportControlled = true or batchRiskTier = "restricted"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoExportScreen" sourceRef="Gate_ExportScreenNeeded" targetRef="Task_QAReview"/>
+
+    <bpmn:userTask id="Task_ExportControlReview" name="輸出管理レビュー">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:open-seiyaku-export-control-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="trade-compliance"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P3D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ExportScreen</bpmn:incoming>
+      <bpmn:outgoing>Flow_ExportGate</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_ExportGate" sourceRef="Task_ExportControlReview" targetRef="Gate_ExportCleared"/>
+
+    <bpmn:exclusiveGateway id="Gate_ExportCleared" name="輸出管理 OK?" default="Flow_ExportBlocked">
+      <bpmn:incoming>Flow_ExportGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ExportCleared</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ExportBlocked</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ExportCleared" sourceRef="Gate_ExportCleared" targetRef="Task_QAReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=exportControlDecision = "clear"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ExportBlocked" sourceRef="Gate_ExportCleared" targetRef="Task_MarkRejected"/>
+
+    <bpmn:userTask id="Task_QAReview" name="QA レビュー">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:open-seiyaku-batch-review-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="qa-officer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P5D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoExportScreen</bpmn:incoming>
+      <bpmn:incoming>Flow_ExportCleared</bpmn:incoming>
+      <bpmn:outgoing>Flow_F4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F4" sourceRef="Task_QAReview" targetRef="Gate_QAComplete"/>
+
+    <bpmn:exclusiveGateway id="Gate_QAComplete" name="QA 完了?" default="Flow_QARework">
+      <bpmn:incoming>Flow_F4</bpmn:incoming>
+      <bpmn:outgoing>Flow_QAComplete</bpmn:outgoing>
+      <bpmn:outgoing>Flow_QARework</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_QAComplete" sourceRef="Gate_QAComplete" targetRef="Gate_Approved">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=coalesce(reviewComplete, true) = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_QARework" sourceRef="Gate_QAComplete" targetRef="Task_AuditQARework"/>
+
+    <bpmn:serviceTask id="Task_AuditQARework" name="audit QA rework">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSeiyaku.batch.qaRework&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:        vertexId,
+              batchNumber:     batchNumber,
+              reviewFindings:  reviewFindings
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_QARework</bpmn:incoming>
+      <bpmn:outgoing>Flow_QAReworkLoop</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_QAReworkLoop" sourceRef="Task_AuditQARework" targetRef="Task_Form"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approved" name="承認?" default="Flow_Reject">
+      <bpmn:incoming>Flow_QAComplete</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Approve" sourceRef="Gate_Approved" targetRef="Task_MarkReleased">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=verdict = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Reject" sourceRef="Gate_Approved" targetRef="Task_MarkRejected"/>
+
+    <bpmn:serviceTask id="Task_MarkReleased" name="released 化">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_seiyaku_batch&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:             vertexId,
+              manufacturer_org_id:   manufacturerOrgId,
+              plant_org_id:          plantOrgId,
+              product_code:          productCode,
+              batch_number:          batchNumber,
+              dosage_form:           string(batchIdentity.dosageForm),
+              process_type:          &quot;register&quot;,
+              status:                &quot;released&quot;,
+              batch_hash:            string(batchHash),
+              qa_required:           true,
+              qa_decision:           &quot;approve&quot;,
+              released_at:           string(now()),
+              approved_at:           string(now()),
+              approved_by_did:       string(reviewerDid),
+              amendment_count:       0,
+              submitted_at:          string(now()),
+              created_at:            string(now()),
+              owner_did:             callerDid,
+              sensitivity_ord:       1,
+              org_id:                manufacturerOrgId,
+              user_id:               callerDid,
+              actor_id:              &quot;sys.bpmn.open-seiyaku&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditApproved</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditApproved" sourceRef="Task_MarkReleased" targetRef="Task_AuditReleased"/>
+
+    <bpmn:serviceTask id="Task_AuditReleased" name="audit released">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSeiyaku.batch.release&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:           vertexId,
+              manufacturerOrgId:  manufacturerOrgId,
+              plantOrgId:         plantOrgId,
+              productCode:        productCode,
+              batchNumber:        batchNumber
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditApproved</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndA" sourceRef="Task_AuditReleased" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_MarkRejected" name="差戻し">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_seiyaku_batch&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:             vertexId,
+              manufacturer_org_id:   manufacturerOrgId,
+              plant_org_id:          plantOrgId,
+              product_code:          productCode,
+              batch_number:          batchNumber,
+              dosage_form:           string(batchIdentity.dosageForm),
+              process_type:          &quot;register&quot;,
+              status:                &quot;rejected&quot;,
+              batch_hash:            string(batchHash),
+              qa_required:           true,
+              qa_decision:           &quot;reject&quot;,
+              amendment_count:       0,
+              submitted_at:          string(now()),
+              created_at:            string(now()),
+              owner_did:             callerDid,
+              sensitivity_ord:       1,
+              org_id:                manufacturerOrgId,
+              user_id:               callerDid,
+              actor_id:              &quot;sys.bpmn.open-seiyaku&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Reject</bpmn:incoming>
+      <bpmn:incoming>Flow_ExportBlocked</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditRejected</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditRejected" sourceRef="Task_MarkRejected" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="audit rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSeiyaku.batch.reject&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:    vertexId,
+              batchNumber: batchNumber
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditRejected</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoopBack</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_LoopBack" sourceRef="Task_AuditRejected" targetRef="Task_Form"/>
+
+    <bpmn:endEvent id="End" name="完了">
+      <bpmn:incoming>Flow_EndA</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "itr1-amend-v1",
+  "version": 1,
+  "title": "ITR-1 §139(5) Revised Return",
+  "regulatoryRef": { "law": "Income Tax Act 1961", "article": "§139(5)" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "revisedMeta",
+      "type": "fieldset",
+      "label": "Revised Return Header",
+      "components": [
+        { "key": "predecessorAckNumber", "label": "Original ack number", "type": "textfield", "required": true },
+        { "key": "revisedReason", "label": "Reason", "type": "select", "required": true,
+          "options": [
+            { "value": "correctWageIncome",  "label": "Correct wage / employer income" },
+            { "value": "correctTdsClaim",    "label": "Correct TDS claim (mismatch with 26AS)" },
+            { "value": "correctDeduction",   "label": "Correct Chapter VI-A deduction" },
+            { "value": "correctBank",        "label": "Correct refund bank A/C" },
+            { "value": "correctAddress",     "label": "Correct address" },
+            { "value": "other",              "label": "Other" }
+          ]
+        },
+        { "key": "revisedDescription", "label": "Description", "type": "textarea", "validate": { "maxLength": 1500 } }
+      ]
+    },
+    {
+      "key": "deltas",
+      "type": "fieldset",
+      "label": "Delta values (set only the fields that changed)",
+      "x-encryptedSection": "amendmentPayload",
+      "components": [
+        { "key": "newGrossSalaryInrPaise", "label": "New gross salary (paise)", "type": "number" },
+        { "key": "newTdsFrom16InrPaise", "label": "New TDS from Form 16 (paise)", "type": "number" },
+        { "key": "newDeduction80cInrPaise", "label": "New §80C (paise)", "type": "number" },
+        { "key": "newDeduction80dInrPaise", "label": "New §80D (paise)", "type": "number" },
+        { "key": "newRefundBankAccount", "label": "New refund bank A/C", "type": "textfield",
+          "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "newRefundBankIfsc", "label": "New refund IFSC", "type": "textfield",
+          "pattern": "^[A-Z]{4}0[A-Z0-9]{6}$" },
+        { "key": "newAddress", "label": "New address", "type": "textarea",
+          "x-piiTier": 3, "x-encrypt": "signal:v1" }
+      ]
+    },
+    {
+      "key": "declaration",
+      "type": "fieldset",
+      "label": "Verification",
+      "components": [
+        { "key": "consentTier3", "type": "checkbox", "required": true,
+          "label": "Revised return data may be retained for 7 years per IT Act §44AA." },
+        { "key": "verificationDate", "label": "Date", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

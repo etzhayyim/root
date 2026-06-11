@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  id="graph-cron-tick" targetNamespace="https://etzhayyim.ai/bpmn">
+  <bpmn:process id="com.etzhayyim.graph.cronTick" name="Graph Consumer Cron Tick" isExecutable="true">
+    <bpmn:startEvent id="start" name="R/PT1M">
+      <bpmn:outgoing>to-tick</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT1M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT1M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="task-tick" name="Consume repo commits">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="graph.repo.consumeCommits"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50" target="batchSize"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>to-tick</bpmn:incoming>
+      <bpmn:outgoing>to-audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="task-audit" name="Emit audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;com.etzhayyim.apps.graph.cronTick&#34;" target="eventType"/>
+          <zeebe:input source="=&#34;graph-consumer&#34;" target="actorId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>to-audit</bpmn:incoming>
+      <bpmn:outgoing>to-end</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="end">
+      <bpmn:incoming>to-end</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="to-tick" sourceRef="start" targetRef="task-tick"/>
+    <bpmn:sequenceFlow id="to-audit" sourceRef="task-tick" targetRef="task-audit"/>
+    <bpmn:sequenceFlow id="to-end" sourceRef="task-audit" targetRef="end"/>
+  </bpmn:process>
+</bpmn:definitions>

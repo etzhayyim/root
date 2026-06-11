@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Robot work mission planning with an explicit approval gate before motion.
+
+  Inputs:
+    requestId
+    missionId
+    assetKind
+    missionType
+    routeId
+    approval.decision
+
+  Outputs:
+    roboticsMission
+    roboticsMissionSimulation
+    roboticsApprovalRecord
+    finalStatus
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_robotics_execute_work"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="robotics_execute_work" name="Robotics work execution planning" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Work mission requested">
+      <bpmn:outgoing>Flow_Start_Mission</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Mission" sourceRef="Start" targetRef="Task_MissionPlan"/>
+
+    <bpmn:serviceTask id="Task_MissionPlan" name="Plan robot mission">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.mission.plan"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=missionId" target="missionId"/>
+          <zeebe:input source="=assetKind" target="assetKind"/>
+          <zeebe:input source="=missionType" target="missionType"/>
+          <zeebe:input source="=routeId" target="routeId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Mission</bpmn:incoming>
+      <bpmn:outgoing>Flow_Mission_Simulate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Mission_Simulate" sourceRef="Task_MissionPlan" targetRef="Task_SimulateMission"/>
+
+    <bpmn:serviceTask id="Task_SimulateMission" name="Simulate mission dry-run">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.mission.simulate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=roboticsMission" target="roboticsMission"/>
+          <zeebe:input source="=missionId" target="missionId"/>
+          <zeebe:input source="=assetKind" target="assetKind"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Mission_Simulate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Simulate_Approval</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Simulate_Approval" sourceRef="Task_SimulateMission" targetRef="Task_Approval"/>
+
+    <bpmn:userTask id="Task_Approval" name="Approve robot motion">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:robotics-motion-approval-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="robotics-ops"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Simulate_Approval</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approval_Gate</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_Approval_Gate" sourceRef="Task_Approval" targetRef="Gate_Approved"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approved" name="Approved?" default="Flow_Rejected">
+      <bpmn:incoming>Flow_Approval_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approved</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Rejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Approved" sourceRef="Gate_Approved" targetRef="Task_RecordApproval">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approval.decision = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Rejected" sourceRef="Gate_Approved" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_RecordApproval" name="Record motion approval">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.approval.record"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=approval.decision" target="decision"/>
+          <zeebe:input source="=approval.approverDid" target="approverDid"/>
+          <zeebe:input source="=&quot;robot-motion&quot;" target="scope"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Approved</bpmn:incoming>
+      <bpmn:outgoing>Flow_Record_AuditApproved</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Record_AuditApproved" sourceRef="Task_RecordApproval" targetRef="Task_AuditApproved"/>
+
+    <bpmn:serviceTask id="Task_AuditApproved" name="Emit approved mission audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;robotics.mission.approved&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, mission: roboticsMission, simulation: roboticsMissionSimulation, approvalRecord: roboticsApprovalRecord }" target="payload"/>
+          <zeebe:output source="=&quot;approved&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Record_AuditApproved</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approved_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Approved_End" sourceRef="Task_AuditApproved" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="Emit rejected mission audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;robotics.mission.rejected&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, mission: roboticsMission, approval: approval }" target="payload"/>
+          <zeebe:output source="=&quot;rejected&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Rejected</bpmn:incoming>
+      <bpmn:outgoing>Flow_Rejected_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Rejected_End" sourceRef="Task_AuditRejected" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Mission planning completed">
+      <bpmn:incoming>Flow_Approved_End</bpmn:incoming>
+      <bpmn:incoming>Flow_Rejected_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

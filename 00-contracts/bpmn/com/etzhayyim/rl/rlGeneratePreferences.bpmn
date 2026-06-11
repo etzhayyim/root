@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  rl.rlGeneratePreferences — Phase 1 DPO preference pair generation. ADR-2604291800.
+
+  Fires daily (R/P1D). Queries total step count, then conditionally generates
+  cross-actor (chosen, rejected) pairs for DPO fine-tuning.
+
+  NSID: com.etzhayyim.apps.rl.generatePreferences
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_rl_generate_preferences"
+    targetNamespace="https://etzhayyim.ai/bpmn/rl"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="rl_generate_preferences" name="RL Generate Preferences" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.rl.generatePreferences", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1 day -->
+    <bpmn:startEvent id="Start" name="every 1 day">
+      <bpmn:outgoing>Flow_ToGenerate</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1d">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToGenerate" sourceRef="Start" targetRef="Task_Generate"/>
+
+    <!-- Generate: cross-actor DPO pair generation from vertex_rl_step -->
+    <bpmn:serviceTask id="Task_Generate" name="generate DPO preference pairs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rl.generate.preferences" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50"   target="min_steps"/>
+          <zeebe:input source="=0.05" target="delta_threshold"/>
+          <zeebe:input source="=500"  target="batch_limit"/>
+          <zeebe:output source="=generated"   target="generated"/>
+          <zeebe:output source="=skipped"     target="skipped"/>
+          <zeebe:output source="=total_steps" target="totalSteps"/>
+          <zeebe:output source="=gate_passed" target="gatePassed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToGenerate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Generate" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

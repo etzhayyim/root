@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-084dad842f29",
+  "entityId": "ent-084dad842f29",
+  "canonicalName": "moa nickel sa",
+  "aliases": [
+    "moa nickel sa"
+  ]
+}

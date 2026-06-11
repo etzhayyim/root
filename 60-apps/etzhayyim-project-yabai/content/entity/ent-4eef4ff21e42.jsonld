@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4eef4ff21e42",
+  "entityId": "ent-4eef4ff21e42",
+  "canonicalName": "german alberto perez ocampo",
+  "aliases": [
+    "german alberto perez ocampo"
+  ]
+}

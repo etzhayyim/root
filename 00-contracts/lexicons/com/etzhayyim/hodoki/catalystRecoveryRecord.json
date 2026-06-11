@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.catalystRecoveryRecord",
+  "description": "Catalytic converter brick removal + PGM (Pt/Pd/Rh) smelter handoff + yield audit. G14 ≥95% yield invariant. Per ADR-2605261215 L3b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "brickRemoval": {
+            "type": "object",
+            "properties": {
+              "catalystType": {"type": "string", "knownValues": ["three-way-catalyst", "diesel-oxidation-catalyst", "scr-catalyst"]},
+              "substrate": {"type": "string", "knownValues": ["ceramic-cordierite", "metallic"]},
+              "exhaustPositionsRemoved": {"type": "array", "items": {"type": "string"}},
+              "intactBrickCount": {"type": "integer"},
+              "removalMethod": {"type": "string"},
+              "ipfsPhotoCid": {"type": "string"}
+            }
+          },
+          "brickWeight": {
+            "type": "object",
+            "properties": {
+              "brick1MassG": {"type": "integer"},
+              "brick2MassG": {"type": "integer"},
+              "totalBrickMassG": {"type": "integer"},
+              "estimatedPtMassG": {"type": "number"},
+              "estimatedPdMassG": {"type": "number"},
+              "estimatedRhMassG": {"type": "number"},
+              "estimationMethod": {"type": "string", "knownValues": ["XRF-handheld", "ICP-MS-bench"]},
+              "xrfRunCid": {"type": "string"}
+            }
+          },
+          "smelterHandoff": {
+            "type": "object",
+            "properties": {
+              "smelterPartnerDid": {"type": "string"},
+              "kanayamaYokinR2Plus": {"type": "boolean"},
+              "handoffCustodyChainCid": {"type": "string"},
+              "shippedAt": {"type": "string", "format": "datetime"}
+            }
+          },
+          "yieldAudit": {
+            "type": "object",
+            "properties": {
+              "smelterReceiptCid": {"type": "string"},
+              "actualPtRecoveredG": {"type": "number"},
+              "actualPdRecoveredG": {"type": "number"},
+              "actualRhRecoveredG": {"type": "number"},
+              "ptYieldPct": {"type": "number"},
+              "pdYieldPct": {"type": "number"},
+              "rhYieldPct": {"type": "number"},
+              "g14MinYieldPct": {"type": "number", "const": 95.0},
+              "g14Compliant": {"type": "boolean"},
+              "leakToAsrG": {"type": "number"}
+            }
+          },
+          "g14Compliant": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "brickRemoval", "yieldAudit", "g14Compliant", "attestingRobots"]
+      }
+    }
+  }
+}

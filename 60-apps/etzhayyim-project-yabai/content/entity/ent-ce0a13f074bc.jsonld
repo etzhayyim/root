@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ce0a13f074bc",
+  "entityId": "ent-ce0a13f074bc",
+  "canonicalName": "mohamed ali nkalubo",
+  "aliases": [
+    "mohamed ali nkalubo"
+  ]
+}

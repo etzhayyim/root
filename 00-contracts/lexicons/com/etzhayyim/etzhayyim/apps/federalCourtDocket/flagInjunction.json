@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.federalCourtDocket.flagInjunction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "TRO / preliminary injunction / stay pending appeal (bridges treasuryRulemaking.flagChallenge + climate-litigation + ira-tax-credit)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "injunctionId",
+            "docketVid",
+            "injunctionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "injunctionId": {
+              "type": "string"
+            },
+            "docketVid": {
+              "type": "string",
+              "description": "bridges recordDocketEntry"
+            },
+            "injunctionKind": {
+              "type": "string",
+              "enum": [
+                "tro",
+                "preliminary_injunction",
+                "permanent_injunction",
+                "nationwide_injunction",
+                "stay_pending_appeal",
+                "vacatur",
+                "writ_mandamus",
+                "cert_grant",
+                "cert_denied"
+              ]
+            },
+            "scopeTier": {
+              "type": "string",
+              "enum": [
+                "parties_only",
+                "statewide",
+                "nationwide",
+                "global"
+              ]
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ameno.listActorAdapters",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List active LoRA adapters owned by an actor DID. Backed by vertex_lora_adapter on RisingWave (ADR-2605070700 lineage rows). Used by the ameno browser UI to surface per-actor adapter choices; weights are fetched separately from the PDS proxy (lora/{actorDid}/{adapterId}/adapter.safetensors). Server-side, the langserver pod runs SELECT through the same dispatcher path as listHistory.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "actorDid": { "type": "string", "description": "Owner DID; required. Filter on vertex_lora_adapter.did." },
+          "domain": { "type": "string", "description": "Optional domain filter (e.g. finance, legal, code)." },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }
+        },
+        "required": ["actorDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "adapterId": { "type": "string" },
+                  "actorDid": { "type": "string" },
+                  "domain": { "type": "string" },
+                  "status": { "type": "string" },
+                  "baseModel": { "type": "string", "description": "Engine model id this adapter targets (e.g. gemma-4-e2b-it)." },
+                  "weightB2Uri": { "type": "string", "description": "B2 / R2 URI for the adapter.safetensors blob." },
+                  "weightByteSize": { "type": "integer" },
+                  "weightSha256": { "type": "string" },
+                  "adapterRank": { "type": "integer" },
+                  "adapterAlpha": { "type": "integer", "description": "α scaling factor × 1000 (integer-only per AT lexicon)." },
+                  "adapterFormat": { "type": "string", "description": "e.g. peft-safetensors-v1" },
+                  "displayNameYomi": { "type": "string" },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

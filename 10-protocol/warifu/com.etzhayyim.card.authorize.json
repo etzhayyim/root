@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.card.authorize",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Authorize a warifu card transaction. Wire-native target for Stripe-shaped REST (payment_intents), ISO 8583 0100, and NFC tap. Zero fee; credit is 0% (qard hasan).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cardToken", "amountUsdc", "funding", "purpose", "merchantDid", "idempotencyKey"],
+          "properties": {
+            "cardToken": { "type": "string" },
+            "amountUsdc": { "type": "integer", "minimum": 1 },
+            "funding": { "type": "string", "enum": ["debit", "credit"] },
+            "purpose": { "type": "string", "enum": ["internal-purchase", "internal-subscription", "internal-promo", "escrow-refund", "purchase", "subscription"] },
+            "merchantDid": { "type": "string", "format": "did" },
+            "idempotencyKey": { "type": "string" },
+            "surface": { "type": "string", "enum": ["rest", "iso8583", "nfc"], "default": "rest" },
+            "threeDS": { "type": "string", "description": "WebAuthn passkey assertion (3DS-equivalent)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["decision", "feeUsdc"],
+          "properties": {
+            "decision": { "type": "string", "enum": ["approve", "decline", "gated"] },
+            "authId": { "type": "string" },
+            "iso8583ResponseCode": { "type": "string", "description": "00 approve / 05 decline" },
+            "reason": { "type": "string" },
+            "feeUsdc": { "type": "integer", "const": 0 }
+          }
+        }
+      }
+    }
+  }
+}

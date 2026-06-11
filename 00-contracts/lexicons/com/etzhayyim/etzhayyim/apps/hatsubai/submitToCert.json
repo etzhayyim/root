@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hatsubai.submitToCert",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.etzhayyim.com.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["buildDid"],
+          "properties": {
+            "buildDid":         { "type": "string" },
+            "reviewerNoteUri":  { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "submissionDid", "roundNo"],
+          "properties": {
+            "uri":           { "type": "string" },
+            "submissionDid": { "type": "string" },
+            "roundNo":       { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

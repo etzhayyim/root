@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.fueleconomy.downloadVehiclesCsv",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "GETs the canonical EPA vehicle fuel economy CSV. Body is returned verbatim — the caller cell parses it via stdlib csv. Multi-megabyte payload (~40 MB at time of authoring); set caller timeouts accordingly.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "www.fueleconomy.gov",
+      "x-yorishiro-transport": "openapi-v3",
+      "x-yorishiro-http": {
+        "method": "GET",
+        "pathTemplate": "/feg/epadata/vehicles.csv",
+        "responseContentType": "text/csv",
+        "pathParams": [],
+        "queryParams": [],
+        "bodyParams": []
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "httpStatus"
+          ],
+          "properties": {
+            "httpStatus": {
+              "type": "integer"
+            },
+            "body": {
+              "type": "string",
+              "description": "Raw text/csv body from kami."
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

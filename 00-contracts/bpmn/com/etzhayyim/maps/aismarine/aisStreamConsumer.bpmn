@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Catalog stub — aisstream.io WebSocket consumer (ADR-2605011500).
+
+  This BPMN exists for actor-discovery uniformity (ADR-0056 §INSERT N rows
+  regime). It contains NO executable serviceTask. The actual long-running
+  consumer is the K8s Deployment at:
+
+    50-infra/vultr/bulk-ingest/aismarine-consumer/
+
+  The Deployment runs `kotodama` with env AISMARINE_CONSUMER_MODE=1 which
+  switches main entry to `aismarine_consumer_loop()` — a persistent WebSocket
+  client that subscribes to aisstream.io with no BoundingBoxes filter
+  (global), batches 5s/500-msg, and flushes via:
+
+    POST http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.maps.aismarine.ingestAisStream
+    (x-internal-trust HMAC, ADR-2604241038 invariant 3)
+
+  which fans out to `aismarine.position.batchInsert` + `aismarine.master.upsert`
+  pyzeebe handlers (registered in zeebe_worker_main.py).
+
+  Why a manual-only BPMN exists at all: ADR-0056 wants every aismarine actor
+  identifiable by a row in vertex_bpmn_process_def. A manual-only flow is
+  the cheapest way to keep the actor table dense without a fake timer.
+
+  NSID: com.etzhayyim.apps.maps.aismarine.aisStreamConsumer
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-ais-stream-consumer-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_aismarine_consumer"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps/aismarine"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_aismarine_consumer" name="maps aismarine consumer" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.aismarine.aisStreamConsumer", "version": 1, "resultTimeoutMs": 30000, "stub": true, "implementedBy": "k8s-deployment", "deployment": "50-infra/vultr/bulk-ingest/aismarine-consumer/" }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Manual" name="manual / catalog placeholder">
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Start_Manual" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="catalog only — see K8s Deployment">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listBusRoutes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered bus routes with optional operator/status filtering for operation management dashboards.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "operator": { "type": "string" },
+          "operationStatus": {
+            "type": "string",
+            "enum": ["normal", "delayed", "suspended", "partial-suspension", "detour"]
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "routeId": { "type": "string" },
+                  "routeCode": { "type": "string" },
+                  "name": { "type": "string" },
+                  "operator": { "type": "string" },
+                  "originStopName": { "type": "string" },
+                  "destinationStopName": { "type": "string" },
+                  "serviceStartTime": { "type": "string" },
+                  "serviceEndTime": { "type": "string" },
+                  "headwayMinutes": { "type": "integer" },
+                  "operationStatus": { "type": "string" },
+                  "delayMinutes": { "type": "integer" },
+                  "alertMessage": { "type": "string" },
+                  "updatedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["routes", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

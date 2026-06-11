@@ -1,0 +1,172 @@
+# etzhayyim private-chain Geth — Clique PoA single-sealer (chainId 260425)
+# ADR-0074. Deploy/credits use case; not federation; not public.
+#
+# Topology: 1 StatefulSet replica with PVC. Init container runs `geth init`
+# against the genesis ConfigMap if the data directory is empty. The main
+# container starts geth in `--mine` mode unlocked with the sealer key from
+# the Secret. RPC + WS exposed via the headless Service inside the cluster.
+#
+# Image is pinned to v1.13.15 (last release with native Clique PoA sealing).
+# Geth v1.14+ refuses to register non-PoS chains: "only PoS networks are
+# supported, please transition old ones with Geth v1.13.x". Migrating off
+# v1.13.15 would require either (a) a beacon-chain-stub CL alongside geth,
+# or (b) cutting over to besu/nethermind. Both add operational surface
+# without additional value for a single-tenant private chain.
+#
+# Resource sizing follows the same "single tiny pod on the existing 32GiB
+# node" pattern as risingwave. Geth on a 5s-block private chain with low TPS
+# is essentially idle — 200m CPU / 512Mi RAM is generous.
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: geth-private
+  namespace: geth-private
+  labels:
+    app.kubernetes.io/name: geth-private
+    etzhayyim.com/chain: "260425"
+spec:
+  serviceName: geth-private
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: geth-private
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: geth-private
+        etzhayyim.com/chain: "260425"
+    spec:
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        # ethereum/client-go runs as root by default. We coerce a non-root uid
+        # (10001) to satisfy general K8s security baselines and to keep the
+        # PVC owned by a stable, non-privileged user across pod restarts.
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      initContainers:
+        - name: geth-init
+          image: ethereum/client-go:v1.13.15
+          # Idempotent: if /data/geth already has a CURRENT marker we skip
+          # init (re-running `geth init` against existing chaindata is a
+          # no-op but emits a noisy "Found existing chain" warning).
+          #
+          # Password isolation: the sealer password is written ONLY to the
+          # in-memory tmpfs at /sealer-pass, never to the PVC. This prevents
+          # PVC snapshots / storage-layer backups from exposing the key.
+          # Any legacy /data/sealer.password left by previous pod versions is
+          # removed on every startup.
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -eu
+              if [ ! -f /data/geth/chaindata/CURRENT ]; then
+                echo "[init] writing genesis to /data"
+                geth init --datadir /data /genesis/genesis.json
+              else
+                echo "[init] /data already initialised, skipping geth init"
+              fi
+              mkdir -p /data/keystore
+              cp /sealer/sealer-keystore.json /data/keystore/UTC--sealer.json
+              # Password goes to tmpfs only — never written to the PVC.
+              cp /sealer/sealer.password /sealer-pass/password
+              chmod 400 /sealer-pass/password
+              # Remove any legacy password file from the PVC (left by previous
+              # pod versions before this isolation hardening).
+              rm -f /data/sealer.password
+              echo "[init] password on tmpfs only, PVC clean"
+          volumeMounts:
+            - { name: data,        mountPath: /data }
+            - { name: genesis,     mountPath: /genesis }
+            - { name: sealer,      mountPath: /sealer,      readOnly: true }
+            - { name: sealer-pass, mountPath: /sealer-pass }
+      containers:
+        - name: geth
+          image: ethereum/client-go:v1.13.15
+          ports:
+            - { name: rpc, containerPort: 8545, protocol: TCP }
+            - { name: ws,  containerPort: 8546, protocol: TCP }
+            - { name: p2p, containerPort: 30303, protocol: TCP }
+          command: ["geth"]
+          args:
+            - --datadir=/data
+            - --networkid=260425
+            - --syncmode=full
+            # gcmode left at default (`full`, path scheme). Geth v1.14 archive
+            # requires the legacy hash scheme; receipt logs (which is what
+            # credit/deploy event tracing actually needs) are kept regardless
+            # of gcmode, so archive is unnecessary cost for this workload.
+            - --nodiscover
+            - --maxpeers=0
+            - --http
+            - --http.addr=0.0.0.0
+            - --http.port=8545
+            - --http.api=eth,net,web3,txpool,debug
+            - --http.corsdomain=*
+            - --http.vhosts=*
+            - --ws
+            - --ws.addr=0.0.0.0
+            - --ws.port=8546
+            - --ws.api=eth,net,web3,txpool
+            - --ws.origins=*
+            - --mine
+            - --miner.etherbase=$(SEALER_ADDRESS)
+            - --miner.gaslimit=30000000
+            - --unlock=$(SEALER_ADDRESS)
+            - --password=/sealer-pass/password  # tmpfs only — not on PVC
+            - --allow-insecure-unlock     # required for --unlock on private chain
+            - --txpool.nolocals=false
+            - --verbosity=3
+          env:
+            - name: SEALER_ADDRESS
+              valueFrom:
+                secretKeyRef: { name: geth-private-sealer, key: sealer.address }
+          readinessProbe:
+            httpGet:
+              path: /
+              port: rpc
+              httpHeaders:
+                - { name: Content-Type, value: application/json }
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket: { port: rpc }
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 3
+          resources:
+            requests: { cpu: 100m,  memory: 256Mi }
+            limits:   { cpu: 1000m, memory: 1Gi }
+          volumeMounts:
+            - { name: data,        mountPath: /data }
+            - { name: sealer-pass, mountPath: /sealer-pass, readOnly: true }
+      volumes:
+        - name: genesis
+          configMap:
+            name: geth-private-genesis
+            items: [{ key: genesis.json, path: genesis.json }]
+        - name: sealer
+          secret:
+            secretName: geth-private-sealer
+            defaultMode: 0o400
+            items:
+              - { key: sealer-keystore.json, path: sealer-keystore.json }
+              - { key: sealer.password,      path: sealer.password }
+        # Password lives ONLY in tmpfs — wiped on pod termination, never
+        # persisted to the PVC. Populated by geth-init from the k8s Secret.
+        - name: sealer-pass
+          emptyDir:
+            medium: Memory
+            sizeLimit: 4Ki
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # Vultr Block Storage default class. RisingWave uses the same on this
+        # cluster. 50 GiB is way more than this private chain will need at 5s
+        # blocks (a year of 30M-gas blocks ≈ < 5 GiB) but PVCs can't shrink.
+        resources:
+          requests: { storage: 50Gi }

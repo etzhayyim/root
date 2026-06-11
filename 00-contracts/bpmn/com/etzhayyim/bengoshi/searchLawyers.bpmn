@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_bengoshi_search_lawyers" targetNamespace="https://etzhayyim.ai/bpmn/bengoshi" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="bengoshi_search_lawyers" name="searchLawyers" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Select"/>
+    <bpmn:serviceTask id="Task_Select" name="select lawyers">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT vertex_id, lawyer_did, full_name, bar_association, jurisdiction, practice_areas_csv, languages_csv, firm_did FROM vertex_lawyer WHERE ($1::varchar IS NULL OR jurisdiction = $1) AND ($2::varchar IS NULL OR practice_areas_csv LIKE '%' || $2 || '%') AND ($3::varchar IS NULL OR languages_csv LIKE '%' || $3 || '%') ORDER BY full_name LIMIT $4 OFFSET $5&quot;" target="sql"/>
+          <zeebe:input source="=[jurisdiction, practiceArea, language, limit, offset]" target="params"/>
+          <zeebe:output source="=rows" target="lawyers"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Select" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

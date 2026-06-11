@@ -1,0 +1,38 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+  ],
+  "id": "did:web:dataset-pinner.etzhayyim.com",
+  "alsoKnownAs": [
+    "https://dataset-pinner.etzhayyim.com",
+    "did:web:etzhayyim.com:actor:dataset-pinner"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.etzhayyim.com"
+    },
+    {
+      "id": "#xrpc-libp2p-primary",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc",
+      "x-libp2p-protocol": "/x/etzhayyim/xrpc/1.0"
+    },
+    {
+      "id": "#xrpc-libp2p-bootstrap",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc",
+      "x-libp2p-protocol": "/x/etzhayyim/xrpc/1.0",
+      "x-rationale": "DNS-anchored fallback so cold clients can bootstrap before joining the DHT"
+    },
+    {
+      "id": "#dataset_pinner",
+      "type": "EtzhayyimDatasetPinner",
+      "serviceEndpoint": "https://dataset-pinner.etzhayyim.com",
+      "x-deprecated-at": "Phase C (per ADR-2605241800; canonical resolution moves to did:web:etzhayyim.com:actor:dataset-pinner)"
+    }
+  ]
+}

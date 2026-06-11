@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer R/P1D — fetch text from IPFS → LangGraph citation extractor
+               → resolve DOIs via bunken → insert edge_kiyo_cites
+  NSID: com.etzhayyim.apps.kiyo.citationSync
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_kiyo_citation_sync"
+    targetNamespace="https://etzhayyim.ai/bpmn/kiyo"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="kiyo_citation_sync" name="kiyo citation sync" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.kiyo.citationSync", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every day">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P1D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer"  sourceRef="Start_Timer"  targetRef="Task_FetchPapers"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_FetchPapers"/>
+
+    <!-- 1. Select papers whose citations haven't been synced in 24h -->
+    <bpmn:serviceTask id="Task_FetchPapers" name="select unsynced papers">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT paper_id, ipfs_cid FROM vertex_kiyo_paper WHERE ipfs_cid IS NOT NULL AND status = 'active' ORDER BY submitted_at DESC LIMIT 50&quot;" target="sql"/>
+          <zeebe:output source="=rows" target="papers"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_AfterFetch</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AfterFetch" sourceRef="Task_FetchPapers" targetRef="Task_ExtractCitations"/>
+
+    <!-- 2. LangGraph: IPFS fetch → LLM citation extract → bunken DOI resolve -->
+    <bpmn:serviceTask id="Task_ExtractCitations" name="LangGraph citation extract">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kiyo.extractCitations"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=papers"           target="papers"/>
+          <zeebe:input  source="=50"               target="maxPapers"/>
+          <zeebe:output source="=citationEdges"    target="citationEdges"/>
+          <zeebe:output source="=processedCount"   target="processedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_AfterExtract</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AfterExtract" sourceRef="Task_ExtractCitations" targetRef="Task_InsertEdges"/>
+
+    <!-- 3. Insert edge_kiyo_cites rows -->
+    <bpmn:serviceTask id="Task_InsertEdges" name="insert citation edges">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kiyo.insertCitationEdges"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=citationEdges"  target="edges"/>
+          <zeebe:output source="=insertedCount"  target="insertedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_InsertEdges" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="citations synced"/>
+  </bpmn:process>
+</bpmn:definitions>

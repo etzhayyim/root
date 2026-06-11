@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.commitModelEvaluation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge write boundary for LangServer-generated media-gamers model evaluation results.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string" },
+            "scores": { "type": "object" },
+            "rawEval": { "type": "string" },
+            "articlePreview": { "type": "string" },
+            "generatedBy": { "type": "string" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "rkey": { "type": "string" },
+            "uri": { "type": "string" },
+            "model": { "type": "string" },
+            "scores": { "type": "object" },
+            "articlePreview": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openLei.moveOrgUnit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Re-parent an org unit. Updates materialized path for the unit and all its descendants atomically.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgUnitVid", "lei"],
+          "properties": {
+            "orgUnitVid":            { "type": "string" },
+            "lei":                   { "type": "string" },
+            "newParentOrgVid":       { "type": "string", "description": "New parent org unit. Omit to move to root (direct child of LEI)." },
+            "newParentLeiVertexId":  { "type": "string", "description": "vertex_id of LEI entity when moving to root." },
+            "dryRun":                { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":      { "type": "boolean" },
+            "updated": { "type": "integer", "description": "Number of org units updated (self + descendants)." },
+            "dryRun":  { "type": "boolean" },
+            "errors":  { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

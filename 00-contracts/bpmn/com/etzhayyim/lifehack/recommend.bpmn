@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  lifehack.etzhayyim.com — recommend (XRPC com.etzhayyim.apps.lifehack.recommend).
+
+  Read-only synthesis: top tips for a topic, with attached product
+  recommendations.  No DB write, no social post.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_lifehack_recommend"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="lifehack_recommend" name="lifehack recommend" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.lifehack.recommend", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="recommend">
+      <bpmn:outgoing>Flow_ToRank</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Rank" name="rank tips + attach products">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.tip.rank"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=topicId" target="topicId"/>
+          <zeebe:input source="=humidityPct" target="humidityPct"/>
+          <zeebe:input source="=tempC" target="tempC"/>
+          <zeebe:input source="=budgetJpyMax" target="budgetJpyMax"/>
+          <zeebe:input source="=preferDiy" target="preferDiy"/>
+          <zeebe:input source="=limit" target="limit"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=topicId" target="topicId"/>
+          <zeebe:output source="=headline" target="headline"/>
+          <zeebe:output source="=tips" target="tips"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRank</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRank" sourceRef="Start" targetRef="Task_Rank"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.recommend&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;topicId&quot;: topicId, &quot;tipsReturned&quot;: count(tips) }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Rank" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

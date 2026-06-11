@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  otakiage.matsuriSchedule - monthly seed of next-month matsuri events
+
+  Flow:
+    1. otakiage.matsuri.seedNextMonth (年間カレンダー駆動: 春人形/絵本/おもちゃ/秋人形)
+    2. generic.audit.emit
+
+  Trigger: cron 0 0 0 1 * ? (UTC; 月初 00:00)
+
+  NSID (informational): com.etzhayyim.apps.otakiage.matsuriSchedule
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-matsuri-schedule-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_otakiage_matsuri_schedule"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="otakiage_matsuri_schedule" name="otakiage matsuriSchedule" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.otakiage.matsuriSchedule", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="monthly">
+      <bpmn:outgoing>Flow_ToSeed</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_Monthly">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 0 1 * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSeed" sourceRef="Start" targetRef="Task_Seed"/>
+
+    <bpmn:serviceTask id="Task_Seed" name="seed next-month matsuri events">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="otakiage.matsuri.seedNextMonth"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=seededCount" target="seededCount"/>
+          <zeebe:output source="=skippedCount" target="skippedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSeed</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Seed" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:matsuri&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.matsuriSchedule&quot;" target="nsid"/>
+          <zeebe:input source="={ seededCount: seededCount, skippedCount: skippedCount }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

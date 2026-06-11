@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.inheritanceChain",
+  "description": "DID-bound succession record. Charter §1.12 state-function routing-around for inheritance: SBT + wallet handover from decedent to heir(s), with Council ≥3 attestation. Pairs with funeral covenantAttestation. Wallet handover handled via gas-sponsored ERC-4337 paymaster transition; Land Registry inalienability invariant cross-checked (donated land never devolves to heirs — stays with religious-corp Land Trust per ADR-2605192245).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "decedentDid",
+          "heirDids",
+          "councilAttestations",
+          "funeralCovenantAttestationCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "decedentDid": {
+            "type": "string",
+            "description": "DID of the deceased member."
+          },
+          "decedentSbtBurnTxCid": {
+            "type": "string",
+            "description": "On-chain Adherent SBT burn transaction CID for the decedent."
+          },
+          "heirDids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "DID(s) of heir(s). Multi-heir splits permitted; per-heir wallet share specified in heirAllocations[]."
+          },
+          "heirAllocations": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#heirAllocation"
+            },
+            "description": "Per-heir allocation. Sum of walletShare across all heirs MUST equal 1."
+          },
+          "decedentWillCid": {
+            "type": "string",
+            "description": "Optional. On-chain or encrypted off-chain will document CID (per ADR-2605181100 envelope if encrypted)."
+          },
+          "walletHandoverTxCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ERC-4337 paymaster-sponsored handover transaction CIDs (gas paid from Public Fund per Council Lv6+ standing approval for inheritance flow)."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3,
+            "description": "≥3 Council seat DIDs attesting the succession event."
+          },
+          "funeralCovenantAttestationCid": {
+            "type": "string",
+            "description": "CID of the covenantAttestation record with ceremonyType=funeral. Required link."
+          },
+          "landRegistryInalienabilityVerifiedCid": {
+            "type": "string",
+            "description": "Cross-check that any donated-land registry entries associated with decedent remain with Land Trust (waqf-equivalent invariant per ADR-2605192245); inheritance NEVER conveys donated land."
+          },
+          "shidemoriMemorialCid": {
+            "type": "string",
+            "description": "When shidemori actor is live (R2+), the memorial NFT CID."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of Council seat or executor emitting this record."
+          }
+        }
+      }
+    },
+    "heirAllocation": {
+      "type": "object",
+      "properties": {
+        "heirDid": {"type": "string"},
+        "walletShare": {"type": "string", "description": "Fraction string e.g. '1/2' or '1/3'."},
+        "assetClasses": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

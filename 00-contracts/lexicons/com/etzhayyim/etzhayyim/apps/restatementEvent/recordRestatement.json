@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.restatementEvent.recordRestatement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Financial statement restatement (Reissuance / Little-R / Big-R — bridges auditFirmOversight.flagDeficiency + enforcementAction + securities-investor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restatementId",
+            "restatementKind",
+            "disclosedAt"
+          ],
+          "properties": {
+            "restatementId": {
+              "type": "string"
+            },
+            "filerLei": {
+              "type": "string"
+            },
+            "restatementKind": {
+              "type": "string",
+              "enum": [
+                "big_r_8k_item_4_02",
+                "little_r_correction",
+                "reissuance_prior",
+                "fyzs",
+                "ipo_retracted",
+                "equity_dilution_restated",
+                "revenue_recognition",
+                "lease_accounting",
+                "crypto_accounting",
+                "sbc_backdated",
+                "segment_reporting"
+              ]
+            },
+            "auditDeficiencyVid": {
+              "type": "string",
+              "description": "bridges auditFirmOversight.flagDeficiency"
+            },
+            "periodsRestated": {
+              "type": "integer"
+            },
+            "disclosedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

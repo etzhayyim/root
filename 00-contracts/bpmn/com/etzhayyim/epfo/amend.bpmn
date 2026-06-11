@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0052 — epfo_amend_ecr.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_epfo_amend_ecr"
+    targetNamespace="https://etzhayyim.ai/bpmn/epfo"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="epfo_amend_ecr" name="EPFO ECR amendment" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="Correction start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_LoadLatest"/>
+
+    <bpmn:serviceTask id="Task_LoadLatest" name="Load latest ECR">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_epfo_ecr&quot;" target="table"/>
+          <zeebe:input source="=&quot;establishment_pf_code = %s AND wage_month = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[establishmentPfCode, wageMonth]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, status, total_members, total_wage_inr_paise&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:input source="=&quot;submitted_at DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows" target="latestRows"/>
+          <zeebe:output source="=rowCount" target="latestCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_LoadLatest" targetRef="Task_FormAmend"/>
+
+    <bpmn:userTask id="Task_FormAmend" name="Amendment form">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:epfo-amend-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="payroll-officer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P7D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:incoming>Flow_LoopBack</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_FormAmend" targetRef="Task_AppendLog"/>
+
+    <bpmn:serviceTask id="Task_AppendLog" name="Append Tier 3 amendment log">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_epfo_ecr_pii&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:               vertexId + &quot;:amend:&quot; + string(now()),
+              establishment_pf_code:   establishmentPfCode,
+              roster_payload:          &quot;&quot;,
+              aadhaar_payload:         &quot;&quot;,
+              pan_payload:             &quot;&quot;,
+              bank_payload:            &quot;&quot;,
+              amendment_log:           string(amendmentPayload),
+              retention_until:         date and time(date(&quot;9999-12-31&quot;), time(&quot;00:00:00&quot;)),
+              created_at:              string(now()),
+              owner_did:               filerDid,
+              sensitivity_ord:         3,
+              org_id:                  employerOrgId,
+              user_id:                 filerDid,
+              actor_id:                &quot;sys.bpmn.epfo.amend&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_AppendLog" targetRef="Gate_NeedsFinance"/>
+
+    <bpmn:exclusiveGateway id="Gate_NeedsFinance" name="Finance approval required?" default="Flow_NeedFinance">
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_SkipFinance</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NeedFinance</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_SkipFinance" sourceRef="Gate_NeedsFinance" targetRef="Task_AutoApprove">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=amendmentMeta.amendmentReason = "joinedMember"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NeedFinance" sourceRef="Gate_NeedsFinance" targetRef="Task_FinanceReview"/>
+
+    <bpmn:serviceTask id="Task_AutoApprove" name="Auto approve joined member">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_epfo_ecr&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:                     vertexId,
+              employer_org_id:               employerOrgId,
+              establishment_pf_code:         establishmentPfCode,
+              wage_month:                    wageMonth,
+              process_type:                  &quot;amend&quot;,
+              status:                        &quot;amended&quot;,
+              declaration_hash:              &quot;amend:&quot; + string(now()),
+              total_members:                 if latestCount &gt; 0 then number(latestRows[1].total_members) else 0,
+              total_wage_inr_paise:          if latestCount &gt; 0 then number(latestRows[1].total_wage_inr_paise) else 0,
+              submitted_at:                  string(now()),
+              approved_at:                   string(now()),
+              approved_by_did:               &quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;,
+              created_at:                    string(now()),
+              owner_did:                     filerDid,
+              sensitivity_ord:               1,
+              org_id:                        employerOrgId,
+              user_id:                       filerDid,
+              actor_id:                      &quot;sys.bpmn.epfo.amend&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;amended&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SkipFinance</bpmn:incoming>
+      <bpmn:outgoing>Flow_F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F5" sourceRef="Task_AutoApprove" targetRef="Task_PropagateKaikei"/>
+
+    <bpmn:userTask id="Task_FinanceReview" name="Finance review">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:epfo-review-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="finance-controller"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P7D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NeedFinance</bpmn:incoming>
+      <bpmn:outgoing>Flow_F4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F4" sourceRef="Task_FinanceReview" targetRef="Gate_Approved"/>
+
+    <bpmn:exclusiveGateway id="Gate_Approved" name="Approved?" default="Flow_Reject">
+      <bpmn:incoming>Flow_F4</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Approve" sourceRef="Gate_Approved" targetRef="Task_MarkAmended">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=verdict.decision = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Reject" sourceRef="Gate_Approved" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_MarkAmended" name="Mark amended">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_epfo_ecr&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:                     vertexId,
+              employer_org_id:               employerOrgId,
+              establishment_pf_code:         establishmentPfCode,
+              wage_month:                    wageMonth,
+              process_type:                  &quot;amend&quot;,
+              status:                        &quot;amended&quot;,
+              declaration_hash:              &quot;amend:&quot; + string(now()),
+              total_members:                 if latestCount &gt; 0 then number(latestRows[1].total_members) else 0,
+              total_wage_inr_paise:          if latestCount &gt; 0 then number(latestRows[1].total_wage_inr_paise) else 0,
+              submitted_at:                  string(now()),
+              approved_at:                   string(now()),
+              approved_by_did:               string(reviewerDid),
+              created_at:                    string(now()),
+              owner_did:                     filerDid,
+              sensitivity_ord:               1,
+              org_id:                        employerOrgId,
+              user_id:                       filerDid,
+              actor_id:                      &quot;sys.bpmn.epfo.amend&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;amended&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_F6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F6" sourceRef="Task_MarkAmended" targetRef="Task_PropagateKaikei"/>
+
+    <bpmn:serviceTask id="Task_PropagateKaikei" name="Propagate delta to kaikei">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.kaikei.recordPfPayable&quot;" target="type"/>
+          <zeebe:input source="={
+              employerOrgId:       employerOrgId,
+              establishmentPfCode: establishmentPfCode,
+              effectiveWageMonth:  wageMonth,
+              triggerVertexId:     vertexId,
+              triggerSource:       &quot;com.etzhayyim.apps.epfo.amendEcr&quot;,
+              amendmentReason:     string(amendmentMeta.amendmentReason)
+          }" target="payload"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="callerDid"/>
+          <zeebe:output source="=ok" target="kaikeiPropagated"/>
+          <zeebe:output source="=status" target="kaikeiHttpStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F5</bpmn:incoming>
+      <bpmn:incoming>Flow_F6</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditOk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditOk" sourceRef="Task_PropagateKaikei" targetRef="Task_AuditAmended"/>
+
+    <bpmn:serviceTask id="Task_AuditAmended" name="Audit amended">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;epfo.amend&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:            vertexId,
+              establishmentPfCode: establishmentPfCode,
+              wageMonth:           wageMonth,
+              amendmentReason:     string(amendmentMeta.amendmentReason),
+              kaikeiPropagated:    kaikeiPropagated
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditOk</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditAmended" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="Audit rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;epfo.amend.reject&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:            vertexId,
+              establishmentPfCode: establishmentPfCode,
+              wageMonth:           wageMonth,
+              comment:             string(verdict.comment)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Reject</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoopBack</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_LoopBack" sourceRef="Task_AuditRejected" targetRef="Task_FormAmend"/>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

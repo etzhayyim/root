@@ -1,0 +1,133 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "itr1-form-v1",
+  "version": 1,
+  "title": "ITR-1 Sahaj — Individual Income Tax Return",
+  "regulatoryRef": { "law": "Income Tax Act 1961", "article": "§139(1)", "ref": "IT Rules 1962 Rule 12, Form ITR-1" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "currency": "INR",
+  "components": [
+    {
+      "key": "applicant",
+      "type": "fieldset",
+      "label": "Personal Details (Part A)",
+      "x-encryptedSection": "applicantPayload",
+      "components": [
+        { "key": "pan", "label": "PAN", "type": "textfield", "required": true,
+          "pattern": "^[A-Z]{5}[0-9]{4}[A-Z]$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "aadhaar", "label": "Aadhaar", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "name", "label": "Name (as in PAN)", "type": "textfield", "required": true },
+        { "key": "dob", "label": "Date of birth", "type": "datepicker", "required": true },
+        { "key": "fatherName", "label": "Father's name", "type": "textfield" },
+        { "key": "residentialStatus", "label": "Residential status", "type": "select", "required": true,
+          "options": [
+            { "value": "resident",        "label": "Resident" },
+            { "value": "rnor",            "label": "Resident but Not Ordinarily Resident" }
+          ]
+        },
+        { "key": "mobile", "label": "Mobile number", "type": "textfield",
+          "pattern": "^[0-9]{10}$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "email", "label": "Email", "type": "textfield", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "address", "label": "Address", "type": "textarea", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "pincode", "label": "PIN code", "type": "textfield", "pattern": "^[0-9]{6}$" },
+        { "key": "assessmentYear", "label": "Assessment Year", "type": "textfield", "required": true,
+          "pattern": "^AY[0-9]{4}-[0-9]{2}$" },
+        { "key": "regimeSelected", "label": "Tax regime", "type": "select", "required": true,
+          "options": [
+            { "value": "new",     "label": "New regime (§115BAC) — DEFAULT for AY2024-25 onwards" },
+            { "value": "old",     "label": "Old regime (Form 10-IEA opt-out filed)" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "income",
+      "type": "fieldset",
+      "label": "Gross Total Income (Part B-TI)",
+      "x-encryptedSection": "incomePayload",
+      "components": [
+        { "key": "employerTan", "label": "Employer TAN", "type": "textfield",
+          "pattern": "^[A-Z]{4}[0-9]{5}[A-Z]$", "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "employerName", "label": "Employer name", "type": "textfield" },
+        { "key": "grossSalaryInrPaise", "label": "Gross salary (paise)", "type": "number", "required": true,
+          "description": "Section 17(1) gross salary" },
+        { "key": "exemptAllowancesInrPaise", "label": "Exempt allowances (paise)", "type": "number",
+          "description": "HRA / LTA etc. under §10" },
+        { "key": "standardDeductionInrPaise", "label": "Standard deduction (paise)", "type": "number",
+          "description": "₹50,000 / ₹75,000 (new regime AY2024-25+)" },
+        { "key": "professionalTaxInrPaise", "label": "Professional tax (paise)", "type": "number" },
+        { "key": "netSalaryInrPaise", "label": "Net salary income (paise)", "type": "number", "readOnly": true },
+        { "key": "houseAnnualValueInrPaise", "label": "House — annual value (paise)", "type": "number" },
+        { "key": "houseInterestInrPaise", "label": "Interest on housing loan (paise)", "type": "number",
+          "description": "§24(b) up to ₹2 lakh self-occupied" },
+        { "key": "houseNetIncomeInrPaise", "label": "House property net (paise)", "type": "number", "readOnly": true },
+        { "key": "savingInterestInrPaise", "label": "Bank savings interest (paise)", "type": "number" },
+        { "key": "fdInterestInrPaise", "label": "FD / RD / corporate FD interest (paise)", "type": "number" },
+        { "key": "dividendInrPaise", "label": "Dividend income (paise)", "type": "number" },
+        { "key": "otherSourcesInrPaise", "label": "Other sources total (paise)", "type": "number", "readOnly": true },
+        { "key": "agriIncomeInrPaise", "label": "Agricultural income (paise, ≤ ₹5,000)", "type": "number" },
+        { "key": "grossTotalIncomeInrPaise", "label": "Gross Total Income (paise)", "type": "number", "readOnly": true,
+          "description": "Sum: salary + house + other sources" }
+      ]
+    },
+    {
+      "key": "deductions",
+      "type": "fieldset",
+      "label": "Deductions (Chapter VI-A)",
+      "x-encryptedSection": "deductionsPayload",
+      "components": [
+        { "key": "deduction80cInrPaise", "label": "§80C (PF/PPF/LIC/ELSS, max ₹1.5L) (paise)", "type": "number" },
+        { "key": "deduction80ccd1bInrPaise", "label": "§80CCD(1B) NPS additional ₹50K (paise)", "type": "number" },
+        { "key": "deduction80dInrPaise", "label": "§80D (medical insurance, paise)", "type": "number" },
+        { "key": "deduction80gInrPaise", "label": "§80G (donations, paise)", "type": "number" },
+        { "key": "deduction80ttaInrPaise", "label": "§80TTA (savings interest ≤ ₹10K, paise)", "type": "number" },
+        { "key": "deduction80ttbInrPaise", "label": "§80TTB (senior citizens ≤ ₹50K, paise)", "type": "number" },
+        { "key": "deduction80uInrPaise", "label": "§80U (disability, paise)", "type": "number" },
+        { "key": "deductionOtherInrPaise", "label": "Other Chapter VI-A deductions (paise)", "type": "number" },
+        { "key": "totalDeductionInrPaise", "label": "Total deductions (paise)", "type": "number", "readOnly": true },
+        { "key": "totalIncomeInrPaise", "label": "Total Income (paise, Gross − Deductions)", "type": "number", "readOnly": true,
+          "description": "Must be ≤ ₹50 lakh = ₹50,00,00,000 paise for ITR-1 eligibility" }
+      ]
+    },
+    {
+      "key": "tax",
+      "type": "fieldset",
+      "label": "Tax Computation & Payment",
+      "x-encryptedSection": "taxPayload",
+      "components": [
+        { "key": "taxOnTotalIncomeInrPaise", "label": "Tax on total income (paise)", "type": "number", "readOnly": true },
+        { "key": "rebate87aInrPaise", "label": "§87A rebate (paise)", "type": "number",
+          "description": "₹12,500 (old) / ₹25,000 (new, income ≤ ₹7L)" },
+        { "key": "surchargeInrPaise", "label": "Surcharge (paise)", "type": "number" },
+        { "key": "cessInrPaise", "label": "Health & Education Cess 4% (paise)", "type": "number" },
+        { "key": "totalTaxInrPaise", "label": "Total tax + cess (paise)", "type": "number", "readOnly": true },
+        { "key": "tdsFrom16InrPaise", "label": "TDS from Form 16 (paise)", "type": "number" },
+        { "key": "tdsFromOtherInrPaise", "label": "TDS other (Form 16A, paise)", "type": "number" },
+        { "key": "advanceTaxInrPaise", "label": "Advance tax paid (paise)", "type": "number" },
+        { "key": "selfAssessmentTaxInrPaise", "label": "Self-assessment tax paid (paise)", "type": "number" },
+        { "key": "totalTaxPaidInrPaise", "label": "Total tax paid (paise)", "type": "number", "readOnly": true },
+        { "key": "refundInrPaise", "label": "Refund (paise)", "type": "number", "readOnly": true,
+          "description": "If total paid > total tax" },
+        { "key": "taxPayableInrPaise", "label": "Tax payable (paise)", "type": "number", "readOnly": true,
+          "description": "If total tax > total paid, pay before filing" },
+        { "key": "refundBankAccount", "label": "Refund bank A/C", "type": "textfield",
+          "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "refundBankIfsc", "label": "Refund bank IFSC", "type": "textfield",
+          "pattern": "^[A-Z]{4}0[A-Z0-9]{6}$" }
+      ]
+    },
+    {
+      "key": "declaration",
+      "type": "fieldset",
+      "label": "Verification",
+      "components": [
+        { "key": "consentTier3", "type": "checkbox", "required": true,
+          "label": "I declare the information is true and complete. I authorize 7-year retention per IT Act §44AA + DPDP §8(7)." },
+        { "key": "place", "label": "Place", "type": "textfield", "required": true },
+        { "key": "verificationDate", "label": "Verification date", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

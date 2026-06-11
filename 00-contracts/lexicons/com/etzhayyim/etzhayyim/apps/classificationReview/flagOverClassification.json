@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.classificationReview.flagOverClassification",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Over-classification / sources-and-methods over-redaction (bridges foiaTracker.flagResponseDelay + ig-audit + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "requestVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "requestVid": {
+              "type": "string",
+              "description": "bridges recordMdrRequest"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "over_classification",
+                "blanket_redaction",
+                "sources_methods_abuse",
+                "eo_13526_violation",
+                "b1_overreach",
+                "ambiguity_b5",
+                "post_disclosure_retro",
+                "excessive_review_queue",
+                "declassification_denied",
+                "congressional_gag"
+              ]
+            },
+            "pagesRedacted": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

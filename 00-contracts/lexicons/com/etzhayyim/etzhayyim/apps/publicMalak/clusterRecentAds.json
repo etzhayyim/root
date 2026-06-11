@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.clusterRecentAds",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cluster recent public ad creatives into campaign groups using advertiser, landing domain, and normalized claim text. Writes vertex_ads_campaign_cluster and edge_ads_creative_in_campaign rows.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 25 },
+            "platform": { "type": "string", "knownValues": ["meta", "facebook", "instagram", "whatsapp", "google", "linkedin", "tiktok", "x", "line", "telegram"] },
+            "platformScope": { "type": "string", "knownValues": ["platform", "cross_platform"], "default": "platform" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["clustered", "failed"],
+          "properties": {
+            "clustered": { "type": "integer" },
+            "failed": { "type": "integer" },
+            "platform": { "type": "string" },
+            "platformScope": { "type": "string" },
+            "results": { "type": "array", "items": { "type": "unknown" } }
+          }
+        }
+      }
+    }
+  }
+}

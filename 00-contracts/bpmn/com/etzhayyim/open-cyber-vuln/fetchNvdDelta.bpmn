@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_cyber_vuln_fetch_nvd_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-cyber-vuln" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_cyber_vuln_fetch_nvd_delta" name="fetchNvdDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 6h"><bpmn:outgoing>Flow_C</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT6H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_CM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_CM" sourceRef="Start_Manual" targetRef="Task_Cursor"/>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Start" targetRef="Task_Cursor"/>
+    <bpmn:serviceTask id="Task_Cursor" name="load cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT last_cursor FROM vertex_open_cyber_source WHERE source_id = 'nvd' LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=rows[1].last_cursor" target="cursor"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:incoming>Flow_CM</bpmn:incoming><bpmn:outgoing>Flow_F</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Task_Cursor" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="nvd cve 2.0 delta">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://services.nvd.nist.gov/rest/json/cves/2.0?lastModStartDate=&quot; + (if cursor != null then cursor else &quot;2024-01-01T00:00:00.000&quot;) + &quot;&amp;resultsPerPage=100&quot;" target="url"/>
+          <zeebe:input source="={&quot;Accept&quot;: &quot;application/json&quot;}" target="headers"/>
+          <zeebe:output source="=bodyJson.vulnerabilities" target="items"/>
+          <zeebe:output source="=string(now())" target="fetchedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="record each CVE" calledElement="open_cyber_vuln_cve">
+      <bpmn:extensionElements><zeebe:calledElement processId="open_cyber_vuln_cve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.cyberVuln.recordCveDisclosure/&quot; + item.cve.id" target="vertexId"/>
+          <zeebe:input source="=item.cve.id" target="cveId"/>
+          <zeebe:input source="=if item.cve.configurations != null then item.cve.configurations[1].nodes[1].cpeMatch[1].criteria else &quot;unknown&quot;" target="product"/>
+          <zeebe:input source="=if item.cve.descriptions != null then item.cve.descriptions[1].value else &quot;unknown&quot;" target="vendor"/>
+          <zeebe:input source="=if item.cve.metrics.cvssMetricV31 != null then item.cve.metrics.cvssMetricV31[1].cvssData.baseScore else (if item.cve.metrics.cvssMetricV30 != null then item.cve.metrics.cvssMetricV30[1].cvssData.baseScore else 0.0)" target="cvssV3Score"/>
+          <zeebe:input source="=if item.cve.metrics.cvssMetricV31 != null then item.cve.metrics.cvssMetricV31[1].cvssData.vectorString else &quot;&quot;" target="cvssV3Vector"/>
+          <zeebe:input source="=false" target="exploitAvailable"/>
+          <zeebe:input source="=false" target="inTheWild"/>
+          <zeebe:input source="=item.cve.published" target="publishedAt"/>
+          <zeebe:input source="=&quot;did:web:open-cyber-vuln.etzhayyim.com&quot;" target="callerDid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false"><bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements></bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Loop" targetRef="Task_Advance"/>
+    <bpmn:serviceTask id="Task_Advance" name="advance cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_open_cyber_source SET last_cursor = $1, last_fetched_at = $2 WHERE source_id = 'nvd'&quot;" target="sql"/>
+          <zeebe:input source="=[fetchedAt, fetchedAt]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Advance" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

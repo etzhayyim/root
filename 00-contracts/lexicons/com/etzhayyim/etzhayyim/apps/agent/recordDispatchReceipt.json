@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.recordDispatchReceipt",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Persist dispatch receipt state back onto a real-world effect vertex.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "effectPatch": {
+              "type": "object",
+              "properties": {
+                "vertex_id": { "type": "string" },
+                "dispatch_state": { "type": "string" },
+                "dispatch_receipt_ref": { "type": "string" },
+                "updated_at": { "type": "string" }
+              },
+              "required": ["vertex_id", "dispatch_state"]
+            }
+          },
+          "required": ["effectPatch"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "updated": { "type": "integer" },
+            "vertexId": { "type": "string" },
+            "dispatchState": { "type": "string" },
+            "dispatchReceiptRef": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

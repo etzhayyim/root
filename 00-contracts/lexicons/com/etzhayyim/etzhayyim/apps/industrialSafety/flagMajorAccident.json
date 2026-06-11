@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.industrialSafety.flagMajorAccident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Seveso major accident / ILO occupational incident (bridges chemicals-management + disaster-response + ocha-funding)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "accidentId",
+            "accidentKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "accidentId": {
+              "type": "string"
+            },
+            "assessmentVid": {
+              "type": "string",
+              "description": "bridges recordSafetyAssessment"
+            },
+            "accidentKind": {
+              "type": "string",
+              "enum": [
+                "chemical_release",
+                "explosion",
+                "fire",
+                "radioactive",
+                "dust",
+                "biological",
+                "fall_from_height",
+                "crush",
+                "confined_space"
+              ]
+            },
+            "fatalities": {
+              "type": "integer"
+            },
+            "injuries": {
+              "type": "integer"
+            },
+            "tonnesReleased": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "major",
+                "fatal",
+                "catastrophic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

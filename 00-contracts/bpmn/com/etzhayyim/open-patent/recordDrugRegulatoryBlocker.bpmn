@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_patent_record_drug_regulatory_blocker" targetNamespace="https://etzhayyim.ai/bpmn/open-patent" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_patent_record_drug_regulatory_blocker" name="recordDrugRegulatoryBlocker" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Record"/>
+    <bpmn:serviceTask id="Task_Record" name="record drug regulatory blocker">
+      <bpmn:extensionElements><zeebe:taskDefinition type="openPatent.expiredDrugPatent.recordBlocker"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={patentVertexId: patentVertexId, patentNumber: patentNumber, jurisdiction: jurisdiction, productId: productId, blockerType: blockerType, blockingUntil: blockingUntil, source: source, evidenceUri: evidenceUri, asOf: asOf, dryRun: dryRun}" target="payload"/>
+          <zeebe:output source="=vertexId" target="vertexId"/><zeebe:output source="=active" target="active"/><zeebe:output source="=status" target="status"/><zeebe:output source="=blockingUntil" target="blockingUntil"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Record" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;openPatent.expiredDrugPatent.recordBlocker&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, active: active, status: status, blockingUntil: blockingUntil}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

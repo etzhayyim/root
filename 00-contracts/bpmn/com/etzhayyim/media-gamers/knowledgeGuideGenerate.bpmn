@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_media_gamers_knowledge_guide_generate"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="media_gamers_knowledge_guide_generate" name="media gamers knowledge guide generate" isExecutable="true">
+    <bpmn:startEvent id="Start" name="knowledge guide requested">
+      <bpmn:outgoing>Flow_Generate</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Generate" sourceRef="Start" targetRef="Task_Generate"/>
+    <bpmn:serviceTask id="Task_Generate" name="generate and commit knowledge guide">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="mediaGamers.knowledge.generateGuide"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=graph" target="graph"/>
+          <zeebe:input source="=postAsGameDid" target="postAsGameDid"/>
+          <zeebe:input source="=publish" target="publish"/>
+          <zeebe:input source="=sourceQuery" target="sourceQuery"/>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Generate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Generate" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit knowledge guide">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;media-gamers.knowledgeGuideGenerate&quot;" target="action"/>
+          <zeebe:input source="={ sourceQuery: string(sourceQuery), result: result }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="knowledge guide committed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opensaas.salesforce.case",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Salesforce-equivalent Case: a support ticket tied to an Account and (optionally) a Contact. Summary / description are public but any customer-quoted PII inside MUST be field-encrypted with signal:v1: prefix at write time.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["tenantDid", "accountDid", "subject", "status", "priority", "createdAt"],
+        "properties": {
+          "tenantDid": { "type": "string" },
+          "accountDid": { "type": "string" },
+          "contactDid": { "type": "string" },
+          "ownerDid": { "type": "string", "description": "assigned agent DID" },
+          "subject": { "type": "string", "maxLength": 255 },
+          "description": { "type": "string", "maxLength": 8192, "description": "long-form; signal:v1: prefix when quoting customer PII" },
+          "status": { "type": "string", "enum": ["new", "in-progress", "waiting-on-customer", "waiting-on-internal", "resolved", "closed"] },
+          "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "origin": { "type": "string", "enum": ["email", "phone", "web", "chat", "api", "social"] },
+          "caseType": { "type": "string", "enum": ["question", "bug", "feature-request", "incident", "billing", "other"] },
+          "slaDueAt": { "type": "string", "format": "datetime" },
+          "firstResponseAt": { "type": "string", "format": "datetime" },
+          "resolvedAt": { "type": "string", "format": "datetime" },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "lastActivityAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

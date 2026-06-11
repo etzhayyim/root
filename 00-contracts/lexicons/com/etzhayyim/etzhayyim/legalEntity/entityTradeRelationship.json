@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.entityTradeRelationship",
+  "description": "Commercial relationship between legal entities such as supplier, customer, distributor, or partner. Endpoints may be identified by graph vertex ID, LEI, source/sourceRecordId, or fallback name/country hints.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "edgeId",
+          "relationship",
+          "sourceLicense",
+          "confidence",
+          "linkedAt",
+          "createdAt"
+        ],
+        "properties": {
+          "edgeId": { "type": "string" },
+          "srcVertexId": { "type": "string" },
+          "srcLei": { "type": "string" },
+          "srcSource": { "type": "string" },
+          "srcSourceRecordId": { "type": "string" },
+          "srcName": { "type": "string" },
+          "srcCountry": { "type": "string" },
+          "dstVertexId": { "type": "string" },
+          "dstLei": { "type": "string" },
+          "dstSource": { "type": "string" },
+          "dstSourceRecordId": { "type": "string" },
+          "dstName": { "type": "string" },
+          "dstCountry": { "type": "string" },
+          "relationship": { "type": "string" },
+          "amount": { "type": "number" },
+          "amountCurrency": { "type": "string" },
+          "periodStart": { "type": "string", "format": "date" },
+          "periodEnd": { "type": "string", "format": "date" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "sourceLicense": { "type": "string" },
+          "confidence": { "type": "number" },
+          "linkedAt": { "type": "string", "format": "datetime" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

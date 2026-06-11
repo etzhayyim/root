@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fund.managerDiscovery",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a durable fund manager discovery run. The first pilot covers SEC Form ADV manager discovery and GLEIF legal-entity enrichment.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "runId": { "type": "string" },
+            "sourceId": {
+              "type": "string",
+              "description": "Source family such as sec-form-adv or gleif."
+            },
+            "jurisdiction": { "type": "string" },
+            "cursor": { "type": "string" },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 10000 },
+            "dryRun": { "type": "boolean", "default": false }
+          },
+          "required": ["sourceId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "runId": { "type": "string" },
+            "status": { "type": "string" },
+            "sourceId": { "type": "string" },
+            "managersWritten": { "type": "integer" },
+            "fundsWritten": { "type": "integer" },
+            "artifactsWritten": { "type": "integer" },
+            "coverageVerified": { "type": "boolean" },
+            "nextCursor": { "type": "string" }
+          },
+          "required": ["runId", "status", "sourceId"]
+        }
+      }
+    }
+  }
+}

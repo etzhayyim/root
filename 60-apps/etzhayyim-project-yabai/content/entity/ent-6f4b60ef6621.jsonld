@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6f4b60ef6621",
+  "entityId": "ent-6f4b60ef6621",
+  "canonicalName": "cubatabaco",
+  "aliases": [
+    "cubatabaco"
+  ]
+}

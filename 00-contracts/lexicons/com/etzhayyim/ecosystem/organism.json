@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.ecosystem.organism",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Profile of an artificial botanical/fungal organism.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["motif", "genesis", "environment"],
+        "properties": {
+          "motif": {
+            "type": "string",
+            "knownValues": ["koke", "kabi", "hoshi", "saikin"],
+            "description": "The biological motif of the organism."
+          },
+          "genesis": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the organism was spawned."
+          },
+          "environment": {
+            "type": "string",
+            "description": "The environment DID or ID where this organism lives."
+          },
+          "genome": {
+            "type": "string",
+            "description": "CID or hash of the organism's base ruleset/DNA."
+          }
+        }
+      }
+    }
+  }
+}

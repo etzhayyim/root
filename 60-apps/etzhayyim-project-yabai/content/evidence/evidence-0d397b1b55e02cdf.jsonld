@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-0d397b1b55e02cdf",
+  "evidenceId": "evidence-0d397b1b55e02cdf",
+  "entityId": "ent-37e98a372d8d",
+  "category": "SanctionHit",
+  "source": "ua/nsdc",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.95,
+  "severity": 5,
+  "probability": 0.002,
+  "jurisdiction": "UA",
+  "summary": "Watchlist signal"
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — triggers the maps-bulk-ingest-wikidata K8s pod
+  every 24 hours. Resident dumper pod streams Wikidata `latest-all.json.gz`,
+  filters to P625-bearing entities, writes Parquet shards to B2, then
+  COPY-loads into RisingWave vertex_spatial.
+
+  Pairs with the existing CF Worker dispatch (advanceCoverage / runCoverageJob):
+
+    advanceCoverage    (PT1M)  → CF Worker incremental crawl (50 rows/tick)
+    bulkRefreshWikidata (PT24H) → K8s pod full dump (~5M rows / pass)
+
+  The dumper is idempotent — collisions are silently dropped via PRIMARY KEY
+  first-write-wins, so the two pipelines coexist cleanly.
+
+  Trigger endpoint is the K8s ClusterIP service; resolution from the Zeebe
+  worker pod (mitama-udf namespace) goes through the kube DNS:
+    bulk-ingest-wikidata.maps-bulk-ingest.svc.cluster.local:8080
+
+  NSID: com.etzhayyim.apps.maps.bulkRefreshWikidata
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-bulk-refresh-wikidata-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_bulk_refresh_wikidata"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_bulk_refresh_wikidata" name="maps bulk refresh wikidata" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.bulkRefreshWikidata", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 24 hours">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT24H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_Trigger"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_Trigger"/>
+
+    <!-- POST /trigger to the resident dumper pod. Returns 202 immediately;
+         the pod runs the 8-12h dump asynchronously and exposes /status. -->
+    <bpmn:serviceTask id="Task_Trigger" name="POST /trigger to dumper pod">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;http://bulk-ingest-wikidata.maps-bulk-ingest.svc.cluster.local:8080/trigger&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"                target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;"    target="contentType"/>
+          <zeebe:input source="={}"                              target="body"/>
+          <zeebe:input source="=30000"                           target="timeoutMs"/>
+          <zeebe:output source="=status"   target="triggerStatus"/>
+          <zeebe:output source="=bodyJson" target="triggerResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Trigger" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit bulk.refresh OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.bulk.refresh.triggered&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;source&quot;: &quot;wikidata&quot;, &quot;status&quot;: triggerStatus, &quot;startedAt&quot;: triggerResult.started_at }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

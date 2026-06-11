@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isotopeTraceability.recordAssay",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Isotope / trace-element provenance assay (bridges uflpaEnforcement.flagRebuttalFailure + seafood-traceability + residue-mrl)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assayId",
+            "commodity",
+            "technique",
+            "declaredOriginIso3",
+            "assayedAt"
+          ],
+          "properties": {
+            "assayId": {
+              "type": "string"
+            },
+            "commodity": {
+              "type": "string",
+              "enum": [
+                "polysilicon",
+                "cotton",
+                "tuna",
+                "shrimp",
+                "timber",
+                "rare_earth",
+                "coffee",
+                "cocoa",
+                "vanilla",
+                "tea",
+                "cashew",
+                "cobalt",
+                "lithium",
+                "tobacco",
+                "fish_oil"
+              ]
+            },
+            "technique": {
+              "type": "string",
+              "enum": [
+                "irms",
+                "icpms",
+                "xrf",
+                "pixe",
+                "sr_isotope",
+                "ftir",
+                "aas",
+                "gc_ms",
+                "dna_forensic",
+                "genome_assay",
+                "sims",
+                "laser_ablation"
+              ]
+            },
+            "declaredOriginIso3": {
+              "type": "string"
+            },
+            "measuredMatchPct": {
+              "type": "number"
+            },
+            "uflpaVid": {
+              "type": "string",
+              "description": "bridges uflpaEnforcement.flagRebuttalFailure"
+            },
+            "assayedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

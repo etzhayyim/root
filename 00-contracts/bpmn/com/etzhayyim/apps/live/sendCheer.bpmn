@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  com.etzhayyim.apps.live.sendCheer — viewer cheer event.
+
+  Single-task flow. Cheers are append-only into vertex_live_chat with
+  kind = "cheer-{originalKind}" so the existing chat fan-out picks
+  them up alongside actor utterances. The text becomes the cheer kind
+  badge ("CLAP!" / "YELL!" / etc) so screen readers / archival
+  consumers see something readable.
+
+  RLS shape per ADR-0095. Anonymous viewers ride on actor_did = "anon".
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_live_send_cheer"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="live_send_cheer" name="live sendCheer" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="vertex_live_chat insert (cheer)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_live_chat&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: &quot;at://&quot; + (if callerDid != null then string(callerDid) else &quot;anon&quot;) + &quot;/com.etzhayyim.apps.live.cheer/&quot; + string(now()),
+              room_slug: roomSlug,
+              actor_handle: if callerDid != null then string(callerDid) else &quot;anon&quot;,
+              text: upper case(string(kind)) + &quot;!&quot;,
+              kind: &quot;cheer-&quot; + string(kind),
+              tint_r: null,
+              tint_g: null,
+              tint_b: null,
+              posted_at: now(),
+              name: &quot;cheer:&quot; + string(kind),
+              description: &quot;weight=&quot; + string(if weight != null then weight else 1.0),
+              actor_did: if callerDid != null then callerDid else &quot;did:web:live.etzhayyim.com:viewer:anon&quot;,
+              org_did: if orgDid != null then orgDid else &quot;anon&quot;,
+              at_did: callerDid,
+              created_at: string(now())
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=true" target="accepted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Save" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

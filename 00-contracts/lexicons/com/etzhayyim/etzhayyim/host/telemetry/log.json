@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.telemetry.log",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Emit a structured log line (OTEL logs).",
+      "x-hostImportsMethod": "telemetryLog",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "attributesJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "level",
+            "message",
+            "attributesJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "ok"
+          ]
+        }
+      }
+    }
+  }
+}

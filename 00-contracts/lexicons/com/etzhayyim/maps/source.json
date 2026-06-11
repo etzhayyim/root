@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.source",
+  "description": "Maps data source DID registry — one record per external API the maps app replaces with a path-based DID. Append-only with Supersedes edges for revision. Per ADR-2605231400 (kotoba-datomic L1) + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{slug}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "slug",
+          "did",
+          "displayName",
+          "externalSource",
+          "ttl",
+          "status",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "description": "Source registry format version. Current: 1.",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "slug": {
+            "type": "string",
+            "description": "Stable rkey-safe slug for this source. Format: kebab-case (lowercase alphanumeric + hyphens), matches the path segment under did:web:maps.etzhayyim.com (or 'registry-{name}' for nested registries).",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "did": {
+            "type": "string",
+            "format": "did",
+            "description": "Canonical path-based DID for this source. Format: did:web:maps.etzhayyim.com[:registry]:{slug-with-colons}."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Human-readable name for UI display.",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "externalSource": {
+            "type": "string",
+            "description": "The external API or dataset this DID replaces (e.g., 'Nominatim (OSM)', 'Sentinel-2 / Landsat (STAC)', 'OpenFlights routes (ODbL)').",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "ttl": {
+            "type": "string",
+            "description": "Time-to-live for cached records from this source. ISO 8601 duration (e.g., 'PT1H', 'P7D', 'P30D') or the literal 'permanent'.",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "license": {
+            "type": "string",
+            "description": "License under which the upstream data is redistributable (e.g., 'ODbL', 'CC-BY-4.0', 'public domain', 'commercial'). Required for ADR-2605192115 compliance review.",
+            "maxLength": 64
+          },
+          "category": {
+            "type": "string",
+            "description": "Coarse category for grouping in UI and policy gates.",
+            "knownValues": [
+              "geocode",
+              "weather",
+              "infrastructure",
+              "transport",
+              "satellite",
+              "vision",
+              "hazard",
+              "registry",
+              "crawl",
+              "user",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Operational status of this source's ingest path.",
+            "knownValues": [
+              "active",
+              "deprecated",
+              "experimental",
+              "paused"
+            ]
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesDid": {
+            "type": "string",
+            "format": "did",
+            "description": "When this record replaces an earlier source DID (slug change, license re-issue, etc.), name the prior DID. The old record remains queryable; reads default to the latest non-superseded record."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Free-form operator notes — bring-up runbook references, contact info for the upstream provider, known issues.",
+            "maxLength": 2048
+          }
+        }
+      }
+    }
+  }
+}

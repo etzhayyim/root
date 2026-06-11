@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.addChapter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "workId": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "actTitle": {
+              "type": "string"
+            },
+            "emotionalArc": {
+              "type": "string"
+            },
+            "keyBeat": {
+              "type": "string"
+            },
+            "narrativePurpose": {
+              "type": "string"
+            },
+            "chapterNum": {
+              "type": "number"
+            },
+            "pageCount": {
+              "type": "number"
+            },
+            "actNumber": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "workId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

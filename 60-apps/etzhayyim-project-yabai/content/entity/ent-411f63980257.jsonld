@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-411f63980257",
+  "entityId": "ent-411f63980257",
+  "canonicalName": "estêvão na mena",
+  "aliases": [
+    "estêvão na mena"
+  ]
+}

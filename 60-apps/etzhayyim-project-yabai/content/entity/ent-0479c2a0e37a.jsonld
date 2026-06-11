@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0479c2a0e37a",
+  "entityId": "ent-0479c2a0e37a",
+  "canonicalName": "irina anatolievna kostenko",
+  "aliases": [
+    "irina anatolievna kostenko"
+  ]
+}

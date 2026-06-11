@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f3e2658ffab2",
+  "entityId": "ent-f3e2658ffab2",
+  "canonicalName": "city pharm",
+  "aliases": [
+    "city pharm"
+  ]
+}

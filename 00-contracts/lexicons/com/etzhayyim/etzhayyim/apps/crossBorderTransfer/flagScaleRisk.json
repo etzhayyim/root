@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crossBorderTransfer.flagScaleRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "High-risk transfer / government access concern (bridges dataLocalization.flagFragmentation + sanctions-entry + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "mechanismVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "mechanismVid": {
+              "type": "string",
+              "description": "bridges recordTransferMechanism"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "foreign_govt_access",
+                "section_702",
+                "doj_section_215",
+                "executive_order_12333",
+                "cloud_act",
+                "subpoena_bulk",
+                "lawful_intercept",
+                "signals_intel",
+                "mass_surveillance",
+                "unresolved_tia",
+                "schrems_ii_gap",
+                "gdpr_breach_ripe"
+              ]
+            },
+            "estDataSubjects": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

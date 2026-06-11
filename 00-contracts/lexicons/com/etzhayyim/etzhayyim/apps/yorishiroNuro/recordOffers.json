@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yorishiroNuro.recordOffers",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provider → app callback. Persist enumerated offers as com.etzhayyim.apps.yorishiroNuro.offer records.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "offers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "campaignCode": { "type": "string" },
+                  "title": { "type": "string" },
+                  "amountJpy": { "type": "integer" },
+                  "windowOpen": { "type": "string" },
+                  "windowClose": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": ["jobId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "count": { "type": "integer" },
+            "jobId": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

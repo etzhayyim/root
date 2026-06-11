@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.handoffGenericCandidateToSeiyaku",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create an auditable handoff from an expired-patent generic / biosimilar candidate to the open-seiyaku batch registration workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["genericCandidateVid", "productId"],
+          "properties": {
+            "genericCandidateVid": { "type": "string" },
+            "productId": { "type": "string" },
+            "seiyakuProcessId": { "type": "string" },
+            "targetMarket": { "type": "string" },
+            "manufacturerOrgId": { "type": "string" },
+            "plantOrgId": { "type": "string" },
+            "dosageForm": { "type": "string" },
+            "batchIntent": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "seiyakuProcessId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

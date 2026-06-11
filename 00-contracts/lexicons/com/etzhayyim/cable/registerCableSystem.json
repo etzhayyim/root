@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cable.registerCableSystem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a submarine cable SYSTEM into the kotoba Datom log (:cable/*). kotoba-native successor to com.etzhayyim.apps.telecom.registerSubmarineCableSystem + com.etzhayyim.apps.telecomInfra.registerCable. Public-record infrastructure only (watatsuna G1).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cableId", "name", "status", "sourcing", "observedAt"],
+          "properties": {
+            "cableId": { "type": "string", "description": ":cable/id, e.g. \"cable.jupiter\"" },
+            "name": { "type": "string" },
+            "ownerConsortium": { "type": "array", "items": { "type": "string" }, "description": "org ids; link to :organism/id where known" },
+            "lengthKm": { "type": "integer" },
+            "designCapacityGbps": { "type": "integer", "description": "design capacity in Gbps (integer; Tbps × 1000)" },
+            "litCapacityGbps": { "type": "integer", "description": "lit capacity in Gbps (integer; Tbps × 1000)" },
+            "fiberPairs": { "type": "integer" },
+            "rfsYear": { "type": "integer" },
+            "status": { "type": "string", "enum": ["planned", "under_construction", "in_service", "retired"] },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "watatsuna G5 sourcing honesty" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "cableId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

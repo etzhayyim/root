@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ruralBroadband.flagDigitalDivideGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Digital divide gap (affordability / adoption / gender / age — bridges digital-accessibility + crc-children-digital + mental-health-parity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "indicator",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "deploymentVid": {
+              "type": "string",
+              "description": "bridges registerDeployment"
+            },
+            "indicator": {
+              "type": "string",
+              "enum": [
+                "affordability_1_2_basket",
+                "adoption_rate",
+                "gender_gap",
+                "age_gap",
+                "digital_skills",
+                "mobile_only",
+                "dark_spot_persist"
+              ]
+            },
+            "valueNumeric": {
+              "type": "number"
+            },
+            "benchmarkValue": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

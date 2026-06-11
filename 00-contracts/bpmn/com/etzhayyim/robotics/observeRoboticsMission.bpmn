@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Robotics mission observation chain.
+
+  Inputs:
+    requestId
+    missionId
+    roboticsMissionSimulation
+    roboticsApprovalRecord
+    topic
+    payload
+    records
+
+  Outputs:
+    roboticsTelemetryFrame
+    roboticsMissionStatus
+    roboticsFulfillmentClose
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_robotics_observe_mission"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="robotics_observe_mission" name="Robotics mission observation" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Telemetry received">
+      <bpmn:outgoing>Flow_Start_Ingest</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Ingest" sourceRef="Start" targetRef="Task_IngestTelemetry"/>
+
+    <bpmn:serviceTask id="Task_IngestTelemetry" name="Ingest telemetry frame">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.telemetry.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=topic" target="topic"/>
+          <zeebe:input source="=payload" target="payload"/>
+          <zeebe:input source="=frameId" target="frameId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Ingest</bpmn:incoming>
+      <bpmn:outgoing>Flow_Ingest_Status</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Ingest_Status" sourceRef="Task_IngestTelemetry" targetRef="Task_Status"/>
+
+    <bpmn:serviceTask id="Task_Status" name="Compute mission status">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.mission.status"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=missionId" target="missionId"/>
+          <zeebe:input source="=roboticsMissionSimulation" target="roboticsMissionSimulation"/>
+          <zeebe:input source="=roboticsApprovalRecord" target="roboticsApprovalRecord"/>
+          <zeebe:input source="=[roboticsTelemetryFrame]" target="telemetryFrames"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Ingest_Status</bpmn:incoming>
+      <bpmn:outgoing>Flow_Status_Close</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Status_Close" sourceRef="Task_Status" targetRef="Task_Close"/>
+
+    <bpmn:serviceTask id="Task_Close" name="Check fulfillment close">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="robotics.fulfillment.close"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=requestId" target="requestId"/>
+          <zeebe:input source="=records" target="records"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Status_Close</bpmn:incoming>
+      <bpmn:outgoing>Flow_Close_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Close_Audit" sourceRef="Task_Close" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit observation audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;robotics.mission.observed&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, telemetry: roboticsTelemetryFrame, status: roboticsMissionStatus, close: roboticsFulfillmentClose }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Close_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Observation completed">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

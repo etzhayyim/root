@@ -1,0 +1,110 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+  "description": "Physical site audit event emitted by AuditWitnessCell (phase 5, leaderNode levi). **Witness invariant**: N ≥ 2 independent robot DID signatures REQUIRED (constitutional, per CLAUDE.md). Audits are periodic post-deployment checks of the physical site against the originally-proposed plan + the recorded construction progress. Per ADR-2605201400 + ADR-2605192415.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "auditEventId",
+          "siteId",
+          "planId",
+          "auditedAt",
+          "auditScope",
+          "auditOutcome",
+          "robotWitnessSignatures",
+          "auditWitnessCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "auditEventId": {"type": "string"},
+          "siteId": {
+            "type": "string",
+            "description": "Site being audited."
+          },
+          "planId": {
+            "type": "string",
+            "description": "Original deployment plan being verified against."
+          },
+          "auditedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Timestamp of the physical audit visit."
+          },
+          "auditScope": {
+            "type": "string",
+            "knownValues": [
+              "post-construction-acceptance",
+              "annual-routine",
+              "incident-response",
+              "decommission-pre-check",
+              "council-escalation"
+            ]
+          },
+          "auditOutcome": {
+            "type": "string",
+            "knownValues": [
+              "pass-no-findings",
+              "pass-with-minor-findings",
+              "fail-major-findings",
+              "fail-safety-critical"
+            ],
+            "description": "Audit outcome. `fail-safety-critical` triggers immediate halt + Council Lv6+ escalation."
+          },
+          "findingsIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "REQUIRED when auditOutcome is any `*-findings` or `fail-*` value; IPFS CID of the findings report."
+          },
+          "remediationDeadlineAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "REQUIRED for any non-pass outcome; deadline for remediation. Validator MAY enforce reasonable bounds per outcome severity."
+          },
+          "robotWitnessSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#robotWitnessSignature"
+            },
+            "minLength": 2,
+            "description": "**Constitutional witness invariant**: ≥2 independent robot DID signatures. Identical to recordConstructionProgress invariant — distinct DIDs required."
+          },
+          "physicalEvidenceCids": {
+            "type": "array",
+            "items": {"type": "string", "format": "cid"},
+            "minLength": 1,
+            "description": "IPFS CIDs of physical evidence (photos / sensor snapshots / measurement reports) for the audit event."
+          },
+          "auditWitnessCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "robotWitnessSignature": {
+      "type": "object",
+      "required": ["robotDid", "sensorSnapshotIpfsCid", "signedAt", "signature"],
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "description": "DID of form `did:web:etzhayyim.com:kuniumi:robot:<serial>`. Distinct from other entries in the array."
+        },
+        "sensorSnapshotIpfsCid": {
+          "type": "string",
+          "format": "cid"
+        },
+        "signedAt": {"type": "string", "format": "datetime"},
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over (auditEventId + siteId + auditedAt + auditOutcome + findingsIpfsCid)."
+        }
+      }
+    }
+  }
+}

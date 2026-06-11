@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ses.listJokyo",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "案件の状況遷移ログ全件を時系列順で返す。",
+      "parameters": {
+        "type": "params",
+        "required": ["ankenId"],
+        "properties": {
+          "ankenId": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jokyo", "total", "offset", "limit"],
+          "properties": {
+            "jokyo": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "jokyo": { "type": "string" },
+                  "jokyoPrev": { "type": "string" },
+                  "changedByDid": { "type": "string" },
+                  "notes": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

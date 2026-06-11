@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d7959e77c58e",
+  "entityId": "ent-d7959e77c58e",
+  "canonicalName": "eduardo gonzalez quirarte",
+  "aliases": [
+    "eduardo gonzalez quirarte"
+  ]
+}

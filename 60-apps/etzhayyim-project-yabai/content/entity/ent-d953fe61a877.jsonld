@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d953fe61a877",
+  "entityId": "ent-d953fe61a877",
+  "canonicalName": "chen, kan",
+  "aliases": [
+    "chen, kan"
+  ]
+}

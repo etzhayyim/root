@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7ede349cbf4f",
+  "entityId": "ent-7ede349cbf4f",
+  "canonicalName": "gx shipping fze",
+  "aliases": [
+    "gx shipping fze"
+  ]
+}

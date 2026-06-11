@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manimani.resumeRun",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resume a run that paused at the HITL gate (status=interrupted) by supplying the user's decision. Re-invokes the LangGraph StateGraph with state.human_decision set; the classify_project gate short-circuits and the rest of the pipeline runs normally. Per ADR-2605080800 Phase 4.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["runId", "decision"],
+          "properties": {
+            "runId": {
+              "type": "string",
+              "description": "Original run id that paused. The resume run gets a new id and stores the original in vertex_manimani_run.parent_run_id."
+            },
+            "decision": {
+              "type": "string",
+              "enum": ["approve", "reject", "reassign"],
+              "description": "approve = let the proposed new project emerge and continue. reject = abort the run with status=completed_with_error. reassign = bind the intake to targetProjectId instead and continue."
+            },
+            "targetProjectId": {
+              "type": "string",
+              "description": "Required when decision=reassign. vertex_manimani_project.vertex_id in caller's actor scope."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["runId", "originalRunId", "status"],
+          "properties": {
+            "runId": {
+              "type": "string",
+              "description": "New run_id for the resumed StateGraph invocation."
+            },
+            "originalRunId": {
+              "type": "string",
+              "description": "The paused run id passed in by the caller."
+            },
+            "status": {
+              "type": "string",
+              "enum": ["pending", "running", "completed", "completed_with_error", "failed"]
+            },
+            "estimatedSeconds": { "type": "integer" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidInput", "description": "decision=reassign requires targetProjectId, or runId not paused." },
+        { "name": "NotFound", "description": "runId not found in actor scope." }
+      ]
+    }
+  }
+}

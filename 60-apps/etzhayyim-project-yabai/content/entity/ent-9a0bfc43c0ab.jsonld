@@ -1,0 +1,14 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "WebSite",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9a0bfc43c0ab",
+  "entityId": "ent-9a0bfc43c0ab",
+  "canonicalName": "www.nicovideo.jp",
+  "aliases": [
+    "www.nicovideo.jp",
+    "ニコニコ"
+  ],
+  "websites": [
+    "https://www.nicovideo.jp"
+  ]
+}

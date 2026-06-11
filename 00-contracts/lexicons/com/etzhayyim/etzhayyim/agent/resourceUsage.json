@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.agent.resourceUsage",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ADR-2604301200 metered resource usage for a runtime lease.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["usageId", "leaseId", "rootDid", "agentDid", "usageWindowStart", "usageWindowEnd"],
+        "properties": {
+          "usageId": {
+            "type": "string"
+          },
+          "leaseId": {
+            "type": "string"
+          },
+          "rootDid": {
+            "type": "string"
+          },
+          "agentDid": {
+            "type": "string"
+          },
+          "cpuMillis": {
+            "type": "integer"
+          },
+          "memoryMibHighWater": {
+            "type": "integer"
+          },
+          "gpuClass": {
+            "type": "string"
+          },
+          "gpuSeconds": {
+            "type": "integer"
+          },
+          "storageGibHours": {
+            "type": "integer"
+          },
+          "networkEgressBytes": {
+            "type": "integer"
+          },
+          "jobCount": {
+            "type": "integer"
+          },
+          "costGccWei": {
+            "type": "string"
+          },
+          "usageWindowStart": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "usageWindowEnd": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "receiptCid": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

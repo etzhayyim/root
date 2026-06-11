@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mergerReview.notifyTransaction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "HSR / EUMR / SAMR merger notification (bridges antitrust-dma + global-tax + lei)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "notificationId",
+            "jurisdictions",
+            "filingPhase",
+            "notifiedAt"
+          ],
+          "properties": {
+            "notificationId": {
+              "type": "string"
+            },
+            "acquirerLei": {
+              "type": "string"
+            },
+            "targetLei": {
+              "type": "string"
+            },
+            "jurisdictions": {
+              "type": "string",
+              "description": "comma: us_hsr,eu_mr,uk_cma,cn_samr,jp_jftc,kr_kftc,in_cci,br_cade,au_accc"
+            },
+            "transactionValueUsd": {
+              "type": "number"
+            },
+            "sector": {
+              "type": "string"
+            },
+            "filingPhase": {
+              "type": "string",
+              "enum": [
+                "phase_1",
+                "phase_2",
+                "pre_notification",
+                "simplified",
+                "full"
+              ]
+            },
+            "notifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complexityTier": {
+              "type": "string",
+              "enum": [
+                "simplified",
+                "engagement",
+                "in_depth"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

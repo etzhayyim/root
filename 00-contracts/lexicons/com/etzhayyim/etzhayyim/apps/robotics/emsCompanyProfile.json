@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.ems.company.profile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create normalized EMS company profiles with region, capabilities, certifications, evidence, and supplier risk flags.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "companies": { "type": "array" },
+            "source": { "type": "string" },
+            "asOfDate": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsEmsCompanyProfiles": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

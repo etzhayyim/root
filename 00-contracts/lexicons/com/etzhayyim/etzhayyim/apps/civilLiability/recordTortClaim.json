@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.civilLiability.recordTortClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Tort / class action / direct liability claim (bridges csdddDirective.flagDueDiligenceGap + climate-litigation + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "claimId",
+            "forum",
+            "theoryOfHarm",
+            "filedAt"
+          ],
+          "properties": {
+            "claimId": {
+              "type": "string"
+            },
+            "defendantLei": {
+              "type": "string"
+            },
+            "forum": {
+              "type": "string",
+              "enum": [
+                "us_federal",
+                "us_state",
+                "uk_high_court",
+                "nl_rechtbank",
+                "fr_tribunal",
+                "de_oberlandesgericht",
+                "br_stf",
+                "ke_high_court",
+                "za_high_court",
+                "icj_icpc",
+                "arbitration_pcc"
+              ]
+            },
+            "theoryOfHarm": {
+              "type": "string",
+              "enum": [
+                "duty_of_care",
+                "breach_statutory",
+                "nuisance",
+                "climate_attribution",
+                "workplace_harm",
+                "supply_chain_complicity",
+                "environmental_damage",
+                "securities_class",
+                "consumer_deception",
+                "rico"
+              ]
+            },
+            "dueDiligenceGapVid": {
+              "type": "string",
+              "description": "bridges csdddDirective.flagDueDiligenceGap"
+            },
+            "aggregateDamagesMusd": {
+              "type": "number"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

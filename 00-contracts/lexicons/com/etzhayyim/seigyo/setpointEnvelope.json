@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.seigyo.setpointEnvelope",
+  "description": "Attestation-layer mirror of a setpoint envelope compiled into an attested PLC program: per-setpoint min/max + max rate-of-change. Murakumo optimization proposals land ONLY through these envelopes; out-of-envelope requests are clamped at L1 regardless of upstream layer. Per ADR-2606111000 §3.4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "programId": { "type": "string" },
+          "programVersion": { "type": "integer" },
+          "siteId": { "type": "string" },
+          "controllerId": { "type": "string" },
+          "envelopes": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#envelope" }
+          },
+          "clampCounterTag": { "type": "string", "description": "PLC tag accumulating envelope-clamp events for silenSeigyoReview" }
+        },
+        "required": ["programId", "programVersion", "siteId", "controllerId", "envelopes"]
+      }
+    },
+    "envelope": {
+      "type": "object",
+      "properties": {
+        "tag": { "type": "string" },
+        "unit": { "type": "string" },
+        "minMilli": { "type": "integer", "description": "envelope minimum in 1/1000 of unit (implied milli-units; e.g. 250.0 degC = 250000)" },
+        "maxMilli": { "type": "integer", "description": "envelope maximum in 1/1000 of unit (implied milli-units)" },
+        "maxRateOfChangeMilli": { "type": "integer", "description": "max rate of change in 1/1000 of rateUnit (implied milli-units)" },
+        "rateUnit": { "type": "string", "description": "e.g. degC/min" },
+        "rationale": { "type": "string", "description": "why these bounds; note the operational-vs-safety distinction (safety bound is hardwired L1S, not this envelope)" }
+      },
+      "required": ["tag", "unit", "minMilli", "maxMilli"]
+    }
+  }
+}

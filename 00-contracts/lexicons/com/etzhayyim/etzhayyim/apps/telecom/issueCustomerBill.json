@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.issueCustomerBill",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a customer bill via TMF678 Customer Bill Management API. Creates a vertex_telecom_tmf_customer_bill record. Designed for timer-start (R/P1M).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["billId", "accountId", "periodStart", "periodEnd"],
+          "properties": {
+            "billId": { "type": "string" },
+            "accountId": { "type": "string" },
+            "periodStart": { "type": "string", "format": "date" },
+            "periodEnd": { "type": "string", "format": "date" },
+            "currency": { "type": "string" },
+            "sourceInvoiceVids": { "type": "array", "items": { "type": "string" } },
+            "dueAt": { "type": "string", "format": "datetime" },
+            "deliveryChannel": { "type": "string", "enum": ["email", "post", "portal", "api"] },
+            "billDocumentRef": { "type": "string" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "billId": { "type": "string" },
+            "totalAmount": { "type": "number" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

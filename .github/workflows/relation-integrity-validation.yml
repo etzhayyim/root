@@ -1,0 +1,97 @@
+name: relation-integrity-validation
+
+# Validate doc-relation integrity per 6th-axis registry enforcement
+# (ADR-2605271200 cycle 60; defense-in-depth wired cycle 69).
+# Tracker mode — exits 0 by default. Baseline 1011 known issues
+# (cycle 65 final state after cycles 63+64+65 auto-fixes).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/_registry/docs.json'
+      - '70-tools/scripts/docs/validate-relation-integrity.py'
+      - '70-tools/scripts/docs/test_validate_relation_integrity.py'
+      - '.github/workflows/relation-integrity-validation.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/_registry/docs.json'
+      - '70-tools/scripts/docs/validate-relation-integrity.py'
+      - '70-tools/scripts/docs/test_validate_relation_integrity.py'
+      - '.github/workflows/relation-integrity-validation.yml'
+  schedule:
+    # Nightly at 03:53 UTC = ~12:53 JST. Off-minute :53 separates from
+    # md-link :47 / kotodama :41 / registry-schema :35 / docs-graph :29 /
+    # docs-registry :23 / deps-toml :17 (6-min spread × 7 axes).
+    - cron: '53 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: relation-integrity-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run validator unit tests (cycle 60; 10/10 must pass)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_validate_relation_integrity.py \
+            -v
+
+      - name: Validate relation integrity (tracker)
+        run: |
+          python3 70-tools/scripts/docs/validate-relation-integrity.py \
+            --json > /tmp/relation-audit.json
+          cat /tmp/relation-audit.json
+
+      - name: Step summary
+        if: always()
+        run: |
+          if [ -f /tmp/relation-audit.json ]; then
+            dangling=$(python3 -c "import json; print(json.load(open('/tmp/relation-audit.json'))['dangling_count'])")
+            self_ref=$(python3 -c "import json; print(json.load(open('/tmp/relation-audit.json'))['self_reference_count'])")
+            circular=$(python3 -c "import json; print(json.load(open('/tmp/relation-audit.json'))['circular_count'])")
+            total=$((dangling + self_ref + circular))
+            {
+              echo "## relation-integrity-validation"
+              echo ""
+              echo "- **Dangling targets**: ${dangling}"
+              echo "- **Self-references**: ${self_ref}"
+              echo "- **Circular pairs**: ${circular}"
+              echo "- **Total**: ${total}"
+              echo ""
+              echo "Baseline as of cycle 65 (2026-05-27): 1011 known issues across 6 relation fields"
+              echo "  (related / supersedes / superseded_by / amends / amended_by / depends_on + self-refs + circular)."
+              echo "  Net cleanup since cycle 60 origin: -450 issues via cycles 63 (346) + 64 (435) + 65 (223)."
+              echo ""
+              if [ "$total" -gt 1011 ]; then
+                echo "⚠️ Total **above baseline (1011)** — new dangling/self/circular ref(s)."
+              elif [ "$total" -lt 1011 ]; then
+                echo "✅ Total **below baseline** — cleanup landed. Update baseline."
+              else
+                echo "✓ Total matches baseline (1011)."
+              fi
+              echo ""
+              echo "**Mode**: NIGHTLY TRACKER. Promotion to PR-gate awaits baseline ≪ current (truly-orphan refs need manual cleanup or accept-list)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMiit.flagIndustrialPolicyDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Industrial policy dispute / state aid / overcapacity (bridges criticalMinerals + tradeRemedy + frugalFourCoalition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "disputeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordIndustrialAction"
+            },
+            "disputeKind": {
+              "type": "string",
+              "enum": [
+                "overcapacity_steel",
+                "overcapacity_solar",
+                "overcapacity_ev",
+                "wto_subsidy_complaint",
+                "scm_subsidies",
+                "pri_state_owned_subsidy",
+                "cf_critical_funding",
+                "jdf_chip_aid",
+                "ipcei_eu_compete",
+                "national_champion_protect",
+                "unfair_competition_china_filing"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

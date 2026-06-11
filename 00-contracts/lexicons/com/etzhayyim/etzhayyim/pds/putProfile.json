@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pds.putProfile",
+  "description": "Update actor profile. Input fields are compatible with app.bsky.actor.profile record schema.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "maxGraphemes": 64,
+              "maxLength": 640
+            },
+            "description": {
+              "type": "string",
+              "maxGraphemes": 256,
+              "maxLength": 2560
+            },
+            "avatar": {
+              "type": "string",
+              "format": "uri"
+            },
+            "labels": {
+              "type": "ref",
+              "description": "Self-labels. Uses official com.atproto.label.defs#selfLabels.",
+              "ref": "com.atproto.label.defs#selfLabels"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": { "type": "string" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" }
+          },
+          "required": ["rkey", "uri", "cid"]
+        }
+      }
+    }
+  }
+}

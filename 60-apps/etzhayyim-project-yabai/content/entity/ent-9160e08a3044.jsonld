@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9160e08a3044",
+  "entityId": "ent-9160e08a3044",
+  "canonicalName": "luisa de fatima giovetty",
+  "aliases": [
+    "luisa de fatima giovetty"
+  ]
+}

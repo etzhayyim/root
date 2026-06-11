@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.wtoDispute.fileDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WTO DSB dispute filing (bridges ustr-301 + mofcom + eu-cbam + lei)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disputeId",
+            "complainantIso3",
+            "respondentIso3",
+            "subjectAgreement",
+            "filedAt"
+          ],
+          "properties": {
+            "disputeId": {
+              "type": "string",
+              "description": "DS number"
+            },
+            "complainantIso3": {
+              "type": "string"
+            },
+            "respondentIso3": {
+              "type": "string"
+            },
+            "subjectAgreement": {
+              "type": "string",
+              "enum": [
+                "gatt",
+                "tbt",
+                "sps",
+                "scm",
+                "trips",
+                "agreement_on_agriculture",
+                "gats",
+                "safeguards"
+              ]
+            },
+            "relatedUstr301Vid": {
+              "type": "string",
+              "description": "bridges open-ustr-section-301"
+            },
+            "relatedMofcomVid": {
+              "type": "string",
+              "description": "bridges open-mofcom-export-control"
+            },
+            "relatedCbamVid": {
+              "type": "string",
+              "description": "bridges open-eu-cbam"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

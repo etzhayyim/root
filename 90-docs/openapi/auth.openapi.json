@@ -1,0 +1,1264 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "auth XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://auth.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.auth.authenticate": {
+      "post": {
+        "summary": "Authenticate a request. Returns auth level, account DID, active DID, and token scopes. Used by PDS service binding to delegate authentication.",
+        "operationId": "com.etzhayyim.auth.authenticate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authorization": {
+                    "type": "string",
+                    "description": "Bearer token or raw JWT"
+                  },
+                  "xKotodamaVerified": {
+                    "type": "boolean",
+                    "description": "Internal service binding flag"
+                  },
+                  "xetzhayyimOrgId": {
+                    "type": "string",
+                    "description": "Org ID for internal requests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "level": {
+                      "type": "string",
+                      "description": "Auth level: public | session | internal"
+                    },
+                    "did": {
+                      "type": "string",
+                      "description": "Authenticated active DID or null"
+                    },
+                    "accountDid": {
+                      "type": "string",
+                      "description": "Root account = actor = org DID"
+                    },
+                    "activeDid": {
+                      "type": "string",
+                      "description": "Current active sub-actor DID"
+                    },
+                    "orgId": {
+                      "type": "string"
+                    },
+                    "clearance": {
+                      "type": "string"
+                    },
+                    "sub": {
+                      "type": "string"
+                    },
+                    "tokenScopes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "level",
+                    "clearance",
+                    "tokenScopes"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.createAgentSession": {
+      "post": {
+        "summary": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by etzhayyim deploy for automatic agent credential provisioning.",
+        "operationId": "com.etzhayyim.auth.createAgentSession",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "appNanoid": {
+                    "type": "string",
+                    "description": "Application nanoid identifier"
+                  },
+                  "subPath": {
+                    "type": "string",
+                    "description": "Optional sub-path for path-based DID"
+                  },
+                  "performerType": {
+                    "type": "string",
+                    "description": "DID performer type: service | system | person | organization",
+                    "default": "service"
+                  }
+                },
+                "required": [
+                  "appNanoid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "didDocument": {
+                      "type": "object"
+                    },
+                    "didDocumentJsonld": {
+                      "type": "object"
+                    },
+                    "privateKeyB64url": {
+                      "type": "string"
+                    },
+                    "ownerHash": {
+                      "type": "string"
+                    },
+                    "sessionTokens": {
+                      "type": "object"
+                    },
+                    "keyId": {
+                      "type": "string"
+                    },
+                    "keyCustodyTier": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "didDocument",
+                    "privateKeyB64url",
+                    "sessionTokens",
+                    "keyId",
+                    "keyCustodyTier"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.createGuestAccount": {
+      "post": {
+        "summary": "Create a guest account with username/password. Issues AT Protocol session with guest tier.",
+        "operationId": "com.etzhayyim.auth.createGuestAccount",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "3-30 chars, lowercase alphanumeric with _ and -",
+                    "maxLength": 30,
+                    "minLength": 3
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Minimum 8 characters",
+                    "minLength": 8
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "handle": {
+                      "type": "string"
+                    },
+                    "accessJwt": {
+                      "type": "string"
+                    },
+                    "refreshJwt": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "handle",
+                    "accessJwt",
+                    "refreshJwt",
+                    "tier"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.createPlcAlias": {
+      "post": {
+        "summary": "Create a did:plc alias for a did:web identity. Used for AT Protocol federation bridge.",
+        "operationId": "com.etzhayyim.auth.createPlcAlias",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "webDid": {
+                    "type": "string",
+                    "description": "Source did:web identity"
+                  },
+                  "handle": {
+                    "type": "string",
+                    "description": "AT Protocol handle"
+                  }
+                },
+                "required": [
+                  "webDid",
+                  "handle"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "webDid": {
+                      "type": "string"
+                    },
+                    "plcDid": {
+                      "type": "string",
+                      "description": "Generated did:plc alias"
+                    },
+                    "handle": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    }
+                  },
+                  "required": [
+                    "webDid",
+                    "plcDid",
+                    "handle",
+                    "createdAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.createSetupIntent": {
+      "post": {
+        "summary": "Create a Stripe SetupIntent for Telecom tier payment method registration. Returns client secret for Stripe.js confirmSetupIntent().",
+        "operationId": "com.etzhayyim.auth.createSetupIntent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clientSecret": {
+                      "type": "string",
+                      "description": "Stripe client secret for confirmSetupIntent()"
+                    },
+                    "setupIntentId": {
+                      "type": "string",
+                      "description": "Stripe SetupIntent ID"
+                    }
+                  },
+                  "required": [
+                    "clientSecret",
+                    "setupIntentId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.esimProvision": {
+      "post": {
+        "summary": "Provision a Telnyx eSIM for Telecom tier members. Creates SIM card, DID, and AT Protocol session. Requires Stripe payment verification.",
+        "operationId": "com.etzhayyim.auth.esimProvision",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number for eSIM association"
+                  }
+                },
+                "required": [
+                  "phone"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "iccid": {
+                      "type": "string",
+                      "description": "SIM ICCID"
+                    },
+                    "msisdn": {
+                      "type": "string",
+                      "description": "Assigned phone number"
+                    },
+                    "activationCode": {
+                      "type": "string",
+                      "description": "LPA activation code for eSIM download"
+                    },
+                    "qrCodeData": {
+                      "type": "string",
+                      "description": "QR code data string for eSIM activation"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "sessionTokens": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "iccid",
+                    "msisdn",
+                    "activationCode",
+                    "qrCodeData",
+                    "did",
+                    "sessionTokens"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.listAgentKeys": {
+      "post": {
+        "summary": "List agent signing keys for a DID.",
+        "operationId": "com.etzhayyim.auth.listAgentKeys",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "keys": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/_AgentKey"
+                      }
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "keys"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.mintChildDid": {
+      "post": {
+        "summary": "Mint a child did:etzhayyim under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{parentDid, materialKind, material}`. New callers should use form (A). `pubkey` kind generates an independent P-256 keypair; other kinds are keyless and sign via the nearest ancestor key. Caller must control parent (session accountDid equal to parent or a prefix ancestor).",
+        "operationId": "com.etzhayyim.auth.mintChildDid",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "parentDid": {
+                    "type": "string",
+                    "description": "Parent did:etzhayyim. Either legacy flat hex form (did:etzhayyim:{24-hex}) or semantic path form (did:etzhayyim:{sub}:{id}:{lexicon}). Recursive form accepted up to depth 6."
+                  },
+                  "segmentKind": {
+                    "type": "string",
+                    "description": "ADR-0029 revised (semantic path) form. `sub`: owning cluster label. `id`: local identifier (TID / slug / rkey). `lexicon`: governing NSID. `role`: capability sub-identity. `pubkey`: generate new P-256 key. `grant`: consent / delegate. Mutually exclusive with `materialKind`.",
+                    "enum": [
+                      "sub",
+                      "id",
+                      "lexicon",
+                      "role",
+                      "pubkey",
+                      "grant"
+                    ]
+                  },
+                  "segmentValue": {
+                    "type": "string",
+                    "description": "Semantic segment value (NSID-compatible). Regex: [a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)*. Required when segmentKind is set.",
+                    "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)*$",
+                    "maxLength": 63
+                  },
+                  "materialKind": {
+                    "type": "string",
+                    "description": "ADR-0029 草案 (hex Merkle) form — legacy Phase 1 grandfather path. Kept for existing adopters until they migrate to segmentKind/segmentValue. `pubkey`: generate new P-256 key. `role`: capability DID (requires roleName + holderDid). `matter`: domain entity (requires matterTid). `doc`: content-addressed document (requires docCid). `grant`: consent/delegate (requires granteeDid + grantExpiresAt + grantNonceHex). `session`: one-shot scoped capability (requires parentSessionJti + sessionNonceHex).",
+                    "enum": [
+                      "pubkey",
+                      "role",
+                      "matter",
+                      "doc",
+                      "grant",
+                      "session"
+                    ]
+                  },
+                  "material": {
+                    "type": "object",
+                    "description": "Kind-specific material for legacy materialKind form. Required keys depend on materialKind.",
+                    "properties": {
+                      "roleName": {
+                        "type": "string"
+                      },
+                      "holderDid": {
+                        "type": "string"
+                      },
+                      "matterTid": {
+                        "type": "string"
+                      },
+                      "docCid": {
+                        "type": "string"
+                      },
+                      "granteeDid": {
+                        "type": "string"
+                      },
+                      "grantExpiresAt": {
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "grantNonceHex": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]+$"
+                      },
+                      "parentSessionJti": {
+                        "type": "string"
+                      },
+                      "sessionNonceHex": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]+$"
+                      }
+                    }
+                  },
+                  "handle": {
+                    "type": "string",
+                    "description": "Optional handle to attach (typically only for pubkey kind)."
+                  },
+                  "performerType": {
+                    "type": "string",
+                    "enum": [
+                      "service",
+                      "system",
+                      "person",
+                      "organization"
+                    ],
+                    "default": "service"
+                  }
+                },
+                "required": [
+                  "parentDid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string",
+                      "description": "Newly minted child did:etzhayyim (full recursive form)."
+                    },
+                    "parentDid": {
+                      "type": "string"
+                    },
+                    "depth": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 6
+                    },
+                    "segmentKind": {
+                      "type": "string",
+                      "description": "Echo of input segmentKind (semantic form only)."
+                    },
+                    "segmentValue": {
+                      "type": "string",
+                      "description": "Echo of input segmentValue (semantic form only)."
+                    },
+                    "materialKind": {
+                      "type": "string",
+                      "description": "Echo of input materialKind (legacy hex form only)."
+                    },
+                    "materialHashProof": {
+                      "type": "string",
+                      "description": "Hex-encoded materialBytes (legacy hex form only). Verifiers recompute the child hash from this."
+                    },
+                    "publicKeyMultibase": {
+                      "type": "string",
+                      "description": "Present only when kind='pubkey'."
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "parentDid",
+                    "depth"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.passkeyBeginAuth": {
+      "post": {
+        "summary": "Begin WebAuthn/FIDO2 passkey authentication. Returns challenge and credential request options for navigator.credentials.get().",
+        "operationId": "com.etzhayyim.auth.passkeyBeginAuth",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "challenge": {
+                      "type": "string",
+                      "description": "Base64url-encoded challenge"
+                    },
+                    "rpId": {
+                      "type": "string",
+                      "description": "Relying party ID (etzhayyim.com)"
+                    },
+                    "allowCredentials": {
+                      "type": "array"
+                    },
+                    "userVerification": {
+                      "type": "string"
+                    },
+                    "timeout": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "challenge",
+                    "rpId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.passkeyBeginRegister": {
+      "post": {
+        "summary": "Begin WebAuthn/FIDO2 passkey registration. Returns challenge and credential creation options for navigator.credentials.create().",
+        "operationId": "com.etzhayyim.auth.passkeyBeginRegister",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "description": "Optional user identifier"
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "Optional display name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "challenge": {
+                      "type": "string",
+                      "description": "Base64url-encoded challenge"
+                    },
+                    "rp": {
+                      "type": "object",
+                      "description": "Relying party info (id, name)"
+                    },
+                    "user": {
+                      "type": "object",
+                      "description": "User entity (id, name, displayName)"
+                    },
+                    "pubKeyCredParams": {
+                      "type": "array"
+                    },
+                    "authenticatorSelection": {
+                      "type": "object"
+                    },
+                    "attestation": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "challenge",
+                    "rp",
+                    "user",
+                    "pubKeyCredParams"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.passkeyVerifyAuth": {
+      "post": {
+        "summary": "Verify WebAuthn authentication assertion. Validates signature against stored credential and issues AT Protocol session.",
+        "operationId": "com.etzhayyim.auth.passkeyVerifyAuth",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challenge": {
+                    "type": "string",
+                    "description": "Original challenge from passkeyBeginAuth"
+                  },
+                  "credentialId": {
+                    "type": "string",
+                    "description": "Base64url-encoded credential ID"
+                  },
+                  "clientDataJson": {
+                    "type": "string",
+                    "description": "Base64url-encoded clientDataJSON"
+                  },
+                  "authenticatorData": {
+                    "type": "string",
+                    "description": "Base64url-encoded authenticatorData"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "description": "Base64url-encoded signature"
+                  }
+                },
+                "required": [
+                  "challenge",
+                  "credentialId",
+                  "clientDataJson",
+                  "authenticatorData",
+                  "signature"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "sessionTokens": {
+                      "type": "object"
+                    },
+                    "credentialId": {
+                      "type": "string"
+                    },
+                    "newSignCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "sessionTokens",
+                    "credentialId",
+                    "newSignCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.passkeyVerifyRegister": {
+      "post": {
+        "summary": "Verify WebAuthn registration attestation. Creates DID, stores passkey credential, and issues AT Protocol session.",
+        "operationId": "com.etzhayyim.auth.passkeyVerifyRegister",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challenge": {
+                    "type": "string",
+                    "description": "Original challenge from passkeyBeginRegister"
+                  },
+                  "clientDataJson": {
+                    "type": "string",
+                    "description": "Base64url-encoded clientDataJSON"
+                  },
+                  "attestationObject": {
+                    "type": "string",
+                    "description": "Base64url-encoded attestationObject"
+                  }
+                },
+                "required": [
+                  "challenge",
+                  "clientDataJson",
+                  "attestationObject"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "credential": {
+                      "type": "object"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "handle": {
+                      "type": "string"
+                    },
+                    "accessJwt": {
+                      "type": "string"
+                    },
+                    "refreshJwt": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "credential",
+                    "did",
+                    "handle",
+                    "accessJwt",
+                    "refreshJwt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.resolveExternalDid": {
+      "post": {
+        "summary": "Resolve an external DID (did:plc via PLC Directory, did:web via .well-known). Used for AT Protocol federation.",
+        "operationId": "com.etzhayyim.auth.resolveExternalDid",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string",
+                    "description": "DID to resolve (did:plc or did:web)"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "didDocument": {
+                      "type": "object",
+                      "description": "Resolved DID Document"
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "Resolution source: plcDirectory | wellKnown"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "didDocument",
+                    "source"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.rotateAgentKey": {
+      "post": {
+        "summary": "Rotate an agent's P-256 signing key. Generates new keypair and revokes the old key.",
+        "operationId": "com.etzhayyim.auth.rotateAgentKey",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string",
+                    "description": "Agent DID to rotate key for"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "newKeyId": {
+                      "type": "string"
+                    },
+                    "newPublicKeyMultibase": {
+                      "type": "string"
+                    },
+                    "newPrivateKeyB64url": {
+                      "type": "string"
+                    },
+                    "oldKeyRevokedAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "newKeyId",
+                    "newPublicKeyMultibase",
+                    "newPrivateKeyB64url",
+                    "oldKeyRevokedAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.smsOtpSend": {
+      "post": {
+        "summary": "Send SMS OTP verification code via Telnyx. Code expires in 5 minutes. Used for Verified tier phone verification.",
+        "operationId": "com.etzhayyim.auth.smsOtpSend",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number in E.164 format"
+                  }
+                },
+                "required": [
+                  "phone"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sent": {
+                      "type": "boolean"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "expiresIn": {
+                      "type": "integer",
+                      "description": "Seconds until code expires (300)"
+                    }
+                  },
+                  "required": [
+                    "sent",
+                    "phone",
+                    "expiresIn"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.smsOtpVerify": {
+      "post": {
+        "summary": "Verify SMS OTP code. On success, creates a person DID and issues AT Protocol session.",
+        "operationId": "com.etzhayyim.auth.smsOtpVerify",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number used in smsOtpSend"
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "6-digit OTP code"
+                  }
+                },
+                "required": [
+                  "phone",
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "verified": {
+                      "type": "boolean"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "sessionTokens": {
+                      "type": "object"
+                    },
+                    "isNewUser": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "verified",
+                    "did",
+                    "sessionTokens"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.auth.verifyDpop": {
+      "post": {
+        "summary": "Verify a DPoP proof (RFC 9449). Validates ES256 signature, JWK thumbprint, and jti replay protection.",
+        "operationId": "com.etzhayyim.auth.verifyDpop",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "proof": {
+                    "type": "string",
+                    "description": "DPoP proof JWT"
+                  },
+                  "htm": {
+                    "type": "string",
+                    "description": "HTTP method"
+                  },
+                  "htu": {
+                    "type": "string",
+                    "description": "HTTP target URI"
+                  }
+                },
+                "required": [
+                  "proof",
+                  "htm",
+                  "htu"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "jkt": {
+                      "type": "string",
+                      "description": "JWK thumbprint"
+                    },
+                    "claims": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "jkt",
+                    "claims"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_auth_AgentKey": {
+        "type": "object",
+        "properties": {
+          "keyId": {
+            "type": "string"
+          },
+          "publicKey": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "keyId",
+          "publicKey",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

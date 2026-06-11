@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_real_estate_register_source" targetNamespace="https://etzhayyim.ai/bpmn/real-estate" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="real_estate_register_source" name="registerSource" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Save</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save source">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_real_estate_source&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, source_id: sourceId, source_kind: sourceKind, country_iso2: countryIso2, country_iso3: countryIso3, jurisdiction: jurisdiction, base_url: baseUrl, license: license, refresh_cadence: refreshCadence, terms_url: termsUrl, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.real-estate&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit"><bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;realEstate.registerSource&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, sourceId: sourceId}" target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gameka.tickStudio",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Autonomous studio tick — timer-started (R/PT2H), no XRPC caller. Scans media-gamers trends, builds a brief via LLM, and derives proposeGame when tick_live_mode=true. During the 14-day soak (tick_live_mode=false), only audit is emitted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "outcome":   { "type": "string", "description": "live | dryRun | skipped" },
+            "brief":     { "type": "string" },
+            "trendCount": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

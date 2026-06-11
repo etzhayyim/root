@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.requestIryoBilling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bridge primitive: karute (etzhayyim) → iryo.etzhayyim.com (vendor). The patient must have previously issued a consent capability with purpose='insurance-billing' naming did:web:iryo.etzhayyim.com as grantee. This procedure forwards the encounter + service-request AT URIs and the capability URI to iryo; iryo verifies the capability signature and that purpose='insurance-billing', then claims insurance through Stripe/RisingWave (vendor side). Returns iryo's claim reference if accepted, error otherwise. Per ADR-2605231400 §'iryo bridge'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["patientDid", "encounterDid", "facilityDid", "consentCapabilityUri"],
+          "properties": {
+            "patientDid": {"type": "string"},
+            "encounterDid": {"type": "string"},
+            "facilityDid": {"type": "string"},
+            "consentCapabilityUri": {"type": "string"},
+            "serviceRequestUris": {"type": "array", "items": {"type": "string"}},
+            "medicationRequestUris": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ack": {"type": "boolean"},
+            "iryoClaimRef": {"type": "string"},
+            "iryoStatus": {"type": "string", "enum": ["pending", "submitted", "accepted", "rejected", "needs-info"]},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mitate.outcomeFollowup",
+  "description": "Longitudinal QOL + adherence + adverse event tracker. Cross-actor leg to yakushi pharma.adverseEventReport (individual + aggregated) per master charter §Decision 8. Patient-aggregated cohort statistics public, individual record encrypted (G2 + G7 + G10). Per ADR-2605260100 + ADR-2605260115 (SLIT cohort) + ADR-2605260175 (yakushi naphazoline closed-loop).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "followupId",
+          "patientPseudonymDid",
+          "treatmentPlanUri",
+          "conditionSlug",
+          "followupType",
+          "encryptedFollowupEnvelope",
+          "publicSummary",
+          "recordedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "followupId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "patientPseudonymDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "treatmentPlanUri": {
+            "type": "string",
+            "format": "at-uri"
+          },
+          "conditionSlug": {
+            "type": "string",
+            "knownValues": [
+              "allergic-rhinitis-perennial",
+              "vasomotor-rhinitis",
+              "chronic-sinusitis-CRSsNP",
+              "chronic-sinusitis-CRSwNP",
+              "chronic-sinusitis-eosinophilic",
+              "chronic-sinusitis-odontogenic",
+              "chronic-sinusitis-fungal",
+              "septal-deviation",
+              "rhinitis-medicamentosa"
+            ]
+          },
+          "followupType": {
+            "type": "string",
+            "knownValues": [
+              "monthly-qol-jrqlq",
+              "monthly-qol-snot22",
+              "monthly-qol-nose",
+              "monthly-qol-custom-medicamentosa-withdrawal",
+              "daily-adherence-pingback",
+              "ae-self-report",
+              "slit-cohort-checkin",
+              "post-surgery-recovery-checkin"
+            ]
+          },
+          "encryptedFollowupEnvelope": {
+            "type": "string",
+            "format": "cid",
+            "description": "G2 mandatory. CID of XChaCha20-Poly1305 envelope containing: full QOL questionnaire response, adherence detail, AE narrative, patient feedback. Sealed-recipient = patient + Council medical advisory + licensed MD + (for yakushi cross-actor leg) yakushi pharma_post_market_surveillance recipient DID set."
+          },
+          "publicSummary": {
+            "type": "object",
+            "required": ["overallTrend"],
+            "properties": {
+              "overallTrend": {
+                "type": "string",
+                "knownValues": ["improved-marked", "improved-mild", "stable", "worsened-mild", "worsened-marked", "missed-followup"]
+              },
+              "qolScorePpm": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000000,
+                "description": "Normalized QOL score in parts-per-million (0..1_000_000 maps to 0.0..1.0). Specific scale registered per followupType. Per ADR-2605190900 lexicon convention."
+              },
+              "adherenceFractionPpm": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000000,
+                "description": "Adherence fraction over last reporting window, in parts-per-million (0..1_000_000 maps to 0.0..1.0). Per ADR-2605190900 lexicon convention."
+              },
+              "aeSignaledThisWindow": {
+                "type": "boolean"
+              },
+              "aeSeverity": {
+                "type": "string",
+                "knownValues": ["none", "mild", "moderate", "severe", "serious", "life-threatening", "fatal"]
+              }
+            }
+          },
+          "yakushiCrossActorRelation": {
+            "type": "object",
+            "description": "Set when patient is consuming yakushi-distributed product and AE is signaled. Triggers downstream cross-actor leg per master charter §Decision 8.",
+            "properties": {
+              "yakushiProductDid": {
+                "type": "string",
+                "format": "did"
+              },
+              "yakushiLotIdHashed": {
+                "type": "string",
+                "maxLength": 128,
+                "description": "SHA-256(lot_id) for dedupe key (joint mitate-yakushi R1 ADRs AE dedupe rule). Plaintext lot_id is in encryptedFollowupEnvelope only."
+              },
+              "individualHandoffConsent": {
+                "type": "boolean",
+                "description": "If true, mitate emits com.etzhayyim.pharma.adverseEventReport individual record to yakushi pharma_adverse_event. If false, only aggregated."
+              },
+              "aggregatedFeedEnabled": {
+                "type": "boolean",
+                "description": "Defaults true for yakushi-distributed product AE. G7 + G10 enforce no patient identity in aggregated feed."
+              }
+            }
+          },
+          "naphazoleClosedLoopMarker": {
+            "type": "boolean",
+            "description": "Set true for condition-5 rhinitis-medicamentosa followup involving yakushi naphazoline-hydrochloride. Triggers yakushi label warning data-driven update loop per ADR-2605260175 §Decision 4."
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

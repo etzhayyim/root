@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCrew.bookCrewTravel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Book positioning or deadhead travel for a crew member.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["crew_did", "origin", "dest", "dep_date"],
+          "properties": {
+            "crew_did": { "type": "string" },
+            "origin": { "type": "string" },
+            "dest": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "travel_type": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  L3 Timer-start: weekly kyu/dan progress review for all active plans.
+  Reads active wellbecoming plans past next_review_at, triggers rescore signal.
+  NSID: com.etzhayyim.apps.openOssekai.trackKyuDanProgress (timer-start, no binding needed)
+-->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_track_kyu_dan_progress" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_ossekai_track_kyu_dan_progress" name="trackKyuDanProgress" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 7 days">
+      <bpmn:outgoing>Flow_ToSelect</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSelect" sourceRef="Start" targetRef="Task_Select"/>
+
+    <bpmn:serviceTask id="Task_Select" name="select plans due for review">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT target_did, current_kyu_dan, jocho_score FROM vertex_ossekai_wellbecoming_plan WHERE status = 'active' AND next_review_at &lt;= (NOW())::varchar ORDER BY created_at ASC LIMIT 100&quot;" target="query"/>
+          <zeebe:output source="=rows" target="reviewDue"/>
+          <zeebe:output source="=rowCount" target="reviewCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSelect</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Task_Select" targetRef="Task_Insert"/>
+
+    <!-- Write progress snapshot row -->
+    <bpmn:serviceTask id="Task_Insert" name="write progress snapshot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_ossekai_signal&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-ossekcom.etzhayyim.ai/com.etzhayyim.apps.openOssekai.signal/progress-&quot; + string(today()), signal_id: &quot;progress-&quot; + string(today()), target_did: &quot;__batch__&quot;, signal_kind: &quot;kyu_dan.progress_review&quot;, summary: string(reviewCount) + &quot; plans due for kyu/dan review on &quot; + string(today()), sentiment_score: 0.5, relevance_score: 1.0, observed_at: string(now()), created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-ossekai&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit trackKyuDanProgress">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ossekcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.ossekai.trackKyuDanProgress&quot;" target="action"/>
+          <zeebe:input source="={reviewCount: reviewCount, date: string(today())}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

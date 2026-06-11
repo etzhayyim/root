@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_swift_send_customer_credit_transfer"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-swift"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_swift_send_customer_credit_transfer" name="pacs.008 送信" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Screen"/>
+
+    <!--
+      Settlement screening (FATF-aligned high-risk list):
+        block        : senderCountry/receiverCountry in {IRN, PRK, RUS, MMR, SYR}
+        manual-review: amount >= 1000000 OR senderCountry/receiverCountry in {AFG, CUB, YEM, LBY, ZWE}
+        auto-pass    : otherwise
+    -->
+    <bpmn:serviceTask id="Task_Screen" name="screening">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if list contains([&quot;IRN&quot;,&quot;PRK&quot;,&quot;RUS&quot;,&quot;MMR&quot;,&quot;SYR&quot;], senderCountry) or list contains([&quot;IRN&quot;,&quot;PRK&quot;,&quot;RUS&quot;,&quot;MMR&quot;,&quot;SYR&quot;], receiverCountry) then &quot;block&quot;
+                                else if amount &gt;= 1000000 or list contains([&quot;AFG&quot;,&quot;CUB&quot;,&quot;YEM&quot;,&quot;LBY&quot;,&quot;ZWE&quot;], senderCountry) or list contains([&quot;AFG&quot;,&quot;CUB&quot;,&quot;YEM&quot;,&quot;LBY&quot;,&quot;ZWE&quot;], receiverCountry) then &quot;manual-review&quot;
+                                else &quot;auto-pass&quot;" target="screeningDecision"/>
+          <zeebe:output source="=amount &gt;= 1000000 or list contains([&quot;AFG&quot;,&quot;CUB&quot;,&quot;YEM&quot;,&quot;LBY&quot;,&quot;ZWE&quot;], senderCountry) or list contains([&quot;AFG&quot;,&quot;CUB&quot;,&quot;YEM&quot;,&quot;LBY&quot;,&quot;ZWE&quot;], receiverCountry)" target="requireManualReview"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Screen" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="message 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_swift_message&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, uetr: uetr, message_type: &quot;pacs.008&quot;,
+              sender_vid: senderVid, receiver_vid: receiverVid,
+              debtor_name: debtorName, creditor_name: creditorName,
+              amount: amount, currency: currency, value_date: valueDate,
+              screening_decision: screeningDecision, require_manual_review: requireManualReview,
+              status: &quot;submitted&quot;, submitted_at: string(now()), created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 2,
+              org_id: senderVid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-swift&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_ES</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ES" sourceRef="Task_Save" targetRef="Task_EdgeSender"/>
+
+    <bpmn:serviceTask id="Task_EdgeSender" name="edge (sender)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_swift_message_party&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:sender&quot;,
+              src_vid: vertexId, dst_vid: senderVid, role: &quot;sender&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 2,
+              org_id: senderVid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-swift&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ES</bpmn:incoming><bpmn:outgoing>Flow_ER</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ER" sourceRef="Task_EdgeSender" targetRef="Task_EdgeReceiver"/>
+
+    <bpmn:serviceTask id="Task_EdgeReceiver" name="edge (receiver)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_swift_message_party&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:receiver&quot;,
+              src_vid: vertexId, dst_vid: receiverVid, role: &quot;receiver&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 2,
+              org_id: senderVid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-swift&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ER</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_EdgeReceiver" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_AutoPass">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Block</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AutoPass</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Block" sourceRef="Gate" targetRef="Task_AuditBlock">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=screeningDecision = "block"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Gate" targetRef="Task_AuditManual">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=screeningDecision = "manual-review"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AutoPass" sourceRef="Gate" targetRef="Task_AuditAuto"/>
+
+    <bpmn:serviceTask id="Task_AuditBlock" name="audit screening.block">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSwift.screening.block&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, uetr: uetr, amount: amount, currency: currency, senderCountry: senderCountry, receiverCountry: receiverCountry}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Block</bpmn:incoming><bpmn:outgoing>Flow_EB</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EB" sourceRef="Task_AuditBlock" targetRef="End_B"/>
+
+    <bpmn:serviceTask id="Task_AuditManual" name="audit screening.manualReview">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSwift.screening.manualReview&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, uetr: uetr, amount: amount, currency: currency}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming><bpmn:outgoing>Flow_EMR</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EMR" sourceRef="Task_AuditManual" targetRef="End_MR"/>
+
+    <bpmn:serviceTask id="Task_AuditAuto" name="audit screening.autoPass">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSwift.screening.autoPass&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, uetr: uetr, amount: amount, currency: currency}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AutoPass</bpmn:incoming><bpmn:outgoing>Flow_EA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EA" sourceRef="Task_AuditAuto" targetRef="End_A"/>
+
+    <bpmn:endEvent id="End_A"><bpmn:incoming>Flow_EA</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_MR"><bpmn:incoming>Flow_EMR</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_B"><bpmn:incoming>Flow_EB</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

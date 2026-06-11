@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 1 / 12 — animeka script generation. ADR-2604231328.
+  Flow:
+    Start → llm.chat (deep, draft) → llm.json (mid, extract scenes[])
+          → db.insert vertex_animeka (kind=script, scenes_json)
+          → pds.dispatch social post → audit.emit → End
+  in:  episodeId, episodeTitle, synopsis, targetSceneCount (default 10)
+  out: scriptVertexId, scenesJson
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_generate_script"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_generate_script" name="animeka generate script" isExecutable="true">
+    <bpmn:startEvent id="Start" name="script requested">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Draft"/>
+    <bpmn:serviceTask id="Task_Draft" name="draft script (Claude deep)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;deep&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a professional Japanese anime screenwriter. Given an episode synopsis, write a full script with scene headings, action beats, and dialogue. Output plain Japanese text.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Episode: &quot; + string(episodeTitle) + &quot;\nSynopsis: &quot; + string(synopsis) + &quot;\nTarget scene count: &quot; + string(targetSceneCount) + &quot;\nWrite the script now.&quot;" target="user"/>
+          <zeebe:input source="=3000" target="maxTokens"/>
+          <zeebe:input source="=0.6" target="temperature"/>
+          <zeebe:output source="=content" target="draftText"/>
+          <zeebe:output source="=model" target="draftModel"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Draft" targetRef="Task_Structure"/>
+    <bpmn:serviceTask id="Task_Structure" name="structure scenes (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;Extract scenes from the script. Output ONE JSON object {scenes:[{sceneNum:int,location:string,timeOfDay:string,action:string,dialogue:string,charactersAppearing:[string]}]}. JSON only. All string values MUST be in Japanese (no Chinese or English). Return Japanese text only.&quot;" target="system"/>
+          <zeebe:input source="=string(draftText)" target="user"/>
+          <zeebe:input source="=2000" target="maxTokens"/>
+          <zeebe:input source="=0.1" target="temperature"/>
+          <zeebe:output source="=data" target="structured"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Structure" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist script row">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:      &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.script/&quot; + string(episodeId) + &quot;-v1&quot;,
+              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,
+              did:            &quot;did:web:animeka.etzhayyim.com:episode:&quot; + string(episodeId),
+              collection:     &quot;com.etzhayyim.apps.animeka.script&quot;,
+              rkey:           string(episodeId) + &quot;-v1&quot;,
+              kind:           &quot;script&quot;,
+              episode_id:     string(episodeId),
+              title:          string(episodeTitle),
+              description:    string(draftText),
+              stage:          &quot;script&quot;,
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateScript&quot;" target="action"/>
+          <zeebe:input source="={episodeId: string(episodeId), model: string(draftModel), inserted: inserted}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

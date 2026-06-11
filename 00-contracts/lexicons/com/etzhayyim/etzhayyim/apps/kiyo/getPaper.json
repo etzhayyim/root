@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kiyo.getPaper",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "paperId": { "type": "string" }
+        },
+        "required": ["paperId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "paperId":       { "type": "string" },
+            "title":         { "type": "string" },
+            "abstract":      { "type": "string" },
+            "subject":       { "type": "array", "items": { "type": "string" } },
+            "authors":       { "type": "array", "items": { "type": "string" } },
+            "authorType":    { "type": "string" },
+            "status":        { "type": "string" },
+            "ipfsCid":       { "type": "string" },
+            "latestVersion": { "type": "integer" },
+            "submittedAt":   { "type": "string" },
+            "citationCount": { "type": "integer" },
+            "reviewCount":   { "type": "integer" },
+            "endorsements":  { "type": "integer" }
+          },
+          "required": ["paperId", "title", "abstract"]
+        }
+      }
+    }
+  }
+}

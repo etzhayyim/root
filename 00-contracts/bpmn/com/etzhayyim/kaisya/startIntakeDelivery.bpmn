@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  kaisya — 主要業務 intake → delivery flow.
+
+  NSID (path-derived): com.etzhayyim.apps.kaisya.startIntakeDelivery
+  Owner DID:           did:web:kaisya.etzhayyim.com
+  Process ID:          kaisya_start_intake_delivery
+
+  Inputs (from dispatcher):
+    projectTitle     (str)
+    clientName       (str)
+    scopeSummary     (str)
+    openerDid        (str)  caller, injected by dispatcher from Service Auth sub
+    vertexId         (str)  at://{openerDid}/com.etzhayyim.apps.kaisya.intake/{rkey}
+
+  Flow:
+    Start → CEO 戦略 check (userTask)
+          → COO intake       (userTask)
+          → CLO 契約 review (userTask)
+          → audit.emit       (serviceTask, generic)
+          → End
+
+  User tasks land in vertex_human_task via the pyzeebe userTask sink.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_kaisya_start_intake_delivery"
+    targetNamespace="https://etzhayyim.ai/bpmn/kaisya"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="kaisya_start_intake_delivery" name="主要業務 — CEO → COO → CLO intake" isExecutable="true">
+
+    <bpmn:startEvent id="Start_XRPC" name="案件 intake">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start_XRPC" targetRef="Task_CEOStrategy"/>
+
+    <bpmn:userTask id="Task_CEOStrategy" name="CEO: 戦略整合 check">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="embedded:app:forms/project-intake.form.json"/>
+        <zeebe:assignmentDefinition candidateGroups="ceo"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P2D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_CEOStrategy" targetRef="Task_COOIntake"/>
+
+    <bpmn:userTask id="Task_COOIntake" name="COO: intake 受付・要件整理">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="embedded:app:forms/project-intake.form.json"/>
+        <zeebe:assignmentDefinition candidateGroups="coo"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P3D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_COOIntake" targetRef="Task_CLOContract"/>
+
+    <bpmn:userTask id="Task_CLOContract" name="CLO: 契約 review">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="embedded:app:forms/contract-review.form.json"/>
+        <zeebe:assignmentDefinition candidateGroups="clo"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P3D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_CLOContract" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: intake 確定">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kaisya.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;kaisya.startIntakeDelivery.completed&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:        vertexId,
+              projectTitle:    projectTitle,
+              clientName:      clientName,
+              scopeSummary:    scopeSummary,
+              openerDid:       openerDid,
+              strategyVerdict: string(strategyVerdict),
+              intakeVerdict:   string(intakeVerdict),
+              contractVerdict: string(contractVerdict)
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="完了">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,162 @@
+;; giemon-factory-r0 — 建築手順 (construction procedure / 4D施工シーケンス),
+;; Datomic-style EDN. SSoT for the ORDER in which the plant is built — full MEP +
+;; 外構, with each step assigned a 施工ロボット (:step/robot → robots.edn).
+;;
+;; The plant is designed to be BUILT by robotics (tatekata 建方, ADR-2605250715).
+;; `kotoba_gen.py` emits:
+;;   - one kotoba entity per step → kg/claim/step/* datoms (EAVT, ADR-2605312345),
+;;     with :step/depends-on / :step/consumes as ENTITY-REF claims, plus
+;;     :step/robot linking the assigned construction robot, and
+;;   - construction.order.json → consumed by kami-app-giemon-factory (geometry
+;;     reveal) and kami-app-tatekata (the assigned robot builds each step on
+;;     kami-genesis; concrete/steel steps drive a material-process field).
+;;
+;; :step/robot       施工ロボット id (robots.edn :robot/registry)
+;; :step/depends-on  vector of prior :step/id (predecessors → entity refs)
+;; :step/consumes    vector of :part/id from building.edn (materials drawn)
+;; :step/reveals     vector of render element ids in factory.scene.json
+;; :step/duration-d  nominal duration in working days (schedule)
+;; :step/trade       responsible trade / 工種
+
+{:proc/meta
+ {:proc/of        "giemon-factory-r0"
+  :proc/revision  "v3"
+  :proc/title     "Giemon robot plant — R0 construction sequence (4D, full MEP + 外構 + 施工ロボット)"
+  :proc/method    "robotic design-build, single 80x50m bay, steel portal frame + 構内外構"
+  :proc/note      "R0 design sequence. depends-on encodes hard logic; :step/robot assigns the construction robot per trade (robots.edn). Durations are nominal; the buildability check estimates robot cycle-time vs these."}
+
+ :proc/steps
+ [{:step/id "step:01-siteprep"   :step/seq 1  :step/name "敷地造成・地業 Site prep + earthworks"
+   :step/trade "earthworks" :step/robot "robot:doboku" :step/zone "site" :step/duration-d 6
+   :step/depends-on [] :step/consumes ["bld:A1-subbase" "bld:L3-roadstone"] :step/reveals ["ground"]}
+
+  {:step/id "step:02-incoming"   :step/seq 2  :step/name "引込工事 (電気/水道/ガス/通信) Service connections"
+   :step/trade "utility-service" :step/robot "robot:mep" :step/zone "site" :step/duration-d 8
+   :step/depends-on ["step:01-siteprep"]
+   :step/consumes ["bld:G1-cubicle" "bld:G2-transformer" "bld:G9-generator"
+                   "bld:H1-waterservice" "bld:H2-tank" "bld:H3-pump"
+                   "bld:I1-gasservice" "bld:I2-regulator" "bld:K11-dataservice"]
+   :step/reveals ["svc_elec" "svc_gen" "svc_water" "svc_gas" "svc_data"]}
+
+  {:step/id "step:03-underground" :step/seq 3 :step/name "地中埋設配管 (給水/ガス/排水/雨水) Underground services"
+   :step/trade "underground-mep" :step/robot "robot:mep" :step/zone "all" :step/duration-d 9
+   :step/depends-on ["step:02-incoming"]
+   :step/consumes ["bld:H4-supplypipe" "bld:H7-drainpipe" "bld:H8-grease" "bld:H9-stormpipe"
+                   "bld:I3-gaspipe" "bld:I4-shutoff"]
+   :step/reveals ["util_water" "util_hotwater" "util_drainage" "util_storm" "util_gas"]}
+
+  {:step/id "step:04-foundation" :step/seq 4  :step/name "基礎・土間コンクリート Foundation + RC slab"
+   :step/trade "concrete" :step/robot "robot:printer" :step/zone "all" :step/duration-d 14
+   :step/depends-on ["step:03-underground"]
+   :step/consumes ["bld:A2-slab" "bld:A3-rebar" "bld:A4-anchor" "bld:L1-readymix" "bld:L7-rebarstock"]
+   :step/reveals ["floor"]}
+
+  {:step/id "step:05-steel"      :step/seq 5  :step/name "鉄骨建方 Steel column erection"
+   :step/trade "steel-erection" :step/robot "robot:bolter" :step/zone "all" :step/duration-d 10
+   :step/depends-on ["step:04-foundation"]
+   :step/consumes ["bld:B1-column" "bld:B2-baseplate" "bld:B3-bracing" "bld:L6-steelpaint" "bld:L8-htbolt"]
+   :step/reveals ["col_0" "col_1" "col_2" "col_3" "col_4" "col_5" "col_6" "col_7"]}
+
+  {:step/id "step:06-roofsteel"  :step/seq 6  :step/name "屋根鉄骨・トラス Roof trusses"
+   :step/trade "steel-erection" :step/robot "robot:bolter" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:05-steel"]
+   :step/consumes ["bld:C1-truss"] :step/reveals ["beam_0" "beam_1" "beam_2"]}
+
+  {:step/id "step:07-roofdeck"   :step/seq 7  :step/name "屋根葺き・防水 Roof deck + waterproofing"
+   :step/trade "roofing" :step/robot "robot:panel" :step/zone "all" :step/duration-d 7
+   :step/depends-on ["step:06-roofsteel"]
+   :step/consumes ["bld:C2-deck" "bld:C3-insul" "bld:L5-sealant"] :step/reveals []}
+
+  {:step/id "step:08-cladding"   :step/seq 8  :step/name "外装パネル + 建具 Wall cladding"
+   :step/trade "cladding" :step/robot "robot:panel" :step/zone "all" :step/duration-d 12
+   :step/depends-on ["step:06-roofsteel"]
+   :step/consumes ["bld:D1-panel" "bld:D3-shutter" "bld:D4-door"]
+   :step/reveals ["wall_s" "wall_n" "wall_w" "wall_e"]}
+
+  {:step/id "step:09-partition"  :step/seq 9  :step/name "検査室間仕切り Inspection partition"
+   :step/trade "interior" :step/robot "robot:fitout" :step/zone "zone_insp" :step/duration-d 4
+   :step/depends-on ["step:08-cladding"]
+   :step/consumes ["bld:D2-partition"] :step/reveals ["wall_insp"]}
+
+  {:step/id "step:10-elec-rough" :step/seq 10 :step/name "電気配線 (受電盤→ラック→幹線→分電盤) Electrical rough-in"
+   :step/trade "electrical" :step/robot "robot:mep" :step/zone "all" :step/duration-d 12
+   :step/depends-on ["step:07-roofdeck" "step:08-cladding"]
+   :step/consumes ["bld:G3-mdb" "bld:G4-dboard" "bld:G5-cabletray" "bld:G6-cvcable"
+                   "bld:G7-branchwire" "bld:G8-earthing" "bld:G10-wiringdev"]
+   :step/reveals ["util_elec_incoming" "util_busway" "util_branch_mach" "util_branch_asm"]}
+
+  {:step/id "step:11-air-data"   :step/seq 11 :step/name "圧空配管 + 通信幹線 + 換気 Compressed-air / data / HVAC"
+   :step/trade "mechanical" :step/robot "robot:mep" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:07-roofdeck" "step:08-cladding"]
+   :step/consumes ["bld:E3-air" "bld:E4-hvac"]
+   :step/reveals ["util_air_ring" "util_data"]}
+
+  {:step/id "step:12-lighting"   :step/seq 12 :step/name "照明設置 (高天井LED + 誘導/非常灯) Lighting"
+   :step/trade "electrical" :step/robot "robot:mep" :step/zone "all" :step/duration-d 6
+   :step/depends-on ["step:10-elec-rough"]
+   :step/consumes ["bld:E1-lighting" "bld:E2-busway" "bld:J4-exitlight"]
+   :step/reveals ["lighting" "exit_lights"]}
+
+  {:step/id "step:13-floorcoat"  :step/seq 13 :step/name "床塗装・ゾーニング Epoxy floor + zoning"
+   :step/trade "finishes" :step/robot "robot:printer" :step/zone "all" :step/duration-d 5
+   :step/depends-on ["step:07-roofdeck" "step:08-cladding"]
+   :step/consumes ["bld:L4-epoxy"]
+   :step/reveals ["zone_recv" "zone_mach" "zone_asm" "zone_insp" "zone_ship"]}
+
+  {:step/id "step:14-sanitary"   :step/seq 14 :step/name "衛生設備 (給湯/便所/手洗) Sanitary fit-out"
+   :step/trade "plumbing" :step/robot "robot:mep" :step/zone "zone_insp" :step/duration-d 6
+   :step/depends-on ["step:03-underground" "step:13-floorcoat"]
+   :step/consumes ["bld:H5-heater" "bld:H6-sanitary"] :step/reveals []}
+
+  {:step/id "step:15-fire"       :step/seq 15 :step/name "消防設備 (消火栓/火報/消火器/SP) Fire + life-safety"
+   :step/trade "fire-protection" :step/robot "robot:mep" :step/zone "all" :step/duration-d 8
+   :step/depends-on ["step:10-elec-rough" "step:13-floorcoat"]
+   :step/consumes ["bld:J1-hydrant" "bld:J2-extinguisher" "bld:J3-alarm" "bld:J5-sprinkler"]
+   :step/reveals ["util_fire"]}
+
+  {:step/id "step:16-machines"   :step/seq 16 :step/name "工作機械据付 Machine install + alignment"
+   :step/trade "machine-install" :step/robot "robot:fitout" :step/zone "zone_mach" :step/duration-d 12
+   :step/depends-on ["step:12-lighting" "step:13-floorcoat"]
+   :step/consumes ["bld:F1-cnc" "bld:F2-lathe" "bld:F3-cmm" "bld:F4-bench" "bld:F6-rack" "bld:F7-packing"]
+   :step/reveals ["rack_in" "cnc_1" "cnc_2" "lathe_1" "asm_bench_1" "asm_bench_2"
+                  "cmm_1" "insp_bench" "pack_1" "rack_out"]}
+
+  {:step/id "step:17-conveyor"   :step/seq 17 :step/name "コンベア敷設 Conveyor spine install"
+   :step/trade "material-handling" :step/robot "robot:fitout" :step/zone "all" :step/duration-d 4
+   :step/depends-on ["step:16-machines"]
+   :step/consumes ["bld:F5-conveyor"] :step/reveals ["conv_main"]}
+
+  {:step/id "step:18-robots"     :step/seq 18 :step/name "ロボットセル設置 Giemon arm6 work-cell install"
+   :step/trade "robotics" :step/robot "robot:fitout" :step/zone "zone_asm" :step/duration-d 6
+   :step/depends-on ["step:16-machines" "step:17-conveyor"]
+   :step/consumes ["bld:F8-cell"]
+   :step/reveals ["cell_asm_1" "cell_asm_2" "cell_asm_3" "cell_insp_1"]}
+
+  {:step/id "step:19-site-pave"  :step/seq 19 :step/name "外構舗装 (車道/ヤード/駐車/構内道) Site paving"
+   :step/trade "civil-paving" :step/robot "robot:doboku" :step/zone "site" :step/duration-d 9
+   :step/depends-on ["step:08-cladding"]
+   :step/consumes ["bld:K1-asphalt" "bld:K2-subbase" "bld:K3-curb" "bld:L2-asphaltmix"]
+   :step/reveals ["site_road" "site_apron" "site_parking" "site_eastdrive"]}
+
+  {:step/id "step:20-site-flow"  :step/seq 20 :step/name "外部動線 (歩道/区画線/車止め) External circulation"
+   :step/trade "civil-finishes" :step/robot "robot:doboku" :step/zone "site" :step/duration-d 4
+   :step/depends-on ["step:19-site-pave"]
+   :step/consumes ["bld:K4-marking" "bld:K7-bollard"]
+   :step/reveals ["site_walkway" "site_bollards"]}
+
+  {:step/id "step:21-site-fence" :step/seq 21 :step/name "外灯 + フェンス + 門扉 Site lighting + perimeter"
+   :step/trade "site-electrical" :step/robot "robot:fitout" :step/zone "site" :step/duration-d 6
+   :step/depends-on ["step:02-incoming" "step:19-site-pave"]
+   :step/consumes ["bld:K5-fence" "bld:K6-gate" "bld:K8-polelight"]
+   :step/reveals ["site_poles" "site_fence" "site_gate"]}
+
+  {:step/id "step:22-landscape"  :step/seq 22 :step/name "植栽 + サイン Landscaping + signage"
+   :step/trade "landscape" :step/robot "robot:fitout" :step/zone "site" :step/duration-d 5
+   :step/depends-on ["step:20-site-flow" "step:21-site-fence"]
+   :step/consumes ["bld:K9-landscape" "bld:K10-sign"]
+   :step/reveals ["site_landscape" "site_sign"]}
+
+  {:step/id "step:23-commission" :step/seq 23 :step/name "通電・通水・通ガス + 試運転 Commissioning + go-live"
+   :step/trade "commissioning" :step/robot "robot:fitout" :step/zone "all" :step/duration-d 10
+   :step/depends-on ["step:12-lighting" "step:14-sanitary" "step:15-fire" "step:18-robots" "step:22-landscape"]
+   :step/consumes ["bld:F9-agv"] :step/reveals ["agv_1" "agv_2"]}]}

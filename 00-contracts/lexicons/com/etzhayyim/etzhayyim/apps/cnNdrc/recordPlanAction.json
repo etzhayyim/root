@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnNdrc.recordPlanAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "发改委 (NDRC) macroeconomic plan / energy / climate / rural (bridges climateAdaptationFinance + sovereignDebt + worldBankDpf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "departmentKind",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "departmentKind": {
+              "type": "string",
+              "enum": [
+                "energy_admin_nea",
+                "climate_change",
+                "macro_fixed_assets",
+                "industrial_dev",
+                "high_tech",
+                "rural_economy",
+                "western_dev",
+                "price_admin",
+                "price_supervision",
+                "reform_pioneer",
+                "one_belt_one_road",
+                "yangtze_protect",
+                "yellow_river",
+                "green_dev",
+                "social_development"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "five_year_plan",
+                "carbon_dual_target",
+                "energy_consumption_intensity",
+                "green_steel_pilot",
+                "ccus_subsidy",
+                "saf_blend",
+                "mid_long_term_youth_dev",
+                "ev_charging_infrastructure",
+                "high_speed_rail",
+                "hub_airport",
+                "yangtze_diversion",
+                "rural_revitalization",
+                "common_prosperity_zhejiang",
+                "data_factor_marketization"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges climateAdaptationFinance / sovereignDebt"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

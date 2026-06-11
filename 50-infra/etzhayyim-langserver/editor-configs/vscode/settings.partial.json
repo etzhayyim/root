@@ -1,0 +1,26 @@
+{
+  "//": "etzhayyim-langserver/editor-configs/vscode/settings.partial.json",
+  "//1": "VSCode-family editors (Cursor, Code OSS, Codium) — merge into .vscode/settings.json. Note: VSCode LSP extensions vary in how they accept a custom binary. The keys below cover rust-analyzer / pyright / typescript / gopls / sumneko-lua / ruby-lsp official extensions as of 2026-Q1. Replace /path/to/etzhayyim/root.",
+
+  "rust-analyzer.server.path": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh",
+  "rust-analyzer.server.extraEnv": { "ETZHAYYIM_LANG_FALLBACK": "rust" },
+
+  "python.analysis.pyrightExecutable": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh",
+  "//2-pyright": "Some pyright extensions ignore the override; in that case use the 'BasedPyright Configuration → Pyright Binary' setting or run attach-langserver.sh wrapped via a shim that adds 'python' as $1.",
+
+  "typescript.tsserver.experimental.useLocalLsp": "true",
+  "typescript.tsserver.experimental.lspPath": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh",
+
+  "go.alternateTools": {
+    "gopls": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh"
+  },
+
+  "Lua.runtime.path": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh",
+  "//3-lua": "sumneko-lua extension accepts a custom binary only via the experimental 'Lua.misc.executablePath'; ymmv.",
+
+  "rubyLsp.bundleGemfile": "",
+  "rubyLsp.rubyExecutablePath": "/path/to/etzhayyim/root/50-infra/etzhayyim-langserver/scripts/attach-langserver.sh",
+
+  "//4-caveat": "For LSP extensions that DON'T expose a custom binary path, the only path forward is publishing a small VSCode extension that wraps the LSP with a custom transport. That extension is out of scope for L8 scaffold; add as 60-apps/etzhayyim-vscode-langserver/ when needed.",
+  "//5-args": "Most VSCode LSP extensions pass a fixed args set to the binary. attach-langserver.sh accepts <lang> as $1 but also reads $ETZHAYYIM_LANG_FALLBACK from env. If the extension swallows args, create a one-line shim: #!/bin/sh\\nexec /path/to/attach-langserver.sh rust \"$@\""
+}

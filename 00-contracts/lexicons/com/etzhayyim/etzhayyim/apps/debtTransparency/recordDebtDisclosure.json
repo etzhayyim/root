@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.debtTransparency.recordDebtDisclosure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sovereign debt disclosure (G20 Common Framework joint stats / IIF / Kiel — bridges worldBankDpf.flagPriorActionSlippage + sovereign-debt + imf-article-iv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disclosureId",
+            "debtorCountryIso3",
+            "creditorCategory",
+            "disclosedAt"
+          ],
+          "properties": {
+            "disclosureId": {
+              "type": "string"
+            },
+            "debtorCountryIso3": {
+              "type": "string"
+            },
+            "creditorCategory": {
+              "type": "string",
+              "enum": [
+                "paris_club",
+                "china_bilateral",
+                "gcc_bilateral",
+                "multilateral",
+                "private_bondholder",
+                "commercial_bank",
+                "resource_backed",
+                "collateralized_swap",
+                "currency_swap",
+                "hidden"
+              ]
+            },
+            "creditorEntityLei": {
+              "type": "string"
+            },
+            "principalBusd": {
+              "type": "number"
+            },
+            "dpfSlippageVid": {
+              "type": "string",
+              "description": "bridges worldBankDpf.flagPriorActionSlippage"
+            },
+            "disclosedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

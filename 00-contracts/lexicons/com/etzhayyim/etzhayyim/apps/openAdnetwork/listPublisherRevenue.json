@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAdnetwork.listPublisherRevenue",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Publisher の日次収益スナップショット一覧を返す。mv_open_adnetwork_publisher_daily_kpi を参照。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "publisherDid": { "type": "string", "description": "Filter by publisher DID" },
+          "dateFrom":     { "type": "string", "description": "Start date (YYYY-MM-DD, inclusive)" },
+          "dateTo":       { "type": "string", "description": "End date (YYYY-MM-DD, inclusive)" },
+          "limit": {
+            "type": "integer",
+            "description": "Max results (default 30, max 90)",
+            "maximum": 90
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["snapshots", "totalImpressions", "totalRevenueUsd"],
+          "properties": {
+            "snapshots": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "snapId":          { "type": "string" },
+                  "publisherDid":    { "type": "string" },
+                  "date":            { "type": "string" },
+                  "impressions":     { "type": "integer" },
+                  "clicks":          { "type": "integer" },
+                  "conversions":     { "type": "integer" },
+                  "totalRevenueUsd": { "type": "number" },
+                  "rpmUsd":          { "type": "number" },
+                  "ctrPct":          { "type": "number" },
+                  "cvrPct":          { "type": "number" }
+                }
+              }
+            },
+            "totalImpressions":  { "type": "integer" },
+            "totalRevenueUsd":   { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

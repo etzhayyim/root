@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ingest.start",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a durable ingest run by creating a LangServer run and a vertex_ingest_run row.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ingestFamily", "sourceId"],
+          "properties": {
+            "ingestFamily": { "type": "string" },
+            "sourceId": { "type": "string" },
+            "mode": { "type": "string", "description": "delta, backfill, repair, or verify." },
+            "range": { "type": "string", "description": "Optional JSON range/cursor selector." },
+            "limit": { "type": "integer" },
+            "dryRun": { "type": "boolean" },
+            "requestedBy": { "type": "string" },
+            "inputJson": { "type": "string", "description": "Source-specific JSON payload." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "runId": { "type": "string" },
+            "runVertexId": { "type": "string" },
+            "status": { "type": "string" },
+            "langserverRunKey": { "type": "string" },
+            "bpmnProcessId": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

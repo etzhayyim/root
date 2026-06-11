@@ -1,0 +1,96 @@
+{
+  "mlx_version": "0.31.1",
+  "device": "Device(gpu, 0)",
+  "shapes": [
+    [
+      16,
+      256,
+      128
+    ],
+    [
+      64,
+      1024,
+      512
+    ],
+    [
+      128,
+      2048,
+      2048
+    ],
+    [
+      256,
+      4096,
+      4096
+    ]
+  ],
+  "results": [
+    {
+      "B": 16,
+      "K": 256,
+      "N": 128,
+      "and_popcount_sec": 0.000166,
+      "and_popcount_tops": 0.006,
+      "and_popcount_max_diff": 0.0,
+      "and_popcount_passed": true,
+      "bitslice_W2_X1_sec": 0.000507,
+      "bitslice_W2_X1_tops": 0.002,
+      "bitslice_W4_X1_sec": 0.000587,
+      "bitslice_W4_X1_tops": 0.002,
+      "bitserial_2x2_sec": 0.000425,
+      "bitserial_2x2_tops": 0.002,
+      "lut_8x8_sec": 0.000999,
+      "lut_8x8_tops": 0.001
+    },
+    {
+      "B": 64,
+      "K": 1024,
+      "N": 512,
+      "and_popcount_sec": 0.000176,
+      "and_popcount_tops": 0.381,
+      "and_popcount_max_diff": 0.0,
+      "and_popcount_passed": true,
+      "bitslice_W2_X1_sec": 0.001449,
+      "bitslice_W2_X1_tops": 0.046,
+      "bitslice_W4_X1_sec": 0.001758,
+      "bitslice_W4_X1_tops": 0.038,
+      "bitserial_2x2_sec": 0.001281,
+      "bitserial_2x2_tops": 0.052,
+      "lut_8x8_sec": 0.001823,
+      "lut_8x8_tops": 0.037
+    },
+    {
+      "B": 128,
+      "K": 2048,
+      "N": 2048,
+      "and_popcount_sec": 0.000533,
+      "and_popcount_tops": 2.013,
+      "and_popcount_max_diff": 0.0,
+      "and_popcount_passed": true,
+      "bitslice_W2_X1_sec": 0.008713,
+      "bitslice_W2_X1_tops": 0.123,
+      "bitslice_W4_X1_sec": 0.015157,
+      "bitslice_W4_X1_tops": 0.071,
+      "bitserial_2x2_sec": 0.009814,
+      "bitserial_2x2_tops": 0.109,
+      "lut_8x8_sec": 0.01107,
+      "lut_8x8_tops": 0.097
+    },
+    {
+      "B": 256,
+      "K": 4096,
+      "N": 4096,
+      "and_popcount_sec": 0.00126,
+      "and_popcount_tops": 6.817,
+      "and_popcount_max_diff": 0.0,
+      "and_popcount_passed": true,
+      "bitslice_W2_X1_sec": 0.035092,
+      "bitslice_W2_X1_tops": 0.245,
+      "bitslice_W4_X1_sec": 0.060751,
+      "bitslice_W4_X1_tops": 0.141,
+      "bitserial_2x2_sec": 0.039585,
+      "bitserial_2x2_tops": 0.217,
+      "lut_8x8_sec": 0.073601,
+      "lut_8x8_tops": 0.117
+    }
+  ]
+}

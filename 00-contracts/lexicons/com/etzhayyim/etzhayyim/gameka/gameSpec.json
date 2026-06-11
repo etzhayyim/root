@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gameka.gameSpec",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "specId": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "mechanic": {
+            "type": "string",
+            "description": "JSON-serialised game mechanic descriptor consumed by kami-codegen."
+          },
+          "scene": {
+            "type": "string",
+            "description": "JSON-serialised scene + camera + biome config (kami-pipelines adapters)."
+          },
+          "budgetUsd": {
+            "type": "number"
+          },
+          "score": {
+            "type": "number",
+            "description": "Critic score 0-1, gates downstream generateGame derive."
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "iteration": {
+            "type": "integer"
+          },
+          "lineageParent": {
+            "type": "string",
+            "description": "specId of the parent revision when iteration>0."
+          },
+          "modelId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "specId",
+          "brief",
+          "title",
+          "slug",
+          "score",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

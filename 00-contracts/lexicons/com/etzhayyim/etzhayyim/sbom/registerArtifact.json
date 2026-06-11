@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sbom.registerArtifact",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/etzhayyim-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "format",
+            "specVersion",
+            "sourceUri",
+            "sourceSha256",
+            "license",
+            "cdxJson"
+          ],
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": ["CycloneDX", "SPDX"],
+              "description": "Wire format. CycloneDX 1.5 is the default for both software and vehicle BOMs."
+            },
+            "specVersion": {
+              "type": "string",
+              "description": "Format spec version (e.g. 1.5, 1.6, 3.0)."
+            },
+            "vehicleId": {
+              "type": "string",
+              "description": "Stable vehicle id (e.g. mx5-na-1989). Present for vehicle BOMs only — software SBOMs leave this unset."
+            },
+            "vehicleRevision": {
+              "type": "string",
+              "description": "Vehicle revision tag (e.g. 0.1.0, 2026-MY-1)."
+            },
+            "totalMassKg": {
+              "type": "integer",
+              "description": "Vehicle BOMs only — sum of effective_mass_kg across parts."
+            },
+            "partCount": {
+              "type": "integer",
+              "description": "Vehicle BOMs only — number of CDX components.[type=device]."
+            },
+            "sourceUri": {
+              "type": "string",
+              "description": "URI of the source artifact that produced this SBOM (e.g. scad://etzhayyim/roadster-na/v0.1.0, b2://drive/cad/...)."
+            },
+            "sourceSha256": {
+              "type": "string",
+              "description": "SHA-256 hex of the source artifact. Used for deterministic SBOM serial number."
+            },
+            "license": {
+              "type": "string",
+              "description": "SPDX expression covering the source artifact (e.g. MIT, CC-BY-4.0, proprietary)."
+            },
+            "cdxJson": {
+              "type": "string",
+              "description": "Full CycloneDX 1.5 (or SPDX 3.0) document, encoded as a JSON string. Validated server-side against the upstream schema."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["artifactUri", "componentCount"],
+          "properties": {
+            "artifactUri": {
+              "type": "string",
+              "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/com.etzhayyim.sbom.artifact/<rkey>)."
+            },
+            "componentCount": {
+              "type": "integer",
+              "description": "Number of CDX components ingested into the SbomComponent graph."
+            },
+            "vulnMatchCount": {
+              "type": "integer",
+              "description": "Number of vulnerability matches detected synchronously against the existing CveEntry graph."
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidSbom", "description": "cdxJson failed CycloneDX 1.5 schema validation." },
+        { "name": "MissingProvenance", "description": "sourceSha256 or sourceUri empty." },
+        { "name": "DuplicateArtifact", "description": "An artifact with the same sourceSha256 already exists." }
+      ]
+    }
+  }
+}

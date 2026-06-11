@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.recordMeterReading",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a kWh (and optional kW demand) reading from a smart meter. Consumption meters enforce monotonic kWh. Generation/bidirectional meters allow negative values for net export.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["meterDid", "readAt", "kwh"],
+          "properties": {
+            "meterDid":  { "type": "string" },
+            "readAt":    { "type": "string", "format": "datetime" },
+            "kwh":       { "type": "number", "description": "Cumulative kWh (may be negative for generation meters)" },
+            "kwDemand":  { "type": "number", "description": "Peak demand in kW for interval (optional)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "readingId": { "type": "string" },
+            "meterDid":  { "type": "string" },
+            "feederDid": { "type": "string" },
+            "readAt":    { "type": "string", "format": "datetime" },
+            "kwh":       { "type": "number" },
+            "kwDemand":  { "type": "number" },
+            "error":     { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

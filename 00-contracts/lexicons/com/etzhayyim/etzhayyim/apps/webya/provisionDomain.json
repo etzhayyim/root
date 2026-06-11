@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.webya.provisionDomain",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CF for SaaS Custom Hostname を発行し、独自ドメインの DNS 設定指示を返す。CNAME + TXT 検証レコードをクライアントに提供する。SSL は R/PT30M の domainSslMonitor BPMN が自動確認。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteId", "domain"],
+          "properties": {
+            "siteId": { "type": "string" },
+            "domain": { "type": "string", "description": "独自ドメイン (例: yamada-law.jp)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":             { "type": "boolean" },
+            "cfHostnameId":   { "type": "string" },
+            "cnameTarget":    { "type": "string", "description": "CNAME 先 (proxy-webya.etzhayyim.com)" },
+            "txtName":        { "type": "string", "description": "所有権確認 TXT レコード名" },
+            "txtValue":       { "type": "string", "description": "所有権確認 TXT レコード値" },
+            "sslStatus":      { "type": "string" },
+            "error":          { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.tileXyz",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Slippy-tile (z/x/y) vector tile endpoint. Converts z/x/y to Web-Mercator bbox and returns per-label GeoJSON FeatureCollections from vertex_spatial with lod-adaptive Douglas-Peucker simplification. Stable URL key (Option C — foundation for edge MVT tile server).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "z": { "type": "integer", "description": "Tile zoom level (0-22, Web-Mercator)." },
+          "x": { "type": "integer", "description": "Tile x coord in slippy-tile scheme." },
+          "y": { "type": "integer", "description": "Tile y coord in slippy-tile scheme." },
+          "labels": {
+            "type": "array",
+            "description": "Graph node labels to fetch (e.g. Place, Road, Building, AdminArea).",
+            "items": { "type": "string" },
+            "maxLength": 32
+          },
+          "limit": { "type": "integer", "description": "Max features per label (default 500, max 5000)." }
+        },
+        "required": ["z", "x", "y"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["layers", "tile"],
+          "properties": {
+            "layers": {
+              "type": "unknown",
+              "description": "{ [label]: GeoJSON FeatureCollection } — one entry per requested label with matching features."
+            },
+            "tile": {
+              "type": "unknown",
+              "description": "Echoed { z, x, y } slippy-tile coords."
+            },
+            "bbox": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Derived bbox [w,s,e,n] in WGS84."
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

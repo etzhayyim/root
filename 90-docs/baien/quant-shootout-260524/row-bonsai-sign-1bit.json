@@ -1,0 +1,20 @@
+{
+  "quant": "bonsai-sign-1bit",
+  "status": "ok",
+  "device": "cuda",
+  "n_params": 494032768,
+  "trainable_params": 2162688,
+  "quantize_sec": 0.53,
+  "model_gb": 0.92,
+  "step_count": 3,
+  "step_cold_sec": 6.48,
+  "step_warm_sec": 2.24,
+  "train_wall_sec": 12.42,
+  "peak_vram_gb": 2.281,
+  "final_loss": 12.3067,
+  "samples_per_sec": 1.786,
+  "tokens_per_sec_est": 1116.1,
+  "sustained_tflops_est": 3.308,
+  "pct_of_hw_peak_30_tflops": 11.03,
+  "speedup_vs_bf16": 0.719
+}

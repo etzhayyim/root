@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.defineDeploymentSite",
+  "description": "Candidate deployment site definition emitted by the kuni-umi SiteSurveyCell (phase 1, leaderNode naphtali). Establishes a parcel of land or installation site is being considered for kuni-umi planetary-infra robotics deployment. Per ADR-2605201400 + the phasing gate in `20-actors/kuni-umi/CLAUDE.md`: a site MUST be registered in LandRegistry / OceanStewardship before S1+ phase progression. Per ADR-2605192245 (Land Trust waqf-equivalent inalienability).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "siteId",
+          "siteCoords",
+          "jurisdictionCode",
+          "intendedUse",
+          "landRegistryCid",
+          "submitterDid",
+          "siteSurveyCellAttestationCid",
+          "charterRiderComplianceAttested"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "siteId": {
+            "type": "string",
+            "description": "Stable site identifier; usually `kuniumi:<jurisdiction>:<parcel-ref>`."
+          },
+          "siteCoords": {
+            "type": "ref",
+            "ref": "#geoCoords"
+          },
+          "siteAreaSqMm": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Site area in square millimeters (m² × 10^6). Per ADR-2605190900 Lexicon convention (integer with implied units)."
+          },
+          "jurisdictionCode": {
+            "type": "string",
+            "description": "ISO-3166-2 + optional municipality suffix."
+          },
+          "intendedUse": {
+            "type": "string",
+            "knownValues": [
+              "civilian-infrastructure",
+              "community-utility",
+              "commons-research",
+              "religious-community-facility",
+              "agricultural-cooperative"
+            ],
+            "description": "G5: Charter Rider §2 — military / proprietary closed-design uses are STRUCTURALLY excluded from this enum. Per `20-actors/kuni-umi/CLAUDE.md` boundary table."
+          },
+          "landRegistryCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the LandRegistry / OceanStewardship parcel registration entry per ADR-2605192245. Site MUST be registered before S1+ can begin."
+          },
+          "submitterDid": {
+            "type": "string",
+            "description": "DID of the etzhayyim member proposing the deployment site."
+          },
+          "siteSurveyCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "charterRiderComplianceAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural G5."
+          },
+          "openIntegrationStandards": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Open-OT / open-robo / open-denki / open-gas / open-water / open-network / open-power / open-rail / open-airplane / open-ports standards this site will integrate with (per manifest.dependencies.actors)."
+          }
+        }
+      }
+    },
+    "geoCoords": {
+      "type": "object",
+      "required": ["latE7", "lonE7"],
+      "properties": {
+        "latE7": {
+          "type": "integer",
+          "minimum": -900000000,
+          "maximum": 900000000
+        },
+        "lonE7": {
+          "type": "integer",
+          "minimum": -1800000000,
+          "maximum": 1800000000
+        },
+        "elevationMm": {
+          "type": "integer",
+          "description": "Optional WGS-84 ellipsoidal elevation in millimeters."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.analyzeRecentAds",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run public-malak intel analysis over recent ad creatives that do not yet have an analysis row for the requested kind/model. Writes vertex_ads_analysis rows.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 10 },
+            "platform": { "type": "string", "knownValues": ["meta", "facebook", "instagram", "whatsapp", "google", "linkedin", "tiktok", "x", "line", "telegram"] },
+            "analysisKind": { "type": "string", "knownValues": ["competitive", "adversarial", "claim", "sentiment", "targeting"], "default": "competitive" },
+            "modelId": { "type": "string", "description": "Optional override; defaults to heuristic-public-malak-v1" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["analyzed", "failed"],
+          "properties": {
+            "analyzed": { "type": "integer" },
+            "failed": { "type": "integer" },
+            "analysisKind": { "type": "string" },
+            "platform": { "type": "string" },
+            "results": { "type": "array", "items": { "type": "unknown" } }
+          }
+        }
+      }
+    }
+  }
+}

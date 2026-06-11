@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yatabase.etzhayyim.com — storage metering rollup (autonomous, R/PT1H).
+
+  Pipeline:
+    1. yata.storage.metering.rollup    SELECT mv_yata_storage_by_org +
+                                       compute (bytes × 1 hour) per (org, tier);
+                                       emit one billing.event row per non-zero
+                                       (org, tier) entry with metric=storage_gb_hour
+                                       and product='yata' (P1 vertex_billing_event
+                                       direct INSERT, ADR-2605080000 §D7).
+    2. generic.audit.emit              OCEL trail.
+
+  Why hourly: storage is metered as GB-hour; an hourly tick keeps billing
+  resolution at 1h while keeping per-day event count bounded by
+  (#tenants × #buckets × 24).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_storage_metering_rollup"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_storage_metering_rollup" name="yata storage metering rollup (hourly)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 1 hour">
+      <bpmn:outgoing>Flow_ToRollup</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Rollup" name="emit storage_gb_hour events">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.metering.rollup"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=eventsEmitted" target="eventsEmitted"/>
+          <zeebe:output source="=totalBytesHour" target="totalBytesHour"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRollup</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRollup" sourceRef="StartTimer" targetRef="Task_Rollup"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.yata.storageMeteringRollup&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;eventsEmitted&quot;: eventsEmitted, &quot;totalBytesHour&quot;: totalBytesHour }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Rollup" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

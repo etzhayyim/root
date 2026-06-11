@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-734b8c3e92e3",
+  "entityId": "ent-734b8c3e92e3",
+  "canonicalName": "instituto nacional de turismo de cuba",
+  "aliases": [
+    "instituto nacional de turismo de cuba"
+  ]
+}

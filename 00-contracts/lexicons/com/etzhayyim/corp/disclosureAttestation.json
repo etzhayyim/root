@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.corp.disclosureAttestation",
+  "description": "Per-jurisdiction periodic financial-filing attestation. R0 skeleton per ADR-2605263800 §3 (CorpDisclosureSensor). Authored by `kotodama.organism.sensors.corp.corp_disclosure_sensor` after passive-only fetch of a published filing artifact (10-K / 10-Q / 8-K / Form 4 / 13F / 有報 / 半期 / 大量保有 / UK statutory accounts / EU half-year). `payloadCid` references the full XBRL/JSON normalized payload on IPFS; `piiRedacted` is true iff per-jurisdiction publication-redaction policy modified the payload view. GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher (NEVER unilateral religious-corp removal). Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdictionIso3",
+          "entityLocalId",
+          "formClass",
+          "formTypeNative",
+          "filedAtUtc",
+          "payloadCid",
+          "sourceSensor",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdictionIso3": {"type": "string", "maxLength": 3, "minLength": 3},
+          "entityLocalId": {"type": "string"},
+          "entityLei": {"type": "string", "maxLength": 20},
+          "formClass": {
+            "type": "string",
+            "knownValues": [
+              "annual-report",
+              "interim-report",
+              "material-event",
+              "insider-transaction",
+              "institutional-holding",
+              "registration",
+              "filer-amendment"
+            ]
+          },
+          "formTypeNative": {
+            "type": "string",
+            "description": "Raw per-jurisdiction form code, e.g. '10-K' / '10-Q' / '8-K' / 'yuho' / 'hanki' / 'CS01'."
+          },
+          "filedAtUtc": {"type": "string", "format": "datetime"},
+          "payloadCid": {
+            "type": "string",
+            "description": "IPFS CID of the normalized JSON payload (XBRL → JSON / per-form parser output). Full filing body stays in annex bytes; this record carries the CID + manifest only."
+          },
+          "piiRedacted": {"type": "boolean", "default": false},
+          "sourceSensor": {
+            "type": "string",
+            "knownValues": ["sec_edgar", "jp_edinet", "uk_companies_house"]
+          },
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {"type": "string", "knownValues": ["A", "B"]},
+          "license": {"type": "string"},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_road_report_incident"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-road"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_road_report_incident" name="道路事故 報告" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+
+    <!--
+      major    : injuries >= 1 OR category = "accident" with closure OR delayMinutes >= 60
+      moderate : delayMinutes 15-59 OR category in {construction, weather}
+      minor    : otherwise
+    -->
+    <bpmn:serviceTask id="Task_Classify" name="severity 分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if injuries &gt;= 1 or category = &quot;closure&quot; or estimatedDelayMinutes &gt;= 60 then &quot;major&quot;
+                                else if estimatedDelayMinutes &gt;= 15 or list contains([&quot;construction&quot;,&quot;weather&quot;], category) then &quot;moderate&quot;
+                                else &quot;minor&quot;" target="severity"/>
+          <zeebe:output source="=injuries &gt;= 1 or category = &quot;closure&quot; or estimatedDelayMinutes &gt;= 60" target="requirePublicNotice"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="incident 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_road_incident&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, authority_org_id: authorityOrgId,
+              road_vertex_id: roadVertexId, category: category,
+              narrative: narrative, injuries: injuries,
+              affected_lane_count: affectedLaneCount,
+              estimated_delay_minutes: estimatedDelayMinutes,
+              severity: severity, require_public_notice: requirePublicNotice,
+              status: &quot;open&quot;, reported_at: reportedAt,
+              created_at: string(now()), owner_did: callerDid,
+              sensitivity_ord: 1, org_id: authorityOrgId,
+              user_id: callerDid, actor_id: &quot;sys.bpmn.open-road&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Edge</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Edge" sourceRef="Task_Save" targetRef="Task_Edge"/>
+
+    <bpmn:serviceTask id="Task_Edge" name="incident → road edge">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_road_incident_road&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:road&quot;,
+              src_vid: vertexId, dst_vid: roadVertexId, role: &quot;on_road&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: authorityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-road&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Edge</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Edge" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Silent">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Notice</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Silent</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Notice" sourceRef="Gate" targetRef="Task_AuditMajor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requirePublicNotice = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Silent" sourceRef="Gate" targetRef="Task_AuditLog"/>
+
+    <bpmn:serviceTask id="Task_AuditMajor" name="audit incident.publicNotice">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-road.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openRoad.incident.publicNotice&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, severity: severity, roadVertexId: roadVertexId, category: category}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Notice</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditMajor" targetRef="End_M"/>
+
+    <bpmn:serviceTask id="Task_AuditLog" name="audit incident.log">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-road.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openRoad.incident.log&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, severity: severity, roadVertexId: roadVertexId, category: category}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Silent</bpmn:incoming><bpmn:outgoing>Flow_ES</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ES" sourceRef="Task_AuditLog" targetRef="End_S"/>
+
+    <bpmn:endEvent id="End_S"><bpmn:incoming>Flow_ES</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

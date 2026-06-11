@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-710468a7d202",
+  "entityId": "ent-710468a7d202",
+  "canonicalName": "omz oao",
+  "aliases": [
+    "omz oao"
+  ]
+}

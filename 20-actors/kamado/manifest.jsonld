@@ -1,0 +1,48 @@
+{
+  "@context": "https://etzhayyim.com/ns/actor/v1",
+  "@id": "did:web:etzhayyim.com:actor:kamado",
+  "name": "kamado",
+  "glyph": "竈",
+  "displayName": "kamado 竈 — closed-loop refining + fossil-refinery decommission",
+  "tier": "B",
+  "status": "R0",
+  "adr": "2606051500",
+  "supersedes": ["oil-refining"],
+  "performerType": "system",
+  "isMirror": true,
+  "description": "Closed-loop carbon REFINING + fossil-refinery DECOMMISSIONING/TRANSITION + refinery OBSERVATION over the kotoba Datom log. The kotoba-native successor to the legacy `oil-refining` Cypher actor (no RisingWave). Robotics cannot neutralize fossil carbon, so `fossil-virgin-crude` is excluded by construction (the :feedstock-class invariant); the only harm-free refinery is one fed closed-loop biogenic / captured-CO2 / recycled carbon (net atmospheric Δ ≤ 0, D3). Existing fossil assets may only be wound down / remediated / converted (§2(d)).",
+  "did": "did:web:etzhayyim.com:actor:kamado",
+  "verificationMethod": [],
+  "runtime": "kotoba-wasm",
+  "edge": "ameno-or-mesh",
+  "governance": {
+    "classification": "public",
+    "complianceFrameworks": [
+      "etzhayyim Charter Rider v2.0 §2(d) (no new fossil extraction)",
+      "ADR-2605263500 D1-D5 (energy substance gates)",
+      "ADR-2605262130 (kotoba canonical state)"
+    ],
+    "raci": "responsible"
+  },
+  "cells": [
+    "asset_observation", "feedstock_guard", "decommission_plan",
+    "synthesis_control", "transition_bridge"
+  ],
+  "lexicons": [
+    "com.etzhayyim.kamado.refineryAsset",
+    "com.etzhayyim.kamado.refineryUnit",
+    "com.etzhayyim.kamado.feedstockProvenance",
+    "com.etzhayyim.kamado.decommissionPlan",
+    "com.etzhayyim.kamado.carbonBalance",
+    "com.etzhayyim.kamado.synthesisRun"
+  ],
+  "profile": {
+    "agentType": "observational-mirror",
+    "capabilities": [
+      "refinery-observation", "transition-readiness", "decommission-planning",
+      "closed-loop-carbon-balance", "feedstock-guard"
+    ],
+    "isBot": true,
+    "operator": "etzhayyim"
+  }
+}

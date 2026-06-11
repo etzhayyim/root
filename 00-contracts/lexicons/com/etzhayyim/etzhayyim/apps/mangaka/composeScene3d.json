@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.composeScene3d",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Compose a 3D scene for a manga panel via kami-mangaka-scene + LangGraph Pregel (compose_scene_3d). Inputs reference an existing panel (kind=panel in vertex_mangaka). Pipeline: load_panel_plan → resolve_assets → pose_characters → place_scene → cinematography → simulate → render_keyframes → critique_and_select → persist. ADR-2605141200.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelRkey"],
+          "properties": {
+            "panelRkey": {
+              "type": "string",
+              "description": "rkey of the panel vertex (kind='panel') to compose."
+            },
+            "refineFromRkey": {
+              "type": "string",
+              "description": "Optional rkey of a prior vertex_mangaka_scene_3d row to refine from (re-runs cinematography + render only)."
+            },
+            "maxIter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Max cinematography→render→critique iterations before accepting best score (default 3)."
+            },
+            "simSeed": {
+              "type": "integer",
+              "description": "Deterministic seed for spring-bone / cloth / particle simulation (default 0)."
+            },
+            "renderAngles": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Number of alternate camera angles to render per iteration (default 3)."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sceneRkey", "iterations"],
+          "properties": {
+            "sceneRkey": {
+              "type": "string",
+              "description": "rkey of the persisted vertex_mangaka_scene_3d row."
+            },
+            "panelRkey": { "type": "string" },
+            "renders": {
+              "type": "array",
+              "description": "Rendered keyframes (best-scored first).",
+              "items": { "type": "ref", "ref": "#renderEntry" }
+            },
+            "iterations": {
+              "type": "integer",
+              "description": "Number of cinematography iterations executed."
+            },
+            "tookMs": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "renderEntry": {
+      "type": "object",
+      "required": ["blobKey", "score"],
+      "properties": {
+        "blobKey": {
+          "type": "string",
+          "description": "Content-addressed SHA-256 hex of the base PNG render (blobs/{repo}/{sha256hex})."
+        },
+        "depthBlobKey": { "type": "string" },
+        "outlineBlobKey": { "type": "string" },
+        "score": {
+          "type": "number",
+          "description": "7-axis vision critique score (0.0–1.0, sum of composition / silhouette / characterRecognizability / framing / mangaShotGrammar / lightingDrama / actionClarity)."
+        },
+        "angle": {
+          "type": "string",
+          "description": "Manga shot grammar tag: FullShot / MediumShot / Closeup / OverShoulder / Dutch / BirdsEye / WormsEye."
+        }
+      }
+    }
+  }
+}

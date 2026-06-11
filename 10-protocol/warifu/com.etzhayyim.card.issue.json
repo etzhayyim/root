@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.card.issue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a soulbound warifu card (WarifuCard, ERC-5192) bound to an Adherent-SBT holder's ERC-4337 smart account. Provisions a network token (self TSP); no raw PAN.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["holderDid", "funding"],
+          "properties": {
+            "holderDid": { "type": "string", "format": "did" },
+            "funding": { "type": "string", "enum": ["debit", "credit"] },
+            "creditLimitUsdc": { "type": "integer", "description": "credit only; 0% interest; wakai-underwritten", "minimum": 0 },
+            "passkey": { "type": "string", "description": "WebAuthn public key for cardholder auth" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cardToken", "smartAccount"],
+          "properties": {
+            "cardToken": { "type": "string" },
+            "smartAccount": { "type": "string", "description": "ERC-4337 account address" },
+            "soulboundTokenId": { "type": "string", "description": "WarifuCard ERC-5192 id" },
+            "creditInterestBps": { "type": "integer", "const": 0 }
+          }
+        }
+      }
+    }
+  }
+}

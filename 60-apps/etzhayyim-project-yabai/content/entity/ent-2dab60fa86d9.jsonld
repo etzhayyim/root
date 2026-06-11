@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-2dab60fa86d9",
+  "entityId": "ent-2dab60fa86d9",
+  "canonicalName": "limited liability company sansara",
+  "aliases": [
+    "limited liability company sansara"
+  ]
+}

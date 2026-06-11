@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_hormuz_incident_report_navigational"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-hormuz-incident"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_hormuz_incident_report_navigational" name="ホルムス 航行インシデント" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+    <bpmn:serviceTask id="Task_Classify" name="分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if incidentType = &quot;collision&quot; or spillVolumeTonnes &gt;= 7 then &quot;major&quot; else if list contains([&quot;grounding&quot;,&quot;fire&quot;,&quot;spill&quot;], incidentType) then &quot;moderate&quot; else &quot;minor&quot;" target="severity"/>
+          <zeebe:output source="=incidentType = &quot;collision&quot; or spillVolumeTonnes &gt;= 7" target="requirePublicNotice"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="nav 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_hormuz_navigational_incident&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: vertexId, incident_id: incidentId, imo: imo, vessel_name: vesselName, flag: flag, incident_type: incidentType, lat: lat, lon: lon, narrative: narrative, spill_volume_tonnes: spillVolumeTonnes, severity: severity, require_public_notice: requirePublicNotice, occurred_at: occurredAt, status: &quot;confirmed&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-hormuz-incident&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Log">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Major</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Log</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Major" sourceRef="Gate" targetRef="Task_AuditMajor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requirePublicNotice = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Log" sourceRef="Gate" targetRef="Task_AuditLog"/>
+    <bpmn:serviceTask id="Task_AuditMajor" name="audit openHormuzIncident.nav.major">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-hormuz-incident.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openHormuzIncident.nav.major&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, incidentId: incidentId, incidentType: incidentType, severity: severity, spillVolumeTonnes: spillVolumeTonnes}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Major</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditMajor" targetRef="End_M"/>
+    <bpmn:serviceTask id="Task_AuditLog" name="audit openHormuzIncident.nav.log">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-hormuz-incident.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openHormuzIncident.nav.log&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, incidentId: incidentId, incidentType: incidentType, severity: severity, spillVolumeTonnes: spillVolumeTonnes}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Log</bpmn:incoming><bpmn:outgoing>Flow_EL</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EL" sourceRef="Task_AuditLog" targetRef="End_L"/>
+    <bpmn:endEvent id="End_L"><bpmn:incoming>Flow_EL</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

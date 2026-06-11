@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-275220e54b0a",
+  "entityId": "ent-275220e54b0a",
+  "canonicalName": "muhammad naeem sheikh",
+  "aliases": [
+    "muhammad naeem sheikh"
+  ]
+}

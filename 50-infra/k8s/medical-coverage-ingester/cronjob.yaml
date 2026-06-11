@@ -1,0 +1,142 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: medical-coverage-ingester
+  namespace: mitama-udf
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: medical-coverage-ingester-rw-health
+  namespace: mitama-udf
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: medical-coverage-ingester-rw-health
+  namespace: mitama-udf
+subjects:
+  - kind: ServiceAccount
+    name: medical-coverage-ingester
+    namespace: mitama-udf
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: medical-coverage-ingester-rw-health
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: medical-coverage-ingester
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: medical-coverage-ingester
+    app.kubernetes.io/component: ingester
+    app.kubernetes.io/part-of: iryo.etzhayyim.com
+spec:
+  # Runs often enough to drain API-backed gaps, while concurrencyPolicy keeps
+  # PubMed / ClinicalTrials.gov paging strictly single-writer per target.
+  schedule: "*/10 * * * *"
+  timeZone: "Etc/UTC"
+  # Health gates inside the ingester skip writes when Kotoba/Datomic is recovering
+  # or compute pods are too young.
+  suspend: true
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  startingDeadlineSeconds: 120
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 1500
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: medical-coverage-ingester
+        spec:
+          serviceAccountName: medical-coverage-ingester
+          imagePullSecrets:
+            - name: ghcr-pull
+          restartPolicy: Never
+          containers:
+            - name: ingester
+              image: ghcr.io/etzhayyim/medical-coverage-ingester:latest
+              imagePullPolicy: Always
+              env:
+                - name: KOTOBA_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: medical-coverage-ingester-secrets
+                      key: KOTOBA_URL
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: B2_BUCKET
+                  value: "etzhayyim-nats"
+                - name: B2_ENDPOINT
+                  value: "https://s3.us-west-004.backblazeb2.com"
+                - name: B2_REGION
+                  value: "us-west-004"
+                - name: B2_PREFIX
+                  value: "medical-sources/iryo-shisetsu"
+                - name: RW_IMPLICIT_FLUSH
+                  value: "false"
+                - name: NCBI_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: medical-coverage-ingester-secrets
+                      key: NCBI_API_KEY
+                      optional: true
+                - name: MAX_RECORDS_PER_RUN
+                  value: "20"
+                - name: BATCH_SIZE
+                  value: "20"
+                - name: PUBMED_RETMAX
+                  value: "20"
+                - name: RW_HEALTH_GATE
+                  value: "true"
+                - name: RW_MIN_COMPUTE_READY
+                  value: "2"
+                - name: RW_MIN_COMPUTE_AGE_SECONDS
+                  value: "1800"
+                - name: RW_COLD_START_POLICY
+                  value: "degraded-write"
+                - name: RW_DML_RATE_LIMIT
+                  value: "25"
+                - name: RW_DEGRADED_DML_RATE_LIMIT
+                  value: "5"
+                - name: RW_SLOWDOWN_WINDOW_SECONDS
+                  value: "60"
+                - name: RW_SLOWDOWN_MAX
+                  value: "10"
+                - name: PUBMED_TERM
+                  value: "medicine[MeSH Terms] OR clinical medicine"
+                - name: TARGETS
+                  value: "pubmed,clinical_trials,dsm,facilities_csv"
+              resources:
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "datacenter-stabilization-v1",
+  "version": 1,
+  "title": "データセンター暫定安定化",
+  "tier": 1,
+  "actorRole": "dc-oncall",
+  "components": [
+    {
+      "key": "stabilization",
+      "type": "fieldset",
+      "label": "安定化措置",
+      "components": [
+        {
+          "key": "actionTaken",
+          "label": "実施した安定化措置",
+          "type": "textarea",
+          "required": true,
+          "validate": { "maxLength": 3000 }
+        },
+        {
+          "key": "nextHypothesis",
+          "label": "次の仮説 / 次アクション",
+          "type": "textarea",
+          "validate": { "maxLength": 2000 }
+        },
+        {
+          "key": "vendorEscalated",
+          "label": "ベンダーへエスカレーション済み",
+          "type": "checkbox"
+        },
+        {
+          "key": "stabilizedAt",
+          "label": "安定化措置実施日時",
+          "type": "textfield",
+          "required": true,
+          "description": "ISO-8601 datetime"
+        }
+      ]
+    }
+  ]
+}

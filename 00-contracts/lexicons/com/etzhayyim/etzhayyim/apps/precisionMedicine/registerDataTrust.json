@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.precisionMedicine.registerDataTrust",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GA4GH / H3Africa / AoU precision-medicine data trust (bridges fhir-health-data + indigenous-rights + data-adequacy + crc-children-digital)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "trustId",
+            "countryIso3",
+            "consentModel",
+            "registeredAt"
+          ],
+          "properties": {
+            "trustId": {
+              "type": "string"
+            },
+            "stewardLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "participantCount": {
+              "type": "integer"
+            },
+            "cohortDescription": {
+              "type": "string"
+            },
+            "consentModel": {
+              "type": "string",
+              "enum": [
+                "broad",
+                "tiered",
+                "dynamic",
+                "meta_consent",
+                "open_consent",
+                "indigenous_collective"
+              ]
+            },
+            "passportCompliant": {
+              "type": "boolean",
+              "description": "GA4GH passport"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

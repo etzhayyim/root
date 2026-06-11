@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.payment.split",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "0xSplits immutable split distribution event on Base L2. One tx, N recipients. Per ADR-2605172100.",
+      "record": {
+        "type": "object",
+        "required": ["splitAddress", "totalUsdcMicros", "tokenContract", "chainId", "txHash", "blockNumber", "recipientCount", "purpose", "distributedAt"],
+        "properties": {
+          "splitAddress": { "type": "string", "description": "0x-prefixed split contract address." },
+          "totalUsdcMicros": { "type": "integer", "minimum": 1 },
+          "tokenContract": { "type": "string" },
+          "chainId": { "type": "integer" },
+          "txHash": { "type": "string" },
+          "blockNumber": { "type": "integer" },
+          "recipientCount": { "type": "integer", "minimum": 2 },
+          "purpose": { "type": "string", "enum": ["grant", "revenue", "salary"] },
+          "forUri": { "type": "string", "format": "at-uri" },
+          "memo": { "type": "string", "maxLength": 280 },
+          "distributedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1f4ce13bd25d",
+  "entityId": "ent-1f4ce13bd25d",
+  "canonicalName": "abd-al-tawwab mullah huwaysh",
+  "aliases": [
+    "abd-al-tawwab mullah huwaysh"
+  ]
+}

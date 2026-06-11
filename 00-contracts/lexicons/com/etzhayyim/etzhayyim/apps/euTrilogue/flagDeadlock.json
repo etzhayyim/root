@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euTrilogue.flagDeadlock",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trilogue deadlock / political compromise / opt-out (bridges esmaConvergence.flagDivergence + judicial-review-gdpr + schrems-challenge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "sessionVid",
+            "deadlockKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "sessionVid": {
+              "type": "string",
+              "description": "bridges recordSession"
+            },
+            "deadlockKind": {
+              "type": "string",
+              "enum": [
+                "presidency_impasse",
+                "blocking_minority",
+                "qualified_majority_fail",
+                "ep_rapporteur_divergence",
+                "inter_group_block",
+                "national_reservation",
+                "parliament_referendum",
+                "council_veto",
+                "member_state_opt_out",
+                "ireland_poland_etc_opt",
+                "review_clause",
+                "sunset_debate"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

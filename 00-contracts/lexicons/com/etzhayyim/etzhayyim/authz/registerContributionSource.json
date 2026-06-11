@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.authz.registerContributionSource",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an OSS / media / dataset source for GCC royalties. Writes to vertex_contribution_source (off-chain). Safe owner must separately call ContributionRoyaltyRegistry.registerSource() on-chain to activate on-chain earnings; until then credits accumulate in pendingEarned.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["canonicalId", "contributorAddr", "sourceType"],
+          "properties": {
+            "canonicalId": {
+              "type": "string",
+              "description": "Stable identifier that becomes keccak256(canonicalId) = sourceHash. E.g. 'github.com/etzhayyim/etzhayyim-apps' or 'ipfs://bafyXXX'."
+            },
+            "contributorAddr": {
+              "type": "string",
+              "description": "Ethereum address (0x…) of the contributor's smart-account or EOA."
+            },
+            "royaltyBps": {
+              "type": "integer",
+              "description": "Royalty basis points (1-10000). Default 100 = 1%.",
+              "default": 100
+            },
+            "sourceType": {
+              "type": "string",
+              "description": "One of: oss, model, dataset, media, document."
+            },
+            "description": { "type": "string" },
+            "license": {
+              "type": "string",
+              "description": "SPDX identifier or 'proprietary'. E.g. 'MIT', 'Apache-2.0'."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "sourceHash", "vertexId"],
+          "properties": {
+            "ok":         { "type": "boolean" },
+            "sourceHash": { "type": "string", "description": "0x-prefixed keccak256(canonicalId)." },
+            "vertexId":   { "type": "string" },
+            "pendingOnChain": {
+              "type": "boolean",
+              "description": "Always true — Safe owner must call registerSource() on-chain to activate earnings."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

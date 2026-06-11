@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4f7d50baff6b",
+  "entityId": "ent-4f7d50baff6b",
+  "canonicalName": "linkers automation (pvt) ltd.",
+  "aliases": [
+    "linkers automation (pvt) ltd."
+  ]
+}

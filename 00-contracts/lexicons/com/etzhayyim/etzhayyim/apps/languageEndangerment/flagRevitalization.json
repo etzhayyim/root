@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.languageEndangerment.flagRevitalization",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Revitalization program / barriers / intergenerational transfer (bridges intangibleSafeguard.flagSafeguardingRisk + cultural-heritage + education-module)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "statusVid",
+            "barrierKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "statusVid": {
+              "type": "string",
+              "description": "bridges recordStatus"
+            },
+            "barrierKind": {
+              "type": "string",
+              "enum": [
+                "no_funding",
+                "school_monolingual",
+                "intergenerational_transfer",
+                "urbanization",
+                "migration",
+                "diglossia",
+                "media_absent",
+                "literacy_low",
+                "no_orthography",
+                "textbook_absent",
+                "teacher_training"
+              ]
+            },
+            "activeProgramCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

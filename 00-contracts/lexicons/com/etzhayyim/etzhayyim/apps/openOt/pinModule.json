@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOt.pinModule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pin a built WASM cell artefact (.aot) by content-addressed CID and signature. The pin is an immutable record; cell upgrades require a new pinModule call and atomic two-phase swap.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cellCode", "moduleCid", "moduleSig", "builderDid", "wasmTarget", "aotTarget"],
+          "properties": {
+            "cellCode":      { "type": "string" },
+            "moduleCid":     { "type": "string", "description": "Content hash (e.g. blake3 / sha256-multihash) of the AOT artefact" },
+            "moduleSig":     { "type": "string", "description": "Detached signature over moduleCid by builderDid" },
+            "moduleSizeBytes": { "type": "integer", "minimum": 1 },
+            "builderDid":    { "type": "string", "description": "DID of the trusted builder that produced the AOT artefact" },
+            "wasmTarget":    { "type": "string", "enum": ["wasm32-wasi"] },
+            "aotTarget":     { "type": "string", "description": "AOT target triple (e.g. thumbv7em-none-eabi, aarch64-unknown-linux-gnu)" },
+            "compilerName":  { "type": "string", "description": "e.g. wamrc" },
+            "compilerVersion": { "type": "string" },
+            "fbtypeXmlCid":  { "type": "string", "description": "Optional CID of the source 4diac FBType XML for round-trip provenance" },
+            "sourceCommit":  { "type": "string", "description": "Optional VCS commit identifier of the BFB source" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "modulePinDid": { "type": "string" },
+            "moduleCid":    { "type": "string" },
+            "pinnedAt":     { "type": "string", "format": "datetime" },
+            "error":        { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

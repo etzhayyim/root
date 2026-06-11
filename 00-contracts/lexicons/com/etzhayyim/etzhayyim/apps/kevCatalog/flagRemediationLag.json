@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kevCatalog.flagRemediationLag",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Remediation lag / extension request / enterprise gap (bridges cveCna.flagDisclosureGap + cyber-compliance-isms + cyber-incident-report)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "entryVid",
+            "lagKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "entryVid": {
+              "type": "string",
+              "description": "bridges recordEntry"
+            },
+            "lagKind": {
+              "type": "string",
+              "enum": [
+                "beyond_due_date",
+                "extension_granted",
+                "waiver_denied",
+                "no_asset_inventory",
+                "eol_device",
+                "compensating_control",
+                "air_gap_claim",
+                "exception_policy",
+                "patch_breaks_ops",
+                "budget_cycle_delay"
+              ]
+            },
+            "daysPastDue": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

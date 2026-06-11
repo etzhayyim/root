@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-74374cde8d60",
+  "entityId": "ent-74374cde8d60",
+  "canonicalName": "maria aleksandrovna osetrova",
+  "aliases": [
+    "maria aleksandrovna osetrova"
+  ]
+}

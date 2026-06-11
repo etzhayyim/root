@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-59b429f2fac3",
+  "entityId": "ent-59b429f2fac3",
+  "canonicalName": "delvest holding, s.a.",
+  "aliases": [
+    "delvest holding, s.a."
+  ]
+}

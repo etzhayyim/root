@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.ownership",
+  "description": "Ownership relation event — a LegalEntity (subject) owns/transfers/inherits/forecloses/leases a registry record (object). Append-only event log keyed by TID; chain of ownership reconstructed by reading by `subjectUri` or `objectUri` + sorting by `effectiveDate`. Per maps CLAUDE.md §Registry & Legal Entity Architecture (`edge_ownership`) + ADR-2605231400 kotoba-datomic L1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "subjectUri",
+          "objectUri",
+          "relation",
+          "effectiveDate"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "subjectUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the LegalEntity acting as owner / transferor / lessee."
+          },
+          "objectUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the Registry record being owned / transferred / inherited / leased."
+          },
+          "relation": {
+            "type": "string",
+            "knownValues": [
+              "OwnsProperty",
+              "TransferredTo",
+              "InheritedBy",
+              "ForeclosedBy",
+              "LeasedTo"
+            ]
+          },
+          "sharePctBps": {
+            "type": "integer",
+            "description": "Ownership share in basis points (10000 = 100%). Integer to avoid float drift.",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "registryRef": {
+            "type": "string",
+            "description": "Free-form reference to the source filing (e.g., 'JP-MOJ 13-01234 行 5').",
+            "maxLength": 256
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "supersededByUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "If a later record corrects this one (rare), point to the replacement. The original remains queryable for audit."
+          }
+        }
+      }
+    }
+  }
+}

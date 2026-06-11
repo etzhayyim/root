@@ -1,0 +1,102 @@
+# suki R1 outdoor sim scene — Hokkaido Tokachi pasture 2km×2km
+#
+# ADR-2605262500 W4 cross-actor extension (sibling of
+# wadachi-r1-shibuya-1km, ADR-2605262500 §9 first testbed). Exercises
+# the pipeline against a non-urban farm scene to validate the
+# assembler generalizes beyond Shibuya-style urban density.
+
+adr: ADR-2605262500
+phase: W4
+sim_consumer: suki-r1
+nv_compat_target: isaacsim.core.api.World
+
+world:
+  crs: "EPSG:4326"
+  bbox: [143.18, 42.91, 143.20, 42.93]   # Tokachi 2km×2km
+  output_subdataset: "sim-scenes/suki/r1/tokachi-2km-pasture/261015/"
+
+  layers:
+    - kind: terrain
+      source_subdataset: "geo/srtm/n42e143"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      shader: "kami-pbrt:Soil_Grass"
+      mesh:
+        triangulation: "regular_grid"
+        target_edge_m: 10.0     # coarser than Shibuya — pasture is flat + open
+
+    - kind: raster_overlay
+      source_subdataset: "geo/sentinel2/T54TXN/261001"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      band_mix: "RGB-B432"
+      uv_projection: "from_terrain_xy"
+
+    - kind: vector_roads
+      source_subdataset: "geo/overture/transportation/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      material: "kami-pbrt:DirtRoad"
+      ribbon:
+        default_lane_count: 1
+        default_lane_width_m: 4.0     # farm tracks
+        z_offset_m: 0.05
+
+scene:
+  num_envs: 4
+  env_spacing: 2200.0
+  gravity: [0.0, 0.0, -9.81]
+  dt: 0.0166666667
+  decimation: 2
+
+robot:
+  urdf: ./suki-tractor-r1.urdf  # placeholder; lands in suki R1 sim ADR
+  base_link: chassis
+  spawn:
+    pos: [0.0, 0.0, 0.5]
+    rot: [1.0, 0.0, 0.0, 0.0]
+
+observation:
+  vehicle_state:
+    - chassis_pos
+    - chassis_vel
+    - chassis_yaw
+
+action:
+  joint_efforts:
+    - drive_throttle
+    - steering
+    - pto_engage
+
+reward:
+  alive: 1.0
+  field_coverage_progress: 0.05
+
+termination:
+  time_out:
+    max_episode_length_s: 120.0     # tractors are slow
+  out_of_bbox:
+    bounds: [-1100.0, 1100.0]
+
+quality_gate:
+  reference_baseline: "isaac_sim_tokachi_2km_v1"
+  reference_basis: "16 viewpoints sampled along field perimeter; 5 seeds"
+  metrics:
+    psnr_min_db: 25.0
+    ssim_min: 0.85
+    chamfer_max_m: 0.05
+    iou_min_at_0p1m_voxel: 0.75
+  combined_target: 0.75      # G11 — ADR-2605261600 G5 inheritance
+
+charter:
+  max_tier: A
+  charter_rider_scan: required
+  pii_filter: not_applicable
+  replication_min: 2
+  physics_backend: kami-genesis
+  render_backend: kami-pbrt
+  inference_substrate: murakumo-only
+
+budget:
+  phase: R1
+  gpu_hr_eq_per_day_max: 1.0

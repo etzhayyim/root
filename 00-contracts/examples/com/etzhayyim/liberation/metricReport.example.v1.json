@@ -1,0 +1,28 @@
+{
+  "reportingQuarter": "2027-Q3",
+  "stage": "L3",
+  "adherentsAtStage": 1240,
+  "aggregateLaborHoursReduction": {
+    "wageLaborMedianCentihrsWk": 3000,
+    "subsistenceLaborMedianCentihrsWk": 900,
+    "totalReductionMedianCentihrsWk": 1100,
+    "targetReductionCentihrsWk": 1000,
+    "achievementRatioPermille": 1100
+  },
+  "wellbecomingFailureRateBps": 110,
+  "exitRateBps": 70,
+  "basicHighIncome": {
+    "imputedIncomeMedianUsdMicrosYr": 10080000000,
+    "imputedIncomeValuationMethod": "v1-retail-equiv",
+    "commonsAssetAccessMedianUsdMicros": 1800000000,
+    "highIncomeBenchmarkRatioPermille": 260,
+    "cashStipendUsdMicros": 0
+  },
+  "publicFundReserveUsdcMicros": 240000000000000,
+  "attestationCid": "bafyreigh2akiscaildcqabsyg3dfr6chu3fgpregxqqwhrlxw47cyvxowm",
+  "councilAttestation": [
+    "did:web:council.etzhayyim.com:seat:1",
+    "did:web:council.etzhayyim.com:seat:2",
+    "did:web:council.etzhayyim.com:seat:3"
+  ]
+}

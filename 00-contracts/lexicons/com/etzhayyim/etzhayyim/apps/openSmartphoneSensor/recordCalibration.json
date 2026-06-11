@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSensor.recordCalibration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a sensor calibration result",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sensorDid", "calibrationType", "calibratedAt", "pass"],
+          "properties": {
+            "sensorDid": { "type": "string", "format": "did" },
+            "calibrationType": { "type": "string" },
+            "standardRef": { "type": "string" },
+            "calibratedAt": { "type": "string" },
+            "validUntil": { "type": "string" },
+            "calibratedBy": { "type": "string" },
+            "pass": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

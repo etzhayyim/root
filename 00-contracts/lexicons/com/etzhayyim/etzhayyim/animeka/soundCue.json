@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.soundCue",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a sound cue (音響 / onkyo) attached to a cut or frame range. Covers voice, SE, BGM. Auto-generated as slots when cut is approved (one per trackType), then filled by human or soundDesigner actor.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["cutRef", "trackType", "inFrame", "outFrame", "createdAt"],
+        "properties": {
+          "cutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "trackType": {
+            "type": "string",
+            "enum": ["voice", "se", "bgm", "foley", "ambience"]
+          },
+          "assetCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the audio asset (wav/ogg/mp3)."
+          },
+          "durationSec": {
+            "type": "number"
+          },
+          "inFrame": {
+            "type": "integer",
+            "description": "Start frame within the cut (cue-in)."
+          },
+          "outFrame": {
+            "type": "integer",
+            "description": "End frame within the cut (cue-out)."
+          },
+          "speaker": {
+            "type": "string",
+            "description": "Character slug for voice tracks."
+          },
+          "line": {
+            "type": "string",
+            "description": "Dialogue text for voice tracks (from script)."
+          },
+          "volumeDb": {
+            "type": "number",
+            "description": "Mix level in dB."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["slot", "draft", "review", "approved", "rejected"],
+            "description": "'slot' = auto-generated empty placeholder awaiting assignment."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

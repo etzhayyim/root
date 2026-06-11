@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openCofog.classifyDefenceFunction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence (stub): COFOG 02 防衛分類. Starts BPMN process open_cofog_classify_defence_function.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "budgetVid": { "type": "string" },
+            "cofogCode": { "type": "string" },
+            "amount": { "type": "number" },
+            "currency": { "type": "string" }
+          },
+          "required": ["vertexId", "budgetVid", "cofogCode"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

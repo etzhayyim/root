@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maritimeComplianceDashboard.scoreVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Per-vessel compliance score (port-of-call + biosec-cert + crew-welfare + forced-labor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scoreId",
+            "imo",
+            "cursorMonth"
+          ],
+          "properties": {
+            "scoreId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "pscDetentionCount": {
+              "type": "integer"
+            },
+            "welfareBreachCount": {
+              "type": "integer"
+            },
+            "forcedLaborFlagCount": {
+              "type": "integer"
+            },
+            "bwmCertValid": {
+              "type": "boolean"
+            },
+            "cursorMonth": {
+              "type": "string",
+              "description": "YYYY-MM"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complianceTier": {
+              "type": "string",
+              "enum": [
+                "clear",
+                "monitoring",
+                "watchlist",
+                "sanction_risk"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

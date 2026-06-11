@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_cyber_vuln_cve" targetNamespace="https://etzhayyim.ai/bpmn/open-cyber-vuln" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_cyber_vuln_cve" name="CVE 開示" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="cve">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_cyber_vuln_cve&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: vertexId, cve_id: cveId, product: product, vendor: vendor, cvss_v3_score: cvssV3Score, cvss_v3_vector: cvssV3Vector, exploit_available: exploitAvailable, in_the_wild: inTheWild, severity_tier: if cvssV3Score &gt;= 9.0 then &quot;critical&quot; else if cvssV3Score &gt;= 7.0 then &quot;high&quot; else if cvssV3Score &gt;= 4.0 then &quot;medium&quot; else &quot;low&quot;, require_emergency_patch: cvssV3Score &gt;= 9.0 or inTheWild = true, published_at: publishedAt, status: &quot;published&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-cyber-vuln&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-cyber-vuln.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openCyberVuln.cve.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, cveId: cveId, cvssV3Score: cvssV3Score}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

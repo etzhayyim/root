@@ -1,0 +1,103 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.misinformationObservatory.logContentAssertion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU DSA / C2PA / ClaimReview content assertion (bridges ai-governance + election-integrity + cultural-heritage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assertionId",
+            "contentUrl",
+            "claimType",
+            "verdict",
+            "loggedAt"
+          ],
+          "properties": {
+            "assertionId": {
+              "type": "string"
+            },
+            "contentUrl": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "claimType": {
+              "type": "string",
+              "enum": [
+                "deepfake",
+                "misleading_edit",
+                "manipulated_context",
+                "fabricated_source",
+                "satire_mislabeled",
+                "cheapfake",
+                "synthetic_text",
+                "synthetic_audio",
+                "synthetic_video"
+              ]
+            },
+            "verdict": {
+              "type": "string",
+              "enum": [
+                "true",
+                "mostly_true",
+                "mixture",
+                "mostly_false",
+                "false",
+                "unproven",
+                "out_of_context"
+              ]
+            },
+            "aiModelVid": {
+              "type": "string",
+              "description": "bridges open-ai-governance if AI-generated"
+            },
+            "electionObservationVid": {
+              "type": "string",
+              "description": "bridges open-election-integrity"
+            },
+            "c2paManifest": {
+              "type": "boolean"
+            },
+            "loggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "harmTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "elevated",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

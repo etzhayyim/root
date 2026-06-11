@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8c7fc0cbfe76",
+  "entityId": "ent-8c7fc0cbfe76",
+  "canonicalName": "bi sidi souleman",
+  "aliases": [
+    "bi sidi souleman"
+  ]
+}

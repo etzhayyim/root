@@ -1,0 +1,177 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "DaemonSet",
+  "metadata": {
+    "annotations": {
+      "deprecated.daemonset.template.generation": "1",
+      "etzhayyim.com/model-alias": "smollm2-vulkan",
+      "etzhayyim.com/placement": "murakumo-mac-mini-fleet",
+      "etzhayyim.com/runtime-kind": "llama-vulkan",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{\"etzhayyim.com/model-alias\":\"smollm2-vulkan\",\"etzhayyim.com/placement\":\"murakumo-mac-mini-fleet\",\"etzhayyim.com/runtime-kind\":\"llama-vulkan\"},\"labels\":{\"app.kubernetes.io/component\":\"llm-inference\",\"app.kubernetes.io/name\":\"llama-vulkan-fleet\",\"app.kubernetes.io/part-of\":\"murakumo\"},\"name\":\"llama-vulkan-fleet\",\"namespace\":\"murakumo-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/name\":\"llama-vulkan-fleet\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"llm-inference\",\"app.kubernetes.io/name\":\"llama-vulkan-fleet\",\"app.kubernetes.io/part-of\":\"murakumo\",\"etzhayyim.com/runtime-kind\":\"llama-vulkan\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"LIST_DEVICES\",\"value\":\"1\"},{\"name\":\"MODEL_REPO\",\"value\":\"agentlans/SmolLM2-135M-Instruct-GGUF\"},{\"name\":\"MODEL_FILE\",\"value\":\"Q4_K_M.gguf\"},{\"name\":\"MODEL_ALIAS\",\"value\":\"smollm2-vulkan\"},{\"name\":\"N_GPU_LAYERS\",\"value\":\"99\"},{\"name\":\"CTX_SIZE\",\"value\":\"2048\"},{\"name\":\"THREADS\",\"value\":\"4\"}],\"image\":\"ghcr.io/etzhayyim-ai/murakumo-llama-vulkan:local\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"initialDelaySeconds\":60,\"periodSeconds\":30,\"timeoutSeconds\":3},\"name\":\"llama-server\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"4\",\"memory\":\"4Gi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"512Mi\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/dev/dri\",\"name\":\"dri\"},{\"mountPath\":\"/root/.cache\",\"name\":\"cache\"}]}],\"dnsPolicy\":\"Default\",\"hostNetwork\":true,\"nodeSelector\":{\"etzhayyim.com/murakumo-node\":\"true\",\"kubernetes.io/arch\":\"arm64\"},\"tolerations\":[{\"effect\":\"NoSchedule\",\"key\":\"node-role.kubernetes.io/control-plane\",\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/dev/dri\",\"type\":\"Directory\"},\"name\":\"dri\"},{\"hostPath\":{\"path\":\"/var/lib/murakumo/llama-vulkan-cache\",\"type\":\"DirectoryOrCreate\"},\"name\":\"cache\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}}\n",
+      "meta.helm.sh/release-name": "murakumo-system-raw",
+      "meta.helm.sh/release-namespace": "murakumo-system"
+    },
+    "labels": {
+      "app.kubernetes.io/component": "llm-inference",
+      "app.kubernetes.io/name": "llama-vulkan-fleet",
+      "app.kubernetes.io/part-of": "murakumo",
+      "app.kubernetes.io/managed-by": "Helm"
+    },
+    "name": "llama-vulkan-fleet",
+    "namespace": "murakumo-system"
+  },
+  "spec": {
+    "revisionHistoryLimit": 10,
+    "selector": {
+      "matchLabels": {
+        "app.kubernetes.io/name": "llama-vulkan-fleet"
+      }
+    },
+    "template": {
+      "metadata": {
+        "creationTimestamp": null,
+        "labels": {
+          "app.kubernetes.io/component": "llm-inference",
+          "app.kubernetes.io/name": "llama-vulkan-fleet",
+          "app.kubernetes.io/part-of": "murakumo",
+          "etzhayyim.com/runtime-kind": "llama-vulkan"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "LIST_DEVICES",
+                "value": "1"
+              },
+              {
+                "name": "MODEL_REPO",
+                "value": "agentlans/SmolLM2-135M-Instruct-GGUF"
+              },
+              {
+                "name": "MODEL_FILE",
+                "value": "Q4_K_M.gguf"
+              },
+              {
+                "name": "MODEL_ALIAS",
+                "value": "smollm2-vulkan"
+              },
+              {
+                "name": "N_GPU_LAYERS",
+                "value": "99"
+              },
+              {
+                "name": "CTX_SIZE",
+                "value": "2048"
+              },
+              {
+                "name": "THREADS",
+                "value": "4"
+              }
+            ],
+            "image": "ghcr.io/etzhayyim-ai/murakumo-llama-vulkan:local",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/health",
+                "port": "http",
+                "scheme": "HTTP"
+              },
+              "initialDelaySeconds": 60,
+              "periodSeconds": 30,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "name": "llama-server",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/health",
+                "port": "http",
+                "scheme": "HTTP"
+              },
+              "initialDelaySeconds": 10,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "resources": {
+              "limits": {
+                "cpu": "4",
+                "memory": "4Gi"
+              },
+              "requests": {
+                "cpu": "500m",
+                "memory": "512Mi"
+              }
+            },
+            "securityContext": {
+              "privileged": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/dev/dri",
+                "name": "dri"
+              },
+              {
+                "mountPath": "/root/.cache",
+                "name": "cache"
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "Default",
+        "hostNetwork": true,
+        "nodeSelector": {
+          "etzhayyim.com/murakumo-node": "true",
+          "kubernetes.io/arch": "arm64"
+        },
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoSchedule",
+            "key": "node-role.kubernetes.io/control-plane",
+            "operator": "Exists"
+          }
+        ],
+        "volumes": [
+          {
+            "hostPath": {
+              "path": "/dev/dri",
+              "type": "Directory"
+            },
+            "name": "dri"
+          },
+          {
+            "hostPath": {
+              "path": "/var/lib/murakumo/llama-vulkan-cache",
+              "type": "DirectoryOrCreate"
+            },
+            "name": "cache"
+          }
+        ]
+      }
+    },
+    "updateStrategy": {
+      "rollingUpdate": {
+        "maxSurge": 0,
+        "maxUnavailable": 1
+      },
+      "type": "RollingUpdate"
+    }
+  }
+}

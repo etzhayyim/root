@@ -1,0 +1,7 @@
+{
+  "method_policy": {
+    "publicRead": true,
+    "allowedScopes": ["rpc?lxm=*"],
+    "allowedPermissionSets": []
+  }
+}

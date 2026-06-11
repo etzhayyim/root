@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biodiversityGbf.declareProtectedArea",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "30x30 protected area declaration (WDPA — bridges mining + water + cultural-heritage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "areaId",
+            "countryIso3",
+            "areaHectares",
+            "designatedAt"
+          ],
+          "properties": {
+            "areaId": {
+              "type": "string",
+              "description": "WDPA ID"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "iucnCategory": {
+              "type": "string",
+              "enum": [
+                "ia",
+                "ib",
+                "ii",
+                "iii",
+                "iv",
+                "v",
+                "vi",
+                "not_assigned",
+                "oecm"
+              ]
+            },
+            "governance": {
+              "type": "string",
+              "enum": [
+                "state",
+                "shared",
+                "private",
+                "indigenous_community"
+              ]
+            },
+            "areaHectares": {
+              "type": "number"
+            },
+            "marineArea": {
+              "type": "boolean"
+            },
+            "designatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

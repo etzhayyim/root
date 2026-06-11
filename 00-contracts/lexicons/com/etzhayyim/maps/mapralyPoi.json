@@ -1,0 +1,105 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.mapralyPoi",
+  "description": "Mapraly POI record. Holds POI metadata + photo references (DataLad-pinned per ADR-2605241500 or raw IPFS). Per maps CLAUDE.md §Mapraly Intelligence + Phase 3 Tier B.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{poiId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "poiId",
+          "name",
+          "category",
+          "lngE7",
+          "latE7",
+          "ingestedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "poiId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "category": {
+            "type": "string",
+            "description": "Mapraly-native category code (e.g., 'food.restaurant', 'shop.cafe').",
+            "maxLength": 64
+          },
+          "lngE7": {
+            "type": "integer",
+            "description": "Longitude in micro-degrees × 10 (i.e. degrees × 1e7). Range -1800000000 to 1800000000. Use integer per AT Protocol Lexicon v1.",
+            "minimum": -1800000000,
+            "maximum": 1800000000
+          },
+          "latE7": {
+            "type": "integer",
+            "description": "Latitude in micro-degrees × 10 (degrees × 1e7). Range -900000000 to 900000000.",
+            "minimum": -900000000,
+            "maximum": 900000000
+          },
+          "address": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "ratingX100": {
+            "type": "integer",
+            "description": "Star rating × 100 (e.g. 4.25 stars → 425). 0..500 inclusive.",
+            "minimum": 0,
+            "maximum": 500
+          },
+          "batchId": {
+            "type": "string",
+            "description": "Groups all POIs from the same Mapraly ingest batch. Caller emits one com.etzhayyim.maps.collectionJob with `jobId == batchId` per batch.",
+            "maxLength": 96
+          },
+          "photoPayloadKind": {
+            "type": "string",
+            "description": "Photo storage backend for this POI. POIs without photos omit this and the related fields.",
+            "knownValues": ["datalad-pin", "ipfs", "external-url"]
+          },
+          "datasetPinUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "When photoPayloadKind=datalad-pin."
+          },
+          "photoCids": {
+            "type": "array",
+            "description": "When photoPayloadKind=ipfs — raw IPFS CIDs of POI photos.",
+            "items": { "type": "string", "maxLength": 96 },
+            "maxLength": 16
+          },
+          "photoUrls": {
+            "type": "array",
+            "description": "When photoPayloadKind=external-url — origin URLs.",
+            "items": { "type": "string", "maxLength": 1024 },
+            "maxLength": 16
+          },
+          "ingestedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "supersededByPoiId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

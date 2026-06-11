@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.playwright.screenshot",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Capture a PNG screenshot to B2. Returns CID.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId"],
+          "properties": {
+            "sessionId": { "type": "string" },
+            "fullPage": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "artifactCid": { "type": "string" },
+            "byteSize": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

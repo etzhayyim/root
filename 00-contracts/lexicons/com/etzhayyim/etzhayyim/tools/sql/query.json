@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tools.sql.query",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generic read-only SQL SELECT primitive (ADR-2605082000 §2 follow-up). Wraps `kotodama.db_alchemy.sa_query` so LangGraph topology nodes can run a parameterised SELECT without per-actor py_primitive code. Strict guards: only statements starting with SELECT / WITH are accepted; INSERT / UPDATE / DELETE / DDL are rejected. For domain writes use the actor-specific MCP tool (or `tools.audit.emit` for OCEL rows).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sql": {
+              "type": "string",
+              "description": "SELECT or WITH … SELECT statement. Single statement; trailing semicolon optional. Parameter binds via `params` (psycopg2 named-style %(key)s)."
+            },
+            "params": {
+              "type": "object",
+              "description": "Named bind params for the SQL statement."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Optional safety cap — if set, only the first `limit` rows are returned (server-side, after fetch). Default: 1000."
+            }
+          },
+          "required": ["sql"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rows": {
+              "type": "array",
+              "description": "List of row objects (column→value)."
+            },
+            "rowCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

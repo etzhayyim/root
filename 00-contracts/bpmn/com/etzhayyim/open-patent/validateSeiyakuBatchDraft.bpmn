@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_patent_validate_seiyaku_batch_draft" targetNamespace="https://etzhayyim.ai/bpmn/open-patent" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_patent_validate_seiyaku_batch_draft" name="validateSeiyakuBatchDraft" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Validate"/>
+    <bpmn:serviceTask id="Task_Validate" name="validate seiyaku batch draft">
+      <bpmn:extensionElements><zeebe:taskDefinition type="openPatent.genericManufacturing.validateSeiyakuBatchDraft"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={batchDraftVid: batchDraftVid, batchPayload: batchPayload, manufacturerOrgId: manufacturerOrgId, plantOrgId: plantOrgId, productCode: productCode, batchNumber: batchNumber, dosageForm: dosageForm, targetMarket: targetMarket, dryRun: dryRun}" target="payload"/>
+          <zeebe:output source="=vertexId" target="vertexId"/><zeebe:output source="=passed" target="passed"/><zeebe:output source="=status" target="status"/><zeebe:output source="=findings" target="findings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Validate" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;openPatent.genericManufacturing.validateSeiyakuBatchDraft&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, passed: passed, status: status, findings: findings}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

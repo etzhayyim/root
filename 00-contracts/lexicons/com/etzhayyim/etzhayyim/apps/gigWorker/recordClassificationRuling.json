@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gigWorker.recordClassificationRuling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Gig-worker classification (EU Platform Work Directive / CA AB5 / UK IR35 — bridges antitrust-dma + labour-mobility + just-transition + migrant-worker-welfare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "rulingId",
+            "jurisdictionIso3",
+            "regime",
+            "classification",
+            "decidedAt"
+          ],
+          "properties": {
+            "rulingId": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "eu_ptwd",
+                "ca_ab5",
+                "uk_ir35",
+                "es_rider_law",
+                "ca_bc_gig",
+                "ny_freelance",
+                "in_socialsec_code",
+                "au_gig_reform"
+              ]
+            },
+            "classification": {
+              "type": "string",
+              "enum": [
+                "employee",
+                "worker",
+                "self_employed",
+                "presumed_employee",
+                "indeterminate"
+              ]
+            },
+            "applicableWorkers": {
+              "type": "integer"
+            },
+            "decidedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

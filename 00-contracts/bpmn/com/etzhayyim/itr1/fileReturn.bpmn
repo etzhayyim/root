@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0055 — itr1_file_return.
+
+  Self-file flow: form input → Tier 3 PII INSERT → Tier 1 metadata INSERT
+    → self review → XOR (proceed?) → mark filed (+ ackNumber) → audit.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_itr1_file_return"
+    targetNamespace="https://etzhayyim.ai/bpmn/itr1"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="itr1_file_return" name="ITR-1 file return" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="Start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_FormInput"/>
+
+    <bpmn:userTask id="Task_FormInput" name="ITR-1 form input">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:itr1-form-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="taxpayer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P30D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:incoming>Flow_LoopBack</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_FormInput" targetRef="Task_PersistDraft"/>
+
+    <bpmn:serviceTask id="Task_PersistDraft" name="Persist Tier 3 ITR-1 data">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_itr1_return_pii&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:           vertexId,
+              taxpayer_pan_hash:   taxpayerPanHash,
+              applicant_payload:   string(applicantPayload),
+              income_payload:      string(incomePayload),
+              deductions_payload:  string(deductionsPayload),
+              tax_payload:         string(taxPayload),
+              amendment_log:       &quot;[]&quot;,
+              retention_until:     date and time(date(&quot;9999-12-31&quot;), time(&quot;00:00:00&quot;)),
+              created_at:          string(now()),
+              owner_did:           filerDid,
+              sensitivity_ord:     3,
+              org_id:              taxpayerPanHash,
+              user_id:             filerDid,
+              actor_id:            &quot;sys.bpmn.itr1&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_PersistDraft" targetRef="Task_PersistTier1"/>
+
+    <bpmn:serviceTask id="Task_PersistTier1" name="Persist Tier 1 metadata">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_itr1_return&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:                vertexId,
+              taxpayer_pan_hash:        taxpayerPanHash,
+              assessment_year:          assessmentYear,
+              process_type:             &quot;initial&quot;,
+              status:                   &quot;draft&quot;,
+              filing_hash:              string(filingHash),
+              total_income_inr_paise:   totalIncomeInrPaise,
+              total_tax_inr_paise:      totalTaxInrPaise,
+              refund_inr_paise:         refundInrPaise,
+              tax_payable_inr_paise:    taxPayableInrPaise,
+              regime_selected:          string(applicant.regimeSelected),
+              created_at:               string(now()),
+              owner_did:                filerDid,
+              sensitivity_ord:          1,
+              org_id:                   taxpayerPanHash,
+              user_id:                  filerDid,
+              actor_id:                 &quot;sys.bpmn.itr1&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_PersistTier1" targetRef="Task_SelfReview"/>
+
+    <bpmn:userTask id="Task_SelfReview" name="Self review (sanity checks)">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:itr1-self-review-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="taxpayer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P14D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_F4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F4" sourceRef="Task_SelfReview" targetRef="Gate_Proceed"/>
+
+    <bpmn:exclusiveGateway id="Gate_Proceed" name="Proceed to file?" default="Flow_LoopBack">
+      <bpmn:incoming>Flow_F4</bpmn:incoming>
+      <bpmn:outgoing>Flow_File</bpmn:outgoing>
+      <bpmn:outgoing>Flow_LoopBack</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_File" sourceRef="Gate_Proceed" targetRef="Task_AwaitFile">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=verdict.decision = "approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_LoopBack" sourceRef="Gate_Proceed" targetRef="Task_FormInput"/>
+
+    <!-- Phase 1: e-File done manually on incometax.gov.in.
+         The taxpayer comes back with ackNumber + filedVia and submits
+         via the fileReturn XRPC, which terminates this flow. -->
+    <bpmn:userTask id="Task_AwaitFile" name="e-File on portal + enter ack">
+      <bpmn:extensionElements>
+        <zeebe:assignmentDefinition candidateGroups="taxpayer"/>
+        <zeebe:taskSchedule dueDate="=now() + duration(&quot;P30D&quot;)"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_File</bpmn:incoming>
+      <bpmn:outgoing>Flow_F5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_F5" sourceRef="Task_AwaitFile" targetRef="Task_MarkFiled"/>
+
+    <bpmn:serviceTask id="Task_MarkFiled" name="Mark filed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_itr1_return&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:                vertexId,
+              taxpayer_pan_hash:        taxpayerPanHash,
+              assessment_year:          assessmentYear,
+              process_type:             &quot;initial&quot;,
+              status:                   &quot;filed&quot;,
+              filing_hash:              string(filingHash),
+              total_income_inr_paise:   totalIncomeInrPaise,
+              total_tax_inr_paise:      totalTaxInrPaise,
+              refund_inr_paise:         refundInrPaise,
+              tax_payable_inr_paise:    taxPayableInrPaise,
+              regime_selected:          string(applicant.regimeSelected),
+              ack_number:               string(ackNumber),
+              filed_via:                string(filedVia),
+              filed_at:                 string(now()),
+              created_at:               string(now()),
+              owner_did:                filerDid,
+              sensitivity_ord:          1,
+              org_id:                   taxpayerPanHash,
+              user_id:                  filerDid,
+              actor_id:                 &quot;sys.bpmn.itr1&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;replace&quot;" target="onConflict"/>
+          <zeebe:output source="=&quot;filed&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F5</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_MarkFiled" targetRef="Task_AuditFiled"/>
+
+    <bpmn:serviceTask id="Task_AuditFiled" name="audit: filed">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbdt:itr1&quot;" target="actor"/>
+          <zeebe:input source="=&quot;itr1.fileReturn&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:               vertexId,
+              taxpayerPanHash:        taxpayerPanHash,
+              assessmentYear:         assessmentYear,
+              ackNumber:              string(ackNumber),
+              filedVia:               string(filedVia),
+              totalIncomeInrPaise:    totalIncomeInrPaise,
+              totalTaxInrPaise:       totalTaxInrPaise
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditFiled" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

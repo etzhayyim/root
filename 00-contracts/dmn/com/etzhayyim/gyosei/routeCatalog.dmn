@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  id="Definitions_gyosei_route_catalog"
+  name="gyosei_route_catalog"
+  namespace="https://etzhayyim.ai/dmn/gyosei">
+  <decision id="gyosei_route_catalog" name="gyosei_route_catalog">
+    <decisionTable id="DecisionTable_gyosei_route_catalog" hitPolicy="FIRST">
+      <input id="Input_specialRouteCode">
+        <inputExpression id="InputExpression_specialRouteCode" typeRef="string"><text>specialRouteCode</text></inputExpression>
+      </input>
+      <output id="Output_routeLabel" label="routeLabel" typeRef="string" name="routeLabel"/>
+      <output id="Output_appealAvailability" label="appealAvailability" typeRef="string" name="appealAvailability"/>
+      <output id="Output_appealPrecondition" label="appealPrecondition" typeRef="string" name="appealPrecondition"/>
+      <output id="Output_appealDeadlineDays" label="appealDeadlineDays" typeRef="number" name="appealDeadlineDays"/>
+      <output id="Output_reappealDeadlineDays" label="reappealDeadlineDays" typeRef="number" name="reappealDeadlineDays"/>
+      <output id="Output_litigationDeadlineDays" label="litigationDeadlineDays" typeRef="number" name="litigationDeadlineDays"/>
+      <output id="Output_preferredClaimType" label="preferredClaimType" typeRef="string" name="preferredClaimType"/>
+      <output id="Output_notes" label="notes" typeRef="string" name="notes"/>
+
+      <rule id="RouteRule_1">
+        <inputEntry id="RouteRule_1_ie1"><text>"tax.national.general-disposition"</text></inputEntry>
+        <outputEntry id="RouteRule_1_oe1"><text>"国税一般処分"</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe2"><text>"allowed"</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe3"><text>"optional"</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe4"><text>90</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe5"><text>30</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe6"><text>180</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe7"><text>"revocation"</text></outputEntry>
+        <outputEntry id="RouteRule_1_oe8"><text>"NTA guidance: 再調査の請求と審査請求を選択可能。取消訴訟の前置は一般には必須でない。"</text></outputEntry>
+      </rule>
+
+      <rule id="RouteRule_2">
+        <inputEntry id="RouteRule_2_ie1"><text>"social-insurance.health-pension.disposition"</text></inputEntry>
+        <outputEntry id="RouteRule_2_oe1"><text>"社会保険・年金処分"</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe2"><text>"allowed"</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe3"><text>"required"</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe4"><text>90</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe5"><text>60</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe6"><text>180</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe7"><text>"revocation"</text></outputEntry>
+        <outputEntry id="RouteRule_2_oe8"><text>"社会保険審査官への審査請求、審査会への再審査請求を経る2段階を想定。"</text></outputEntry>
+      </rule>
+
+      <rule id="RouteRule_3">
+        <inputEntry id="RouteRule_3_ie1"><text>"licensing.construction.permit-revocation"</text></inputEntry>
+        <outputEntry id="RouteRule_3_oe1"><text>"建設業許可取消"</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe2"><text>"allowed"</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe3"><text>"optional"</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe4"><text>60</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe5"><text></text></outputEntry>
+        <outputEntry id="RouteRule_3_oe6"><text>180</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe7"><text>"revocation"</text></outputEntry>
+        <outputEntry id="RouteRule_3_oe8"><text>"建設業許可事務ガイドラインの取消通知例に沿う代表コード。"</text></outputEntry>
+      </rule>
+
+      <rule id="RouteRule_4">
+        <inputEntry id="RouteRule_4_ie1"><text>-</text></inputEntry>
+        <outputEntry id="RouteRule_4_oe1"><text>"未登録ルート"</text></outputEntry>
+        <outputEntry id="RouteRule_4_oe2"><text>"unknown"</text></outputEntry>
+        <outputEntry id="RouteRule_4_oe3"><text>"unknown"</text></outputEntry>
+        <outputEntry id="RouteRule_4_oe4"><text></text></outputEntry>
+        <outputEntry id="RouteRule_4_oe5"><text></text></outputEntry>
+        <outputEntry id="RouteRule_4_oe6"><text></text></outputEntry>
+        <outputEntry id="RouteRule_4_oe7"><text>"manual-legal-check"</text></outputEntry>
+        <outputEntry id="RouteRule_4_oe8"><text>"カタログ未搭載のため手動確認。"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.land.challenge",
+  "description": "Records a jurisdictional or property-rights challenge against a parcel held in the etzhayyim Land Trust. The land donation is constitutionally inalienable per ADR-2605192245 — the challenge does NOT unwind the donation, regardless of outcome. This record exists for transparent documentation per ADR-2605192315 (Transparent Religious Force). Resolution requires Council Seat 5 (Stewardship/Land) + Seat 3 (Legal/Ethics) deliberation; Council attestation ≥3-of-5 multisig post-bootstrap.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "landDonationRef",
+          "challengerCategory",
+          "challengerJurisdiction",
+          "claimSummary",
+          "resolutionStatus",
+          "createdAt"
+        ],
+        "properties": {
+          "landDonationRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the `com.etzhayyim.give.land.donation` record being challenged."
+          },
+          "challengerCategory": {
+            "type": "string",
+            "description": "Who is challenging. Single value, lowercase, hyphenated.",
+            "enum": [
+              "state-authority",
+              "private-claimant",
+              "sister-corp",
+              "indigenous-claim",
+              "environmental-claim",
+              "other"
+            ]
+          },
+          "challengerJurisdiction": {
+            "type": "string",
+            "description": "State / national / international jurisdiction identifier (e.g., 'JP', 'US-CA', 'EU', 'ICC'). Free-form to accommodate multi-jurisdictional reality.",
+            "maxLength": 256
+          },
+          "claimSummary": {
+            "type": "string",
+            "description": "Markdown summary of the claim against the parcel. Public — no encryption (transparent per ADR-2605192315).",
+            "maxLength": 16384
+          },
+          "evidenceCids": {
+            "type": "array",
+            "description": "IPFS CIDs of evidence documents (court filings, claim documents, photos, surveys). May include both challenger-submitted and religious-corp-counter evidence.",
+            "maxLength": 64,
+            "items": {
+              "type": "string",
+              "format": "cid"
+            }
+          },
+          "councilDeliberationRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT URI of the `com.etzhayyim.governance.proposal` record where Council deliberated the challenge."
+          },
+          "resolutionStatus": {
+            "type": "string",
+            "description": "Current resolution state. Single value, lowercase, hyphenated.",
+            "enum": [
+              "filed",
+              "deliberating",
+              "resolved-defended",
+              "resolved-stewardship-amended",
+              "resolved-withdrawn-by-challenger",
+              "indeterminate"
+            ]
+          },
+          "resolutionNarrative": {
+            "type": "string",
+            "description": "Markdown narrative of the resolution. Required when resolutionStatus is non-filed/deliberating. Note: 'resolved-stewardship-amended' indicates the challenge prompted a stewardship-roster change via `com.etzhayyim.give.land.stewardSuccession` — the on-chain NFT remains in the Trust.",
+            "maxLength": 16384
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp when the challenge was first recorded."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp of the most recent resolutionStatus / resolutionNarrative update."
+          }
+        }
+      }
+    }
+  }
+}

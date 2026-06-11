@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.supplyChainFinance.recordDiscrepancy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Document discrepancy under L/C",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "discrepancyId",
+            "lcVid",
+            "discrepancyType",
+            "reportedAt"
+          ],
+          "properties": {
+            "discrepancyId": {
+              "type": "string"
+            },
+            "lcVid": {
+              "type": "string",
+              "description": "bridges issueLetterOfCredit"
+            },
+            "discrepancyType": {
+              "type": "string",
+              "enum": [
+                "late_presentation",
+                "missing_doc",
+                "quantity_mismatch",
+                "wrong_port",
+                "other"
+              ]
+            },
+            "resolution": {
+              "type": "string",
+              "enum": [
+                "waived",
+                "amended",
+                "rejected",
+                "pending"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

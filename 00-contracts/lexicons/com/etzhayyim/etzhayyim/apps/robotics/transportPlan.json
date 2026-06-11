@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.transport.plan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Plan transport, transfer, staging, handoff, routing, and delivery proof records for robot-enabled operations.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "assetKind": { "type": "string" },
+            "origin": { "type": "string" },
+            "destination": { "type": "string" },
+            "routeWindow": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsTransportPlan": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "hakkou XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://hakkou.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.hakkou.getFerment": {
+      "get": {
+        "summary": "Get the status and result of a fermentation job from vertex_hakkou_ferment.",
+        "operationId": "com.etzhayyim.hakkou.getFerment",
+        "parameters": [
+          {
+            "name": "fermentVertexId",
+            "in": "query",
+            "required": true,
+            "description": "vertex_hakkou_ferment vertex_id",
+            "schema": {
+              "type": "string",
+              "description": "vertex_hakkou_ferment vertex_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "vertexId": {
+                      "type": "string"
+                    },
+                    "agentDid": {
+                      "type": "string"
+                    },
+                    "inputKind": {
+                      "type": "string"
+                    },
+                    "inputRef": {
+                      "type": "string"
+                    },
+                    "outputVertexId": {
+                      "type": "string"
+                    },
+                    "outputKind": {
+                      "type": "string"
+                    },
+                    "ethanolHash": {
+                      "type": "string"
+                    },
+                    "co2AuditRef": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "vertexId",
+                    "agentDid",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.hakkou.startFerment": {
+      "post": {
+        "summary": "Start a fermentation job in the hakkou pipeline. Accepts raw input and enqueues it for irreversible transformation into structured knowledge (ethanol) + audit trail (CO2). Triggers hakkou BPMN ferment-pipeline.bpmn.",
+        "operationId": "com.etzhayyim.hakkou.startFerment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "agentDid": {
+                    "type": "string",
+                    "description": "Fermenting agent DID"
+                  },
+                  "inputKind": {
+                    "type": "string",
+                    "description": "text | record | stream"
+                  },
+                  "inputRef": {
+                    "type": "string",
+                    "description": "AT URI or external ref to raw input"
+                  },
+                  "outputKind": {
+                    "type": "string",
+                    "description": "summary | embedding | graph-fragment | classification"
+                  }
+                },
+                "required": [
+                  "agentDid",
+                  "inputKind",
+                  "inputRef",
+                  "outputKind"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fermentVertexId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "pending | running | done | failed"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "fermentVertexId",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

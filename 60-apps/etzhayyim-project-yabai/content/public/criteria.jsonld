@@ -1,0 +1,23 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "CreativeWork",
+  "@id": "https://yabai.etzhayyim.com/content/public/criteria",
+  "name": "YABAI Evaluation Criteria",
+  "wellBecomingAxes": [
+    "Social trust maintenance (transparency, accountability, remediation)",
+    "Compliance maturity (KYC/AML controls, audit readiness, recurrence prevention)",
+    "Harm reduction behavior (victim protection, refund, cooperation)"
+  ],
+  "penaltyAxes": [
+    "SanctionHit",
+    "CriminalEvidence",
+    "AntiSocialAssociation",
+    "AMLPattern",
+    "FraudSignal"
+  ],
+  "formula": {
+    "yabaiRiskScore": "clip(100 - WellBecomingScore + PenaltyScore * 0.8, 0, 100)",
+    "penaltyContribution": "severity(1-5) * confidence(0-1) * recency_decay",
+    "shannonInfoRisk": "InfoRisk = Σ(-log2(P(event)) * confidence * severity_weight)"
+  }
+}

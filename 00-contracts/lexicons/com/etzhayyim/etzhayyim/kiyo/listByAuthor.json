@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kiyo.listByAuthor",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List papers by a given author DID, with their h-index from mv_kiyo_author_hindex.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "authorDid": { "type": "string" },
+          "limit":     { "type": "integer", "default": 50 },
+          "offset":    { "type": "integer", "default": 0 }
+        },
+        "required": ["authorDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "authorDid":      { "type": "string" },
+            "hIndex":         { "type": "integer" },
+            "totalPapers":    { "type": "integer" },
+            "totalCitations": { "type": "integer" },
+            "papers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paperId":       { "type": "string" },
+                  "title":         { "type": "string" },
+                  "role":          { "type": "string" },
+                  "submittedAt":   { "type": "string" },
+                  "citationCount": { "type": "integer" }
+                }
+              }
+            },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          },
+          "required": ["authorDid", "papers", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

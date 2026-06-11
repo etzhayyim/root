@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oneHealth.recordSurveillanceEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "One Health surveillance event (Quadripartite FAO/WHO/WOAH/UNEP — bridges pandemic-preparedness + amr-surveillance + biodiversity-gbf + livestock-antibiotics)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "pathogenName",
+            "interface",
+            "countryIso3",
+            "detectedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "pathogenName": {
+              "type": "string"
+            },
+            "interface": {
+              "type": "string",
+              "enum": [
+                "human_animal_domestic",
+                "human_animal_wildlife",
+                "human_environment",
+                "animal_environment",
+                "vector_multi_host",
+                "food_chain"
+              ]
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "reportedBy": {
+              "type": "string",
+              "enum": [
+                "fao",
+                "who",
+                "woah",
+                "unep",
+                "cdc",
+                "ecdc",
+                "aquis_mu"
+              ]
+            },
+            "zoonoticConfirmed": {
+              "type": "boolean"
+            },
+            "casesCount": {
+              "type": "integer"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

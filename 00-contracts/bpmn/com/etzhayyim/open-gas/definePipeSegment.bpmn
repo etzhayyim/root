@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_gas_define_pipe_segment"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-gas"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_gas_define_pipe_segment" name="ガス管 登録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="segment 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_gas_segment&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, utility_org_id: utilityOrgId,
+              from_vertex_id: fromVertexId, to_vertex_id: toVertexId,
+              diameter_mm: diameterMm, material: material, length_m: lengthM,
+              maop_kpa: maopKpa, installed_at: installedAt,
+              status: &quot;active&quot;, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 1,
+              org_id: utilityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-gas&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_EF</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EF" sourceRef="Task_Save" targetRef="Task_EdgeFrom"/>
+
+    <bpmn:serviceTask id="Task_EdgeFrom" name="endpoint edge (from)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_gas_segment_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:from&quot;,
+              src_vid: vertexId, dst_vid: fromVertexId, role: &quot;from&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: utilityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-gas&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EF</bpmn:incoming><bpmn:outgoing>Flow_ET</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ET" sourceRef="Task_EdgeFrom" targetRef="Task_EdgeTo"/>
+
+    <bpmn:serviceTask id="Task_EdgeTo" name="endpoint edge (to)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_gas_segment_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:to&quot;,
+              src_vid: vertexId, dst_vid: toVertexId, role: &quot;to&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: utilityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-gas&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ET</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_EdgeTo" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit segment.define">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-gas.etzhayyim.com:network&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openGas.segment.define&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, utilityOrgId: utilityOrgId, diameterMm: diameterMm, material: material, lengthM: lengthM}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

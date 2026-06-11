@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerSnpnDeployment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NPN — register a Stand-alone Non-Public Network deployment (3GPP TS 23.501 §5.30). Phase 11 enterprise private 5G control plane.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["enterpriseOrgId", "deploymentKind", "plmnId", "nidValue", "jurisdiction", "validUntil", "observedAt"],
+          "properties": {
+            "snpnId": { "type": "string" },
+            "enterpriseOrgId": { "type": "string" },
+            "deploymentKind": { "type": "string", "enum": ["snpn_isolated", "snpn_with_phn", "snpn_with_credh", "shared_ran"] },
+            "plmnId": { "type": "string" },
+            "nidValue": { "type": "string" },
+            "hostingNfIds": { "type": "array", "items": { "type": "string" } },
+            "jurisdiction": { "type": "string" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "snpnId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

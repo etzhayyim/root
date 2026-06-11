@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshikatsu.publishContent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "creatorDid": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "contentType": {
+              "type": "string"
+            },
+            "minTier": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "previewText": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "creatorDid",
+            "title"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "creatorDid": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "contentType": {
+              "type": "string"
+            },
+            "minTier": {
+              "type": "string"
+            },
+            "mediaUrls": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "previewText": {
+              "type": "string"
+            },
+            "likeCount": {
+              "type": "integer"
+            },
+            "commentCount": {
+              "type": "integer"
+            },
+            "tipTotalCredits": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "orgId": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "actorId": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

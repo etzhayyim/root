@@ -1,0 +1,79 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:uchiwake",
+  "type": "Actor",
+  "name": "uchiwake",
+  "glyph": "内訳",
+  "displayNameJa": "内訳 (うちわけ)",
+  "displayNameEn": "Uchiwake — World Product Bill-of-Materials / GTIN Knowledge Graph",
+  "displayName": "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph",
+  "primaryLexicon": "com.etzhayyim.uchiwake",
+  "purpose": "The product-level layer beneath kabuto 兜. Datafies the world's TRADE ITEMS keyed on the GS1 GTIN, decomposed to their bill of materials (PRODUCT → PART → raw MATERIAL) plus the PROCESS steps that make them, the LOGISTICS legs that move them, and the DESIGN/standard refs that specify them, into the kotoba Datom log. Brand-owners link into kabuto's :company/id space; ownership edges roll a brand-owning SUBSIDIARY up to its ULTIMATE parent (子会社, GLEIF Level-2 RR). Surfaces material / processing-jurisdiction / ultimate-parent CONCENTRATION routed to redundancy + accountability. A resilience map, never a target-list and never a clone/counterfeit recipe.",
+  "purposeJa": "kabuto 兜（企業レベルの供給辺）の下にある製品レベル層。全世界の取引品目を GS1 GTIN を鍵として、その部品表（製品→部品→原材料）に加え、加工ステップ・運送レグ・設計/規格参照まで kotoba Datom 化する。brand-owner は kabuto の :company/id 空間に接続し、所有辺で brand-owning 子会社を ultimate parent へ rollup（GLEIF Level-2 RR）。原材料/加工法域/最終親会社への集中を可視化して冗長化・説明責任へ routing。標的リストでもクローン/模倣レシピでもなく、resilience の地図。",
+  "status": "R0-design-only",
+  "tier": "Tier-B",
+  "adr": "2606081800",
+  "dependsOnAdr": ["2606022000", "2606042330", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"],
+  "schema": ["00-contracts/schemas/product-bom-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — IPFS block backend, MST ingress, Base L2 anchor",
+    "largeAssets": "DataLad → IPFS (80-data/product-bom) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)",
+    "render": "in-browser kotoba-wasm node (ADR-2606013600) — BOM tree + concentration views query the Datom log client-side"
+  },
+  "integrates": ["actor:kabuto", "actor:tsumugi", "actor:giemon", "actor:hataori", "actor:okaimono", "actor:omise"],
+  "cells": [
+    {
+      "id": "cell:uchiwake.ingest",
+      "method": "methods/ingest.py",
+      "input": "data/ingest/*.json (GS1 GDSN / Open Product Data / GLEIF-RR-shaped public dataset) or seed",
+      "output": ["data/products.merged.kotoba.edn"],
+      "pipeline": "public product source → normalize to :product/:part/:material/:bom.edge/:company.ownership → GTIN check-digit validate → dedup-merge with seed (seed wins)",
+      "gate": "G7 — live full-universe fetch (GS1 GDSN / GLEIF RR / Open Product Data, hundreds of millions of GTINs) requires UCHIWAKE_OPERATOR_GATE (Council); offline/seed mode default, tagged :representative (G5)"
+    },
+    {
+      "id": "cell:uchiwake.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/products.merged.kotoba.edn (or data/seed-products.kotoba.edn)",
+      "output": ["out/intel-report.md", "out/product-criticality.kotoba.edn"],
+      "pipeline": "classify → recursive BOM material-closure → material dependence → processing-jurisdiction load → ultimate-parent rollup (子会社) → single-source/high-criticality edges (aggregate-first)"
+    },
+    {
+      "id": "cell:uchiwake.crosscheck",
+      "method": "methods/crosscheck.py",
+      "input": "data/seed-products.kotoba.edn + 20-actors/kabuto/data/seed-public-companies.kotoba.edn",
+      "output": ["stdout report / --json summary"],
+      "pipeline": "collect every company reference (brand-owner/supplier/operator/carrier/ownership) → resolve against kabuto's ingested company universe → measured linkage % + 子会社 ultimate-parent rollup recovery → honest unresolved (not-yet-ingested) gap. Measures integration, does not assert it."
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.uchiwake.registerProduct",
+    "com.etzhayyim.uchiwake.registerBomEdge",
+    "com.etzhayyim.uchiwake.registerOwnership",
+    "com.etzhayyim.uchiwake.publishResilienceReport"
+  ],
+  "display": {
+    "did": "did:web:etzhayyim.com:actor:uchiwake",
+    "didDoc": "https://etzhayyim.com/actor/uchiwake/did.json",
+    "search": "https://etzhayyim.com/search (in-browser kotoba-wasm node)",
+    "registry": "50-infra/etzhayyim-did-web/src/registry/infra-actors.ts (INFRA_ACTORS.uchiwake)"
+  },
+  "gates": {
+    "G1": "public trade items + public-record data only — GTIN/brand/brand-owner/GS1 prefix/classification/HS/published material labels/public teardowns/disclosed suppliers are public record; confidential recipes, non-public terms, trade secrets = OUT OF SCOPE",
+    "G2": "resilience-not-interdiction — concentration routed to diversification + accountability; NEVER a target-list AND never a clone/counterfeit recipe (Charter Rider §2(d))",
+    "G3": "aggregate-first + sourced-first output",
+    "G4": "no adjudication — uchiwake states public facts + computed concentration; it does not rule on legality, safety compliance, or origin claims (UPL / conformity-assessment boundary)",
+    "G5": "sourcing honesty (:authoritative | :representative | :synthesized) on every node/edge; BOM decompositions :representative (public teardown/label, not exhaustive recipe); quantities & mass fractions bounded estimates, never a contract figure; GTIN check digit validated on ingest",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated INGEST — live full-universe fetch (GS1 GDSN / GLEIF RR / Open Product Data) = Council + operator (UCHIWAKE_OPERATOR_GATE)",
+    "G8": "no git-lfs; large assets (spec sheets, CAD, label images) DataLad → IPFS (80-data/product-bom)",
+    "G9": "no personal PII — product/company graph only; no consumer purchase data, no individual-level tracking",
+    "G10": "browser-native render — BOM tree + concentration views run in the in-browser kotoba-wasm node (ADR-2606013600)",
+    "G11": "outward-gated PUBLISH — live atproto posting = operator auth + Charter Rider §2(a)-(h) scan (deferred to a later iteration)",
+    "G12": "read-only — never mutates upstream GS1 / GLEIF / product records"
+  }
+}

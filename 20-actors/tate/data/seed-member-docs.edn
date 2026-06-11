@@ -1,0 +1,46 @@
+;; tate 盾 — SYNTHETIC member documents seed (ADR-2606112301). G1: everything here is
+;; :synthetic — fictional contracts the demo member "signed" and fictional notices they
+;; "received". No real company, court, or person. Clause sentences intentionally contain
+;; the registry keyword shapes so the scanner is exercised end-to-end.
+
+[;; ── contracts / ToS the member is party to (:doc/*) ─────────────────────────
+ {:doc/id "doc:fitness-tos" :doc/label "Fitness Club 会員規約 (synthetic)"
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "本契約は会員から申出がない限り更新されるものとし、中途解約の場合は違約金として残期間の利用料全額を申し受けます。退会は更新月の前月までに書面で届け出るものとします。"}
+
+ {:doc/id "doc:video-tos" :doc/label "Video Streaming A 利用規約 (synthetic)"
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "当社は本サービスの利用により生じた損害について一切の責任を負いません。本規約は当社の裁量により変更できるものとします。本契約に関する紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とします。遅延損害金は年率19.9%とします。"}
+
+ {:doc/id "doc:card-agreement" :doc/label "クレジットカード会員規約 (synthetic)"
+  :doc/context :card :doc/sourcing :synthetic
+  :doc/text "ショッピング利用分は自動的にリボルビング払いとなります。年会費は利用の有無にかかわらず毎年請求されます。会員は販売店との紛争にかかわらず支払うものとします。"}
+
+ {:doc/id "doc:b2b-services" :doc/label "業務委託基本契約 (synthetic 法人契約)"
+  :doc/context :b2b :doc/sourcing :synthetic
+  :doc/text "乙は本契約に違反した場合、逸失利益を含む全ての損害を賠償する。乙は契約期間中および終了後2年間、甲と競合する業務を行ってはならない。委託料の支払期日は検収後90日とする。成果物に関する一切の知的財産権は甲に帰属し、乙は著作者人格権を行使しない。本契約の最低利用期間は3年とし、更新拒絶は6か月前までに行うものとする。"}
+
+ ;; ── notices the member received (:notice/*) ─────────────────────────────────
+ {:notice/id "ntc:tokusoku-real" :notice/label "支払督促 (特別送達で受領)"
+  :notice/channel :special-service :notice/claim-jpy 250000 :notice/sourcing :synthetic
+  :notice/text "債権者の申立てにより支払督促を発する。督促異議の申立てができる。"}
+
+ {:notice/id "ntc:shougaku-real" :notice/label "少額訴訟 口頭弁論期日呼出状 (特別送達)"
+  :notice/channel :special-service :notice/claim-jpy 480000 :notice/sourcing :synthetic
+  :notice/text "少額訴訟による審理を行う。口頭弁論期日呼出状および答弁書催告状。"}
+
+ {:notice/id "ntc:sojou-big" :notice/label "訴状 (特別送達・高額請求)"
+  :notice/channel :special-service :notice/claim-jpy 3200000 :notice/sourcing :synthetic
+  :notice/text "訴状送達。第1回口頭弁論期日の呼出し。答弁書を提出されたい。"}
+
+ {:notice/id "ntc:fake-sms" :notice/label "『裁判所』を名乗るSMS"
+  :notice/channel :sms :notice/claim-jpy 50000 :notice/sourcing :synthetic
+  :notice/text "【最終通告】未納料金につき本日中に連絡なき場合、支払督促・少額訴訟に移行します。こちらの番号へ至急ご連絡ください。"}
+
+ {:notice/id "ntc:gyousei" :notice/label "行政処分通知 (普通郵便)"
+  :notice/channel :mail :notice/claim-jpy 0 :notice/sourcing :synthetic
+  :notice/text "処分通知書。本処分に不服がある場合は審査請求をすることができる (教示)。"}
+
+ {:notice/id "ntc:naiyou" :notice/label "内容証明 催告書 (企業から)"
+  :notice/channel :mail :notice/claim-jpy 800000 :notice/sourcing :synthetic
+  :notice/text "催告書。貴殿に対し未払債務の支払いを催告する。本書面は内容証明郵便により送付する。"}]

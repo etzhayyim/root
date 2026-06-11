@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opensaas.salesforce.opportunity",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Salesforce-equivalent Opportunity: a tracked revenue deal with a stage, amount, and close date. Tier 1 public record — exact amounts over a tenant-configurable threshold should be bucketed into amountBand, with exact amount mirrored to Tier 3 only. Stage transitions emit derived com.etzhayyim.apps.opensaas.salesforce.activity records via the kotodama.jsonld derive rule.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["tenantDid", "accountDid", "name", "stage", "closeDate", "createdAt"],
+        "properties": {
+          "tenantDid": { "type": "string" },
+          "accountDid": { "type": "string" },
+          "primaryContactDid": { "type": "string" },
+          "ownerDid": { "type": "string" },
+          "name": { "type": "string", "maxLength": 255 },
+          "stage": { "type": "string", "enum": ["prospecting", "qualification", "needs-analysis", "proposal", "negotiation", "closed-won", "closed-lost"] },
+          "probability": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "amountJpy": { "type": "integer", "minimum": 0, "description": "exact value; consider bucketing to amountBand for wide-audience tenants" },
+          "amountBand": { "type": "string", "enum": ["u1m", "u10m", "u100m", "u1b", "o1b"] },
+          "currency": { "type": "string", "description": "ISO-4217", "default": "JPY" },
+          "closeDate": { "type": "string", "format": "datetime" },
+          "forecastCategory": { "type": "string", "enum": ["pipeline", "best-case", "commit", "closed", "omitted"] },
+          "leadSource": { "type": "string" },
+          "campaignId": { "type": "string" },
+          "lostReason": { "type": "string", "maxLength": 255 },
+          "competitors": { "type": "array", "items": { "type": "string" }, "maxLength": 16 },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "lastStageChangeAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

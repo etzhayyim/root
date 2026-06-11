@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.shidemori.memorialNftAttestation",
+  "description": "Per-deceased memorial NFT mint attestation. G3 STRUCTURAL: afterlifeDoctrineImposed const false (Charter §1.15 non-eschatological invariant; extends kataribe G4 pattern to memorial domain). Cross-link to musubi.ceremonyPerformanceAttestation (funeral type) + chigiri.inheritanceChain. Cross-doctrinal honor text accommodates Christian + Buddhist + Shinto + nondenominational + secular memorial preferences (G4).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "deceasedPseudonymDid",
+          "musubiFuneralCeremonyPerformanceCid",
+          "memorialNftMintTxCid",
+          "afterlifeDoctrineImposed",
+          "doctrinalAccommodation",
+          "memberDirectiveCid",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "deceasedPseudonymDid": {
+            "type": "string",
+            "description": "30-day rotating pseudonym DID per ADR-2605181200 (post-death; family-signed)"
+          },
+          "musubiFuneralCeremonyPerformanceCid": {
+            "type": "string",
+            "description": "Cross-link to musubi.ceremonyPerformanceAttestation (ceremonyType=funeral)"
+          },
+          "memorialNftMintTxCid": {
+            "type": "string",
+            "description": "On-chain memorial NFT mint transaction CID (Base L2; ERC-4337 paymaster-sponsored)"
+          },
+          "memorialNftMetadataCid": {
+            "type": "string",
+            "description": "IPFS CID of memorial NFT metadata (honor text + dates + cross-doctrinal accommodation)"
+          },
+          "afterlifeDoctrineImposed": {
+            "type": "boolean",
+            "const": false,
+            "description": "G3 STRUCTURAL: const false; Charter §1.15 non-eschatological invariant; honors deceased without imposing afterlife doctrine"
+          },
+          "doctrinalAccommodation": {
+            "type": "string",
+            "knownValues": [
+              "reformed-memorial-view",
+              "anglican-low-church",
+              "baptist",
+              "methodist",
+              "nondenominational",
+              "shinto-鎮魂",
+              "buddhist-49日-中陰",
+              "secular-humanist",
+              "cross-tradition",
+              "member-directive-respecting-no-doctrine-imposed"
+            ],
+            "description": "G4 cross-doctrinal accommodation; member-directive-respecting if member opted for no doctrine"
+          },
+          "memberDirectiveCid": {
+            "type": "string",
+            "description": "Cross-link to chigiri.member_onboarding burial-or-cremation directive (G9 free conscience)"
+          },
+          "burialOrCremation": {
+            "type": "string",
+            "knownValues": ["burial-green-biodegradable", "cremation", "no-directive-family-discerned"],
+            "description": "G7 STRUCTURAL: const-set excludes embalming chemicals (Charter §2(d))"
+          },
+          "cemeteryLandAttestationCid": {
+            "type": "string",
+            "description": "If burial, cross-link to cemeteryLandAttestation (waqf-inalienable per G10)"
+          },
+          "chigiriInheritanceChainCid": {
+            "type": "string",
+            "description": "G13 REQUIRED if deceased had Adherent SBT: chigiri.inheritanceChain cross-emit"
+          },
+          "chigiriMemberOffboardingCid": {
+            "type": "string",
+            "description": "Adherent SBT burn coordination (chigiri.member_offboarding cross-link)"
+          },
+          "communityWitnessedCompetenceOfLifeSummaryCid": {
+            "type": "string",
+            "description": "Encrypted summary CID; community/family-attested life summary; encrypted per ADR-2605181100 to preserve member privacy"
+          },
+          "charterRiderScanRunCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

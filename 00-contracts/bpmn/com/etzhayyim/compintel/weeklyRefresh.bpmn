@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="compintelWeeklyRefresh"
+                  targetNamespace="com.etzhayyim.apps.compintel">
+
+  <!--
+    weeklyRefresh.bpmn — Competitive Intelligence Weekly Refresh (ADR-2605072000)
+    Schedule: every Monday 08:00 JST (0 23 * * 0 UTC)
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py
+    No PII — all data is public competitive intelligence.
+  -->
+
+  <bpmn:process id="compintelWeeklyRefreshProcess" isExecutable="true" name="Competitive Intel Weekly Refresh">
+
+    <bpmn:startEvent id="WeeklyTimer" name="Monday 08:00 JST">
+      <bpmn:outgoing>toResearchAll</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle>0 23 * * 0</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="ResearchAllCompetitors" name="Research All Competitors (LangGraph)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="compintel.run_research_agent" retries="2" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="300" />
+          <zeebe:header key="mode" value="batch_all" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toResearchAll</bpmn:incoming>
+      <bpmn:outgoing>toScoreThreats</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="ScoreThreats" name="Score + Detect Changes">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="compintel.score_threats" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="60" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toScoreThreats</bpmn:incoming>
+      <bpmn:outgoing>toAlertGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="AlertGateway" name="High-severity alerts?">
+      <bpmn:incoming>toAlertGateway</bpmn:incoming>
+      <bpmn:outgoing>toSendDigest</bpmn:outgoing>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:serviceTask id="SendDigest" name="Send Weekly Digest (Resend)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="compintel.send_digest" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="60" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toSendDigest</bpmn:incoming>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Refresh Complete">
+      <bpmn:incoming>toEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="toResearchAll" sourceRef="WeeklyTimer" targetRef="ResearchAllCompetitors" />
+    <bpmn:sequenceFlow id="toScoreThreats" sourceRef="ResearchAllCompetitors" targetRef="ScoreThreats" />
+    <bpmn:sequenceFlow id="toAlertGateway" sourceRef="ScoreThreats" targetRef="AlertGateway" />
+    <bpmn:sequenceFlow id="toSendDigest" sourceRef="AlertGateway" targetRef="SendDigest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= hasHighSeverityAlerts = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toEnd" sourceRef="AlertGateway" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= hasHighSeverityAlerts = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>

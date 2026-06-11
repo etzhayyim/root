@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.exportCreditAgency.recordExposure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ECA / Berne Union / OECD arrangement exposure (bridges sovereignGuarantee.flagCallEvent + sovereign-debt + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exposureId",
+            "ecaKind",
+            "borrowerCountryIso3",
+            "sectorKind",
+            "exposureBusd",
+            "approvedAt"
+          ],
+          "properties": {
+            "exposureId": {
+              "type": "string"
+            },
+            "ecaKind": {
+              "type": "string",
+              "enum": [
+                "us_exim",
+                "jbic",
+                "nexi",
+                "kexim",
+                "ksure",
+                "cexim",
+                "sinosure",
+                "sace_italy",
+                "euler_hermes",
+                "ukef",
+                "edc_canada",
+                "efic_australia",
+                "coface",
+                "berne_union"
+              ]
+            },
+            "borrowerCountryIso3": {
+              "type": "string"
+            },
+            "sectorKind": {
+              "type": "string",
+              "enum": [
+                "oil_gas",
+                "coal",
+                "lng",
+                "nuclear",
+                "renewable",
+                "aerospace",
+                "defense",
+                "rail",
+                "shipping",
+                "agri",
+                "infrastructure",
+                "manufacturing",
+                "ict"
+              ]
+            },
+            "exposureBusd": {
+              "type": "number"
+            },
+            "guaranteeCallVid": {
+              "type": "string",
+              "description": "bridges sovereignGuarantee.flagCallEvent"
+            },
+            "approvedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

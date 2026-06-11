@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himotoki.appealRecord",
+  "description": "Appeal/complaint routing record emitted by himotoki_appeal_route when a response is refused or partial (ADR-2605302130 §3). CONSTITUTIONAL: himotoki routes the appeal through a LAWFUL statutory channel ONLY (G11) — 審査請求 (行政不服審査法) / DPA complaint (個人情報保護委員会 / supervisory authority) / FOIA appeal — never extra-legal pressure. UPL boundary (G5): himotoki files the procedural appeal artifact; the legal STRATEGY / characterization is rendered by external counsel via chigiri + Public Fund (Council Lv6+).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "responseCid",
+          "appealChannel",
+          "chigiriTemplateRef"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "responseCid": {"type": "string", "description": "CID of the disclosureResponse being appealed"},
+          "appealChannel": {
+            "type": "string",
+            "knownValues": ["shinsa-seikyu-jp", "ppc-complaint-jp", "dpa-complaint-eu", "foia-appeal-us", "internal-review"],
+            "description": "Lawful statutory appeal channel (G11)"
+          },
+          "chigiriTemplateRef": {"type": "string", "maxLength": 120, "description": "chigiri procedure-template id for the appeal (UPL boundary, G5)"},
+          "counselRoutedRef": {"type": "string", "description": "Optional ref: external-counsel engagement via chigiri + Public Fund when legal characterization is needed"},
+          "status": {
+            "type": "string",
+            "knownValues": ["filed", "under-review", "upheld", "overturned", "withdrawn"],
+            "description": "Appeal lifecycle status (factual)"
+          }
+        }
+      }
+    }
+  }
+}
