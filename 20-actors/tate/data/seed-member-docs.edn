@@ -212,6 +212,31 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 17 (:au :ca labor+housing) ──────────────────────────────────────────
+ {:notice/id "ntc:au-dismissal" :notice/label "AU termination of employment (letter・労働)"
+  :notice/jurisdiction :au
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "Termination of your employment will take effect on the stated date."}
+
+ {:notice/id "ntc:au-termnotice" :notice/label "AU termination notice (賃貸・住居 NSW)"
+  :notice/jurisdiction :au
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "Termination notice under the Residential Tenancies Act 2010. Vacant possession is sought."}
+
+ {:notice/id "ntc:ca-dismissal" :notice/label "CA notice of termination (letter・労働 ON)"
+  :notice/jurisdiction :ca
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of termination of employment. A severance offer is enclosed for your signature."}
+
+ {:notice/id "ntc:ca-n12" :notice/label "CA Form N12 (立退き・住居 ON)"
+  :notice/jurisdiction :ca
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "Form N12: Notice to End your Tenancy because the landlord requires the unit."}
+
  ;; ── wave 16 (:ar + :kr family + states) ──────────────────────────────────────
  {:doc/id "doc:ar-terminos" :doc/label "AR términos y condiciones (synthetic)"
   :doc/jurisdiction :ar

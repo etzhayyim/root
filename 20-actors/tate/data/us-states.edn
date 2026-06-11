@@ -110,4 +110,40 @@
   :state/answer-rule "conciliation court: 通知記載の hearing に出頭; 通常民事は送達から21日以内に answer"
   :state/answer-anchor "Minn. R. Civ. P. 12.01 / Minn. Stat. ch. 491A"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 17 (+5: WI MD MO IN TN) ─────────────────────────────────────────────
+ {:state/id :us-wi :state/label "Wisconsin"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: summons 記載の return date に応答/出頭"
+  :state/answer-anchor "Wis. Stat. ch. 799"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-md :state/label "Maryland"
+  :state/small-claims-usd 5000
+  :state/answer-rule "District Court: notice of intention to defend を送達から15日以内に提出"
+  :state/answer-anchor "Md. Rule 3-307"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-mo :state/label "Missouri"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims: summons 記載の期日に出頭 (書面 answer 不要)"
+  :state/answer-anchor "Mo. Sup. Ct. R. 140 以下"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-in :state/label "Indiana"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 通知記載の trial date に出頭; 通常民事は20日 (+3日 mail)"
+  :state/answer-anchor "Ind. Small Claims Rules / Trial Rule 6(C)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-tn :state/label "Tennessee"
+  :state/small-claims-usd 25000
+  :state/answer-rule "general sessions: civil warrant 記載の期日に出頭 (書面 answer 不要の制度)"
+  :state/answer-anchor "Tenn. Code Ann. §16-15-501 以下"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

@@ -623,6 +623,46 @@ def test_wave16_ar_and_kr_family():
     assert any("조정전치" in d["rule"] or "조정전치" in d["anchor"] for d in kr["deadlines"])
 
 
+def test_wave17_au_ca_labor_housing():
+    """Wave 17: :au FWC unfair dismissal **21日** (FW Act s.394) · :au NSW
+    termination notice (NCAT order までは退去不要) · :ca ON ESA vs common law
+    (severance サイン前警告 = protective) · :ca N12 (bad-faith → T5, LTB+Sheriff
+    のみが執行可) — labor/housing invariants auto-extend."""
+    ps, procs = _by_id()
+    au_l = ps["ntc:au-dismissal"]
+    assert au_l["status"] == ":genuine" and au_l["proc"] == "proc:au-unfair-dismissal"
+    assert any("21日" in d["rule"] and "s.394" in d["anchor"] for d in au_l["deadlines"])
+    au_h = ps["ntc:au-termnotice"]
+    assert au_h["status"] == ":genuine" and au_h["proc"] == "proc:au-termination-notice"
+    assert any("NCAT" in d["rule"] for d in au_h["deadlines"])
+    ca_l = ps["ntc:ca-dismissal"]
+    assert ca_l["status"] == ":genuine" and ca_l["proc"] == "proc:ca-dismissal"
+    assert any("common law" in d["rule"] for d in ca_l["deadlines"])
+    ca_h = ps["ntc:ca-n12"]
+    assert ca_h["status"] == ":genuine" and ca_h["proc"] == "proc:ca-n12"
+    assert any("bad faith" in d["rule"] or "T5" in d["rule"] for d in ca_h["deadlines"])
+
+
+def test_court_vocabulary_derived():
+    """Wave 17 maturity: the fake-guard vocabulary is DERIVED from the registry —
+    every procedure trigger keyword is automatically a trip-wire (new procedures are
+    scam-guarded the moment they land), plus the curated generics."""
+    from respond_plan import court_vocabulary, CURATED_TRIPWIRES
+    procs = load_procs()
+    vocab = set(court_vocabulary(procs))
+    for p in procs:
+        for k in p[":proc/trigger-keywords"]:
+            assert k in vocab, (p[":proc/id"], k)
+    assert set(CURATED_TRIPWIRES) <= vocab
+    # and the derived vocabulary actually guards: an :au scam SMS using the FWC
+    # trigger words is suspected-fake
+    n = {":notice/id": "ntc:x", ":notice/jurisdiction": ":au", ":notice/channel": ":sms",
+         ":notice/text": "URGENT: unfair dismissal compensation owed to you, call now",
+         ":notice/sourcing": ":synthetic"}
+    _, status = classify(n, procs)
+    assert status == ":suspected-fake"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

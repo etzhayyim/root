@@ -554,6 +554,43 @@
   :proc/verify-current-law true}
 
  ;; ── :au ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:au-unfair-dismissal" :proc/label "Termination of employment (解雇・労働・豪州)"
+  :proc/jurisdiction :au :proc/track :labor
+  :proc/trigger-keywords ["termination of your employment" "unfair dismissal"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "FWC unfair dismissal application"
+    :dl/rule "dismissal の発効から21日以内に Fair Work Commission へ申立て — 延長は例外的 (世界屈指の短期期限)"
+    :dl/anchor "Fair Work Act 2009 s.394(2)" :dl/verify-service-date true}
+   {:dl/label "適格要件"
+    :dl/rule "最低雇用期間 (6か月; 小規模事業者は12か月) と高所得閾値の適格を確認 — general protections (s.365) は別ルート (同じく21日)"
+    :dl/anchor "FW Act ss.382-384・365" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :fwc-application :opt/kind :self-submit :opt/protective true
+    :opt/label "FWC へ unfair dismissal application (21日 — オンライン・低額手数料・本人可)"}
+   {:opt/id :fwo-check :opt/kind :self-decide :opt/label "未払 entitlements は Fair Work Ombudsman へ"}]
+  :proc/refer-when ["general protections / 差別が絡む場合" "community legal centre"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:au-termination-notice" :proc/label "Termination notice (賃貸・住居・豪州 NSW)"
+  :proc/jurisdiction :au :proc/track :housing
+  :proc/trigger-keywords ["termination notice"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "通知期間の点検"
+    :dl/rule "通知期間は事由により30〜90日 (NSW; 州により異なる) — 期間不足の通知は無効主張の余地"
+    :dl/anchor "NSW Residential Tenancies Act 2010 ss.84-87" :dl/verify-service-date true}
+   {:dl/label "退去義務の発生時点"
+    :dl/rule "tenant が残る場合、landlord は NCAT の possession order が必要 — 通知のみで退去義務はない"
+    :dl/anchor "NSW RTA 2010 s.119 (NCAT)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :check-notice :opt/kind :self-decide :opt/label "通知期間・様式を点検 (Tenants' Union NSW 無料相談)"}
+   {:opt/id :ncat-respond :opt/kind :self-decide :opt/label "NCAT 期日に出席して事情を述べる (hardship 主張可)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "lockout・荷物搬出は違法 — 退去執行は NCAT warrant + sheriff のみ; 受けたら police / Fair Trading へ"}]
+  :proc/refer-when ["NCAT possession 手続が始まった場合"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:au-statement-of-claim" :proc/label "Statement of claim (民事・豪州)"
   :proc/jurisdiction :au
   :proc/trigger-keywords ["statement of claim"]
@@ -569,6 +606,40 @@
   :proc/verify-current-law true}
 
  ;; ── :ca ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ca-dismissal" :proc/label "Termination of employment (解雇・労働・カナダ ON)"
+  :proc/jurisdiction :ca :proc/track :labor
+  :proc/trigger-keywords ["termination of employment"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "ESA 最低基準 / wrongful dismissal"
+    :dl/rule "ESA の termination pay (勤続1年あたり1週・上限8週) は最低基準 — common law の reasonable notice はそれを大きく上回り得る; ESA complaint は2年以内, 民事 (wrongful dismissal) は ON 時効2年"
+    :dl/anchor "ON ESA 2000 Pt XV / Limitations Act 2002 s.4" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :esa-complaint :opt/kind :self-submit :opt/label "Ministry of Labour へ ESA complaint (無料・本人可)"}
+   {:opt/id :severance-review :opt/kind :self-decide :opt/protective true
+    :opt/label "release/severance へのサインは法律相談の前に絶対しない (common law 分の放棄になり得る)"}]
+  :proc/refer-when ["common law notice の上積み → employment lawyer (成功報酬も多い)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ca-n12" :proc/label "Form N12 (立退き通知・住居・カナダ ON)"
+  :proc/jurisdiction :ca :proc/track :housing
+  :proc/trigger-keywords ["N12"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "N12 の要件"
+    :dl/rule "landlord 自己使用の N12 は60日以上の通知 + 1か月分の補償が必須; 悪意 (bad faith) の N12 は T5 で救済 (最大12か月分の賠償等)"
+    :dl/anchor "ON RTA 2006 ss.48・48.1・55.1・57" :dl/verify-service-date true}
+   {:dl/label "退去義務の発生時点"
+    :dl/rule "退去執行は LTB の order + Sheriff のみ — N12 だけで退去義務はない; 期日で事情を述べられる"
+    :dl/anchor "ON RTA 2006 (LTB) / Courts of Justice Act" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verify-good-faith :opt/kind :self-decide :opt/label "自己使用の真実性を点検 (再賃貸の形跡は T5 の証拠)"}
+   {:opt/id :compensation-check :opt/kind :self-decide :opt/label "1か月分補償の受領を確認 (未払いなら N12 無効主張)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "鍵交換・追い出しは違法 — 執行は LTB order + Sheriff のみ; 受けたら Rental Housing Enforcement Unit へ"}]
+  :proc/refer-when ["LTB hearing → Tenant Duty Counsel (無料)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:ca-plaintiffs-claim" :proc/label "Plaintiff's claim (small claims・カナダ ON)"
   :proc/jurisdiction :ca
   :proc/trigger-keywords ["plaintiff's claim"]

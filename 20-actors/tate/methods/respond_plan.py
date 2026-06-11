@@ -36,22 +36,18 @@ import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from terms_scan import read_edn, load_docs, HERE  # noqa: E402
 
-# court vocabulary per jurisdiction — the fake-guard trip wires (G6)
-COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
-                  "summons", "lawsuit", "small claims", "claim form",
-                  "order for payment", "Mahnbescheid", "Vollstreckungsbescheid",
-                  "지급명령", "법원", "injonction de payer", "assignation",
-                  "statement of claim", "plaintiff's claim", "decreto ingiuntivo",
-                  "proceso monitorio", "dagvaarding", "citação",
-                  "支付命令", "small claims tribunal", "written statement", "支付令",
-                  "nakaz zapłaty", "betalningsföreläggande", "Zahlungsbefehl", "injunção",
-                  "差押", "garnishment", "Pfändung",  # 差押SMS詐欺 (『差押え最終通告』) はこの語彙で捕捉
-                  "破産手続", "proof of claim", "Insolvenz", "Betreibung", "civil summons",
-                  "家事調停", "Scheidungsantrag", "petition for dissolution",
-                  "betalingspåkrav", "haastehakemus", "forliksrådet",
-                  "emplazamiento", "saisie-attribution", "notice of enforcement",
-                  "citation à comparaître", "procédure collective", "proof of debt",
-                  "divorce application", "traslado de la demanda", "조정기일")
+# fake-guard trip-wires (G6). Wave 17: the vocabulary is DERIVED — every procedure's
+# trigger keywords are automatically trip-wires (a newly registered procedure is
+# scam-guarded the moment it lands; no manual sync), plus a small curated set of
+# generic scam words that are not themselves triggers.
+CURATED_TRIPWIRES = ("法院", "법원", "강제집행", "lawsuit", "差押", "garnishment",
+                     "Pfändung", "Insolvenz", "Betreibung", "assignation", "juzgado")
+
+
+def court_vocabulary(procs: list) -> tuple:
+    """Curated generics + the union of ALL procedure trigger keywords (derived, G6)."""
+    return CURATED_TRIPWIRES + tuple(k for p in procs
+                                     for k in p.get(":proc/trigger-keywords", []))
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 
@@ -104,8 +100,10 @@ def classify(notice: dict, procs: list, jurisdictions: dict | None = None):
             break
     if matched is None:
         # court vocabulary on a non-formal channel without a registry match is the
-        # classic fake shape (JP 架空請求 / US fake-lawsuit robocall / DE Fake-Inkasso)
-        if any(k.casefold() in text for k in COURT_KEYWORDS) and channel in (":sms", ":email", ":mail"):
+        # classic fake shape (JP 架空請求 / US fake-lawsuit robocall / DE Fake-Inkasso);
+        # vocabulary is derived from ALL registered procedures' triggers (wave 17)
+        if any(k.casefold() in text for k in court_vocabulary(procs)) \
+                and channel in (":sms", ":email", ":mail"):
             return None, ":suspected-fake"
         return None, ":unknown"
     genuine = matched.get(":proc/genuine-channels", [])
