@@ -70,6 +70,9 @@
  {:lt/id "concept.guaranty" :lt/kind :concept :lt/label "Guaranty / suretyship (保証)" :concept/code "guaranty" :lt/sourcing :authoritative}
  {:lt/id "concept.franchise" :lt/kind :concept :lt/label "Franchise" :concept/code "franchise" :lt/sourcing :authoritative}
  {:lt/id "concept.distribution" :lt/kind :concept :lt/label "Distribution / commercial agency (販売店・代理商)" :concept/code "distribution" :lt/sourcing :authoritative}
+ {:lt/id "concept.security-interest" :lt/kind :concept :lt/label "Security interest / collateral (担保)" :concept/code "security-interest" :lt/sourcing :authoritative}
+ {:lt/id "concept.insurance" :lt/kind :concept :lt/label "Insurance (保険)" :concept/code "insurance" :lt/sourcing :authoritative}
+ {:lt/id "concept.construction" :lt/kind :concept :lt/label "Construction / works contract (請負・建設)" :concept/code "construction" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -220,6 +223,17 @@
  {:lt/id "st.eu-commercial-agents" :lt/kind :statute :lt/label "EU Commercial Agents Directive 86/653/EEC — protection of self-employed agents" :statute/citation "Directive 86/653/EEC, Art. 17" :statute/instrument "Council Directive 86/653/EEC" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/1986/653/oj" :lt/sourcing :authoritative}
  {:lt/id "st.jp-shoho-27" :lt/kind :statute :lt/label "日本商法 27条 — 代理商 (commercial agent)" :statute/citation "商法27条" :statute/instrument "商法 (明治32年法律第48号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/132AC0000000048" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 11 (/loop): new families — secured-lending / insurance / construction ───
+ {:lt/id "st.jp-civil-369" :lt/kind :statute :lt/label "日本民法 369条 — 抵当権 (mortgage)" :statute/citation "民法369条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ {:lt/id "st.us-ucc-9-203" :lt/kind :statute :lt/label "UCC §9-203 — attachment & enforceability of a security interest" :statute/citation "UCC §9-203" :statute/instrument "Uniform Commercial Code, Article 9 (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/ucc/9/9-203" :lt/sourcing :authoritative}
+ {:lt/id "st.de-bgb-1113" :lt/kind :statute :lt/label "BGB §1113 — Hypothek (mortgage)" :statute/citation "BGB §1113" :statute/instrument "Buergerliches Gesetzbuch (BGB), Germany" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/bgb/__1113.html" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-insurance-2008" :lt/kind :statute :lt/label "日本保険法 4条 — 告知義務 (duty of disclosure)" :statute/citation "保険法4条" :statute/instrument "保険法 (平成20年法律第56号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/420AC0000000056" :lt/sourcing :authoritative}
+ {:lt/id "st.uk-insurance-2015" :lt/kind :statute :lt/label "UK Insurance Act 2015 §3 — duty of fair presentation of risk" :statute/citation "Insurance Act 2015, s.3" :statute/instrument "Insurance Act 2015 (UK)" :statute/jurisdiction "jx.uk" :statute/url "https://www.legislation.gov.uk/ukpga/2015/4/section/3" :lt/sourcing :authoritative}
+ {:lt/id "st.eu-idd-2016" :lt/kind :statute :lt/label "EU Insurance Distribution Directive 2016/97 Art. 20 — demands & needs" :statute/citation "Directive (EU) 2016/97, Art. 20" :statute/instrument "Insurance Distribution Directive (EU) 2016/97" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/2016/97/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-civil-632" :lt/kind :statute :lt/label "日本民法 632条 — 請負 (contract for work)" :statute/citation "民法632条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-kensetsu" :lt/kind :statute :lt/label "建設業法 19条 — 建設工事の請負契約の内容" :statute/citation "建設業法19条" :statute/instrument "建設業法 (昭和24年法律第100号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/324AC0000000100" :lt/sourcing :authoritative}
+ {:lt/id "st.fr-civil-1792" :lt/kind :statute :lt/label "Code civil Art. 1792 — garantie decennale (10-year structural warranty)" :statute/citation "Code civil, Art. 1792" :statute/instrument "Code civil (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006443591/" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -261,6 +275,9 @@
  {:lt/id "cl.guaranty" :lt/kind :clause :lt/label "Guaranty / suretyship obligation (incl. cap)" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.franchise-grant" :lt/kind :clause :lt/label "Franchise grant, system & pre-contractual disclosure" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.distribution-appointment" :lt/kind :clause :lt/label "Distributor/agent appointment & territory" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.security-interest" :lt/kind :clause :lt/label "Grant of security interest / collateral" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.insurance-cover" :lt/kind :clause :lt/label "Insured risk, premium, disclosure & claims" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.construction-scope" :lt/kind :clause :lt/label "Scope of works, completion & defects liability" :clause/role :warranty :clause/optionality :mandatory :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── templates (nodes) — the publishable units ───
  {:lt/id "tmpl.sales-intl" :lt/kind :template :lt/label "International Sale of Goods Agreement" :template/title "International Sale of Goods Agreement (CISG)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -287,6 +304,9 @@
  {:lt/id "tmpl.guaranty" :lt/kind :template :lt/label "Guaranty / Suretyship Agreement" :template/title "Guaranty Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.franchise" :lt/kind :template :lt/label "Franchise Agreement" :template/title "Franchise Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.distribution" :lt/kind :template :lt/label "Distribution Agreement" :template/title "Distribution Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.security-agreement" :lt/kind :template :lt/label "Security Agreement (collateral)" :template/title "Security Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.insurance" :lt/kind :template :lt/label "Insurance Policy Agreement" :template/title "Insurance Policy Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
+ {:lt/id "tmpl.construction" :lt/kind :template :lt/label "Construction / Works Contract" :template/title "Construction Works Contract" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -428,6 +448,23 @@
  {:en/from "tmpl.distribution" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.distribution" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.distribution" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 11 — security / insurance / construction template composition
+ {:en/from "tmpl.security-agreement" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.security-agreement" :en/to "cl.security-interest" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.security-agreement" :en/to "cl.governing-law" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.security-agreement" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.insurance" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.insurance" :en/to "cl.insurance-cover" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.insurance" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.insurance" :en/to "cl.cooling-off" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.insurance" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.construction" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "cl.construction-scope" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.construction" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "cl.limitation-liability" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "cl.dispute-arbitration" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -543,6 +580,17 @@
  {:en/from "cl.franchise-grant" :en/to "st.us-ftc-franchise" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.distribution-appointment" :en/to "st.eu-commercial-agents" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.distribution-appointment" :en/to "st.jp-shoho-27" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+
+ ;; coverage wave 11 — security / insurance / construction bindings
+ {:en/from "cl.security-interest" :en/to "st.jp-civil-369" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.security-interest" :en/to "st.us-ucc-9-203" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.security-interest" :en/to "st.de-bgb-1113" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.insurance-cover" :en/to "st.jp-insurance-2008" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.insurance-cover" :en/to "st.uk-insurance-2015" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.insurance-cover" :en/to "st.eu-idd-2016" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.construction-scope" :en/to "st.jp-civil-632" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.construction-scope" :en/to "st.jp-kensetsu" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.construction-scope" :en/to "st.fr-civil-1792" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  ;; coverage wave 3 — GLOBAL electronic-signature grounding (the e-sign clause now rests on law on every continent)
  {:en/from "cl.signature-esign" :en/to "st.uncitral-mlesig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.india-it-act-5" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
@@ -596,6 +644,9 @@
  {:en/from "cl.guaranty" :en/to "concept.guaranty" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.franchise-grant" :en/to "concept.franchise" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.distribution-appointment" :en/to "concept.distribution" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.security-interest" :en/to "concept.security-interest" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.insurance-cover" :en/to "concept.insurance" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.construction-scope" :en/to "concept.construction" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (D) :governed-by — template → jurisdiction
  {:en/from "tmpl.sales-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -620,6 +671,9 @@
  {:en/from "tmpl.guaranty" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.franchise" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.distribution" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.security-agreement" :en/to "jx.us" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.insurance" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.construction" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -741,6 +795,17 @@
  {:en/from "st.us-ftc-franchise" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-commercial-agents" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-shoho-27" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; coverage wave 11 — applies-in for security / insurance / construction
+ {:en/from "st.jp-civil-369" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-ucc-9-203" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-bgb-1113" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-insurance-2008" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uk-insurance-2015" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-idd-2016" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-632" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-kensetsu" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.fr-civil-1792" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
