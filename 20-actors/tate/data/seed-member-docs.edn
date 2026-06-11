@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 30 (:es/:br/:it enforcement — 100 procs) ────────────────────────────
+ {:notice/id "ntc:es-embargo" :notice/label "ES diligencia de embargo (執行)"
+  :notice/jurisdiction :es
+  :notice/channel :formal-service :notice/claim-amount 2900 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Diligencia de embargo de sueldo comunicada a su empleador."}
+
+ {:notice/id "ntc:br-penhora" :notice/label "BR penhora (執行)"
+  :notice/jurisdiction :br
+  :notice/channel :formal-service :notice/claim-amount 7000 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Auto de penhora sobre valores em conta vinculada ao salário."}
+
+ {:notice/id "ntc:it-pignoramento" :notice/label "IT atto di pignoramento (執行)"
+  :notice/jurisdiction :it
+  :notice/channel :formal-service :notice/claim-amount 3300 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Atto di pignoramento dello stipendio presso il datore di lavoro."}
+
  ;; ── wave 29 (:nl/:br/:se housing) ────────────────────────────────────────────
  {:notice/id "ntc:nl-huur" :notice/label "NL opzegging huurovereenkomst (住居)"
   :notice/jurisdiction :nl

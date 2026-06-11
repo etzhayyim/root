@@ -914,6 +914,35 @@ def test_wave29_nl_br_se_housing():
     assert p2 is None  # bare word → honest degrade
 
 
+def test_wave30_es_br_it_enforcement():
+    """Wave 30: 賃金差押え保護が10法体系に — :es SMI 全額保護+累進 (LEC 607) ·
+    :br **原則 impenhorável** (CPC 833 IV — 世界最広) · :it un quinto 1/5 +
+    minimo vitale (c.p.c. 545). 全 enforcement proc の protective invariant auto."""
+    ps, _ = _by_id()
+    es = ps["ntc:es-embargo"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-embargo"
+    assert any("607" in d["anchor"] for d in es["deadlines"])
+    br = ps["ntc:br-penhora"]
+    assert br["status"] == ":genuine" and br["proc"] == "proc:br-penhora"
+    assert any("833" in d["anchor"] for d in br["deadlines"])
+    it = ps["ntc:it-pignoramento"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-pignoramento"
+    assert any("545" in d["anchor"] and "un quinto" in d["rule"] for d in it["deadlines"])
+
+
+def test_plans_json_export():
+    """Wave 30 maturity: 機械可読プラン (yoro UI 向け) — JSON round-trips with the
+    same statuses/procs as the in-memory plans."""
+    import json
+    _, notices = load_docs()
+    ps = plans(notices, load_procs())
+    text = json.dumps(ps, ensure_ascii=False, indent=1)
+    back = json.loads(text)
+    assert len(back) == len(ps)
+    assert {p["status"] for p in back} == {p["status"] for p in ps}
+    assert all("deadlines" in p and "options" in p for p in back)
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -249,6 +249,9 @@ def main(argv):
     ps = plans(notices, load_procs())
     out.mkdir(parents=True, exist_ok=True)
     (out / "response-plans.md").write_text(report(ps), encoding="utf-8")
+    import json
+    (out / "response-plans.json").write_text(
+        json.dumps(ps, ensure_ascii=False, indent=1), encoding="utf-8")  # yoro UI 向け機械可読 (wave 30)
     fake = sum(1 for p in ps if p["status"] == ":suspected-fake")
     unk = sum(1 for p in ps if p["status"] == ":unknown-jurisdiction")
     print(f"tate: {len(ps)} response plans ({fake} suspected-fake guarded, "

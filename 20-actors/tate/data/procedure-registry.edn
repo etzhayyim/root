@@ -773,6 +773,24 @@
   :proc/refer-when ["patrocinio a spese dello Stato / sindacato inquilini (SUNIA 等)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:it-pignoramento" :proc/label "Pignoramento dello stipendio (賃金差押え・執行・イタリア)"
+  :proc/jurisdiction :it :proc/track :enforcement
+  :proc/trigger-keywords ["pignoramento"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Un quinto (1/5 ルール)"
+    :dl/rule "給与の差押えは原則 un quinto (1/5) まで; 年金は minimo vitale (assegno sociale の1.5倍相当) が差押禁止 — 複数差押えの合算上限も法定"
+    :dl/anchor "c.p.c. art. 545 / DL 83/2015" :dl/verify-service-date true}
+   {:dl/label "Opposizione"
+    :dl/rule "違法・過大な pignoramento には opposizione all'esecuzione/agli atti"
+    :dl/anchor "c.p.c. artt. 615・617" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :quinto-check :opt/kind :self-decide :opt/protective true
+    :opt/label "1/5 上限と minimo vitale が守られているか確認 (超過は opposizione)"}
+   {:opt/id :opposizione :opt/kind :self-submit :opt/label "giudice dell'esecuzione へ opposizione"}]
+  :proc/refer-when ["sovraindebitamento (L.3/2012 系) の手続 → OCC/専門家"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:it-decreto-ingiuntivo" :proc/label "Decreto ingiuntivo (支払命令・イタリア)"
   :proc/jurisdiction :it
   :proc/trigger-keywords ["decreto ingiuntivo"]
@@ -823,6 +841,22 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換・追い出しは違法 — lanzamiento は裁判所手続のみ; 社会的弱者は servicios sociales の保護手続"}]
   :proc/refer-when ["即 justicia gratuita (desahucio は指定で手続停止の運用あり)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:es-embargo" :proc/label "Embargo de sueldo (賃金差押え・執行・スペイン)"
+  :proc/jurisdiction :es :proc/track :enforcement
+  :proc/trigger-keywords ["embargo"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Inembargabilidad (生計保護)"
+    :dl/rule "SMI (最低賃金) までは全額差押禁止 — 超過分は累進スケール (30/50/60/75/90%) でのみ差押え可; 適用は自動だが計算誤りは是正請求"
+    :dl/anchor "LEC art. 607" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :escala-check :opt/kind :self-decide :opt/protective true
+    :opt/label "SMI 控除と累進スケールが正しく適用されているか給与明細で確認 (誤りは LAJ へ)"}
+   {:opt/id :cargas-familiares :opt/kind :self-submit
+    :opt/label "扶養家族があれば 10-15% の追加減免を申立て (607.4)"}]
+  :proc/refer-when ["多重債務 → Ley de Segunda Oportunidad の検討 (専門家)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:es-monitorio" :proc/label "Proceso monitorio (支払督促・スペイン)"
@@ -1609,6 +1643,21 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換・断水断電は違法 (autotutela) — despejo は judicial + oficial de justiça のみ"}]
   :proc/refer-when ["Defensoria Pública (住居は優先対応の州が多い)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:br-penhora" :proc/label "Penhora de salário (賃金差押え・執行・ブラジル)"
+  :proc/jurisdiction :br :proc/track :enforcement
+  :proc/trigger-keywords ["penhora"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Impenhorabilidade (原則差押禁止)"
+    :dl/rule "給与・年金は原則 impenhoráveis — 例外は alimentos (養育費等) と50 salários mínimos 超の部分のみ; 違反差押えには embargos/impugnação"
+    :dl/anchor "CPC 2015 art. 833 IV・§2º" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :impugnacao :opt/kind :self-submit :opt/protective true
+    :opt/label "違法な penhora は impugnação で解除を申立て (833 IV — 世界で最も広い賃金保護)"}
+   {:opt/id :conta-salario :opt/kind :self-decide :opt/label "口座凍結が給与原資なら出所を証明 (extrato)"}]
+  :proc/refer-when ["Defensoria Pública"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"
