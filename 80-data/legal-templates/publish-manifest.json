@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreib664mmvhxshqswnybwpcfbdbwtew3x3owe7n57e2k66donrm62hq",
-      "bodySha256": "0x3ef718ca9ef23c2566e036788a1186d325b77dbac4fb7bf2695ef0dcd8b3da3c",
-      "bytes": 2624,
+      "bodyCid": "bafkreibrgfp6maghc4ywngrk7n2lzvi6hp3pfeuxxvolqoeywwgx6acx4e",
+      "bodySha256": "0x31315fe600c71731669a2afb74bcd51e3bf6f29297bd5cb83898b58d7f0057e1",
+      "bytes": 3126,
       "clauseCount": 8,
       "statutes": [
         {
@@ -100,6 +100,42 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -123,9 +159,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibxcaus2uouzqnflzvwhlmplngd23vmmkpny37mji6qcbcug5vvxy",
-      "bodySha256": "0x3710292d51d4cc1a55e6b63ad8f5b4c3d6eac629edc6fec4a3d010454376b5be",
-      "bytes": 1588,
+      "bodyCid": "bafkreihys3qeu6dhbpbest4c3agmpyubp2qir5gluyqajc35to3ldynmle",
+      "bodySha256": "0xf896e04a78670bc2494f82d80cc7e2817ea088f4cba620048b7d9bb6b1e1ac59",
+      "bytes": 2090,
       "clauseCount": 3,
       "statutes": [
         {
@@ -163,6 +199,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -176,9 +248,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiag4q4hfxlyxv4l7iwym7jik2juz5xp4kjosjto3hsrubl2f6orfu",
-      "bodySha256": "0x06e43872dd78bd78bfa2d867d2856934cf6efe292e9266ed9e51a057a2f9d12d",
-      "bytes": 1388,
+      "bodyCid": "bafkreibjtl2z2beks2hj6sripb3bs77y6c6yvmsvrjfl7r6ep5al2dstwa",
+      "bodySha256": "0x299af59d048a968e9f4a287876197ff8f0bd8ab2558a4abfc7c47f40bd0e53b0",
+      "bytes": 1890,
       "clauseCount": 2,
       "statutes": [
         {
@@ -210,6 +282,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -223,9 +331,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreicawsfdbcdmvghtvudfnyjvmqj2eq5a3ullkoxslv62fbtjaytwxy",
-      "bodySha256": "0x40b48a30886ca98f3ad0656e1356413a243a0dd16b53af25d7da2866906276be",
-      "bytes": 1695,
+      "bodyCid": "bafkreibqwm3icmmikhtf47s4qpo4yccto4jdgs7gfuzlzpr35k3m5q4nrq",
+      "bodySha256": "0x30b33681318851e65e7e5c83ddcc08537712334be62d32bcbe3beab6cec38d8c",
+      "bytes": 2782,
       "clauseCount": 5,
       "statutes": [
         {
@@ -235,10 +343,52 @@
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3051-1-1"
         },
         {
+          "id": "st.china-pipl-44",
+          "citation": "PIPL 2021, Art. 44",
+          "instrument": "Personal Information Protection Law of the PRC (2021)",
+          "url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"
+        },
+        {
+          "id": "st.sg-pdpa-21",
+          "citation": "Personal Data Protection Act 2012, §21",
+          "instrument": "Personal Data Protection Act 2012 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/PDPA2012"
+        },
+        {
           "id": "st.gdpr-15",
           "citation": "GDPR Art. 15",
           "instrument": "Regulation (EU) 2016/679 (GDPR)",
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.brazil-lgpd-18",
+          "citation": "LGPD (Lei 13.709/2018), Art. 18",
+          "instrument": "Lei Geral de Proteção de Dados (LGPD), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+        },
+        {
+          "id": "st.india-dpdp-2023",
+          "citation": "DPDP Act 2023, §11",
+          "instrument": "Digital Personal Data Protection Act, 2023 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/20063"
+        },
+        {
+          "id": "st.kr-pipa-35",
+          "citation": "PIPA, Art. 35 (Korea)",
+          "instrument": "Personal Information Protection Act (개인정보 보호법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Personal+Information+Protection+Act"
+        },
+        {
+          "id": "st.us-ccpa-1798-100",
+          "citation": "Cal. Civ. Code §1798.100",
+          "instrument": "California Consumer Privacy Act (as amended by CPRA)",
+          "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.100"
+        },
+        {
+          "id": "st.fr-loi-informatique",
+          "citation": "Loi n° 78-17, Art. 49",
+          "instrument": "Loi Informatique et Libertés (n° 78-17), France",
+          "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000886460/"
         },
         {
           "id": "st.gdpr-33",
@@ -269,6 +419,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -282,9 +468,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreib5vhbqtshcs5u5wfkxho6g4bwjwhn7itcwf3hlorjf33h7gd3z34",
-      "bodySha256": "0x3da9c309c8e29769db15573bbc6e06c9b1dbf44c562eceb74525decff30f79df",
-      "bytes": 2285,
+      "bodyCid": "bafkreiejd4n7repjk2psmmc4z3dh5cgqp6cra6scie5l5sohpyfjwgnkdu",
+      "bodySha256": "0x891f1bf891e9569f26305ccec67e88d07f85107a42413abec9c77e0a9b19aa1d",
+      "bytes": 2787,
       "clauseCount": 6,
       "statutes": [
         {
@@ -364,6 +550,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -377,9 +599,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreignfc4sluxgsmlplevuvo5yz4auhxm5q2lpgzx3xdlgar56w4kzwe",
-      "bodySha256": "0xcd28b925d2e69316f592b4abbb8cf0143dd9d8696f366fbb8d66047beb7159b1",
-      "bytes": 1874,
+      "bodyCid": "bafkreihglzka5wh74u6q4jy6pfnrqtxbuzkzgcbwyf5mlaj6tqlucsc62i",
+      "bodySha256": "0xe65e540ed8ffe53d0e271e795b184ee1a655930836c17ac5813e9c1741485ed2",
+      "bytes": 2376,
       "clauseCount": 4,
       "statutes": [
         {
@@ -429,6 +651,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -442,9 +700,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiextvx7c6nwsk5pb4ymtyw3jbuy6dl5fgg4fjsue34vtvaljziwxm",
-      "bodySha256": "0x979d6ff179b692baf0f30c9e2db48698f0d7d298dc2a65426f959d40b4e516bb",
-      "bytes": 1847,
+      "bodyCid": "bafkreiaik6p4odajra3mslxjs6tmc4kpqafymkfe7i4tptyawmublgqtka",
+      "bodySha256": "0x08579fc70c098836c92ee997a6c1714f800b8628a4fa3937cf00b328159a1350",
+      "bytes": 2349,
       "clauseCount": 5,
       "statutes": [
         {
@@ -500,6 +758,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -554,9 +848,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibk4zicaxmv664bctggib3sjpkhtc3jbiednh3b4iice432lrsz4e",
-      "bodySha256": "0x2ae650205d95f7b8114cc6407724bd4798b690a08369f61e21022737a5c659e1",
-      "bytes": 1904,
+      "bodyCid": "bafkreiasw6vof6rb6ptz3rp5yc7ae2me3xgkr4smyd7szxnhli2xmdn2pm",
+      "bodySha256": "0x12b7aae2fa21f3e79dc5fdc0be026984ddcca8f24cc0ff2cdda75a35760dba7b",
+      "bytes": 2406,
       "clauseCount": 4,
       "statutes": [
         {
@@ -602,6 +896,42 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -625,9 +955,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigmaf742ptrlf4wvnjknh7e2pxv4b7ojkgh3fhzd2xagyvfpzyjkm",
-      "bodySha256": "0xcc017fcd3e7159796ab52a69fe4d3ef5e07ee4a8c7d94f91eae0362a57e70953",
-      "bytes": 2153,
+      "bodyCid": "bafkreia53urw3tworpf4qhz4th6o2uigcspcbtobxm4lalbvyapldzusmu",
+      "bodySha256": "0x1ddd236dcece8bcbc81f3c99fced5106149e20cdc1bb38b02c35c01eb1e69265",
+      "bytes": 2655,
       "clauseCount": 6,
       "statutes": [
         {
@@ -695,6 +1025,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -708,9 +1074,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihp7cmducybjgj7npssiz7xqqqi5zt2ji3azqciez5dykjunkf2wa",
-      "bodySha256": "0xeff8983a0b014993f6be52467f784208ee67a4a360cc048267a3c29346a8bab0",
-      "bytes": 1378,
+      "bodyCid": "bafkreiaojhbqdk34gp7phinxlnrwve77tsnvfay5eydrrtu4a4yjb4i6fu",
+      "bodySha256": "0x0e49c301ab7c33fef3a1b75b636a93ff9c9b52831d260718ce9c073090f11e2d",
+      "bytes": 1880,
       "clauseCount": 2,
       "statutes": [
         {
@@ -742,6 +1108,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         }
       ]
     },
@@ -755,9 +1157,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiaurgcwffjz4kubu3jgztc376ggz3b54lbxvr2kprekyfaq34stx4",
-      "bodySha256": "0x148985629539e2a81a6d26ccc5bff8c6cec3de2c37ac74a7c48ac1410df253bf",
-      "bytes": 2775,
+      "bodyCid": "bafkreih64i3ym7i3upssnhenqutpdsjobah7e3rzvqnws4m7fpl7vnwh7u",
+      "bodySha256": "0xfee237867d1ba3e5269c8d8526f1c92e080ff26e39ac1b69719f2bd7fab6c7fd",
+      "bytes": 3277,
       "clauseCount": 9,
       "statutes": [
         {
@@ -837,6 +1239,42 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         },
         {
           "id": "st.unidroit-2016",

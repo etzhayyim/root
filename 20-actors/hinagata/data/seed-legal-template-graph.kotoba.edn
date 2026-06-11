@@ -36,6 +36,14 @@
  {:lt/id "jx.islamic-law" :lt/kind :jurisdiction :lt/label "Islamic law (Sharia / fiqh al-muʿāmalāt)" :jurisdiction/code "INTL" :jurisdiction/system :religious :lt/sourcing :authoritative}
  {:lt/id "jx.lex-mercatoria" :lt/kind :jurisdiction :lt/label "Lex mercatoria (international customary commercial law)" :jurisdiction/code "INTL" :jurisdiction/system :customary :lt/sourcing :authoritative}
  {:lt/id "jx.israel" :lt/kind :jurisdiction :lt/label "Israel (mixed: common law + religious personal-status law)" :jurisdiction/code "IL" :jurisdiction/system :mixed :lt/sourcing :authoritative}
+ ;; coverage wave 3 (/loop): worldwide jurisdiction reach (Asia-Pacific / Latin America / continental EU)
+ {:lt/id "jx.de" :lt/kind :jurisdiction :lt/label "Germany" :jurisdiction/code "DE" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.fr" :lt/kind :jurisdiction :lt/label "France" :jurisdiction/code "FR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.in" :lt/kind :jurisdiction :lt/label "India" :jurisdiction/code "IN" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+ {:lt/id "jx.sg" :lt/kind :jurisdiction :lt/label "Singapore" :jurisdiction/code "SG" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+ {:lt/id "jx.br" :lt/kind :jurisdiction :lt/label "Brazil" :jurisdiction/code "BR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.cn" :lt/kind :jurisdiction :lt/label "China (PRC)" :jurisdiction/code "CN" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.kr" :lt/kind :jurisdiction :lt/label "South Korea" :jurisdiction/code "KR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -119,6 +127,23 @@
  {:lt/id "st.unidroit-2016" :lt/kind :statute :lt/label "UNIDROIT Principles 2016, Art. 1.7 — good faith and fair dealing" :statute/citation "UNIDROIT Principles 2016, Art. 1.7" :statute/instrument "UNIDROIT Principles of International Commercial Contracts (2016)" :statute/jurisdiction "jx.lex-mercatoria" :statute/url "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/" :lt/sourcing :authoritative}
  ;; mixed system — Israel codified contract law
  {:lt/id "st.israel-contracts-1973" :lt/kind :statute :lt/label "Israel Contracts (General Part) Law 5733-1973, §39 — performance in good faith" :statute/citation "Contracts (General Part) Law 5733-1973, §39" :statute/instrument "Contracts (General Part) Law, 5733-1973 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.nevo.co.il/law_html/law01/055_002.htm" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 3 (/loop): GLOBAL electronic-signature law (makes the e-sign clause worldwide) ───
+ {:lt/id "st.uncitral-mlesig" :lt/kind :statute :lt/label "UNCITRAL Model Law on Electronic Signatures (2001), Art. 6 — reliability" :statute/citation "UNCITRAL MLES 2001, Art. 6" :statute/instrument "UNCITRAL Model Law on Electronic Signatures" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures" :lt/sourcing :authoritative}
+ {:lt/id "st.india-it-act-5" :lt/kind :statute :lt/label "India IT Act 2000, §5 — legal recognition of electronic signatures" :statute/citation "Information Technology Act 2000, §5" :statute/instrument "Information Technology Act, 2000 (India)" :statute/jurisdiction "jx.in" :statute/url "https://www.indiacode.nic.in/handle/123456789/1999" :lt/sourcing :authoritative}
+ {:lt/id "st.sg-eta-8" :lt/kind :statute :lt/label "Singapore Electronic Transactions Act 2010, §8 — electronic signatures" :statute/citation "Electronic Transactions Act 2010, §8" :statute/instrument "Electronic Transactions Act 2010 (Singapore)" :statute/jurisdiction "jx.sg" :statute/url "https://sso.agc.gov.sg/Act/ETA2010" :lt/sourcing :authoritative}
+ {:lt/id "st.china-esign-2004" :lt/kind :statute :lt/label "Electronic Signature Law of the PRC (2004), Art. 14 — reliable e-signature" :statute/citation "PRC Electronic Signature Law, Art. 14" :statute/instrument "Electronic Signature Law of the People's Republic of China (2004)" :statute/jurisdiction "jx.cn" :statute/url "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.de-bgb-126a" :lt/kind :statute :lt/label "BGB §126a — electronic form (qualified electronic signature)" :statute/citation "BGB §126a" :statute/instrument "Bürgerliches Gesetzbuch (BGB), Germany" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/bgb/__126a.html" :lt/sourcing :authoritative}
+ {:lt/id "st.kr-digital-sig" :lt/kind :statute :lt/label "Korea Digital Signature Act, Art. 3 — effect of electronic signatures" :statute/citation "Digital Signature Act, Art. 3 (Korea)" :statute/instrument "Digital Signature Act (전자서명법), Republic of Korea" :statute/jurisdiction "jx.kr" :statute/url "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 3 (/loop): GLOBAL data-protection law (makes the data-rights clause worldwide) ───
+ {:lt/id "st.brazil-lgpd-18" :lt/kind :statute :lt/label "Brazil LGPD (Lei 13.709/2018), Art. 18 — data-subject rights" :statute/citation "LGPD (Lei 13.709/2018), Art. 18" :statute/instrument "Lei Geral de Proteção de Dados (LGPD), Brazil" :statute/jurisdiction "jx.br" :statute/url "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.india-dpdp-2023" :lt/kind :statute :lt/label "India Digital Personal Data Protection Act 2023, §11 — right to access" :statute/citation "DPDP Act 2023, §11" :statute/instrument "Digital Personal Data Protection Act, 2023 (India)" :statute/jurisdiction "jx.in" :statute/url "https://www.indiacode.nic.in/handle/123456789/20063" :lt/sourcing :authoritative}
+ {:lt/id "st.china-pipl-44" :lt/kind :statute :lt/label "PRC Personal Information Protection Law (2021), Art. 44 — rights in processing" :statute/citation "PIPL 2021, Art. 44" :statute/instrument "Personal Information Protection Law of the PRC (2021)" :statute/jurisdiction "jx.cn" :statute/url "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.sg-pdpa-21" :lt/kind :statute :lt/label "Singapore PDPA 2012, §21 — access to personal data" :statute/citation "Personal Data Protection Act 2012, §21" :statute/instrument "Personal Data Protection Act 2012 (Singapore)" :statute/jurisdiction "jx.sg" :statute/url "https://sso.agc.gov.sg/Act/PDPA2012" :lt/sourcing :authoritative}
+ {:lt/id "st.kr-pipa-35" :lt/kind :statute :lt/label "Korea Personal Information Protection Act, Art. 35 — access to personal information" :statute/citation "PIPA, Art. 35 (Korea)" :statute/instrument "Personal Information Protection Act (개인정보 보호법), Republic of Korea" :statute/jurisdiction "jx.kr" :statute/url "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Personal+Information+Protection+Act" :lt/sourcing :authoritative}
+ {:lt/id "st.us-ccpa-1798-100" :lt/kind :statute :lt/label "California CCPA/CPRA — Cal. Civ. Code §1798.100 (right to know)" :statute/citation "Cal. Civ. Code §1798.100" :statute/instrument "California Consumer Privacy Act (as amended by CPRA)" :statute/jurisdiction "jx.us" :statute/url "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.100" :lt/sourcing :authoritative}
+ {:lt/id "st.fr-loi-informatique" :lt/kind :statute :lt/label "France Loi Informatique et Libertés (1978, rev.), Art. 49 — droit d'accès" :statute/citation "Loi n° 78-17, Art. 49" :statute/instrument "Loi Informatique et Libertés (n° 78-17), France" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000886460/" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -276,6 +301,21 @@
  {:en/from "cl.no-interest-qard" :en/to "st.aaoifi-ss19-qard" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.unidroit-2016" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.israel-contracts-1973" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ ;; coverage wave 3 — GLOBAL electronic-signature grounding (the e-sign clause now rests on law on every continent)
+ {:en/from "cl.signature-esign" :en/to "st.uncitral-mlesig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.india-it-act-5" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.sg-eta-8" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.china-esign-2004" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.de-bgb-126a" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.kr-digital-sig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ ;; coverage wave 3 — GLOBAL data-protection grounding (the data-rights clause now rests on law worldwide)
+ {:en/from "cl.data-subject-rights" :en/to "st.brazil-lgpd-18" :en/kind :cites-statute :en/force :cited :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.india-dpdp-2023" :en/kind :cites-statute :en/force :cited :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.kr-pipa-35" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.us-ccpa-1798-100" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.fr-loi-informatique" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.processor-obligations" :en/to "st.china-pipl-44" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.processor-obligations" :en/to "st.sg-pdpa-21" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
 
  ;; (C) :instantiates — clause → concept (the cross-template legal-concept spine)
  {:en/from "cl.warranty-conformity" :en/to "concept.sale-of-goods" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -355,6 +395,20 @@
  {:en/from "st.aaoifi-ss19-qard" :en/to "jx.islamic-law" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.unidroit-2016" :en/to "jx.lex-mercatoria" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.israel-contracts-1973" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 3 — applies-in for the global e-sign + data-protection instruments
+ {:en/from "st.uncitral-mlesig" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.india-it-act-5" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.sg-eta-8" :en/to "jx.sg" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.china-esign-2004" :en/to "jx.cn" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-bgb-126a" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.kr-digital-sig" :en/to "jx.kr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.brazil-lgpd-18" :en/to "jx.br" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.india-dpdp-2023" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.china-pipl-44" :en/to "jx.cn" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.sg-pdpa-21" :en/to "jx.sg" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.kr-pipa-35" :en/to "jx.kr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-ccpa-1798-100" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.fr-loi-informatique" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
