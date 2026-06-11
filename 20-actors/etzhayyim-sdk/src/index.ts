@@ -622,6 +622,7 @@ export * as bi from "./bi.js";
 export * as paymaster from "./paymaster.js";
 export * as crypto from "./crypto.js";
 export * as signal from "./signal.js";
+export * as pq from "./pq.js";
 export * as didSignal from "./did-signal.js";
 export * as atproto from "./atproto.js";
 export * as kotobaDatomic from "./kotoba-datomic/index.js";
