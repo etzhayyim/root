@@ -830,6 +830,22 @@
   :proc/verify-current-law true}
 
  ;; ── :tw ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:tw-jiegu" :proc/label "資遣/解僱通知 (解雇・労働・台湾)"
+  :proc/jurisdiction :tw :proc/track :labor
+  :proc/trigger-keywords ["資遣" "解僱"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "事由の法定性"
+    :dl/rule "解僱は勞基法11條 (資遣 — 預告期間+資遣費) / 12條 (懲戒 — 知った時から30日内) の法定事由に限る — 事由なき解僱は無効主張の余地"
+    :dl/anchor "勞動基準法11條・12條・16條・17條" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tiaojie :opt/kind :self-submit :opt/protective true
+    :opt/label "勞資爭議調解を労工局へ申請 (無料・本人可 — 確認僱傭關係/資遣費)"}
+   {:opt/id :feiziyuan :opt/kind :self-submit :opt/label "非自願離職證明書を요구 (失業給付の前提)"}]
+  :proc/refer-when ["訴訟段階 → 法律扶助基金會"
+                    "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:tw-payment-order" :proc/label "支付命令 (支払督促・台湾)"
   :proc/jurisdiction :tw
   :proc/trigger-keywords ["支付命令"]
@@ -1207,6 +1223,22 @@
   :proc/verify-current-law true}
 
  ;; ── :br ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:br-dispensa" :proc/label "Comunicação de dispensa (解雇・労働・ブラジル)"
+  :proc/jurisdiction :br :proc/track :labor
+  :proc/trigger-keywords ["dispensa" "aviso prévio"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Prescrição (時効)"
+    :dl/rule "reclamação trabalhista は contrato 終了から2 anos 以内 (遡及できる債権は5 anos 分) — verbas rescisórias の支払は終了から10日以内 (CLT 477)"
+    :dl/anchor "CF art. 7º XXIX / CLT art. 477" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verbas-check :opt/kind :self-decide :opt/protective true
+    :opt/label "verbas rescisórias (aviso prévio・férias・13º・FGTS+40%) の計算を点検 — TRCT サイン前に"}
+   {:opt/id :seguro-desemprego :opt/kind :self-submit :opt/label "seguro-desemprego を申請 (dispensa sem justa causa)"}]
+  :proc/refer-when ["justa causa に争い → advogado trabalhista / sindicato"
+                    "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"
   :proc/jurisdiction :br
   :proc/trigger-keywords ["citação"]

@@ -50,8 +50,12 @@ def coverage():
     covered = sorted(juris.keys())
     remaining = [j for j in JURIS_WORKLIST if j not in juris]  # drops off once covered
     states = load_us_states()
-    us_state_gap = (f":us 州レベル: {len(states)}/{US_STATES_TOTAL} 州を収載 — "
-                    f"残り{US_STATES_TOTAL - len(states)}州は『州不明』honest degrade")
+    if len(states) >= US_STATES_TOTAL:
+        us_state_gap = (f":us 州レベル: 全{US_STATES_TOTAL}州収載 — 次の課題は改正追跡 "
+                        f"(:verify-current-law) と DC/準州")
+    else:
+        us_state_gap = (f":us 州レベル: {len(states)}/{US_STATES_TOTAL} 州を収載 — "
+                        f"残り{US_STATES_TOTAL - len(states)}州は『州不明』honest degrade")
     tracks = defaultdict(int)
     matrix = defaultdict(lambda: defaultdict(int))  # juris → track → count (横展開の可視化)
     for p in procs:

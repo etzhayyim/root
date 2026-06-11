@@ -315,4 +315,37 @@
   :state/small-claims-usd 10000
   :state/answer-rule "magistrate court: 送達から20日以内に answer"
   :state/answer-anchor "W. Va. Code §50-4-1 以下"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 22 (+5: AK DE MI VT WY — 50/50 完遂) ────────────────────────────────
+ {:state/id :us-ak :state/label "Alaska"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 送達から20日以内に answer"
+  :state/answer-anchor "Alaska Dist. Ct. R. Civ. P. (small claims) / AS 22.15.040"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-de :state/label "Delaware"
+  :state/small-claims-usd 25000
+  :state/answer-rule "Justice of the Peace Court: 送達から15日以内に answer"
+  :state/answer-anchor "Del. J.P. Ct. Civ. R. 9"
+  :state/arl "6 Del. C. §2731 以下 (自動更新の開示)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-mi :state/label "Michigan"
+  :state/small-claims-usd 7000
+  :state/answer-rule "small claims: 通知記載の hearing に出頭; 通常民事は21日 (mail +7)"
+  :state/answer-anchor "MCL 600.8401 以下 / MCR 2.108"
+  :state/arl "—" :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-vt :state/label "Vermont"
+  :state/small-claims-usd 10000
+  :state/answer-rule "small claims: 送達から30日以内に answer"
+  :state/answer-anchor "V.R.S.C.P. 3"
+  :state/arl "9 V.S.A. §2454a (自動更新)"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-wy :state/label "Wyoming"
+  :state/small-claims-usd 6000
+  :state/answer-rule "small claims (circuit court): 通知記載の期日に出頭/応答"
+  :state/answer-anchor "Wyo. Stat. §1-21-201 以下"
   :state/arl "—" :state/sourcing :representative :state/verify-current-law true}]

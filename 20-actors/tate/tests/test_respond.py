@@ -760,6 +760,20 @@ def test_wave21_it_es_labor_critical():
     assert "20日" in es["deadlines"][0]["rule"] and "caducidad" in es["deadlines"][0]["rule"]
 
 
+def test_wave22_br_tw_labor():
+    """Wave 22: :br dispensa (verbas rescisórias TRCT サイン前点検 protective +
+    時効2年/遡及5年 CF art.7 XXIX + CLT 477 10日支払) · :tw 資遣/解僱 (勞基法11/12條
+    法定事由 + 勞資爭議調解 + 非自願離職證明 = 失業給付の鍵)."""
+    ps, _ = _by_id()
+    br = ps["ntc:br-dispensa"]
+    assert br["status"] == ":genuine" and br["proc"] == "proc:br-dispensa"
+    assert any("XXIX" in d["anchor"] for d in br["deadlines"])
+    tw = ps["ntc:tw-zigian"]
+    assert tw["status"] == ":genuine" and tw["proc"] == "proc:tw-jiegu"
+    assert any("11條" in d["anchor"] for d in tw["deadlines"])
+    assert any(o["id"] == ":feiziyuan" for o in tw["options"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

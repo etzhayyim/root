@@ -69,7 +69,7 @@ def test_us_states_registry():
     """Wave 6: every US-state entry is complete; the coverage report counts states
     honestly (5/50 — the structural gap is measured, not hand-waved)."""
     states = load_us_states()
-    assert len(states) >= 5
+    assert len(states) == 50  # wave 22: 全州完遂
     for s in states.values():
         assert s[":state/label"] and s[":state/answer-rule"], s[":state/id"]
         assert s[":state/answer-anchor"], s[":state/id"]
@@ -79,7 +79,7 @@ def test_us_states_registry():
     cov = coverage()
     assert cov["us_states_covered"] == len(states)
     assert cov["us_states_total"] == 50
-    assert any("州レベル" in g for g in cov["named_gaps"])
+    assert any("全50州収載" in g for g in cov["named_gaps"])  # milestone line
 
 
 def test_manifest_jurisdictions_in_sync():
@@ -97,7 +97,7 @@ def test_civil_only_jurisdictions_named():
     (the matrix's empty rows become a worklist, not silence)."""
     cov = coverage()
     co = cov["civil_only_jurisdictions"]
-    assert ":nl" in co and ":tw" in co  # known civil-only rows today (:it/:es は wave 21 で解消)
+    assert ":nl" in co and ":sg" in co  # known civil-only rows (:it/:es/:br/:tw 解消済み)
     for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk", ":it", ":es"):
         assert j not in co
     assert any("専門トラック未開削" in g for g in cov["named_gaps"])

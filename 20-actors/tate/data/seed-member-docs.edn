@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 22 (:br/:tw labor + 50州完遂) ───────────────────────────────────────
+ {:notice/id "ntc:br-dispensa" :notice/label "BR comunicação de dispensa (労働)"
+  :notice/jurisdiction :br
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Comunicação de dispensa sem justa causa, com aviso prévio indenizado."}
+
+ {:notice/id "ntc:tw-zigian" :notice/label "TW 資遣通知書 (労働)"
+  :notice/jurisdiction :tw
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "TWD"
+  :notice/sourcing :synthetic
+  :notice/text "資遣通知書。依勞動基準法第11條予以資遣，並依法給付資遣費。"}
+
  ;; ── wave 21 (:it/:es labor) ──────────────────────────────────────────────────
  {:notice/id "ntc:it-licenziamento" :notice/label "IT lettera di licenziamento (raccomandata・労働)"
   :notice/jurisdiction :it
