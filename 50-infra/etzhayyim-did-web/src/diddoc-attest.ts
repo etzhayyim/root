@@ -171,6 +171,16 @@ export interface VerifyOpts {
    * (crypto-agility read-compat).
    */
   readonly requirePq?: boolean;
+  /**
+   * Pin the expected ML-DSA did:key (or bare multibase), as published in the
+   * CID-verified did.json's verificationMethod. Without the pin, a pqProof
+   * only proves SOME ML-DSA key signed the payload — a quantum-capable
+   * attacker (who can forge the Ed25519 proof) could substitute their own
+   * key with a self-consistent signature. The pin closes that substitution:
+   * the trust anchor under the PQ threat model is the doc-published key,
+   * not the Ed25519 binding.
+   */
+  readonly expectedPqDidKey?: string;
 }
 
 /** Verify a self-certifying attestation. If `expectedDidDocCid` is given, also
@@ -203,12 +213,22 @@ export async function verifyDidDocAttestation(
     const ok = await crypto.subtle.verify({ name: "Ed25519" }, key, sig, msg);
     if (!ok) return { ...base, valid: false, reason: "bad signature" };
 
-    if (opts?.requirePq && !att.pqProof) {
+    if ((opts?.requirePq || opts?.expectedPqDidKey) && !att.pqProof) {
       return { ...base, valid: false, reason: "pqProof required but absent" };
     }
     if (att.pqProof) {
       if (att.pqProof.type !== "MlDsa65Signature2026") {
         return { ...base, valid: false, reason: "unsupported pqProof type" };
+      }
+      if (opts?.expectedPqDidKey) {
+        // Compare raw key bytes, tolerating did:key vs bare-multibase forms.
+        const expected = didKeyToMlDsa65Pub(opts.expectedPqDidKey);
+        const actual = didKeyToMlDsa65Pub(att.pqProof.verificationMethod);
+        let same = expected.length === actual.length;
+        for (let i = 0; same && i < expected.length; i++) same = expected[i] === actual[i];
+        if (!same) {
+          return { ...base, valid: false, reason: "pqProof key does not match pinned key" };
+        }
       }
       const pqSigMb = att.pqProof.proofValue;
       if (!pqSigMb.startsWith("z")) {

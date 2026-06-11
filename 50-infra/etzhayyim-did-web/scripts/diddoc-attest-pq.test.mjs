@@ -74,6 +74,43 @@ test("a forged pq signature is rejected even with a valid Ed25519 proof", async 
   assert.match(res.reason, /bad pq signature/);
 });
 
+test("pq key SUBSTITUTION is rejected when the doc-published key is pinned", async () => {
+  // The PQ threat model assumes the Ed25519 proof is forgeable, so the
+  // attacker re-signs the same payload with their OWN ML-DSA key. Without a
+  // pin this self-consistent pqProof verifies; with expectedPqDidKey (from
+  // the CID-verified did.json) it must fail.
+  const ed = await ed25519Key();
+  const real = mlDsa65Key();
+  const attacker = mlDsa65Key();
+  const realDidKey = mlDsa65PubToDidKey(real.publicKey);
+
+  const substituted = await signDidDocAttestation(payload, ed.priv, ed.pubRaw, attacker);
+
+  const unpinned = await verifyDidDocAttestation(substituted, undefined, { requirePq: true });
+  assert.equal(unpinned.valid, true); // self-consistent — why pinning exists
+
+  const pinned = await verifyDidDocAttestation(substituted, undefined, {
+    expectedPqDidKey: realDidKey,
+  });
+  assert.equal(pinned.valid, false);
+  assert.match(pinned.reason, /pinned key/);
+
+  const genuine = await signDidDocAttestation(payload, ed.priv, ed.pubRaw, real);
+  const ok = await verifyDidDocAttestation(genuine, undefined, { expectedPqDidKey: realDidKey });
+  assert.equal(ok.valid, true, ok.reason);
+});
+
+test("expectedPqDidKey implies the proof is required (absent → invalid)", async () => {
+  const ed = await ed25519Key();
+  const real = mlDsa65Key();
+  const att = await signDidDocAttestation(payload, ed.priv, ed.pubRaw);
+  const res = await verifyDidDocAttestation(att, undefined, {
+    expectedPqDidKey: mlDsa65PubToDidKey(real.publicKey),
+  });
+  assert.equal(res.valid, false);
+  assert.match(res.reason, /pqProof required/);
+});
+
 test("pq seed is deterministic (same seed → same did:key)", () => {
   const seed = crypto.getRandomValues(new Uint8Array(32));
   const a = mlDsa65Key(new Uint8Array(seed));
