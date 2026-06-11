@@ -166,6 +166,17 @@
  {:lt/id "st.us-ucc-2-314" :lt/kind :statute :lt/label "UCC §2-314 — implied warranty of merchantability" :statute/citation "UCC §2-314" :statute/instrument "Uniform Commercial Code, Article 2 (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/ucc/2/2-314" :lt/sourcing :authoritative}
  {:lt/id "st.jp-civil-562" :lt/kind :statute :lt/label "日本民法 562条 — 契約不適合の追完請求 (buyer remedy for non-conformity)" :statute/citation "民法562条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 6 (/loop): GLOBAL employment law (employment clauses now worldwide) ───
+ {:lt/id "st.jp-rouki-15" :lt/kind :statute :lt/label "労働基準法15条 — 労働条件の明示" :statute/citation "労働基準法15条" :statute/instrument "労働基準法 (昭和22年法律第49号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/322AC0000000049" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-roukei-16" :lt/kind :statute :lt/label "労働契約法16条 — 解雇権濫用法理 (dismissal must be objectively reasonable)" :statute/citation "労働契約法16条" :statute/instrument "労働契約法 (平成19年法律第128号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/419AC0000000128" :lt/sourcing :authoritative}
+ {:lt/id "st.de-nachwg-2" :lt/kind :statute :lt/label "Nachweisgesetz §2 — written statement of essential employment terms" :statute/citation "NachwG §2" :statute/instrument "Nachweisgesetz (Germany)" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/nachwg/__2.html" :lt/sourcing :authoritative}
+ {:lt/id "st.de-kschg-1" :lt/kind :statute :lt/label "Kuendigungsschutzgesetz §1 — protection against socially unjustified dismissal" :statute/citation "KSchG §1" :statute/instrument "Kuendigungsschutzgesetz (Germany)" :statute/jurisdiction "jx.de" :statute/url "https://www.gesetze-im-internet.de/kschg/__1.html" :lt/sourcing :authoritative}
+ {:lt/id "st.fr-travail-l1221" :lt/kind :statute :lt/label "Code du travail L1221-1 — contrat de travail" :statute/citation "Code du travail, Art. L1221-1" :statute/instrument "Code du travail (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/" :lt/sourcing :authoritative}
+ {:lt/id "st.fr-travail-l1232" :lt/kind :statute :lt/label "Code du travail L1232-1 — cause reelle et serieuse de licenciement" :statute/citation "Code du travail, Art. L1232-1" :statute/instrument "Code du travail (France)" :statute/jurisdiction "jx.fr" :statute/url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901176/" :lt/sourcing :authoritative}
+ {:lt/id "st.uk-era-1" :lt/kind :statute :lt/label "UK Employment Rights Act 1996 §1 — written statement of particulars" :statute/citation "Employment Rights Act 1996, s.1" :statute/instrument "Employment Rights Act 1996 (UK)" :statute/jurisdiction "jx.uk" :statute/url "https://www.legislation.gov.uk/ukpga/1996/18/section/1" :lt/sourcing :authoritative}
+ {:lt/id "st.uk-era-94" :lt/kind :statute :lt/label "UK Employment Rights Act 1996 §94 — right not to be unfairly dismissed" :statute/citation "Employment Rights Act 1996, s.94" :statute/instrument "Employment Rights Act 1996 (UK)" :statute/jurisdiction "jx.uk" :statute/url "https://www.legislation.gov.uk/ukpga/1996/18/section/94" :lt/sourcing :authoritative}
+ {:lt/id "st.india-ida-25f" :lt/kind :statute :lt/label "India Industrial Disputes Act 1947 §25F — conditions precedent to retrenchment" :statute/citation "Industrial Disputes Act 1947, §25F" :statute/instrument "Industrial Disputes Act, 1947 (India)" :statute/jurisdiction "jx.in" :statute/url "https://www.indiacode.nic.in/handle/123456789/2316" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -199,6 +210,8 @@
  {:lt/id "cl.agency-grant" :lt/kind :clause :lt/label "Grant & scope of authority (agency / mandate)" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.release-waiver" :lt/kind :clause :lt/label "Mutual release & waiver of claims" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.service-levels" :lt/kind :clause :lt/label "Service levels, uptime & credits (SLA)" :clause/role :boilerplate :clause/optionality :recommended :lt/sourcing :representative}
+ {:lt/id "cl.employment-particulars" :lt/kind :clause :lt/label "Written statement of employment particulars" :clause/role :definitions :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.employment-termination" :lt/kind :clause :lt/label "Notice & dismissal protection" :clause/role :termination :clause/optionality :mandatory :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── templates (nodes) — the publishable units ───
  {:lt/id "tmpl.sales-intl" :lt/kind :template :lt/label "International Sale of Goods Agreement" :template/title "International Sale of Goods Agreement (CISG)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -219,6 +232,7 @@
  {:lt/id "tmpl.power-of-attorney" :lt/kind :template :lt/label "Power of Attorney (代理権授与)" :template/title "Power of Attorney" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :neutral :lt/sourcing :representative}
  {:lt/id "tmpl.settlement" :lt/kind :template :lt/label "Settlement & Release Agreement" :template/title "Settlement & Release Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.services-sla" :lt/kind :template :lt/label "Service Level Agreement (SLA)" :template/title "Service Level Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-de" :lt/kind :template :lt/label "Employment Agreement (Germany)" :template/title "Arbeitsvertrag / Employment Agreement (Germany)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -319,6 +333,17 @@
  {:en/from "tmpl.services-sla" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.services-sla" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
+ ;; coverage wave 6 — German employment template + global employment clauses into the ILO template
+ {:en/from "tmpl.employment-de" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.employment-de" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-de" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.employment-de" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-de" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-de" :en/to "cl.good-faith" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-de" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
+
  ;; (B) :cites-statute / :mandated-by — clause → statute (THE binding to actual public law)
  {:en/from "cl.warranty-conformity" :en/to "st.cisg-35" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
  {:en/from "cl.nonconformity-notice" :en/to "st.cisg-39" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
@@ -377,6 +402,17 @@
  {:en/from "cl.warranty-conformity" :en/to "st.us-ucc-2-314" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.warranty-conformity" :en/to "st.jp-civil-562" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.nonconformity-notice" :en/to "st.jp-civil-562" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+
+ ;; coverage wave 6 — GLOBAL employment grounding (particulars + dismissal protection)
+ {:en/from "cl.employment-particulars" :en/to "st.jp-rouki-15" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.de-nachwg-2" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.fr-travail-l1221" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.uk-era-1" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.jp-roukei-16" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.de-kschg-1" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.fr-travail-l1232" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.uk-era-94" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.india-ida-25f" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  ;; coverage wave 3 — GLOBAL electronic-signature grounding (the e-sign clause now rests on law on every continent)
  {:en/from "cl.signature-esign" :en/to "st.uncitral-mlesig" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.india-it-act-5" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
@@ -422,6 +458,8 @@
  {:en/from "cl.agency-grant" :en/to "concept.agency" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.release-waiver" :en/to "concept.settlement" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.service-levels" :en/to "concept.service-level" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "concept.employment" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "concept.employment" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
 
  ;; (D) :governed-by — template → jurisdiction
  {:en/from "tmpl.sales-intl" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -440,6 +478,7 @@
  {:en/from "tmpl.power-of-attorney" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.settlement" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.services-sla" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.employment-de" :en/to "jx.de" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -510,6 +549,17 @@
  {:en/from "st.india-sga-16" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.us-ucc-2-314" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-civil-562" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+
+ ;; coverage wave 6 — applies-in for employment law
+ {:en/from "st.jp-rouki-15" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-roukei-16" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-nachwg-2" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.de-kschg-1" :en/to "jx.de" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.fr-travail-l1221" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.fr-travail-l1232" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uk-era-1" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uk-era-94" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.india-ida-25f" :en/to "jx.in" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]

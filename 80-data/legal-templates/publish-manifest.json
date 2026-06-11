@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 16,
+  "templateCount": 17,
   "templates": [
     {
       "id": "tmpl.consulting-services",
@@ -459,6 +459,173 @@
       ]
     },
     {
+      "id": "tmpl.employment-de",
+      "title": "Arbeitsvertrag / Employment Agreement (Germany)",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "DE"
+      ],
+      "bodyCid": "bafkreichtid43dy6albhr6yqwmg72vs36dz5umkgs53z2puogm32ejezha",
+      "bodySha256": "0x479a07cd8f1e02c278fb10b30dfd565bf0f3da314697779d3e8e3337a2249938",
+      "bytes": 3249,
+      "clauseCount": 7,
+      "statutes": [
+        {
+          "id": "st.jp-rouki-15",
+          "citation": "労働基準法15条",
+          "instrument": "労働基準法 (昭和22年法律第49号)",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000049"
+        },
+        {
+          "id": "st.de-nachwg-2",
+          "citation": "NachwG §2",
+          "instrument": "Nachweisgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/nachwg/__2.html"
+        },
+        {
+          "id": "st.fr-travail-l1221",
+          "citation": "Code du travail, Art. L1221-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/"
+        },
+        {
+          "id": "st.uk-era-1",
+          "citation": "Employment Rights Act 1996, s.1",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/1"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.jp-roukei-16",
+          "citation": "労働契約法16条",
+          "instrument": "労働契約法 (平成19年法律第128号)",
+          "url": "https://laws.e-gov.go.jp/law/419AC0000000128"
+        },
+        {
+          "id": "st.de-kschg-1",
+          "citation": "KSchG §1",
+          "instrument": "Kuendigungsschutzgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/kschg/__1.html"
+        },
+        {
+          "id": "st.fr-travail-l1232",
+          "citation": "Code du travail, Art. L1232-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901176/"
+        },
+        {
+          "id": "st.uk-era-94",
+          "citation": "Employment Rights Act 1996, s.94",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/94"
+        },
+        {
+          "id": "st.india-ida-25f",
+          "citation": "Industrial Disputes Act 1947, §25F",
+          "instrument": "Industrial Disputes Act, 1947 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/2316"
+        },
+        {
+          "id": "st.eu-trade-secrets",
+          "citation": "Directive (EU) 2016/943, Art. 2",
+          "instrument": "Directive (EU) 2016/943 (Trade Secrets)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2016/943/oj"
+        },
+        {
+          "id": "st.jp-fukyo-2",
+          "citation": "不正競争防止法2条6項",
+          "instrument": "不正競争防止法 (平成5年法律第47号)",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000047"
+        },
+        {
+          "id": "st.us-dtsa",
+          "citation": "18 U.S.C. §1836",
+          "instrument": "Defend Trade Secrets Act of 2016",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
+        },
+        {
+          "id": "st.unidroit-2016",
+          "citation": "UNIDROIT Principles 2016, Art. 1.7",
+          "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
+          "url": "https://www.unidroit.org/instruments/commercial-contracts/unidroit-principles-2016/"
+        },
+        {
+          "id": "st.israel-contracts-1973",
+          "citation": "Contracts (General Part) Law 5733-1973, §39",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
       "id": "tmpl.employment-intl",
       "title": "Employment Agreement (ILO core-conventions aligned)",
       "lang": "en",
@@ -468,10 +635,10 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiejd4n7repjk2psmmc4z3dh5cgqp6cra6scie5l5sohpyfjwgnkdu",
-      "bodySha256": "0x891f1bf891e9569f26305ccec67e88d07f85107a42413abec9c77e0a9b19aa1d",
-      "bytes": 2787,
-      "clauseCount": 6,
+      "bodyCid": "bafkreifm6qgim4xbptcyrkst5p54thsoaes2p2hszuwlsei6fqnuqmbyl4",
+      "bodySha256": "0xacf40c8672e17cc588aa53ebfbc99e4e0125a7e8f2cd2cb9111e2c1b4830385f",
+      "bytes": 3502,
+      "clauseCount": 8,
       "statutes": [
         {
           "id": "st.ilo-c87",
@@ -586,6 +753,60 @@
           "citation": "Digital Signature Act, Art. 3 (Korea)",
           "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        },
+        {
+          "id": "st.jp-rouki-15",
+          "citation": "労働基準法15条",
+          "instrument": "労働基準法 (昭和22年法律第49号)",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000049"
+        },
+        {
+          "id": "st.de-nachwg-2",
+          "citation": "NachwG §2",
+          "instrument": "Nachweisgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/nachwg/__2.html"
+        },
+        {
+          "id": "st.fr-travail-l1221",
+          "citation": "Code du travail, Art. L1221-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/"
+        },
+        {
+          "id": "st.uk-era-1",
+          "citation": "Employment Rights Act 1996, s.1",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/1"
+        },
+        {
+          "id": "st.jp-roukei-16",
+          "citation": "労働契約法16条",
+          "instrument": "労働契約法 (平成19年法律第128号)",
+          "url": "https://laws.e-gov.go.jp/law/419AC0000000128"
+        },
+        {
+          "id": "st.de-kschg-1",
+          "citation": "KSchG §1",
+          "instrument": "Kuendigungsschutzgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/kschg/__1.html"
+        },
+        {
+          "id": "st.fr-travail-l1232",
+          "citation": "Code du travail, Art. L1232-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901176/"
+        },
+        {
+          "id": "st.uk-era-94",
+          "citation": "Employment Rights Act 1996, s.94",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/94"
+        },
+        {
+          "id": "st.india-ida-25f",
+          "citation": "Industrial Disputes Act 1947, §25F",
+          "instrument": "Industrial Disputes Act, 1947 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/2316"
         }
       ]
     },
