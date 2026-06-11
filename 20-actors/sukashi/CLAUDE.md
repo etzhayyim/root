@@ -103,8 +103,25 @@ python3 methods/ingest.py --source adstxt --in data/ingest/example.ads.txt --pub
 python3 methods/analyze.py                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
 python3 viz/build_viz_data.py                    # → viz/ad-supply-chain.htm (open in a browser)
 python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
-./run_tests.sh                                   # 16 invariant + analyzer tests
+python3 methods/autorun.py --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+./run_tests.sh                                   # invariant + analyzer + autonomous-heartbeat tests
 ```
+
+### Autonomous on the Murakumo fleet (ADR-2606071600)
+
+`methods/autorun.py` is the self-driving observatory heartbeat — the same shape shionome /
+ipaddress / yabai use. Each cycle it runs the whole pipeline ITSELF (observe offline merged graph →
+classify → analyze auth-handshake integrity / delivery-infra concentration / scam-network clusters →
+PERSIST a content-addressed transaction to the append-only **local** kotoba Datom log,
+`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
+resume-safe; NO external I/O. Constitutional posture holds by construction: OBSERVATORY not an ad
+network (G2); every persisted fraud signal stays `:non-adjudicating true` + `:synthesized` (G4) —
+no real entity is implicated. Fleet cells: `sukashi_adsupply_ingest` (cron 42) +
+`sukashi_fraud_weave` (cron 47) on `issachar`, `sukashi_adsupply_persist` (cron 52) on `dan` —
+see `50-infra/murakumo/fleet.toml`. Live full-web crawl (`ingest.py` + `SUKASHI_OPERATOR_GATE`, G7)
++ the live-node push (`transact.py`, G11) stay one human gate-flip away. Invariants guarded by
+`methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only,
+derived-flagging, **G4 fraud-signals-non-adjudicating**, no-external-I/O).
 
 `python3 methods/analyze.py` with no argument runs the **seed** graph (or the merged graph if an
 ingest has been run); no live fetch needed.

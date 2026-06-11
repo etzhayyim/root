@@ -61,6 +61,26 @@
   default; live G7-gated). Documents the GLEIF/EDGAR/exchange full-universe path.
 - `cell:kabuto.analyze` → `methods/analyze.py` (stdlib). classify → in/out degree → single-source →
   sector × commodity concentration → jurisdiction load. Aggregate-first. Idempotent.
+- `cell:kabuto.autorun` → `methods/autorun.py` (+ `methods/kotoba.py`). The autonomous
+  Murakumo-fleet heartbeat — the same shape shionome/ipaddress/yabai/sukashi/watatsuna/watari use.
+  Each cycle observes the OFFLINE merged graph → classify → analyze → **persists a content-addressed
+  transaction** (graph datoms + derived `:supply/*`) to the append-only **local** kotoba Datom log
+  (`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. **G2 holds by
+  construction**: only resilience/accountability framing (concentration, single-source, tier-depth,
+  cross-bloc corridors) is representable — no raid/takeover/target attr. **Determinism note**:
+  kabuto's analyze builds `intermediaries`/`tier_depth` by iterating PYTHONHASHSEED-randomized
+  `set`s, so `autorun._canonical_order` sorts the datoms by canonical JSON before hashing — making
+  the CID reproducible / resume-safe across processes (EAVT is an unordered set, so order carries no
+  meaning). Fleet cells `kabuto_company_ingest` (cron 24) + `kabuto_concentration_weave` (cron 29) +
+  `kabuto_supply_persist` (cron 34) on `zebulun` — see `50-infra/murakumo/fleet.toml`. Live
+  GLEIF/EDGAR-universe ingest + live-node push + social posting stay Council + operator gated
+  (G7/G11). Invariants guarded by `methods/test_autorun.py` (commit-DAG verify, tamper-detect,
+  canonical-order determinism, append-only, derived-flagging, **G2 resilience-not-target-list**,
+  no-external-I/O).
+
+  ```bash
+  python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+  ```
 - `cell:kabuto.bpmn` → `methods/bpmn.py` — per-company BPMN 2.0 XML (well-formed, bpmn-js
   renderable) + `:company.process` datoms with content-CIDs. `:synthesized` generic templates.
 - `cell:kabuto.social` → `methods/social.py` — aggregate-first company/edge/report →

@@ -7,6 +7,7 @@ cd "$(dirname "$0")"
 
 SUITES=(
   "methods/test_weave.py"
+  "methods/test_grounding.py"
   "methods/test_ingest.py"
   "methods/test_social.py"
   "methods/test_export.py"

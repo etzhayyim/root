@@ -95,6 +95,28 @@ nodes are public seats/organs, never named private individuals. Live full-univer
 政治資金収支報告書 / 調達ポータル / Federal Register / USAspending / TED / OECD rosters) and live
 social posting are Council Lv6+ + operator gated (Lv7+ for live publication under 1 SBT = 1 vote).
 
+## Autonomous on the Murakumo fleet (`methods/autorun.py` + `methods/kotoba.py`)
+
+`methods/autorun.py` is the self-driving heartbeat — the constitution-permitted form of
+"kotoba で自律的に稼働", the same shape the infra-intel/observatory family uses
+(shionome/kabuto/danjo …). Each cycle it weaves the OFFLINE seed → concentration → **persists a
+content-addressed transaction** (graph datoms + derived `:keizu.conc/*`) to the append-only
+**local** kotoba Datom log (`methods/kotoba.py`), linking the previous tx's CID into a verifiable
+commit-DAG. `autorun._canonical_order` sorts datoms by canonical JSON before hashing → CID
+reproducible across processes (verified stable under `PYTHONHASHSEED=random`). **G1/G4 hold by
+construction**: no PII node attr can reach the log (no-doxxing), revolving-door + award-and-fund
+datoms carry `:keizu.conc/non-adjudicating true` (a co-occurrence of disclosed flows, never an
+allegation), and no per-person score / verdict token is representable. Fleet cells
+`keizu_relation_ingest` (cron 40) + `keizu_concentration_weave` (cron 45) + `keizu_relation_persist`
+(cron 50) on `levi` (membership/council node) — see `50-infra/murakumo/fleet.toml`. Live ingest +
+posting stay G8-gated (the loop persists to the LOCAL log only, posts nothing). Invariants guarded
+by `methods/test_autorun.py` (commit-DAG verify, tamper-detect, canonical-order determinism,
+append-only, **G4 non-adjudicating co-occurrence**, **G1 no-doxxing**, no-external-I/O).
+
+```bash
+cd methods && python3 autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+```
+
 ## Build / test
 
 ```

@@ -50,7 +50,7 @@ spec:
             - name: UNISPSC_ORGANISM_SHARD_INDEX
               value: "0"
             - name: UNISPSC_ORGANISM_LRU_MAX
-              value: "4096"
+              value: "8192"
             - name: UNISPSC_ORGANISM_TICK_INTERVAL_S
               value: "300"
             - name: UNISPSC_ORGANISM_POST_SINK

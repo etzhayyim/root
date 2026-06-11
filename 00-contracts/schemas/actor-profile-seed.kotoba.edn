@@ -189,6 +189,30 @@
    :actor/service [{"id" "did:web:etzhayyim.com:actor:kanae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
+  {:actor/handle "shionome"
+   :actor/did "did:web:etzhayyim.com:actor:shionome"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "潮目"
+   :actor/display-name-ja "潮目 — クロスアセット資本フロー観測"
+   :actor/display-name-en "Shionome — Cross-Asset Capital-Flow Observatory"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Weaves observed cross-asset capital rotation (どこからどこへ) + the :outstanding-usd money-and-markets stock pyramid into the kotoba Datom flow-graph; aggregate-first, edge-primary, observational MIRROR — トレードはしない (no buy/sell signal, price target, or per-asset rating; structurally unrepresentable, G2/G4)."
+   :actor/primary-lexicon "com.etzhayyim.shionome"
+   :actor/primary-schema "00-contracts/schemas/capital-flow-ontology.kotoba.edn"
+   :actor/adr ["2606072200" "2606101540"]
+   :actor/created-at "2026-06-07"
+   ;; content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+   ;; Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
+   ;; / donated mesh (ADR-2606015200). The 18.5MB componentize-py component stays the
+   ;; separate T2 dag-pb artifact (wasm/shionome-actor.meta.json).
+   :actor/wasm-cid "bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shionome#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
   {:actor/handle "kabuto"
    :actor/did "did:web:etzhayyim.com:actor:kabuto"
    :actor/kind :tier-b
@@ -566,4 +590,22 @@
    :actor/created-at "2026-06-07"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:shomei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "chaos_monitor"
+   :actor/did "did:web:etzhayyim.com:actor:chaos_monitor"
+   :actor/kind :infra
+   :actor/tier "B"
+   :actor/status :landed
+   :actor/glyph "混沌"
+   :actor/display-name-ja "Chaos Monitor — World State Dashboard"
+   :actor/display-name-en "Chaos Monitor — World State Dashboard"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World State Monitor — Real-time visual dashboard of the 1000 Clean Room Actors ecosystem. Displays substrate topology, active faults, and Root Router telemetry via Kotoba IPFS. Embedded via ATProto."
+   :actor/primary-schema "60-apps/chaos-dashboard/"
+   :actor/adr []
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chaos_monitor#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/index.html"}]}]}

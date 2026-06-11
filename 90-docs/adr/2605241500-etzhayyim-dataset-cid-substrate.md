@@ -33,6 +33,13 @@ superseded_by: []
 
 # ADR-2605241500: etzhayyim Dataset CID Substrate
 
+> **Amendment (2026-06-09, ADR-2606091500):** the "sidecar IPFS pinner" now fans
+> out to the canonical **remote** pin service **kotobase.net** after the local
+> `ipfs add` (every object CID + the map CID), in addition to the local Kubo.
+> Best-effort. Config: `[platform.kotobase_pin]` in `deps.toml`, env
+> `ETZ_KOTOBASE_PIN` (default `https://kotobase.net`). The earlier
+> `kotobase.etzhayyim.com` name is superseded. See ADR-2606091500.
+
 **Status**: proposed
 **Date**: 2026-05-24
 **Deciders**: Jun Kawasaki

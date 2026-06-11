@@ -33,11 +33,23 @@ and Council + operator gated (G7).
 ## Run
 
 ```bash
-python3 methods/ingest.py            # offline bridge + seed (live = G7-gated)
+python3 methods/ingest.py            # offline bridge + seed → products.merged (live = G7-gated)
 python3 methods/analyze.py            # resilience report + derived concentration datoms
 python3 methods/crosscheck.py         # measured uchiwake ⇄ kabuto coverage linkage
-python3 -m unittest tests.test_uchiwake -v
+python3 methods/adapters/openfoodfacts.py   # bulk-ingest normalizer: OFF records → datoms
+python3 -m unittest discover -s tests -p 'test_*.py' -v   # 27 tests
 ```
+
+### Bulk-ingest adapters (the worldwide-coverage path)
+
+`methods/adapters/openfoodfacts.py` is the first concrete bulk normalizer: it turns
+[Open Food Facts](https://world.openfoodfacts.org) records (a CC-BY-SA open dataset of ~3M+ real
+food/beverage trade items, each with a real GTIN + brand + ingredient list) into uchiwake
+`:product` / `:material` / `:bom.edge` datoms — GTIN-validated (mod-10), ingredient % → bounded
+`%mass` edges, every datom `:representative` (OFF is crowd-sourced). `ingest.py` auto-routes any
+`data/ingest/openfoodfacts*.json` file through it and splices the result into `products.merged`.
+The LIVE fetch of the full OFF dump (and GS1 GDSN / GLEIF-RR) stays **G7 / operator-gated**; the
+adapter runs on a local file so the scale-path is proven offline first.
 
 ## Honesty (R0)
 

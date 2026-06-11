@@ -7,7 +7,7 @@ mis-handle `--strict` / `--test` / `--all` modes without any test
 catching it. This suite closes that gap.
 
 Tests use the real aggregator against the real repo state. The
-baseline (25 documented-deferred findings) is locked-in — any
+baseline (7 documented-deferred findings) is locked-in — any
 unintended drift in either direction fails fast.
 """
 
@@ -40,7 +40,11 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # current stale URLs are confirmed 404 defunct/unpublished upstreams of vendored
 # app code (nothing internally fixable; restoring them would require pushing the
 # external repos). Full list lives in test_subrepo_scripts.EXPECTED_STALE_URLS.
-EXPECTED_TOTAL_FINDINGS = 8
+#
+# 2026-06-08 main merge: dependabot cleanup and subrepo turnover reduced the
+# documented-deferred stale upstream count 8 -> 7. Keep this in sync with
+# test_subrepo_scripts.EXPECTED_STALE_URLS.
+EXPECTED_TOTAL_FINDINGS = 7
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 
@@ -102,10 +106,10 @@ class TestDefaultMode:
         total = int(m.group(1))
         assert total == EXPECTED_TOTAL_FINDINGS, (
             f"baseline drift: expected {EXPECTED_TOTAL_FINDINGS}, got {total}.\n"
-            f"Two batched-fix categories were closed iter-39 + iter-52; "
-            f"remaining 25 are documented-deferred. Either new drift was "
-            f"introduced (bump above 25) or a deferred item resolved "
-            f"(drop below 25, in which case update the baseline)."
+            f"Documented-deferred stale upstream findings are locked in. "
+            f"Either new drift was introduced (bump above baseline) or a "
+            f"deferred item resolved (drop below baseline, in which case "
+            f"update the baseline)."
         )
 
     def test_runs_all_6_aggregator_scripts(self, default_run):
@@ -135,7 +139,7 @@ class TestDefaultMode:
 
 class TestStrictMode:
     def test_exits_1_on_documented_deferred(self, strict_run):
-        """The 25 documented-deferred findings (subrepos + symlinks)
+        """The documented-deferred findings (subrepos + symlinks)
         intentionally fail strict — `--strict` is the operator's
         pre-PR gate: 'I want to publish/merge with no debt.'"""
         rc, _, _ = strict_run

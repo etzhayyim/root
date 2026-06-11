@@ -23,9 +23,23 @@
 > python3 methods/ingest.py --source file --in data/ingest/apnic-sample.txt --rir apnic
 > python3 methods/ingest.py --source rir --rir apnic --live    # G7: live RIR pull (operator gate)
 > python3 methods/analyze.py                                    # → out/
-> python3 methods/transact.py                                   # SAVE → kotoba Datom log (dry-run;
+> python3 methods/transact.py                                   # SAVE → live kotoba node (dry-run;
 > #   live needs a running node on :8077 + KOTOBA_SESSION_POP/KOTOBA_TOKEN, ADR-2605231525)
+> python3 methods/autorun.py --cycles 3 --fresh                 # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
 > ```
+>
+> **Autonomous on the Murakumo fleet (ADR-2605301400 §T2).** `methods/autorun.py` is the
+> self-driving heartbeat — the same shape shionome uses. Each cycle it runs the whole pipeline
+> ITSELF (observe offline merged graph → classify → analyze concentration → PERSIST a
+> content-addressed transaction to the append-only **local** kotoba Datom log, `methods/kotoba.py`),
+> linking the previous tx's CID into a verifiable commit-DAG. It is deterministic / resume-safe
+> (cycle drives tx-id + as-of → same CIDs on re-run) and does **NO external I/O**. Fleet cells:
+> `ipaddress_ingest` (cron 7 * * * *) + `ipaddress_concentration_weave` (cron 12 * * * *) on
+> `issachar`, `ipaddress_persist` (cron 17 * * * *) on `dan` — see `50-infra/murakumo/fleet.toml`.
+> That is "kotoba で自律的に稼働" in the charter-permitted form: live full-universe RIR/RDAP
+> ingest (`ingest.py --live`, G7) + the live-node push (`transact.py`, G8) stay one human
+> gate-flip away. Invariants guarded by `methods/test_autorun.py` (21 tests: commit-DAG verify,
+> tamper-detect, determinism, append-only growth, derived-flagging, no-external-I/O).
 >
 > **Saved + verified live (2026-06-03)**: the merged graph was transacted into a running kotoba
 > node's Datom log and read back via the AEVT arrangement — **60 `:db/ident` schema attrs + 427

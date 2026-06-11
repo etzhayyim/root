@@ -30,7 +30,7 @@ import {
   type StatsOutput,
 } from "./types.js";
 
-const BUNKEN_COLLECTION = "com.etzhayyim.apps.bunken.record";
+export const BUNKEN_COLLECTION = "com.etzhayyim.apps.bunken.record";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;
@@ -82,6 +82,8 @@ export async function registerRecord(
     country: input.country,
     language: input.language,
     sourceUrl: input.sourceUrl,
+    enriched: true,
+    didRegistered: false,
     collectedAt: now,
     createdAt: now,
   };

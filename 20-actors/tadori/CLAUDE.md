@@ -45,6 +45,34 @@ Full attribute list → ADR-2605301400 §D2. Reads use the four `kotoba-kqe` arr
 | `kotoba/seed.threat-intel.jsonl` | Operator-staged JSONL sample for public-archive and SecurityTrails-shaped compatibility records. |
 | `kotoba/ingest_threat_intel.py` | JSONL validator + `tx_edn` generator + live `com.etzhayyim.apps.kotoba.datomic.transact` writer with optional `datomic.datoms` readback. |
 | `kotoba/deploy.sh` | Dry-run/live wrapper for a running kotoba node; live runs verify readback. |
+| `kotoba/audit_log.py` | Local content-addressed append-only **silenTadoriReview** Datom log (commit-DAG): `review_datoms` + `make_tx`/`append_tx`/`read_log`/`head_cid`/`verify_chain`; `assert_all_clear` (G12 halt). Holds **audit counters ONLY** — never observation/PII/case data. |
+| `kotoba/autorun.py` | Autonomous Transparent-Force **self-audit heartbeat** (see below). |
+
+### Autonomous on the Murakumo fleet — the Transparent-Force self-audit (ADR-2605301400 §D1)
+
+tadori's autonomy is constitutionally constrained: it is **authorized-investigation-only (G3)**
+and **evidence-only / no-enforcement (G7)**, so it may NOT autonomously persist case-anchored
+observation / attribution / PII datoms the way ipaddress/yabai do — that needs a `caseMandate`
+(no case → Phase 0 dry-run). The charter-permitted autonomous act is therefore the
+**silenTadoriReview self-audit** (Charter §1.12 Transparent Force, G5): each heartbeat
+`kotoba/autorun.py` loads the OFFLINE operator-staged corpus → validates it against the gates
+(Phase 0, no case) → recomputes the **9 structural zero-counters** (noncaseWrite / plaintextPii /
+proprietarySor / enforcementAction / platformHeldKey / murakumoBypass / massSurveillance /
+adherentDeanon / nonKotobaStore) → **G12 guard: any nonzero counter HALTS, persisting nothing** →
+appends ONE content-addressed audit datom (`kotoba/audit_log.py`) to the local kotoba Datom log.
+By construction the log holds **only audit counters** — no observation, no PII, no case data ever
+reaches it (G3/G6/G10 structurally honored). Deterministic / resume-safe; NO external I/O, NO live
+fetch, NO LLM inference, NO enforcement.
+
+```sh
+python3 kotoba/autorun.py --cycles 3 --fresh   # AUTONOMOUS silenTadoriReview self-audit → local kotoba log
+```
+
+Fleet cell: `tadori_silen_review` (cron 37 * * * *) on `issachar` — see `50-infra/murakumo/fleet.toml`.
+Live case-anchored ingest stays in `kotoba/ingest_threat_intel.py` behind the operator credential +
+`TADORI_CASE_ID` gate. Invariants guarded by `kotoba/test_autorun.py` (commit-DAG verify,
+tamper-detect, determinism, append-only, audit-counters-only / no-obs-PII-in-log, **G12 plaintext-PII
+HALT-persists-nothing**, vendor-SoR rejected, no-external-I/O).
 
 Dry-run:
 

@@ -36,7 +36,29 @@ ingest ─▶ flow_graph ─▶ rotation_weave ─▶ regime_observer ─▶ soc
 `methods/weave.py` is the heart: it validates every bucket/flow/snapshot against the closed vocab,
 builds the graph, and computes aggregate **edge-primary** metrics — net flow per bucket (where
 money is going/leaving), rotation pairs (どこからどこへ), per-bucket inflow HHI, by-asset-class /
-by-region slices, a FACTUAL cross-asset regime descriptor. Nothing is a per-asset rating or signal.
+by-region slices, a FACTUAL cross-asset regime descriptor, and the **stock pyramid** (`stock_pyramid`
+— the money-and-markets "how big is everything" sizing view from `:outstanding-usd` snapshots).
+Nothing is a per-asset rating or signal.
+
+The STOCK layer sits *alongside* the flow graph: a bucket may carry an `:outstanding-usd` snapshot
+(the total SIZE of an asset class in USD trillions). `stock_pyramid` aggregates the latest such
+snapshot per asset class into the Visual-Capitalist money pyramid (physical currency < broad money
+< equities < debt < real estate < derivatives notional, with gold/crypto sized against them). A
+SIZE is a factual observed quantity (like `:return-pct`) carrying `no_trade_notice=true` — **NOT** a
+rating/signal/target (G2/G4 untouched). Stock (usd-tn) is **never** summed with flow magnitudes
+(usd-bn): two distinct on-read views over the same append-only graph.
+
+`methods/grounding.py` is an OPTIONAL **entity-grounding bridge** answering *who is inside each
+layer?* — it decomposes a pyramid layer into the named real entities sibling actors already mirror
+(equities ← kabuto listed-company ledger, with disclosure DEPTH ← kanjō; a systemic-institutions
+overlay ← hokorobi) and reports the coverage gap honestly (value coverage as a stated lower bound, a
+`:representative` count denominator, and a per-layer **roadmap** that names — for every layer — the
+candidate source actor and, where `ungroundable-at-r0`, the explicit reason; e.g. the debt layer is
+a bond-market aggregate and must NOT be conflated with kanjō corporate-BS liabilities). Rules: it is
+**fail-open** (a missing
+sibling ledger → that layer is reported ungrounded, never a crash); the **core path
+(`weave`/`concentration`) must NOT import it** (no sibling-file coupling in the hermetic core);
+its figures are sizes/counts/fractions only — never a per-entity rating/signal/target (G2/G4).
 
 `methods/autorun.py` is the **autonomous heartbeat**: each cycle it runs the whole pipeline by
 itself and persists a content-addressed transaction to the append-only kotoba Datom log
@@ -91,7 +113,7 @@ made a charter violation representable. `methods/test_charter_invariants.py` gua
 - `.solve()` raises `RuntimeError` on every cell at R0 — live execution is G8-gated. Do not wire a
   cell to a live market-data fetch or a live firehose post.
 - Tests are standalone-runnable (`python3 test_*.py`); run everything with `./run_tests.sh`
-  (153 tests across 14 suites, hermetic). See MATURITY.md for the per-suite breakdown.
+  (182 tests across 15 suites, hermetic). See MATURITY.md for the per-suite breakdown.
 
 ## Honest R0
 
@@ -106,8 +128,9 @@ publication under 1 SBT = 1 vote).
 ## Build / test / run autonomously
 
 ```
-./run_tests.sh                          # all 14 suites (153 tests)
-cd methods && python3 weave.py          # concentration over the :representative seed
+./run_tests.sh                          # all 15 suites (182 tests)
+cd methods && python3 weave.py          # concentration + stock pyramid over the :representative seed
+cd methods && python3 grounding.py      # decompose pyramid layers into named entities (kabuto/hokorobi) + coverage
 cd methods && python3 analyze.py        # end-to-end dry-run → methods/out/intel-report.md
 cd methods && python3 social.py         # dry-run social posts
 cd methods && python3 ingest.py         # offline normalize (──live refuses without the G8 gate)

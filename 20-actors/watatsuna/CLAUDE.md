@@ -51,6 +51,22 @@
 - `cell:watatsuna.analyze` → `methods/analyze.py` (stdlib only). Pipeline:
   classify → cable⇄station incidence → station degree/capacity → chokepoint-load →
   cable-diversity → redundancy-gap. Aggregate-first. Idempotent; rerun to regenerate `out/`.
+- `cell:watatsuna.autorun` → `methods/autorun.py` (+ `methods/kotoba.py`). The autonomous
+  Murakumo-fleet heartbeat — the same shape shionome/ipaddress/yabai/sukashi use. Each cycle
+  observes the OFFLINE merged graph → classify → analyze → **persists a content-addressed
+  transaction** (graph datoms + derived `:resilience/*`) to the append-only **local** kotoba Datom
+  log (`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG.
+  Deterministic / resume-safe; NO external I/O. **G2 holds by construction**: only resilience
+  framing (chokepoint-load / redundancy-gap) is representable — no interdiction/target attr.
+  Fleet cells `watatsuna_cable_ingest` (cron 23) + `watatsuna_resilience_weave` (cron 28) +
+  `watatsuna_resilience_persist` (cron 33) on `simeon` — see `50-infra/murakumo/fleet.toml`.
+  Live TeleGeography/AIS/fault-bulletin ingest + the live-node push stay Council + operator gated
+  (G7). Invariants guarded by `methods/test_autorun.py` (commit-DAG verify, tamper-detect,
+  determinism, append-only, derived-flagging, **G2 resilience-not-interdiction**, no-external-I/O).
+
+  ```bash
+  python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+  ```
 
 ## Lexicons (kotoba-native)
 

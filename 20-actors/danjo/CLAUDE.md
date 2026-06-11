@@ -133,6 +133,29 @@ discrepancyObservation records, aggregate). R3 adds
 `danjo_oversight_report` (first aggregate oversightReport; named-party
 publication path under G10 + 1 SBT = 1 vote).
 
+## Autonomous heartbeat (`methods/autorun.py` + `methods/kotoba.py`) — kotoba-native, fleet-runnable
+
+Distinct from the 6 path-reserved Pregel cells above (which stay import-time `RuntimeError` until
+R1), `methods/autorun.py` is the offline **autonomous heartbeat** — the same shape the infra-intel /
+observatory actor family uses (shionome / ipaddress / yabai / kabuto / kanjō …). Each cycle it
+observes the OFFLINE pre-published corpus + the OPEN method-pack → runs the implemented detectors
+(`run_all`) → **persists a content-addressed transaction** (procurement-record graph datoms +
+`danjo.discrepancyObservation` datoms) to the append-only **local** kotoba Datom log
+(`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
+resume-safe; NO external I/O. **The five discipline boundaries hold by construction**: passive-only
+(offline corpus, G3); non-adjudicating (every obs datom is `:danjo.obs/non-adjudicating true` and
+`derived_datoms` RAISES if any verdict token appears, G4); ≥2 source CIDs (G5) + method-note CID
+(G6); named-party publication stays G10 + 1 SBT = 1 vote gated — the loop persists to the LOCAL log
+only, it publishes nothing. Fleet cells `danjo_corpus_ingest` (cron 25) + `danjo_crossref_weave`
+(cron 30) + `danjo_oversight_persist` (cron 35) on `benjamin` (force+ethics node) — see
+`50-infra/murakumo/fleet.toml`. Invariants guarded by `methods/test_autorun.py` (commit-DAG verify,
+tamper-detect, determinism, append-only, **G4 non-adjudicating + no-verdict-token**, G5/G6
+provenance, no-external-I/O).
+
+```bash
+python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+```
+
 ## Build & Deploy
 
 **R0 status**: Scaffold only. No cells, no smoke test (cells don't yet

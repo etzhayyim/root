@@ -128,6 +128,61 @@ onto the physical Mac-mini fleet is the **operator** step — an agent cannot ex
 (ADR-2606071000). Cron cells fire the analyze→dry-run cycle over substrate-resident data; live
 market-data ingest + live external posting remain G8-gated.
 
+### Stock layer (R1 addendum, 2026-06-09) — the money-and-markets pyramid
+
+The R0 graph is **flow-first** (edge-primary): it answers *where capital moved*, but not *how big
+each pool is*. To cover the Visual-Capitalist "All of the World's Money and Markets in One
+Visualization" view — the proportional SIZING of every asset class against each other — the
+snapshot mechanism is extended with one metric rather than a new entity type:
+
+- **`:outstanding-usd`** is added to `:ontology/snapshot-metrics` / `:snap/metric` (and its three
+  homes: ontology `:db/allowed`, `bucketSnapshot` lexicon `:enum`, `weave.SNAPSHOT_METRICS`). It
+  records the observed total SIZE (stock) of a bucket in **USD trillions**.
+- **`weave.stock_pyramid`** aggregates the *latest* `:outstanding-usd` snapshot per bucket up to the
+  asset-class level and sizes each layer against the grand total — the money pyramid (physical
+  currency < broad money < equities < debt < real estate < derivatives notional, with gold/crypto
+  sized against them). The `:representative` seed adds 8 global layers totalling **1,383 tn**.
+- **Why this does NOT weaken any gate**: a SIZE is a factual observed quantity, exactly like
+  `:return-pct` / `:yield-pct` — it is descriptive, carries `no_trade_notice=true`, and is **not** a
+  per-asset rating / signal / target (G2/G4 untouched; `:bucket/rating` et al. remain
+  unrepresentable). Stock (usd-tn) is computed on a **separate** read path and is never summed with
+  flow magnitudes (usd-bn) — a unit guard, not a new capability. The no-trade boundary is unchanged:
+  shionome now says how large each pool of capital is, still never what to do with it (トレードはしない).
+
+### Entity grounding (R1 addendum, 2026-06-10) — *who is inside each layer?*
+
+The pyramid sizes each layer in aggregate; it does not say which real entities constitute it.
+`methods/grounding.py` is an OPTIONAL read-side bridge that decomposes a layer into the named real
+entities that sibling actors ALREADY mirror, and reports the coverage gap honestly:
+
+- **equities** layer ← **kabuto** 兜 listed-company ledger (org.corp.* — name / ticker / market-cap);
+- a cross-cutting **systemic-institutions overlay** ← **hokorobi** 綻び (G-SIB banks / insurers /
+  pensions / CCPs span equities+debt+pensions, so they are an overlay, not one layer).
+
+On the checked-out `:representative` seeds this grounds the equities layer with **1,719** named
+companies — value coverage **$46.8tn / $115tn ≈ 40.7%** (a stated LOWER BOUND: only the 205
+companies that report a market-cap contribute), count coverage **≈ 3.1%** of a `:representative`
+~55,000 listed universe — and names the **7 ungrounded layers** explicitly
+(cash/broad-money/debt/real-estate/gold/crypto/derivatives). It is **fail-open** (a missing sibling
+ledger → that layer reported ungrounded, never a crash); shionome's hermetic core
+(`weave`/`concentration`) does **not** import it; and every figure is a size/count/coverage
+fraction — never a per-entity rating/signal/target (G2/G4). This makes the honest answer to "what
+real-world entity coverage underpins the capital data?" a computed, test-pinned output rather than
+a prose claim.
+
+A second pass adds **disclosure DEPTH** and a **per-layer roadmap**: of the named equity
+constituents, the ones that also carry **kanjō** 勘定 primary-disclosure financials are counted
+(5 on the seeds — Apple/Sony/Nintendo/Toyota/Microsoft — an authoritative-depth signal, not a
+fundamental rating). `grounding_roadmap` then records, for EVERY pyramid layer, the candidate
+sibling actor and — where `ungroundable-at-r0` — the explicit reason. This is also where the
+**honest boundary** is drawn: the **debt** layer is a bond-market (debt-securities-outstanding)
+aggregate and is deliberately NOT grounded via kanjō corporate balance-sheet liabilities (assets −
+equity), because conflating the two would mis-size the layer — coverage honesty is part of the
+no-trade discipline. The remaining macro/aggregate layers (broad-money, cash, gold, crypto,
+real-estate, derivatives) are central-bank / index / BIS aggregates with no per-entity ledger in
+the repo (and G1 would bar holder-tracking for gold/cash/crypto regardless), so they remain honestly
+ungrounded with a stated reason rather than a fabricated decomposition.
+
 ## Consequences
 
 - **Positive**: a new, distinct cross-asset capital-rotation lens for the commons; a hard,
