@@ -209,5 +209,17 @@
       "crossActorChigiri": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
       "crossActorToritate": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "civilian response assigns no blame and renders no verdict on persons; it responds, it does not judge",
+      "distribution-not-point": "hazard/imminence inputs are treated as distributions with uncertainty (sonae handoff is recommend-only per ADR-2606091200 G10); kazaori asserts no point predictions",
+      "no-score-of-soul": "triage is clinical urgency, never a worth or social score of a person",
+      "map-not-target": "no surveillance-based monitoring — aerial/facial/beacon prohibited, opt-in self-check-in only (G6)",
+      "append-only": "kotoba-datomic attestation lineage on every record (G2)",
+      "never-a-throne": "community-scale only (G3), no central command panopticon — response coordinates without an all-seeing observer seat (G6)"
+    }
   }
 }

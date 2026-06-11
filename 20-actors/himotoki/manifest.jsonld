@@ -148,5 +148,16 @@
       "manimani": "/90-docs/adr/2605291100-manimani-kotoba-native-personal-knowledge-router.md"
     },
     "registrySeed": "/20-actors/himotoki/registry/targets.seed.json"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "files + tracks disclosure requests only — no characterization, no legal advice (G5); outcomes are recorded, never judged",
+      "no-score-of-soul": "neither data subjects nor responding institutions are scored; response conduct is attested as fact, never rated",
+      "map-not-target": "OWN data only — never a third party's PII, never a non-consenting person (G3); structurally the inverse of a target list",
+      "append-only": "kotoba attestation lineage on every request/response (G2); nothing erased",
+      "never-a-throne": "true requester always identified, no pretext (G4); disclosed PII only in encrypted envelopes (G6) — no central PII store"
+    }
   }
 }
