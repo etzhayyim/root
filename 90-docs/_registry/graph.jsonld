@@ -15394,11 +15394,12 @@
       "id": "doc:adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
       "type": "TechArticle",
       "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "mimamori-mishmeret-ha-adam-actor",
       "authoritative": true,
       "authoritativeFor": [
         "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
+        "00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
         "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
         ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
         "shomer vow 典礼 seed (musubi ceremony type)"
