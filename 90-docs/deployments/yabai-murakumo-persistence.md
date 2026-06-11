@@ -1,10 +1,17 @@
 # yabai Murakumo persistence
 
-`YabaiTorTorrentCtiPersistenceCell` runs on `issachar` every 30 minutes through
-`kotodama-cell-runner`.
+`YabaiTorTorrentCtiPersistenceCell` runs on `issachar` as a `lan-api` queue
+worker through `kotoba-kotodama-cell-runner`.
 
-The cell executes `20-actors/yabai/methods/ingest.py`, `analyze.py`, and
-`transact.py`. It always appends an execution marker to
+The cell exposes:
+
+- `GET /healthz` on port `13171`
+- `GET /jobs`
+- `POST /enqueue`
+
+Jobs are stored in `cti-correlator-queue.sqlite3` with per-step checkpoints.
+The worker executes `20-actors/yabai/methods/ingest.py`, `analyze.py`, and
+`transact.py` immediately after enqueue. It also appends an execution marker to
 `/var/lib/etzhayyim/yabai/cti-correlator-runs.ndjson` and falls back to
 `20-actors/yabai/out/` if the system path is not writable.
 

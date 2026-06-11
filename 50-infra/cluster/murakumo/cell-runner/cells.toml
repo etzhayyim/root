@@ -218,10 +218,11 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 [[cell]]
 name = "YabaiTorTorrentCtiPersistenceCell"
 module = "kotodama.primitives.yabai_murakumo"
-entry = "yabai_tor_torrent_persistence_cell"
+entry = "serve"
 node = "issachar"
-trigger = { kind = "cron", expr = "*/30 * * * *" }
+trigger = { kind = "lan-api", healthz_port = 13071, api_port = 13171 }
 healthz_port = 13071
+api_port = 13171
 adr = ["2605301400", "2605262130", "2605231525"]
 
 # ── Optional: maps_sentinel + yoro cells when their wave is ready ─────────────
