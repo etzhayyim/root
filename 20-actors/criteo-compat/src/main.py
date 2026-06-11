@@ -111,21 +111,97 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/ads", methods=["POST"])
+def create_ad(request):
+    """Create a Ad."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['adSetId', 'creativeId', 'description', 'endDate', 'inventoryType', 'name', 'startDate'])
+    if err:
+        return err, 400
+    err = _require(data, ['description', 'endDate'])
+    if err:
+        return err, 400
+    if data.get('inventoryType') and data['inventoryType'] not in ['Native', 'Display', 'Video']:
+        return {"error": {"message": "invalid inventoryType; allowed: " + ", ".join(['Native', 'Display', 'Video']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("criteo_ad")}
+    rec["adSetId"] = data.get('adSetId')
+    rec["creativeId"] = data.get('creativeId')
+    rec["description"] = data.get('description')
+    rec["endDate"] = data.get('endDate')
+    rec["inventoryType"] = data.get('inventoryType')
+    rec["name"] = data.get('name')
+    rec["startDate"] = data.get('startDate')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Ad", rec)
+    return rec, 201
+
+@app.route("/v1/ads", methods=["GET"])
+def list_ads(request):
+    """List Ads with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Ad")
+    rows = _apply_filters(rows, params, ['adSetId', 'creativeId', 'description', 'endDate', 'inventoryType', 'name', 'startDate'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/ads/<eid>", methods=["GET"])
+def get_ad(request, eid):
+    """Retrieve a Ad by id (supports ?expand=)."""
+    rows = _query("Ad", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'adSetId': 'AdSet'})
+    return rec, 200
+
+@app.route("/v1/ads/<eid>", methods=["POST", "PATCH"])
+def update_ad(request, eid):
+    """Update a Ad."""
+    rows = _query("Ad", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['adSetId', 'creativeId', 'description', 'endDate', 'inventoryType', 'name', 'startDate'])
+    if err:
+        return err, 400
+    if data.get('inventoryType') and data['inventoryType'] not in ['Native', 'Display', 'Video']:
+        return {"error": {"message": "invalid inventoryType; allowed: " + ", ".join(['Native', 'Display', 'Video']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Ad", rec)
+    return rec, 200
+
+@app.route("/v1/ads/<eid>", methods=["DELETE"])
+def delete_ad(request, eid):
+    """Delete a Ad."""
+    rows = _query("Ad", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"criteo.Ad", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/campaigns", methods=["POST"])
 def create_campaign(request):
     """Create a Campaign."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['advertiserId', 'goal', 'name', 'spendLimit'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'channel'])
+    err = _require(data, ['goal', 'name'])
     if err:
         return err, 400
+    if data.get('goal') and data['goal'] not in ['unspecified', 'acquisition', 'retention']:
+        return {"error": {"message": "invalid goal; allowed: " + ", ".join(['unspecified', 'acquisition', 'retention']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("criteo_cam")}
+    rec["advertiserId"] = data.get('advertiserId')
+    rec["goal"] = data.get('goal')
     rec["name"] = data.get('name')
-    rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
-    rec["budget"] = _as_float(data.get('budget'))
+    rec["spendLimit"] = data.get('spendLimit')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Campaign", rec)
@@ -136,7 +212,7 @@ def list_campaigns(request):
     """List Campaigns with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'channel', 'status', 'budget'])
+    rows = _apply_filters(rows, params, ['advertiserId', 'goal', 'name', 'spendLimit'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,9 +233,11 @@ def update_campaign(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'channel', 'status', 'budget'])
+    err = _reject_unknown(data, ['advertiserId', 'goal', 'name', 'spendLimit'])
     if err:
         return err, 400
+    if data.get('goal') and data['goal'] not in ['unspecified', 'acquisition', 'retention']:
+        return {"error": {"message": "invalid goal; allowed: " + ", ".join(['unspecified', 'acquisition', 'retention']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,339 +255,84 @@ def delete_campaign(request, eid):
     db.retract({"entity": f"criteo.Campaign", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/audiences", methods=["POST"])
-def create_audience(request):
-    """Create a Audience."""
+@app.route("/v1/adsets", methods=["POST"])
+def create_ad_set(request):
+    """Create a AdSet."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'deliveryStatus', 'frequency', 'maximumImpressions'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'size'])
+    err = _require(data, ['name', 'deliveryStatus'])
     if err:
         return err, 400
-    rec = {"id": new_id("criteo_aud")}
+    if data.get('deliveryStatus') and data['deliveryStatus'] not in ['Running', 'Archived', 'NotRunning']:
+        return {"error": {"message": "invalid deliveryStatus; allowed: " + ", ".join(['Running', 'Archived', 'NotRunning']), "type": "invalid_request_error"}}, 400
+    if data.get('frequency') and data['frequency'] not in ['hourly', 'daily', 'lifetime', 'advanced']:
+        return {"error": {"message": "invalid frequency; allowed: " + ", ".join(['hourly', 'daily', 'lifetime', 'advanced']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("criteo_ads")}
     rec["name"] = data.get('name')
-    rec["size"] = _as_int(data.get('size'))
-    rec["definition"] = data.get('definition')
+    rec["deliveryStatus"] = data.get('deliveryStatus')
+    rec["frequency"] = data.get('frequency')
+    rec["maximumImpressions"] = _as_int(data.get('maximumImpressions'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Audience", rec)
+    _persist("AdSet", rec)
     return rec, 201
 
-@app.route("/v1/audiences", methods=["GET"])
-def list_audiences(request):
-    """List Audiences with filtering + cursor pagination."""
+@app.route("/v1/adsets", methods=["GET"])
+def list_ad_sets(request):
+    """List AdSets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Audience")
-    rows = _apply_filters(rows, params, ['name', 'size', 'definition'])
+    rows = _query("AdSet")
+    rows = _apply_filters(rows, params, ['name', 'deliveryStatus', 'frequency', 'maximumImpressions'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/audiences/<eid>", methods=["GET"])
-def get_audience(request, eid):
-    """Retrieve a Audience by id (supports ?expand=)."""
-    rows = _query("Audience", eid)
+@app.route("/v1/adsets/<eid>", methods=["GET"])
+def get_ad_set(request, eid):
+    """Retrieve a AdSet by id (supports ?expand=)."""
+    rows = _query("AdSet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["POST", "PATCH"])
-def update_audience(request, eid):
-    """Update a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/adsets/<eid>", methods=["POST", "PATCH"])
+def update_ad_set(request, eid):
+    """Update a AdSet."""
+    rows = _query("AdSet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'size', 'definition'])
+    err = _reject_unknown(data, ['name', 'deliveryStatus', 'frequency', 'maximumImpressions'])
     if err:
         return err, 400
+    if data.get('deliveryStatus') and data['deliveryStatus'] not in ['Running', 'Archived', 'NotRunning']:
+        return {"error": {"message": "invalid deliveryStatus; allowed: " + ", ".join(['Running', 'Archived', 'NotRunning']), "type": "invalid_request_error"}}, 400
+    if data.get('frequency') and data['frequency'] not in ['hourly', 'daily', 'lifetime', 'advanced']:
+        return {"error": {"message": "invalid frequency; allowed: " + ", ".join(['hourly', 'daily', 'lifetime', 'advanced']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Audience", rec)
+    _persist("AdSet", rec)
     return rec, 200
 
-@app.route("/v1/audiences/<eid>", methods=["DELETE"])
-def delete_audience(request, eid):
-    """Delete a Audience."""
-    rows = _query("Audience", eid)
+@app.route("/v1/adsets/<eid>", methods=["DELETE"])
+def delete_ad_set(request, eid):
+    """Delete a AdSet."""
+    rows = _query("AdSet", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"criteo.Audience", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'properties'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("criteo_eve")}
-    rec["profileId"] = data.get('profileId')
-    rec["name"] = data.get('name')
-    rec["properties"] = data.get('properties')
-    rec["occurredAt"] = data.get('occurredAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['profileId', 'name', 'properties', 'occurredAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'profileId': 'Profile'})
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['profileId', 'name', 'properties', 'occurredAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"criteo.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/profiles", methods=["POST"])
-def create_profile(request):
-    """Create a Profile."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'traits'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("criteo_pro")}
-    rec["email"] = data.get('email')
-    rec["externalId"] = data.get('externalId')
-    rec["traits"] = data.get('traits')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Profile", rec)
-    return rec, 201
-
-@app.route("/v1/profiles", methods=["GET"])
-def list_profiles(request):
-    """List Profiles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Profile")
-    rows = _apply_filters(rows, params, ['email', 'externalId', 'traits'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/profiles/<eid>", methods=["GET"])
-def get_profile(request, eid):
-    """Retrieve a Profile by id (supports ?expand=)."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["POST", "PATCH"])
-def update_profile(request, eid):
-    """Update a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'externalId', 'traits'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Profile", rec)
-    return rec, 200
-
-@app.route("/v1/profiles/<eid>", methods=["DELETE"])
-def delete_profile(request, eid):
-    """Delete a Profile."""
-    rows = _query("Profile", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"criteo.Profile", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['channel', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("criteo_mes")}
-    rec["campaignId"] = data.get('campaignId')
-    rec["profileId"] = data.get('profileId')
-    rec["channel"] = data.get('channel')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['campaignId', 'profileId', 'channel', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'campaignId': 'Campaign', 'profileId': 'Profile'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['campaignId', 'profileId', 'channel', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"criteo.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/funnels", methods=["POST"])
-def create_funnel(request):
-    """Create a Funnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'steps'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("criteo_fun")}
-    rec["name"] = data.get('name')
-    rec["steps"] = data.get('steps')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Funnel", rec)
-    return rec, 201
-
-@app.route("/v1/funnels", methods=["GET"])
-def list_funnels(request):
-    """List Funnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Funnel")
-    rows = _apply_filters(rows, params, ['name', 'steps', 'conversionRate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/funnels/<eid>", methods=["GET"])
-def get_funnel(request, eid):
-    """Retrieve a Funnel by id (supports ?expand=)."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["POST", "PATCH"])
-def update_funnel(request, eid):
-    """Update a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'steps', 'conversionRate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Funnel", rec)
-    return rec, 200
-
-@app.route("/v1/funnels/<eid>", methods=["DELETE"])
-def delete_funnel(request, eid):
-    """Delete a Funnel."""
-    rows = _query("Funnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"criteo.Funnel", "id": eid})
+    db.retract({"entity": f"criteo.AdSet", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "criteo-compat", "tier": "L4",
-            "entities": ['Campaign', 'Audience', 'Event', 'Profile', 'Message', 'Funnel']}, 200
+            "entities": ['Ad', 'Campaign', 'AdSet']}, 200
 
 
 if __name__ == "__main__":

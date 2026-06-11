@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 214,
-  "totalVerifiedEnumFields": 890,
+  "l5VerifiedActors": 215,
+  "totalVerifiedEnumFields": 894,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -2127,8 +2127,8 @@
       "source": "criteo.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "criteo_commerce-compat",

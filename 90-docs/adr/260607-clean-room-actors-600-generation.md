@@ -862,3 +862,14 @@ inline type annotations and declare Message.channel complete via
 'must be either email, ios_push, webhook, content_card, in-app_message,
 or sms' — prose-completeness ('must be either ... or') joins one_of /
 xs:enumeration / Literal as a declaration form.
+
+### §16.29 /loop iteration 28 — wave 29: criteo (225, 22.5%)
+
+criteo → ledger **225** (775 L4 / 225 L5 = 22.5%), enforced 215 / **894
+enum fields** (+4), verify PASS 0/0, contract suite green. Harness-direct.
+The operator's date-versioned official OpenAPI (marketingsolutions_2026-01
+in the SDK-generator repo — versions ship as new dated files, the
+Azure-stable-style frozen snapshot) anchors inventoryType(3) + goal(3) +
+deliveryStatus(3) + frequency(4). Charter note: the buyer-side compat
+surface is datafication-only, consistent with sukashi's ad-tech
+observatory framing (no serving/targeting in the actor).

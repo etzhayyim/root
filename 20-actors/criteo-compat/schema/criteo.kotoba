@@ -3,70 +3,37 @@
 
 namespace criteo {
 
+    entity Ad {
+        id: string @unique
+        adSetId: string
+        creativeId: string
+        description: string
+        endDate: datetime
+        inventoryType: string
+        name: string
+        startDate: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Campaign {
         id: string @unique
+        advertiserId: string
+        goal: string
         name: string
-        channel: string
-        status: string
-        budget: float
+        spendLimit: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Audience {
-        id: string @unique
-        name: string
-        size: integer
-        definition: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        profileId: string
-        name: string
-        properties: string
-        occurredAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Profile {
-        id: string @unique
-        email: string
-        externalId: string
-        traits: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Funnel {
+    entity AdSet {
         id: string @unique
         name: string
-        steps: string
-        conversionRate: float
+        deliveryStatus: string
+        frequency: string
+        maximumImpressions: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

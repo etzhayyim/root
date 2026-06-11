@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 776,
-    "L5": 224
+    "L4": 775,
+    "L5": 225
   },
   "actors": [
     {
@@ -3815,10 +3815,10 @@
     {
       "handle": "criteo-compat",
       "did": "did:web:etzhayyim.com:actor:criteo-compat",
-      "wasmCid": "bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq",
+      "wasmCid": "bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "criteo clean-room actor",
       "category": "martech",
       "capabilities": [

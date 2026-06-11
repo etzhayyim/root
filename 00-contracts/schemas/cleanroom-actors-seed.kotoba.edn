@@ -2768,11 +2768,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible marketing technology actor (criteo); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "criteo.kotoba"
-   :actor/wasm-cid "bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq"
+   :actor/wasm-cid "bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:criteo-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:criteo-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:criteo-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "criteo_commerce-compat"
    :actor/did "did:web:etzhayyim.com:actor:criteo_commerce-compat"
    :actor/kind :compat

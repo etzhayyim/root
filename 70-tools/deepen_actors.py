@@ -2851,6 +2851,17 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Criteo model (the operator's own DATE-VERSIONED official OpenAPI:
+# criteo-api-sdk-generator api-specifications/marketingsolutions_2026-01 —
+# the Azure-stable-style frozen snapshot; 294 schemas, 78 small enums).
+# inventoryType(3) + goal(3) + deliveryStatus(3) + frequency(4) enforced at
+# the 2026-01 anchor.
+PLATFORM_OVERRIDES["criteo"] = {
+    "Ad": E(adSetId="string", creativeId="string", description="string", endDate="datetime", inventoryType="string", name="string", startDate="datetime"),
+    "Campaign": E(advertiserId="string", goal="string", name="string", spendLimit="string"),
+    "AdSet": E(name="string", deliveryStatus="string", frequency="string", maximumImpressions="integer"),
+}
+
 # Faithful Braze model (the operator's official static docs — Jekyll, fully
 # fetchable; the campaign-details response declares every field with type
 # annotations, and Message.channel is declared complete: 'must be either

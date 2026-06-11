@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 224,
+  "count": 225,
   "actors": [
     {
       "handle": "aave-compat",
@@ -7266,6 +7266,83 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Contentful CMA docs + SDK. Enforced enum: sys.type(9) on the `type` field of all 6 entities. ContentType.field.type(11)/linkType(3) are nested field-definition enums (not top-level scalar fields) -> recorded, not enforced here."
+    },
+    {
+      "handle": "criteo-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/criteo/criteo-api-sdk-generator/main/api-specifications/marketingsolutions_2026-01.json (the operator's own date-versioned official OpenAPI, 294 schemas)",
+      "remodeled": "Remodeled to the faithful Criteo Marketing Solutions surface verified against the operator's OWN date-versioned official OpenAPI (the SDK-generator source of truth; versions ship as new dated files — the Azure-stable-style frozen-snapshot anchor; 294 schemas, 78 small declared enums). Enforced at the 2026-01 anchor: Ad.inventoryType(3: Native/Display/Video), Campaign.goal(3: unspecified/acquisition/retention), AdSet deliveryStatus(3: Running/Archived/NotRunning) and frequency(4: hourly/daily/lifetime/advanced). Harness-direct.",
+      "resources": [
+        {
+          "entity": "Ad",
+          "source": "https://raw.githubusercontent.com/criteo/criteo-api-sdk-generator/main/api-specifications/marketingsolutions_2026-01.json (the operator's own date-versioned official OpenAPI, 294 schemas)",
+          "verifiedFields": [
+            "adSetId",
+            "creativeId",
+            "description",
+            "endDate",
+            "inventoryType",
+            "name",
+            "startDate"
+          ],
+          "fieldStatus": "confirmed (Ad schema)",
+          "discoveredEnums": {
+            "inventoryType": [
+              "Native",
+              "Display",
+              "Video"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Campaign",
+          "source": "https://raw.githubusercontent.com/criteo/criteo-api-sdk-generator/main/api-specifications/marketingsolutions_2026-01.json (the operator's own date-versioned official OpenAPI, 294 schemas)",
+          "verifiedFields": [
+            "advertiserId",
+            "goal",
+            "name",
+            "spendLimit"
+          ],
+          "fieldStatus": "confirmed (CampaignV23Q1 schema)",
+          "discoveredEnums": {
+            "goal": [
+              "unspecified",
+              "acquisition",
+              "retention"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AdSet",
+          "source": "https://raw.githubusercontent.com/criteo/criteo-api-sdk-generator/main/api-specifications/marketingsolutions_2026-01.json (the operator's own date-versioned official OpenAPI, 294 schemas)",
+          "verifiedFields": [
+            "name",
+            "deliveryStatus",
+            "frequency",
+            "maximumImpressions"
+          ],
+          "fieldStatus": "confirmed (AdSetDeliveryStatus + AdSetFrequencyCappingV24Q3)",
+          "discoveredEnums": {
+            "deliveryStatus": [
+              "Running",
+              "Archived",
+              "NotRunning"
+            ],
+            "frequency": [
+              "hourly",
+              "daily",
+              "lifetime",
+              "advanced"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the operator's date-versioned official spec. Enforced enums: inventoryType(3)+goal(3)+deliveryStatus(3)+frequency(4) = 4 enum fields at the 2026-01 anchor. NOTE: this is the ad-BUYER-side compat surface of a real platform's published spec — datafication only, consistent with sukashi's observatory framing (no ad serving/targeting in the actor)."
     },
     {
       "handle": "crossref-compat",

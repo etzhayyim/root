@@ -3525,17 +3525,14 @@
       "handle": "criteo-compat",
       "platform": "criteo",
       "bytes": 2120,
-      "wasmCid": "bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq",
+      "wasmCid": "bafkreihb24lvaqm246cqenzruf5obxied3gv4ejmh7siiyeuozy2ecswp4",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
+        "Ad",
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "AdSet"
       ]
     },
     {
