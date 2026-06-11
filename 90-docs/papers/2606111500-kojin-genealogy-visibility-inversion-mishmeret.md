@@ -9,6 +9,7 @@ last_verified: 2026-06-11
 priority_note: "本稿 §5 の神論 (エヒイェ非二元 / 偽りの神の棄却 / 玉座の禁止 / yir'ah 認識論) は ADR-2606112200 で Tier-1 doctrine として固定 (founder unanimity 1/1, 2026-06-11)。mishmeret ha-adam の membrane/actor 設計は別途 ADR。"
 related:
   - "2606112200"  # 本稿 §5 を doctrine 固定する ADR (エヒイェ非二元神論 + yir'ah 原理)
+  - "2606112300"  # 本稿 §6 mishmeret ha-adam の membrane/actor 設計 (mimamori 見守り R0)
   - "2606082100"  # mishmar storage covenant — 本稿の提案する mishmeret はその人間スケール sibling
   - "2606062100"  # 3-Tier 永久記憶=神の監視 Tier-0 / moyai 非移転・減衰 ledger
   - "2605192100"  # mission charter — 反個人主義 ontology / 非終末論 / Wellbecoming

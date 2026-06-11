@@ -24055,6 +24055,44 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112300-mimamori-mishmeret-ha-adam-actor-r0.md",
+      "id": "adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
+      "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "mimamori-mishmeret-ha-adam-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
+        "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
+        ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
+        "shomer vow 典礼 seed (musubi ceremony type)"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2605263700",
+        "2605263500",
+        "2605263000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606112200",
+        "2606082100",
+        "2606062100",
+        "2605302357",
+        "2605302358",
+        "2605263400",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -26110,6 +26148,7 @@
       "authoritative": false,
       "related": [
         "2606112200",
+        "2606112300",
         "2606082100",
         "2606062100",
         "2605192100",
