@@ -64,6 +64,9 @@ export function base58btcDecode(str: string): Uint8Array {
 
 // ── did:key (ed25519, multicodec 0xed 0x01) ─────────────────────────────────
 const ED25519_MULTICODEC = [0xed, 0x01];
+// mldsa-65-pub = 0x1211 (multicodec registry, draft; FIPS 204) → varint [0x91, 0x24].
+const MLDSA65_MULTICODEC = [0x91, 0x24];
+const MLDSA65_PUB_BYTES = 1952;
 
 /** raw 32-byte ed25519 public key → `did:key:z6Mk…` (== "did:key:" + the
  *  Ed25519VerificationKey2020 publicKeyMultibase). */
@@ -87,6 +90,36 @@ export function didKeyToEd25519Pub(didKeyOrMultibase: string): Uint8Array {
   return decoded.slice(2);
 }
 
+/** raw 1952-byte ML-DSA-65 public key → `did:key:z…` (multicodec mldsa-65-pub,
+ *  0x1211 draft). Suite pqh-v1, ADR-2606111300. */
+export function mlDsa65PubToDidKey(pubRaw: Uint8Array): string {
+  if (pubRaw.length !== MLDSA65_PUB_BYTES) {
+    throw new Error(`ml-dsa-65 public key must be ${MLDSA65_PUB_BYTES} bytes`);
+  }
+  const prefixed = new Uint8Array(2 + MLDSA65_PUB_BYTES);
+  prefixed.set(MLDSA65_MULTICODEC, 0);
+  prefixed.set(pubRaw, 2);
+  return "did:key:z" + base58btcEncode(prefixed);
+}
+
+/** `did:key:z…` (or a bare `z…` publicKeyMultibase) → raw 1952-byte ML-DSA-65 key. */
+export function didKeyToMlDsa65Pub(didKeyOrMultibase: string): Uint8Array {
+  let mb = didKeyOrMultibase.startsWith("did:key:")
+    ? didKeyOrMultibase.slice("did:key:".length)
+    : didKeyOrMultibase;
+  mb = mb.split("#")[0];
+  if (!mb.startsWith("z")) throw new Error("expected multibase 'z' (base58btc)");
+  const decoded = base58btcDecode(mb.slice(1));
+  if (decoded[0] !== MLDSA65_MULTICODEC[0] || decoded[1] !== MLDSA65_MULTICODEC[1]) {
+    throw new Error("not an ml-dsa-65 multicodec key");
+  }
+  const pub = decoded.slice(2);
+  if (pub.length !== MLDSA65_PUB_BYTES) {
+    throw new Error(`ml-dsa-65 public key must be ${MLDSA65_PUB_BYTES} bytes`);
+  }
+  return pub;
+}
+
 // ── attestation ─────────────────────────────────────────────────────────────
 export interface AttestationPayload {
   readonly did: string;
@@ -101,6 +134,17 @@ export interface DidDocAttestation extends AttestationPayload {
     readonly type: "Ed25519Signature2020";
     readonly verificationMethod: string; // did:key:z…
     readonly proofValue: string; // multibase 'z' base58btc signature
+  };
+  /**
+   * Optional post-quantum companion proof (suite pqh-v1, ADR-2606111300):
+   * ML-DSA-65 over the SAME attestationMessage bytes. AND-composed — when
+   * present (or required by the verifier) BOTH signatures must verify, so a
+   * forger has to break Ed25519 AND ML-DSA-65.
+   */
+  readonly pqProof?: {
+    readonly type: "MlDsa65Signature2026";
+    readonly verificationMethod: string; // did:key:z… (mldsa-65-pub multicodec)
+    readonly proofValue: string; // multibase 'z' base58btc signature (3309 bytes)
   };
 }
 
@@ -119,12 +163,35 @@ export interface VerifyResult {
   readonly reason?: string;
 }
 
+export interface VerifyOpts {
+  /**
+   * Require a valid pqProof (suite pqh-v1). Flip on once an actor publishes
+   * an ML-DSA did:key — a stripped pqProof then fails closed instead of
+   * silently downgrading to Ed25519-only. Default false for one R-cycle
+   * (crypto-agility read-compat).
+   */
+  readonly requirePq?: boolean;
+  /**
+   * Pin the expected ML-DSA did:key (or bare multibase), as published in the
+   * CID-verified did.json's verificationMethod. Without the pin, a pqProof
+   * only proves SOME ML-DSA key signed the payload — a quantum-capable
+   * attacker (who can forge the Ed25519 proof) could substitute their own
+   * key with a self-consistent signature. The pin closes that substitution:
+   * the trust anchor under the PQ threat model is the doc-published key,
+   * not the Ed25519 binding.
+   */
+  readonly expectedPqDidKey?: string;
+}
+
 /** Verify a self-certifying attestation. If `expectedDidDocCid` is given, also
  *  checks the signed CID matches it. Self-certifying: the signing key comes from
- *  the proof's `did:key`, so no external anchor is consulted. */
+ *  the proof's `did:key`, so no external anchor is consulted. When a pqProof is
+ *  present (or `opts.requirePq`), the ML-DSA-65 signature over the same bytes
+ *  must ALSO verify (AND-composition per ADR-2606111300). */
 export async function verifyDidDocAttestation(
   att: DidDocAttestation,
   expectedDidDocCid?: string,
+  opts?: VerifyOpts,
 ): Promise<VerifyResult> {
   const didKey = att.proof?.verificationMethod ?? "";
   const base: Omit<VerifyResult, "valid" | "reason"> = {
@@ -137,18 +204,44 @@ export async function verifyDidDocAttestation(
     if (expectedDidDocCid && att.didDocCid !== expectedDidDocCid) {
       return { ...base, valid: false, reason: "didDocCid mismatch" };
     }
+    const msg = attestationMessage(att);
     const pub = didKeyToEd25519Pub(didKey);
     const sigMb = att.proof.proofValue;
     if (!sigMb.startsWith("z")) return { ...base, valid: false, reason: "proofValue not multibase z" };
     const sig = base58btcDecode(sigMb.slice(1));
     const key = await crypto.subtle.importKey("raw", pub, { name: "Ed25519" }, false, ["verify"]);
-    const ok = await crypto.subtle.verify(
-      { name: "Ed25519" },
-      key,
-      sig,
-      attestationMessage(att),
-    );
-    return { ...base, valid: ok, reason: ok ? undefined : "bad signature" };
+    const ok = await crypto.subtle.verify({ name: "Ed25519" }, key, sig, msg);
+    if (!ok) return { ...base, valid: false, reason: "bad signature" };
+
+    if ((opts?.requirePq || opts?.expectedPqDidKey) && !att.pqProof) {
+      return { ...base, valid: false, reason: "pqProof required but absent" };
+    }
+    if (att.pqProof) {
+      if (att.pqProof.type !== "MlDsa65Signature2026") {
+        return { ...base, valid: false, reason: "unsupported pqProof type" };
+      }
+      if (opts?.expectedPqDidKey) {
+        // Compare raw key bytes, tolerating did:key vs bare-multibase forms.
+        const expected = didKeyToMlDsa65Pub(opts.expectedPqDidKey);
+        const actual = didKeyToMlDsa65Pub(att.pqProof.verificationMethod);
+        let same = expected.length === actual.length;
+        for (let i = 0; same && i < expected.length; i++) same = expected[i] === actual[i];
+        if (!same) {
+          return { ...base, valid: false, reason: "pqProof key does not match pinned key" };
+        }
+      }
+      const pqSigMb = att.pqProof.proofValue;
+      if (!pqSigMb.startsWith("z")) {
+        return { ...base, valid: false, reason: "pq proofValue not multibase z" };
+      }
+      const pqPub = didKeyToMlDsa65Pub(att.pqProof.verificationMethod);
+      const pqSig = base58btcDecode(pqSigMb.slice(1));
+      // No WebCrypto ML-DSA yet — pure-JS FIPS 204 from the noble family.
+      const { ml_dsa65 } = await import("@noble/post-quantum/ml-dsa.js");
+      const pqOk = ml_dsa65.verify(pqSig, msg, pqPub);
+      if (!pqOk) return { ...base, valid: false, reason: "bad pq signature" };
+    }
+    return { ...base, valid: true };
   } catch (e) {
     return { ...base, valid: false, reason: e instanceof Error ? e.message : "verify error" };
   }
