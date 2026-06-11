@@ -128,6 +128,24 @@ def report(nodes: dict, edges: list) -> str:
     if ungrounded:
         L.append(f"\n_jurisdictions with no statute yet: {', '.join(ungrounded)}._")
 
+    # clause conflicts + template lineage — relational depth (drafting aids)
+    conflicts = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":conflicts-with"]
+    derived = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":derived-from"]
+    if conflicts or derived:
+        L.append("\n## Relational depth — clause conflicts & template lineage\n")
+        if conflicts:
+            L.append("_Mutually-exclusive clauses a drafter must not combine (`:conflicts-with`):_\n")
+            for a, b in conflicts:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ⟷ {lb}")
+        if derived:
+            L.append("\n_Template provenance (`:derived-from`):_\n")
+            for a, b in derived:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ← {lb}")
+
     L.append("\n## Statute-binding integrity — clauses NOT yet anchored to any public statute\n")
     L.append("_Every clause SHOULD eventually cite the law it rests on (gap #2 of the design). "
              "Unbound clauses are the next-wave binding worklist, not a defect — they are "

@@ -48,6 +48,23 @@ def test_all_citation_targets_are_statutes():
     assert not any("expected :statute" in e for e in errors)
 
 
+def test_relational_edges_are_well_typed():
+    """:conflicts-with is clause↔clause (no self-loop); :derived-from is template→template."""
+    nodes, edges = load(SEED)
+    conflicts = [e for e in edges if e.get(":en/kind") == ":conflicts-with"]
+    derived = [e for e in edges if e.get(":en/kind") == ":derived-from"]
+    assert conflicts and derived, "the :conflicts-with / :derived-from relations should be exercised"
+    for e in conflicts:
+        assert nodes[e[":en/from"]][":lt/kind"] == ":clause"
+        assert nodes[e[":en/to"]][":lt/kind"] == ":clause"
+        assert e[":en/from"] != e[":en/to"], "conflict self-loop"
+    for e in derived:
+        assert nodes[e[":en/from"]][":lt/kind"] == ":template"
+        assert nodes[e[":en/to"]][":lt/kind"] == ":template"
+    errors, _ = validate.validate(nodes, edges)
+    assert not any("conflicts-with" in e or "derived-from" in e for e in errors)
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:

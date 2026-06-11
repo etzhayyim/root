@@ -1024,4 +1024,12 @@
  {:en/from "tmpl.loan-qard-ja" :en/to "tmpl.loan-qard" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.guaranty-ja" :en/to "tmpl.guaranty" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-fr" :en/to "tmpl.dpa-gdpr" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
- {:en/from "tmpl.dpa-gdpr-de" :en/to "tmpl.dpa-gdpr" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "tmpl.dpa-gdpr" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; (G) :conflicts-with — clause ↔ clause (mutually-exclusive choices a drafter must not combine)
+ {:en/from "cl.ip-assignment" :en/to "cl.cc-license" :en/kind :conflicts-with :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.ip-assignment" :en/to "cl.copyleft-license" :en/kind :conflicts-with :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "cl.ip-license-apache" :en/to "cl.copyleft-license" :en/kind :conflicts-with :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-arbitration" :en/to "cl.dispute-mediation" :en/kind :conflicts-with :en/binding-load 0.6 :en/sourcing :representative}
+ ;; (H) :derived-from — template → source template (provenance, not a translation)
+ {:en/from "tmpl.heter-iska" :en/to "tmpl.loan-qard" :en/kind :derived-from :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.consumer-sale-jp" :en/to "tmpl.sales-intl" :en/kind :derived-from :en/binding-load 0.7 :en/sourcing :representative}]

@@ -61,6 +61,13 @@ def validate(nodes: dict, edges: list):
             E(f"{k} target {e[':en/to']} is {to_kind}, expected :jurisdiction")
         if k == ":translates" and to_kind != ":template":
             E(f":translates target {e[':en/to']} is {to_kind}, expected :template")
+        from_kind = nodes.get(e[":en/from"], {}).get(":lt/kind")
+        if k == ":conflicts-with" and not (from_kind == ":clause" and to_kind == ":clause"):
+            E(f":conflicts-with must be clause↔clause, got {from_kind}→{to_kind} ({e[':en/from']})")
+        if k == ":derived-from" and not (from_kind == ":template" and to_kind == ":template"):
+            E(f":derived-from must be template→template, got {from_kind}→{to_kind} ({e[':en/from']})")
+        if k == ":conflicts-with" and e[":en/from"] == e[":en/to"]:
+            E(f":conflicts-with self-loop on {e[':en/from']}")
 
     # 4. template completeness — clauses, a governing jurisdiction, a signature clause
     has_clause = {}
